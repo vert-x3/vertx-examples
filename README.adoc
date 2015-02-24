@@ -1,0 +1,55 @@
+= Vert.x examples
+
+This repository contains a range of examples so you can get up and running easily with Vert.x.
+
+== Maven users
+
+Start with the link:maven-simplest[simplest Maven example] to show you how setup a simple Vert.x project that uses Maven.
+
+Progress to the link:maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in
+a Maven project.
+
+== Gradle users
+
+Start with the link:gradle-simplest[simplest Gradle example] to show you how setup a simple Vert.x project that uses Gradle.
+
+Progress to the link:gradle-verticle[simple Gradle verticle example] to show you how to deploy your code as verticles in
+a Gradle project
+
+== Neither Maven nor Gradle users
+
+That's fine too :)
+
+You can run all the examples at the command line using `vertx run` if you have Vert.x installed.
+
+== The examples
+
+The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Apex (webapps) and various other
+services and features.
+
+=== Vert.x core examples
+
+The link:vertx-core/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
+
+TODO
+
+=== Apex examples
+
+Apex is a toolkit for building web applications using Vert.x
+
+The link:vertx-apex/README.adoc[Vert.x Apex examples] contains a wide range of examples using Vert.x Apex
+
+TODO
+
+=== Data access examples
+
+==== Mongo DB examples
+
+
+==== JDBC examples
+
+
+etc
+
+
+
