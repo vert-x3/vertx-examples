@@ -6,12 +6,16 @@ This repository contains a range of examples so you can get up and running easil
 
 Start with the link:maven-simplest[simplest Maven example] to show you how setup a simple Vert.x project that uses Maven.
 
+Use that as a template for setting up a Maven project with Vert.x.
+
 Progress to the link:maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in
 a Maven project.
 
 == Gradle users
 
 Start with the link:gradle-simplest[simplest Gradle example] to show you how setup a simple Vert.x project that uses Gradle.
+
+Use that as a template for setting up a Maven project with Gradle.
 
 Progress to the link:gradle-verticle[simple Gradle verticle example] to show you how to deploy your code as verticles in
 a Gradle project
@@ -20,16 +24,63 @@ a Gradle project
 
 That's fine too :)
 
-You can run all the examples at the command line using `vertx run` if you have Vert.x installed.
+You can run most of the examples at the command line using `vertx run` if you have Vert.x installed (see below).
 
 == The examples
 
 The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Apex (webapps) and various other
 services and features.
 
+Most of the examples have been written as verticles. For more information on verticles please consult the Vert.x core manual.
+
+Using verticles allows you to scale and run your code from the command line more easily, but if you prefer to embed, the
+exact same code in the verticles can also be run embedded if you prefer. It's really up to you. Verticles are
+entirely optional in Vert.x.
+
+=== Running the examples
+
+==== Running in your IDE
+
+Most of the examples can be run directly in your IDE (if you have one!) by right clicking the appropriate `main()` method
+in the provided Runner class.
+
+==== Running at the command line
+
+If `vertx` is installed you can run any verticle directly on the command line. This way of working may be of interest
+to you if you don't want to use Maven or Gradle or perhaps you don't use an IDE.
+
+If you're coming from using other platforms such as Node.js you might want to work this way. You can think of the
+`vertx` command as a bit like the `node` command in Node.js.
+
+Instructions for installing Vert.x are in the next section.
+
+Once Vert.x is installed, to run an example, just cd to the example directory and type `vertx run` followed by the filename
+of the verticle. For example
+
+----
+cd core-examples/src/main/java/io/vertx/example/core
+vertx run EchoServer.java
+
+cd core-examples/src/main/js/echo
+vertx run echo_server.js
+----
+
+==== Installing Vert.x
+
+NOTE: This is only necessary if you want to run Vert.x at the command line. If you'd prefer to work with Maven or
+Gradle projects then you don't need to pre-install Vert.x - you just let Maven/Gradle pull in the Vert.x dependencies
+into your project as you would with any dependency.
+
+Pre-requisites: You will need to have Java 8 JDK installed.
+
+1. Download a link:http://vertx.io/downloads.html [Vert.x 3 distribution]
+2. Unzip it somewhere on your disk (e.g. in your home directory)
+3. Set your `PATH` environment variable to include the installation directory
+4. Test the install by typing `vertx -version`.
+
 === Vert.x core examples
 
-The link:vertx-core/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
+The link:core-examples/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
 
 TODO
 
@@ -37,7 +88,7 @@ TODO
 
 Apex is a toolkit for building web applications using Vert.x
 
-The link:vertx-apex/README.adoc[Vert.x Apex examples] contains a wide range of examples using Vert.x Apex
+The link:apex-examples/README.adoc[Vert.x Apex examples] contains a wide range of examples using Vert.x Apex
 
 TODO
 

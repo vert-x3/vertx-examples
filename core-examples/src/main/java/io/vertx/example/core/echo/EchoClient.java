@@ -1,5 +1,6 @@
 package io.vertx.example.core.echo;
 
+import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
@@ -10,6 +11,7 @@ import io.vertx.core.net.NetSocket;
 public class EchoClient extends AbstractVerticle {
 
   @Override
+  @CodeTranslate
   public void start() throws Exception {
     vertx.createNetClient(new NetClientOptions()).connect(1234, "localhost", asyncResult -> {
 

@@ -10,8 +10,12 @@ import io.vertx.example.core.echo.EchoServer;
 public class Runner {
 
   static void run(Class clazz) {
+    run(clazz.getName());
+  }
+
+  static void run(String verticleID) {
     try {
-      Vertx.vertx().deployVerticle(clazz.getName());
+      Vertx.vertx().deployVerticle(verticleID);
     } catch (Throwable t) {
       t.printStackTrace();
     }
@@ -26,6 +30,14 @@ public class Runner {
   static class EchoClientRunner {
     public static void main(String[] args) {
       run(EchoClient.class);
+    }
+  }
+
+  // JS
+
+  static class EchoServerRunnerJS {
+    public static void main(String[] args) {
+      run("core-examples/src/main/js/echo/echo_server.js");
     }
   }
 }
