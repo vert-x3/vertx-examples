@@ -24,7 +24,36 @@ Vert.x core can be embedded in any Java class and run that way if you like.
 The link:src/main/java/io/vertx/example/core/embed/EmbeddedServer.java[Java embedded example] shows an example of that.
 Just right click the class in your IDE to run it directly.
 
-==
+== Net examples
+
+These examples demonstrate usage of Vert.x net servers and clients - these are used for TCP (and SSL) servers and clients.
+
+=== Echo
+
+This example consists of an echo server verticle which serves TCP connections, and simply echoes back on the connection
+whatever it receives.
+
+You can run the echo server then run `telnet localhost 1234` from a console to connect to it. Type some stuff and see it
+echoed back to you.
+
+It also contains an echo client, which creates a connection to the server, sends some data and logs out what it receives
+back. You can use that as an alternative to connecting via telnet.
+
+link:src/main/java/io/vertx/example/core/net/echo/Server.java[Java echo server]
+link:src/main/java/io/vertx/example/core/net/echo/Client.java[Java echo client]
+
+link:src/main/js/echo/echo_server.js[JavaScript echo server]
+link:src/main/js/echo/echo_client.js[JavaScript echo client]
+
+=== Echo SSL
+
+This is the same as the Echo example but using SSL to encrypt connections
+
+link:src/main/java/io/vertx/example/core/net/echossl/Server.java[Java echo ssl server]
+link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl client]
+
+link:src/main/js/echossl/echo_server.js[JavaScript echo ssl server]
+link:src/main/js/echossl/echo_client.js[JavaScript echo ssl client]
 
 
 
