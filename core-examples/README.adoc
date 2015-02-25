@@ -1,0 +1,59 @@
+= Vert.x core examples
+
+Here you will find examples demonstrating Vert.x core in action.
+
+Vert.x core provides fairly low level functionality for a diverse range of functions including HTTP, TCP, UDP,
+WebSockets, file system access, timers, verticles and more.
+
+Vert.x can be embedded in any Java class and run that way if you like.
+
+The link:src/main/java/io/vertx/example/core/embed/EmbeddedServer.java[Java embedded example] shows an example of that.
+Just right click the class in your IDE to run it directly.
+
+However, most of the examples have been written as verticles. For more information on verticles please consult the
+Vert.x core manual.
+
+Using verticles allows you to scale and run your code from the command line more easily, but if you prefer to embed, the
+exact same code in the verticles can also be run embedded if you prefer. It's really up to you.
+
+== How to run the examples
+
+=== Run in an IDE
+
+To enable the verticle examples to be run easily in an IDE we've included a simple
+link:src/main/java/io/vertx/example/core/Runner.java[Runner class] so you can just right click on the relevant `main()`
+method which deploys the verticle.
+
+=== Run from command line
+
+If `vertx` is installed you can run any verticle directly on the command line. This way of working may be of interest
+to you if you don't want to use Maven or Gradle or perhaps you don't use an IDE.
+
+If you're coming from using other platforms such as Node.js you might want to work this way. You can think of the
+`vertx` command as a bit like the `node` command in Node.js.
+
+Instructions for installing Vert.x are in the next section.
+
+Once Vert.x is installed, to run an example, just cd to the example directory and type `vertx run` followed by the filename
+of the verticle. For example
+
+----
+cd src/main/java/io/vertx/example/core
+vertx run EchoServer.java
+
+cd src/main/js/echo
+vertx run echo_server.js
+
+==== Install Vert.x installation
+
+NOTE: This is only necessary if you want to run Vert.x at the command line. If you'd prefer to work with Maven or
+Gradle projects then you don't need to pre-install Vert.x - you just let Maven/Gradle pull in the Vert.x dependencies
+into your project as you would with any dependency.
+
+Pre-requisites: You will need to have Java 8 JDK installed.
+
+1. Download a link:http://vertx.io/downloads.html [Vert.x 3 distribution]
+2. Unzip it somewhere on your disk (e.g. in your home directory)
+3. Set your `PATH` environment variable to include the installation directory
+4. Test the install by typing `vertx -version`.
+
