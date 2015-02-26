@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/gradle-verticle/gradle-verticle.iml" filepath="$PROJECT_DIR$/gradle-verticle/gradle-verticle.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven-simplest/maven-simplest.iml" filepath="$PROJECT_DIR$/maven-simplest/maven-simplest.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven-verticle/maven-verticle.iml" filepath="$PROJECT_DIR$/maven-verticle/maven-verticle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unit-examples/unit-examples.iml" filepath="$PROJECT_DIR$/unit-examples/unit-examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/vertx-new-examples.iml" filepath="$PROJECT_DIR$/vertx-new-examples.iml" />
     </modules>
   </component>

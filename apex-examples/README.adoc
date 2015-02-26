@@ -2,7 +2,7 @@
 
 Here you will find examples demonstrating Vert.x Apex in action.
 
-Vert.x Apex is a tool-kit for writing web applications with Vert.x. Please consult the Apex manual for detailed
+Apex is a tool-kit for writing web applications with Vert.x. Please consult the Apex manual for detailed
 documentation on Apex.
 
 == Dependencies required

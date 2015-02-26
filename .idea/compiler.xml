@@ -29,6 +29,7 @@
         <module name="gradle-simplest" />
         <module name="maven-simplest" />
         <module name="maven-verticle" />
+        <module name="unit-examples" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -38,6 +39,7 @@
       <module name="hello-world" target="1.8" />
       <module name="maven-simplest" target="1.8" />
       <module name="maven-verticle" target="1.8" />
+      <module name="unit-examples" target="1.8" />
       <module name="vertx-new-examples" target="1.8" />
     </bytecodeTargetLevel>
   </component>

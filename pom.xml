@@ -18,6 +18,7 @@
     <module>core-examples</module>
     <module>apex-examples</module>
     <module>examples-utils</module>
+    <module>unit-examples</module>
   </modules>
 
 
