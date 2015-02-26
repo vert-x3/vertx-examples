@@ -9,11 +9,11 @@ import io.vertx.example.util.Runner;
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
-public class WebSocketsClient extends AbstractVerticle {
+public class Client extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(WebSocketsClient.class);
+    Runner.runExample(Client.class);
   }
 
   @CodeTranslate

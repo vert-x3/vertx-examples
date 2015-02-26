@@ -3,7 +3,6 @@ package io.vertx.example.core.net.echo;
 import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.streams.Pump;
-import io.vertx.example.core.http.sendfile.SendFile;
 import io.vertx.example.util.Runner;
 
 /*

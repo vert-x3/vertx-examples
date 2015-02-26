@@ -18,6 +18,37 @@ import java.util.Map;
 public class Translator {
 
   public static void main(String[] args) throws Exception {
+    translate("core-examples/src/main/java/io/vertx/example/core/", "core-examples/src/main/js/");
+  }
+
+  private static String toJSFile(String javaFile) {
+    File f = new File(javaFile);
+    String parentPart = f.getParent();
+    String filePart = f.getName();
+    String jsFile = parentPart + "/" + toUnderScores(filePart);
+    return jsFile.replace(".java", ".js");
+  }
+
+  private static String toUnderScores(String str) {
+    StringBuilder sb = new StringBuilder();
+    boolean prevLowerCase = false;
+    for (int i = 0; i < str.length(); i++) {
+      char ch = str.charAt(i);
+      if (Character.isUpperCase(ch)) {
+        if (prevLowerCase) {
+          sb.append("_");
+        }
+        sb.append(Character.toLowerCase(ch));
+        prevLowerCase = false;
+      } else {
+        sb.append(ch);
+        prevLowerCase = true;
+      }
+    }
+    return sb.toString();
+  }
+  
+  public static void translate(String prefix, String outPrefix) throws Exception {
 
     Vertx vertx = Vertx.vertx();
 
@@ -26,18 +57,51 @@ public class Translator {
     System.out.println("curr dir is " + (new File(".")).getAbsolutePath());
 
     String[] inputFiles = new String[] {
-      "core-examples/src/main/java/io/vertx/example/core/net/echo/Server.java",
-      "core-examples/src/main/java/io/vertx/example/core/net/echo/Client.java"
+      "net/echo/Server.java",
+      "net/echo/Client.java",
+      "net/echossl/Server.java",
+      "net/echossl/Client.java",
+      "http/https/Server.java",
+      "http/https/Client.java",
+      "http/simple/Server.java",
+      "http/simple/Client.java",
+      "http/proxy/Server.java",
+      "http/proxy/Client.java",
+      "http/proxy/Proxy.java",
+      "http/sendfile/SendFile.java",
+      "http/simpleform/SimpleFormServer.java",
+      "http/simpleformupload/SimpleFormUploadServer.java",
+      "http/upload/Server.java",
+      "http/upload/Client.java",
+      "http/websockets/Server.java",
+      "http/websockets/Client.java",
+      "verticle/deploy/DeployExample.java",
+      "verticle/asyncstart/DeployExample.java",
+      "execblocking/ExecBlockingExample.java",
+      "eventbus/pointtopoint/Receiver.java",
+      "eventbus/pointtopoint/Sender.java",
+      "eventbus/pubsub/Receiver.java",
+      "eventbus/pubsub/Sender.java"
     };
 
-    String[] outputFiles = new String[] {
-      "core-examples/src/main/js/net/echo/server.js",
-      "core-examples/src/main/js/net/echo/client.js",
-    };
+//    String[] outputFiles = new String[] {
+//      "core-examples/src/main/js/net/echo/server.js",
+//      "core-examples/src/main/js/net/echo/client.js",
+//    };
 
     for (int i = 0; i < inputFiles.length; i++) {
-      String inputFile = inputFiles[i];
-      String outputFile = outputFiles[i];
+      String inp = inputFiles[i];
+      String inputFile = prefix + inp;
+      System.out.println("input file is " + inputFile);
+
+      //String outputFile = outputFiles[i];
+      String out = toJSFile(inp);
+
+
+      String outputFile = outPrefix + out;
+
+      System.out.println("out is " + outputFile);
+
 
       Map<String, Result> result = ConvertingProcessor.convertFromFiles(Translator.class.getClassLoader(), lang, inputFile);
 
