@@ -1,9 +1,10 @@
 .DS_Store
 .gradle
-.idea
 .classpath
 .project
 .settings
+.idea/workspace.xml
+.vertx
 .yardoc
 .yardopts
 bin
