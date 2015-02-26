@@ -12,43 +12,49 @@ import io.vertx.ext.unit.TestSuite;
  */
 public class Tests {
 
+  TestSuite suite;
   protected HttpServer server;
   protected Vertx vertx;
 
-  public TestSuite suite() {
+  public Tests() {
 
-    TestSuite suite = TestSuite.create("my_suite");
+    suite = TestSuite.create(Tests.class.getName());
 
-    suite.before(test -> {
-      vertx = Vertx.vertx();
-      Async async = test.async();
-      server =
-        vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).listen(8080, res -> {
-          if (res.succeeded()) {
-            async.complete();
-          } else {
-            test.fail();
-          }
-        });
-    });
+    suite.before(this::before);
 
-    // Specifying the test names seems redundant...
+    // Specifying the test names seems ugly...
     suite.test("some_test1", this::test1);
     suite.test("some_test2", this::test2);
 
-    suite.after(test -> {
-      Async async = test.async();
-      vertx.close(res -> {
+    suite.after(this::after);
+  }
+
+  public TestSuite suite() {
+    return suite;
+  }
+
+  public void before(Test test) {
+    vertx = Vertx.vertx();
+    Async async = test.async();
+    server =
+      vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).listen(8080, res -> {
         if (res.succeeded()) {
           async.complete();
         } else {
           test.fail();
         }
       });
+  }
+
+  public void after(Test test) {
+    Async async = test.async();
+    vertx.close(res -> {
+      if (res.succeeded()) {
+        async.complete();
+      } else {
+        test.fail();
+      }
     });
-
-    return suite;
-
   }
 
   public void test1(Test test) {
