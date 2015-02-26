@@ -55,5 +55,169 @@ link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl c
 link:src/main/js/echossl/echo_server.js[JavaScript echo ssl server]
 link:src/main/js/echossl/echo_client.js[JavaScript echo ssl client]
 
+== HTTP examples
+
+These examples demonstrate usage of HTTP with Vert.x.
+
+=== Simple
+
+A very simple HTTP server which always responds with the same response:
+
+link:src/main/java/io/vertx/example/core/http/simple/Server.java[Java simple HTTP server]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+And a simple HTTP client which makes a request to the server.
+
+link:src/main/java/io/vertx/example/core/http/simple/Client.java[Java simple HTTP client]
+
+=== HTTPS
+
+Like the simple example, but using HTTPS instead of HTTP
+
+link:src/main/java/io/vertx/example/core/http/https/Server.java[Java simple HTTPS server]
+
+You can run the server then open a browser and point it at link:http://localhost:4443[]
+
+And a simple HTTPS client which makes a request to the server.
+
+link:src/main/java/io/vertx/example/core/http/https/Client.java[Java simple HTTPS client]
+
+=== Proxy
+
+A simple toy HTTP proxy. The proxy receives requests and forwards them to the endpoint server, it also takes responses
+from the other server and passes them back to the client.
+
+link:src/main/java/io/vertx/example/core/http/proxy/Server.java[The Java endpoint server]
+link:src/main/java/io/vertx/example/core/http/proxy/Proxy.java[The Java proxy]
+link:src/main/java/io/vertx/example/core/http/proxy/Client.java[The client]
+
+=== Sendfile
+
+This example demonstrates how you can serve static files from disk using a Vert.x http server.
+
+link:src/main/java/io/vertx/example/core/http/sendfile/SendFile.java[Java static file server example]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+NOTE: In practice you would probably actually use Apex for this rather than writing a web server at this low level. Serving
+files manually like this can leave you open to security exploits, e.g. by clients crafting URI paths which try to access
+resources outside of the permitted area. Apex provides URI path normalisation to avoid these kinds of exploits and comes
+with a static file handler which also handles caching headers and other features that you would probably want when serving
+static files in a web application.
+
+=== Simple form
+
+This example demonstrates how you can handle an HTML form on the server.
+
+link:src/main/java/io/vertx/example/core/http/simpleform/SimpleFormServer.java[Java simple form server example]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+NOTE: In practice you would probably also use Apex for this rather than writing a server at this low level. Apex
+provides built in support for HTML forms, and avoids some of the security issues due to maliciously crafted URI paths.
+
+=== Simple form file upload
+
+This example demonstrates how you can handle file uploads from an HTML form submission.
+
+link:src/main/java/io/vertx/example/core/http/simpleformupload/SimpleFormUploadServer.java[Java simple form file upload server example]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+NOTE: In practice you would probably also use Apex for this rather than writing a server at this low level. Apex
+provides built in support for HTML forms and file uploads, and avoids some of the security issues due to maliciously
+crafted URI paths.
+
+=== Http request body upload
+
+This examples demonstrates an HTTP server receiving a request and pumping the request body to a file on disk without
+ever storing the entire request body fully in memory.
+
+There's also a client which sends a request to the server and pumps a file from disk to the HTTP request body. The file
+is uploaded successfully even if the file is very large (GigaBytes).
+
+link:src/main/java/io/vertx/example/core/http/upload/Server.java[Java upload server example]
+link:src/main/java/io/vertx/example/core/http/upload/Client.java[Java upload client example]
+
+=== WebSockets echo example
+
+This example shows a Vert.x HTTP server which handles websockets connections. This example simply echoes back to the client
+whatever it receives on the websocket.
+
+There's also a client which connects to the server, sends some data and logs out what it receives.
+
+link:src/main/java/io/vertx/example/core/http/websockets/WebSocketsServer.java[Java WebSockets server example]
+link:src/main/java/io/vertx/example/core/http/websockets/WebSocketsClient.java[Java WebSockets client example]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+NOTE: in practice you would probably use Apex to build a web application that uses WebSockets
+
+== Event bus examples
+
+These examples demonstrate usage of the event bus in Vert.x
+
+=== Point to point
+
+This example demonstrates point to point messaging between a receiver and a sender.
+
+The receiver listens on an address on the event bus for incoming messages. When it receives a message it replies to it.
+
+The sender sends a message to that address every second, when it receives a reply it logs it.
+
+You can run the Java sender and receiver in your IDE or at the command line.
+
+At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
+
+----
+vertx run Receiver.java -cluster
+
+vertx run Sender.java -cluster
+----
+
+The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
+event bus.
+
+=== Publish / Subscribe
+
+This example demonstrates publish / subscribe messaging between a receivers and a sender. With pub/sub messaging
+you can have multiple subscribers who all receive messages from publishers.
+
+A receiver listens on an address on the event bus for incoming messages. When it receives a message it logs it.
+
+The sender sends a message to that address every second, when it receives a reply it logs it.
+
+You can start as many senders or receivers as you like in your IDE or at the command line.
+
+At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
+
+----
+vertx run Receiver.java -cluster
+
+vertx run Sender.java -cluster
+----
+
+The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
+event bus.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

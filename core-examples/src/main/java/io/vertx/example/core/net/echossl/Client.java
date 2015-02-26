@@ -4,11 +4,17 @@ import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
+import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Client extends AbstractVerticle {
+
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    Runner.runExample(Client.class);
+  }
 
   @Override
   @CodeTranslate

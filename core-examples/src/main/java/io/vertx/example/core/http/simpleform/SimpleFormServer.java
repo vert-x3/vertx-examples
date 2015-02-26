@@ -1,18 +1,26 @@
 package io.vertx.example.core.http.simpleform;
 
+import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class SimpleFormServer extends AbstractVerticle {
 
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    Runner.runExample(SimpleFormServer.class);
+  }
+
+  @CodeTranslate
   @Override
   public void start() throws Exception {
     vertx.createHttpServer().requestHandler(req -> {
       if (req.uri().equals("/")) {
         // Serve the index page
-        req.response().sendFile("simpleform/index.html");
+        req.response().sendFile("index.html");
       } else if (req.uri().startsWith("/form")) {
         req.response().setChunked(true);
         req.setExpectMultipart(true);

@@ -53,13 +53,18 @@ NOTE: All the non-Java examples are automatically generated from the Java exampl
 
 ==== Running in your IDE
 
-Most of the examples can be run directly in your IDE (if you have one!) by right clicking the appropriate `main()` method
-in the provided Runner class.
+Most of the Java examples can be run directly in your IDE (if you have one!).
+
+We provide a `main()` method in most of the example classes which allows you to conveniently run them directly in your IDE.
+
+Just right click the main method or class in your IDE and run as... application (supported by all major IDEs).
 
 ==== Running at the command line
 
-If `vertx` is installed you can run any verticle directly on the command line. This way of working may be of interest
+If `vertx` is installed you can also run any verticle directly on the command line. This way of working may be of interest
 to you if you don't want to use Maven or Gradle or perhaps you don't use an IDE.
+
+Or perhaps you're just a command line kind of person.
 
 If you're coming from using other platforms such as Node.js you might want to work this way. You can think of the
 `vertx` command as a bit like the `node` command in Node.js.
@@ -76,6 +81,8 @@ vertx run EchoServer.java
 cd core-examples/src/main/js/echo
 vertx run echo_server.js
 ----
+
+Yes! You can run *Java source files* directly using Vert.x (no compilation required) :)
 
 ==== Installing Vert.x
 
