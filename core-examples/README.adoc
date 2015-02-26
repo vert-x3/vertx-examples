@@ -166,6 +166,9 @@ The receiver listens on an address on the event bus for incoming messages. When 
 
 The sender sends a message to that address every second, when it receives a reply it logs it.
 
+link:src/main/java/io/vertx/example/core/eventbus/pointtopoint/Receiver.java[Java event bus receiver]
+link:src/main/java/io/vertx/example/core/eventbus/pointtopoint/Sender.java[Java event bus sender]
+
 You can run the Java sender and receiver in your IDE or at the command line.
 
 At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
@@ -188,6 +191,9 @@ A receiver listens on an address on the event bus for incoming messages. When it
 
 The sender sends a message to that address every second, when it receives a reply it logs it.
 
+link:src/main/java/io/vertx/example/core/eventbus/pubsub/Receiver.java[Java event bus pubsub receiver]
+link:src/main/java/io/vertx/example/core/eventbus/pubsub/Sender.java[Java event bus pubsub sender]
+
 You can start as many senders or receivers as you like in your IDE or at the command line.
 
 At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
@@ -200,6 +206,50 @@ vertx run Sender.java -cluster
 
 The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
 event bus.
+
+== Verticle examples
+
+These examples show verticles being deployed and undeployed
+
+=== Deploy example
+
+This example shows a verticle deploying another verticle in several different ways including:
+
+* Deploying without waiting for it to deploy
+* Deploying and waiting for it to deploy
+* Passing configuration to another verticle during deploy
+* Deploying more than one instance
+* Deploying as a worker verticle
+* Undeploying a verticle deployment explicitly
+
+link:src/main/java/io/vertx/example/core/verticle/deploy/DeployExample.java[Java verticle deployment example]
+link:src/main/java/io/vertx/example/core/verticle/deploy/OtherVerticle.java[The verticle that will be deployed]
+
+=== Asynchronous deployment example
+
+This is similar to the deployment example, but it shows how the start and stop of a verticle can be asynchronous. This
+is useful if the verticle has some startup or cleanup to do that takes some time, and we wish to avoid blocking the
+an event loop.
+
+link:src/main/java/io/vertx/example/core/verticle/asyncstart/DeployExample.java[Java verticle deployment example]
+link:src/main/java/io/vertx/example/core/verticle/asyncstart/OtherVerticle.java[The verticle that will be deployed]
+
+== Execute blocking example
+
+This example demonstrates how you can include blocking code in with your non blocking code in a way that doesn't
+block an event loop:
+
+link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[Java execute blocking code example]
+
+Run the example then open a browser and point it at link:http://localhost:8080[]
+
+
+
+
+
+
+
+
 
 
 
