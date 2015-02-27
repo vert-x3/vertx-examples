@@ -8,11 +8,11 @@ import io.vertx.ext.apex.Router;
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
-public class HelloWorld extends AbstractVerticle {
+public class Server extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(HelloWorld.class);
+    Runner.runExample(Server.class);
   }
 
   @CodeTranslate
