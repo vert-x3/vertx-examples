@@ -60,10 +60,10 @@ link:http://localhost:8080/products[list products] to start playing with the API
 
 This example shows a simple web-site containing some static pages and also a page dynamically generated using templates.
 
+The link:src/main/java/io/vertx/example/apex/templating/[templating example]
+
 The dynamic page outputs some information (path and headers) of the request. It uses the MVEL template engine but you
 could use any of the other template engines if you prefer.
-
-The link:src/main/java/io/vertx/example/apex/templating/Server.java[Java static / templating server]
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click on the links
@@ -88,7 +88,7 @@ actual page.
 
 This example demonstrates a full duplex connection between the browser and the server side.
 
-The link:src/main/java/io/vertx/example/apex/realtime/Server.java[Java real-time example]
+The link:src/main/java/io/vertx/example/apex/realtime/[Java real-time example]
 
 The connection remains open so you can communicate easily between server and browser or server and browser by just sending
 messages over the event bus, like you would on the server side.
