@@ -3,7 +3,7 @@
 .classpath
 .project
 .settings
-.idea/workspace.xml
+.idea
 .vertx
 .yardoc
 .yardopts
@@ -16,6 +16,7 @@ Scratch.java
 ScratchTest.java
 test-results
 test-tmp
+*.iml
 *.class
 src/gen
 src/main/groovy/io/vertx/groovy/core/**/*.groovy
