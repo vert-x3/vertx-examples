@@ -73,7 +73,7 @@ link:http://localhost:8080 and click on the links
 This example shows how to use sessions with Apex. Sessions are available between requests and last the length of the
 browser session.
 
-The link:src/main/java/io/vertx/example/apex/sessions/Server.java[Java sessions example]
+The link:src/main/java/io/vertx/example/apex/sessions/[Java sessions example]
 
 The example increments a counter in the session every time a request hits the server.
 
