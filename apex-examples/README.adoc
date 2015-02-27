@@ -14,9 +14,68 @@ Group ID: io.vertx
 Artifact ID: vertx-core
 ----
 
+and
+
 ----
 Group ID: io.vertx
 Artifact ID: vertx-apex
 ----
 
-== The examples
+If you're using auth in your Apex application you will also need the dependency:
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-auth
+----
+
+If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine
+you are using.
+
+== Hello World
+
+The traditional hello world example. This one creates a server which just responds with "Hello World! to each request.
+
+The link:src/main/java/io/vertx/example/apex/helloworld/HelloWorld.java[Java Hello world example]
+
+== Simple REST Micro-service
+
+Apex is a great fit for HTTP/REST microservices.
+
+Here's a simple micro-service example which implements an API for a product catalogue.
+
+The link:src/main/java/io/vertx/example/apex/rest/SimpleREST.java[Java REST Microservice example]
+
+The API allows you to list all products, retrieve details for a particular product and to add a new product.
+
+Product information is provided in JSON.
+
+List all products:: GET /products
+Get a product:: GET /products/<product_id>
+Add a product:: PUT /products/<product_id>
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080/products[list products] to start playing with the API.
+
+== Static site with templating
+
+This example shows a simple web-site containing some static pages and also a page dynamically generated using templates.
+
+The dynamic page outputs some information (path and headers) of the request. It uses the MVEL template engine but you
+could use any of the other template engines if you prefer.
+
+The link:src/main/java/io/vertx/example/apex/templating/Server.java[Java static / templating server]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click on the links
+
+
+
+
+
+
+
+
+
+
+
+

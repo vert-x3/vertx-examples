@@ -15,8 +15,6 @@ Group ID: io.vertx
 Artifact ID: vertx-core
 ----
 
-== The examples
-
 == Embedding
 
 Vert.x core can be embedded in any Java class and run that way if you like.
