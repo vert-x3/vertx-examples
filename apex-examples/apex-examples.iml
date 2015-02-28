@@ -23,6 +23,10 @@
     <orderEntry type="library" name="Maven: org.antlr:antlr4-annotations:4.2" level="project" />
     <orderEntry type="library" name="Maven: org.mozilla:rhino:1.7R4" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: io.vertx:vertx-auth-service:3.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: io.vertx:vertx-service-proxy:3.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-core:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="module" module-name="examples-utils" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-codetrans:3.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-codegen:3.0.0-SNAPSHOT" level="project" />

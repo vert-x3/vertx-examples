@@ -5,6 +5,12 @@ Here you will find examples demonstrating Vert.x Apex in action.
 Apex is a tool-kit for writing web applications with Vert.x. Please consult the Apex manual for detailed
 documentation on Apex.
 
+== Logging
+
+When running in an IDE you can edit `src/main/resources/vertx-default-jul-logging.properties` to configure logging.
+Trace logging is enabled for Apex classes so you can easily trace requests as they are routed through different
+handlers.
+
 == Dependencies required
 
 To use Apex in your own Maven or Gradle project you will need following dependencies
@@ -113,6 +119,33 @@ On the server side, in the link:src/main/java/io/vertx/example/apex/realtime/Ser
 timer that fires every second and sends a message to the `news-feed` address.
 
 When you get the index page in your browser you should see it update every second as it receives a message.
+
+== Auth example
+
+This example shows a basic static web-site that contains both public pages and pages that are only accessible to
+a logged in user.
+
+The link:src/main/java/io/vertx/example/apex/auth/[Java auth example]
+
+Requests to paths starting with `/private/` will require login.
+
+The example uses a simple auth service which gets user/password/role information from a properties file
+`src/main/resources/vertx-users.properties`.
+
+The type of login used here is redirect login. If a request is made to a private resource and the session isn't already
+logged in a redirect will be sent to the browser causing it to load the login page. When the login form is submitted it
+is handled by the form login handler which then redirects the browser back to the originally requested resource if login
+was successful.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
+
+
+
+
+
+
 
 
 
