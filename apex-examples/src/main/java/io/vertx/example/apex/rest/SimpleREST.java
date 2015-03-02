@@ -39,7 +39,6 @@ public class SimpleREST extends AbstractVerticle {
     Runner.runExample(SimpleREST.class);
   }
 
-
   private SimpleREST that = this;
   private Map<String, JsonObject> products = new HashMap<>();
 
