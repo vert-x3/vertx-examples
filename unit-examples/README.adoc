@@ -1,0 +1,5 @@
+= Vert.x Unit examples
+
+Here you'll find some examples of how to use Vert.x unit to test your asynchronous applications
+
+TODO talk about examples and link to them
