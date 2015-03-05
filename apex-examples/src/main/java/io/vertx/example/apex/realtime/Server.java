@@ -2,11 +2,11 @@ package io.vertx.example.apex.realtime;
 
 import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.apex.Router;
 import io.vertx.ext.apex.handler.StaticHandler;
 import io.vertx.ext.apex.handler.sockjs.BridgeOptions;
+import io.vertx.ext.apex.handler.sockjs.PermittedOptions;
 import io.vertx.ext.apex.handler.sockjs.SockJSHandler;
 
 /*
@@ -26,7 +26,7 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Allow outbound traffic to the news-feed address
-    BridgeOptions options = new BridgeOptions().addOutboundPermitted(new JsonObject().put("address", "news-feed"));
+    BridgeOptions options = new BridgeOptions().addOutboundPermitted(new PermittedOptions().setAddress("news-feed"));
 
     router.route("/eventbus/").handler(SockJSHandler.create(vertx).bridge(options));
 
