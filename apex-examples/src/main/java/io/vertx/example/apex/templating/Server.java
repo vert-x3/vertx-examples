@@ -39,7 +39,7 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Serve the dynamic pages
-    router.route("/dynamic/").handler(TemplateHandler.create(MVELTemplateEngine.create()));
+    router.route("/dynamic/*").handler(TemplateHandler.create(MVELTemplateEngine.create()));
 
     // Serve the static pages
     router.route().handler(StaticHandler.create());

@@ -36,10 +36,10 @@ public class Server extends AbstractVerticle {
     AuthService authService = ShiroAuthService.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
 
     // Any requests to URI starting '/private/' require login
-    router.route("/private/").handler(RedirectAuthHandler.create(authService, "/loginpage.html"));
+    router.route("/private/*").handler(RedirectAuthHandler.create(authService, "/loginpage.html"));
 
     // Serve the static private pages from directory 'private'
-    router.route("/private/").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"));
+    router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"));
 
     // Handles the actual login
     router.route("/loginhandler").handler(FormLoginHandler.create(authService));

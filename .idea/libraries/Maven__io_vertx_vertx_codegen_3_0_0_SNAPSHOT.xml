@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: io.vertx:vertx-codegen:3.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-codegen/3.0.0-SNAPSHOT/vertx-codegen-3.0.0-20150211.145932-35.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-codegen/3.0.0-SNAPSHOT/vertx-codegen-3.0.0-20150302.162538-36.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-codegen/3.0.0-SNAPSHOT/vertx-codegen-3.0.0-20150211.145932-35-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-codegen/3.0.0-SNAPSHOT/vertx-codegen-3.0.0-20150302.162538-36-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-codegen/3.0.0-SNAPSHOT/vertx-codegen-3.0.0-20150211.145932-35-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-codegen/3.0.0-SNAPSHOT/vertx-codegen-3.0.0-20150302.162538-36-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

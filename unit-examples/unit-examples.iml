@@ -17,13 +17,13 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.0" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-unit:3.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.11" level="project" />
-    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-core:test-jar:tests:3.0.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="examples-utils" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-codetrans:3.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-codegen:3.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.mvel:mvel2:2.2.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-lang-js:3.0.0-SNAPSHOT" level="project" />
   </component>
 </module>
