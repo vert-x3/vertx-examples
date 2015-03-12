@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.sendfile;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 
@@ -14,7 +13,6 @@ public class SendFile extends AbstractVerticle {
     Runner.runExample(SendFile.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

@@ -1,6 +1,5 @@
 package io.vertx.example.apex.realtime;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.apex.Router;
@@ -19,7 +18,6 @@ public class Server extends AbstractVerticle {
     Runner.runExample(Server.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

@@ -1,6 +1,5 @@
 package io.vertx.example.core.verticle.asyncstart;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 
@@ -14,7 +13,6 @@ public class DeployExample extends AbstractVerticle {
     Runner.runExample(DeployExample.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

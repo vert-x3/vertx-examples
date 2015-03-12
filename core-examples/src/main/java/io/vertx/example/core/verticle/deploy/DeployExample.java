@@ -1,6 +1,5 @@
 package io.vertx.example.core.verticle.deploy;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.JsonObject;
@@ -16,7 +15,6 @@ public class DeployExample extends AbstractVerticle {
     Runner.runExample(DeployExample.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

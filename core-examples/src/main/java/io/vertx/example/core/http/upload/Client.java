@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.upload;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.FileProps;
@@ -21,7 +20,6 @@ public class Client extends AbstractVerticle {
     Runner.runExample(Client.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
     HttpClientRequest req = vertx.createHttpClient(new HttpClientOptions()).put(8080, "localhost", "/someurl", resp -> {

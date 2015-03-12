@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.https;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
@@ -17,7 +16,6 @@ public class Server extends AbstractVerticle {
     Runner.runExample(Server.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

@@ -1,6 +1,5 @@
 package io.vertx.example.core.eventbus.pointtopoint;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.example.util.Runner;
@@ -15,7 +14,6 @@ public class Receiver extends AbstractVerticle {
     Runner.runClusteredExample(Receiver.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

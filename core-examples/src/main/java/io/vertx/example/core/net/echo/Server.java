@@ -1,6 +1,5 @@
 package io.vertx.example.core.net.echo;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.streams.Pump;
 import io.vertx.example.util.Runner;
@@ -16,7 +15,6 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  @CodeTranslate
   public void start() throws Exception {
 
     vertx.createNetServer().connectHandler(sock -> {

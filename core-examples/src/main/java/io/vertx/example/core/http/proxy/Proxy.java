@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.proxy;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
@@ -17,7 +16,6 @@ public class Proxy extends AbstractVerticle {
     Runner.runExample(Proxy.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient(new HttpClientOptions());

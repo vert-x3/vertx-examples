@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.websockets;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpClient;
@@ -16,7 +15,6 @@ public class Client extends AbstractVerticle {
     Runner.runExample(Client.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();

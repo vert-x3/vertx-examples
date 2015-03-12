@@ -1,6 +1,5 @@
 package io.vertx.example.core.execblocking;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 
@@ -14,7 +13,6 @@ public class ExecBlockingExample extends AbstractVerticle {
     Runner.runExample(ExecBlockingExample.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

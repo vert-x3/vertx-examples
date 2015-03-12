@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.simpleform;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 
@@ -14,7 +13,6 @@ public class SimpleFormServer extends AbstractVerticle {
     Runner.runExample(SimpleFormServer.class);
   }
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
     vertx.createHttpServer().requestHandler(req -> {

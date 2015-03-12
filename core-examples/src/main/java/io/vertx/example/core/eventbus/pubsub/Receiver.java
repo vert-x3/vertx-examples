@@ -1,6 +1,5 @@
 package io.vertx.example.core.eventbus.pubsub;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.example.util.Runner;
@@ -16,7 +15,6 @@ public class Receiver extends AbstractVerticle {
   }
 
 
-  @CodeTranslate
   @Override
   public void start() throws Exception {
 

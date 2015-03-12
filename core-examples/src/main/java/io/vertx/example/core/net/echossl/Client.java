@@ -1,6 +1,5 @@
 package io.vertx.example.core.net.echossl;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
@@ -17,7 +16,6 @@ public class Client extends AbstractVerticle {
   }
 
   @Override
-  @CodeTranslate
   public void start() throws Exception {
 
     NetClientOptions options = new NetClientOptions().setSsl(true).setTrustAll(true);

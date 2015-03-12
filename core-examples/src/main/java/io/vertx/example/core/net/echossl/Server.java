@@ -1,6 +1,5 @@
 package io.vertx.example.core.net.echossl;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.NetServerOptions;
@@ -18,7 +17,6 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  @CodeTranslate
   public void start() throws Exception {
 
     NetServerOptions options = new NetServerOptions()

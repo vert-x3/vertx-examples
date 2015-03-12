@@ -38,5 +38,24 @@
 
   </dependencies>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <!-- Code translate verticles to target/scripts  -->
+            <annotationProcessors>
+              <annotationProcessor>io.vertx.codetrans.CodeTransProcessor</annotationProcessor>
+            </annotationProcessors>
+            <compilerArgs>
+              <arg>-Acodetrans.output=${basedir}/target/sources</arg>
+            </compilerArgs>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
 
 </project>

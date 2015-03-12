@@ -22,7 +22,7 @@ public class VertxUnitTest {
     new VertxUnitTest().run();
   }
 
-  @CodeTranslate
+  @CodeTranslate // Not yet detected
   public void run() {
 
     TestOptions options = new TestOptions().addReporter(new ReportOptions().setTo("console"));
