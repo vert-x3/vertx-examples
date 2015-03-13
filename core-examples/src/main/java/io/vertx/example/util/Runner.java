@@ -23,6 +23,10 @@ public class Runner {
     ExampleRunner.runJSExample(CORE_EXAMPLES_JS_DIR, scriptName, false);
   }
 
+  public static void runJSExampleClustered(String scriptName) {
+    ExampleRunner.runJSExample(CORE_EXAMPLES_JS_DIR, scriptName, true);
+  }
+
   static class JSEchoServerRunner {
     public static void main(String[] args) {
       Runner.runJSExample("io/vertx/example/core/net/echo/server.js");
@@ -32,6 +36,42 @@ public class Runner {
   static class JSEchoClientRunner {
     public static void main(String[] args) {
       Runner.runJSExample("io/vertx/example/core/net/echo/client.js");
+    }
+  }
+
+  static class JSEchoSslServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/net/echossl/server.js");
+    }
+  }
+
+  static class JSEchoSslClientRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/net/echossl/client.js");
+    }
+  }
+
+  static class JSEventBusPointToPointReceiverRunner {
+    public static void main(String[] args) {
+      Runner.runJSExampleClustered("io/vertx/example/core/eventbus/pointtopoint/receiver.js");
+    }
+  }
+
+  static class JSEventBusPointToPointSenderRunner {
+    public static void main(String[] args) {
+      Runner.runJSExampleClustered("io/vertx/example/core/eventbus/pointtopoint/sender.js");
+    }
+  }
+
+  static class JSEventBusPubSubReceiverRunner {
+    public static void main(String[] args) {
+      Runner.runJSExampleClustered("io/vertx/example/core/eventbus/pubsub/receiver.js");
+    }
+  }
+
+  static class JSEventBusPubSubSenderRunner {
+    public static void main(String[] args) {
+      Runner.runJSExampleClustered("io/vertx/example/core/eventbus/pubsub/sender.js");
     }
   }
 }
