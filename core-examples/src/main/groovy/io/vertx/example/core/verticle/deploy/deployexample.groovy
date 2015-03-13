@@ -50,8 +50,3 @@ vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", [
 ])
 
 
-e.verticle.deploy.OtherVerticle.class.getName(), [
-  worker:true
-])
-
-

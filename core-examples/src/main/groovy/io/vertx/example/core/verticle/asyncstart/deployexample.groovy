@@ -22,8 +22,3 @@ vertx.deployVerticle("io.vertx.example.core.verticle.asyncstart.OtherVerticle", 
 })
 
 
-ce()
-  }
-})
-
-
