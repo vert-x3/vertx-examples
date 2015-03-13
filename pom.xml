@@ -49,7 +49,7 @@
               <annotationProcessor>io.vertx.codetrans.CodeTransProcessor</annotationProcessor>
             </annotationProcessors>
             <compilerArgs>
-              <arg>-Acodetrans.output=${basedir}/target/sources</arg>
+              <arg>-Acodetrans.output=${basedir}/src/main</arg>
             </compilerArgs>
           </configuration>
         </plugin>

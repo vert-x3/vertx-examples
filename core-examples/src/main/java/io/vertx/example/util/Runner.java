@@ -25,13 +25,13 @@ public class Runner {
 
   static class JSEchoServerRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("net/echo/server.js");
+      Runner.runJSExample("io/vertx/example/core/net/echo/server.js");
     }
   }
 
   static class JSEchoClientRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("net/echo/client.js");
+      Runner.runJSExample("io/vertx/example/core/net/echo/client.js");
     }
   }
 }
