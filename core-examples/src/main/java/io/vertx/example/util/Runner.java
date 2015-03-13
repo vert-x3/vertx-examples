@@ -74,4 +74,88 @@ public class Runner {
       Runner.runJSExampleClustered("io/vertx/example/core/eventbus/pubsub/sender.js");
     }
   }
+
+  static class JSHttpsServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/https/server.js");
+    }
+  }
+
+  static class JSHttpsClientRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/https/client.js");
+    }
+  }
+
+  static class JSHttpProxyServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/proxy/server.js");
+    }
+  }
+
+  static class JSHttpProxyProxyRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/proxy/proxy.js");
+    }
+  }
+
+  static class JSHttpProxyClientRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/proxy/client.js");
+    }
+  }
+
+  static class JSHttpSendFileRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/sendfile/sendfile.js");
+    }
+  }
+
+  static class JSHttpSimpleServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/simple/server.js");
+    }
+  }
+
+  static class JSHttpSimpleClientRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/simple/client.js");
+    }
+  }
+
+  static class JSHttpSimpleFormRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/simpleform/simpleformserver.js");
+    }
+  }
+
+  static class JSHttpSimpleFormUploadRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/simpleformupload/simpleformuploadserver.js");
+    }
+  }
+
+  static class JSHttpUploadServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/upload/server.js");
+    }
+  }
+
+  static class JSHttpUploadClientRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/upload/client.js");
+    }
+  }
+
+  static class JSHttpWebsocketsServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/websockets/server.js");
+    }
+  }
+
+  static class JSHttpWebsocketsClientRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/http/websockets/client.js");
+    }
+  }
 }
