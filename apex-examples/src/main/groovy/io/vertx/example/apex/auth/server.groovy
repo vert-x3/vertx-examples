@@ -4,6 +4,7 @@ import io.vertx.groovy.ext.apex.handler.SessionHandler
 import io.vertx.groovy.ext.apex.sstore.LocalSessionStore
 import io.vertx.groovy.ext.apex.handler.BodyHandler
 import io.vertx.groovy.ext.auth.shiro.ShiroAuthService
+import io.vertx.ext.auth.shiro.ShiroAuthRealmType
 import io.vertx.groovy.ext.apex.handler.RedirectAuthHandler
 import io.vertx.groovy.ext.apex.handler.StaticHandler
 import io.vertx.groovy.ext.apex.handler.FormLoginHandler
@@ -16,7 +17,7 @@ router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)))
 router.route().handler(BodyHandler.create())
 
 // Simple auth service which uses a properties file for user/role info
-def authService = ShiroAuthService.create(vertx, 'PROPERTIES', [:])
+def authService = ShiroAuthService.create(vertx, ShiroAuthRealmType.PROPERTIES, [:])
 
 // Any requests to URI starting '/private/' require login
 router.route("/private/*").handler(RedirectAuthHandler.create(authService, "/loginpage.html"))
