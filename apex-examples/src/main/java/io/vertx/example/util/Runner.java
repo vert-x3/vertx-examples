@@ -49,4 +49,28 @@ public class Runner {
       Runner.runGroovyExample("io/vertx/example/apex/auth/server.groovy");
     }
   }
+
+  static class GroovyHelloWorldRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/apex/helloworld/server.groovy");
+    }
+  }
+
+  static class GroovyRealtimeRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/apex/realtime/server.groovy");
+    }
+  }
+
+  static class GroovySessionsRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/apex/sessions/server.groovy");
+    }
+  }
+
+  static class GroovyTemplatingRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/apex/templating/server.groovy");
+    }
+  }
 }
