@@ -2,7 +2,7 @@
 console.log("Main verticle has started, let's deploy some others...");
 
 // Deploy another instance and  want for it to start
-vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.asyncstart.OtherVerticle").class.getName(), function (res, res_err) {
+vertx.deployVerticle("io.vertx.example.core.verticle.asyncstart.OtherVerticle", function (res, res_err) {
   if (res_err == null) {
 
     var deploymentID = res;

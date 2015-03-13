@@ -2,7 +2,7 @@
 println("Main verticle has started, let's deploy some others...")
 
 // Deploy another instance and  want for it to start
-vertx.deployVerticle(io.vertx.example.core.verticle.asyncstart.OtherVerticle.class.getName(), { res ->
+vertx.deployVerticle("io.vertx.example.core.verticle.asyncstart.OtherVerticle", { res ->
   if (res.succeeded()) {
 
     def deploymentID = res.result()
@@ -18,6 +18,11 @@ vertx.deployVerticle(io.vertx.example.core.verticle.asyncstart.OtherVerticle.cla
     })
   } else {
     res.cause().printStackTrace()
+  }
+})
+
+
+ce()
   }
 })
 

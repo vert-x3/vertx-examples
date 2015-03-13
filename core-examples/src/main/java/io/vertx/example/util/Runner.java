@@ -158,4 +158,16 @@ public class Runner {
       Runner.runJSExample("io/vertx/example/core/http/websockets/client.js");
     }
   }
+
+  static class JSVerticleAsyncStartRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/verticle/asyncstart/deployexample.js");
+    }
+  }
+
+  static class JSVerticleDeployRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/core/verticle/deploy/deployexample.js");
+    }
+  }
 }

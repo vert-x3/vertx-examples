@@ -4,10 +4,10 @@ console.log("Main verticle has started, let's deploy some others...");
 // Different ways of deploying verticles
 
 // Deploy a verticle and don't wait for it to start
-vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.deploy.OtherVerticle").class.getName());
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle");
 
 // Deploy another instance and  want for it to start
-vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.deploy.OtherVerticle").class.getName(), function (res, res_err) {
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", function (res, res_err) {
   if (res_err == null) {
 
     var deploymentID = res;
@@ -35,17 +35,17 @@ vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.deploy.OtherVerti
 var config = {
   "foo" : "bar"
 };
-vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.deploy.OtherVerticle").class.getName(), {
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", {
   "config" : config
 });
 
 // Deploy 10 instances
-vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.deploy.OtherVerticle").class.getName(), {
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", {
   "instances" : 10
 });
 
 // Deploy it as a worker verticle
-vertx.deployVerticle(Java.type("io.vertx.example.core.verticle.deploy.OtherVerticle").class.getName(), {
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", {
   "worker" : true
 });
 

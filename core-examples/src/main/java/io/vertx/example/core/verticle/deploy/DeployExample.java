@@ -23,10 +23,10 @@ public class DeployExample extends AbstractVerticle {
     // Different ways of deploying verticles
 
     // Deploy a verticle and don't wait for it to start
-    vertx.deployVerticle(OtherVerticle.class.getName());
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle");
 
     // Deploy another instance and  want for it to start
-    vertx.deployVerticle(OtherVerticle.class.getName(), res -> {
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", res -> {
       if (res.succeeded()) {
 
         String deploymentID = res.result();
@@ -52,13 +52,13 @@ public class DeployExample extends AbstractVerticle {
 
     // Deploy specifying some config
     JsonObject config = new JsonObject().put("foo", "bar");
-    vertx.deployVerticle(OtherVerticle.class.getName(), new DeploymentOptions().setConfig(config));
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", new DeploymentOptions().setConfig(config));
 
     // Deploy 10 instances
-    vertx.deployVerticle(OtherVerticle.class.getName(), new DeploymentOptions().setInstances(10));
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", new DeploymentOptions().setInstances(10));
 
     // Deploy it as a worker verticle
-    vertx.deployVerticle(OtherVerticle.class.getName(), new DeploymentOptions().setWorker(true));
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", new DeploymentOptions().setWorker(true));
 
 
   }

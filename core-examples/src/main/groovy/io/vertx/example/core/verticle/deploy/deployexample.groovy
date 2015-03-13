@@ -4,10 +4,10 @@ println("Main verticle has started, let's deploy some others...")
 // Different ways of deploying verticles
 
 // Deploy a verticle and don't wait for it to start
-vertx.deployVerticle(io.vertx.example.core.verticle.deploy.OtherVerticle.class.getName())
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle")
 
 // Deploy another instance and  want for it to start
-vertx.deployVerticle(io.vertx.example.core.verticle.deploy.OtherVerticle.class.getName(), { res ->
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", { res ->
   if (res.succeeded()) {
 
     def deploymentID = res.result()
@@ -35,17 +35,22 @@ vertx.deployVerticle(io.vertx.example.core.verticle.deploy.OtherVerticle.class.g
 def config = [
   foo:"bar"
 ]
-vertx.deployVerticle(io.vertx.example.core.verticle.deploy.OtherVerticle.class.getName(), [
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", [
   config:config
 ])
 
 // Deploy 10 instances
-vertx.deployVerticle(io.vertx.example.core.verticle.deploy.OtherVerticle.class.getName(), [
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", [
   instances:10
 ])
 
 // Deploy it as a worker verticle
-vertx.deployVerticle(io.vertx.example.core.verticle.deploy.OtherVerticle.class.getName(), [
+vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", [
+  worker:true
+])
+
+
+e.verticle.deploy.OtherVerticle.class.getName(), [
   worker:true
 ])
 
