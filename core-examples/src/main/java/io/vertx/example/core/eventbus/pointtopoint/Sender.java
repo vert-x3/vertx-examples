@@ -23,7 +23,11 @@ public class Sender extends AbstractVerticle {
     vertx.setPeriodic(1000, v -> {
 
       eb.send("ping-address", "ping!", reply -> {
-        System.out.println("Received reply " + reply.result().body());
+        if (reply.succeeded()) {
+          System.out.println("Received reply " + reply.result().body());
+        } else {
+          System.out.println("No reply");
+        }
       });
 
     });
