@@ -17,6 +17,7 @@
     <module>maven-verticle</module>
     <module>core-examples</module>
     <module>apex-examples</module>
+    <module>rx-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
   </modules>
