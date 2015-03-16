@@ -14,10 +14,10 @@ var options = {
   ]
 };
 
-router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options));
+router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options).handle);
 
 // Serve the static resources
-router.route().handler(StaticHandler.create());
+router.route().handler(StaticHandler.create().handle);
 
 vertx.createHttpServer().requestHandler(router.accept).listen(8080);
 

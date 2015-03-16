@@ -34,6 +34,30 @@ public class Runner {
     }
   }
 
+  static class JSHelloWorldRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/apex/helloworld/server.js");
+    }
+  }
+
+  static class JSRealtimeRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/apex/realtime/server.js");
+    }
+  }
+
+  static class JSSessionsRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/apex/sessions/server.js");
+    }
+  }
+
+  static class JSTemplatingRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/apex/templating/server.js");
+    }
+  }
+
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {

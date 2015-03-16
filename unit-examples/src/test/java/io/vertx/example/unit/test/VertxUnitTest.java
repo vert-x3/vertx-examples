@@ -44,7 +44,13 @@ public class VertxUnitTest {
 
     suite.after(context -> {
       Async async = context.async();
-      vertx.close(async);
+      vertx.close(ar -> {
+        if (ar.succeeded()) {
+          async.complete();
+        } else if (ar.failed()) {
+          context.fail();
+        }
+      });
     });
 
     // Specifying the test names seems ugly...

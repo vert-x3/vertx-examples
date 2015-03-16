@@ -11,22 +11,22 @@ var FormLoginHandler = require("vertx-apex-js/form_login_handler");
 var router = Router.router(vertx);
 
 // We need cookies, sessions and request bodies
-router.route().handler(CookieHandler.create());
-router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
-router.route().handler(BodyHandler.create());
+router.route().handler(CookieHandler.create().handle);
+router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)).handle);
+router.route().handler(BodyHandler.create().handle);
 
 // Simple auth service which uses a properties file for user/role info
 var authService = ShiroAuthService.create(vertx, 'PROPERTIES', {
 });
 
 // Any requests to URI starting '/private/' require login
-router.route("/private/*").handler(RedirectAuthHandler.create(authService, "/loginpage.html"));
+router.route("/private/*").handler(RedirectAuthHandler.create(authService, "/loginpage.html").handle);
 
 // Serve the static private pages from directory 'private'
-router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"));
+router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private").handle);
 
 // Handles the actual login
-router.route("/loginhandler").handler(FormLoginHandler.create(authService));
+router.route("/loginhandler").handler(FormLoginHandler.create(authService).handle);
 
 // Implement logout
 router.route("/logout").handler(function (context) {
@@ -36,6 +36,6 @@ router.route("/logout").handler(function (context) {
 });
 
 // Serve the non private static pages
-router.route().handler(StaticHandler.create());
+router.route().handler(StaticHandler.create().handle);
 
 vertx.createHttpServer().requestHandler(router.accept).listen(8080);

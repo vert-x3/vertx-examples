@@ -25,7 +25,14 @@ suite.before(function (context) {
 
 suite.after(function (context) {
   var async = context.async();
-  vertx.close(async);
+  vertx.close(function (ar, ar_err) {
+    if (ar_err == null) {
+      async.complete();
+    } else {
+      if (ar_err != null) {
+        context.fail();
+      }};
+  });
 });
 
 // Specifying the test names seems ugly...

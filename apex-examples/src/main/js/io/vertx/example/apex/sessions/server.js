@@ -5,8 +5,8 @@ var LocalSessionStore = require("vertx-apex-js/local_session_store");
 
 var router = Router.router(vertx);
 
-router.route().handler(CookieHandler.create());
-router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
+router.route().handler(CookieHandler.create().handle);
+router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)).handle);
 
 router.route().handler(function (routingContext) {
 
