@@ -50,8 +50,8 @@ This is the same as the Echo example but using SSL to encrypt connections
 link:src/main/java/io/vertx/example/core/net/echossl/Server.java[Java echo ssl server]
 link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl client]
 
-link:src/main/js/echossl/echo_server.js[JavaScript echo ssl server]
-link:src/main/js/echossl/echo_client.js[JavaScript echo ssl client]
+link:src/main/js/echossl/echoserver.js[JavaScript echo ssl server]
+link:src/main/js/echossl/echoclient.js[JavaScript echo ssl client]
 
 == HTTP examples
 
