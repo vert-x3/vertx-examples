@@ -4,6 +4,7 @@ import io.vertx.codetrans.CodeTranslator;
 import io.vertx.codetrans.GroovyLang;
 import io.vertx.codetrans.JavaScriptLang;
 import io.vertx.codetrans.Lang;
+import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.Verticle;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -28,6 +29,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -107,7 +109,10 @@ public class CodeTransProcessor extends AbstractProcessor {
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     if (outputDir != null && (outputDir.exists() || outputDir.mkdirs())) {
+      List<ExecutableElement> methodElts = new ArrayList<>();
       try (PrintWriter log = new PrintWriter(new FileWriter(new File(outputDir, "codetrans.log"), true), true)) {
+
+        // Process all verticles automatically
         TypeMirror verticleType = processingEnv.getElementUtils().getTypeElement(Verticle.class.getName()).asType();
         for (Element rootElt : roundEnv.getRootElements()) {
           Set<Modifier> modifiers = rootElt.getModifiers();
@@ -116,34 +121,46 @@ public class CodeTransProcessor extends AbstractProcessor {
               modifiers.contains(Modifier.PUBLIC) &&
               processingEnv.getTypeUtils().isSubtype(rootElt.asType(), verticleType)) {
             TypeElement typeElt = (TypeElement) rootElt;
-            FileObject obj = processingEnv.getFiler().getResource(StandardLocation.SOURCE_PATH, "", typeElt.getQualifiedName().toString().replace('.', '/') + ".java");
-            File srcFolder = new File(obj.toUri()).getParentFile();
             for (Element enclosedElt : typeElt.getEnclosedElements()) {
               if (enclosedElt.getKind() == ElementKind.METHOD) {
                 ExecutableElement methodElt = (ExecutableElement) enclosedElt;
                 if (methodElt.getSimpleName().toString().equals("start") && methodElt.getParameters().isEmpty()) {
-                  String fileName = typeElt.getSimpleName().toString().toLowerCase();
-                  for (Lang lang : langs) {
-                    String folderPath = processingEnv.getElementUtils().getPackageOf(typeElt).getQualifiedName().toString().replace('.', '/');
-                    File dstFolder = new File(new File(outputDir, lang.getExtension()), folderPath);
-                    if (dstFolder.exists() || dstFolder.mkdirs()) {
-                      try {
-                        String translation = translator.translate(methodElt, lang);
-                        File f = new File(dstFolder, fileName + "." + lang.getExtension());
-                        Files.write(f.toPath(), translation.getBytes(), StandardOpenOption.CREATE);
-                        log.println("Generated " + f.getAbsolutePath());
-                        copyDirRec(srcFolder, dstFolder, log);
-                      } catch (Exception e) {
-                        log.println("Skipping generation of " + typeElt.getQualifiedName());
-                        e.printStackTrace(log);
-                      }
-                    }
-                  }
+                  methodElts.add(methodElt);
                 }
               }
             }
           }
         }
+
+        // Process CodeTranslate annotations
+        roundEnv.getElementsAnnotatedWith(CodeTranslate.class).forEach(annotatedElt -> {
+          methodElts.add((ExecutableElement) annotatedElt);
+        });
+
+        // Generate
+        for (ExecutableElement methodElt : methodElts) {
+          TypeElement typeElt = (TypeElement) methodElt.getEnclosingElement();
+          FileObject obj = processingEnv.getFiler().getResource(StandardLocation.SOURCE_PATH, "", typeElt.getQualifiedName().toString().replace('.', '/') + ".java");
+          File srcFolder = new File(obj.toUri()).getParentFile();
+          String fileName = typeElt.getSimpleName().toString().toLowerCase();
+          for (Lang lang : langs) {
+            String folderPath = processingEnv.getElementUtils().getPackageOf(typeElt).getQualifiedName().toString().replace('.', '/');
+            File dstFolder = new File(new File(outputDir, lang.getExtension()), folderPath);
+            if (dstFolder.exists() || dstFolder.mkdirs()) {
+              try {
+                String translation = translator.translate(methodElt, lang);
+                File f = new File(dstFolder, fileName + "." + lang.getExtension());
+                Files.write(f.toPath(), translation.getBytes(), StandardOpenOption.CREATE);
+                log.println("Generated " + f.getAbsolutePath());
+                copyDirRec(srcFolder, dstFolder, log);
+              } catch (Exception e) {
+                log.println("Skipping generation of " + typeElt.getQualifiedName());
+                e.printStackTrace(log);
+              }
+            }
+          }
+        }
+
       } catch (Exception e) {
         e.printStackTrace();;
       }
