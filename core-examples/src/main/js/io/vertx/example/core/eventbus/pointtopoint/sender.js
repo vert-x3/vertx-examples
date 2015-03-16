@@ -5,7 +5,11 @@ var eb = vertx.eventBus();
 vertx.setPeriodic(1000, function (v) {
 
   eb.send("ping-address", "ping!", function (reply, reply_err) {
-    console.log("Received reply " + reply.body());
+    if (reply_err == null) {
+      console.log("Received reply " + reply.body());
+    } else {
+      console.log("No reply");
+    };
   });
 
 });

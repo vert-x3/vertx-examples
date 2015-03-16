@@ -40,7 +40,13 @@ public class MyJUnitTest {
   @After
   public void after(TestContext context) {
     Async async = context.async();
-    vertx.close(async);
+    vertx.close(ar -> {
+      if (ar.succeeded()) {
+        async.complete();
+      } else if (ar.failed()) {
+        context.fail();
+      }
+    });
   }
 
   @Test
