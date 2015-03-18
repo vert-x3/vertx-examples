@@ -1,4 +1,4 @@
-package io.vertx.example.rx.http.compose;
+package io.vertx.example.rx.http.zip;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;

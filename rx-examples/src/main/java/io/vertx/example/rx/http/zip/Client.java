@@ -1,4 +1,4 @@
-package io.vertx.example.rx.http.compose;
+package io.vertx.example.rx.http.zip;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
@@ -8,7 +8,6 @@ import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientRequest;
 import io.vertx.rxjava.core.http.HttpClientResponse;
 import rx.Observable;
-import static rx.observables.JoinObservable.*;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -34,19 +33,15 @@ public class Client extends AbstractVerticle {
     Observable<JsonObject> obs2 = req2.toObservable().flatMap(HttpClientResponse::toObservable).
         map(buf -> new JsonObject(buf.toString("UTF-8")));
 
-    // Combine the responses with the RxJavaJoins into a single response
-    when(
-        from(obs1).
-        and(obs2).
-        then((b1, b2) -> new JsonObject().put("req1", b1).put("req2", b2))
-    ).toObservable().subscribe(
-        json -> {
-          System.out.println("Got combined result " + json);
-        },
-        err -> {
-          err.printStackTrace();
-        }
-    );
+    // Combine the responses with the zip into a single response
+    obs1.zipWith(obs2, (b1, b2) -> new JsonObject().put("req1", b1).put("req2", b2)).
+        subscribe(json -> {
+              System.out.println("Got combined result " + json);
+            },
+            err -> {
+              err.printStackTrace();
+            });
+
     req1.end();
     req2.end();
   }
