@@ -13,9 +13,9 @@ These examples shows the Rxified HTTP api.
 
 A simple http server and client.
 
-The server uses an `Observable<HttpServerRequest> to serve request`:
+The server uses an `Observable<HttpServerRequest>` to serve request:
 
-link:src/main/java/io/vertx/example/rx/http/simple/Server.java[Java simple HTTP server]
+link:src/main/java/io/vertx/example/rx/http/simple/Server.java[RxJava simple HTTP server]
 
 The client uses an `Observable<HttpClientRequest` and applies `flatMap` to get a `Observable<Buffer>`
 
@@ -29,18 +29,18 @@ with the http client response:
 * `flatMap` transforms the `Observable<HttpClientResponse>` -> `Observable<Buffer>`
 * `reduce` merge all response buffers in a single buffer
 * `map` transform the buffer to a string
-* subscribe delivers the response content
+* `subscribe` delivers the response content
 
 link:src/main/java/io/vertx/example/rx/http/reduce/Client.java[RxJava reduce HTTP client]
 
 === Zip
 
 A variation of the _simple_ example with two client requests mapped to an `Observable<JsonObject>`
- and then zipped in a single json object.
+ and then _zipped_ in a single json object.
 
 The main interest is to get the final result when the two responses are delivered.
 
-link:src/main/java/io/vertx/example/rx/http/zip/Client.java[Java zip HTTP client]
+link:src/main/java/io/vertx/example/rx/http/zip/Client.java[RxJava zip HTTP client]
 
 === Unmarshalling
 
@@ -65,11 +65,14 @@ link:src/main/java/io/vertx/example/rx/eventbus/pubsub/Sender.java[RxJava event 
 The example Sender sends two messages over the event bus and wait for replies, the
 _zip_ operation is applied to deliver a single reply when the two replies are received.
 
+link:src/main/java/io/vertx/example/rx/eventbus/zipreplies/Receiver.java[RxJava zipreplies eventbus receiver]
+link:src/main/java/io/vertx/example/rx/eventbus/zipreplies/Sender.java[RxJava zipreplies eventbus sender]
+
 == RxJava Database examples
 
 === Jdbc example
 
-An example showing the Jdbc Service rxified api, after the client connected to the database, it chains
+An example showing the Jdbc Service Rxified api, after the client connected to the database, it chains
 operations via the `flatMap` operation and then subscribes to the result.
 
 link:src/main/java/io/vertx/example/rx/database/jdbc/Client.java[RxJava jdbc client]
