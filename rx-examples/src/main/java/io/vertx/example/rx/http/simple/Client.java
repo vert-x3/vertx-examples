@@ -3,11 +3,13 @@ package io.vertx.example.rx.http.simple;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
+import io.vertx.rxjava.core.buffer.Buffer;
 import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientRequest;
+import io.vertx.rxjava.core.http.HttpClientResponse;
 
 /*
- * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class Client extends AbstractVerticle {
 
@@ -20,12 +22,13 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
     HttpClientRequest req = client.request(HttpMethod.GET, 8080, "localhost", "/");
-    req.toObservable().subscribe(resp -> {
-      System.out.println("Got response " + resp.statusCode());
-      resp.bodyHandler(body -> {
-        System.out.println("Got data " + body.toString("ISO-8859-1"));
-      });
-    });
+    Buffer content = Buffer.buffer();
+    req.toObservable().
+        flatMap(HttpClientResponse::toObservable).
+        subscribe(
+            content::appendBuffer,
+            Throwable::printStackTrace,
+            () -> System.out.println("Server response " + content.toString("UTF-8")));
     req.end();
   }
 }
