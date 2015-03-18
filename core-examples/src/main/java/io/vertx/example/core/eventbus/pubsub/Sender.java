@@ -1,7 +1,7 @@
 package io.vertx.example.core.eventbus.pubsub;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.eventbus.EventBus;
+import io.vertx.rxjava.core.AbstractVerticle;
+import io.vertx.rxjava.core.eventbus.EventBus;
 import io.vertx.example.util.Runner;
 
 /*
