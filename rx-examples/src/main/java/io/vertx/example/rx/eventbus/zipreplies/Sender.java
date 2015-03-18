@@ -28,7 +28,9 @@ public class Sender extends AbstractVerticle {
       Observable<Message<Integer>> reply2 = eb.<Integer>sendObservable("heatsensor2", "ping");
 
       // Zip responses to receive both at the same time
-      reply1.zipWith(reply2, (msg1, msg2) -> new int[]{msg1.body(),msg2.body()}).subscribe(heats -> {
+      Observable<int[]> reply = reply1.zipWith(reply2, (msg1, msg2) -> new int[]{msg1.body(), msg2.body()});
+
+      reply.subscribe(heats -> {
 
         // Print highest temp
         if (heats[0] > heats[1]) {
