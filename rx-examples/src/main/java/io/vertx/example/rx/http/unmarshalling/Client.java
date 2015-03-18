@@ -1,9 +1,8 @@
-package io.vertx.example.rx.http.simple;
+package io.vertx.example.rx.http.unmarshalling;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
-import io.vertx.rxjava.core.buffer.Buffer;
 import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientRequest;
 import io.vertx.rxjava.core.http.HttpClientResponse;
@@ -18,25 +17,28 @@ public class Client extends AbstractVerticle {
     Runner.runExample(Client.class);
   }
 
+  // Unmarshalled response from server
+  static class Data {
+
+    public String message;
+
+  }
+
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
-    HttpClientRequest req = client.request(HttpMethod.GET, 8080, "localhost", "/");
-    Buffer content = Buffer.buffer();
-    req.toObservable().
 
-        // -> Observable<HttpClientResponse>
+    HttpClientRequest req = client.request(HttpMethod.GET, 8080, "localhost", "/");
+    req.toObservable().
         flatMap(HttpClientResponse::toObservable).
 
+        // Unmarshall the response to the Data object via Jackon
+        lift(io.vertx.rxjava.core.RxHelper.unmarshaller(Data.class)).
+
         subscribe(
-
-            // Append buffers
-            content::appendBuffer,
-
-            Throwable::printStackTrace,
-
-            // Done
-            () -> System.out.println("Server response " + content.toString("UTF-8")));
+            data -> {
+              System.out.println("Got response " + data.message);
+            });
 
     // End request
     req.end();
