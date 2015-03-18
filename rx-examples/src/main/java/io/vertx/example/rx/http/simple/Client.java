@@ -21,7 +21,6 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
     HttpClientRequest req = client.request(HttpMethod.GET, 8080, "localhost", "/");
-    Buffer content = Buffer.buffer();
     req.toObservable().
 
         // Status code check and -> Observable<Buffer>
@@ -32,15 +31,11 @@ public class Client extends AbstractVerticle {
           return resp.toObservable();
         }).
 
-        subscribe(
+        // Concat all buffers
+        reduce(Buffer::appendBuffer).
 
-            // Append buffers
-            content::appendBuffer,
-
-            Throwable::printStackTrace,
-
-            // Done
-            () -> System.out.println("Server response " + content.toString("UTF-8")));
+        // Done
+        subscribe(buffer -> System.out.println("Server response " + buffer.toString("UTF-8")));
 
     // End request
     req.end();
