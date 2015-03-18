@@ -6,7 +6,6 @@ import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.buffer.Buffer;
 import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientRequest;
-import io.vertx.rxjava.core.http.HttpClientResponse;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -25,8 +24,13 @@ public class Client extends AbstractVerticle {
     Buffer content = Buffer.buffer();
     req.toObservable().
 
-        // -> Observable<HttpClientResponse>
-        flatMap(HttpClientResponse::toObservable).
+        // Status code check and -> Observable<Buffer>
+        flatMap(resp -> {
+          if (resp.statusCode() != 200) {
+            throw new RuntimeException("Wrong status code " + resp.statusCode());
+          }
+          return resp.toObservable();
+        }).
 
         subscribe(
 
