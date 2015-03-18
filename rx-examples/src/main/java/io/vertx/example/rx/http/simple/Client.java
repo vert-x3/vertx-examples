@@ -30,9 +30,7 @@ public class Client extends AbstractVerticle {
           return resp.toObservable();
         }).
 
-        map(buffer -> buffer.toString("UTF-8")).
-
-        subscribe(data -> System.out.println("Server content " + data));
+        subscribe(data -> System.out.println("Server content " + data.toString("UTF-8")));
 
     // End request
     req.end();
