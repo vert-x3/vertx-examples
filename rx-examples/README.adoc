@@ -1,0 +1,75 @@
+= Vert.x RxJava extension examples
+
+Here you will find examples demonstrating Vert.x RxJava extension in action.
+
+Vert.x RxJava extension provides Rxified version of the Vert.x APIs. Please consult the Vert.x RxJava manual
+for detailed documentation on Vert.x core.
+
+== RxJava Http examples
+
+These examples shows the Rxified HTTP api.
+
+=== Simple
+
+A simple http server and client.
+
+The server uses an `Observable<HttpServerRequest> to serve request`:
+
+link:src/main/java/io/vertx/example/rx/http/simple/Server.java[Java simple HTTP server]
+
+The client uses an `Observable<HttpClientRequest` and applies `flatMap` to get a `Observable<Buffer>`
+
+link:src/main/java/io/vertx/example/rx/http/simple/Client.java[RxJava simple HTTP client]
+
+=== Reduce
+
+Same as _simple_ example however the client applies several operations on this observable to end
+with the http client response:
+
+* `flatMap` transforms the `Observable<HttpClientResponse>` -> `Observable<Buffer>`
+* `reduce` merge all response buffers in a single buffer
+* `map` transform the buffer to a string
+* subscribe delivers the response content
+
+link:src/main/java/io/vertx/example/rx/http/reduce/Client.java[RxJava reduce HTTP client]
+
+=== Zip
+
+A variation of the _simple_ example with two client requests mapped to an `Observable<JsonObject>`
+ and then zipped in a single json object.
+
+The main interest is to get the final result when the two responses are delivered.
+
+link:src/main/java/io/vertx/example/rx/http/zip/Client.java[Java zip HTTP client]
+
+=== Unmarshalling
+
+The http client json response is unmarshalled to a Java object: the `RxHelper.unmarshaller` static method
+ creates an Rx operator applied to the response via the `lift`.
+
+link:src/main/java/io/vertx/example/rx/http/unmarshalling/Client.java[RxJava unmarshalling HTTP client]
+
+== RxJava event bus examples
+
+The event bus provides a natural fit with the Rx api.
+
+=== Publish / Subscribe
+
+A reinterpreation of the core publish / subscribe example with the subscriber using the Rx api.
+
+link:src/main/java/io/vertx/example/rx/eventbus/pubsub/Receiver.java[RxJava event bus pubsub receiver]
+link:src/main/java/io/vertx/example/rx/eventbus/pubsub/Sender.java[RxJava event bus pubsub sender]
+
+=== Zip replies
+
+The example Sender sends two messages over the event bus and wait for replies, the
+_zip_ operation is applied to deliver a single reply when the two replies are received.
+
+== RxJava Database examples
+
+=== Jdbc example
+
+An example showing the Jdbc Service rxified api, after the client connected to the database, it chains
+operations via the `flatMap` operation and then subscribes to the result.
+
+link:src/main/java/io/vertx/example/rx/database/jdbc/Client.java[RxJava jdbc client]
