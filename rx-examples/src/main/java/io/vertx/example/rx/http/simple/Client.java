@@ -3,7 +3,6 @@ package io.vertx.example.rx.http.simple;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
-import io.vertx.rxjava.core.buffer.Buffer;
 import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientRequest;
 
@@ -31,11 +30,9 @@ public class Client extends AbstractVerticle {
           return resp.toObservable();
         }).
 
-        // Concat all buffers
-        reduce(Buffer::appendBuffer).
+        map(buffer -> buffer.toString("UTF-8")).
 
-        // Done
-        subscribe(buffer -> System.out.println("Server response " + buffer.toString("UTF-8")));
+        subscribe(data -> System.out.println("Server content " + data));
 
     // End request
     req.end();
