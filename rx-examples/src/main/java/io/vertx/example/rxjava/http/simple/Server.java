@@ -1,4 +1,4 @@
-package io.vertx.example.rx.http.simple;
+package io.vertx.example.rxjava.http.simple;
 
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;

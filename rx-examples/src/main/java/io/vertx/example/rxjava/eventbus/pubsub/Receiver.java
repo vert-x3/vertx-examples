@@ -1,13 +1,11 @@
-package io.vertx.example.rx.eventbus.zipreplies;
+package io.vertx.example.rxjava.eventbus.pubsub;
 
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.eventbus.EventBus;
 
-import java.util.Random;
-
 /*
- * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
+ * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Receiver extends AbstractVerticle {
 
@@ -20,19 +18,12 @@ public class Receiver extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    Random random1 = new Random();
     EventBus eb = vertx.eventBus();
 
-    eb.consumer("heatsensor1").
+    eb.consumer("news-feed").
         toObservable().
-        subscribe(message -> {
-          message.reply(9 + random1.nextInt(5));
-        });
+        subscribe(message -> System.out.println("Received news: " + message.body()));
 
-    eb.consumer("heatsensor2").
-        toObservable().
-        subscribe(message -> {
-          message.reply(10 + random1.nextInt(3));
-        });
+    System.out.println("Ready!");
   }
 }

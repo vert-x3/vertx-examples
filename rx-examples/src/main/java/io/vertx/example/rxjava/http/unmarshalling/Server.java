@@ -1,12 +1,11 @@
-package io.vertx.example.rx.http.zip;
+package io.vertx.example.rxjava.http.unmarshalling;
 
-import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.http.HttpServer;
 
 /*
- * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
+ * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Server extends AbstractVerticle {
 
@@ -19,7 +18,7 @@ public class Server extends AbstractVerticle {
   public void start() throws Exception {
     HttpServer server = vertx.createHttpServer();
     server.requestStream().toObservable().subscribe(req -> {
-      req.response().putHeader("content-type", "application/json").end(new JsonObject().put("time", System.currentTimeMillis()).toString());
+      req.response().putHeader("content-type", "application/json").end("{\"message\":\"Hello World\"}");
     });
     server.listen(8080);
   }

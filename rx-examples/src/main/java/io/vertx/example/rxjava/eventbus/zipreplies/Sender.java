@@ -1,4 +1,4 @@
-package io.vertx.example.rx.eventbus.zipreplies;
+package io.vertx.example.rxjava.eventbus.zipreplies;
 
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;

@@ -1,4 +1,4 @@
-package io.vertx.example.rx.eventbus.pubsub;
+package io.vertx.example.rxjava.eventbus.pubsub;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;

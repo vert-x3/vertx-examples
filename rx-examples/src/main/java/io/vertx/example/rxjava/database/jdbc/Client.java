@@ -1,4 +1,4 @@
-package io.vertx.example.rx.database.jdbc;
+package io.vertx.example.rxjava.database.jdbc;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.JsonObject;

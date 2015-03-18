@@ -1,4 +1,4 @@
-package io.vertx.example.rx.http.reduce;
+package io.vertx.example.rxjava.http.reduce;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
