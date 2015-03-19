@@ -26,7 +26,7 @@ public class Client extends AbstractVerticle {
         .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
         .put("driver_class", "org.hsqldb.jdbcDriver"));
 
-    vertx.deployVerticle("service:io.vertx:jdbc-service", options, res -> {
+    vertx.deployVerticle("service:io.vertx:vertx-jdbc-service", options, res -> {
       if (res.succeeded()) {
 
         // Create a proxy
