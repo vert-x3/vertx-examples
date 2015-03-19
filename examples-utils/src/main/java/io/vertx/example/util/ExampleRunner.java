@@ -22,7 +22,6 @@ public class ExampleRunner {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    System.out.println("scriptDir is " + scriptDir);
     ExampleRunner.runExample(scriptDir, scriptDir + "/" + file.getName(), clustered);
   }
 
