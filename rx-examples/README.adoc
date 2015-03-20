@@ -89,8 +89,16 @@ link:src/main/java/io/vertx/example/rxjava/database/mongo/Client.java[RxJava Mon
 
 Vertx for RxJava provides schedulers for performing delayed, periodic actions.
 
+=== Periodic events
+
+RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second
+periodic observable scheduled on Vertx event loop.
+
+link:src/main/java/io/vertx/example/rxjava/scheduler/timer/Periodic.java[Periodic scheduled action]
+
 === Blocking action example
 
-When an Observable operation is blocking, a blocking Vertx scheduler can be used to perform the action:
+When an Observable operation is blocking, a blocking Vertx scheduler can be used to perform the action, this
+examples shows how blocking operation can be scheduled on Vert.x
 
 link:src/main/java/io/vertx/example/rxjava/scheduler/blocking/Scheduled.java[Blocking scheduled action]
