@@ -84,3 +84,13 @@ An example showing the Mongo Service Rxified api, after the client connected to 
 in the _onComplete_.
 
 link:src/main/java/io/vertx/example/rxjava/database/mongo/Client.java[RxJava Mongo client]
+
+== Scheduler examples
+
+Vertx for RxJava provides schedulers for performing delayed, periodic actions.
+
+=== Blocking action example
+
+When an Observable operation is blocking, a blocking Vertx scheduler can be used to perform the action:
+
+link:src/main/java/io/vertx/example/rxjava/scheduler/blocking/Scheduled.java[Blocking scheduled action]
