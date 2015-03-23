@@ -60,6 +60,12 @@ A reinterpreation of the core publish / subscribe example with the subscriber us
 link:src/main/java/io/vertx/example/rxjava/eventbus/pubsub/Receiver.java[RxJava event bus pubsub receiver]
 link:src/main/java/io/vertx/example/rxjava/eventbus/pubsub/Sender.java[RxJava event bus pubsub sender]
 
+=== Ping / Pong
+
+An example of sending, receiving and replying to messages using the Rx api.
+
+link:src/main/java/io/vertx/example/rxjava/eventbus/pingpong/PingPong.java[RxJava simple ping-pong ]
+
 === Zip replies
 
 The example Sender sends two messages over the event bus and wait for replies, the
