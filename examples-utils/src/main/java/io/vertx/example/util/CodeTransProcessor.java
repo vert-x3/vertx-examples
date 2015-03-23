@@ -55,6 +55,7 @@ public class CodeTransProcessor extends AbstractProcessor {
   private CodeTranslator translator;
   private List<Lang> langs;
   private Set<File> folders = new HashSet<>(); // The copied folders so we don't do the job twice
+  private PrintWriter log;
 
   @Override
   public Set<String> getSupportedOptions() {
@@ -75,6 +76,13 @@ public class CodeTransProcessor extends AbstractProcessor {
     }
     translator = new CodeTranslator(processingEnv);
     langs = Arrays.asList(new JavaScriptLang(), new GroovyLang());
+  }
+
+  private PrintWriter getLogger() throws Exception {
+    if (log == null) {
+      log = new PrintWriter(new FileWriter(new File(outputDir, "codetrans.log"), false), true);
+    }
+    return log;
   }
 
   private void copyDirRec(File srcFolder, File dstFolder, PrintWriter log) throws Exception {
@@ -108,9 +116,16 @@ public class CodeTransProcessor extends AbstractProcessor {
 
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    if (roundEnv.processingOver()) {
+      if (log != null) {
+        log.close();
+      }
+      return false;
+    }
     if (outputDir != null && (outputDir.exists() || outputDir.mkdirs())) {
       List<ExecutableElement> methodElts = new ArrayList<>();
-      try (PrintWriter log = new PrintWriter(new FileWriter(new File(outputDir, "codetrans.log"), true), true)) {
+      try {
+        PrintWriter log = getLogger();
 
         // Process all verticles automatically
         TypeMirror verticleType = processingEnv.getElementUtils().getTypeElement(Verticle.class.getName()).asType();
@@ -150,7 +165,7 @@ public class CodeTransProcessor extends AbstractProcessor {
               try {
                 String translation = translator.translate(methodElt, lang);
                 File f = new File(dstFolder, fileName + "." + lang.getExtension());
-                Files.write(f.toPath(), translation.getBytes(), StandardOpenOption.CREATE);
+                Files.write(f.toPath(), translation.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                 log.println("Generated " + f.getAbsolutePath());
                 copyDirRec(srcFolder, dstFolder, log);
               } catch (Exception e) {
@@ -160,7 +175,6 @@ public class CodeTransProcessor extends AbstractProcessor {
             }
           }
         }
-
       } catch (Exception e) {
         e.printStackTrace();;
       }
