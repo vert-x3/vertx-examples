@@ -125,9 +125,9 @@ When you get the index page in your browser you should see it update every secon
 This example demonstrates 2-way communication between the client and the server using the event bus bridge
 and web sockets. 
 
-The link:src/main/java/io/vertx/example/apex/realtime/ChatVerticle.java[Java real-time chat example]
+The link:src/main/java/io/vertx/example/apex/chat/Server.java[Java real-time chat example]
 
-The link:src/main/java/io/vertx/example/apex/realtime/webroot/chat.html[chat.html] file 
+The link:src/main/java/io/vertx/example/apex/chat/webroot/index.html[index.html] file
 bootstraps the vertxbus.js bridge from the client and uses jQuery to handle manipulating
 the DOM and registering event handlers.
 
@@ -138,6 +138,9 @@ will accept the message, prepend it with a timestamp and publish back to all reg
 listeners (e.g. All connected clients). Take note of the addInboundPermitted and addOutboundPermitted
 settings on the BridgeOptions object to be sure that you authorize the correct messages
 to traverse the event bus bridge in the appropriate direction.
+
+To run the example, run `Server.java` in your IDE by right clicking, or at the command line, and point your browser
+at link:http://localhost:8080
 
 == Auth example
 
