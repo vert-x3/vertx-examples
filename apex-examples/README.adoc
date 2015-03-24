@@ -120,6 +120,25 @@ timer that fires every second and sends a message to the `news-feed` address.
 
 When you get the index page in your browser you should see it update every second as it receives a message.
 
+== Real-time - chat service
+
+This example demonstrates 2-way communication between the client and the server using the event bus bridge
+and web sockets. 
+
+The link:src/main/java/io/vertx/example/apex/realtime/ChatVerticle.java[Java real-time chat example]
+
+The link:src/main/java/io/vertx/example/apex/realtime/webroot/chat.html[chat.html] file 
+bootstraps the vertxbus.js bridge from the client and uses jQuery to handle manipulating
+the DOM and registering event handlers.
+
+When you load the index page in a browser, you should see a div for chat messages and 
+an input field where you can enter your own messages. Typing in the input field and 
+pressing ENTER will cause the input to be sent via the event bus to the server. The server
+will accept the message, prepend it with a timestamp and publish back to all registered 
+listeners (e.g. All connected clients). Take note of the addInboundPermitted and addOutboundPermitted
+settings on the BridgeOptions object to be sure that you authorize the correct messages
+to traverse the event bus bridge in the appropriate direction.
+
 == Auth example
 
 This example shows a basic static web-site that contains both public pages and pages that are only accessible to

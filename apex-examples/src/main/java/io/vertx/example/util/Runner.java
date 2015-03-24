@@ -41,9 +41,13 @@ public class Runner {
   }
 
   static class JSRealtimeRunner {
+    public static void main(String[] args) { Runner.runJSExample("io/vertx/example/apex/realtime/server.js"); }
+  }
+
+  static class JSRealtimeChatRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/apex/realtime/server.js");
-    }
+            Runner.runJSExample("io/vertx/example/apex/realtime/chat.js");
+        }
   }
 
   static class JSSessionsRunner {
@@ -78,6 +82,10 @@ public class Runner {
     public static void main(String[] args) {
       Runner.runGroovyExample("io/vertx/example/apex/helloworld/server.groovy");
     }
+  }
+
+  static class GroovyRealtimeChatRunner {
+    public static void main(String[] args) { Runner.runGroovyExample("io/vertx/example/apex/realtime/chat.groovy"); }
   }
 
   static class GroovyRealtimeRunner {
