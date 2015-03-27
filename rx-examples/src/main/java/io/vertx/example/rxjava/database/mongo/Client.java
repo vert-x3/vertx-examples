@@ -25,9 +25,9 @@ public class Client extends AbstractVerticle {
         .put("connection_string", "mongodb://localhost:27018")
         .put("db_name", "my_DB"));
 
-    vertx.deployVerticle("service:io.vertx:vertx-mongo-embedded-db", db -> {
+    vertx.deployVerticle("service:io.vertx.mongo-embedded-db", db -> {
       if (db.succeeded()) {
-        vertx.deployVerticle("service:io.vertx:vertx-mongo-service", options, service -> {
+        vertx.deployVerticle("service:io.vertx.mongo-service", options, service -> {
           if (service.succeeded()) {
 
             // Create the service proxy
