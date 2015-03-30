@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>apex-examples</artifactId>
+  <artifactId>metrics-examples</artifactId>
 
   <dependencies>
 
@@ -22,19 +22,6 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-apex</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.jknack</groupId>
-      <artifactId>handlebars</artifactId>
-      <version>1.3.0</version>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-auth-service</artifactId>
       <version>${project.version}</version>
     </dependency>
 

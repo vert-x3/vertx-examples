@@ -13,10 +13,13 @@ public class ExampleRunner {
 
 
   public static void runJavaExample(String prefix, Class clazz, boolean clustered) {
-    String exampleDir = prefix + clazz.getPackage().getName().replace(".", "/");
-    runExample(exampleDir, clazz.getName(), clustered);
+    runJavaExample(prefix, clazz, new VertxOptions().setClustered(clustered));
   }
 
+  public static void runJavaExample(String prefix, Class clazz, VertxOptions options) {
+    String exampleDir = prefix + clazz.getPackage().getName().replace(".", "/");
+    runExample(exampleDir, clazz.getName(), options);
+  }
 
   public static void runJSExample(String prefix, String scriptName, boolean clustered) {
     File file = new File(scriptName);
@@ -26,6 +29,10 @@ public class ExampleRunner {
   }
 
   public static void runExample(String exampleDir, String verticleID, boolean clustered) {
+    runExample(exampleDir, verticleID, new VertxOptions().setClustered(clustered));
+  }
+
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options) {
     System.setProperty("vertx.cwd", exampleDir);
     Consumer<Vertx> runner = vertx -> {
       try {
@@ -34,8 +41,8 @@ public class ExampleRunner {
         t.printStackTrace();
       }
     };
-    if (clustered) {
-      Vertx.clusteredVertx(new VertxOptions().setClustered(true), res -> {
+    if (options.isClustered()) {
+      Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();
           runner.accept(vertx);
@@ -44,7 +51,7 @@ public class ExampleRunner {
         }
       });
     } else {
-      Vertx vertx = Vertx.vertx();
+      Vertx vertx = Vertx.vertx(options);
       runner.accept(vertx);
     }
   }

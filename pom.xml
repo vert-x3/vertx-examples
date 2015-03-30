@@ -20,6 +20,7 @@
     <module>rx-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
+    <module>metrics-examples</module>
   </modules>
 
 
