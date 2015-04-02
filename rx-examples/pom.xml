@@ -22,6 +22,12 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
+      <artifactId>vertx-apex</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
       <artifactId>vertx-hazelcast</artifactId>
       <version>${project.version}</version>
     </dependency>
