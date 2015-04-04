@@ -52,7 +52,7 @@
                 var x = (new Date()).getTime(); // current time
                 var sent = metrics["messages.sent"];
                 if (sent != null) {
-                  sentSeries.addPoint([x, sent.throughput], false, true);
+                  sentSeries.addPoint([x, sent.oneSecondRate], false, true);
                 }
                 that.redraw();
               });

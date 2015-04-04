@@ -29,7 +29,6 @@ import io.vertx.ext.apex.handler.sockjs.SockJSHandler;
 import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
 import io.vertx.ext.dropwizard.MetricsService;
 
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -69,8 +68,8 @@ public class Dashboard extends AbstractVerticle {
 
     // Send a metrics events every second
     vertx.setPeriodic(1000, t -> {
-      Map metrics = service.getMetricsSnapshot(vertx.eventBus());
-      vertx.eventBus().publish("metrics", new JsonObject(metrics));
+      JsonObject metrics = service.getMetricsSnapshot(vertx.eventBus());
+      vertx.eventBus().publish("metrics", metrics);
     });
 
     // Send some messages
