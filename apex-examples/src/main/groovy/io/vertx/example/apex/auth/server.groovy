@@ -3,7 +3,7 @@ import io.vertx.groovy.ext.apex.handler.CookieHandler
 import io.vertx.groovy.ext.apex.handler.SessionHandler
 import io.vertx.groovy.ext.apex.sstore.LocalSessionStore
 import io.vertx.groovy.ext.apex.handler.BodyHandler
-import io.vertx.groovy.ext.auth.shiro.ShiroAuthService
+import io.vertx.groovy.ext.auth.shiro.ShiroAuthProvider
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType
 import io.vertx.groovy.ext.apex.handler.RedirectAuthHandler
 import io.vertx.groovy.ext.apex.handler.StaticHandler
@@ -17,16 +17,16 @@ router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)))
 router.route().handler(BodyHandler.create())
 
 // Simple auth service which uses a properties file for user/role info
-def authService = ShiroAuthService.create(vertx, ShiroAuthRealmType.PROPERTIES, [:])
+def authProvider = ShiroAuthProvider.create(vertx, ShiroAuthRealmType.PROPERTIES, [:])
 
 // Any requests to URI starting '/private/' require login
-router.route("/private/*").handler(RedirectAuthHandler.create(authService, "/loginpage.html"))
+router.route("/private/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"))
 
 // Serve the static private pages from directory 'private'
 router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"))
 
 // Handles the actual login
-router.route("/loginhandler").handler(FormLoginHandler.create(authService))
+router.route("/loginhandler").handler(FormLoginHandler.create(authProvider))
 
 // Implement logout
 router.route("/logout").handler({ context ->
