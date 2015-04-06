@@ -26,58 +26,33 @@ public class MyJUnitTest {
   @Before
   public void before(TestContext context) {
     vertx = Vertx.vertx();
-    Async async = context.async();
     server =
-      vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).listen(8080, res -> {
-        if (res.succeeded()) {
-          async.complete();
-        } else {
-          context.fail();
-        }
-      });
+      vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).
+          listen(8080, context.asyncAssertSuccess());
   }
 
   @After
   public void after(TestContext context) {
-    Async async = context.async();
-    vertx.close(ar -> {
-      if (ar.succeeded()) {
-        async.complete();
-      } else if (ar.failed()) {
-        context.fail();
-      }
-    });
+    vertx.close(context.asyncAssertSuccess());
   }
 
   @Test
-  public void test1(TestContext test) {
+  public void test1(TestContext context) {
     // Send a request and get a response
     HttpClient client = vertx.createHttpClient();
-    Async async = test.async();
+    Async async = context.async();
     client.getNow(8080, "localhost", "/", resp -> {
-      resp.bodyHandler(body -> test.assertEquals("foo", body.toString()));
+      resp.bodyHandler(body -> context.assertEquals("foo", body.toString()));
       client.close();
       async.complete();
     });
   }
 
   @Test
-  public void test2(TestContext test) {
+  public void test2(TestContext context) {
     // Deploy and undeploy a verticle
-    Async async = test.async();
-    vertx.deployVerticle(SomeVerticle.class.getName(), res -> {
-      if (res.succeeded()) {
-        String deploymentID = res.result();
-        vertx.undeploy(deploymentID, res2 -> {
-          if (res2.succeeded()) {
-            async.complete();
-          } else {
-            test.fail();
-          }
-        });
-      } else {
-        test.fail();
-      }
-    });
+    vertx.deployVerticle(SomeVerticle.class.getName(), context.asyncAssertSuccess(deploymentID -> {
+      vertx.undeploy(deploymentID, context.asyncAssertSuccess());
+    }));
   }
 }
