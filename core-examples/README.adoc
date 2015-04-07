@@ -145,8 +145,10 @@ whatever it receives on the websocket.
 
 There's also a client which connects to the server, sends some data and logs out what it receives.
 
-link:src/main/java/io/vertx/example/core/http/websockets/WebSocketsServer.java[Java WebSockets server example]
-link:src/main/java/io/vertx/example/core/http/websockets/WebSocketsClient.java[Java WebSockets client example]
+link:src/main/java/io/vertx/example/core/http/websockets/Server.java[Java WebSockets server example]
+link:src/main/java/io/vertx/example/core/http/websockets/Client.java[Java WebSockets client example]
+
+link:src/main/java/io/vertx/example/core/http/websockets/ws.html[Javascript WebSockets client example]
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
