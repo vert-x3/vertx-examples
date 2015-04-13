@@ -21,6 +21,7 @@
     <module>examples-utils</module>
     <module>unit-examples</module>
     <module>metrics-examples</module>
+	<module>mongo-examples</module>
   </modules>
 
 
