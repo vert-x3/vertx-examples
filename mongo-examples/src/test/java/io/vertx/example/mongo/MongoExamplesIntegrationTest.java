@@ -44,7 +44,7 @@ public class MongoExamplesIntegrationTest {
     JsonObject object = new JsonObject().put("title", "book title");
     this.mongoExamples.save(result -> {
       if (result.succeeded()) {
-        this.mongoService.find("books", object, bookResult -> context.assertEquals(object, bookResult.result().get(0)));
+        this.mongoService.find("books", object, bookResult -> context.assertEquals(object.getString("title"), bookResult.result().get(0).getString("title")));
         async.complete();
       } else {
         context.fail();
