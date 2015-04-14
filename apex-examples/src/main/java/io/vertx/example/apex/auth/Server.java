@@ -6,9 +6,9 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.apex.Router;
 import io.vertx.ext.apex.handler.*;
 import io.vertx.ext.apex.sstore.LocalSessionStore;
-import io.vertx.ext.auth.AuthService;
+import io.vertx.ext.auth.AuthProvider;
+import io.vertx.ext.auth.shiro.ShiroAuthProvider;
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
-import io.vertx.ext.auth.shiro.ShiroAuthService;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -31,16 +31,16 @@ public class Server extends AbstractVerticle {
     router.route().handler(BodyHandler.create());
 
     // Simple auth service which uses a properties file for user/role info
-    AuthService authService = ShiroAuthService.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
+    AuthProvider authProvider = ShiroAuthProvider.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
 
     // Any requests to URI starting '/private/' require login
-    router.route("/private/*").handler(RedirectAuthHandler.create(authService, "/loginpage.html"));
+    router.route("/private/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
 
     // Serve the static private pages from directory 'private'
     router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"));
 
     // Handles the actual login
-    router.route("/loginhandler").handler(FormLoginHandler.create(authService));
+    router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
 
     // Implement logout
     router.route("/logout").handler(context -> {
