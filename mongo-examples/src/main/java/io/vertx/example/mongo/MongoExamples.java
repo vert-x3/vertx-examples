@@ -47,6 +47,7 @@ public class MongoExamples {
    * @param handler
    */
   public void saveWithId(Handler<AsyncResult<String>> handler) {
+	final JsonObject book = new JsonObject(this.book.toString());
     this.mongoService.save("books", book, result -> {
       if (result.succeeded()) {
         String id = result.result();
