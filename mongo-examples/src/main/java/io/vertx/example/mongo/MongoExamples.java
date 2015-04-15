@@ -5,9 +5,12 @@ import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoService;
 
+import java.util.List;
+
 public class MongoExamples {
   private MongoService mongoService;
   private JsonObject book = new JsonObject().put("title", "book title");
+  private JsonObject anotherBook = new JsonObject().put("title", "book title2");
 
   /**
    * Creates a new MongoExamples instance.
@@ -47,7 +50,7 @@ public class MongoExamples {
    * @param handler
    */
   public void saveWithId(Handler<AsyncResult<String>> handler) {
-	final JsonObject book = new JsonObject(this.book.toString());
+    final JsonObject book = new JsonObject(this.book.toString());
     this.mongoService.save("books", book, result -> {
       if (result.succeeded()) {
         String id = result.result();
@@ -79,6 +82,8 @@ public class MongoExamples {
   }
 
   /**
+   * Insert an existing document, this fails.
+   * 
    * @param handler
    */
   public void insertWithId(Handler<AsyncResult<String>> handler) {
@@ -93,4 +98,27 @@ public class MongoExamples {
     });
   }
 
+  public void replace(Handler<AsyncResult<Void>> handler) {
+    mongoService.replace("books", book, anotherBook, result -> {
+      if (result.succeeded()) {
+        System.out.println("Book replaced !");
+      } else {
+        result.cause().printStackTrace();
+      }
+      handler.handle(result);
+    });
+  }
+
+  public void find(Handler<AsyncResult<List<JsonObject>>> handler) {
+    this.mongoService.find("books", new JsonObject(), result -> {
+      if (result.succeeded()) {
+        for (JsonObject json : result.result()) {
+          System.out.println(json.encodePrettily());
+        }
+      } else {
+        result.cause().printStackTrace();
+      }
+      handler.handle(result);
+    });
+  }
 }
