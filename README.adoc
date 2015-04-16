@@ -118,6 +118,10 @@ The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x
 
 ==== Mongo DB examples
 
+Vertx Mongo Service is a Vert.x service used to interact with MongoDB server instances from Vert.x applications.
+
+The link:mongo-examples/README.adoc[Vert.x Mongo Service examples] shows how to use the Vert.x Mongo Service.
+
 ==== JDBC examples
 
 TODO
