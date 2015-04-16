@@ -17,14 +17,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * @author Erwin de Gier
+ *
+ */
 @RunWith(VertxUnitRunner.class)
-public class MongoExamplesTest {
+public class MongoExamplesTest extends MongoTestBase {
 
   private static Vertx vertx;
-  private static String temp_db_name = "test_db_"+UUID.randomUUID();
+  private static String temp_db_name = "test_db_" + UUID.randomUUID();
   private MongoExamples mongoExamples;
   private MongoService mongoService;
-  
 
   @BeforeClass
   public static void setUpStatic(TestContext context) {
@@ -40,13 +43,12 @@ public class MongoExamplesTest {
       }
     });
   }
-  
+
   @Before
-  public void setUpp(TestContext testContext){
+  public void setUp(TestContext testContext) {
     this.mongoService = MongoService.createEventBusProxy(vertx, "mongo-address");
     this.mongoExamples = new MongoExamples(mongoService);
   }
-  
 
   @Test
   public void testSave(TestContext context) {
@@ -103,24 +105,26 @@ public class MongoExamplesTest {
       }
     });
   }
-  
+
   @Test
   public void testReplace(TestContext context) {
     JsonObject object = new JsonObject().put("title", "book title2");
     Async async = context.async();
-    this.mongoExamples.save(saveResult -> {
-      this.mongoExamples.replace(result -> {
-        if (result.succeeded()) {
-          this.mongoService.find("books", object, bookResult -> context.assertEquals(object.getString("title"), bookResult.result().get(0).getString("title")));
-          async.complete();
-        } else {
-          context.fail();
-        }
-      });  
-    });
-    
+    this.mongoExamples
+        .save(saveResult -> {
+          this.mongoExamples.replace(result -> {
+            if (result.succeeded()) {
+              this.mongoService.find("books", object,
+                  bookResult -> context.assertEquals(object.getString("title"), bookResult.result().get(0).getString("title")));
+              async.complete();
+            } else {
+              context.fail();
+            }
+          });
+        });
+
   }
-  
+
   @Test
   public void testFind(TestContext context) {
     Async async = context.async();
@@ -132,19 +136,98 @@ public class MongoExamplesTest {
         } else {
           context.fail();
         }
-      });  
+      });
     });
-    
+  }
+
+  @Test
+  public void testFindOne(TestContext context) {
+    Async async = context.async();
+    this.mongoExamples.save(saveResult -> {
+      this.mongoExamples.findOne(result -> {
+        if (result.succeeded()) {
+          context.assertNull(result.result().getString("edition"));
+          async.complete();
+        } else {
+          context.fail();
+        }
+      });
+    });
+  }
+
+  @Test
+  public void testRemove(TestContext context) {
+    Async async = context.async();
+    this.mongoExamples.remove(removeResult -> {
+      this.mongoExamples.find(result -> {
+        if (result.succeeded()) {
+          context.assertEquals(0, result.result().size());
+          async.complete();
+        } else {
+          context.fail();
+        }
+      });
+    });
+  }
+
+  @Test
+  public void testRemoveOne(TestContext context) {
+    Async async = context.async();
+    this.mongoExamples.save(saveResult1 -> {
+      this.mongoExamples.save(saveResult2 -> {
+        this.mongoExamples.removeOne(removeResult -> {
+          this.mongoExamples.find(result -> {
+            if (result.succeeded()) {
+              context.assertTrue(result.result().size() >0);
+              async.complete();
+            } else {
+              context.fail();
+            }
+          });
+        });
+      });
+    });
+  }
+  
+  @Test
+  public void testCount(TestContext context) {
+    Async async = context.async();
+    this.mongoExamples.save(saveResult -> {
+      this.mongoExamples.count(result -> {
+        if (result.succeeded()) {
+          context.assertTrue(result.result() > 0);
+          async.complete();
+        } else {
+          context.fail();
+        }
+      });
+    });
+  }
+  
+  @Test
+  public void testCollections(TestContext context) {
+    Async async = context.async();
+    this.mongoExamples.createCollection(saveResult -> {
+      this.mongoExamples.getCollections(result -> {
+        if (result.succeeded()) {
+          context.assertTrue(result.result().size() > 0);
+          context.assertTrue(result.result().contains("mynewcollection"));
+          async.complete();
+        } else {
+          context.fail();
+        }
+      });
+    });
   }
 
   @AfterClass
   public static void tearDown(TestContext context) {
     Async async = context.async();
-    MongoService.createEventBusProxy(vertx,"mongo-address").runCommand(new JsonObject().put("dropDatabase", 1), res -> {
+    MongoService.createEventBusProxy(vertx, "mongo-address").runCommand(new JsonObject().put("dropDatabase", 1), res -> {
       vertx.close(ar -> {
         async.complete();
       });
     });
   }
-  
+
 }
