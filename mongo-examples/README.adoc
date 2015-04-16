@@ -30,6 +30,14 @@ After this you can create a MongoService instance as follows:
 MongoService mongoService = MongoService.createEventBusProxy(vertx, MONGO_ADDRESS);
 ----
 
+== MongoService examples
+
+The link:src/main/java/io/vertx/example/mongo/MongoExamples.java[MongoExamples] class shows the basic storing and quering examples
+
+== Mongo database commands examples
+
+The link:src/main/java/io/vertx/example/mongo/MongoDatabaseCommands.java[MongoDatabaseCommands] class shows the examples for running different MongoDB commands.
+
 
 
 

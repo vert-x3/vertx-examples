@@ -45,7 +45,7 @@ public class MongoExamplesTest extends MongoTestBase {
   }
 
   @Before
-  public void setUp(TestContext testContext) {
+  public void setUp(TestContext context) {
     this.mongoService = MongoService.createEventBusProxy(vertx, "mongo-address");
     this.mongoExamples = new MongoExamples(mongoService);
   }
@@ -178,7 +178,7 @@ public class MongoExamplesTest extends MongoTestBase {
         this.mongoExamples.removeOne(removeResult -> {
           this.mongoExamples.find(result -> {
             if (result.succeeded()) {
-              context.assertTrue(result.result().size() >0);
+              context.assertTrue(result.result().size() > 0);
               async.complete();
             } else {
               context.fail();
@@ -188,7 +188,7 @@ public class MongoExamplesTest extends MongoTestBase {
       });
     });
   }
-  
+
   @Test
   public void testCount(TestContext context) {
     Async async = context.async();
@@ -203,7 +203,7 @@ public class MongoExamplesTest extends MongoTestBase {
       });
     });
   }
-  
+
   @Test
   public void testCollections(TestContext context) {
     Async async = context.async();
