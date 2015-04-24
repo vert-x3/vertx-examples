@@ -1,6 +1,5 @@
 package io.vertx.example.rxjava.database.mongo;
 
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
@@ -20,54 +19,48 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    DeploymentOptions options = new DeploymentOptions();
-    options.setConfig(new JsonObject()
+    JsonObject config = new JsonObject()
         .put("connection_string", "mongodb://localhost:27018")
-        .put("db_name", "my_DB"));
+        .put("db_name", "my_DB");
 
+    // Deploy an embedded mongo database so we can test against that
     vertx.deployVerticle("service:io.vertx.mongo-embedded-db", db -> {
       if (db.succeeded()) {
-        vertx.deployVerticle("service:io.vertx.mongo-service", options, service -> {
-          if (service.succeeded()) {
 
-            // Create the service proxy
-            MongoService mongoService = MongoService.createEventBusProxy(vertx, "vertx.mongo");
+        // Create the service proxy
+        MongoService mongo = MongoService.create(vertx, config);
 
-            // Documents to insert
-            Observable<JsonObject> documents = Observable.just(
-                new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
-                new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble")
-            );
+        mongo.start();
 
-            //
-            mongoService.
-                createCollectionObservable("users").
+        // Documents to insert
+        Observable<JsonObject> documents = Observable.just(
+            new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
+            new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble")
+        );
 
-                // After collection is created we insert each document
-                flatMap(v -> documents.flatMap(
-                        doc -> mongoService.insertObservable("users", doc))
-                ).subscribe(
+        //
+        mongo.
+            createCollectionObservable("users").
 
-                id -> {
-                  System.out.println("Inserted document " + id);
-                }, error -> {
-                  System.out.println("Err");
-                  error.printStackTrace();
-                }, () -> {
+            // After collection is created we insert each document
+            flatMap(v -> documents.flatMap(
+                doc -> mongo.insertObservable("users", doc))
+            ).subscribe(
 
-                  // Everything has been inserted now we can query mongo
-                  System.out.println("Insertions done");
-                  mongoService.findObservable("users", new JsonObject()).
-                      subscribe(results -> {
-                        System.out.println("Results " + results);
-                      });
-                });
+            id -> {
+              System.out.println("Inserted document " + id);
+            }, error -> {
+              System.out.println("Err");
+              error.printStackTrace();
+            }, () -> {
 
-          } else {
-            System.out.println("Could not start mongo service");
-            db.cause().printStackTrace();
-          }
-        });
+              // Everything has been inserted now we can query mongo
+              System.out.println("Insertions done");
+              mongo.findObservable("users", new JsonObject()).
+                  subscribe(results -> {
+                    System.out.println("Results " + results);
+                  });
+            });
       } else {
         System.out.println("Could not start mongo embedded");
         db.cause().printStackTrace();
