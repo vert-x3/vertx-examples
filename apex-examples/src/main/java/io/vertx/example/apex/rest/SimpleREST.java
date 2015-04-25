@@ -17,7 +17,6 @@
 package io.vertx.example.apex.rest;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -46,8 +45,6 @@ public class SimpleREST extends AbstractVerticle {
   public void start() {
 
     setUpInitialData();
-
-    Vertx vertx = Vertx.vertx();
 
     Router router = Router.router(vertx);
 
