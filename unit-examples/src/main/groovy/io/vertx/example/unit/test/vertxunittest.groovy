@@ -28,10 +28,9 @@ suite.after({ context ->
   vertx.close({ ar ->
     if (ar.succeeded()) {
       async.complete()
-    } else {
-      if (ar.failed()) {
-        context.fail()
-      }}
+    } else if (ar.failed()) {
+      context.fail()
+    }
   })
 })
 

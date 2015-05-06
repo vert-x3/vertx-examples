@@ -28,10 +28,9 @@ suite.after() { |context|
   $vertx.close() { |ar,ar_err|
     if (ar_err == nil)
       async.complete()
-    else
-      if (ar_err != nil)
-        context.fail()
-      endend
+    elsif (ar_err != nil)
+      context.fail()
+    end
   }
 }
 

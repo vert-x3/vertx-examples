@@ -28,10 +28,9 @@ suite.after(function (context) {
   vertx.close(function (ar, ar_err) {
     if (ar_err == null) {
       async.complete();
-    } else {
-      if (ar_err != null) {
-        context.fail();
-      }};
+    } else if (ar_err != null) {
+      context.fail();
+    };
   });
 });
 
