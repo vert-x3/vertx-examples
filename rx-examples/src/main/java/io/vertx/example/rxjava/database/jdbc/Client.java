@@ -22,34 +22,34 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
 
     JsonObject config = new JsonObject().put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-                                        .put("driver_class", "org.hsqldb.jdbcDriver");
+        .put("driver_class", "org.hsqldb.jdbcDriver");
 
     JDBCClient jdbc = JDBCClient.createShared(vertx, config);
 
     // Connect to the database
+    jdbc.getConnectionObservable().subscribe(
+        conn -> {
 
-    jdbc.getConnection(res -> {
-      if (res.succeeded()) {
-        SQLConnection conn = res.result();
+          // Now chain some statements using flatmap composition
+          Observable<ResultSet> resa = conn.updateObservable("CREATE TABLE test(col VARCHAR(20))").
+              flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val1')")).
+              flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val2')")).
+              flatMap(result -> conn.queryObservable("SELECT * FROM test"));
 
-        // Now chain some statements using flatmap composition
-        Observable<ResultSet> resa = conn.updateObservable("CREATE TABLE test(col VARCHAR(20))").
-          flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val1')")).
-          flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val2')")).
-          flatMap(result -> conn.queryObservable("SELECT * FROM test"));
+          // Subscribe to the final result
+          resa.subscribe(resultSet -> {
+            System.out.println("Results : " + resultSet.getRows());
+          }, err -> {
+            System.out.println("Database problem");
+            err.printStackTrace();
+          });
+        },
 
-        // Subscribe to the final result
-        resa.subscribe(resultSet -> {
-          System.out.println("Results : " + resultSet.getRows());
-        }, err -> {
-          System.out.println("Database problem");
+        // Could not connect
+        err -> {
           err.printStackTrace();
-        });
-      } else {
-        res.cause().printStackTrace();
-      }
-    });
-
+        }
+    );
 
   }
 }
