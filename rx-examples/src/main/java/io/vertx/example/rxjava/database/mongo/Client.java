@@ -3,7 +3,7 @@ package io.vertx.example.rxjava.database.mongo;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
-import io.vertx.rxjava.ext.mongo.MongoService;
+import io.vertx.rxjava.ext.mongo.MongoClient;
 import rx.Observable;
 
 /*
@@ -27,10 +27,8 @@ public class Client extends AbstractVerticle {
     vertx.deployVerticle("service:io.vertx.mongo-embedded-db", db -> {
       if (db.succeeded()) {
 
-        // Create the service proxy
-        MongoService mongo = MongoService.create(vertx, config);
-
-        mongo.start();
+        // Create the client
+        MongoClient mongo = MongoClient.createShared(vertx, config);
 
         // Documents to insert
         Observable<JsonObject> documents = Observable.just(
