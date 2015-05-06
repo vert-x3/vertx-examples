@@ -4,6 +4,7 @@ import io.vertx.codetrans.CodeTranslator;
 import io.vertx.codetrans.GroovyLang;
 import io.vertx.codetrans.JavaScriptLang;
 import io.vertx.codetrans.Lang;
+import io.vertx.codetrans.RubyLang;
 import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.Verticle;
 
@@ -75,7 +76,7 @@ public class CodeTransProcessor extends AbstractProcessor {
       outputDir = new File(outputOption);
     }
     translator = new CodeTranslator(processingEnv);
-    langs = Arrays.asList(new JavaScriptLang(), new GroovyLang());
+    langs = Arrays.asList(new JavaScriptLang(), new GroovyLang(), new RubyLang());
   }
 
   private PrintWriter getLogger() throws Exception {
