@@ -1,5 +1,5 @@
 $vertx.create_http_server().request_handler() { |req|
-  if (req.uri().equals("/"))
+  if (req.uri().==("/"))
     # Serve the index page
     req.response().send_file("index.html")
   elsif (req.uri().starts_with?("/form"))
