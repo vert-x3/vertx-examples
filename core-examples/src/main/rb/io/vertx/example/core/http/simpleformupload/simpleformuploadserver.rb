@@ -2,7 +2,7 @@ $vertx.create_http_server().request_handler() { |req|
   if (req.uri().==("/"))
     # Serve the index page
     req.response().send_file("index.html")
-  elsif (req.uri().starts_with?("/form"))
+  elsif (req.uri().start_with?("/form"))
     req.set_expect_multipart(true)
     req.upload_handler() { |upload|
       upload.exception_handler() { |cause|
