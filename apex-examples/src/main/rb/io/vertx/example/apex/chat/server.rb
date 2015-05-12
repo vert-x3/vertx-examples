@@ -33,7 +33,7 @@ eb = $vertx.event_bus()
 # Register to listen for messages coming IN to the server
 eb.consumer("chat.to.server").handler() { |message|
   # Create a timestamp string
-  timestamp = Java::JavaText::DateFormat.get_date_time_instance(Java::JavaText::DateFormat.SHORT, Java::JavaText::DateFormat.MEDIUM).format(Java::JavaUtil::Date.from(Java::JavaTime::Instant.now()))
+  timestamp = Java::JavaText::DateFormat.get_date_time_instance(Java::JavaText::DateFormat::SHORT, Java::JavaText::DateFormat::MEDIUM).format(Java::JavaUtil::Date.from(Java::JavaTime::Instant.now()))
   # Send the message back out to all clients with the timestamp prepended.
   eb.publish("chat.to.client", "#{timestamp}: #{message.body()}")
 }
