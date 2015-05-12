@@ -22,11 +22,11 @@ public class Runner {
   // JavaScript examples
 
   public static void runJSExample(String scriptName) {
-    ExampleRunner.runJSExample(APEX_EXAMPLES_JS_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(APEX_EXAMPLES_JS_DIR, scriptName, false);
   }
 
   public static void runJSExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(APEX_EXAMPLES_JS_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(APEX_EXAMPLES_JS_DIR, scriptName, true);
   }
 
   static class JSAuthRunner {
@@ -66,11 +66,11 @@ public class Runner {
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    ExampleRunner.runJSExample(APEX_EXAMPLES_GROOVY_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(APEX_EXAMPLES_GROOVY_DIR, scriptName, false);
   }
 
   public static void runGroovyExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(APEX_EXAMPLES_GROOVY_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(APEX_EXAMPLES_GROOVY_DIR, scriptName, true);
   }
 
   static class GroovyAuthRunner {
@@ -110,11 +110,11 @@ public class Runner {
   // Ruby examples
 
   public static void runRubyExample(String scriptName) {
-    ExampleRunner.runJSExample(APEX_EXAMPLES_RUBY_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(APEX_EXAMPLES_RUBY_DIR, scriptName, false);
   }
 
   public static void runRubyExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(APEX_EXAMPLES_RUBY_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(APEX_EXAMPLES_RUBY_DIR, scriptName, true);
   }
 
   static class RubyAuthRunner {

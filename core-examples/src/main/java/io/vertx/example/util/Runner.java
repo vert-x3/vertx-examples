@@ -22,11 +22,11 @@ public class Runner {
   // JavaScript examples
 
   public static void runJSExample(String scriptName) {
-    ExampleRunner.runJSExample(CORE_EXAMPLES_JS_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(CORE_EXAMPLES_JS_DIR, scriptName, false);
   }
 
   public static void runJSExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(CORE_EXAMPLES_JS_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(CORE_EXAMPLES_JS_DIR, scriptName, true);
   }
 
   static class JSEchoServerRunner {
@@ -176,11 +176,11 @@ public class Runner {
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    ExampleRunner.runJSExample(CORE_EXAMPLES_GROOVY_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(CORE_EXAMPLES_GROOVY_DIR, scriptName, false);
   }
 
   public static void runGroovyExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(CORE_EXAMPLES_GROOVY_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(CORE_EXAMPLES_GROOVY_DIR, scriptName, true);
   }
 
   static class GroovyEchoServerRunner {
@@ -330,11 +330,11 @@ public class Runner {
   // Ruby examples
 
   public static void runRubyExample(String scriptName) {
-    ExampleRunner.runJSExample(CORE_EXAMPLES_RUBY_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(CORE_EXAMPLES_RUBY_DIR, scriptName, false);
   }
 
   public static void runRubyExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(CORE_EXAMPLES_GROOVY_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(CORE_EXAMPLES_GROOVY_DIR, scriptName, true);
   }
 
   static class RubyEchoServerRunner {

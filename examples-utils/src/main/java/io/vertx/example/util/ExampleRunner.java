@@ -21,11 +21,18 @@ public class ExampleRunner {
     runExample(exampleDir, clazz.getName(), options);
   }
 
-  public static void runJSExample(String prefix, String scriptName, boolean clustered) {
+  public static void runScriptExample(String prefix, String scriptName, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
     ExampleRunner.runExample(scriptDir, scriptDir + "/" + file.getName(), clustered);
+  }
+
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+    File file = new File(scriptName);
+    String dirPart = file.getParent();
+    String scriptDir = prefix + dirPart;
+    ExampleRunner.runExample(scriptDir, scriptDir + "/" + file.getName(), options);
   }
 
   public static void runExample(String exampleDir, String verticleID, boolean clustered) {
