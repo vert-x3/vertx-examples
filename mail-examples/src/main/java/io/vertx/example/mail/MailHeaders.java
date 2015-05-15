@@ -13,11 +13,8 @@ import java.util.Arrays;
  * send a mail via a smtp service using SSL we add a few headers to the mail (this can be used for example for mail api
  * headers e.g. from mailgun or sendgrid or to add Reply-To and custom Received headers)
  * <p>
- * you can either supply all headers (setFixedHeaders(true)) or give a set of headers to be added to the headers that
- * are set for the mime message (MIME-Version, From, To etc)
- * <p>
- * TODO: setting headers that are also set in the regular mime headers (e.g. Message-ID) work only if you do
- * setFixedHeaders(true)
+ * you can either supply all headers (setFixedHeaders(true)) or give a set of headers to be set over the headers that
+ * are set for the mime message (Message-ID, From, To etc)
  *
  * @author <a href="http://oss.lehmann.cx/">Alexander Lehmann</a>
  */
