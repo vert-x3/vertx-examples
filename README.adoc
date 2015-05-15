@@ -122,5 +122,12 @@ The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x
 
 TODO
 
+=== Mail examples
 
+The link:mail-examples/README.adoc[Vert.x Mail service examples]
+contains a few examples using Vert.x Mail
 
+The mail examples show different ways to create the mail message and send it via
+tls, ssl etc. The examples either use `localhost:25` to send a mail or use host
+`mail.example.com`. To actually run the examples you will have to change the
+mail server and the user credentials in the `MailLogin` example.
