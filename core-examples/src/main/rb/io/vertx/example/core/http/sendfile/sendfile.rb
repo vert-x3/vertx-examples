@@ -1,5 +1,5 @@
 
-# In reality it's highly recommend you use Apex for applications like this.
+# In reality it's highly recommend you use Vert.x-Web for applications like this.
 
 $vertx.create_http_server().request_handler() { |req|
   filename = nil

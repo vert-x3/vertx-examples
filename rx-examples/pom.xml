@@ -22,7 +22,7 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-apex</artifactId>
+      <artifactId>vertx-web</artifactId>
       <version>${project.version}</version>
     </dependency>
 

@@ -14,7 +14,7 @@ vertx.createHttpServer().requestHandler(function (req) {
       });
       // FIXME - Potential security exploit! In a real system you must check this filename
       // to make sure you're not saving to a place where you don't want!
-      // Or better still, just use Apex which controls the upload area.
+      // Or better still, just use Vert.x-Web which controls the upload area.
       upload.streamToFileSystem(upload.filename());
     });
   } else {

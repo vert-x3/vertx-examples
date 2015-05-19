@@ -1,5 +1,5 @@
 
-// In reality it's highly recommend you use Apex for applications like this.
+// In reality it's highly recommend you use Vert.x-Web for applications like this.
 
 vertx.createHttpServer().requestHandler(function (req) {
   var filename = null;

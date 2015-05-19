@@ -28,7 +28,7 @@ You can run most of the examples at the command line using `vertx run` if you ha
 
 == The examples
 
-The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Apex (webapps) and various other
+The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other
 services and features.
 
 Most of the examples have been written as verticles. For more information on verticles please consult the Vert.x core manual.
@@ -101,11 +101,11 @@ Pre-requisites: You will need to have Java 8 JDK installed.
 
 The link:core-examples/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
 
-=== Apex examples
+=== Vert.x-Web examples
 
-Apex is a toolkit for building web applications using Vert.x
+Vert.x-Web is a toolkit for building web applications using Vert.x
 
-The link:apex-examples/README.adoc[Vert.x Apex examples] contains a wide range of examples using Vert.x Apex
+The link:web-examples/README.adoc[Vert.x-Web examples] contains a wide range of examples using Vert.x-Web
 
 === Vertx unit examples
 

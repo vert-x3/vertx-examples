@@ -1,11 +1,11 @@
 require 'vertx-dropwizard/metrics_service'
-require 'vertx-apex/router'
-require 'vertx-apex/sock_js_handler'
-require 'vertx-apex/static_handler'
+require 'vertx-web/router'
+require 'vertx-web/sock_js_handler'
+require 'vertx-web/static_handler'
 
 service = VertxDropwizard::MetricsService.create($vertx)
 
-router = VertxApex::Router.router($vertx)
+router = VertxWeb::Router.router($vertx)
 
 # Allow outbound traffic to the news-feed address
 
@@ -17,10 +17,10 @@ options = {
   ]
 }
 
-router.route("/eventbus/*").handler(&VertxApex::SockJSHandler.create($vertx).bridge(options).method(:handle))
+router.route("/eventbus/*").handler(&VertxWeb::SockJSHandler.create($vertx).bridge(options).method(:handle))
 
 # Serve the static resources
-router.route().handler(&VertxApex::StaticHandler.create().method(:handle))
+router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
 
 httpServer = $vertx.create_http_server()
 httpServer.request_handler(&router.method(:accept)).listen(8080)

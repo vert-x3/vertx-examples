@@ -16,7 +16,7 @@
     <module>maven-simplest</module>
     <module>maven-verticle</module>
     <module>core-examples</module>
-    <module>apex-examples</module>
+    <module>web-examples</module>
     <module>rx-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
