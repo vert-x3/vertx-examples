@@ -43,9 +43,9 @@ public class MyJUnitTest {
     Async async = context.async();
     client.getNow(8080, "localhost", "/", resp -> {
       resp.bodyHandler(body -> {
-          context.assertEquals("foo", body.toString());
-          client.close();
-          async.complete();
+        context.assertEquals("foo", body.toString());
+        client.close();
+        async.complete();
       });
     });
   }
