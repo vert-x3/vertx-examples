@@ -33,3 +33,24 @@ You can also enable clustering and ha at the command line, e.g.
     java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -ha
 
 Please see the docs for a full list of Vert.x command line options.
+
+### Other examples
+
+This project contains some other example:
+
+#### Hello Configuration Verticle
+
+This link:src/main/java/io/vertx/example/HelloConfigurableVerticle.java[] retrieves the configuration
+passed into the command line. Once built you can launch it as follows:
+
+
+    # Return `Hello World` as no configuration provided
+    vertx run io.vertx.example.HelloConfigurableVerticle \
+        -cp  /application/target/maven-verticle-3.0.0-SNAPSHOT.jar
+
+    # Return `Hello Vert.x`
+    vertx run io.vertx.example.HelloConfigurableVerticle \
+        -cp  /application/target/maven-verticle-3.0.0-SNAPSHOT.jar \
+        -conf src/conf/my-conf.json
+
+
