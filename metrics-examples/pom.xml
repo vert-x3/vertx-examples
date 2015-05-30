@@ -28,6 +28,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-auth</artifactId>
+      <type>pom</type>
       <version>${project.version}</version>
     </dependency>
 
