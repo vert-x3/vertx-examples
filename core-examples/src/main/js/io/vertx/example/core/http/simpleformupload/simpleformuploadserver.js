@@ -20,6 +20,6 @@ vertx.createHttpServer().requestHandler(function (req) {
   } else {
     req.response().setStatusCode(404);
     req.response().end();
-  };
+  }
 }).listen(8080);
 

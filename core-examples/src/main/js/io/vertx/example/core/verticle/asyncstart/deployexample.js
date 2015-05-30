@@ -14,11 +14,11 @@ vertx.deployVerticle("io.vertx.example.core.verticle.asyncstart.OtherVerticle", 
         console.log("Undeployed ok!");
       } else {
         res2_err.printStackTrace();
-      };
+      }
     });
   } else {
     res_err.printStackTrace();
-  };
+  }
 });
 
 

@@ -16,7 +16,7 @@ vertx.createHttpServer().requestHandler(function (req) {
 
     for (var i = 0; i < 10; i++) {
       req.response().write("server-data-chunk-" + i);
-    };
+    }
 
     req.response().end();
   });

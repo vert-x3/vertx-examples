@@ -11,8 +11,8 @@ vertx.createHttpServer().requestHandler(function (req) {
     filename = "page2.html";
   } else {
     req.response().setStatusCode(404).end();
-  };
+  }
   if (filename !== null) {
     req.response().sendFile(filename);
-  };
+  }
 }).listen(8080);
