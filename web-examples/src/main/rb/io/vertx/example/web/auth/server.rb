@@ -3,7 +3,7 @@ require 'vertx-web/cookie_handler'
 require 'vertx-web/body_handler'
 require 'vertx-web/session_handler'
 require 'vertx-web/local_session_store'
-require 'vertx-auth/shiro_auth'
+require 'vertx-auth-shiro/shiro_auth'
 require 'vertx-web/user_session_handler'
 require 'vertx-web/redirect_auth_handler'
 require 'vertx-web/static_handler'
@@ -17,7 +17,7 @@ router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
 router.route().handler(&VertxWeb::SessionHandler.create(VertxWeb::LocalSessionStore.create($vertx)).method(:handle))
 
 # Simple auth service which uses a properties file for user/role info
-authProvider = VertxAuth::ShiroAuth.create($vertx, :PROPERTIES, {
+authProvider = VertxAuthShiro::ShiroAuth.create($vertx, :PROPERTIES, {
 })
 
 # We need a user session handler too to make sure the user is stored in the session between requests

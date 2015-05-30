@@ -27,7 +27,7 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-auth</artifactId>
+      <artifactId>vertx-auth-common</artifactId>
       <version>${project.version}</version>
     </dependency>
 
