@@ -1,5 +1,8 @@
 = Vert.x examples
 
+
+image:https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-examples["Build Status",link="https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-examples/"]
+
 This repository contains a range of examples so you can get up and running easily with Vert.x.
 
 == Maven users
