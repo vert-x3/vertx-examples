@@ -8,7 +8,8 @@ $vertx.create_http_server().request_handler() { |req|
   end
 
   req.handler() { |data|
-    puts "Got data #{data.to_string("ISO-8859-1")}"}
+    puts "Got data #{data.to_string("ISO-8859-1")}";
+  }
 
   req.end_handler() { |v|
     # Now send back a response

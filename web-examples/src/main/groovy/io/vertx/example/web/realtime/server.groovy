@@ -23,4 +23,5 @@ vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
 
 // Publish a message to the address "news-feed" every second
 vertx.setPeriodic(1000, { t ->
-  vertx.eventBus().publish("news-feed", "news from the server!")})
+  vertx.eventBus().publish("news-feed", "news from the server!");
+})

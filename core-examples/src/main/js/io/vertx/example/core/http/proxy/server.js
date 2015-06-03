@@ -8,7 +8,8 @@ vertx.createHttpServer().requestHandler(function (req) {
   });
 
   req.handler(function (data) {
-    console.log("Got data " + data.toString("ISO-8859-1"))});
+    console.log("Got data " + data.toString("ISO-8859-1"));
+  });
 
   req.endHandler(function (v) {
     // Now send back a response

@@ -12,7 +12,7 @@ vertx.createHttpServer().requestHandler(function (req) {
       req.response().write(data);
     });
     c_res.endHandler(function (v) {
-      req.response().end()
+      req.response().end();
     });
   });
   c_req.setChunked(true);
@@ -22,6 +22,6 @@ vertx.createHttpServer().requestHandler(function (req) {
     c_req.write(data);
   });
   req.endHandler(function (v) {
-    c_req.end()
+    c_req.end();
   });
 }).listen(8080);
