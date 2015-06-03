@@ -162,6 +162,22 @@ was successful.
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
+== MongoDB example
+
+This example shows a simple single page application that interfaces with a mongo db collection and allows the user to
+do basic operations such as:
+
+* create new documents
+* read existing documents
+* delete documents.
+
+The link:src/main/java/io/vertx/example/web/mongo/[Java mongo example]
+
+The single page application HTML is also dynamic and generated using JADE template language showcasing inheritance of
+templates.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links.
 
 
 
