@@ -9,7 +9,7 @@ vertx.createHttpServer().requestHandler({ req ->
       file.close({ v2 ->
         println("Uploaded to ${filename}")
         req.response().end()
-      });
+      })
     })
     pump.start()
     req.resume()

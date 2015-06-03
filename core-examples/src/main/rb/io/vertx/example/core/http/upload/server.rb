@@ -10,7 +10,7 @@ $vertx.create_http_server().request_handler() { |req|
       file.close() { |v2,v2_err|
         puts "Uploaded to #{filename}"
         req.response().end()
-      };
+      }
     }
     pump.start()
     req.resume()

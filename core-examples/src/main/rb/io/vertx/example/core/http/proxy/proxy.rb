@@ -12,7 +12,7 @@ $vertx.create_http_server().request_handler() { |req|
       req.response().write(data)
     }
     c_res.end_handler() { |v|
-      req.response().end();
+      req.response().end()
     }
   }
   c_req.set_chunked(true)
@@ -22,6 +22,6 @@ $vertx.create_http_server().request_handler() { |req|
     c_req.write(data)
   }
   req.end_handler() { |v|
-    c_req.end();
+    c_req.end()
   }
 }.listen(8080)

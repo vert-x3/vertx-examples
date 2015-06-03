@@ -14,7 +14,7 @@ suite.before({ context ->
   vertx = Vertx.vertx()
   def async = context.async()
   def server = vertx.createHttpServer().requestHandler({ req ->
-    req.response().end("foo");
+    req.response().end("foo")
   }).listen(8080, { res ->
     if (res.succeeded()) {
       async.complete()
@@ -42,7 +42,7 @@ suite.test("some_test1", { context ->
   def async = context.async()
   client.getNow(8080, "localhost", "/", { resp ->
     resp.bodyHandler({ body ->
-      context.assertEquals("foo", body.toString("UTF-8"));
+      context.assertEquals("foo", body.toString("UTF-8"))
     })
     client.close()
     async.complete()

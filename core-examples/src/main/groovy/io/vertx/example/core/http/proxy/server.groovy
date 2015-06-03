@@ -8,7 +8,7 @@ vertx.createHttpServer().requestHandler({ req ->
   }
 
   req.handler({ data ->
-    println("Got data ${data.toString("ISO-8859-1")}");
+    println("Got data ${data.toString("ISO-8859-1")}")
   })
 
   req.endHandler({ v ->

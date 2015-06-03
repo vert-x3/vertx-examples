@@ -23,5 +23,5 @@ $vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080
 
 # Publish a message to the address "news-feed" every second
 $vertx.set_periodic(1000) { |t|
-  $vertx.event_bus().publish("news-feed", "news from the server!");
+  $vertx.event_bus().publish("news-feed", "news from the server!")
 }

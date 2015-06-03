@@ -11,7 +11,7 @@ vertx.createHttpServer().requestHandler({ req ->
       req.response().write(data)
     })
     c_res.endHandler({ v ->
-      req.response().end();
+      req.response().end()
     })
   })
   c_req.setChunked(true)
@@ -21,6 +21,6 @@ vertx.createHttpServer().requestHandler({ req ->
     c_req.write(data)
   })
   req.endHandler({ v ->
-    c_req.end();
+    c_req.end()
   })
 }).listen(8080)
