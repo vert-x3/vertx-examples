@@ -53,4 +53,21 @@
 
   </dependencies>
 
+  <profiles>
+    <profile>
+      <!-- Use -DskipDocker as the docker module requires docker to be installed, there are built an their own profile -->
+      <id>docker</id>
+      <activation>
+        <property>
+          <name>!skipDocker</name>
+        </property>
+      </activation>
+      <modules>
+        <module>docker-examples/vertx-docker-java</module>
+        <module>docker-examples/vertx-docker-example</module>
+        <module>docker-examples/vertx-docker-example-fabric8</module>
+        <module>docker-examples/vertx-docker-java-fatjar</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
