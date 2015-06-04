@@ -16,7 +16,7 @@ public class SendFile extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    // In reality it's highly recommend you use Apex for applications like this.
+    // In reality it's highly recommend you use Vert.x-Web for applications like this.
 
     vertx.createHttpServer().requestHandler(req -> {
       String filename = null;

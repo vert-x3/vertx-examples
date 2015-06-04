@@ -1,5 +1,8 @@
 = Vert.x examples
 
+
+image:https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-examples["Build Status",link="https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-examples/"]
+
 This repository contains a range of examples so you can get up and running easily with Vert.x.
 
 == Maven users
@@ -28,7 +31,7 @@ You can run most of the examples at the command line using `vertx run` if you ha
 
 == The examples
 
-The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Apex (webapps) and various other
+The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other
 services and features.
 
 Most of the examples have been written as verticles. For more information on verticles please consult the Vert.x core manual.
@@ -101,11 +104,11 @@ Pre-requisites: You will need to have Java 8 JDK installed.
 
 The link:core-examples/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
 
-=== Apex examples
+=== Vert.x-Web examples
 
-Apex is a toolkit for building web applications using Vert.x
+Vert.x-Web is a toolkit for building web applications using Vert.x
 
-The link:apex-examples/README.adoc[Vert.x Apex examples] contains a wide range of examples using Vert.x Apex
+The link:web-examples/README.adoc[Vert.x-Web examples] contains a wide range of examples using Vert.x-Web
 
 === Vertx unit examples
 
@@ -126,5 +129,12 @@ The link:mongo-examples/README.adoc[Vert.x Mongo Service examples] shows how to 
 
 TODO
 
+=== Mail examples
 
+The link:mail-examples/README.adoc[Vert.x Mail examples]
+contains a few examples using Vert.x Mail
 
+The mail examples show different ways to create the mail message and send it via
+tls, ssl etc. The examples either use `localhost:25` to send a mail or use host
+`mail.example.com`. To actually run the examples you will have to change the
+mail server and the user credentials in the `MailLogin` example.

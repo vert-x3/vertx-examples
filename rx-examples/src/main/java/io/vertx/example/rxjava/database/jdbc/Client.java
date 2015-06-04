@@ -1,11 +1,11 @@
 package io.vertx.example.rxjava.database.jdbc;
 
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.rxjava.core.AbstractVerticle;
-import io.vertx.rxjava.ext.jdbc.JdbcService;
+import io.vertx.rxjava.ext.jdbc.JDBCClient;
+import io.vertx.rxjava.ext.sql.SQLConnection;
 import rx.Observable;
 
 /*
@@ -21,45 +21,35 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    DeploymentOptions options = new DeploymentOptions();
-    options.setConfig(new JsonObject()
-        .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-        .put("driver_class", "org.hsqldb.jdbcDriver"));
+    JsonObject config = new JsonObject().put("url", "jdbc:hsqldb:mem:test?shutdown=true")
+        .put("driver_class", "org.hsqldb.jdbcDriver");
 
-    vertx.deployVerticle("service:io.vertx:vertx-jdbc-service", options, res -> {
-      if (res.succeeded()) {
+    JDBCClient jdbc = JDBCClient.createShared(vertx, config);
 
-        // Create a proxy
-        JdbcService proxy = JdbcService.createEventBusProxy(vertx, "vertx.jdbc");
+    // Connect to the database
+    jdbc.getConnectionObservable().subscribe(
+        conn -> {
 
-        // Connect to the database
-        proxy.getConnectionObservable().subscribe(
-            conn -> {
+          // Now chain some statements using flatmap composition
+          Observable<ResultSet> resa = conn.updateObservable("CREATE TABLE test(col VARCHAR(20))").
+              flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val1')")).
+              flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val2')")).
+              flatMap(result -> conn.queryObservable("SELECT * FROM test"));
 
-              // Now chain some statements using flatmap composition
-              Observable<ResultSet> resa = conn.updateObservable("CREATE TABLE test(col VARCHAR(20))").
-                  flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val1')")).
-                  flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val2')")).
-                  flatMap(result -> conn.queryObservable("SELECT * FROM test"));
+          // Subscribe to the final result
+          resa.subscribe(resultSet -> {
+            System.out.println("Results : " + resultSet.getRows());
+          }, err -> {
+            System.out.println("Database problem");
+            err.printStackTrace();
+          });
+        },
 
-              // Subscribe to the final result
-              resa.subscribe(resultSet -> {
-                System.out.println("Results : " + resultSet.getRows());
-              }, err -> {
-                System.out.println("Database problem");
-                err.printStackTrace();
-              });
-            },
+        // Could not connect
+        err -> {
+          err.printStackTrace();
+        }
+    );
 
-            // Could not connect
-            err -> {
-              System.out.println("Could not connect to database");
-              err.printStackTrace();
-            }
-        );
-      } else {
-        res.cause().printStackTrace();
-      }
-    });
   }
 }

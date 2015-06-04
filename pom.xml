@@ -16,12 +16,13 @@
     <module>maven-simplest</module>
     <module>maven-verticle</module>
     <module>core-examples</module>
-    <module>apex-examples</module>
+    <module>web-examples</module>
     <module>rx-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
     <module>metrics-examples</module>
 	<module>mongo-examples</module>
+    <module>mail-examples</module>
   </modules>
 
 
@@ -42,6 +43,12 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-groovy</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-ruby</artifactId>
       <version>${project.version}</version>
     </dependency>
 

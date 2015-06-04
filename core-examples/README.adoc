@@ -98,9 +98,9 @@ link:src/main/java/io/vertx/example/core/http/sendfile/SendFile.java[Java static
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: In practice you would probably actually use Apex for this rather than writing a web server at this low level. Serving
+NOTE: In practice you would probably actually use Vert.x-Web for this rather than writing a web server at this low level. Serving
 files manually like this can leave you open to security exploits, e.g. by clients crafting URI paths which try to access
-resources outside of the permitted area. Apex provides URI path normalisation to avoid these kinds of exploits and comes
+resources outside of the permitted area. Vert.x-Web provides URI path normalisation to avoid these kinds of exploits and comes
 with a static file handler which also handles caching headers and other features that you would probably want when serving
 static files in a web application.
 
@@ -112,7 +112,7 @@ link:src/main/java/io/vertx/example/core/http/simpleform/SimpleFormServer.java[J
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: In practice you would probably also use Apex for this rather than writing a server at this low level. Apex
+NOTE: In practice you would probably also use Vert.x-Web for this rather than writing a server at this low level. Vert.x-Web
 provides built in support for HTML forms, and avoids some of the security issues due to maliciously crafted URI paths.
 
 === Simple form file upload
@@ -123,7 +123,7 @@ link:src/main/java/io/vertx/example/core/http/simpleformupload/SimpleFormUploadS
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: In practice you would probably also use Apex for this rather than writing a server at this low level. Apex
+NOTE: In practice you would probably also use Vert.x-Web for this rather than writing a server at this low level. Vert.x-Web
 provides built in support for HTML forms and file uploads, and avoids some of the security issues due to maliciously
 crafted URI paths.
 
@@ -138,6 +138,28 @@ is uploaded successfully even if the file is very large (GigaBytes).
 link:src/main/java/io/vertx/example/core/http/upload/Server.java[Java upload server example]
 link:src/main/java/io/vertx/example/core/http/upload/Client.java[Java upload client example]
 
+=== HTTP Server Sharing
+
+A server that illustrates the round robin orchestrated by vert.x when several verticles are opening HTTP servers on the same port:
+
+link:src/main/java/io/vertx/example/core/http/sharing/Server.java[Server Launcher]
+
+link:src/main/java/io/vertx/example/core/http/sharing/HttpServerVerticle.java[HTTP Server Verticle]
+
+The `Server` deploys two instances of the `HttpServerVerticle` verticle.
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]. Requests will be handled by an instance after the other.
+
+The `Client` illustrates the round robin by periodically requesting the server and displays the response content.
+
+link:src/main/java/io/vertx/example/core/http/sharing/Client.java[Java simple HTTP client]
+
+You can directly launch the `HTTPServerVerticle` using the `vertx run` command. Then you can set the number of instance you want:
+
+```
+vertx run io.vertx.example.core.http.sharing.HttpServerVerticle -instances 4
+```
+
 === WebSockets echo example
 
 This example shows a Vert.x HTTP server which handles websockets connections. This example simply echoes back to the client
@@ -145,12 +167,14 @@ whatever it receives on the websocket.
 
 There's also a client which connects to the server, sends some data and logs out what it receives.
 
-link:src/main/java/io/vertx/example/core/http/websockets/WebSocketsServer.java[Java WebSockets server example]
-link:src/main/java/io/vertx/example/core/http/websockets/WebSocketsClient.java[Java WebSockets client example]
+link:src/main/java/io/vertx/example/core/http/websockets/Server.java[Java WebSockets server example]
+link:src/main/java/io/vertx/example/core/http/websockets/Client.java[Java WebSockets client example]
+
+link:src/main/java/io/vertx/example/core/http/websockets/ws.html[Javascript WebSockets client example]
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: in practice you would probably use Apex to build a web application that uses WebSockets
+NOTE: in practice you would probably use Vert.x-Web to build a web application that uses WebSockets
 
 == Event bus examples
 

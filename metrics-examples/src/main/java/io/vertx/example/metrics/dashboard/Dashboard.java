@@ -17,17 +17,16 @@
 package io.vertx.example.metrics.dashboard;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.ExampleRunner;
-import io.vertx.ext.apex.Router;
-import io.vertx.ext.apex.handler.StaticHandler;
-import io.vertx.ext.apex.handler.sockjs.BridgeOptions;
-import io.vertx.ext.apex.handler.sockjs.PermittedOptions;
-import io.vertx.ext.apex.handler.sockjs.SockJSHandler;
-import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
+import io.vertx.example.util.Runner;
 import io.vertx.ext.dropwizard.MetricsService;
+import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.sockjs.BridgeOptions;
+import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 import java.util.Random;
 
@@ -37,10 +36,7 @@ import java.util.Random;
 public class Dashboard extends AbstractVerticle {
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    ExampleRunner.runJavaExample("metrics-examples/src/main/java/", Dashboard.class,
-        new VertxOptions().setMetricsOptions(
-            new DropwizardMetricsOptions().
-                setEnabled(true)));
+    ExampleRunner.runJavaExample("metrics-examples/src/main/java/", Dashboard.class, Runner.DROPWIZARD_OPTIONS);
   }
 
   @Override
@@ -80,8 +76,6 @@ public class Dashboard extends AbstractVerticle {
       });
     });
     vertx.eventBus().send("whatever", "hello");
-
-
   }
 
 }

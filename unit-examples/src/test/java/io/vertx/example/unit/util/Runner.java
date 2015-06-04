@@ -23,11 +23,11 @@ public class Runner {
   // JavaScript examples
 
   public static void runJSExample(String scriptName) {
-    ExampleRunner.runJSExample(UNIT_EXAMPLES_JS_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(UNIT_EXAMPLES_JS_DIR, scriptName, false);
   }
 
   public static void runJSExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(UNIT_EXAMPLES_JS_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(UNIT_EXAMPLES_JS_DIR, scriptName, true);
   }
 
   static class JSVertxUnitTest {
@@ -39,11 +39,11 @@ public class Runner {
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    ExampleRunner.runJSExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, false);
+    ExampleRunner.runScriptExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, false);
   }
 
   public static void runGroovyExampleClustered(String scriptName) {
-    ExampleRunner.runJSExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, true);
+    ExampleRunner.runScriptExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, true);
   }
 
   static class GroovyVertxUnitTest {

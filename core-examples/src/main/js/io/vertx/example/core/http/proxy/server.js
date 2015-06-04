@@ -8,7 +8,8 @@ vertx.createHttpServer().requestHandler(function (req) {
   });
 
   req.handler(function (data) {
-    console.log("Got data " + data.toString("ISO-8859-1"))});
+    console.log("Got data " + data.toString("ISO-8859-1"));
+  });
 
   req.endHandler(function (v) {
     // Now send back a response
@@ -16,7 +17,7 @@ vertx.createHttpServer().requestHandler(function (req) {
 
     for (var i = 0; i < 10; i++) {
       req.response().write("server-data-chunk-" + i);
-    };
+    }
 
     req.response().end();
   });
