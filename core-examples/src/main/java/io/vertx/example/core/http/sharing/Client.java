@@ -16,8 +16,7 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-
-    vertx.setPeriodic(100, (l) -> {
+    vertx.setPeriodic(1000, (l) -> {
           vertx.createHttpClient().getNow(8080, "localhost", "/", resp -> {
             resp.bodyHandler(body -> {
               System.out.println(body.toString("ISO-8859-1"));
@@ -25,6 +24,5 @@ public class Client extends AbstractVerticle {
           });
         }
     );
-
   }
 }
