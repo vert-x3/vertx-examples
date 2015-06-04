@@ -64,10 +64,6 @@ public class Server extends AbstractVerticle {
       });
     });
 
-    // In order to handle all mongo related requests we organize the handlers in a seperated class
-    final Users users = new Users()
-      .setMongo(mongo);
-
     // and now we mount the handlers in their appropriate routes
 
     // Read all users from the mongo collection.
