@@ -34,7 +34,7 @@ public class Server extends AbstractVerticle {
     vertx.deployVerticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6");
 
     // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
-    final MongoClient mongo = MongoClient.createNonShared(vertx, config().put("db_name", "demo"));
+    final MongoClient mongo = MongoClient.createShared(vertx, config().put("db_name", "demo"));
 
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
