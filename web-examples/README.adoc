@@ -31,7 +31,7 @@ If you're using auth in your Vert.x-Web application you will also need the depen
 
 ----
 Group ID: io.vertx
-Artifact ID: vertx-auth
+Artifact ID: vertx-auth-common
 ----
 
 If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine
