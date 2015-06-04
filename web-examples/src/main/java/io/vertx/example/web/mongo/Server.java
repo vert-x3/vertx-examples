@@ -40,12 +40,6 @@ public class Server extends AbstractVerticle {
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
 
-    // we expect the post to be in multipart form data format (to avoid having to deal with preflight requests
-    router.route().handler(ctx -> {
-      ctx.request().setExpectMultipart(true);
-      ctx.next();
-    });
-
     // Enable the body parser to we can get the form data and json documents in out context.
     router.route().handler(BodyHandler.create());
 
