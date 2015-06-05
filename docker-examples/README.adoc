@@ -1,0 +1,89 @@
+= Vert.x Doker Examples
+
+Here you will find examples demonstrating how to run Vert.x applications in Docker container. To run these examples you need https://www.docker.com/[Docker] installed on your computer. More details about these examples are in the http://vert-x3.github.io/docs/vertx-docker/[Vert.x Docker Manual].
+
+== vertx-docker-java
+
+This example deploys a Java verticle inside Docker.
+
+The link:vertx-docker-java
+
+To build and run it:
+----
+docker build -t sample/vertx-java .
+docker run -t -i -p 8080:8080 sample/vertx-java
+----
+
+== vertx-docker-javascript
+
+This example deploys a JavaScript verticle inside Docker.
+
+The link:vertx-docker-javascript
+
+To build and run it:
+----
+docker build -t sample/vertx-javascript .
+docker run -t -i -p 8080:8080 sample/vertx-javascript
+----
+
+== vertx-docker-groovy
+
+This example deploys a Groovy verticle inside Docker.
+
+The link:vertx-docker-groovy
+
+To build and run it:
+----
+docker build -t sample/vertx-groovy .
+docker run -t -i -p 8080:8080 sample/vertx-groovy
+----
+
+== vertx-docker-ruby
+
+This example deploys a Ruby verticle inside Docker.
+
+The link:vertx-docker-ruby
+
+To build and run it:
+----
+docker build -t sample/vertx-ruby .
+docker run -t -i -p 8080:8080 sample/vertx-ruby
+----
+
+== vertx-docker-example
+
+This example builds and deploys a Java verticle inside Docker using Apache Maven
+
+The link:vertx-docker-example
+
+To build and run it:
+----
+mvn clean package
+docker run -t -i -p 8080:8080 vertx/vertx3-example
+----
+
+== vertx-docker-example-fabric8
+
+This example builds and deploys a Java verticle inside Docker and generate the medatadata required by Fabric8.
+
+The link:vertx-docker-example-fabric8
+
+To build and run it:
+----
+mvn clean package
+# Set $DOCKER_REGISTRY to poin on the Docker Registry provided by Fabric8
+docker push $DOCKER_REGISTRY/vertx/vertx3-example-fabric8
+mvn io.fabric8:fabric8-maven-plugin:2.1.4:apply
+----
+
+== vertx-docker-java-fatjar
+
+This example deploys a Java verticle inside Docker. The verticle is packaged as a _fat jar_.
+
+The link:vertx-docker-java-fatjar
+
+To build and run it:
+----
+docker build -t sample/vertx-java-fat .
+docker run -t -i -p 8080:8080 sample/vertx-java-fat
+----

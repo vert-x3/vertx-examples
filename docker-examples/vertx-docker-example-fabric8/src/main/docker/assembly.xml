@@ -1,0 +1,10 @@
+<assembly>
+  <dependencySets>
+    <dependencySet>
+      <includes>
+        <include>:${project.artifactId}</include>
+      </includes>
+      <outputDirectory>.</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+</assembly>
