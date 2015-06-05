@@ -138,6 +138,28 @@ is uploaded successfully even if the file is very large (GigaBytes).
 link:src/main/java/io/vertx/example/core/http/upload/Server.java[Java upload server example]
 link:src/main/java/io/vertx/example/core/http/upload/Client.java[Java upload client example]
 
+=== HTTP Server Sharing
+
+A server that illustrates the round robin orchestrated by vert.x when several verticles are opening HTTP servers on the same port:
+
+link:src/main/java/io/vertx/example/core/http/sharing/Server.java[Server Launcher]
+
+link:src/main/java/io/vertx/example/core/http/sharing/HttpServerVerticle.java[HTTP Server Verticle]
+
+The `Server` deploys two instances of the `HttpServerVerticle` verticle.
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]. Requests will be handled by an instance after the other.
+
+The `Client` illustrates the round robin by periodically requesting the server and displays the response content.
+
+link:src/main/java/io/vertx/example/core/http/sharing/Client.java[Java simple HTTP client]
+
+You can directly launch the `HTTPServerVerticle` using the `vertx run` command. Then you can set the number of instance you want:
+
+```
+vertx run io.vertx.example.core.http.sharing.HttpServerVerticle -instances 4
+```
+
 === WebSockets echo example
 
 This example shows a Vert.x HTTP server which handles websockets connections. This example simply echoes back to the client

@@ -11,8 +11,8 @@ vertx.createNetClient().connect(1234, "localhost", function (res, res_err) {
       var str = "hello " + i + "\n";
       console.log("Net client sending: " + str);
       socket.write(str);
-    };
+    }
   } else {
     console.log("Failed to connect " + res_err);
-  };
+  }
 });
