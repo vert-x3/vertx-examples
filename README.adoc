@@ -134,3 +134,7 @@ The mail examples show different ways to create the mail message and send it via
 tls, ssl etc. The examples either use `localhost:25` to send a mail or use host
 `mail.example.com`. To actually run the examples you will have to change the
 mail server and the user credentials in the `MailLogin` example.
+
+=== Docker examples
+
+The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers. It also contains an example of application that can be deployed on Fabric8.
