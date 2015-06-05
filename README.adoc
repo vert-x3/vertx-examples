@@ -125,5 +125,25 @@ The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x
 
 TODO
 
+=== Mail examples
 
+The link:mail-examples/README.adoc[Vert.x Mail examples]
+contains a few examples using Vert.x Mail
+
+The mail examples show different ways to create the mail message and send it via
+tls, ssl etc. The examples either use `localhost:25` to send a mail or use host
+`mail.example.com`. To actually run the examples you will have to change the
+mail server and the user credentials in the `MailLogin` example.
+
+==== OSGi Examples
+
+The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples using Vert.x in an OSGi context.
+
+=== Docker examples
+
+The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers. It also contains an example of application that can be deployed on Fabric8.
+
+=== Openshift examples
+
+The link:openshift-example/README.adoc[Vert.x OpenShift example] shows how to deploy Vert.x application to OpenShift following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
 
