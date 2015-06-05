@@ -20,11 +20,11 @@ public class MainVerticle extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     System.out.println("[Main] Running in " + Thread.currentThread().getName());
-    getVertx()
+    vertx
         .deployVerticle("io.vertx.example.core.verticle.worker.WorkerVerticle",
             new DeploymentOptions().setWorker(true));
 
-    getVertx().eventBus().send(
+    vertx.eventBus().send(
         "sample.data",
         "hello vert.x",
         r -> {

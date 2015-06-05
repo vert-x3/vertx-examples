@@ -12,7 +12,7 @@ public class WorkerVerticle extends AbstractVerticle {
   public void start() throws Exception {
     System.out.println("[Worker] Starting in " + Thread.currentThread().getName());
 
-    getVertx().eventBus().consumer("sample.data", message -> {
+    vertx.eventBus().consumer("sample.data", message -> {
       System.out.println("[Worker] Consuming data in " + Thread.currentThread().getName());
       String body = message.body().toString();
       message.reply(body.toUpperCase());
