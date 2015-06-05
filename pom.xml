@@ -23,6 +23,7 @@
     <module>metrics-examples</module>
     <module>mail-examples</module>
     <module>openshift-example</module>
+    <module>osgi-examples</module>
   </modules>
 
 
