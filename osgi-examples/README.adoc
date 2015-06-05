@@ -1,0 +1,24 @@
+= Vert.x OSGi examples
+
+Here you will find examples demonstrating Vert.x core in OSGi.
+
+Vert.x core is packaged as an OSGi bundle that can be deployed in OSGi frameworks R4.2+. However, it requires Jackson and Netty to be deployed. Check the Vert.x core manual for further details.
+
+== Vertx Activator
+
+A `Bundle Activator` exposing the Vert.x instance and the event bus as OSGi service.
+
+link:src/main/java/io/vertx/example/osgi/VertxActivator.java[Bundle Activator]
+
+== Using Vert.x as a service
+
+An http://ipojo.org[Apache Felix iPOJO] component consuming the `vertx` service to create a HTTP server.
+
+link:src/main/java/io/vertx/example/osgi/VertxHttpServer.java[Vertx Http Server]
+
+== Exposing Verticles as services
+
+Verticles can be exposed as a service and consumed using a white-board pattern. Here is an example
+
+* link:src/main/java/io/vertx/example/osgi/VertxVerticleHost.java[The whiteboard pattern host]
+* link:src/main/java/io/vertx/example/osgi/VertxHttpClientVerticle.java[A verticle exposed as an OSGi service]
