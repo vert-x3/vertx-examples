@@ -32,6 +32,48 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.jolokia</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>0.11.5</version>
+          <executions>
+            <execution>
+              <id>build</id>
+              <goals>
+                <goal>build</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <images>
+              <image>
+                <name>${docker.image}</name>
+                <build>
+                  <from>vertx/vertx3</from>
+                  <tags>
+                    <tag>${project.version}</tag>
+                  </tags>
+                  <ports>
+                    <port>8080</port>
+                  </ports>
+                  <command>vertx run io.vertx.example.HelloWorldVerticle -cp
+                    /usr/verticles/${project.artifactId}-${project.version}.jar
+                  </command>
+                  <assembly>
+                    <mode>dir</mode>
+                    <basedir>/usr/verticles</basedir>
+                    <descriptor>assembly.xml</descriptor>
+                  </assembly>
+                </build>
+              </image>
+            </images>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -39,45 +81,6 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jolokia</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>0.11.5</version>
-        <executions>
-          <execution>
-            <id>build</id>
-            <phase>package</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <images>
-            <image>
-              <name>${docker.image}</name>
-              <build>
-                <from>vertx/vertx3</from>
-                <tags>
-                  <tag>${project.version}</tag>
-                </tags>
-                <ports>
-                  <port>8080</port>
-                </ports>
-                <command>vertx run io.vertx.example.HelloWorldVerticle -cp
-                  /usr/verticles/${project.artifactId}-${project.version}.jar
-                </command>
-                <assembly>
-                  <mode>dir</mode>
-                  <basedir>/usr/verticles</basedir>
-                  <descriptor>assembly.xml</descriptor>
-                </assembly>
-              </build>
-            </image>
-          </images>
         </configuration>
       </plugin>
 

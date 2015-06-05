@@ -58,7 +58,7 @@ The link:vertx-docker-example
 
 To build and run it:
 ----
-mvn clean package
+mvn clean package docker:build
 docker run -t -i -p 8080:8080 vertx/vertx3-example
 ----
 
@@ -70,7 +70,7 @@ The link:vertx-docker-example-fabric8
 
 To build and run it:
 ----
-mvn clean package
+mvn clean package docker:build
 # Set $DOCKER_REGISTRY to poin on the Docker Registry provided by Fabric8
 docker push $DOCKER_REGISTRY/vertx/vertx3-example-fabric8
 mvn io.fabric8:fabric8-maven-plugin:2.1.4:apply

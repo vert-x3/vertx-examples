@@ -28,6 +28,43 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <!--
+            This plugin builds the Docker image. It merges src/main/docker/Dockerfile with the resources set in the
+            configuration. The resources should embed the current project and its dependencies. Here there is no
+            dependencies.
+          -->
+          <groupId>com.spotify</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>0.2.8</version>
+          <executions>
+            <execution>
+              <id>docker</id>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+            <imageName>${docker.image}</imageName>
+            <resources>
+              <resource>
+                <targetPath>/verticles</targetPath>
+                <directory>${project.build.directory}</directory>
+                <includes>
+                  <include>${project.artifactId}-${project.version}.jar</include>
+                </includes>
+              </resource>
+            </resources>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -35,39 +72,6 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <!--
-          This plugin builds the Docker image. It merges src/main/docker/Dockerfile with the resources set in the
-          configuration. The resources should embed the current project and its dependencies. Here there is no
-          dependencies.
-        -->
-        <groupId>com.spotify</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>0.2.8</version>
-        <executions>
-          <execution>
-            <id>docker</id>
-            <phase>package</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-          <imageName>${docker.image}</imageName>
-          <resources>
-            <resource>
-              <targetPath>/verticles</targetPath>
-              <directory>${project.build.directory}</directory>
-              <includes>
-                <include>${project.artifactId}-${project.version}.jar</include>
-              </includes>
-            </resource>
-          </resources>
         </configuration>
       </plugin>
 

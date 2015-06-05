@@ -6,7 +6,10 @@ This project builds a docker image launching a very simple Vert.x verticle.
 
 To build the docker image, just launch:
 
-`mvn clean package`
+```
+mvn clean package
+mvn docker:build
+```
 
 Notice that you need to have docker installed on your machine.
 
