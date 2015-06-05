@@ -27,13 +27,6 @@ Group ID: io.vertx
 Artifact ID: vertx-web
 ----
 
-If you're using auth in your Vert.x-Web application you will also need the dependency:
-
-----
-Group ID: io.vertx
-Artifact ID: vertx-auth
-----
-
 If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine
 you are using.
 
@@ -171,6 +164,29 @@ The link:src/main/java/io/vertx/example/web/upload/[Java upload example]
 The home request will return a HTML form with a simple input type file and will upload the file in multipart encoding.
 On submit the file will be handled by the `BodyHandler` and be available in the `RoutingContext` using the getter
 `fileUploads`.
+
+== HTML Form example
+
+This example shows a basic HTML form web-site and a backend end point that just returns an customizable hello world
+message.
+
+The link:src/main/java/io/vertx/example/web/form/[Java form example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
+== JWT example
+
+This example shows a basic single page application that contains an API that is protected by a JWT.
+
+The link:src/main/java/io/vertx/example/web/jwt/[Java jwt example]
+
+Requests to paths starting with `/api/` will require a JWT token, except the excluded `/api/newToken`. This exclusion is
+normaly used as the login end point, however in this example we are not focusing on secure login end points and we just
+return a new token for any request.
+
+The application contains a simple form where you can request some data from the API if there is no token loaded then the
+response is an `HTTP error 401`. When a token is loaded, then a successful response if received from the API.
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links

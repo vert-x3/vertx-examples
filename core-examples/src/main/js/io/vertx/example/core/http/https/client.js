@@ -7,5 +7,6 @@ vertx.createHttpClient({
 }).getNow(4443, "localhost", "/", function (resp) {
   console.log("Got response " + resp.statusCode());
   resp.bodyHandler(function (body) {
-    console.log("Got data " + body.toString("ISO-8859-1"))});
+    console.log("Got data " + body.toString("ISO-8859-1"));
+  });
 });
