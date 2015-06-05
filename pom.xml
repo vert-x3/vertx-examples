@@ -22,6 +22,7 @@
     <module>unit-examples</module>
     <module>metrics-examples</module>
     <module>mail-examples</module>
+    <module>openshift-example</module>
   </modules>
 
 
