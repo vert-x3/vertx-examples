@@ -14,7 +14,8 @@ suite.before() { |context|
   $vertx = Vertx::Vertx.vertx()
   async = context.async()
   server = $vertx.create_http_server().request_handler() { |req|
-    req.response().end("foo")}.listen(8080) { |res,res_err|
+    req.response().end("foo")
+  }.listen(8080) { |res,res_err|
     if (res_err == nil)
       async.complete()
     else
@@ -41,7 +42,8 @@ suite.test("some_test1") { |context|
   async = context.async()
   client.get_now(8080, "localhost", "/") { |resp|
     resp.body_handler() { |body|
-      context.assert_equals("foo", body.to_string("UTF-8"))}
+      context.assert_equals("foo", body.to_string("UTF-8"))
+    }
     client.close()
     async.complete()
   }
