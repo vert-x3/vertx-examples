@@ -162,6 +162,15 @@ was successful.
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
+== HTML Form example
+
+This example shows a basic HTML form web-site and a backend end point that just returns an customizable hello world
+message.
+
+The link:src/main/java/io/vertx/example/web/form/[Java form example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
 
 
 
