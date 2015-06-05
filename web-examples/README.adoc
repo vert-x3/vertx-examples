@@ -162,6 +162,15 @@ was successful.
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
+== Cookie example
+
+This example shows a basic user Tracking system based on Cookies. On each page refresh a cookie is incremented with the
+number of visits.
+
+The link:src/main/java/io/vertx/example/web/cookie/[Java cookie example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links.
 
 
 
