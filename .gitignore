@@ -22,3 +22,5 @@ test-tmp
 src/gen
 src/main/groovy/io/vertx/groovy/core/**/*.groovy
 src/test/groovy/io/vertx/groovy/codegen/**/*.groovy
+openshift-example/quickstart-diy/application/*.jar
+openshift-example/vertx-cartridge/application/*.jar

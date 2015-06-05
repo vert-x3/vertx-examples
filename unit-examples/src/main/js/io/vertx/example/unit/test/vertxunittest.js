@@ -14,12 +14,13 @@ suite.before(function (context) {
   vertx = Vertx.vertx();
   var async = context.async();
   var server = vertx.createHttpServer().requestHandler(function (req) {
-    req.response().end("foo")}).listen(8080, function (res, res_err) {
+    req.response().end("foo");
+  }).listen(8080, function (res, res_err) {
     if (res_err == null) {
       async.complete();
     } else {
       context.fail();
-    };
+    }
   });
 });
 
@@ -30,7 +31,7 @@ suite.after(function (context) {
       async.complete();
     } else if (ar_err != null) {
       context.fail();
-    };
+    }
   });
 });
 
@@ -41,7 +42,8 @@ suite.test("some_test1", function (context) {
   var async = context.async();
   client.getNow(8080, "localhost", "/", function (resp) {
     resp.bodyHandler(function (body) {
-      context.assertEquals("foo", body.toString("UTF-8"))});
+      context.assertEquals("foo", body.toString("UTF-8"));
+    });
     client.close();
     async.complete();
   });
@@ -57,11 +59,11 @@ suite.test("some_test2", function (context) {
           async.complete();
         } else {
           context.fail();
-        };
+        }
       });
     } else {
       context.fail();
-    };
+    }
   });
 });
 
