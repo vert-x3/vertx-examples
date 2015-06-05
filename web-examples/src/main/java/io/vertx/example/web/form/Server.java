@@ -42,7 +42,7 @@ public class Server extends AbstractVerticle {
     router.post("/form").handler(ctx -> {
       ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/plain");
       // note the form attribute matches the html form element name.
-      ctx.response().end("Hello " + ctx.request().getFormAttribute("name") + "!");
+      ctx.response().end("Hello " + ctx.request().getParam("name") + "!");
     });
 
     vertx.createHttpServer().requestHandler(router::accept).listen(8080);
