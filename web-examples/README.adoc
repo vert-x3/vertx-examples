@@ -162,8 +162,44 @@ number of visits.
 
 The link:src/main/java/io/vertx/example/web/cookie/[Java cookie example]
 
+== MongoDB example
+
+This example shows a simple single page application that interfaces with a mongo db collection and allows the user to
+do basic operations such as:
+
+* create new documents
+* read existing documents
+* delete documents.
+
+The link:src/main/java/io/vertx/example/web/mongo/[Java mongo example]
+
+The single page application HTML is also dynamic and generated using JADE template language showcasing inheritance of
+templates.
+
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links.
+
+== CORS example
+
+This example shows how to setup the CORS Handler. Cross-origin resource sharing (CORS) is a mechanism that allows
+restricted resources (e.g. fonts, JavaScript, etc.) on a web page to be requested from another domain outside the domain
+from which the resource originated.
+
+The link:src/main/java/io/vertx/example/web/cors/[Java cors example]
+
+CORS requests fall in two types, request that require a pre-flight check and requests that do not require it. HTTP GET
+does not require such a check while other HTTP verbs do. When the CORS handler is active the `Origin` header is checked
+to allow, disallow the request.
+
+In order to run the example, you need to download the 2 example HTML pages and run them from your hard disk. If you are
+using a modern browser when clicking on the links they will pop up the download pop-up, however this might not work for
+older browsers.
+
+If the CORS Handler is not present, then only the no preflight check call will work, since the browser will disallow the
+POST.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
 
 == Upload example
 
