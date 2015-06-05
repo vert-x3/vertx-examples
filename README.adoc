@@ -138,3 +138,7 @@ mail server and the user credentials in the `MailLogin` example.
 === Docker examples
 
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers. It also contains an example of application that can be deployed on Fabric8.
+
+=== Openshift examples
+
+The link:openshift-example/README.adoc[Vert.x OpenShift example] shows how to deploy Vert.x application to OpenShift following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
