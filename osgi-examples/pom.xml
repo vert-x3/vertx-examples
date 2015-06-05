@@ -46,20 +46,16 @@
           <instructions>
             <Private-Package>io.vertx.example.osgi</Private-Package>
             <Bundle-Activator>io.vertx.example.osgi.VertxActivator</Bundle-Activator>
+            <_plugin>org.apache.felix.ipojo.bnd.PojoizationPlugin</_plugin>
           </instructions>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-ipojo-plugin</artifactId>
-        <version>1.12.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>ipojo-bundle</goal>
-            </goals>
-          </execution>
-        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>bnd-ipojo-plugin</artifactId>
+            <version>1.12.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
