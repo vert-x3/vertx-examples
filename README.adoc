@@ -18,7 +18,7 @@ a Maven project.
 
 Start with the link:gradle-simplest[simplest Gradle example] to show you how setup a simple Vert.x project that uses Gradle.
 
-Use that as a template for setting up a Maven project with Gradle.
+Use that as a template for setting up a Gradle project with Vert.x.
 
 Progress to the link:gradle-verticle[simple Gradle verticle example] to show you how to deploy your code as verticles in
 a Gradle project
