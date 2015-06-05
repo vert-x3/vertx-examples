@@ -162,27 +162,15 @@ was successful.
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
+== Upload example
 
+This example shows a basic HTML form file upload and returns the upload metadata.
 
+The link:src/main/java/io/vertx/example/web/upload/[Java upload example]
 
+The home request will return a HTML form with a simple input type file and will upload the file in multipart encoding.
+On submit the file will be handled by the `BodyHandler` and be available in the `RoutingContext` using the getter
+`fileUploads`.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
