@@ -139,3 +139,6 @@ mail server and the user credentials in the `MailLogin` example.
 
 The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples using Vert.x in an OSGi context.
 
+=== Docker examples
+
+The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers. It also contains an example of application that can be deployed on Fabric8.
