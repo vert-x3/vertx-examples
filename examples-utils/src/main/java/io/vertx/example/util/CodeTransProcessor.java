@@ -1,11 +1,11 @@
 package io.vertx.example.util;
 
 import io.vertx.codetrans.CodeTranslator;
-import io.vertx.codetrans.GroovyLang;
-import io.vertx.codetrans.JavaScriptLang;
 import io.vertx.codetrans.Lang;
-import io.vertx.codetrans.RubyLang;
 import io.vertx.codetrans.annotations.CodeTranslate;
+import io.vertx.codetrans.lang.groovy.GroovyLang;
+import io.vertx.codetrans.lang.js.JavaScriptLang;
+import io.vertx.codetrans.lang.ruby.RubyLang;
 import io.vertx.core.Verticle;
 
 import javax.annotation.processing.AbstractProcessor;

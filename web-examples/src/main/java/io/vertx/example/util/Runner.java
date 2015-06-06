@@ -113,6 +113,12 @@ public class Runner {
     }
   }
 
+  static class GroovyRestRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/web/rest/simplerest.groovy");
+    }
+  }
+
   // Ruby examples
 
   public static void runRubyExample(String scriptName) {
