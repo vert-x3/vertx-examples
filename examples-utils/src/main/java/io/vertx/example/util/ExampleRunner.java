@@ -1,5 +1,6 @@
 package io.vertx.example.util;
 
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 
@@ -21,6 +22,11 @@ public class ExampleRunner {
     runExample(exampleDir, clazz.getName(), options);
   }
 
+  public static void runJavaExample(String prefix, Class clazz, DeploymentOptions deploymentOptions) {
+    String exampleDir = prefix + clazz.getPackage().getName().replace(".", "/");
+    runExample(exampleDir, clazz.getName(), new VertxOptions(), deploymentOptions);
+  }
+
   public static void runScriptExample(String prefix, String scriptName, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
@@ -40,10 +46,18 @@ public class ExampleRunner {
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options) {
+    runExample(exampleDir, verticleID, options, null);
+  }
+
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
     System.setProperty("vertx.cwd", exampleDir);
     Consumer<Vertx> runner = vertx -> {
       try {
-        vertx.deployVerticle(verticleID);
+        if (deploymentOptions != null) {
+          vertx.deployVerticle(verticleID, deploymentOptions);
+        } else {
+          vertx.deployVerticle(verticleID);
+        }
       } catch (Throwable t) {
         t.printStackTrace();
       }
@@ -63,29 +77,4 @@ public class ExampleRunner {
     }
   }
 
-//  static class EchoServerRunner {
-//    public static void main(String[] args) {
-//      run(Server.class);
-//    }
-//  }
-//
-//  static class EchoClientRunner {
-//    public static void main(String[] args) {
-//      run(Client.class);
-//    }
-//  }
-//
-//  static class SendFileRunner {
-//    public static void main(String[] args) {
-//      run(SendFile.class);
-//    }
-//  }
-//
-//  // JS
-//
-//  static class EchoServerRunnerJS {
-//    public static void main(String[] args) {
-//      run("core-examples/src/main/js/echo/echo_server.js");
-//    }
-//  }
 }
