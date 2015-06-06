@@ -236,3 +236,13 @@ response is an `HTTP error 401`. When a token is loaded, then a successful respo
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
+
+== Angular example
+
+This example shows a basic single page application built with Angular JS. It is quite similar to the REST example, the
+only difference is that it also serves an angular app.
+
+The link:src/main/java/io/vertx/example/web/angular/[Java angular example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
