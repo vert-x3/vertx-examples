@@ -256,3 +256,14 @@ Blocking handlers are run on a worker thread and don't block an event loop.
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 - after 5 seconds the response should arrive.
+
+== Static web server example
+
+This example shows a very simple web server which serves static files from disk.
+
+The server can be run either in your IDE with the main class or at the command line. If you run it with redeploy enabled
+(that means at the command line `vertx run Server.java -redeploy`, then the verticle will automatically redeploy
+if any of the resources change.
+
+You can test this by editing the Server.java then recompiling it without restarting the server - the verticle should
+automatically reload.

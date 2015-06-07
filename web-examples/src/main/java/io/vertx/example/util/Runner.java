@@ -1,5 +1,7 @@
 package io.vertx.example.util;
 
+import io.vertx.core.DeploymentOptions;
+
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
@@ -17,6 +19,10 @@ public class Runner {
 
   public static void runExample(Class clazz) {
     ExampleRunner.runJavaExample(WEB_EXAMPLES_JAVA_DIR, clazz, false);
+  }
+
+  public static void runExample(Class clazz, DeploymentOptions options) {
+    ExampleRunner.runJavaExample(WEB_EXAMPLES_JAVA_DIR, clazz, options);
   }
 
   // JavaScript examples
