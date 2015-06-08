@@ -162,27 +162,13 @@ was successful.
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
+== JDBC example
 
+This example shows a basic REST server backed by a JDBC client. It is exactly the same as the REST client however its
+data is persisted in a relational database using the asynchronous JDBC client.
 
+The link:src/main/java/io/vertx/example/web/auth/[Java jdbc example]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080/products to get the list of products, or link:http://localhost:8080/products/0 for accessing
+a product with id 0. In order to create new products use the POST method to link:http://localhost:8080/products
