@@ -34,7 +34,7 @@ router.route("/loginhandler").handler(&VertxWeb::FormLoginHandler.create(authPro
 
 # Implement logout
 router.route("/logout").handler() { |context|
-  context.set_user(nil)
+  context.clear_user()
   # Redirect back to the index page
   context.response().put_header("location", "/").set_status_code(302).end()
 }
