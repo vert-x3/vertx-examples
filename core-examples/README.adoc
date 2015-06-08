@@ -272,29 +272,52 @@ link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[J
 
 Run the example then open a browser and point it at link:http://localhost:8080[]
 
+== High Availability
 
+This example demonstrates the high availability feature of vert.x. When enabled, vert.x redeploys verticles to another
+ node when the original node dies abruptly.
 
+link:src/main/java/io/vertx/example/core/verticle/ha/Server.java[The server]
 
+To run this example, you need to have a working cluster. Configure Hazelcast and append the required `cluster-host`
+to the commands if needed.
 
+To see the HA (high-availability) behavior you need three terminals.
 
+In the first one launch:
+----
+vertx run Server.java -ha
+----
 
+Open a browser to http://localhost:8080. You should see something like:
 
+----
+Happily served by 97284@Macintosh.local
+----
 
+Be displayed id is OS and JVM specific, so you may have something completely different.
 
+In the second terminal, launch
+----
+vertx run -ha
+----
 
+Don't specify the verticle name. This launches an empty vert.x instance (called _bare_). You may see a stack trace,
+just ignore it.
 
+In the third terminal, display the list of the Java process and kill the first one (smaller pid):
 
+----
+> jps | grep Starter
+97297 Starter
+97284 Starter
+> kill -9 97284
+----
 
+In your browser, refresh the page, you should see a different id such as:
 
+----
+Happily served by 97297@Macintosh.local
+----
 
-
-
-
-
-
-
-
-
-
-
-
+The verticle has been migrated.
