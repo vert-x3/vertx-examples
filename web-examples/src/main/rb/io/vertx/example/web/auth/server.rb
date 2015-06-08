@@ -1,8 +1,8 @@
 require 'vertx-web/router'
 require 'vertx-web/cookie_handler'
 require 'vertx-web/body_handler'
-require 'vertx-web/session_handler'
 require 'vertx-web/local_session_store'
+require 'vertx-web/session_handler'
 require 'vertx-auth-shiro/shiro_auth'
 require 'vertx-web/user_session_handler'
 require 'vertx-web/redirect_auth_handler'
@@ -34,7 +34,7 @@ router.route("/loginhandler").handler(&VertxWeb::FormLoginHandler.create(authPro
 
 # Implement logout
 router.route("/logout").handler() { |context|
-  context.set_user(nil)
+  context.clear_user()
   # Redirect back to the index page
   context.response().put_header("location", "/").set_status_code(302).end()
 }

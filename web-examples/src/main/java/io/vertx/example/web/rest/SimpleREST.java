@@ -38,7 +38,6 @@ public class SimpleREST extends AbstractVerticle {
     Runner.runExample(SimpleREST.class);
   }
 
-  private SimpleREST that = this;
   private Map<String, JsonObject> products = new HashMap<>();
 
   @Override
@@ -49,9 +48,9 @@ public class SimpleREST extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     router.route().handler(BodyHandler.create());
-    router.get("/products/:productID").handler(that::handleGetProduct);
-    router.put("/products/:productID").handler(that::handleAddProduct);
-    router.get("/products").handler(that::handleListProducts);
+    router.get("/products/:productID").handler(this::handleGetProduct);
+    router.put("/products/:productID").handler(this::handleAddProduct);
+    router.get("/products").handler(this::handleListProducts);
 
     vertx.createHttpServer().requestHandler(router::accept).listen(8080);
   }
@@ -66,7 +65,7 @@ public class SimpleREST extends AbstractVerticle {
       if (product == null) {
         sendError(404, response);
       } else {
-        response.putHeader("content-type", "application/json").end(product.encode());
+        response.putHeader("content-type", "application/json").end(product.encodePrettily());
       }
     }
   }
@@ -89,8 +88,8 @@ public class SimpleREST extends AbstractVerticle {
 
   private void handleListProducts(RoutingContext routingContext) {
     JsonArray arr = new JsonArray();
-    products.values().forEach(arr::add);
-    routingContext.response().putHeader("content-type", "application/json").end(arr.encode());
+    products.forEach((k, v) -> arr.add(v));
+    routingContext.response().putHeader("content-type", "application/json").end(arr.encodePrettily());
   }
 
   private void sendError(int statusCode, HttpServerResponse response) {

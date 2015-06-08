@@ -1,10 +1,10 @@
 import io.vertx.groovy.ext.web.Router
 import io.vertx.groovy.ext.web.handler.CookieHandler
 import io.vertx.groovy.ext.web.handler.BodyHandler
-import io.vertx.groovy.ext.web.handler.SessionHandler
 import io.vertx.groovy.ext.web.sstore.LocalSessionStore
-import io.vertx.groovy.ext.auth.shiro.ShiroAuth
+import io.vertx.groovy.ext.web.handler.SessionHandler
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType
+import io.vertx.groovy.ext.auth.shiro.ShiroAuth
 import io.vertx.groovy.ext.web.handler.UserSessionHandler
 import io.vertx.groovy.ext.web.handler.RedirectAuthHandler
 import io.vertx.groovy.ext.web.handler.StaticHandler
@@ -34,7 +34,7 @@ router.route("/loginhandler").handler(FormLoginHandler.create(authProvider))
 
 // Implement logout
 router.route("/logout").handler({ context ->
-  context.setUser(null)
+  context.clearUser()
   // Redirect back to the index page
   context.response().putHeader("location", "/").setStatusCode(302).end()
 })

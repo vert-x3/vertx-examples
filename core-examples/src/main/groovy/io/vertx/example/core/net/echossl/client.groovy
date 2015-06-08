@@ -13,7 +13,8 @@ vertx.createNetClient(options).connect(1234, "localhost", { res ->
 
     // Now send some data
     for (def i = 0;i < 10;i++) {
-      def str = "hello ${i}\n"
+      def str = "hello ${i}
+      "
       println("Net client sending: ${str}")
       sock.write(str)
     }

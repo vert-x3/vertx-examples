@@ -7,7 +7,8 @@ vertx.createHttpServer().requestHandler(function (req) {
     req.setExpectMultipart(true);
     req.endHandler(function (v) {
       Array.prototype.forEach.call(req.formAttributes().names(), function(attr) {
-        req.response().write("Got attr " + attr + " : " + req.formAttributes().get(attr) + "\n");
+        req.response().write("Got attr " + attr + " : " + req.formAttributes().get(attr) + "
+        ");
       });
       req.response().end();
     });

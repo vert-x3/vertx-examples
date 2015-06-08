@@ -12,7 +12,7 @@ router.route("/").handler(function (routingContext) {
 
 // handle the form
 router.post("/form").handler(function (ctx) {
-  ctx.response().putHeader(Java.type("io.vertx.core.http.HttpHeaders").CONTENT_TYPE, "text/plain");
+  ctx.response().putHeader("Content-Type", "text/plain");
 
   ctx.response().setChunked(true);
 

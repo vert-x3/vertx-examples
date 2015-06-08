@@ -17,7 +17,7 @@ router.route("/api/*").handler(&VertxWeb::JWTAuthHandler.create(jwt, "/api/newTo
 
 # this route is excluded from the auth handler
 router.get("/api/newToken").handler() { |ctx|
-  ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "text/plain")
+  ctx.response().put_header("Content-Type", "text/plain")
   ctx.response().end(jwt.generate_token({
   }, {
     'expiresInSeconds' => 60
@@ -26,7 +26,7 @@ router.get("/api/newToken").handler() { |ctx|
 
 # this is the secret API
 router.get("/api/protected").handler() { |ctx|
-  ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "text/plain")
+  ctx.response().put_header("Content-Type", "text/plain")
   ctx.response().end("a secret you should keep for yourself...")
 }
 

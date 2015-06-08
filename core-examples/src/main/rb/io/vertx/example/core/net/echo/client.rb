@@ -9,7 +9,8 @@ $vertx.create_net_client().connect(1234, "localhost") { |res,res_err|
     # Now send some data
     i = 0
     while (i < 10)
-      str = "hello #{i}\n"
+      str = "hello #{i}
+      "
       puts "Net client sending: #{str}"
       socket.write(str)
       i+=1

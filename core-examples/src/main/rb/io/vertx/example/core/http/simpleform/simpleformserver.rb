@@ -7,7 +7,8 @@ $vertx.create_http_server().request_handler() { |req|
     req.set_expect_multipart(true)
     req.end_handler() { |v|
       req.form_attributes().names().each do |attr|
-        req.response().write("Got attr #{attr} : #{req.form_attributes().get(attr)}\n")
+        req.response().write("Got attr #{attr} : #{req.form_attributes().get(attr)}
+        ")
       end
       req.response().end()
     }

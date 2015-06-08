@@ -17,7 +17,7 @@ router.route("/api/*").handler(JWTAuthHandler.create(jwt, "/api/newToken").handl
 
 // this route is excluded from the auth handler
 router.get("/api/newToken").handler(function (ctx) {
-  ctx.response().putHeader(Java.type("io.vertx.core.http.HttpHeaders").CONTENT_TYPE, "text/plain");
+  ctx.response().putHeader("Content-Type", "text/plain");
   ctx.response().end(jwt.generateToken({
   }, {
     "expiresInSeconds" : 60
@@ -26,7 +26,7 @@ router.get("/api/newToken").handler(function (ctx) {
 
 // this is the secret API
 router.get("/api/protected").handler(function (ctx) {
-  ctx.response().putHeader(Java.type("io.vertx.core.http.HttpHeaders").CONTENT_TYPE, "text/plain");
+  ctx.response().putHeader("Content-Type", "text/plain");
   ctx.response().end("a secret you should keep for yourself...");
 });
 

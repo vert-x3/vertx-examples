@@ -1,5 +1,6 @@
 var TestSuite = require("vertx-unit-js/test_suite");
 var Vertx = require("vertx-js/vertx");
+var vertx;
 
 var options = {
   "reporters" : [

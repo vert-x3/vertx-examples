@@ -1,7 +1,6 @@
 package io.vertx.example.web.upload;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpHeaders;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.Router;
@@ -41,7 +40,7 @@ public class Server extends AbstractVerticle {
 
     // handle the form
     router.post("/form").handler(ctx -> {
-      ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/plain");
+      ctx.response().putHeader("Content-Type", "text/plain");
 
       ctx.response().setChunked(true);
 

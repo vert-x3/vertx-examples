@@ -1,8 +1,8 @@
 var Router = require("vertx-web-js/router");
 var CookieHandler = require("vertx-web-js/cookie_handler");
 var BodyHandler = require("vertx-web-js/body_handler");
-var SessionHandler = require("vertx-web-js/session_handler");
 var LocalSessionStore = require("vertx-web-js/local_session_store");
+var SessionHandler = require("vertx-web-js/session_handler");
 var ShiroAuth = require("vertx-auth-shiro-js/shiro_auth");
 var UserSessionHandler = require("vertx-web-js/user_session_handler");
 var RedirectAuthHandler = require("vertx-web-js/redirect_auth_handler");
@@ -34,7 +34,7 @@ router.route("/loginhandler").handler(FormLoginHandler.create(authProvider).hand
 
 // Implement logout
 router.route("/logout").handler(function (context) {
-  context.setUser(null);
+  context.clearUser();
   // Redirect back to the index page
   context.response().putHeader("location", "/").setStatusCode(302).end();
 });

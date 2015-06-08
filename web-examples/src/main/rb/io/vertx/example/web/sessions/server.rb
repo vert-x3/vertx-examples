@@ -1,7 +1,7 @@
 require 'vertx-web/router'
 require 'vertx-web/cookie_handler'
-require 'vertx-web/session_handler'
 require 'vertx-web/local_session_store'
+require 'vertx-web/session_handler'
 
 router = VertxWeb::Router.router($vertx)
 

@@ -28,24 +28,22 @@ public class Server extends AbstractVerticle {
     // on every path increment the counter
     router.route().handler(ctx -> {
       Cookie someCookie = ctx.getCookie("visits");
-      String cookieValue = someCookie.getValue();
 
-      Long visits;
-      try {
-        if (cookieValue == null) {
-          visits = 0l;
-        } else {
+      long visits = 0;
+      if (someCookie != null) {
+        String cookieValue = someCookie.getValue();
+        try {
           visits = Long.parseLong(cookieValue);
+        } catch (NumberFormatException e) {
+          visits = 0l;
         }
-      } catch (NumberFormatException e) {
-        visits = 0l;
       }
 
       // increment the tracking
       visits++;
 
       // Add a cookie - this will get written back in the response automatically
-      ctx.addCookie(Cookie.cookie("visits", visits.toString()));
+      ctx.addCookie(Cookie.cookie("visits", "" + visits));
 
       ctx.next();
     });

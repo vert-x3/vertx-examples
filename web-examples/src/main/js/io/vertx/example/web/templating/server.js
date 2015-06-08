@@ -1,6 +1,6 @@
 var Router = require("vertx-web-js/router");
-var TemplateHandler = require("vertx-web-js/template_handler");
 var MVELTemplateEngine = require("vertx-web-js/mvel_template_engine");
+var TemplateHandler = require("vertx-web-js/template_handler");
 var StaticHandler = require("vertx-web-js/static_handler");
 
 var router = Router.router(vertx);

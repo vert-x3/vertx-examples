@@ -10,9 +10,10 @@ router.get("/access-control-with-get").handler(function (ctx) {
 
   ctx.response().setChunked(true);
 
-  Array.prototype.forEach.call(ctx.request().headers(), function(entry) {
-    ctx.response().write(entry.getKey());
-    ctx.response().write(entry.getValue());
+  var headers = ctx.request().headers();
+  Array.prototype.forEach.call(headers.names(), function(key) {
+    ctx.response().write(key);
+    ctx.response().write(headers.get(key));
     ctx.response().write("\n");
   });
 
@@ -22,9 +23,10 @@ router.get("/access-control-with-get").handler(function (ctx) {
 router.post("/access-control-with-post-preflight").handler(function (ctx) {
   ctx.response().setChunked(true);
 
-  Array.prototype.forEach.call(ctx.request().headers(), function(entry) {
-    ctx.response().write(entry.getKey());
-    ctx.response().write(entry.getValue());
+  var headers = ctx.request().headers();
+  Array.prototype.forEach.call(headers.names(), function(key) {
+    ctx.response().write(key);
+    ctx.response().write(headers.get(key));
     ctx.response().write("\n");
   });
 

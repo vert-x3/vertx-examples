@@ -1,6 +1,6 @@
 import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.CorsHandler
 import io.vertx.core.http.HttpMethod
+import io.vertx.groovy.ext.web.handler.CorsHandler
 import io.vertx.groovy.ext.web.handler.StaticHandler
 
 def router = Router.router(vertx)
@@ -11,9 +11,10 @@ router.get("/access-control-with-get").handler({ ctx ->
 
   ctx.response().setChunked(true)
 
-  ctx.request().headers().each { entry ->
-    ctx.response().write(entry.getKey())
-    ctx.response().write(entry.getValue())
+  def headers = ctx.request().headers()
+  headers.names().each { key ->
+    ctx.response().write(key)
+    ctx.response().write(headers.get(key))
     ctx.response().write("\n")
   }
 
@@ -23,9 +24,10 @@ router.get("/access-control-with-get").handler({ ctx ->
 router.post("/access-control-with-post-preflight").handler({ ctx ->
   ctx.response().setChunked(true)
 
-  ctx.request().headers().each { entry ->
-    ctx.response().write(entry.getKey())
-    ctx.response().write(entry.getValue())
+  def headers = ctx.request().headers()
+  headers.names().each { key ->
+    ctx.response().write(key)
+    ctx.response().write(headers.get(key))
     ctx.response().write("\n")
   }
 

@@ -1,6 +1,7 @@
 package io.vertx.example.web.cors;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
@@ -35,9 +36,10 @@ public class Server extends AbstractVerticle {
 
       ctx.response().setChunked(true);
 
-      for (Map.Entry<String, String> entry : ctx.request().headers()) {
-        ctx.response().write(entry.getKey());
-        ctx.response().write(entry.getValue());
+      MultiMap headers = ctx.request().headers();
+      for (String key : headers.names()) {
+        ctx.response().write(key);
+        ctx.response().write(headers.get(key));
         ctx.response().write("\n");
       }
 
@@ -47,9 +49,10 @@ public class Server extends AbstractVerticle {
     router.post("/access-control-with-post-preflight").handler(ctx -> {
       ctx.response().setChunked(true);
 
-      for (Map.Entry<String, String> entry : ctx.request().headers()) {
-        ctx.response().write(entry.getKey());
-        ctx.response().write(entry.getValue());
+      MultiMap headers = ctx.request().headers();
+      for (String key : headers.names()) {
+        ctx.response().write(key);
+        ctx.response().write(headers.get(key));
         ctx.response().write("\n");
       }
 

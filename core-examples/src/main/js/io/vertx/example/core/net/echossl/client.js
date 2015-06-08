@@ -13,7 +13,8 @@ vertx.createNetClient(options).connect(1234, "localhost", function (res, res_err
 
     // Now send some data
     for (var i = 0; i < 10; i++) {
-      var str = "hello " + i + "\n";
+      var str = "hello " + i + "
+      ";
       console.log("Net client sending: " + str);
       sock.write(str);
     }

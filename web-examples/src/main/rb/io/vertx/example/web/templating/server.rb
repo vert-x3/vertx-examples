@@ -1,6 +1,6 @@
 require 'vertx-web/router'
-require 'vertx-web/template_handler'
 require 'vertx-web/mvel_template_engine'
+require 'vertx-web/template_handler'
 require 'vertx-web/static_handler'
 
 router = VertxWeb::Router.router($vertx)

@@ -10,9 +10,10 @@ router.get("/access-control-with-get").handler() { |ctx|
 
   ctx.response().set_chunked(true)
 
-  ctx.request().headers().each do |entry|
-    ctx.response().write(entry.get_key())
-    ctx.response().write(entry.get_value())
+  headers = ctx.request().headers()
+  headers.names().each do |key|
+    ctx.response().write(key)
+    ctx.response().write(headers.get(key))
     ctx.response().write("\n")
   end
 
@@ -22,9 +23,10 @@ router.get("/access-control-with-get").handler() { |ctx|
 router.post("/access-control-with-post-preflight").handler() { |ctx|
   ctx.response().set_chunked(true)
 
-  ctx.request().headers().each do |entry|
-    ctx.response().write(entry.get_key())
-    ctx.response().write(entry.get_value())
+  headers = ctx.request().headers()
+  headers.names().each do |key|
+    ctx.response().write(key)
+    ctx.response().write(headers.get(key))
     ctx.response().write("\n")
   end
 
