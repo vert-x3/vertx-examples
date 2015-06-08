@@ -12,7 +12,7 @@ router.route("/").handler({ routingContext ->
 
 // handle the form
 router.post("/form").handler({ ctx ->
-  ctx.response().putHeader(io.vertx.core.http.HttpHeaders.CONTENT_TYPE, "text/plain")
+  ctx.response().putHeader("Content-Type", "text/plain")
 
   ctx.response().setChunked(true)
 

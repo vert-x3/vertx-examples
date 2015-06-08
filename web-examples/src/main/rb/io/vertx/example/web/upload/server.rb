@@ -12,7 +12,7 @@ router.route("/").handler() { |routingContext|
 
 # handle the form
 router.post("/form").handler() { |ctx|
-  ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "text/plain")
+  ctx.response().put_header("Content-Type", "text/plain")
 
   ctx.response().set_chunked(true)
 
