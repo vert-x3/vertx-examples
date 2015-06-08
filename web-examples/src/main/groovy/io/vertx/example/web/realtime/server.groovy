@@ -1,4 +1,5 @@
 import io.vertx.groovy.ext.web.Router
+import io.vertx.groovy.ext.web.handler.sockjs.BridgeEvent
 import io.vertx.groovy.ext.web.handler.sockjs.SockJSHandler
 import io.vertx.groovy.ext.web.handler.StaticHandler
 
@@ -14,7 +15,20 @@ def options = [
   ]
 ]
 
-router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options))
+router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options, { event ->
+
+  // You can also optionally provide a handler like this which will be passed any events that occur on the bridge
+  // You can use this for monitoring or logging, or to change the raw messages in-flight.
+  // It can also be used for fine grained access control.
+
+  if (event.type() == BridgeEvent.Type.SOCKET_CREATED) {
+    println("A socket was created")
+  }
+
+  // This signals that it's ok to process the event
+  event.complete(true)
+
+}))
 
 // Serve the static resources
 router.route().handler(StaticHandler.create())

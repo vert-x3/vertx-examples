@@ -1,5 +1,7 @@
+import groovy.transform.Field
 import io.vertx.groovy.ext.unit.TestSuite
 import io.vertx.groovy.core.Vertx
+@Field def vertx
 
 def options = [
   reporters:[

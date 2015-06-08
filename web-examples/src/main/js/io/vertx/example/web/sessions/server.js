@@ -1,7 +1,7 @@
 var Router = require("vertx-web-js/router");
 var CookieHandler = require("vertx-web-js/cookie_handler");
-var SessionHandler = require("vertx-web-js/session_handler");
 var LocalSessionStore = require("vertx-web-js/local_session_store");
+var SessionHandler = require("vertx-web-js/session_handler");
 
 var router = Router.router(vertx);
 

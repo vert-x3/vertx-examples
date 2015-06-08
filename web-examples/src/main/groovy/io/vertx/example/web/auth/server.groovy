@@ -1,10 +1,10 @@
 import io.vertx.groovy.ext.web.Router
 import io.vertx.groovy.ext.web.handler.CookieHandler
 import io.vertx.groovy.ext.web.handler.BodyHandler
-import io.vertx.groovy.ext.web.handler.SessionHandler
 import io.vertx.groovy.ext.web.sstore.LocalSessionStore
-import io.vertx.groovy.ext.auth.shiro.ShiroAuth
+import io.vertx.groovy.ext.web.handler.SessionHandler
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType
+import io.vertx.groovy.ext.auth.shiro.ShiroAuth
 import io.vertx.groovy.ext.web.handler.UserSessionHandler
 import io.vertx.groovy.ext.web.handler.RedirectAuthHandler
 import io.vertx.groovy.ext.web.handler.StaticHandler
