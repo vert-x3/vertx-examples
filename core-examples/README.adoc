@@ -299,11 +299,10 @@ Be displayed id is OS and JVM specific, so you may have something completely dif
 
 In the second terminal, launch
 ----
-vertx run -ha
+vertx -ha
 ----
 
-Don't specify the verticle name. This launches an empty vert.x instance (called _bare_). You may see a stack trace,
-just ignore it.
+Don't specify the verticle name. This launches an empty vert.x instance (called _bare_).
 
 In the third terminal, display the list of the Java process and kill the first one (smaller pid):
 
