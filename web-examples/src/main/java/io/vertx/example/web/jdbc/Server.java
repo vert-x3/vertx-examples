@@ -59,7 +59,23 @@ public class Server extends AbstractVerticle {
         if (res.failed()) {
           routingContext.fail(500);
         } else {
-          routingContext.put("conn", res.result());
+          final SQLConnection conn = res.result();
+
+          // save the connection on the context
+          routingContext.put("conn", conn);
+
+          // we need to return the connection back to the jdbc pool. In order to do that we need to close it, to keep
+          // the remaining code readable one can add a headers end handler to close the connection. The reason to
+          // choose the headers end is that if the close of the connection or say for example end of transaction
+          // results in an error, it is still possible to return back to the client an error code and message.
+          routingContext.addHeadersEndHandler(end -> conn.close(close -> {
+            if (close.failed()) {
+              end.fail(close.cause());
+            } else {
+              end.complete();
+            }
+          }));
+
           routingContext.next();
         }
       }));
