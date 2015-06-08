@@ -11,7 +11,6 @@
     </parent>
 
     <artifactId>osgi-examples</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
 
   <packaging>bundle</packaging>
 
@@ -19,7 +18,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
