@@ -1,0 +1,62 @@
+= Vert.x Mongo Service examples
+
+Here you will find examples demonstrating the Vert.x MongoService for interaction with a Mongo DB database.
+
+== Dependencies required
+
+To use the Vert.x mongo service in your own Maven or Gradle project you will need following dependencies
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-core
+----
+
+and
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-mongo-service
+----
+
+== MongoService Deployment
+
+Before using the MongoService, you need to deploy the MongoServiceVerticle first.
+
+link:src/main/java/io/vertx/example/mongo/MongoExamplesVerticle.java[Deploy MongoServiceVerticle]
+
+After this you can create a MongoService instance as follows:
+
+----
+MongoService mongoService = MongoService.createEventBusProxy(vertx, MONGO_ADDRESS);
+----
+
+== MongoService examples
+
+The link:src/main/java/io/vertx/example/mongo/MongoExamples.java[MongoExamples] class shows the basic storing and quering examples
+
+== Mongo database commands examples
+
+The link:src/main/java/io/vertx/example/mongo/MongoDatabaseCommands.java[MongoDatabaseCommands] class shows the examples for running different MongoDB commands.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
