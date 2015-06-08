@@ -34,7 +34,7 @@ router.route("/loginhandler").handler(FormLoginHandler.create(authProvider))
 
 // Implement logout
 router.route("/logout").handler({ context ->
-  context.setUser(null)
+  context.clearUser()
   // Redirect back to the index page
   context.response().putHeader("location", "/").setStatusCode(302).end()
 })
