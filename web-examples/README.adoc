@@ -27,13 +27,6 @@ Group ID: io.vertx
 Artifact ID: vertx-web
 ----
 
-If you're using auth in your Vert.x-Web application you will also need the dependency:
-
-----
-Group ID: io.vertx
-Artifact ID: vertx-auth
-----
-
 If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine
 you are using.
 
@@ -161,6 +154,119 @@ was successful.
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
+
+== Cookie example
+
+This example shows a basic user Tracking system based on Cookies. On each page refresh a cookie is incremented with the
+number of visits.
+
+The link:src/main/java/io/vertx/example/web/cookie/[Java cookie example]
+
+== MongoDB example
+
+This example shows a simple single page application that interfaces with a mongo db collection and allows the user to
+do basic operations such as:
+
+* create new documents
+* read existing documents
+* delete documents.
+
+The link:src/main/java/io/vertx/example/web/mongo/[Java mongo example]
+
+The single page application HTML is also dynamic and generated using JADE template language showcasing inheritance of
+templates.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links.
+
+== CORS example
+
+This example shows how to setup the CORS Handler. Cross-origin resource sharing (CORS) is a mechanism that allows
+restricted resources (e.g. fonts, JavaScript, etc.) on a web page to be requested from another domain outside the domain
+from which the resource originated.
+
+The link:src/main/java/io/vertx/example/web/cors/[Java cors example]
+
+CORS requests fall in two types, request that require a pre-flight check and requests that do not require it. HTTP GET
+does not require such a check while other HTTP verbs do. When the CORS handler is active the `Origin` header is checked
+to allow, disallow the request.
+
+In order to run the example, you need to download the 2 example HTML pages and run them from your hard disk. If you are
+using a modern browser when clicking on the links they will pop up the download pop-up, however this might not work for
+older browsers.
+
+If the CORS Handler is not present, then only the no preflight check call will work, since the browser will disallow the
+POST.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
+== Upload example
+
+This example shows a basic HTML form file upload and returns the upload metadata.
+
+The link:src/main/java/io/vertx/example/web/upload/[Java upload example]
+
+The home request will return a HTML form with a simple input type file and will upload the file in multipart encoding.
+On submit the file will be handled by the `BodyHandler` and be available in the `RoutingContext` using the getter
+`fileUploads`.
+
+== HTML Form example
+
+This example shows a basic HTML form web-site and a backend end point that just returns an customizable hello world
+message.
+
+The link:src/main/java/io/vertx/example/web/form/[Java form example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
+== JWT example
+
+This example shows a basic single page application that contains an API that is protected by a JWT.
+
+The link:src/main/java/io/vertx/example/web/jwt/[Java jwt example]
+
+Requests to paths starting with `/api/` will require a JWT token, except the excluded `/api/newToken`. This exclusion is
+normaly used as the login end point, however in this example we are not focusing on secure login end points and we just
+return a new token for any request.
+
+The application contains a simple form where you can request some data from the API if there is no token loaded then the
+response is an `HTTP error 401`. When a token is loaded, then a successful response if received from the API.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
+== Angular example
+
+This example shows a basic single page application built with Angular JS. It is quite similar to the REST example, the
+only difference is that it also serves an angular app.
+
+The link:src/main/java/io/vertx/example/web/angular/[Java angular example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
+== Blocking handler example
+
+This example shows a blocking handler which blocks the calling thread for 5 seconds before calling the next handler
+to serve the page.
+
+Blocking handlers are run on a worker thread and don't block an event loop.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 - after 5 seconds the response should arrive.
+
+== Static web server example
+
+This example shows a very simple web server which serves static files from disk.
+
+The server can be run either in your IDE with the main class or at the command line. If you run it with redeploy enabled
+(that means at the command line `vertx run Server.java -redeploy`, then the verticle will automatically redeploy
+if any of the resources change.
+
+You can test this by editing the Server.java then recompiling it without restarting the server - the verticle should
+automatically reload.
 
 == JDBC example
 

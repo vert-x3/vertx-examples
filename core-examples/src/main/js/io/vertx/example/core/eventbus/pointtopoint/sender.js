@@ -9,7 +9,7 @@ vertx.setPeriodic(1000, function (v) {
       console.log("Received reply " + reply.body());
     } else {
       console.log("No reply");
-    };
+    }
   });
 
 });

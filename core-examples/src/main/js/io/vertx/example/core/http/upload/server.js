@@ -10,7 +10,8 @@ vertx.createHttpServer().requestHandler(function (req) {
       file.close(function (v2, v2_err) {
         console.log("Uploaded to " + filename);
         req.response().end();
-      })});
+      });
+    });
     pump.start();
     req.resume();
   });
