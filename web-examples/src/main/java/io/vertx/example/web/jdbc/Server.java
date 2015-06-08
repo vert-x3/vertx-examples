@@ -52,6 +52,18 @@ public class Server extends AbstractVerticle {
       Router router = Router.router(vertx);
 
       router.route().handler(BodyHandler.create());
+
+      // in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
+      // that match /products
+      router.route("/products*").handler(routingContext -> client.getConnection(res -> {
+        if (res.failed()) {
+          routingContext.fail(500);
+        } else {
+          routingContext.put("conn", res.result());
+          routingContext.next();
+        }
+      }));
+
       router.get("/products/:productID").handler(Server.this::handleGetProduct);
       router.post("/products").handler(Server.this::handleAddProduct);
       router.get("/products").handler(Server.this::handleListProducts);
@@ -66,21 +78,17 @@ public class Server extends AbstractVerticle {
     if (productID == null) {
       sendError(400, response);
     } else {
-      client.getConnection(res -> {
-        if (res.failed()) {
+      SQLConnection conn = routingContext.get("conn");
+
+      conn.queryWithParams("SELECT id, name, price, weight FROM products where id = ?", new JsonArray().add(Integer.parseInt(productID)), query -> {
+        if (query.failed()) {
           sendError(500, response);
         } else {
-          res.result().queryWithParams("SELECT id, name, price, weight FROM products where id = ?", new JsonArray().add(Integer.parseInt(productID)), query -> {
-            if (query.failed()) {
-              sendError(500, response);
-            } else {
-              if (query.result().getNumRows() == 0) {
-                sendError(404, response);
-              } else {
-                response.putHeader("content-type", "application/json").end(query.result().getRows().get(0).encode());
-              }
-            }
-          });
+          if (query.result().getNumRows() == 0) {
+            sendError(404, response);
+          } else {
+            response.putHeader("content-type", "application/json").end(query.result().getRows().get(0).encode());
+          }
         }
       });
     }
@@ -88,39 +96,31 @@ public class Server extends AbstractVerticle {
 
   private void handleAddProduct(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
-    client.getConnection(res -> {
-      if (res.failed()) {
-        sendError(500, response);
-      } else {
-        JsonObject product = routingContext.getBodyAsJson();
 
-        res.result().updateWithParams("INSERT INTO products (name, price, weight) VALUES (?, ?, ?)",
-          new JsonArray().add(product.getString("name")).add(product.getFloat("price")).add(product.getInteger("weight")), query -> {
-          if (query.failed()) {
-            sendError(500, response);
-          } else {
-            response.end();
-          }
-        });
-      }
-    });
+    SQLConnection conn = routingContext.get("conn");
+    JsonObject product = routingContext.getBodyAsJson();
+
+    conn.updateWithParams("INSERT INTO products (name, price, weight) VALUES (?, ?, ?)",
+      new JsonArray().add(product.getString("name")).add(product.getFloat("price")).add(product.getInteger("weight")), query -> {
+        if (query.failed()) {
+          sendError(500, response);
+        } else {
+          response.end();
+        }
+      });
   }
 
   private void handleListProducts(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
-    client.getConnection(res -> {
-      if (res.failed()) {
+    SQLConnection conn = routingContext.get("conn");
+
+    conn.query("SELECT id, name, price, weight FROM products", query -> {
+      if (query.failed()) {
         sendError(500, response);
       } else {
-        res.result().query("SELECT id, name, price, weight FROM products", query -> {
-          if (query.failed()) {
-            sendError(500, response);
-          } else {
-            JsonArray arr = new JsonArray();
-            query.result().getRows().forEach(arr::add);
-            routingContext.response().putHeader("content-type", "application/json").end(arr.encode());
-          }
-        });
+        JsonArray arr = new JsonArray();
+        query.result().getRows().forEach(arr::add);
+        routingContext.response().putHeader("content-type", "application/json").end(arr.encode());
       }
     });
   }
@@ -130,7 +130,7 @@ public class Server extends AbstractVerticle {
   }
 
   private void setUpInitialData(Handler<Void> done) {
-    client.getConnection( res -> {
+    client.getConnection(res -> {
       if (res.failed()) {
         throw new RuntimeException(res.cause());
       }
