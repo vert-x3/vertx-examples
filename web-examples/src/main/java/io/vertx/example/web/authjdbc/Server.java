@@ -13,8 +13,6 @@ import io.vertx.ext.web.sstore.LocalSessionStore;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -74,32 +72,29 @@ public class Server extends AbstractVerticle {
 
     vertx.createHttpServer().requestHandler(router::accept).listen(8080);
   }
+  
+  private Connection conn;
 
-  private void setUpInitialData(String url) {
-    List<String> SQL = new ArrayList<String>() {{
-      add("drop table if exists user;");
-      add("drop table if exists user_roles;");
-      add("drop table if exists roles_perms;");
-      add("create table user (username varchar(255), password varchar(255), password_salt varchar(255) );");
-      add("create table user_roles (username varchar(255), role varchar(255));");
-      add("create table roles_perms (role varchar(255), perm varchar(255));");
+  private void setUpInitialData(String url) throws SQLException {
+    conn = DriverManager.getConnection(url);
+    executeStatement("drop table if exists user;");
+    executeStatement("drop table if exists user_roles;");
+    executeStatement("drop table if exists roles_perms;");
+    executeStatement("create table user (username varchar(255), password varchar(255), password_salt varchar(255) );");
+    executeStatement("create table user_roles (username varchar(255), role varchar(255));");
+    executeStatement("create table roles_perms (role varchar(255), perm varchar(255));");
 
-      add("insert into user values ('tim', 'EC0D6302E35B7E792DF9DA4A5FE0DB3B90FCAB65A6215215771BF96D498A01DA8234769E1CE8269A105E9112F374FDAB2158E7DA58CDC1348A732351C38E12A0', 'C59EB438D1E24CACA2B1A48BC129348589D49303858E493FBE906A9158B7D5DC');");
-      add("insert into user_roles values ('tim', 'dev');");
-      add("insert into user_roles values ('tim', 'admin');");
-      add("insert into roles_perms values ('dev', 'commit_code');");
-      add("insert into roles_perms values ('dev', 'eat_pizza');");
-      add("insert into roles_perms values ('admin', 'merge_pr');");
-    }};
-
-    try {
-      Connection conn = DriverManager.getConnection(url);
-      for (String sql : SQL) {
-        conn.createStatement().execute(sql);
-      }
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+    executeStatement("insert into user values ('tim', 'EC0D6302E35B7E792DF9DA4A5FE0DB3B90FCAB65A6215215771BF96D498A01DA8234769E1CE8269A105E9112F374FDAB2158E7DA58CDC1348A732351C38E12A0', 'C59EB438D1E24CACA2B1A48BC129348589D49303858E493FBE906A9158B7D5DC');");
+    executeStatement("insert into user_roles values ('tim', 'dev');");
+    executeStatement("insert into user_roles values ('tim', 'admin');");
+    executeStatement("insert into roles_perms values ('dev', 'commit_code');");
+    executeStatement("insert into roles_perms values ('dev', 'eat_pizza');");
+    executeStatement("insert into roles_perms values ('admin', 'merge_pr');");
   }
+  
+  private void executeStatement(String sql) throws SQLException {
+    conn.createStatement().execute(sql);
+  }
+  
 }
 

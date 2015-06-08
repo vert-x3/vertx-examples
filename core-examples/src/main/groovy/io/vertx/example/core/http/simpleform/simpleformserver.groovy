@@ -7,8 +7,7 @@ vertx.createHttpServer().requestHandler({ req ->
     req.setExpectMultipart(true)
     req.endHandler({ v ->
       req.formAttributes().names().each { attr ->
-        req.response().write("Got attr ${attr} : ${req.formAttributes().get(attr)}
-        ")
+        req.response().write("Got attr ${attr} : ${req.formAttributes().get(attr)}\n")
       }
       req.response().end()
     })
