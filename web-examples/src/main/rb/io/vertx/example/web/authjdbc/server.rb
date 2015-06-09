@@ -9,9 +9,9 @@ require 'vertx-web/user_session_handler'
 require 'vertx-web/redirect_auth_handler'
 require 'vertx-web/static_handler'
 require 'vertx-web/form_login_handler'
-
+@conn
 def set_up_initial_data(url)
-  conn = Java::JavaSql::DriverManager.get_connection(url)
+  @conn = Java::JavaSql::DriverManager.get_connection(url)
   execute_statement("drop table if exists user;")
   execute_statement("drop table if exists user_roles;")
   execute_statement("drop table if exists roles_perms;")
@@ -27,7 +27,7 @@ def set_up_initial_data(url)
   execute_statement("insert into roles_perms values ('admin', 'merge_pr');")
 end
 def execute_statement(sql)
-  conn.create_statement().execute?(sql)
+  @conn.create_statement().execute?(sql)
 end
 
 # quick load of test data, this is a *sync* helper not intended for
