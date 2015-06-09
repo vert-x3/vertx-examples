@@ -1,7 +1,7 @@
 require 'vertx-jdbc/jdbc_client'
 require 'vertx-web/router'
 require 'vertx-web/body_handler'
-@
+@client
 def set_up_initial_data(done)
   @client.get_connection() { |res,res_err|
     if (res_err != nil)

@@ -9,7 +9,7 @@ require 'vertx-web/user_session_handler'
 require 'vertx-web/redirect_auth_handler'
 require 'vertx-web/static_handler'
 require 'vertx-web/form_login_handler'
-
+@conn
 def set_up_initial_data(url)
   @conn = Java::JavaSql::DriverManager.get_connection(url)
   execute_statement("drop table if exists user;")
