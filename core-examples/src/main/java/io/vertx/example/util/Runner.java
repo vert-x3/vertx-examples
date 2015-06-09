@@ -109,7 +109,7 @@ public class Runner {
 
   static class JSHttpSendFileRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/core/http/sendfile/sendfile.js");
+      Runner.runJSExample("io/vertx/example/core/http/sendfile/send_file.js");
     }
   }
 
@@ -127,13 +127,13 @@ public class Runner {
 
   static class JSHttpSimpleFormRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/core/http/simpleform/simpleformserver.js");
+      Runner.runJSExample("io/vertx/example/core/http/simpleform/simple_form_server.js");
     }
   }
 
   static class JSHttpSimpleFormUploadRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/core/http/simpleformupload/simpleformuploadserver.js");
+      Runner.runJSExample("io/vertx/example/core/http/simpleformupload/simple_form_upload_server.js");
     }
   }
 
@@ -163,13 +163,13 @@ public class Runner {
 
   static class JSVerticleAsyncStartRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/core/verticle/asyncstart/deployexample.js");
+      Runner.runJSExample("io/vertx/example/core/verticle/asyncstart/deploy_example.js");
     }
   }
 
   static class JSVerticleDeployRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/core/verticle/deploy/deployexample.js");
+      Runner.runJSExample("io/vertx/example/core/verticle/deploy/deploy_example.js");
     }
   }
 
@@ -263,7 +263,7 @@ public class Runner {
 
   static class GroovyHttpSendFileRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/core/http/sendfile/sendfile.groovy");
+      Runner.runGroovyExample("io/vertx/example/core/http/sendfile/send_file.groovy");
     }
   }
 
@@ -281,13 +281,13 @@ public class Runner {
 
   static class GroovyHttpSimpleFormRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/core/http/simpleform/simpleformserver.groovy");
+      Runner.runGroovyExample("io/vertx/example/core/http/simpleform/simple_form_server.groovy");
     }
   }
 
   static class GroovyHttpSimpleFormUploadRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/core/http/simpleformupload/simpleformuploadserver.groovy");
+      Runner.runGroovyExample("io/vertx/example/core/http/simpleformupload/simple_form_upload_server.groovy");
     }
   }
 
@@ -317,13 +317,13 @@ public class Runner {
 
   static class GroovyVerticleAsyncStartRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/core/verticle/asyncstart/deployexample.groovy");
+      Runner.runGroovyExample("io/vertx/example/core/verticle/asyncstart/deploy_example.groovy");
     }
   }
 
   static class GroovyVerticleDeployRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/core/verticle/deploy/deployexample.groovy");
+      Runner.runGroovyExample("io/vertx/example/core/verticle/deploy/deploy_example.groovy");
     }
   }
 
@@ -417,7 +417,7 @@ public class Runner {
 
   static class RubyHttpSendFileRunner {
     public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/core/http/sendfile/sendfile.rb");
+      Runner.runRubyExample("io/vertx/example/core/http/sendfile/send_file.rb");
     }
   }
 
@@ -435,13 +435,13 @@ public class Runner {
 
   static class RubyHttpSimpleFormRunner {
     public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/core/http/simpleform/simpleformserver.rb");
+      Runner.runRubyExample("io/vertx/example/core/http/simpleform/simple_form_server.rb");
     }
   }
 
   static class RubyHttpSimpleFormUploadRunner {
     public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/core/http/simpleformupload/simpleformuploadserver.rb");
+      Runner.runRubyExample("io/vertx/example/core/http/simpleformupload/simple_form_upload_server.rb");
     }
   }
 
@@ -471,13 +471,13 @@ public class Runner {
 
   static class RubyVerticleAsyncStartRunner {
     public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/core/verticle/asyncstart/deployexample.rb");
+      Runner.runRubyExample("io/vertx/example/core/verticle/asyncstart/deploy_example.rb");
     }
   }
 
   static class RubyVerticleDeployRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/core/verticle/deploy/deployexample.rb");
+      Runner.runGroovyExample("io/vertx/example/core/verticle/deploy/deploy_example.rb");
     }
   }
 }

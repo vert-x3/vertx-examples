@@ -32,7 +32,7 @@ public class Runner {
 
   static class JSVertxUnitTest {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/unit/test/vertxunittest.js");
+      Runner.runJSExample("io/vertx/example/unit/test/vertx_unit_test.js");
     }
   }
 
@@ -48,7 +48,7 @@ public class Runner {
 
   static class GroovyVertxUnitTest {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/unit/test/vertxunittest.groovy");
+      Runner.runGroovyExample("io/vertx/example/unit/test/vertx_unit_test.groovy");
     }
   }
 }

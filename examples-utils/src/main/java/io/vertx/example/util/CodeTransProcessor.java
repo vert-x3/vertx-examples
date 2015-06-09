@@ -1,5 +1,6 @@
 package io.vertx.example.util;
 
+import io.vertx.codegen.Case;
 import io.vertx.codetrans.CodeTranslator;
 import io.vertx.codetrans.Lang;
 import io.vertx.codetrans.annotations.CodeTranslate;
@@ -158,14 +159,14 @@ public class CodeTransProcessor extends AbstractProcessor {
           TypeElement typeElt = (TypeElement) methodElt.getEnclosingElement();
           FileObject obj = processingEnv.getFiler().getResource(StandardLocation.SOURCE_PATH, "", typeElt.getQualifiedName().toString().replace('.', '/') + ".java");
           File srcFolder = new File(obj.toUri()).getParentFile();
-          String fileName = typeElt.getSimpleName().toString().toLowerCase();
+          String filename = Case.SNAKE.format(Case.CAMEL.parse(typeElt.getSimpleName().toString()));
           for (Lang lang : langs) {
             String folderPath = processingEnv.getElementUtils().getPackageOf(typeElt).getQualifiedName().toString().replace('.', '/');
             File dstFolder = new File(new File(outputDir, lang.getExtension()), folderPath);
             if (dstFolder.exists() || dstFolder.mkdirs()) {
               try {
                 String translation = translator.translate(methodElt, lang);
-                File f = new File(dstFolder, fileName + "." + lang.getExtension());
+                File f = new File(dstFolder, filename + "." + lang.getExtension());
                 Files.write(f.toPath(), translation.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                 log.println("Generated " + f.getAbsolutePath());
                 copyDirRec(srcFolder, dstFolder, log);
