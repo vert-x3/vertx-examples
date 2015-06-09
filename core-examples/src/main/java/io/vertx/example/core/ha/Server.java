@@ -1,6 +1,9 @@
 package io.vertx.example.core.ha;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.VertxOptions;
+import io.vertx.example.util.ExampleRunner;
+import io.vertx.example.util.Runner;
 
 import java.lang.management.ManagementFactory;
 
@@ -11,6 +14,12 @@ import java.lang.management.ManagementFactory;
  * The verticle is intended to be launched using the `-ha` option.
  */
 public class Server extends AbstractVerticle {
+
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    ExampleRunner.runJavaExample("core-examples/src/main/java",
+        Server.class, new VertxOptions().setHAEnabled(true));
+  }
 
   @Override
   public void start() throws Exception {
