@@ -1,6 +1,6 @@
 require 'vertx-unit/test_suite'
 require 'vertx/vertx'
-@
+@vertx
 
 options = {
   'reporters' => [

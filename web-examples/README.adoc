@@ -268,6 +268,32 @@ if any of the resources change.
 You can test this by editing the Server.java then recompiling it without restarting the server - the verticle should
 automatically reload.
 
+== JDBC example
+
+This example shows a basic REST server backed by a JDBC client. It is exactly the same as the REST client however its
+data is persisted in a relational database using the asynchronous JDBC client.
+
+The link:src/main/java/io/vertx/example/web/auth/[Java jdbc example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080/products to get the list of products, or link:http://localhost:8080/products/0 for accessing
+a product with id 0. In order to create new products use the POST method to link:http://localhost:8080/products
+
+== Auth JDBC example
+
+This example shows a basic static web-site that contains both public pages and pages that are only accessible to
+a logged in user. This is a remake of the auth example, however using a different auth provider. In this case it
+uses the JDBC Auth Provider.
+
+The link:src/main/java/io/vertx/example/web/authjdbc/[Java authjdbc example]
+
+Requests to paths starting with `/private/` will require login.
+
+The username/password are loaded from the `setUpInitialData` method.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
 == Angular realtime example
 
 This example shows a music store implemented with angular js, where all album data and orders are taken in realtime.

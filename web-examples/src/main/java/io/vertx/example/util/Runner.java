@@ -41,6 +41,12 @@ public class Runner {
     }
   }
 
+  static class JSAuthJDBC {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/web/authjdbc/server.js");
+    }
+  }
+
   static class JSHelloWorldRunner {
     public static void main(String[] args) {
       Runner.runJSExample("io/vertx/example/web/helloworld/server.js");
@@ -82,6 +88,12 @@ public class Runner {
   static class GroovyAuthRunner {
     public static void main(String[] args) {
       Runner.runGroovyExample("io/vertx/example/web/auth/server.groovy");
+    }
+  }
+
+  static class GroovyAuthJDBC {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/web/authjdbc/server.groovy");
     }
   }
 
@@ -135,6 +147,11 @@ public class Runner {
     }
   }
 
+  static class RubyAuthJDBC {
+    public static void main(String[] args) {
+      Runner.runRubyExample("io/vertx/example/web/authjdbc/server.rb");
+    }
+  }
   static class RubyHelloWorldRunner {
     public static void main(String[] args) {
       Runner.runRubyExample("io/vertx/example/web/helloworld/server.rb");
