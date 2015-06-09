@@ -135,6 +135,10 @@ tls, ssl etc. The examples either use `localhost:25` to send a mail or use host
 `mail.example.com`. To actually run the examples you will have to change the
 mail server and the user credentials in the `MailLogin` example.
 
+==== Service Proxy Examples
+
+The link:service-proxy-examples/README.adoc[Vert.x Service Proxy examples] contains an example of service proxy usage. It depicts how a service provider can be implemented and how the published service can be consumed.
+
 ==== OSGi Examples
 
 The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples using Vert.x in an OSGi context.

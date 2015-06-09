@@ -294,6 +294,17 @@ The username/password are loaded from the `setUpInitialData` method.
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
+== Angular realtime example
+
+This example shows a music store implemented with angular js, where all album data and orders are taken in realtime.
+
+It also demonstrates how to protect the even bus when used with a bridge using one `Auth Provider`.
+
+The link:src/main/java/io/vertx/example/web/angular_realtime/[Java angular_realtime example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
+
 == Programmatic Auth example
 
 This example shows how to use the Auth Handlers to protect resources by asserting if the user has the right authorities
