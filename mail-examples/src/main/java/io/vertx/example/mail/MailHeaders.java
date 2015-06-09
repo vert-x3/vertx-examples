@@ -29,7 +29,7 @@ public class MailHeaders extends AbstractVerticle {
       .setFrom("user1@example.com")
       .setTo(Arrays.asList("user2@example.com", "user3@example.com", "user4@example.com"));
 
-    MultiMap headers = new CaseInsensitiveHeaders();
+    MultiMap headers = MultiMap.caseInsensitiveMultiMap();
 
     headers.add("X-Mailer", "Vert.x Mail-Client 3.0");
     headers.add("Message-ID", "12345@example.com");

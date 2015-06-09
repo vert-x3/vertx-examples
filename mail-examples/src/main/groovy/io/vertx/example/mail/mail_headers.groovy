@@ -1,4 +1,5 @@
 import io.vertx.groovy.ext.mail.MailClient
+import io.vertx.groovy.core.MultiMap
 def mailConfig = [
   hostname:"smtp.example.com",
   port:465,
@@ -12,7 +13,7 @@ def email = [
   to:["user2@example.com", "user3@example.com", "user4@example.com"]
 ]
 
-def headers = new io.vertx.core.http.CaseInsensitiveHeaders()
+def headers = MultiMap.caseInsensitiveMultiMap()
 
 headers.add("X-Mailer", "Vert.x Mail-Client 3.0")
 headers.add("Message-ID", "12345@example.com")

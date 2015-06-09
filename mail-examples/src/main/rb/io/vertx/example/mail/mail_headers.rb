@@ -1,4 +1,5 @@
 require 'vertx-mail/mail_client'
+require 'vertx/multi_map'
 mailConfig = {
   'hostname' => "smtp.example.com",
   'port' => 465,
@@ -12,7 +13,7 @@ email = {
   'to' => ["user2@example.com", "user3@example.com", "user4@example.com"]
 }
 
-headers = Java::IoVertxCoreHttp::CaseInsensitiveHeaders.new()
+headers = Vertx::MultiMap.case_insensitive_multi_map()
 
 headers.add("X-Mailer", "Vert.x Mail-Client 3.0")
 headers.add("Message-ID", "12345@example.com")

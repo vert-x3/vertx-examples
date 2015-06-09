@@ -1,4 +1,5 @@
 var MailClient = require("vertx-mail-js/mail_client");
+var MultiMap = require("vertx-js/multi_map");
 var mailConfig = {
   "hostname" : "smtp.example.com",
   "port" : 465,
@@ -12,7 +13,7 @@ var email = {
   "to" : ["user2@example.com", "user3@example.com", "user4@example.com"]
 };
 
-var headers = new (Java.type("io.vertx.core.http.CaseInsensitiveHeaders"))();
+var headers = MultiMap.caseInsensitiveMultiMap();
 
 headers.add("X-Mailer", "Vert.x Mail-Client 3.0");
 headers.add("Message-ID", "12345@example.com");
