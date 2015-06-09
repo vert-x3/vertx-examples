@@ -1,0 +1,106 @@
+= Vert.x Service Proxy examples
+
+Here you will find examples demonstrating Vert.x Service Proxies.
+
+Service Proxies provide a way to expose _services_ on the event bus and reducing the code required to invoke them.
+
+In this example, we will run two verticles:
+
+* one provides a `ProcessorService`
+* the seconds one consumes it
+
+Verticles runs on two clustered vert.x instances.
+
+== Providing a service
+
+To provide a service, you need a service interface, an implementation and a verticle.
+
+=== Service interface
+
+The service interface is a Java interface annotated with `@ProxyGen`.
+
+link:service-provider/src/main/java/io/vertx/examples/service/ProcessorService.java[Processor Service Interface]
+
+Compiling this class creates two other classes:
+
+link:service-provider/src/main/generated/io/vertx/examples/service/ProcessorServiceVertxEBProxy.java[Processor Service Client]
+link:service-provider/src/main/generated/io/vertx/examples/service/ProcessorServiceProxyHandler.java[Processor Service Handler]
+
+These classes are going to be used in the provider and consumer code
+
+=== Service Provider
+
+The service provider contains a verticle registering the service handler and an implementation of the service:
+
+link:service-provider/src/main/java/io/vertx/examples/service/ProcessorServiceVerticle.java[Verticle]
+link:service-provider/src/main/java/io/vertx/examples/service/impl/ProcessorServiceImpl.java[Processor Service Implementation]
+
+The service implementation is a simple Java class implementing the service interface. The only trick to know is the invocation of the given result handler:
+
+[source, java]
+----
+resultHandler.handle(Future.succeededFuture(result));
+----
+
+In the verticle, the handler registration is made using:
+
+[source, java]
+----
+new ProcessorServiceVertxProxyHandler(vertx, service, "vertx.processor").registerHandler();
+----
+
+`service` is the service object we register (so an instance of the `ProcessorServiceImpl`. The last parameter is the address on which the service can be invoked.
+
+=== Running the service provider
+
+To run the service provider, you first need to package it with:
+
+[source]
+----
+cd service-provider
+# Install is important here as the service consumer needs the service interface class
+mvn clean install
+----
+
+Once done, run the verticle using:
+
+[source]
+----
+vertx run io.vertx.examples.service.ProcessorServiceVerticle \
+    -cp target/service-provider-3.0.0-SNAPSHOT.jar -cluster
+----
+
+Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
+
+== Consuming a service
+
+To consume our service, we just need a verticle that runs on a vert.x instance on the same cluster as the service provider.
+
+link:service-consumer/src/main/java/io/vertx/examples/service/consumer/ConsumerVerticle.java[Consumer Verticle]
+
+The service is retrieved using:
+
+[code]
+----
+ProcessorService service = ProcessorService.createProxy(vertx, "vertx.processor");
+----
+
+The second argument is the service address.
+
+To run this verticle, package it using: `mvn clean package`, and run it with:
+
+----
+vertx run io.vertx.examples.service.consumer.ConsumerVerticle \
+    -cp ../service-provider/target/service-provider-3.0.0-SNAPSHOT.jar:target/service-consumer-3.0.0-SNAPSHOT.jar \
+    -cluster
+----
+
+Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
+
+Notice that the verticle has in its classpath the service provider verticle to access the service interface. We could have packaged the service interface in its owned packaged (alongside the generated handler and proxy).
+
+Once launched you should see:
+
+----
+{"name":"vertx","approved":true}
+----
