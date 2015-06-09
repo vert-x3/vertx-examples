@@ -1,9 +1,9 @@
 require 'json'
 require 'vertx-web/router'
 require 'vertx-web/body_handler'
-@products = Hash.new()
+products = Hash.new()
 def add_product(product)
-  @products[product['id']] = product
+  products[product['id']] = product
 end
 def set_up_initial_data()
   add_product({
@@ -31,7 +31,7 @@ def handle_get_product(routingContext)
   if (productID == nil)
     send_error(400, response)
   else
-    product = @products[productID]
+    product = products[productID]
     if (product == nil)
       send_error(404, response)
     else
@@ -45,7 +45,7 @@ end
 def handle_list_products(routingContext)
   arr = [
   ]
-  @products.each_pair { |k,v|
+  products.each_pair { |k,v|
     arr.push(v)
   }
   routingContext.response().put_header("content-type", "application/json").end(JSON.generate(arr))
@@ -60,7 +60,7 @@ def handle_add_product(routingContext)
     if (product == nil)
       send_error(400, response)
     else
-      @products[productID] = product
+      products[productID] = product
       response.end()
     end
   end

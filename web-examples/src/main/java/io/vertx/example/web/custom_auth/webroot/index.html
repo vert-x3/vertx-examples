@@ -1,0 +1,76 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Web site with public and private pages</h1>
+
+<br>
+<br>
+
+<div id="login">
+    <a href="#" id="generateToken0">Get a Token without authorities</a><br>
+    <a href="#" id="generateToken1">Get a Token with defcon1 authority</a><br>
+    <a href="#" id="generateToken2">Get a Token with defcon2 authority</a><br>
+    <a href="#" id="generateToken3">Get a Token with defcon1 and defcon2 authority</a><br>
+    <div id="token">Current token:</div>
+</div>
+
+<br>
+<br>
+
+<div id="test">
+    <a href="#" id="getProtected0">Get Protected Resource (no authority required)</a><br>
+    <a href="#" id="getProtected1">Get Protected Resource (defcon1 authority required)</a><br>
+    <a href="#" id="getProtected2">Get Protected Resource (defcon2 authority required)</a><br>
+    <a href="#" id="getProtected3">Get Protected Resource (defcon3 authority required)</a><br>
+
+    <div id="protected"></div>
+</div>
+
+<script language="JavaScript">
+    $(document).ready(function () {
+        var genToken = function(authorities) {
+            return function () {
+                $.ajax({
+                    url: '/api/newToken' + authorities,
+                    dataType: 'text',
+                    success: function (text) {
+                        $('#token').html('Current Token: ' + text);
+                    }
+                });
+            }
+        };
+
+        $('#generateToken0').on('click', genToken(''));
+        $('#generateToken1').on('click', genToken('?authority=defcon1'));
+        $('#generateToken2').on('click', genToken('?authority=defcon2'));
+        $('#generateToken3').on('click', genToken('?authority=defcon1&authority=defcon2'));
+
+        var getResource = function(authority) {
+            return function () {
+                $.ajax({
+                    url: '/api/protected' + authority,
+                    dataType: 'text',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').html().substring(15)
+                    },
+                    success: function (text) {
+                        $('#protected').html(text);
+                    },
+                    error: function (err) {
+                        $('#protected').html('Error: ' + err.toString());
+                    }
+                });
+            }
+        };
+
+        $('#getProtected0').on('click', getResource(''));
+        $('#getProtected1').on('click', getResource('/defcon1'));
+        $('#getProtected2').on('click', getResource('/defcon2'));
+        $('#getProtected3').on('click', getResource('/defcon3'));
+    });
+</script>
+</body>
+</html>
