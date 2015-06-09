@@ -14,32 +14,14 @@
  * limitations under the License.
  */
 
-function CartController($scope, $filter) {
+function CartController($scope, $filter, $http, $timeout) {
 
   $scope.items = [];
   $scope.orderSubmitted = false;
   $scope.username = '';
   $scope.password = '';
   $scope.loggedIn = false;
-
-  var eb = new vertx.EventBus(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/eventbus');
-
-  eb.onopen = function() {
-
-    // Get the static data
-    eb.send('vtoons.listAlbums', {},
-      function(reply) {
-        $scope.albums = reply;
-        $scope.$apply();
-      }, function (err) {
-        console.error('Failed to retrieve albums: ' + err);
-      }
-    );
-  };
-
-  eb.onclose = function() {
-    eb = null;
-  };
+  $scope.eb = null;
 
   $scope.addToCart = function(album) {
     console.log("Adding to cart: " + JSON.stringify(album));
@@ -82,11 +64,10 @@ function CartController($scope, $filter) {
     var orderItems = $filter('json')($scope.items);
     var orderMsg = {
       username: $scope.username,
-      sid: $scope.sid,
       items: orderItems
     };
 
-    eb.send('vtoons.placeOrder', orderMsg, function(reply) {
+    $scope.eb.send('vtoons.placeOrder', orderMsg, function(reply) {
       $scope.orderSubmitted = true;
       // lets clear the cart now
       $scope.items = [];
@@ -100,13 +81,37 @@ function CartController($scope, $filter) {
 
   $scope.login = function() {
     if ($scope.username.trim() != '' && $scope.password.trim() != '') {
-      eb.send('vtoons.login', {username: $scope.username, password: $scope.password}, function (reply) {
+      $http.post(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/login', {username: $scope.username, password: $scope.password}).success(function(data, status) {
         $scope.loggedIn = true;
-        $scope.sid = reply.sid;
-        $scope.$apply();
-      }, function (err) {
+
+        $timeout(function() {
+          if ($scope.eb != null) {
+            $scope.eb.close();
+          }
+
+          $scope.eb = new vertx.EventBus(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/eventbus');
+
+          $scope.eb.onopen = function() {
+
+            // Get the static data
+            $scope.eb.send('vtoons.listAlbums', {},
+                function(reply) {
+                  $scope.albums = reply;
+                  $scope.$apply();
+                }, function (err) {
+                  console.error('Failed to retrieve albums: ' + err);
+                }
+            );
+          };
+
+          $scope.eb.onclose = function() {
+            $scope.eb = null;
+          };
+
+          $scope.$apply();
+        });
+      }).error(function () {
         alert('invalid login');
-        console.log(err);
       });
     }
   };

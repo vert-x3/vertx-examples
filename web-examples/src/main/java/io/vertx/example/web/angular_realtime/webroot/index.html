@@ -34,7 +34,7 @@
       <h2><strong ng-bind="total() | currency"></strong></h2>
     </div>
 
-    <form class="form-stacked">
+    <form class="form-stacked" ng-show="!loggedIn">
       <label for="username">Username</label>
       <input type="text" id="username" class="span2"
              ng-model="username"/>
@@ -64,7 +64,7 @@
       <p>I hope you will enjoy our fantastic selection of music</p>
     </div>
 
-    <div class="row">
+    <div class="row" ng-show="loggedIn">
 
       <ul class="tabs">
         <li class="active"><a href="#shop">Shop</a></li>

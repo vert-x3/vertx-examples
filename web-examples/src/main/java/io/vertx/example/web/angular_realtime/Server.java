@@ -2,6 +2,7 @@ package io.vertx.example.web.angular_realtime;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.Message;
+import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
@@ -10,13 +11,11 @@ import io.vertx.ext.auth.shiro.ShiroAuth;
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.Session;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
-import io.vertx.ext.web.sstore.SessionStore;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,8 +31,6 @@ public class Server extends AbstractVerticle {
   }
 
   private MongoClient mongo;
-  private AuthProvider auth;
-  private SessionStore sessions;
 
   @Override
   public void start() throws Exception {
@@ -46,17 +43,52 @@ public class Server extends AbstractVerticle {
       loadData(mongo);
 
       // the app works 100% realtime
-      vertx.eventBus().consumer("vtoons.login", this::login);
       vertx.eventBus().consumer("vtoons.listAlbums", this::listAlbums);
       vertx.eventBus().consumer("vtoons.placeOrder", this::placeOrder);
 
       Router router = Router.router(vertx);
 
-      // We need to store some session data, in order to identify the user
-      sessions = LocalSessionStore.create(vertx);
+      // We need cookies and sessions
+      router.route().handler(CookieHandler.create());
+      router.route().handler(BodyHandler.create());
+      router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
       // Simple auth service which uses a properties file for user/role info
-      auth = ShiroAuth.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
+      AuthProvider authProvider = ShiroAuth.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
+
+      // We need a user session handler too to make sure the user is stored in the session between requests
+      router.route().handler(UserSessionHandler.create(authProvider));
+
+      router.post("/login").handler(ctx -> {
+        JsonObject credentials = ctx.getBodyAsJson();
+        if (credentials == null) {
+          // bad request
+          ctx.fail(400);
+          return;
+        }
+
+        // use the auth handler to perform the authentication for us
+        authProvider.authenticate(credentials, login -> {
+          // error handling
+          if (login.failed()) {
+            // forbidden
+            ctx.fail(403);
+            return;
+          }
+
+          ctx.setUser(login.result());
+          ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json").end("{}");
+        });
+      });
+
+      router.route("/eventbus/*").handler(ctx -> {
+        // we need to be logged in
+        if (ctx.user() == null) {
+          ctx.fail(403);
+        } else {
+          ctx.next();
+        }
+      });
 
       // Allow outbound traffic to the vtoons addresses
       BridgeOptions options = new BridgeOptions()
@@ -68,7 +100,8 @@ public class Server extends AbstractVerticle {
           .setAddress("vtoons.login"))
           // this is the authenticated place orders inbound
         .addInboundPermitted(new PermittedOptions()
-          .setAddress("vtoons.placeOrder"))
+          .setAddress("vtoons.placeOrder")
+          .setRequiredAuthority("place_order"))
 
           // all outbound messages are permitted
         .addOutboundPermitted(new PermittedOptions());
@@ -100,49 +133,14 @@ public class Server extends AbstractVerticle {
   }
 
   private void placeOrder(Message<JsonObject> msg) {
-    // load the session
-    String sid = msg.body().getString("sid");
-
-    if (sid == null) {
-      msg.fail(403, "No session id");
-      return;
-    }
-
-    // verify if the session is still valid
-    sessions.get(sid, load -> {
+    mongo.save("orders", msg.body(), save -> {
       // error handling
-      if (load.failed()) {
-        msg.fail(403, load.cause().getMessage());
+      if (save.failed()) {
+        msg.fail(500, save.cause().getMessage());
         return;
       }
 
-      // remove the sid, since we do not need to store it on mongo
-      msg.body().remove("sid");
-
-      mongo.save("orders", msg.body(), save -> {
-        // error handling
-        if (save.failed()) {
-          msg.fail(500, save.cause().getMessage());
-          return;
-        }
-
-        msg.reply(new JsonObject());
-      });
-    });
-  }
-
-  private void login(Message<JsonObject> msg) {
-    // use the auth handler to perform the authentication for us
-    auth.authenticate(msg.body(), login -> {
-      // error handling
-      if (login.failed()) {
-        msg.fail(403, login.cause().getMessage());
-        return;
-      }
-
-      // send back the session id
-      Session session = sessions.createSession(90);
-      msg.reply(new JsonObject().put("sid", session.id()));
+      msg.reply(new JsonObject());
     });
   }
 
