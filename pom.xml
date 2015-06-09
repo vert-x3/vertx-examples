@@ -25,6 +25,7 @@
     <module>openshift-example</module>
     <module>osgi-examples</module>
     <module>service-proxy-examples</module>
+    <module>springboot-example</module>
   </modules>
 
 
