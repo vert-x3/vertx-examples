@@ -24,6 +24,7 @@
     <module>mail-examples</module>
     <module>openshift-example</module>
     <module>osgi-examples</module>
+    <module>maven-service-factory-examples</module>
   </modules>
 
 
