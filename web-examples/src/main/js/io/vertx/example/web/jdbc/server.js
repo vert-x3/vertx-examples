@@ -26,6 +26,8 @@ var setUpInitialData = function(done) {
   });
 };
 
+var that = this;
+
 // Create a JDBC client with a test database
 client = JDBCClient.createShared(vertx, {
   "url" : "jdbc:hsqldb:mem:test?shutdown=true",
@@ -53,12 +55,12 @@ setUpInitialData(function (ready) {
         // the remaining code readable one can add a headers end handler to close the connection. The reason to
         // choose the headers end is that if the close of the connection or say for example end of transaction
         // results in an error, it is still possible to return back to the client an error code and message.
-        routingContext.addHeadersEndHandler(function (end) {
+        routingContext.addHeadersEndHandler(function (done) {
           conn.close(function (close, close_err) {
             if (close_err != null) {
-              end.fail(close_err);
+              done.fail(close_err);
             } else {
-              end.complete();
+              done.complete();
             }
           });
         });
@@ -68,9 +70,9 @@ setUpInitialData(function (ready) {
     });
   });
 
-  router.get("/products/:productID").handler(Java.type("io.vertx.example.web.jdbc.Server").this.handleGetProduct);
-  router.post("/products").handler(Java.type("io.vertx.example.web.jdbc.Server").this.handleAddProduct);
-  router.get("/products").handler(Java.type("io.vertx.example.web.jdbc.Server").this.handleListProducts);
+  router.get("/products/:productID").handler(that.handleGetProduct);
+  router.post("/products").handler(that.handleAddProduct);
+  router.get("/products").handler(that.handleListProducts);
 
   vertx.createHttpServer().requestHandler(router.accept).listen(8080);
 });

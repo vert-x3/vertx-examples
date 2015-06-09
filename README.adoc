@@ -141,6 +141,10 @@ The link:maven-service-factory-examples[Vert.x Maven service factory examples] s
 can be deployed using the Maven Service Factory. Such a deployment is also demonstrated using either the command line
 or the api.
 
+==== Service Proxy Examples
+
+The link:service-proxy-examples/README.adoc[Vert.x Service Proxy examples] contains an example of service proxy usage. It depicts how a service provider can be implemented and how the published service can be consumed.
+
 ==== OSGi Examples
 
 The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples using Vert.x in an OSGi context.

@@ -1,9 +1,9 @@
 require 'vertx-jdbc/jdbc_client'
 require 'vertx-web/router'
 require 'vertx-web/body_handler'
-@client
+
 def set_up_initial_data(done)
-  @client.get_connection() { |res,res_err|
+  client.get_connection() { |res,res_err|
     if (res_err != nil)
       raise res_err
     end
@@ -26,8 +26,10 @@ def set_up_initial_data(done)
   }
 end
 
+that = self
+
 # Create a JDBC client with a test database
-@client = VertxJdbc::JDBCClient.create_shared($vertx, {
+client = VertxJdbc::JDBCClient.create_shared($vertx, {
   'url' => "jdbc:hsqldb:mem:test?shutdown=true",
   'driver_class' => "org.hsqldb.jdbcDriver"
 })
@@ -40,7 +42,7 @@ set_up_initial_data() { |ready|
   # in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
   # that match /products
   router.route("/products*").handler() { |routingContext|
-    @client.get_connection() { |res,res_err|
+    client.get_connection() { |res,res_err|
       if (res_err != nil)
         routingContext.fail(500)
       else
@@ -53,12 +55,12 @@ set_up_initial_data() { |ready|
         # the remaining code readable one can add a headers end handler to close the connection. The reason to
         # choose the headers end is that if the close of the connection or say for example end of transaction
         # results in an error, it is still possible to return back to the client an error code and message.
-        routingContext.add_headers_end_handler() { |end|
+        routingContext.add_headers_end_handler() { |done|
           conn.close() { |close,close_err|
             if (close_err != nil)
-              end.fail(close_err)
+              done.fail(close_err)
             else
-              end.complete()
+              done.complete()
             end
           }
         }
@@ -68,9 +70,9 @@ set_up_initial_data() { |ready|
     }
   }
 
-  router.get("/products/:productID").handler(&Java::IoVertxExampleWebJdbc::Server::this.method(:handle_get_product))
-  router.post("/products").handler(&Java::IoVertxExampleWebJdbc::Server::this.method(:handle_add_product))
-  router.get("/products").handler(&Java::IoVertxExampleWebJdbc::Server::this.method(:handle_list_products))
+  router.get("/products/:productID").handler(&that.method(:handle_get_product))
+  router.post("/products").handler(&that.method(:handle_add_product))
+  router.get("/products").handler(&that.method(:handle_list_products))
 
   $vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
 }

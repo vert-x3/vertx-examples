@@ -43,6 +43,8 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() {
 
+    Server that = this;
+
     // Create a JDBC client with a test database
     client = JDBCClient.createShared(vertx, new JsonObject()
       .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
@@ -68,11 +70,11 @@ public class Server extends AbstractVerticle {
           // the remaining code readable one can add a headers end handler to close the connection. The reason to
           // choose the headers end is that if the close of the connection or say for example end of transaction
           // results in an error, it is still possible to return back to the client an error code and message.
-          routingContext.addHeadersEndHandler(end -> conn.close(close -> {
+          routingContext.addHeadersEndHandler(done -> conn.close(close -> {
             if (close.failed()) {
-              end.fail(close.cause());
+              done.fail(close.cause());
             } else {
-              end.complete();
+              done.complete();
             }
           }));
 
@@ -80,9 +82,9 @@ public class Server extends AbstractVerticle {
         }
       }));
 
-      router.get("/products/:productID").handler(Server.this::handleGetProduct);
-      router.post("/products").handler(Server.this::handleAddProduct);
-      router.get("/products").handler(Server.this::handleListProducts);
+      router.get("/products/:productID").handler(that::handleGetProduct);
+      router.post("/products").handler(that::handleAddProduct);
+      router.get("/products").handler(that::handleListProducts);
 
       vertx.createHttpServer().requestHandler(router::accept).listen(8080);
     });
