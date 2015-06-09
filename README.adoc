@@ -135,6 +135,12 @@ tls, ssl etc. The examples either use `localhost:25` to send a mail or use host
 `mail.example.com`. To actually run the examples you will have to change the
 mail server and the user credentials in the `MailLogin` example.
 
+==== Maven Service Factory examples
+
+The link:maven-service-factory-examples[Vert.x Maven service factory examples] shows how to package a verticle that
+can be deployed using the Maven Service Factory. Such a deployment is also demonstrated using either the command line
+or the api.
+
 ==== OSGi Examples
 
 The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples using Vert.x in an OSGi context.

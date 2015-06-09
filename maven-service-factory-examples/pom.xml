@@ -16,7 +16,7 @@
 
   <modules>
     <module>maven-service-factory-verticle</module>
-    <module>maven-service-factory-consumer</module>
+    <module>maven-service-factory-api</module>
   </modules>
 
 

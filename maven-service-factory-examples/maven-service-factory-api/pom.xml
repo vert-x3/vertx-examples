@@ -10,7 +10,7 @@
     <version>3.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>maven-service-factory-consumer</artifactId>
+  <artifactId>maven-service-factory-api</artifactId>
 
   <dependencies>
     <dependency>
