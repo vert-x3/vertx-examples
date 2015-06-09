@@ -137,7 +137,8 @@ mail server and the user credentials in the `MailLogin` example.
 
 ==== Service Proxy Examples
 
-The link:service-proxy-examples/README.adoc[Vert.x Service Proxy examples] contains an example of service proxy usage. It depicts how a service provider can be implemented and how the published service can be consumed.
+The link:service-proxy-examples/README.adoc[Vert.x Service Proxy examples] contains an example of service proxy usage.
+It depicts how a service provider can be implemented and how the published service can be consumed.
 
 ==== OSGi Examples
 
@@ -145,9 +146,18 @@ The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples
 
 === Docker examples
 
-The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers. It also contains an example of application that can be deployed on Fabric8.
+The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
+It also contains an example of application that can be deployed on Fabric8.
 
 === Openshift examples
 
-The link:openshift-example/README.adoc[Vert.x OpenShift example] shows how to deploy Vert.x application to OpenShift following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
+The link:openshift-example/README.adoc[Vert.x OpenShift example] shows how to deploy Vert.x application to OpenShift
+following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
+
+=== SpringBoot example
+
+The link:springboot-example/README.adoc[Vert.x SpringBoot Example] shows how you can embed Vert.x in a SpringBoot
+application.
+
+
 
