@@ -22,7 +22,11 @@ import java.util.List;
 public class MailLogin extends AbstractVerticle {
 
   public void start() {
-    MailConfig mailConfig = new MailConfig("smtp.example.com", 587, StartTLSOptions.REQUIRED, LoginOption.REQUIRED)
+    MailConfig mailConfig = new MailConfig()
+      .setHostname("smtp.example.com")
+      .setPort(587)
+      .setStarttls(StartTLSOptions.REQUIRED)
+      .setLogin(LoginOption.REQUIRED)
       .setAuthMethods("PLAIN")
       .setUsername("username")
       .setPassword("password");

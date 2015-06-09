@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class MailHeaders extends AbstractVerticle {
 
   public void start() {
-    MailConfig mailConfig = new MailConfig("smtp.example.com", 465).setSsl(true);
+    MailConfig mailConfig = new MailConfig().setHostname("smtp.example.com").setPort(465).setSsl(true);
 
     MailClient mailClient = MailClient.create(vertx, mailConfig);
 
