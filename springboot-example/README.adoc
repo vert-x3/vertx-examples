@@ -7,7 +7,7 @@ So now you can add all the goodness of Vert.x to your SpringBoot applications
 It's basically the same example as the Vert.x-Web "staticsite" example in this repository but instead of using
 Vert.x to boot it it uses SpringBoot to start it.
 
-The end result is more or less the same:
+The end result is more or less the same as using Vert.x without SpringBoot:
 
 * There is a similar amount of code and boilerplate (both very little)
 * Both Vert.x and SpringBoot create executable fat jars (The Vert.x jar is considerable smaller than the SpringBoot one though)

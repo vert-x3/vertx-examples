@@ -1,9 +1,9 @@
 require 'vertx-jdbc/jdbc_client'
 require 'vertx-web/router'
 require 'vertx-web/body_handler'
-
+@client
 def set_up_initial_data(done)
-  client.get_connection() { |res,res_err|
+  @client.get_connection() { |res,res_err|
     if (res_err != nil)
       raise res_err
     end
@@ -29,7 +29,7 @@ end
 that = self
 
 # Create a JDBC client with a test database
-client = VertxJdbc::JDBCClient.create_shared($vertx, {
+@client = VertxJdbc::JDBCClient.create_shared($vertx, {
   'url' => "jdbc:hsqldb:mem:test?shutdown=true",
   'driver_class' => "org.hsqldb.jdbcDriver"
 })
@@ -42,7 +42,7 @@ set_up_initial_data() { |ready|
   # in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
   # that match /products
   router.route("/products*").handler() { |routingContext|
-    client.get_connection() { |res,res_err|
+    @client.get_connection() { |res,res_err|
       if (res_err != nil)
         routingContext.fail(500)
       else
