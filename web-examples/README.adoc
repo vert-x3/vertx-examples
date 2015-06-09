@@ -267,3 +267,14 @@ if any of the resources change.
 
 You can test this by editing the Server.java then recompiling it without restarting the server - the verticle should
 automatically reload.
+
+== Angular realtime example
+
+This example shows a music store implemented with angular js, where all album data and orders are taken in realtime.
+
+It also demonstrates how to protect the even bus when used with a bridge using one `Auth Provider`.
+
+The link:src/main/java/io/vertx/example/web/angular_realtime/[Java angular_realtime example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
