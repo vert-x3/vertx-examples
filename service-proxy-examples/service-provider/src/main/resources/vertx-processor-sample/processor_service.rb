@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.examples.service.ProcessorService
 module VertxProcessorSample
+  #  The service interface.
   class ProcessorService
     # @private
     # @param j_del [::VertxProcessorSample::ProcessorService] the java delegate

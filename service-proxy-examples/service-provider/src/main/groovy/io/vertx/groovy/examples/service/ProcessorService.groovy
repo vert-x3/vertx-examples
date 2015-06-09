@@ -21,6 +21,9 @@ import io.vertx.groovy.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.core.AsyncResult
 import io.vertx.core.Handler
+/**
+ * The service interface.
+*/
 @CompileStatic
 public class ProcessorService {
   final def io.vertx.examples.service.ProcessorService delegate;

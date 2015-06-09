@@ -6,11 +6,13 @@ import io.vertx.examples.service.ProcessorService;
 import io.vertx.examples.service.ProcessorServiceVertxEBProxy;
 
 
+/**
+ * A verticle consuming the provided {@link ProcessorService} service.
+ */
 public class ConsumerVerticle extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    new ProcessorServiceVertxEBProxy(vertx, "processor.mine");
     ProcessorService service = ProcessorService.createProxy(vertx, "vertx.processor");
 
     JsonObject document = new JsonObject().put("name", "vertx");
@@ -22,6 +24,5 @@ public class ConsumerVerticle extends AbstractVerticle {
         System.out.println(r.cause().getMessage());
       }
     });
-
   }
 }

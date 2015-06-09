@@ -8,12 +8,14 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.impl.ProcessorServiceImpl;
 
-@ProxyGen
-@VertxGen
+/**
+ * The service interface.
+ */
+@ProxyGen // Generate the proxy and handler
+@VertxGen // Generate clients in non-java languages
 public interface ProcessorService {
 
   // A couple of factory methods to create an instance and a proxy
-
   static ProcessorService create(Vertx vertx) {
     return new ProcessorServiceImpl();
   }
