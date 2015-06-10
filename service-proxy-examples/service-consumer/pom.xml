@@ -30,7 +30,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>service-provider</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
