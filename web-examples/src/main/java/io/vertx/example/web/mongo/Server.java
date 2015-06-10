@@ -39,7 +39,7 @@ public class Server extends AbstractVerticle {
     vertx.deployVerticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6");
 
     // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
-    final MongoClient mongo = MongoClient.createShared(vertx, config().put("db_name", "demo"));
+    final MongoClient mongo = MongoClient.createShared(vertx, new JsonObject().put("db_name", "demo"));
 
     // In order to use a JADE template we first need to create an engine
     final JadeTemplateEngine jade = JadeTemplateEngine.create();
@@ -80,8 +80,9 @@ public class Server extends AbstractVerticle {
 
         // now convert the list to a JsonArray because it will be easier to encode the final object as the response.
         final JsonArray json = new JsonArray();
-
-        lookup.result().forEach(json::add);
+        for (JsonObject o : lookup.result()) {
+          json.add(o);
+        }
 
         // since we are producing json we should inform the browser of the correct content type.
         ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");

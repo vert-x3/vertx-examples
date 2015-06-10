@@ -26,6 +26,7 @@ var listAlbums = function(msg) {
     Array.prototype.forEach.call(lookup, function(o) {
       json.push(o);
     });
+
     msg.reply(json);
   });
 

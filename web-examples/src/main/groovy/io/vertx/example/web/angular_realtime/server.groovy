@@ -27,6 +27,7 @@ def listAlbums(msg) {
     lookup.result().each { o ->
       json.add(o)
     }
+
     msg.reply(json)
   })
 

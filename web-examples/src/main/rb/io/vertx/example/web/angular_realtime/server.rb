@@ -27,6 +27,7 @@ def list_albums(msg)
     lookup.each do |o|
       json.push(o)
     end
+
     msg.reply(json)
   }
 
