@@ -126,7 +126,11 @@ public class Server extends AbstractVerticle {
 
       // now convert the list to a JsonArray because it will be easier to encode the final object as the response.
       final JsonArray json = new JsonArray();
-      lookup.result().forEach(json::add);
+
+      for (JsonObject o : lookup.result()) {
+        json.add(o);
+      }
+
       msg.reply(json);
     });
 
@@ -178,7 +182,9 @@ public class Server extends AbstractVerticle {
         .put("price", 1.20));
 
       for (JsonObject album : albums) {
-        db.insert("albums", album, res -> {});
+        db.insert("albums", album, res -> {
+          System.out.println("inserted " + album.encode());
+        });
       }
     });
   }
