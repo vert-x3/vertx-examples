@@ -28,35 +28,6 @@
     <module>springboot-example</module>
   </modules>
 
-
-  <dependencies>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codetrans</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-js</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-groovy</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-ruby</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-  </dependencies>
-
   <profiles>
     <profile>
       <!-- Use -DskipDocker as the docker module requires docker to be installed, there are built an their own profile -->
