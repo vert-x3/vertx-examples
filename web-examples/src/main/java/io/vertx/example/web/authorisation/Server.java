@@ -1,4 +1,4 @@
-package io.vertx.example.web.custom_auth;
+package io.vertx.example.web.authorisation;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
