@@ -3,7 +3,6 @@ package io.vertx.examples.service.consumer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.ProcessorService;
-import io.vertx.examples.service.ProcessorServiceVertxEBProxy;
 
 
 /**
@@ -19,9 +18,9 @@ public class ConsumerVerticle extends AbstractVerticle {
 
     service.process(document, (r) -> {
       if (r.succeeded()) {
-        System.out.println(r.result());
+        System.out.println(r.result().encodePrettily());
       } else {
-        System.out.println(r.cause().getMessage());
+        System.out.println(r.cause());
       }
     });
   }

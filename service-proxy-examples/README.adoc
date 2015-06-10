@@ -72,6 +72,10 @@ vertx run io.vertx.examples.service.ProcessorServiceVerticle \
 
 Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
 
+=== Client generation
+
+Vert.x generates the clients to use this service in the different supported languages.
+
 == Consuming a service
 
 To consume our service, we just need a verticle that runs on a vert.x instance on the same cluster as the service provider.
@@ -104,3 +108,26 @@ Once launched you should see:
 ----
 {"name":"vertx","approved":true}
 ----
+
+The service can be consumed from Java, as presented above, but also from Groovy, JavaScript and Ruby.
+
+You can consume the `ProcessorService` in Groovy as shown in this link:service-consumer/src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy[Groovy verticle].
+
+To launch this groovy verticle run:
+
+----
+vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-3.0.0-SNAPSHOT.jar -cluster
+----
+
+In JavaScript, the consuming verticle is link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js[here]. To launch it, just run:
+
+----
+vertx run src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js  -cp ../service-provider/target/service-provider-3.0.0-SNAPSHOT.jar -cluster
+----
+
+You can also consume the service in ruby as shown link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.rb[here]. To launch it, just run:
+
+----
+vertx run src/main/rb/io/vertx/examples/service/consumer/consumer_verticle.rb   -cp ../service-provider/target/service-provider-3.0.0-SNAPSHOT.jar -cluster
+----
+

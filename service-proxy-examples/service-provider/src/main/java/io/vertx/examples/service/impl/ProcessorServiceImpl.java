@@ -16,6 +16,7 @@ public class ProcessorServiceImpl implements ProcessorService {
 
   @Override
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
+    System.out.println("Processing...");
     JsonObject result = document.copy();
     result.put("approved", true);
     resultHandler.handle(Future.succeededFuture(result));
