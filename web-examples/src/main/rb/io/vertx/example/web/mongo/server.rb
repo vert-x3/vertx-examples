@@ -5,10 +5,6 @@ require 'vertx-web/router'
 require 'vertx-web/body_handler'
 require 'vertx-web/static_handler'
 
-# deploy an embedded mongo do we do not need to worry about not having a local mongo server running.
-# in a production environment you would not do this
-$vertx.deploy_verticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6")
-
 # Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
 mongo = VertxMongo::MongoClient.create_shared($vertx, {
   'db_name' => "demo"

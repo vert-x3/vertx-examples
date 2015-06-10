@@ -89,88 +89,86 @@ def load_data(db)
   }
 end
 
-$vertx.deploy_verticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6") { |done,done_err|
-  # Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
-  @mongo = VertxMongo::MongoClient.create_shared($vertx, {
-    'db_name' => "demo"
-  })
+# Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
+@mongo = VertxMongo::MongoClient.create_shared($vertx, {
+  'db_name' => "demo"
+})
 
-  # the load function just populates some data on the storage
-  load_data(@mongo)
+# the load function just populates some data on the storage
+load_data(@mongo)
 
-  # the app works 100% realtime
-  $vertx.event_bus().consumer("vtoons.listAlbums", &method(:list_albums))
-  $vertx.event_bus().consumer("vtoons.placeOrder", &method(:place_order))
+# the app works 100% realtime
+$vertx.event_bus().consumer("vtoons.listAlbums", &method(:list_albums))
+$vertx.event_bus().consumer("vtoons.placeOrder", &method(:place_order))
 
-  router = VertxWeb::Router.router($vertx)
+router = VertxWeb::Router.router($vertx)
 
-  # We need cookies and sessions
-  router.route().handler(&VertxWeb::CookieHandler.create().method(:handle))
-  router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
-  router.route().handler(&VertxWeb::SessionHandler.create(VertxWeb::LocalSessionStore.create($vertx)).method(:handle))
+# We need cookies and sessions
+router.route().handler(&VertxWeb::CookieHandler.create().method(:handle))
+router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
+router.route().handler(&VertxWeb::SessionHandler.create(VertxWeb::LocalSessionStore.create($vertx)).method(:handle))
 
-  # Simple auth service which uses a properties file for user/role info
-  authProvider = VertxAuthShiro::ShiroAuth.create($vertx, :PROPERTIES, {
-  })
+# Simple auth service which uses a properties file for user/role info
+authProvider = VertxAuthShiro::ShiroAuth.create($vertx, :PROPERTIES, {
+})
 
-  # We need a user session handler too to make sure the user is stored in the session between requests
-  router.route().handler(&VertxWeb::UserSessionHandler.create(authProvider).method(:handle))
+# We need a user session handler too to make sure the user is stored in the session between requests
+router.route().handler(&VertxWeb::UserSessionHandler.create(authProvider).method(:handle))
 
-  router.post("/login").handler() { |ctx|
-    credentials = ctx.get_body_as_json()
-    if (credentials == nil)
-      # bad request
-      ctx.fail(400)
+router.post("/login").handler() { |ctx|
+  credentials = ctx.get_body_as_json()
+  if (credentials == nil)
+    # bad request
+    ctx.fail(400)
+    return
+  end
+
+  # use the auth handler to perform the authentication for us
+  authProvider.authenticate(credentials) { |login,login_err|
+    # error handling
+    if (login_err != nil)
+      # forbidden
+      ctx.fail(403)
       return
     end
 
-    # use the auth handler to perform the authentication for us
-    authProvider.authenticate(credentials) { |login,login_err|
-      # error handling
-      if (login_err != nil)
-        # forbidden
-        ctx.fail(403)
-        return
-      end
-
-      ctx.set_user(login)
-      ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json").end("{}")
-    }
+    ctx.set_user(login)
+    ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json").end("{}")
   }
-
-  router.route("/eventbus/*").handler() { |ctx|
-    # we need to be logged in
-    if (ctx.user() == nil)
-      ctx.fail(403)
-    else
-      ctx.next()
-    end
-  }
-
-  # Allow outbound traffic to the vtoons addresses
-  options = {
-    'inboundPermitteds' => [
-      {
-        'address' => "vtoons.listAlbums"
-      },
-      {
-        'address' => "vtoons.login"
-      },
-      {
-        'address' => "vtoons.placeOrder",
-        'requiredAuthority' => "place_order"
-      }
-    ],
-    'outboundPermitteds' => [
-      {
-      }
-    ]
-  }
-
-  router.route("/eventbus/*").handler(&VertxWeb::SockJSHandler.create($vertx).bridge(options).method(:handle))
-
-  # Serve the static resources
-  router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
-
-  $vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
 }
+
+router.route("/eventbus/*").handler() { |ctx|
+  # we need to be logged in
+  if (ctx.user() == nil)
+    ctx.fail(403)
+  else
+    ctx.next()
+  end
+}
+
+# Allow outbound traffic to the vtoons addresses
+options = {
+  'inboundPermitteds' => [
+    {
+      'address' => "vtoons.listAlbums"
+    },
+    {
+      'address' => "vtoons.login"
+    },
+    {
+      'address' => "vtoons.placeOrder",
+      'requiredAuthority' => "place_order"
+    }
+  ],
+  'outboundPermitteds' => [
+    {
+    }
+  ]
+}
+
+router.route("/eventbus/*").handler(&VertxWeb::SockJSHandler.create($vertx).bridge(options).method(:handle))
+
+# Serve the static resources
+router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
+
+$vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)

@@ -28,161 +28,159 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    vertx.deployVerticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6", done -> {
-      // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
-      mongo = MongoClient.createShared(vertx, new JsonObject().put("db_name", "demo"));
+    // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
+    mongo = MongoClient.createShared(vertx, new JsonObject().put("db_name", "demo"));
 
-      // the load function just populates some data on the storage
-      loadData(mongo);
+    // the load function just populates some data on the storage
+    loadData(mongo);
 
-      Router router = Router.router(vertx);
+    Router router = Router.router(vertx);
 
-      router.route().handler(BodyHandler.create());
+    router.route().handler(BodyHandler.create());
 
-      // define some REST API
-      router.get("/api/users").handler(ctx -> {
-        mongo.find("users", new JsonObject(), lookup -> {
-          // error handling
-          if (lookup.failed()) {
-            ctx.fail(500);
-            return;
-          }
+    // define some REST API
+    router.get("/api/users").handler(ctx -> {
+      mongo.find("users", new JsonObject(), lookup -> {
+        // error handling
+        if (lookup.failed()) {
+          ctx.fail(500);
+          return;
+        }
 
-          // now convert the list to a JsonArray because it will be easier to encode the final object as the response.
-          final JsonArray json = new JsonArray();
+        // now convert the list to a JsonArray because it will be easier to encode the final object as the response.
+        final JsonArray json = new JsonArray();
 
-          for (JsonObject o : lookup.result()) {
-            json.add(o);
-          }
+        for (JsonObject o : lookup.result()) {
+          json.add(o);
+        }
 
-          ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-          ctx.response().end(json.encode());
-        });
+        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        ctx.response().end(json.encode());
       });
+    });
 
-      router.get("/api/users/:id").handler(ctx -> {
-        mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
-          // error handling
-          if (lookup.failed()) {
-            ctx.fail(500);
-            return;
-          }
+    router.get("/api/users/:id").handler(ctx -> {
+      mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
+        // error handling
+        if (lookup.failed()) {
+          ctx.fail(500);
+          return;
+        }
 
-          JsonObject user = lookup.result();
+        JsonObject user = lookup.result();
 
-          if (user == null) {
-            ctx.fail(404);
-          } else {
+        if (user == null) {
+          ctx.fail(404);
+        } else {
+          ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+          ctx.response().end(user.encode());
+        }
+      });
+    });
+
+    router.post("/api/users").handler(ctx -> {
+      JsonObject newUser = ctx.getBodyAsJson();
+
+      mongo.findOne("users", new JsonObject().put("username", newUser.getString("username")), null, lookup -> {
+        // error handling
+        if (lookup.failed()) {
+          ctx.fail(500);
+          return;
+        }
+
+        JsonObject user = lookup.result();
+
+        if (user != null) {
+          // already exists
+          ctx.fail(500);
+        } else {
+          mongo.insert("users", newUser, insert -> {
+            // error handling
+            if (insert.failed()) {
+              ctx.fail(500);
+              return;
+            }
+
+            // add the generated id to the user object
+            newUser.put("id", insert.result());
+
+            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            ctx.response().end(newUser.encode());
+          });
+        }
+      });
+    });
+
+    router.put("/api/users/:id").handler(ctx -> {
+      mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
+        // error handling
+        if (lookup.failed()) {
+          ctx.fail(500);
+          return;
+        }
+
+        JsonObject user = lookup.result();
+
+        if (user == null) {
+          // does not exist
+          ctx.fail(404);
+        } else {
+
+          // update the user properties
+          JsonObject update = ctx.getBodyAsJson();
+
+          user.put("username", update.getString("username"));
+          user.put("firstName", update.getString("firstName"));
+          user.put("lastName", update.getString("lastName"));
+          user.put("address", update.getString("address"));
+
+          mongo.replace("users", new JsonObject().put("id", ctx.request().getParam("id")), user, replace -> {
+            // error handling
+            if (replace.failed()) {
+              ctx.fail(500);
+              return;
+            }
+
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
             ctx.response().end(user.encode());
-          }
-        });
+          });
+        }
       });
-
-      router.post("/api/users").handler(ctx -> {
-        JsonObject newUser = ctx.getBodyAsJson();
-
-        mongo.findOne("users", new JsonObject().put("username", newUser.getString("username")), null, lookup -> {
-          // error handling
-          if (lookup.failed()) {
-            ctx.fail(500);
-            return;
-          }
-
-          JsonObject user = lookup.result();
-
-          if (user != null) {
-            // already exists
-            ctx.fail(500);
-          } else {
-            mongo.insert("users", newUser, insert -> {
-              // error handling
-              if (insert.failed()) {
-                ctx.fail(500);
-                return;
-              }
-
-              // add the generated id to the user object
-              newUser.put("id", insert.result());
-
-              ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-              ctx.response().end(newUser.encode());
-            });
-          }
-        });
-      });
-
-      router.put("/api/users/:id").handler(ctx -> {
-        mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
-          // error handling
-          if (lookup.failed()) {
-            ctx.fail(500);
-            return;
-          }
-
-          JsonObject user = lookup.result();
-
-          if (user == null) {
-            // does not exist
-            ctx.fail(404);
-          } else {
-
-            // update the user properties
-            JsonObject update = ctx.getBodyAsJson();
-
-            user.put("username", update.getString("username"));
-            user.put("firstName", update.getString("firstName"));
-            user.put("lastName", update.getString("lastName"));
-            user.put("address", update.getString("address"));
-
-            mongo.replace("users", new JsonObject().put("id", ctx.request().getParam("id")), user, replace -> {
-              // error handling
-              if (replace.failed()) {
-                ctx.fail(500);
-                return;
-              }
-
-              ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-              ctx.response().end(user.encode());
-            });
-          }
-        });
-      });
-
-      router.delete("/api/users/:id").handler(ctx -> {
-        mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
-          // error handling
-          if (lookup.failed()) {
-            ctx.fail(500);
-            return;
-          }
-
-          JsonObject user = lookup.result();
-
-          if (user == null) {
-            // does not exist
-            ctx.fail(404);
-          } else {
-
-            mongo.remove("users", new JsonObject().put("id", ctx.request().getParam("id")), remove -> {
-              // error handling
-              if (remove.failed()) {
-                ctx.fail(500);
-                return;
-              }
-
-              ctx.response().setStatusCode(204);
-              ctx.response().end();
-            });
-          }
-        });
-      });
-
-      // Create a router endpoint for the static content.
-      router.route().handler(StaticHandler.create());
-
-      vertx.createHttpServer().requestHandler(router::accept).listen(8080);
     });
+
+    router.delete("/api/users/:id").handler(ctx -> {
+      mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
+        // error handling
+        if (lookup.failed()) {
+          ctx.fail(500);
+          return;
+        }
+
+        JsonObject user = lookup.result();
+
+        if (user == null) {
+          // does not exist
+          ctx.fail(404);
+        } else {
+
+          mongo.remove("users", new JsonObject().put("id", ctx.request().getParam("id")), remove -> {
+            // error handling
+            if (remove.failed()) {
+              ctx.fail(500);
+              return;
+            }
+
+            ctx.response().setStatusCode(204);
+            ctx.response().end();
+          });
+        }
+      });
+    });
+
+    // Create a router endpoint for the static content.
+    router.route().handler(StaticHandler.create());
+
+    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
   }
 
   private void loadData(MongoClient db) {

@@ -88,88 +88,86 @@ var loadData = function(db) {
   });
 };
 
-vertx.deployVerticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6", function (done, done_err) {
-  // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
-  mongo = MongoClient.createShared(vertx, {
-    "db_name" : "demo"
-  });
+// Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
+mongo = MongoClient.createShared(vertx, {
+  "db_name" : "demo"
+});
 
-  // the load function just populates some data on the storage
-  loadData(mongo);
+// the load function just populates some data on the storage
+loadData(mongo);
 
-  // the app works 100% realtime
-  vertx.eventBus().consumer("vtoons.listAlbums", listAlbums);
-  vertx.eventBus().consumer("vtoons.placeOrder", placeOrder);
+// the app works 100% realtime
+vertx.eventBus().consumer("vtoons.listAlbums", listAlbums);
+vertx.eventBus().consumer("vtoons.placeOrder", placeOrder);
 
-  var router = Router.router(vertx);
+var router = Router.router(vertx);
 
-  // We need cookies and sessions
-  router.route().handler(CookieHandler.create().handle);
-  router.route().handler(BodyHandler.create().handle);
-  router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)).handle);
+// We need cookies and sessions
+router.route().handler(CookieHandler.create().handle);
+router.route().handler(BodyHandler.create().handle);
+router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)).handle);
 
-  // Simple auth service which uses a properties file for user/role info
-  var authProvider = ShiroAuth.create(vertx, 'PROPERTIES', {
-  });
+// Simple auth service which uses a properties file for user/role info
+var authProvider = ShiroAuth.create(vertx, 'PROPERTIES', {
+});
 
-  // We need a user session handler too to make sure the user is stored in the session between requests
-  router.route().handler(UserSessionHandler.create(authProvider).handle);
+// We need a user session handler too to make sure the user is stored in the session between requests
+router.route().handler(UserSessionHandler.create(authProvider).handle);
 
-  router.post("/login").handler(function (ctx) {
-    var credentials = ctx.getBodyAsJson();
-    if (credentials === null) {
-      // bad request
-      ctx.fail(400);
+router.post("/login").handler(function (ctx) {
+  var credentials = ctx.getBodyAsJson();
+  if (credentials === null) {
+    // bad request
+    ctx.fail(400);
+    return
+  }
+
+  // use the auth handler to perform the authentication for us
+  authProvider.authenticate(credentials, function (login, login_err) {
+    // error handling
+    if (login_err != null) {
+      // forbidden
+      ctx.fail(403);
       return
     }
 
-    // use the auth handler to perform the authentication for us
-    authProvider.authenticate(credentials, function (login, login_err) {
-      // error handling
-      if (login_err != null) {
-        // forbidden
-        ctx.fail(403);
-        return
-      }
-
-      ctx.setUser(login);
-      ctx.response().putHeader(Java.type("io.vertx.core.http.HttpHeaders").CONTENT_TYPE, "application/json").end("{}");
-    });
+    ctx.setUser(login);
+    ctx.response().putHeader(Java.type("io.vertx.core.http.HttpHeaders").CONTENT_TYPE, "application/json").end("{}");
   });
-
-  router.route("/eventbus/*").handler(function (ctx) {
-    // we need to be logged in
-    if (ctx.user() === null) {
-      ctx.fail(403);
-    } else {
-      ctx.next();
-    }
-  });
-
-  // Allow outbound traffic to the vtoons addresses
-  var options = {
-    "inboundPermitteds" : [
-      {
-        "address" : "vtoons.listAlbums"
-      },
-      {
-        "address" : "vtoons.login"
-      },
-      {
-        "address" : "vtoons.placeOrder",
-        "requiredAuthority" : "place_order"
-      }
-    ],
-    "outboundPermitteds" : [
-      {
-      }
-    ]
-  };
-
-  router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options).handle);
-
-  // Serve the static resources
-  router.route().handler(StaticHandler.create().handle);
-
-  vertx.createHttpServer().requestHandler(router.accept).listen(8080);
 });
+
+router.route("/eventbus/*").handler(function (ctx) {
+  // we need to be logged in
+  if (ctx.user() === null) {
+    ctx.fail(403);
+  } else {
+    ctx.next();
+  }
+});
+
+// Allow outbound traffic to the vtoons addresses
+var options = {
+  "inboundPermitteds" : [
+    {
+      "address" : "vtoons.listAlbums"
+    },
+    {
+      "address" : "vtoons.login"
+    },
+    {
+      "address" : "vtoons.placeOrder",
+      "requiredAuthority" : "place_order"
+    }
+  ],
+  "outboundPermitteds" : [
+    {
+    }
+  ]
+};
+
+router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options).handle);
+
+// Serve the static resources
+router.route().handler(StaticHandler.create().handle);
+
+vertx.createHttpServer().requestHandler(router.accept).listen(8080);

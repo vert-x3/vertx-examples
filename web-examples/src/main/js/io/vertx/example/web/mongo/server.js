@@ -4,10 +4,6 @@ var Router = require("vertx-web-js/router");
 var BodyHandler = require("vertx-web-js/body_handler");
 var StaticHandler = require("vertx-web-js/static_handler");
 
-// deploy an embedded mongo do we do not need to worry about not having a local mongo server running.
-// in a production environment you would not do this
-vertx.deployVerticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6");
-
 // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
 var mongo = MongoClient.createShared(vertx, {
   "db_name" : "demo"

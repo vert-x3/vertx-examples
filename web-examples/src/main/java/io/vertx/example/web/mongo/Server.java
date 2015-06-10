@@ -34,10 +34,6 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    // deploy an embedded mongo do we do not need to worry about not having a local mongo server running.
-    // in a production environment you would not do this
-    vertx.deployVerticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6");
-
     // Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
     final MongoClient mongo = MongoClient.createShared(vertx, new JsonObject().put("db_name", "demo"));
 

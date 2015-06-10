@@ -34,174 +34,172 @@ def load_data(db)
   }
 end
 
-$vertx.deploy_verticle("maven:io.vertx:vertx-mongo-embedded-db:3.0.0-milestone6") { |done,done_err|
-  # Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
-  @mongo = VertxMongo::MongoClient.create_shared($vertx, {
-    'db_name' => "demo"
-  })
+# Create a mongo client using all defaults (connect to localhost and default port) using the database name "demo".
+@mongo = VertxMongo::MongoClient.create_shared($vertx, {
+  'db_name' => "demo"
+})
 
-  # the load function just populates some data on the storage
-  load_data(@mongo)
+# the load function just populates some data on the storage
+load_data(@mongo)
 
-  router = VertxWeb::Router.router($vertx)
+router = VertxWeb::Router.router($vertx)
 
-  router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
+router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
 
-  # define some REST API
-  router.get("/api/users").handler() { |ctx|
-    @mongo.find("users", {
-    }) { |lookup,lookup_err|
-      # error handling
-      if (lookup_err != nil)
-        ctx.fail(500)
-        return
-      end
+# define some REST API
+router.get("/api/users").handler() { |ctx|
+  @mongo.find("users", {
+  }) { |lookup,lookup_err|
+    # error handling
+    if (lookup_err != nil)
+      ctx.fail(500)
+      return
+    end
 
-      # now convert the list to a JsonArray because it will be easier to encode the final object as the response.
-      json = [
-      ]
+    # now convert the list to a JsonArray because it will be easier to encode the final object as the response.
+    json = [
+    ]
 
-      lookup.each do |o|
-        json.push(o)
-      end
+    lookup.each do |o|
+      json.push(o)
+    end
 
-      ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
-      ctx.response().end(JSON.generate(json))
-    }
+    ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
+    ctx.response().end(JSON.generate(json))
   }
+}
 
-  router.get("/api/users/:id").handler() { |ctx|
-    @mongo.find_one("users", {
-      'id' => ctx.request().get_param("id")
-    }, nil) { |lookup,lookup_err|
-      # error handling
-      if (lookup_err != nil)
-        ctx.fail(500)
-        return
-      end
+router.get("/api/users/:id").handler() { |ctx|
+  @mongo.find_one("users", {
+    'id' => ctx.request().get_param("id")
+  }, nil) { |lookup,lookup_err|
+    # error handling
+    if (lookup_err != nil)
+      ctx.fail(500)
+      return
+    end
 
-      user = lookup
+    user = lookup
 
-      if (user == nil)
-        ctx.fail(404)
-      else
+    if (user == nil)
+      ctx.fail(404)
+    else
+      ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
+      ctx.response().end(JSON.generate(user))
+    end
+  }
+}
+
+router.post("/api/users").handler() { |ctx|
+  newUser = ctx.get_body_as_json()
+
+  @mongo.find_one("users", {
+    'username' => newUser['username']
+  }, nil) { |lookup,lookup_err|
+    # error handling
+    if (lookup_err != nil)
+      ctx.fail(500)
+      return
+    end
+
+    user = lookup
+
+    if (user != nil)
+      # already exists
+      ctx.fail(500)
+    else
+      @mongo.insert("users", newUser) { |insert,insert_err|
+        # error handling
+        if (insert_err != nil)
+          ctx.fail(500)
+          return
+        end
+
+        # add the generated id to the user object
+        newUser['id'] = insert
+
+        ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
+        ctx.response().end(JSON.generate(newUser))
+      }
+    end
+  }
+}
+
+router.put("/api/users/:id").handler() { |ctx|
+  @mongo.find_one("users", {
+    'id' => ctx.request().get_param("id")
+  }, nil) { |lookup,lookup_err|
+    # error handling
+    if (lookup_err != nil)
+      ctx.fail(500)
+      return
+    end
+
+    user = lookup
+
+    if (user == nil)
+      # does not exist
+      ctx.fail(404)
+    else
+
+      # update the user properties
+      update = ctx.get_body_as_json()
+
+      user['username'] = update['username']
+      user['firstName'] = update['firstName']
+      user['lastName'] = update['lastName']
+      user['address'] = update['address']
+
+      @mongo.replace("users", {
+        'id' => ctx.request().get_param("id")
+      }, user) { |replace,replace_err|
+        # error handling
+        if (replace_err != nil)
+          ctx.fail(500)
+          return
+        end
+
         ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
         ctx.response().end(JSON.generate(user))
-      end
-    }
+      }
+    end
   }
-
-  router.post("/api/users").handler() { |ctx|
-    newUser = ctx.get_body_as_json()
-
-    @mongo.find_one("users", {
-      'username' => newUser['username']
-    }, nil) { |lookup,lookup_err|
-      # error handling
-      if (lookup_err != nil)
-        ctx.fail(500)
-        return
-      end
-
-      user = lookup
-
-      if (user != nil)
-        # already exists
-        ctx.fail(500)
-      else
-        @mongo.insert("users", newUser) { |insert,insert_err|
-          # error handling
-          if (insert_err != nil)
-            ctx.fail(500)
-            return
-          end
-
-          # add the generated id to the user object
-          newUser['id'] = insert
-
-          ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
-          ctx.response().end(JSON.generate(newUser))
-        }
-      end
-    }
-  }
-
-  router.put("/api/users/:id").handler() { |ctx|
-    @mongo.find_one("users", {
-      'id' => ctx.request().get_param("id")
-    }, nil) { |lookup,lookup_err|
-      # error handling
-      if (lookup_err != nil)
-        ctx.fail(500)
-        return
-      end
-
-      user = lookup
-
-      if (user == nil)
-        # does not exist
-        ctx.fail(404)
-      else
-
-        # update the user properties
-        update = ctx.get_body_as_json()
-
-        user['username'] = update['username']
-        user['firstName'] = update['firstName']
-        user['lastName'] = update['lastName']
-        user['address'] = update['address']
-
-        @mongo.replace("users", {
-          'id' => ctx.request().get_param("id")
-        }, user) { |replace,replace_err|
-          # error handling
-          if (replace_err != nil)
-            ctx.fail(500)
-            return
-          end
-
-          ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
-          ctx.response().end(JSON.generate(user))
-        }
-      end
-    }
-  }
-
-  router.delete("/api/users/:id").handler() { |ctx|
-    @mongo.find_one("users", {
-      'id' => ctx.request().get_param("id")
-    }, nil) { |lookup,lookup_err|
-      # error handling
-      if (lookup_err != nil)
-        ctx.fail(500)
-        return
-      end
-
-      user = lookup
-
-      if (user == nil)
-        # does not exist
-        ctx.fail(404)
-      else
-
-        @mongo.remove("users", {
-          'id' => ctx.request().get_param("id")
-        }) { |remove,remove_err|
-          # error handling
-          if (remove_err != nil)
-            ctx.fail(500)
-            return
-          end
-
-          ctx.response().set_status_code(204)
-          ctx.response().end()
-        }
-      end
-    }
-  }
-
-  # Create a router endpoint for the static content.
-  router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
-
-  $vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
 }
+
+router.delete("/api/users/:id").handler() { |ctx|
+  @mongo.find_one("users", {
+    'id' => ctx.request().get_param("id")
+  }, nil) { |lookup,lookup_err|
+    # error handling
+    if (lookup_err != nil)
+      ctx.fail(500)
+      return
+    end
+
+    user = lookup
+
+    if (user == nil)
+      # does not exist
+      ctx.fail(404)
+    else
+
+      @mongo.remove("users", {
+        'id' => ctx.request().get_param("id")
+      }) { |remove,remove_err|
+        # error handling
+        if (remove_err != nil)
+          ctx.fail(500)
+          return
+        end
+
+        ctx.response().set_status_code(204)
+        ctx.response().end()
+      }
+    end
+  }
+}
+
+# Create a router endpoint for the static content.
+router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
+
+$vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
