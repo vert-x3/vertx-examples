@@ -2,19 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <groupId>io.vertx</groupId>
-    <artifactId>vertx-examples</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
-  </parent>
-
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>io.vertx</groupId>
   <artifactId>vertx-docker-example-fabric</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
+
   <name>Sample Docker Image for Fabric8</name>
 
   <properties>
+    <verticle.name>io.vertx.example.HelloWorldVerticle</verticle.name>
+
     <!-- Metadata to generate the kubernates.json - ignore them if you don't plan to use kubernates / fabric8 -->
     <docker.image>vertx/vertx3-example-fabric8</docker.image>
     <fabric8.label.container>vert.x</fabric8.label.container>
@@ -58,7 +56,7 @@
                   <ports>
                     <port>8080</port>
                   </ports>
-                  <command>vertx run io.vertx.example.HelloWorldVerticle -cp
+                  <command>vertx run ${verticle.name} -cp
                     /usr/verticles/${project.artifactId}-${project.version}.jar
                   </command>
                   <assembly>
@@ -104,14 +102,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-          <!-- should not be deployed -->
-          <skip>true</skip>
-        </configuration>
       </plugin>
     </plugins>
   </build>

@@ -2,17 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>vertx-examples</artifactId>
-    <groupId>io.vertx</groupId>
-    <version>3.0.0-SNAPSHOT</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>io.vertx</groupId>
   <artifactId>metrics-examples</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
 
   <dependencies>
-
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
@@ -42,7 +38,6 @@
       <artifactId>vertx-dropwizard-metrics</artifactId>
       <version>${project.version}</version>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -56,13 +51,11 @@
             <source>1.8</source>
             <target>1.8</target>
             <compilerArgs>
-              <arg>-Acodetrans.output=${basedir}/src/main</arg>
+              <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
             </compilerArgs>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
-
-
 </project>
