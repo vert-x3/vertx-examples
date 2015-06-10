@@ -159,5 +159,6 @@ following the two proposed approaches: using the DIY cartridge or the vert.x 3 c
 The link:springboot-example/README.adoc[Vert.x SpringBoot Example] shows how you can embed Vert.x in a SpringBoot
 application.
 
+=== Redis example
 
-
+The link:redis-examples/README.adoc[Vert.x Redis Example] shows how you can interact with Redis using the vert.x redis client.

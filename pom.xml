@@ -26,6 +26,7 @@
     <module>osgi-examples</module>
     <module>service-proxy-examples</module>
     <module>springboot-example</module>
+    <module>redis-example</module>
   </modules>
 
 
