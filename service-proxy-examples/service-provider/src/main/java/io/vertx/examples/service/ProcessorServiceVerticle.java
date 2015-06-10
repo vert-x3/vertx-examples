@@ -15,8 +15,8 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
     // Create the client object
     service = new ProcessorServiceImpl();
     // Register the handler
-    new ProcessorServiceVertxProxyHandler(vertx, service, "vertx.processor")
-        .registerHandler();
+    new ProcessorServiceVertxProxyHandler(vertx, service)
+        .registerHandler("vertx.processor");
   }
 
 }
