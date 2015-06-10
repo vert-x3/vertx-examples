@@ -174,7 +174,7 @@ do basic operations such as:
 The link:src/main/java/io/vertx/example/web/mongo/[Java mongo example]
 
 The single page application HTML is also dynamic and generated using JADE template language showcasing inheritance of
-templates.
+templates. The example expects that there is a local instance of mongo db running.
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links.
@@ -240,7 +240,8 @@ link:http://localhost:8080 and click around the links
 == Angular example
 
 This example shows a basic single page application built with Angular JS. It is quite similar to the REST example, the
-only difference is that it also serves an angular app.
+only difference is that it also serves an angular app. The example expects that there is a local instance of mongo db
+running.
 
 The link:src/main/java/io/vertx/example/web/angular/[Java angular example]
 
@@ -296,7 +297,8 @@ link:http://localhost:8080 and click around the links
 
 == Angular realtime example
 
-This example shows a music store implemented with angular js, where all album data and orders are taken in realtime.
+This example shows a music store implemented with angular js, where all album data and orders are taken in realtime. The
+example expects that there is a local instance of mongo db running.
 
 It also demonstrates how to protect the even bus when used with a bridge using one `Auth Provider`.
 
