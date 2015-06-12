@@ -24,39 +24,12 @@
     <module>mail-examples</module>
     <module>openshift-example</module>
     <module>osgi-examples</module>
+    <module>maven-service-factory-examples</module>
     <module>service-proxy-examples</module>
     <module>springboot-example</module>
     <module>redis-examples</module>
+    <module>jdbc-examples</module>
   </modules>
-
-
-  <dependencies>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codetrans</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-js</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-groovy</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-ruby</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-  </dependencies>
 
   <profiles>
     <profile>

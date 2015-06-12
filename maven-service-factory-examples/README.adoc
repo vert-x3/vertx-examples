@@ -1,0 +1,46 @@
+= Vert.x Maven Service Factory Example
+
+This project demonstrates how to use the Vert.x Maven service factory. The Vertx Maven service factory lets you deploy
+ and runs verticles packaged in Maven artifacts.
+
+== Packaging the verticle
+
+The link:maven-service-factory-verticle[Maven service factory verticle project] is an example of verticle that you
+can deploy using the Maven service factory. The project contains a very simple verticle but also a
+link:maven-service-factory-verticle/src/main/resources/my-verticle.json[description] specifying the main verticle class.
+
+To build this verticle just launch `mvn clean install` from the maven-service-factory-verticle project. _Install_ is
+important as it needs to be stored in the Maven local repository.
+
+== Running the verticle
+
+You can run the verticle from anywhere using:
+
+[source]
+----
+vertx run maven:io.vertx:maven-service-factory-verticle:3.0.0-SNAPSHOT::my-verticle
+----
+
+The identifier is constructed as follows:
+`maven` + `:` + the _groupId_ + `:` + the _artifactId_ + `:` + the version + `::` + the name of the verticle
+
+NOTE: The name of the verticle is the name of the json (descriptor) file.
+
+== Deploying the verticle using the API
+
+You can also deploy the verticle using the `vertx.deployVerticle` method. An example is given in the
+link:maven-service-factory-api[Maven service factory api project]. In
+link:maven-service-factory-api/src/main/java/io/vertx/examples/MyDeployingVerticle[this verticle], the previous
+verticle is deployed using:
+
+----
+vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.0.0-SNAPSHOT::my-verticle", r -> { ... });
+----
+
+To run this project just launch:
+
+----
+cd maven-service-factory-api
+mvn clean package
+vertx run io.vertx.examples.MyDeployingVerticle -cp target/maven-service-factory-api-3.0.0-SNAPSHOT.jar
+----

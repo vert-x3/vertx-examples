@@ -2,15 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.vertx</groupId>
-        <artifactId>vertx-examples</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>osgi-examples</artifactId>
+  <groupId>io.vertx</groupId>
+  <artifactId>osgi-examples</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
 
   <packaging>bundle</packaging>
 
@@ -26,6 +22,7 @@
       <artifactId>org.apache.felix.ipojo.annotations</artifactId>
       <version>1.12.1</version>
     </dependency>
+
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
