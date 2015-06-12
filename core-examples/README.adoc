@@ -320,3 +320,20 @@ Happily served by 97297@Macintosh.local
 ----
 
 The verticle has been migrated.
+
+== JavaScript Verticle and NPM
+
+Verticles implemented in JavaScript can use the http://wiki.commonjs.org/wiki/Modules/1.1[CommonJS module format] or
+the https://www.npmjs.com/[NPM module format]. They can also _require_ NPM and CommonsJS modules.
+
+This link:src/main/js/npm/[example] shows how verticles can use the NPM module format, deploy verticles using this
+format and require other NPMs.
+
+To launch this example just do:
+
+----
+cd src/main/js/npm/
+vertx run my_npm_verticle.js
+----
+
+
