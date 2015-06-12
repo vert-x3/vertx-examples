@@ -165,7 +165,7 @@ following the two proposed approaches: using the DIY cartridge or the vert.x 3 c
 The link:springboot-example/README.adoc[Vert.x SpringBoot Example] shows how you can embed Vert.x in a SpringBoot
 application.
 
-=== Redis example
+=== JDBC example
 
 The link:jdbc-examples/README.adoc[Vert.x JDBC Examples] shows how you can interact JDBC Databases using the vert.x JDBC
 client.
