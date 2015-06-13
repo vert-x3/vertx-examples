@@ -1,0 +1,44 @@
+= Vert.x 3.0 Spring-vertx example project
+
+This project is a demo of exposing Spring-hosted service beans (and therefore Spring-wired services) via vert.x
+verticles. In vert.x 3 it's perfectly possible to share an application context between multiple verticles.
+
+In this case the service bean we expose through vert.x is a trivial data access service running through Spring Data
+JPA (and using Hibernate). In effect we're taking advantage of the ease of building data access via Spring/Hibernate
+but using vert.x as the connector between external clients and the Spring context.
+
+Note that because we're doing blocking JDBC access, we host the call to the service within an executeBlocking call, to
+avoid blocking the event bus.
+
+You can run it directly in your IDE by creating a run configuration that uses the main class
+`io.vertx.examples.spring.SpringExampleRunner`.
+
+The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.
+
+To build a "fat jar"
+
+    mvn package
+
+To run the fat jar:
+
+    java -jar target/spring-example-3.0.0-SNAPSHOT-fat.jar
+
+(You can take that jar and run it anywhere there is a Java 8+ JDK. It contains all the dependencies it needs so you
+don't need to install Vert.x on the target machine).
+
+Now point your browser at http://localhost:8080 to see a simple welcome page, and then
+http://localhost:8080/products to see the Spring-hosted service invoked via the vertx eventbus
+
+Writing code in verticles allow you to scale it more easily, e.g. let's say you have 8 cores on your server and you
+want to utilise them all, you can deploy 8 instances as follows:
+
+    java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -instances 8
+
+You can also enable clustering and ha at the command line, e.g.
+
+    java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -cluster
+
+    java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -ha
+
+Please see the docs for a full list of Vert.x command line options.
+
