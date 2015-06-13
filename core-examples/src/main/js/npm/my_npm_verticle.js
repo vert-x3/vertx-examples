@@ -5,12 +5,12 @@
 module.exports = {
     vertxStartAsync : function(startFuture) {
         // Require a NPM:
-        console.log("Requiring npm");
-        var hello = require = require("lib_as_npm/lib");
+        console.log("Requiring a npm stored in node_modules");
+        var hello = require = require("my-lib");
         hello("vertx");
 
         // Deploy another verticle following the NPM module format
-        console.log("Deploying another verticle packages as NPM");
+        console.log("Deploying another verticle packaged as NPM");
         vertx.deployVerticle("my_other_npm/my_other_verticle.js", function(res, err) {
             if (err) {
                 startFuture.fail();

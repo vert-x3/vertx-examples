@@ -329,10 +329,12 @@ the https://www.npmjs.com/[NPM module format]. They can also _require_ NPM and C
 This link:src/main/js/npm/[example] shows how verticles can use the NPM module format, deploy verticles using this
 format and require other NPMs.
 
-To launch this example just do:
+NPMs are resolved from the directory pointed by the `NODE_PATH` environment variable. For this reason, we set
+`NODE_PATH` to the current directory before launching the verticle:
 
 ----
 cd src/main/js/npm/
+export NODE_PATH=$PWD
 vertx run my_npm_verticle.js
 ----
 
