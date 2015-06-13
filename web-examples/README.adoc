@@ -304,3 +304,27 @@ The link:src/main/java/io/vertx/example/web/angular_realtime/[Java angular_realt
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
+
+== Programmatic Authentication examples
+
+This examples shows how to use the Auth Handlers to protect resources by asserting if the user has the right authorities
+to access the resource.
+
+There are 2 implementations, one using the API to verify assertions, and a second where assertions are implemented in
+code:
+
+* link:src/main/java/io/vertx/example/web/authorisation/[Java authorisation example]
+* link:src/main/java/io/vertx/example/web/custom_authorisation/[Java custom_authorisation example]
+
+The example shows 4 resource that require different authorities:
+
+* (none) link:http://localhost:8080/api/protected
+* defcon1 link:http://localhost:8080/api/protected/defcon1
+* defcon2 link:http://localhost:8080/api/protected/defcon2
+* defcon3 link:http://localhost:8080/api/protected/defcon3
+
+You can generate different tokens with different authorities and test it. The example html does not generate defcon3
+tokens, in order to show that you cannot access the last resource.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 and click around the links
