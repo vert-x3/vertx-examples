@@ -36,6 +36,12 @@
     </dependency>
 
     <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-mongo-embedded-db</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>de.neuland-bfi</groupId>
       <artifactId>jade4j</artifactId>
       <version>0.4.0</version>
