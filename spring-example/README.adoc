@@ -28,17 +28,3 @@ don't need to install Vert.x on the target machine).
 
 Now point your browser at http://localhost:8080 to see a simple welcome page, and then
 http://localhost:8080/products to see the Spring-hosted service invoked via the vertx eventbus
-
-Writing code in verticles allow you to scale it more easily, e.g. let's say you have 8 cores on your server and you
-want to utilise them all, you can deploy 8 instances as follows:
-
-    java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -instances 8
-
-You can also enable clustering and ha at the command line, e.g.
-
-    java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -cluster
-
-    java -jar target/maven-verticle-3.0.0-SNAPSHOT-fat.jar -ha
-
-Please see the docs for a full list of Vert.x command line options.
-
