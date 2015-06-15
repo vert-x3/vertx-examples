@@ -12,6 +12,7 @@
 
   <modules>
     <module>springboot-example</module>
+    <module>spring-example</module>
   </modules>
 
 </project>
