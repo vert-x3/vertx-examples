@@ -13,27 +13,13 @@ var suite = TestSuite.create("io.vertx.example.unit.test.VertxUnitTest");
 
 suite.before(function (context) {
   vertx = Vertx.vertx();
-  var async = context.async();
-  var server = vertx.createHttpServer().requestHandler(function (req) {
+  vertx.createHttpServer().requestHandler(function (req) {
     req.response().end("foo");
-  }).listen(8080, function (res, res_err) {
-    if (res_err == null) {
-      async.complete();
-    } else {
-      context.fail();
-    }
-  });
+  }).listen(8080, context.asyncAssertSuccess());
 });
 
 suite.after(function (context) {
-  var async = context.async();
-  vertx.close(function (ar, ar_err) {
-    if (ar_err == null) {
-      async.complete();
-    } else if (ar_err != null) {
-      context.fail();
-    }
-  });
+  vertx.close(context.asyncAssertSuccess());
 });
 
 // Specifying the test names seems ugly...
@@ -51,22 +37,9 @@ suite.test("some_test1", function (context) {
 });
 suite.test("some_test2", function (context) {
   // Deploy and undeploy a verticle
-  var async = context.async();
-  vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", function (res, res_err) {
-    if (res_err == null) {
-      var deploymentID = res;
-      vertx.undeploy(deploymentID, function (res2, res2_err) {
-        if (res2_err == null) {
-          async.complete();
-        } else {
-          context.fail();
-        }
-      });
-    } else {
-      context.fail();
-    }
-  });
+  vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", context.asyncAssertSuccess(function (deploymentID) {
+    vertx.undeploy(deploymentID, context.asyncAssertSuccess());
+  }));
 });
 
 suite.run(options);
-

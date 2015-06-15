@@ -14,27 +14,13 @@ def suite = TestSuite.create("io.vertx.example.unit.test.VertxUnitTest")
 
 suite.before({ context ->
   vertx = Vertx.vertx()
-  def async = context.async()
-  def server = vertx.createHttpServer().requestHandler({ req ->
+  vertx.createHttpServer().requestHandler({ req ->
     req.response().end("foo")
-  }).listen(8080, { res ->
-    if (res.succeeded()) {
-      async.complete()
-    } else {
-      context.fail()
-    }
-  })
+  }).listen(8080, context.asyncAssertSuccess())
 })
 
 suite.after({ context ->
-  def async = context.async()
-  vertx.close({ ar ->
-    if (ar.succeeded()) {
-      async.complete()
-    } else if (ar.failed()) {
-      context.fail()
-    }
-  })
+  vertx.close(context.asyncAssertSuccess())
 })
 
 // Specifying the test names seems ugly...
@@ -52,22 +38,9 @@ suite.test("some_test1", { context ->
 })
 suite.test("some_test2", { context ->
   // Deploy and undeploy a verticle
-  def async = context.async()
-  vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", { res ->
-    if (res.succeeded()) {
-      def deploymentID = res.result()
-      vertx.undeploy(deploymentID, { res2 ->
-        if (res2.succeeded()) {
-          async.complete()
-        } else {
-          context.fail()
-        }
-      })
-    } else {
-      context.fail()
-    }
-  })
+  vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", context.asyncAssertSuccess({ deploymentID ->
+    vertx.undeploy(deploymentID, context.asyncAssertSuccess())
+  }))
 })
 
 suite.run(options)
-

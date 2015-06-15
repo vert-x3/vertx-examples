@@ -13,27 +13,13 @@ suite = VertxUnit::TestSuite.create("io.vertx.example.unit.test.VertxUnitTest")
 
 suite.before() { |context|
   @vertx = Vertx::Vertx.vertx()
-  async = context.async()
-  server = @vertx.create_http_server().request_handler() { |req|
+  @vertx.create_http_server().request_handler() { |req|
     req.response().end("foo")
-  }.listen(8080) { |res_err,res|
-    if (res_err == nil)
-      async.complete()
-    else
-      context.fail()
-    end
-  }
+  }.listen(8080, &context.async_assert_success())
 }
 
 suite.after() { |context|
-  async = context.async()
-  @vertx.close() { |ar_err,ar|
-    if (ar_err == nil)
-      async.complete()
-    elsif (ar_err != nil)
-      context.fail()
-    end
-  }
+  @vertx.close(&context.async_assert_success())
 }
 
 # Specifying the test names seems ugly...
@@ -51,22 +37,9 @@ suite.test("some_test1") { |context|
 }
 suite.test("some_test2") { |context|
   # Deploy and undeploy a verticle
-  async = context.async()
-  @vertx.deploy_verticle("io.vertx.example.unit.SomeVerticle") { |res_err,res|
-    if (res_err == nil)
-      deploymentID = res
-      @vertx.undeploy(deploymentID) { |res2_err,res2|
-        if (res2_err == nil)
-          async.complete()
-        else
-          context.fail()
-        end
-      }
-    else
-      context.fail()
-    end
-  }
+  @vertx.deploy_verticle("io.vertx.example.unit.SomeVerticle", &context.async_assert_success() { |deploymentID|
+    @vertx.undeploy(deploymentID, &context.async_assert_success())
+  })
 }
 
 suite.run(options)
-

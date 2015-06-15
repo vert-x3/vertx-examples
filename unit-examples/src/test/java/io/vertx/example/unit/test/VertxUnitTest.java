@@ -31,26 +31,11 @@ public class VertxUnitTest {
 
     suite.before(context -> {
       vertx = Vertx.vertx();
-      Async async = context.async();
-      HttpServer server =
-        vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).listen(8080, res -> {
-          if (res.succeeded()) {
-            async.complete();
-          } else {
-            context.fail();
-          }
-        });
+      vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).listen(8080, context.asyncAssertSuccess());
     });
 
     suite.after(context -> {
-      Async async = context.async();
-      vertx.close(ar -> {
-        if (ar.succeeded()) {
-          async.complete();
-        } else if (ar.failed()) {
-          context.fail();
-        }
-      });
+      vertx.close(context.asyncAssertSuccess());
     });
 
     // Specifying the test names seems ugly...
@@ -66,26 +51,11 @@ public class VertxUnitTest {
     });
     suite.test("some_test2", context -> {
       // Deploy and undeploy a verticle
-      Async async = context.async();
-      vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", res -> {
-        if (res.succeeded()) {
-          String deploymentID = res.result();
-          vertx.undeploy(deploymentID, res2 -> {
-            if (res2.succeeded()) {
-              async.complete();
-            } else {
-              context.fail();
-            }
-          });
-        } else {
-          context.fail();
-        }
-      });
+      vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", context.asyncAssertSuccess(deploymentID -> {
+        vertx.undeploy(deploymentID, context.asyncAssertSuccess());
+      }));
     });
 
     suite.run(options);
-
   }
-
-
 }
