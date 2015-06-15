@@ -7,7 +7,7 @@ email = {
   'subject' => "this message has no content at all"
 }
 
-mailService.send_mail(email) { |result,result_err|
+mailService.send_mail(email) { |result_err,result|
   if (result_err == nil)
     puts result
   else

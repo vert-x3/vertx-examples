@@ -24,6 +24,6 @@ headers.add("Received", "from [192.168.1.1] by localhost")
 email['headers'] = headers
 email['text'] = "This message should have a custom Message-ID"
 
-mailClient.send_mail(email) { |result,result_err|
+mailClient.send_mail(email) { |result_err,result|
   puts "mail is finished"
 }

@@ -3,19 +3,19 @@ require 'vertx-web/router'
 require 'vertx-web/body_handler'
 @client
 def set_up_initial_data(done)
-  @client.get_connection() { |res,res_err|
+  @client.get_connection() { |res_err,res|
     if (res_err != nil)
       raise res_err
     end
 
     conn = res
 
-    conn.execute("CREATE TABLE IF NOT EXISTS products(id INT IDENTITY, name VARCHAR(255), price FLOAT, weight INT)") { |ddl,ddl_err|
+    conn.execute("CREATE TABLE IF NOT EXISTS products(id INT IDENTITY, name VARCHAR(255), price FLOAT, weight INT)") { |ddl_err,ddl|
       if (ddl_err != nil)
         raise ddl_err
       end
 
-      conn.execute("INSERT INTO products (name, price, weight) VALUES ('Egg Whisk', 3.99, 150), ('Tea Cosy', 5.99, 100), ('Spatula', 1.00, 80)") { |fixtures,fixtures_err|
+      conn.execute("INSERT INTO products (name, price, weight) VALUES ('Egg Whisk', 3.99, 150), ('Tea Cosy', 5.99, 100), ('Spatula', 1.00, 80)") { |fixtures_err,fixtures|
         if (fixtures_err != nil)
           raise fixtures_err
         end
@@ -42,7 +42,7 @@ set_up_initial_data() { |ready|
   # in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
   # that match /products
   router.route("/products*").handler() { |routingContext|
-    @client.get_connection() { |res,res_err|
+    @client.get_connection() { |res_err,res|
       if (res_err != nil)
         routingContext.fail(500)
       else
@@ -56,7 +56,7 @@ set_up_initial_data() { |ready|
         # choose the headers end is that if the close of the connection or say for example end of transaction
         # results in an error, it is still possible to return back to the client an error code and message.
         routingContext.add_headers_end_handler() { |done|
-          conn.close() { |close,close_err|
+          conn.close() { |close_err,close|
             if (close_err != nil)
               done.fail(close_err)
             else

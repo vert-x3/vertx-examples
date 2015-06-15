@@ -4,7 +4,7 @@ eb = $vertx.event_bus()
 
 $vertx.set_periodic(1000) { |v|
 
-  eb.send("ping-address", "ping!") { |reply,reply_err|
+  eb.send("ping-address", "ping!") { |reply_err,reply|
     if (reply_err == nil)
       puts "Received reply #{reply.body()}"
     else

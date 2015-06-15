@@ -42,7 +42,7 @@ router.get("/api/protected").handler() { |ctx|
 
 router.get("/api/protected/defcon1").handler() { |ctx|
   # protect the API (defcon1 authority is required)
-  ctx.user().is_authorised("defcon1") { |allowed,allowed_err|
+  ctx.user().is_authorised("defcon1") { |allowed_err,allowed|
     if (allowed_err != nil)
       ctx.fail(allowed_err)
       return
@@ -61,7 +61,7 @@ router.get("/api/protected/defcon1").handler() { |ctx|
 
 router.get("/api/protected/defcon2").handler() { |ctx|
   # protect the API (defcon2 authority is required)
-  ctx.user().is_authorised("defcon2") { |allowed,allowed_err|
+  ctx.user().is_authorised("defcon2") { |allowed_err,allowed|
     if (allowed_err != nil)
       ctx.fail(allowed_err)
       return
@@ -80,7 +80,7 @@ router.get("/api/protected/defcon2").handler() { |ctx|
 
 router.get("/api/protected/defcon3").handler() { |ctx|
   # protect the API (defcon3 authority is required)
-  ctx.user().is_authorised("defcon3") { |allowed,allowed_err|
+  ctx.user().is_authorised("defcon3") { |allowed_err,allowed|
     if (allowed_err != nil)
       ctx.fail(allowed_err)
       return

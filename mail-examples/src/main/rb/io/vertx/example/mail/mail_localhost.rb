@@ -11,7 +11,7 @@ email = {
   'text' => "this is a test email"
 }
 
-mailClient.send_mail(email) { |result,result_err|
+mailClient.send_mail(email) { |result_err,result|
   if (result_err == nil)
     puts result
   else

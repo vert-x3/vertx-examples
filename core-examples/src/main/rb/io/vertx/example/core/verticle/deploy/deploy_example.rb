@@ -7,7 +7,7 @@ puts "Main verticle has started, let's deploy some others..."
 $vertx.deploy_verticle("io.vertx.example.core.verticle.deploy.OtherVerticle")
 
 # Deploy another instance and  want for it to start
-$vertx.deploy_verticle("io.vertx.example.core.verticle.deploy.OtherVerticle") { |res,res_err|
+$vertx.deploy_verticle("io.vertx.example.core.verticle.deploy.OtherVerticle") { |res_err,res|
   if (res_err == nil)
 
     deploymentID = res
@@ -18,7 +18,7 @@ $vertx.deploy_verticle("io.vertx.example.core.verticle.deploy.OtherVerticle") { 
     # Note that this is usually unnecessary as any verticles deployed by a verticle will be automatically
     # undeployed when the parent verticle is undeployed
 
-    $vertx.undeploy(deploymentID) { |res2,res2_err|
+    $vertx.undeploy(deploymentID) { |res2_err,res2|
       if (res2_err == nil)
         puts "Undeployed ok!"
       else

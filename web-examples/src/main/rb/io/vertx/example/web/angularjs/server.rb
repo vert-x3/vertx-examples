@@ -5,7 +5,7 @@ require 'vertx-web/body_handler'
 require 'vertx-web/static_handler'
 @mongo
 def load_data(db)
-  db.drop_collection("users") { |drop,drop_err|
+  db.drop_collection("users") { |drop_err,drop|
     if (drop_err != nil)
       raise drop_err
     end
@@ -27,7 +27,7 @@ def load_data(db)
     })
 
     users.each do |user|
-      db.insert("users", user) { |res,res_err|
+      db.insert("users", user) { |res_err,res|
         puts "inserted #{JSON.generate(user)}"
       }
     end
@@ -49,7 +49,7 @@ router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
 # define some REST API
 router.get("/api/users").handler() { |ctx|
   @mongo.find("users", {
-  }) { |lookup,lookup_err|
+  }) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(500)
@@ -72,7 +72,7 @@ router.get("/api/users").handler() { |ctx|
 router.get("/api/users/:id").handler() { |ctx|
   @mongo.find_one("users", {
     'id' => ctx.request().get_param("id")
-  }, nil) { |lookup,lookup_err|
+  }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(500)
@@ -95,7 +95,7 @@ router.post("/api/users").handler() { |ctx|
 
   @mongo.find_one("users", {
     'username' => newUser['username']
-  }, nil) { |lookup,lookup_err|
+  }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(500)
@@ -108,7 +108,7 @@ router.post("/api/users").handler() { |ctx|
       # already exists
       ctx.fail(500)
     else
-      @mongo.insert("users", newUser) { |insert,insert_err|
+      @mongo.insert("users", newUser) { |insert_err,insert|
         # error handling
         if (insert_err != nil)
           ctx.fail(500)
@@ -128,7 +128,7 @@ router.post("/api/users").handler() { |ctx|
 router.put("/api/users/:id").handler() { |ctx|
   @mongo.find_one("users", {
     'id' => ctx.request().get_param("id")
-  }, nil) { |lookup,lookup_err|
+  }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(500)
@@ -152,7 +152,7 @@ router.put("/api/users/:id").handler() { |ctx|
 
       @mongo.replace("users", {
         'id' => ctx.request().get_param("id")
-      }, user) { |replace,replace_err|
+      }, user) { |replace_err,replace|
         # error handling
         if (replace_err != nil)
           ctx.fail(500)
@@ -169,7 +169,7 @@ router.put("/api/users/:id").handler() { |ctx|
 router.delete("/api/users/:id").handler() { |ctx|
   @mongo.find_one("users", {
     'id' => ctx.request().get_param("id")
-  }, nil) { |lookup,lookup_err|
+  }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(500)
@@ -185,7 +185,7 @@ router.delete("/api/users/:id").handler() { |ctx|
 
       @mongo.remove("users", {
         'id' => ctx.request().get_param("id")
-      }) { |remove,remove_err|
+      }) { |remove_err,remove|
         # error handling
         if (remove_err != nil)
           ctx.fail(500)

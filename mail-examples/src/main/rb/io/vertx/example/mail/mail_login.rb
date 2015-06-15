@@ -36,7 +36,7 @@ list.push({
 
 email['attachment'] = list
 
-mailClient.send_mail(email) { |result,result_err|
+mailClient.send_mail(email) { |result_err,result|
   if (result_err == nil)
     puts result
   else

@@ -16,7 +16,7 @@ suite.before() { |context|
   async = context.async()
   server = @vertx.create_http_server().request_handler() { |req|
     req.response().end("foo")
-  }.listen(8080) { |res,res_err|
+  }.listen(8080) { |res_err,res|
     if (res_err == nil)
       async.complete()
     else
@@ -27,7 +27,7 @@ suite.before() { |context|
 
 suite.after() { |context|
   async = context.async()
-  @vertx.close() { |ar,ar_err|
+  @vertx.close() { |ar_err,ar|
     if (ar_err == nil)
       async.complete()
     elsif (ar_err != nil)
@@ -52,10 +52,10 @@ suite.test("some_test1") { |context|
 suite.test("some_test2") { |context|
   # Deploy and undeploy a verticle
   async = context.async()
-  @vertx.deploy_verticle("io.vertx.example.unit.SomeVerticle") { |res,res_err|
+  @vertx.deploy_verticle("io.vertx.example.unit.SomeVerticle") { |res_err,res|
     if (res_err == nil)
       deploymentID = res
-      @vertx.undeploy(deploymentID) { |res2,res2_err|
+      @vertx.undeploy(deploymentID) { |res2_err,res2|
         if (res2_err == nil)
           async.complete()
         else

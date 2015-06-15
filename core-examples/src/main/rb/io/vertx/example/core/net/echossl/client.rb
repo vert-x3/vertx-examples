@@ -4,7 +4,7 @@ options = {
   'trustAll' => true
 }
 
-$vertx.create_net_client(options).connect(1234, "localhost") { |res,res_err|
+$vertx.create_net_client(options).connect(1234, "localhost") { |res_err,res|
   if (res_err == nil)
     sock = res
     sock.handler() { |buff|

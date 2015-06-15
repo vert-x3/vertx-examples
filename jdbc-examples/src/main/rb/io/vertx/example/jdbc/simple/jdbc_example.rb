@@ -1,7 +1,7 @@
 require 'json'
 require 'vertx-jdbc/jdbc_client'
 def query(conn, sql, done)
-  conn.query(sql) { |res,res_err|
+  conn.query(sql) { |res_err,res|
     if (res_err != nil)
       raise res_err
     end
@@ -10,7 +10,7 @@ def query(conn, sql, done)
   }
 end
 def execute(conn, sql, done)
-  conn.execute(sql) { |res,res_err|
+  conn.execute(sql) { |res_err,res|
     if (res_err != nil)
       raise res_err
     end
@@ -25,7 +25,7 @@ client = VertxJdbc::JDBCClient.create_shared($vertx, {
   'max_pool_size' => 30
 })
 
-client.get_connection() { |conn,conn_err|
+client.get_connection() { |conn_err,conn|
   if (conn_err != nil)
     STDERR.puts conn_err.get_message()
     return
@@ -42,7 +42,7 @@ client.get_connection() { |conn,conn_err|
         end
 
         # and close the connection
-        conn.close() { |done,done_err|
+        conn.close() { |done_err,done|
           if (done_err != nil)
             raise done_err
           end

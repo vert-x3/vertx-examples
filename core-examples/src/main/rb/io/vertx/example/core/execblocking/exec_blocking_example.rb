@@ -19,7 +19,7 @@ $vertx.create_http_server().request_handler() { |request|
 
     future.complete(result)
 
-  }) { |res,res_err|
+  }) { |res_err,res|
 
     if (res_err == nil)
 

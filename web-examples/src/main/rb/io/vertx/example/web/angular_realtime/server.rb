@@ -13,7 +13,7 @@ require 'vertx-web/static_handler'
 def list_albums(msg)
   # issue a find command to mongo to fetch all documents from the "albums" collection.
   @mongo.find("albums", {
-  }) { |lookup,lookup_err|
+  }) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       msg.fail(500, lookup_err.get_message())
@@ -33,7 +33,7 @@ def list_albums(msg)
 
 end
 def place_order(msg)
-  @mongo.save("orders", msg.body()) { |save,save_err|
+  @mongo.save("orders", msg.body()) { |save_err,save|
     # error handling
     if (save_err != nil)
       msg.fail(500, save_err.get_message())
@@ -45,7 +45,7 @@ def place_order(msg)
   }
 end
 def load_data(db)
-  db.drop_collection("albums") { |drop,drop_err|
+  db.drop_collection("albums") { |drop_err,drop|
     if (drop_err != nil)
       raise drop_err
     end
@@ -82,7 +82,7 @@ def load_data(db)
     })
 
     albums.each do |album|
-      db.insert("albums", album) { |res,res_err|
+      db.insert("albums", album) { |res_err,res|
         puts "inserted #{JSON.generate(album)}"
       }
     end
@@ -124,7 +124,7 @@ router.post("/login").handler() { |ctx|
   end
 
   # use the auth handler to perform the authentication for us
-  authProvider.authenticate(credentials) { |login,login_err|
+  authProvider.authenticate(credentials) { |login_err,login|
     # error handling
     if (login_err != nil)
       # forbidden

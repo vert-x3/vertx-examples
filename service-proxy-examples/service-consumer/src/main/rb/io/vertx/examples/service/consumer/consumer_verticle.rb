@@ -6,7 +6,7 @@ document = {
   'name' => "vertx"
 }
 
-service.process(document) { |r,r_err|
+service.process(document) { |r_err,r|
   if (r_err == nil)
     puts JSON.generate(r)
   else

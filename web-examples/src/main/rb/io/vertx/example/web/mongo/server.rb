@@ -26,7 +26,7 @@ router.get("/").handler() { |ctx|
   ctx.put("title", "Vert.x Web")
 
   # and now delegate to the engine to render it.
-  jade.render(ctx, "templates/index") { |res,res_err|
+  jade.render(ctx, "templates/index") { |res_err,res|
     if (res_err == nil)
       ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "text/html").end(res)
     else
@@ -41,7 +41,7 @@ router.get("/").handler() { |ctx|
 router.get("/users").handler() { |ctx|
   # issue a find command to mongo to fetch all documents from the "users" collection.
   mongo.find("users", {
-  }) { |lookup,lookup_err|
+  }) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(lookup_err)
@@ -75,7 +75,7 @@ router.post("/users").handler() { |ctx|
   }
 
   # insert into mongo
-  mongo.insert("users", user) { |lookup,lookup_err|
+  mongo.insert("users", user) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(lookup_err)
@@ -93,7 +93,7 @@ router.delete("/users/:id").handler() { |ctx|
   # catch the id to remove from the url /users/:id and transform it to a mongo query.
   mongo.remove_one("users", {
     '_id' => ctx.request().get_param("id")
-  }) { |lookup,lookup_err|
+  }) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
       ctx.fail(lookup_err)

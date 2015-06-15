@@ -6,13 +6,13 @@ req = $vertx.create_http_client({
 filename = "upload.txt"
 fs = $vertx.file_system()
 
-fs.props(filename) { |ares,ares_err|
+fs.props(filename) { |ares_err,ares|
   props = ares
   puts "props is #{props}"
   size = props.size()
   req.headers().set("content-length", Java::JavaLang::String.value_of(size))
   fs.open(filename, {
-  }) { |ares2,ares2_err|
+  }) { |ares2_err,ares2|
     file = ares2
     pump = Vertx::Pump.pump(file, req)
     file.end_handler() { |v|

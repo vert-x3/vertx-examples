@@ -10,10 +10,10 @@ client = VertxRedis::RedisClient.create($vertx, {
   'host' => host
 })
 
-client.set("key", "value") { |r,r_err|
+client.set("key", "value") { |r_err,r|
   if (r_err == nil)
     puts "key stored"
-    client.get("key") { |s,s_err|
+    client.get("key") { |s_err,s|
       puts "Retrieved value :#{s}"
     }
   else

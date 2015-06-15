@@ -1,4 +1,4 @@
-$vertx.create_net_client().connect(1234, "localhost") { |res,res_err|
+$vertx.create_net_client().connect(1234, "localhost") { |res_err,res|
 
   if (res_err == nil)
     socket = res
