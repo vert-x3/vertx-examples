@@ -160,10 +160,10 @@ It also contains an example of application that can be deployed on Fabric8.
 The link:openshift-example/README.adoc[Vert.x OpenShift example] shows how to deploy Vert.x application to OpenShift
 following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
 
-=== SpringBoot example
+=== Spring Examples
 
-The link:springboot-example/README.adoc[Vert.x SpringBoot Example] shows how you can embed Vert.x in a SpringBoot
-application.
+The link:spring-examples[Vert.x Spring Examples] shows how vert.x application can be integrated inside a Spring
+ecosystem.
 
 === Redis example
 

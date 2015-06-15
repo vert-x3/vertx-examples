@@ -1,0 +1,9 @@
+Spring Examples
+
+This projects presents how vert.x and Spring can interact.
+
+=== Spring Boot Example
+
+The link:springboot-example/README.adoc[Vert.x SpringBoot Example] shows how you can embed Vert.x in a SpringBoot
+application.
+
