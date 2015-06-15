@@ -165,6 +165,11 @@ following the two proposed approaches: using the DIY cartridge or the vert.x 3 c
 The link:spring-examples[Vert.x Spring Examples] shows how vert.x application can be integrated inside a Spring
 ecosystem.
 
+=== Spring example
+
+The link:spring-example/README.adoc[Vert.x Spring Example] shows how you can access Spring beans as services in a vert.x
+application
+
 === Redis example
 
 The link:redis-examples/README.adoc[Vert.x Redis Example] shows how you can interact with Redis using the vert.x redis client.
