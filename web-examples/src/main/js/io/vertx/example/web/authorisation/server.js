@@ -6,10 +6,12 @@ var StaticHandler = require("vertx-web-js/static_handler");
 var router = Router.router(vertx);
 
 // Create a JWT Auth Provider
-var jwt = JWTAuth.create({
-  "keyStoreType" : "jceks",
-  "keyStoreURI" : "classpath:///keystore.jceks",
-  "keyStorePassword" : "secret"
+var jwt = JWTAuth.create(vertx, {
+  "keyStore" : {
+    "type" : "jceks",
+    "path" : "keystore.jceks",
+    "password" : "secret"
+  }
 });
 
 // this route is excluded from the auth handler (it represents your login endpoint)
