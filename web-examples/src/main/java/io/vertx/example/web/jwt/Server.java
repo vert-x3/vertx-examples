@@ -24,10 +24,11 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Create a JWT Auth Provider
-    JWTAuth jwt = JWTAuth.create(new JsonObject()
-      .put("keyStoreType", "jceks")
-      .put("keyStoreURI", "classpath:///keystore.jceks")
-      .put("keyStorePassword", "secret"));
+    JWTAuth jwt = JWTAuth.create(vertx, new JsonObject()
+        .put("keyStore", new JsonObject()
+            .put("type", "jceks")
+            .put("path", "keystore.jceks")
+            .put("password", "secret")));
 
     // protect the API
     router.route("/api/*").handler(JWTAuthHandler.create(jwt, "/api/newToken"));
