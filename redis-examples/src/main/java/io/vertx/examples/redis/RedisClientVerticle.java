@@ -27,7 +27,7 @@ public class RedisClientVerticle extends AbstractVerticle {
       if (r.succeeded()) {
         System.out.println("key stored");
         client.get("key", s -> {
-          System.out.println("Retrieved value :" + s.result());
+          System.out.println("Retrieved value: " + s.result());
         });
       } else {
         System.out.println("Connection or Operation Failed " + r.cause());

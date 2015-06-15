@@ -14,7 +14,7 @@ client.set("key", "value", function (r, r_err) {
   if (r_err == null) {
     console.log("key stored");
     client.get("key", function (s, s_err) {
-      console.log("Retrieved value :" + s);
+      console.log("Retrieved value: " + s);
     });
   } else {
     console.log("Connection or Operation Failed " + r_err);

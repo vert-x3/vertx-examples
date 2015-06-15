@@ -14,7 +14,7 @@ client.set("key", "value") { |r_err,r|
   if (r_err == nil)
     puts "key stored"
     client.get("key") { |s_err,s|
-      puts "Retrieved value :#{s}"
+      puts "Retrieved value: #{s}"
     }
   else
     puts "Connection or Operation Failed #{r_err}"

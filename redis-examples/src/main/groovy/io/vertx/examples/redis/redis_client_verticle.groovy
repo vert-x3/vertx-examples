@@ -14,7 +14,7 @@ client.set("key", "value", { r ->
   if (r.succeeded()) {
     println("key stored")
     client.get("key", { s ->
-      println("Retrieved value :${s.result()}")
+      println("Retrieved value: ${s.result()}")
     })
   } else {
     println("Connection or Operation Failed ${r.cause()}")
