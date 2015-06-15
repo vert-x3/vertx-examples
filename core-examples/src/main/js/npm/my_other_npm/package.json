@@ -1,0 +1,6 @@
+{
+  "name": "my_other_verticle",
+  "version": "1.0",
+  "description": "another verticle packaged as NPM",
+  "main": "my_other_verticle.js"
+}

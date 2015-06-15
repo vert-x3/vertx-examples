@@ -320,3 +320,22 @@ Happily served by 97297@Macintosh.local
 ----
 
 The verticle has been migrated.
+
+== JavaScript Verticle and NPM
+
+Verticles implemented in JavaScript can use the http://wiki.commonjs.org/wiki/Modules/1.1[CommonJS module format] or
+the https://www.npmjs.com/[NPM module format]. They can also _require_ NPM and CommonsJS modules.
+
+This link:src/main/js/npm/[example] shows how verticles can use the NPM module format, deploy verticles using this
+format and require other NPMs.
+
+NPMs are resolved from the directory pointed by the `NODE_PATH` environment variable. For this reason, we set
+`NODE_PATH` to the current directory before launching the verticle:
+
+----
+cd src/main/js/npm/
+export NODE_PATH=$PWD
+vertx run my_npm_verticle.js
+----
+
+
