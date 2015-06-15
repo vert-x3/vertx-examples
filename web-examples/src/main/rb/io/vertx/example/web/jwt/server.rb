@@ -6,10 +6,12 @@ require 'vertx-web/static_handler'
 router = VertxWeb::Router.router($vertx)
 
 # Create a JWT Auth Provider
-jwt = VertxAuthJwt::JWTAuth.create({
-  'keyStoreType' => "jceks",
-  'keyStoreURI' => "classpath:///keystore.jceks",
-  'keyStorePassword' => "secret"
+jwt = VertxAuthJwt::JWTAuth.create($vertx, {
+  'keyStore' => {
+    'type' => "jceks",
+    'path' => "keystore.jceks",
+    'password' => "secret"
+  }
 })
 
 # protect the API
