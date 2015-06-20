@@ -6,5 +6,5 @@ client.websocket(8080, "localhost", "/some-uri") { |websocket|
     puts "Received data #{data.to_string("ISO-8859-1")}"
     client.close()
   }
-  websocket.write_message(Vertx::Buffer.buffer("Hello world"))
+  websocket.write_binary_message(Vertx::Buffer.buffer("Hello world"))
 }

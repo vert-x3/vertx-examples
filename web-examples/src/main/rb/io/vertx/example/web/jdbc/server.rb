@@ -41,10 +41,11 @@ set_up_initial_data() { |ready|
 
   # in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
   # that match /products
+  # this should really be encapsulated in a reusable JDBC handler that uses can just add to their app
   router.route("/products*").handler() { |routingContext|
     @client.get_connection() { |res_err,res|
       if (res_err != nil)
-        routingContext.fail(500)
+        routingContext.fail(res_err)
       else
         conn = res
 
@@ -68,6 +69,12 @@ set_up_initial_data() { |ready|
         routingContext.next()
       end
     }
+  }.failure_handler() { |routingContext|
+    conn = routingContext.get("conn")
+    if (conn != nil)
+      conn.close() { |v_err,v|
+      }
+    end
   }
 
   router.get("/products/:productID").handler(&that.method(:handle_get_product))

@@ -24,7 +24,7 @@ public class Client extends AbstractVerticle {
         System.out.println("Received data " + data.toString("ISO-8859-1"));
         client.close();
       });
-      websocket.writeMessage(Buffer.buffer("Hello world"));
+      websocket.writeBinaryMessage(Buffer.buffer("Hello world"));
     });
   }
 }

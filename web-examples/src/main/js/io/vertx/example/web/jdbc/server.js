@@ -41,10 +41,11 @@ setUpInitialData(function (ready) {
 
   // in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
   // that match /products
+  // this should really be encapsulated in a reusable JDBC handler that uses can just add to their app
   router.route("/products*").handler(function (routingContext) {
     client.getConnection(function (res, res_err) {
       if (res_err != null) {
-        routingContext.fail(500);
+        routingContext.fail(res_err);
       } else {
         var conn = res;
 
@@ -68,6 +69,12 @@ setUpInitialData(function (ready) {
         routingContext.next();
       }
     });
+  }).failureHandler(function (routingContext) {
+    var conn = routingContext.get("conn");
+    if (conn !== null) {
+      conn.close(function (v, v_err) {
+      });
+    }
   });
 
   router.get("/products/:productID").handler(that.handleGetProduct);

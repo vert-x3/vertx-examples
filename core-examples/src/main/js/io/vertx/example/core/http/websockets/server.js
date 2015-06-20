@@ -1,5 +1,5 @@
 vertx.createHttpServer().websocketHandler(function (ws) {
-  ws.handler(ws.writeMessage);
+  ws.handler(ws.writeBinaryMessage);
 }).requestHandler(function (req) {
   if (req.uri() == "/") {
     req.response().sendFile("ws.html")}

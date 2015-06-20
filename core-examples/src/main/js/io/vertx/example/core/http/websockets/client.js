@@ -6,5 +6,5 @@ client.websocket(8080, "localhost", "/some-uri", function (websocket) {
     console.log("Received data " + data.toString("ISO-8859-1"));
     client.close();
   });
-  websocket.writeMessage(Buffer.buffer("Hello world"));
+  websocket.writeBinaryMessage(Buffer.buffer("Hello world"));
 });

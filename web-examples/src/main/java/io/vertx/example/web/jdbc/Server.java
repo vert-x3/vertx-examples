@@ -57,11 +57,12 @@ public class Server extends AbstractVerticle {
 
       // in order to minimize the nesting of call backs we can put the JDBC connection on the context for all routes
       // that match /products
+      // this should really be encapsulated in a reusable JDBC handler that uses can just add to their app
       router.route("/products*").handler(routingContext -> client.getConnection(res -> {
         if (res.failed()) {
-          routingContext.fail(500);
+          routingContext.fail(res.cause());
         } else {
-          final SQLConnection conn = res.result();
+          SQLConnection conn = res.result();
 
           // save the connection on the context
           routingContext.put("conn", conn);
@@ -80,7 +81,13 @@ public class Server extends AbstractVerticle {
 
           routingContext.next();
         }
-      }));
+      })).failureHandler(routingContext -> {
+        SQLConnection conn = routingContext.get("conn");
+        if (conn != null) {
+          conn.close(v -> {
+          });
+        }
+      });
 
       router.get("/products/:productID").handler(that::handleGetProduct);
       router.post("/products").handler(that::handleAddProduct);
