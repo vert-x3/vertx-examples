@@ -46,10 +46,18 @@ In the verticle, the handler registration is made using:
 
 [source, java]
 ----
-new ProcessorServiceVertxProxyHandler(vertx, service, "vertx.processor").registerHandler();
+ProxyHelper.registerService(ProcessorService.class, vertx, service, "vertx.processor");
+----
+`service` is the service object we register (so an instance of the `ProcessorServiceImpl`. The last parameter is the address on which the service can be invoked.
+
+Alternatively, you can instantiate the generated handler:
+[source, java]
+----
+new ProcessorServiceVertxProxyHandler(vertx, service).registerHandler("vertx.processor");
 ----
 
-`service` is the service object we register (so an instance of the `ProcessorServiceImpl`. The last parameter is the address on which the service can be invoked.
+In this case, classes need to be generated beforehand, and so, requires a manual `mvn compile`.
+
 
 === Running the service provider
 
