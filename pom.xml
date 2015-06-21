@@ -23,7 +23,6 @@
     <module>metrics-examples</module>
     <module>mail-examples</module>
     <module>openshift-example</module>
-    <module>osgi-examples</module>
     <module>maven-service-factory-examples</module>
     <module>service-proxy-examples</module>
     <module>spring-examples</module>
@@ -45,6 +44,12 @@
         <module>docker-examples/vertx-docker-example</module>
         <module>docker-examples/vertx-docker-example-fabric8</module>
         <module>docker-examples/vertx-docker-java-fatjar</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>osgi</id>
+      <modules>
+        <module>osgi-examples</module>
       </modules>
     </profile>
   </profiles>
