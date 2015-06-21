@@ -31,7 +31,7 @@ public class MailLogin extends AbstractVerticle {
       .setUsername("username")
       .setPassword("password");
 
-    MailClient mailClient = MailClient.create(vertx, mailConfig);
+    MailClient mailClient = MailClient.createShared(vertx, mailConfig);
 
     Buffer image = vertx.fileSystem().readFileBlocking("logo-white-big.png");
 

@@ -23,7 +23,7 @@ public class MailHeaders extends AbstractVerticle {
   public void start() {
     MailConfig mailConfig = new MailConfig().setHostname("smtp.example.com").setPort(465).setSsl(true);
 
-    MailClient mailClient = MailClient.create(vertx, mailConfig);
+    MailClient mailClient = MailClient.createShared(vertx, mailConfig);
 
     MailMessage email = new MailMessage()
       .setFrom("user1@example.com")

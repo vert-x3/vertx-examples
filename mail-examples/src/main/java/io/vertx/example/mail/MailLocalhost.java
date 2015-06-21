@@ -17,7 +17,7 @@ public class MailLocalhost extends AbstractVerticle {
   @Override
   public void start() {
 
-    MailClient mailClient = MailClient.create(vertx, new MailConfig());
+    MailClient mailClient = MailClient.createShared(vertx, new MailConfig());
 
     MailMessage email = new MailMessage()
       .setFrom("user@example.com (Sender)")
