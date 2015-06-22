@@ -1,6 +1,6 @@
 require 'vertx-mail/mail_client'
 
-mailClient = VertxMail::MailClient.create($vertx, {
+mailClient = VertxMail::MailClient.create_shared($vertx, {
 })
 
 email = {

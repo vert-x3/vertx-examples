@@ -6,7 +6,7 @@ mailConfig = {
   'ssl' => true
 }
 
-mailClient = VertxMail::MailClient.create($vertx, mailConfig)
+mailClient = VertxMail::MailClient.create_shared($vertx, mailConfig)
 
 email = {
   'from' => "user1@example.com",

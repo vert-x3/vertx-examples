@@ -6,7 +6,7 @@ var mailConfig = {
   "ssl" : true
 };
 
-var mailClient = MailClient.create(vertx, mailConfig);
+var mailClient = MailClient.createShared(vertx, mailConfig);
 
 var email = {
   "from" : "user1@example.com",

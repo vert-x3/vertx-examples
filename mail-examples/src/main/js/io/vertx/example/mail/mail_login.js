@@ -9,7 +9,7 @@ var mailConfig = {
   "password" : "password"
 };
 
-var mailClient = MailClient.create(vertx, mailConfig);
+var mailClient = MailClient.createShared(vertx, mailConfig);
 
 var image = vertx.fileSystem().readFileBlocking("logo-white-big.png");
 

@@ -11,7 +11,7 @@ def mailConfig = [
   password:"password"
 ]
 
-def mailClient = MailClient.create(vertx, mailConfig)
+def mailClient = MailClient.createShared(vertx, mailConfig)
 
 def image = vertx.fileSystem().readFileBlocking("logo-white-big.png")
 

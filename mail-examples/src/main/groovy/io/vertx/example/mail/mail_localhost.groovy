@@ -1,6 +1,6 @@
 import io.vertx.groovy.ext.mail.MailClient
 
-def mailClient = MailClient.create(vertx, [:])
+def mailClient = MailClient.createShared(vertx, [:])
 
 def email = [
   from:"user@example.com (Sender)",

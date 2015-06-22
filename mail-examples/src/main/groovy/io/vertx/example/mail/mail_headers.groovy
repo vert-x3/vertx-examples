@@ -6,7 +6,7 @@ def mailConfig = [
   ssl:true
 ]
 
-def mailClient = MailClient.create(vertx, mailConfig)
+def mailClient = MailClient.createShared(vertx, mailConfig)
 
 def email = [
   from:"user1@example.com",

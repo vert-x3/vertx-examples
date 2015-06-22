@@ -9,7 +9,7 @@ mailConfig = {
   'password' => "password"
 }
 
-mailClient = VertxMail::MailClient.create($vertx, mailConfig)
+mailClient = VertxMail::MailClient.create_shared($vertx, mailConfig)
 
 image = $vertx.file_system().read_file_blocking("logo-white-big.png")
 

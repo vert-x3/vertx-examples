@@ -1,6 +1,6 @@
 var MailClient = require("vertx-mail-js/mail_client");
 
-var mailClient = MailClient.create(vertx, {
+var mailClient = MailClient.createShared(vertx, {
 });
 
 var email = {
