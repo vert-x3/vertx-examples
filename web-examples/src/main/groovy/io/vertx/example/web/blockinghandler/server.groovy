@@ -13,7 +13,7 @@ router.route().blockingHandler({ routingContext ->
 
   // Now call the next handler
   routingContext.next()
-})
+}, false)
 
 router.route().handler({ routingContext ->
   routingContext.response().putHeader("content-type", "text/html").end("Hello World!")

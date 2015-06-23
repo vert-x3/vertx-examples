@@ -13,7 +13,7 @@ router.route().blockingHandler(function (routingContext) {
 
   // Now call the next handler
   routingContext.next();
-});
+}, false);
 
 router.route().handler(function (routingContext) {
   routingContext.response().putHeader("content-type", "text/html").end("Hello World!");
