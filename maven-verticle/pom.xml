@@ -7,7 +7,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticle</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0</version>
 
   <properties>
     <!-- the main verticle class name -->
