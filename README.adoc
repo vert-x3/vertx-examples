@@ -100,6 +100,16 @@ Pre-requisites: You will need to have Java 8 JDK installed.
 3. Set your `PATH` environment variable to include the installation directory
 4. Test the install by typing `vertx -version`.
 
+On the download page, you will find several _distributions_. Each distribution has a different set
+ of components:
+
+* **Min**: The _min_ distribution contains only Vert.x Core, the support of the different
+ languages, and the Hazelcast clustering.
+* **Base**: The _base_ distribution extends the _min_ distribution with the service layer, the
+ reactive technologies integration, and the metrics.
+* **Full**: The _full_ distribution contains all the components of the Vert.x stack. It includes
+ Vert.x web and the different data access technologies.
+
 === Vert.x core examples
 
 The link:core-examples/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
