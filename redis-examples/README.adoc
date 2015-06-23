@@ -14,7 +14,7 @@ verticles with the redis host:
 
 ----
 {
-    "host": 192.168.59.103
+    "host": "192.168.59.103"
 }
 ----
 
