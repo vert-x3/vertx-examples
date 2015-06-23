@@ -299,6 +299,9 @@ It also demonstrates how to protect the even bus when used with a bridge using o
 
 The link:src/main/java/io/vertx/example/web/angular_realtime/[Java angular_realtime example]
 
+The example uses a simple auth service which gets user/password/role information from a properties file
+`src/main/resources/vertx-users.properties`.
+
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
