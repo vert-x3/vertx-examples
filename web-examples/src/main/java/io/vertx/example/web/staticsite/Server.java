@@ -17,7 +17,6 @@
 package io.vertx.example.web.staticsite;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -39,9 +38,7 @@ public class Server extends AbstractVerticle {
     // This is only useful for development - do not use this in a production server
     System.setProperty("vertx.disableFileCaching", "true");
 
-    // We set redeploy to true - this means that the verticle will automatically redeploy if any of the resources
-    // e.g. the Server class file changes.
-    Runner.runExample(Server.class, new DeploymentOptions().setRedeploy(true));
+    Runner.runExample(Server.class);
   }
 
   @Override
