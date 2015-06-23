@@ -228,7 +228,7 @@ This example shows a basic single page application that contains an API that is 
 The link:src/main/java/io/vertx/example/web/jwt/[Java jwt example]
 
 Requests to paths starting with `/api/` will require a JWT token, except the excluded `/api/newToken`. This exclusion is
-normaly used as the login end point, however in this example we are not focusing on secure login end points and we just
+normally used as the login end point, however in this example we are not focusing on secure login end points and we just
 return a new token for any request.
 
 The application contains a simple form where you can request some data from the API if there is no token loaded then the
@@ -247,6 +247,8 @@ The link:src/main/java/io/vertx/example/web/angular/[Java angular example]
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
+
+For login use username: tim password: sausages
 
 == Blocking handler example
 

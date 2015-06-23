@@ -29,7 +29,7 @@ public class Server extends AbstractVerticle {
 
       // Now call the next handler
       routingContext.next();
-    });
+    }, false);
 
     router.route().handler(routingContext -> {
       routingContext.response().putHeader("content-type", "text/html").end("Hello World!");

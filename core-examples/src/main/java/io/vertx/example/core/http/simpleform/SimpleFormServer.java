@@ -4,6 +4,8 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 
 /*
+ * NOTE! It's recommended to use Vert.x-Web for examples like this
+ *
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class SimpleFormServer extends AbstractVerticle {
