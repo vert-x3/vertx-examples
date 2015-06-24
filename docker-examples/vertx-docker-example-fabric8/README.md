@@ -48,7 +48,7 @@ You should see in the [Fabric8 console](http://fabric8.io/guide/console.html) an
  
 If you switch to the `Services` tab you should see the new service for your app at the bottom of the page. 
 
-![Alt text](/docs/img/servicesTab.png?raw=true "Services Tab in Fabric8 Console")
+![Alt text](/docker-examples/vertx-docker-example-fabric8/docs/img/servicesTab.png?raw=true "Services Tab in Fabric8 Console")
  
 This [kubernetes service](http://fabric8.io/guide/services.html) provides a load balancer over all the running pods of your docker image.
 
@@ -62,5 +62,5 @@ Hello World!
 
 You can scale up/down how many docker containers you want to run by clicking the `Replicas` number on the `Controllers` tab (or click on the controller then hit the `Resize` button on the controller detail page).
 
-![Alt text](/docs/img/resizeControllerTab.png?raw=true "Controllers Tab in Fabric8 Console")
+![Alt text](/docker-examples/vertx-docker-example-fabric8/docs/img/resizeControllerTab.png?raw=true "Controllers Tab in Fabric8 Console")
 
