@@ -1,0 +1,17 @@
+= Vert.x Metrics Examples
+
+Vert.x core provides a Service Provide Interface (SPI) for collecting metrics. The Dropwizard implementation
+collects these metrics in a Dropwizard registry that can be used for reporting in other system or can
+be queried via the Dropwizard MetricsService.
+
+== UI monitoring dashboard
+
+This example is a UI monitoring dashboard built on top of the Dropwizard metrics implementation.
+
+The link:src/main/java/io/vertx/example/metrics/dashboard/[Java monitoring dashboard example]
+
+The dashboard uses the vertx-web eventbus bridge to push metrics periodically on the event bus. The metrics
+are retrieved from the MetricsService in Json format.
+
+Run the dashboard either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080 to see the dashboard
