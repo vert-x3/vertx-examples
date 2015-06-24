@@ -64,3 +64,17 @@ You can scale up/down how many docker containers you want to run by clicking the
 
 ![Alt text](/docker-examples/vertx-docker-example-fabric8/docs/img/resizeControllerTab.png?raw=true "Controllers Tab in Fabric8 Console")
 
+## Integration testing your app
+
+If you want to run integration tests of your app on Kubernetes (with maybe other apps and services on kubernetes too) you can use the [Fabric8 Arquillian plugin](http://fabric8.io/guide/testing.html) which lets you write regular JUnit test cases which spin up a new Kubernetes namespace, provision all the services, replication controllers and pods required and then runs your test case - then tears everything down again.
+
+## Monitoring your app
+
+When you have a few containers running inside Kubernetes it can be tricky understanding how your application is behaving.
+
+So you might want to run these apps too to help give you more insight into how your containers are behaving:
+
+* [Metrics](http://fabric8.io/guide/metrics.html) using [InfluxDB](https://influxdb.com/) as the back end and [Grafana](http://grafana.org/) as the front end 
+* [Logging](http://fabric8.io/guide/logging.html) using [Elasticsearch](https://www.elastic.co/products/elasticsearch/) as the back end and [Kibana](https://www.elastic.co/products/kibana/) as the front end
+
+If you [run](http://fabric8.io/guide/fabric8OnOpenShift.html#install-via-the-console) either of the above (via the `Run...` button on the `Apps` tab in the console) then you should see links to `Metrics` and `Logs` in the [Fabric8 console](http://fabric8.io/guide/console.html) where you can noodle the metrics and logs of all your containers. 
