@@ -13,11 +13,15 @@
   <properties>
     <verticle.name>io.vertx.example.HelloWorldVerticle</verticle.name>
 
-    <!-- Metadata to generate the kubernates.json - ignore them if you don't plan to use kubernates / fabric8 -->
     <docker.image>vertx/vertx3-example-fabric8</docker.image>
+    <docker.port.container.http>8080</docker.port.container.http>
+
+    <!-- Metadata to generate the kubernates.json - ignore them if you don't plan to use kubernates / fabric8 -->
     <fabric8.label.container>vert.x</fabric8.label.container>
     <fabric8.label.group>example</fabric8.label.group>
-    <docker.port.container.http>8080</docker.port.container.http>
+    <fabric8.service.name>vertx-docker-example</fabric8.service.name>
+    <fabric8.service.port>80</fabric8.service.port>
+    <fabric8.service.containerPort>${docker.port.container.http}</fabric8.service.containerPort>
   </properties>
 
 
@@ -35,7 +39,7 @@
         <plugin>
           <groupId>org.jolokia</groupId>
           <artifactId>docker-maven-plugin</artifactId>
-          <version>0.11.5</version>
+          <version>0.12.0</version>
           <executions>
             <execution>
               <id>build</id>
@@ -56,9 +60,15 @@
                   <ports>
                     <port>8080</port>
                   </ports>
-                  <command>vertx run ${verticle.name} -cp
-                    /usr/verticles/${project.artifactId}-${project.version}.jar
-                  </command>
+                  <cmd>
+                    <exec>
+                       <arg>vertx</arg>
+                       <arg>run</arg>
+                       <arg>${verticle.name}</arg>
+                       <arg>-cp</arg>
+                       <arg>/usr/verticles/${project.artifactId}-${project.version}.jar</arg>
+                    </exec>
+                  </cmd>
                   <assembly>
                     <mode>dir</mode>
                     <basedir>/usr/verticles</basedir>
@@ -85,7 +95,7 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-maven-plugin</artifactId>
-        <version>2.1.4</version>
+        <version>2.2.3</version>
         <executions>
           <execution>
             <id>json</id>
