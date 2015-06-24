@@ -2,6 +2,7 @@ package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.example.util.Runner;
 import io.vertx.ext.mail.LoginOption;
 import io.vertx.ext.mail.MailAttachment;
 import io.vertx.ext.mail.MailConfig;
@@ -20,6 +21,11 @@ import java.util.List;
  * @author <a href="http://oss.lehmann.cx/">Alexander Lehmann</a>
  */
 public class MailLogin extends AbstractVerticle {
+
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    Runner.runExample(MailLogin.class);
+  }
 
   public void start() {
     MailConfig mailConfig = new MailConfig()
