@@ -1,6 +1,7 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.example.util.Runner;
 import io.vertx.ext.mail.MailMessage;
 import io.vertx.ext.mail.MailService;
 
@@ -11,6 +12,12 @@ import io.vertx.ext.mail.MailService;
  *
  */
 public class MailEB extends AbstractVerticle {
+
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    Runner.runExample(MailEB.class);
+  }
+
 
   public void start() {
     MailService mailService = MailService.createEventBusProxy(vertx, "vertx.mail");
