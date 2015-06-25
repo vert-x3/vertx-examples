@@ -1,4 +1,4 @@
-= Vert.x Doker Examples
+= Vert.x Docker Examples
 
 Here you will find examples demonstrating how to run Vert.x applications in Docker container. To run these examples you need https://www.docker.com/[Docker] installed on your computer. More details about these examples are in the http://vert-x3.github.io/docs/vertx-docker/[Vert.x Docker Manual].
 
