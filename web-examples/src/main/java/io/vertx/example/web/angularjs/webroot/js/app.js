@@ -48,10 +48,18 @@ function EditCtrl($scope, $http, $location, $routeParams) {
     };
 
     $scope.delete = function (user) {
-        var deleteUser = confirm('Are you absolutely sure you want to delete '+ user.id +' ?');
+        var deleteUser = confirm('Are you absolutely sure you want to delete ?');
         if (deleteUser) {
-            $http.delete('/api/users/' + id, user);
-            $scope.activePath = $location.path('/');
+            $http.delete('/api/users/' + id, user)
+                .success(function(data, status, headers, config) {
+                    console.log("success");
+                    $scope.activePath = $location.path('/');
+                }).
+                error(function(data, status, headers, config) {
+                    console.log("error");
+                    // handle error
+                });
+
         }
     };
 }
