@@ -32,7 +32,6 @@ public class JDBCExampleSync extends SyncVerticle {
 
     JDBCClientSync clientSync = new JDBCClientSync(client);
     SQLConnectionSync conn = clientSync.getConnectionSync();
-    System.out.println("Got connection!");
     try {
       conn.executeSync("create table test(id int primary key, name varchar(255))");
       conn.executeSync("insert into test values (1, 'Hello'), (2, 'World')");
