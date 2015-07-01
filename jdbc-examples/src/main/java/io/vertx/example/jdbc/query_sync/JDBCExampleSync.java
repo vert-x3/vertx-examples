@@ -1,4 +1,4 @@
-package io.vertx.example.query_sync;
+package io.vertx.example.jdbc.query_sync;
 
 import co.paralleluniverse.fibers.Suspendable;
 import io.vertx.core.json.JsonArray;
@@ -35,9 +35,7 @@ public class JDBCExampleSync extends SyncVerticle {
     System.out.println("Got connection!");
     try {
       conn.executeSync("create table test(id int primary key, name varchar(255))");
-      System.out.println("Executed 1!");
       conn.executeSync("insert into test values (1, 'Hello'), (2, 'World')");
-      System.out.println("Executed 2!");
       ResultSet rs = conn.queryWithParamsSync("select * from test where id = ?", new JsonArray().add(2));
       for (JsonArray line : rs.getResults()) {
         System.out.println(line.encode());
