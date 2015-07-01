@@ -60,7 +60,7 @@ public class Server extends AbstractVerticle {
     });
 
     router.get("/api/users/:id").handler(ctx -> {
-      mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
+      mongo.findOne("users", new JsonObject().put("_id", ctx.request().getParam("id")), null, lookup -> {
         // error handling
         if (lookup.failed()) {
           ctx.fail(500);
@@ -102,7 +102,7 @@ public class Server extends AbstractVerticle {
             }
 
             // add the generated id to the user object
-            newUser.put("id", insert.result());
+            newUser.put("_id", insert.result());
 
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json");
             ctx.response().end(newUser.encode());
@@ -112,7 +112,7 @@ public class Server extends AbstractVerticle {
     });
 
     router.put("/api/users/:id").handler(ctx -> {
-      mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
+      mongo.findOne("users", new JsonObject().put("_id", ctx.request().getParam("id")), null, lookup -> {
         // error handling
         if (lookup.failed()) {
           ctx.fail(500);
@@ -134,7 +134,7 @@ public class Server extends AbstractVerticle {
           user.put("lastName", update.getString("lastName"));
           user.put("address", update.getString("address"));
 
-          mongo.replace("users", new JsonObject().put("id", ctx.request().getParam("id")), user, replace -> {
+          mongo.replace("users", new JsonObject().put("_id", ctx.request().getParam("id")), user, replace -> {
             // error handling
             if (replace.failed()) {
               ctx.fail(500);
@@ -149,7 +149,7 @@ public class Server extends AbstractVerticle {
     });
 
     router.delete("/api/users/:id").handler(ctx -> {
-      mongo.findOne("users", new JsonObject().put("id", ctx.request().getParam("id")), null, lookup -> {
+      mongo.findOne("users", new JsonObject().put("_id", ctx.request().getParam("id")), null, lookup -> {
         // error handling
         if (lookup.failed()) {
           ctx.fail(500);
@@ -163,7 +163,7 @@ public class Server extends AbstractVerticle {
           ctx.fail(404);
         } else {
 
-          mongo.remove("users", new JsonObject().put("id", ctx.request().getParam("id")), remove -> {
+          mongo.remove("users", new JsonObject().put("_id", ctx.request().getParam("id")), remove -> {
             // error handling
             if (remove.failed()) {
               ctx.fail(500);
