@@ -71,7 +71,7 @@ router.get("/api/users").handler() { |ctx|
 
 router.get("/api/users/:id").handler() { |ctx|
   @mongo.find_one("users", {
-    'id' => ctx.request().get_param("id")
+    '_id' => ctx.request().get_param("id")
   }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
@@ -116,7 +116,7 @@ router.post("/api/users").handler() { |ctx|
         end
 
         # add the generated id to the user object
-        newUser['id'] = insert
+        newUser['_id'] = insert
 
         ctx.response().put_header(Java::IoVertxCoreHttp::HttpHeaders::CONTENT_TYPE, "application/json")
         ctx.response().end(JSON.generate(newUser))
@@ -127,7 +127,7 @@ router.post("/api/users").handler() { |ctx|
 
 router.put("/api/users/:id").handler() { |ctx|
   @mongo.find_one("users", {
-    'id' => ctx.request().get_param("id")
+    '_id' => ctx.request().get_param("id")
   }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
@@ -151,7 +151,7 @@ router.put("/api/users/:id").handler() { |ctx|
       user['address'] = update['address']
 
       @mongo.replace("users", {
-        'id' => ctx.request().get_param("id")
+        '_id' => ctx.request().get_param("id")
       }, user) { |replace_err,replace|
         # error handling
         if (replace_err != nil)
@@ -168,7 +168,7 @@ router.put("/api/users/:id").handler() { |ctx|
 
 router.delete("/api/users/:id").handler() { |ctx|
   @mongo.find_one("users", {
-    'id' => ctx.request().get_param("id")
+    '_id' => ctx.request().get_param("id")
   }, nil) { |lookup_err,lookup|
     # error handling
     if (lookup_err != nil)
@@ -184,7 +184,7 @@ router.delete("/api/users/:id").handler() { |ctx|
     else
 
       @mongo.remove("users", {
-        'id' => ctx.request().get_param("id")
+        '_id' => ctx.request().get_param("id")
       }) { |remove_err,remove|
         # error handling
         if (remove_err != nil)

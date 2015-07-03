@@ -70,7 +70,7 @@ router.get("/api/users").handler({ ctx ->
 
 router.get("/api/users/:id").handler({ ctx ->
   mongo.findOne("users", [
-    id:ctx.request().getParam("id")
+    _id:ctx.request().getParam("id")
   ], null, { lookup ->
     // error handling
     if (lookup.failed()) {
@@ -115,7 +115,7 @@ router.post("/api/users").handler({ ctx ->
         }
 
         // add the generated id to the user object
-        newUser.id = insert.result()
+        newUser._id = insert.result()
 
         ctx.response().putHeader(io.vertx.core.http.HttpHeaders.CONTENT_TYPE, "application/json")
         ctx.response().end(groovy.json.JsonOutput.toJson(newUser))
@@ -126,7 +126,7 @@ router.post("/api/users").handler({ ctx ->
 
 router.put("/api/users/:id").handler({ ctx ->
   mongo.findOne("users", [
-    id:ctx.request().getParam("id")
+    _id:ctx.request().getParam("id")
   ], null, { lookup ->
     // error handling
     if (lookup.failed()) {
@@ -150,7 +150,7 @@ router.put("/api/users/:id").handler({ ctx ->
       user.address = update.address
 
       mongo.replace("users", [
-        id:ctx.request().getParam("id")
+        _id:ctx.request().getParam("id")
       ], user, { replace ->
         // error handling
         if (replace.failed()) {
@@ -167,7 +167,7 @@ router.put("/api/users/:id").handler({ ctx ->
 
 router.delete("/api/users/:id").handler({ ctx ->
   mongo.findOne("users", [
-    id:ctx.request().getParam("id")
+    _id:ctx.request().getParam("id")
   ], null, { lookup ->
     // error handling
     if (lookup.failed()) {
@@ -183,7 +183,7 @@ router.delete("/api/users/:id").handler({ ctx ->
     } else {
 
       mongo.remove("users", [
-        id:ctx.request().getParam("id")
+        _id:ctx.request().getParam("id")
       ], { remove ->
         // error handling
         if (remove.failed()) {

@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.vertx</groupId>
+    <artifactId>vertx-jca-examples</artifactId>
+    <version>3.0.0</version>
+  </parent>
+
+  <artifactId>vertx-jca-examples-app</artifactId>
+  <packaging>ear</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-jca-examples-web</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-jca-examples-ejb</artifactId>
+      <version>${project.version}</version>
+      <type>ejb</type>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-jca-adapter</artifactId>
+      <version>${project.version}</version>
+      <type>rar</type>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>vertx-jca-examples-app</finalName>
+    <plugins>
+      <!--Ear plugin -creating the ear - watch out skinny WARS!-->
+      <plugin>
+        <artifactId>maven-ear-plugin</artifactId>
+        <version>2.9.1</version>
+        <configuration>
+          <earSourceDirectory>../target</earSourceDirectory>
+          <finalName>vertx-jca-examples-app</finalName>
+          <defaultLibBundleDir>lib</defaultLibBundleDir>
+          <skinnyWars>true</skinnyWars>
+          <modules>
+            <webModule>
+              <groupId>io.vertx</groupId>
+              <artifactId>vertx-jca-examples-web</artifactId>
+            </webModule>
+            <rarModule>
+              <groupId>io.vertx</groupId>
+              <artifactId>vertx-jca-adapter</artifactId>
+            </rarModule>
+          </modules>
+          <version>6</version>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

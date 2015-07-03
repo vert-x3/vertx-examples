@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.vertx</groupId>
+    <artifactId>vertx-jca-examples</artifactId>
+    <version>3.0.0</version>
+  </parent>
+
+  <properties>
+    <ear.name>vertx-jca-examples-app.ear</ear.name>
+    <rar.name>vertx-jca-adapter</rar.name>
+    <rar.version>3.0.0</rar.version>
+    <rar.file.name>${rar.name}-${rar.version}.rar</rar.file.name>
+  </properties>
+
+  <artifactId>vertx-jca-examples-ejb</artifactId>
+  <packaging>ejb</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.ejb3</groupId>
+      <artifactId>jboss-ejb3-ext-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-hazelcast</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-jca-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-cli</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <target>
+                <echo>Generating sources via Ant!</echo>
+                <copy todir="${basedir}/target/classes/">
+                  <fileset dir="${basedir}/src/main/java">
+                    <include name="**/META-INF/jboss-ejb3.xml"/>
+                  </fileset>
+                  <filterset>
+                    <filter token="ear.name" value="${ear.name}"/>
+                    <filter token="rar.file.name" value="${rar.file.name}"/>
+                  </filterset>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

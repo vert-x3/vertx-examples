@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-6">
         <form novalidate name="EditForm" id="edit-form" method="post" action="">
-            <input type="hidden" ng-model="user.id" value="{{user.id}}" />
+            <input type="hidden" ng-model="user.id" value="{{user._id}}" />
             <div class="form-group">
                 <label>Username:</label>
                 <input class="form-control" type="text" ng-model="user.username" value="{{user.username}}" required />

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>Vertx JCA Resource Adapter - JavaEE Web Application</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link type="text/css" rel="stylesheet" href="style.css" />
+   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+   <div id="container">
+      <div id="header">
+          <div style="float:left;"><img src="wildfly.png" width="300px;" height="128px;" /></div>
+          <div style="float: left; padding-left:80px;"><img src="left.png" />&nbsp;&nbsp;<img src="right.png" /></div>
+          <div style="float:right;"><img src="vertx.png" width="300px;" height="128px;" /></div>
+      </div>
+      <div id="content">
+         <div id="sidebar">
+            <h3>Find out more</h3>
+            <p>Learn more about Vert.x</p>
+            <ul>
+              <li><a href="http://vertx.io/docs.html">Vertx Documentation</a></li>
+            </ul>
+            <p>Learn more about WildFly</p>
+            <ul>
+              <li><a href="https://docs.jboss.org/author/display/WFLY8/Documentation">WildFly Documentation</a></li>
+            </ul>
+            <p>Learn more about Vertx JCA Resource Adapter</p>
+            <ul>
+              <li><a href="https://github.com/vert-x3/vertx-jca">Vertx JCA Resource Adapter</a></li>
+            </ul>
+         </div>
+      <h1>Welcome to WildFly &amp; Vertx!</h1>
+
+      <p>This example shows how the JavaEE web application sends messages to Vertx</p>
+
+      <h2>Let's Send some messages:</h2>
+         <table>
+            <tr>
+               <td colspan="2"><ul id="error" style="font-color: #f00;"></ul></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><label>Vertx Connection Factory JNDI Name:</label></th>
+               <td><input id="jndi" name="jndi" type="text" value="java:/eis/VertxConnectionFactory" size="40"/></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><label>Address:</label></th>
+               <td><input id="address" name="address" type="text" size="40" value="inbound-address"/></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><label>Message:</label></th>
+               <td><input id="message" name="message" type="text" size="40" value="Hello, World!"/></td>
+            </tr>
+         </table>
+         <p style="padding-left: 170px; text-align:center;"><input id="Send" type="button" value="Send" /></p>
+
+       <h2>Feedback:</h2>
+       <div style="padding-bottom:10px;">
+         <textarea id="msgList" cols="120" rows="8"></textarea>
+       </div>
+
+      </div>
+      <div id="footer"><img src="logo.png" alt="WildFly logo" />
+      </div>
+   </div>
+
+<script>
+
+  function send() {
+    var hasError = "False";
+    $("#error").empty();
+    if ($("#jndi").val() == '') {
+      $("#error").append("<li>JNDI Name must be specified</li>");
+      hasError = "True";
+    }
+    if ($("#address").val() == '') {
+      $("#error").append("<li>Address must be specified</li>");
+      hasError = "True";
+    }
+    if ($("#message").val() == '') {
+      $("#error").append("<li>Can not send empty message</li>");
+      hasError = "True";
+    }
+    if (hasError == "True") {
+      return;
+    }
+    $.ajax({
+      url: "send.jsp",
+      type: "post",
+      data: "jndi=" + $("#jndi").val() + "&address=" + $("#address").val() + "&message=" + $("#message").val(),
+      success: function(response) {
+        $("#msgList").append("[FeedBack]: " + response);
+        document.getElementById("msgList").scrollTop = document.getElementById("msgList").scrollHeight;
+      },
+      error: function(request, status, error) {
+        $("#msgList").append("[FeedBack - Error]: " + error);
+        document.getElementById("msgList").scrollTop = document.getElementById("msgList").scrollHeight;
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    $("#Send").click(send);
+  });
+
+</script>
+
+ </body>
+</html>

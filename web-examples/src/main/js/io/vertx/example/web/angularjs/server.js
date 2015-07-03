@@ -70,7 +70,7 @@ router.get("/api/users").handler(function (ctx) {
 
 router.get("/api/users/:id").handler(function (ctx) {
   mongo.findOne("users", {
-    "id" : ctx.request().getParam("id")
+    "_id" : ctx.request().getParam("id")
   }, null, function (lookup, lookup_err) {
     // error handling
     if (lookup_err != null) {
@@ -115,7 +115,7 @@ router.post("/api/users").handler(function (ctx) {
         }
 
         // add the generated id to the user object
-        newUser.id = insert;
+        newUser._id = insert;
 
         ctx.response().putHeader(Java.type("io.vertx.core.http.HttpHeaders").CONTENT_TYPE, "application/json");
         ctx.response().end(JSON.stringify(newUser));
@@ -126,7 +126,7 @@ router.post("/api/users").handler(function (ctx) {
 
 router.put("/api/users/:id").handler(function (ctx) {
   mongo.findOne("users", {
-    "id" : ctx.request().getParam("id")
+    "_id" : ctx.request().getParam("id")
   }, null, function (lookup, lookup_err) {
     // error handling
     if (lookup_err != null) {
@@ -150,7 +150,7 @@ router.put("/api/users/:id").handler(function (ctx) {
       user.address = update.address;
 
       mongo.replace("users", {
-        "id" : ctx.request().getParam("id")
+        "_id" : ctx.request().getParam("id")
       }, user, function (replace, replace_err) {
         // error handling
         if (replace_err != null) {
@@ -167,7 +167,7 @@ router.put("/api/users/:id").handler(function (ctx) {
 
 router.delete("/api/users/:id").handler(function (ctx) {
   mongo.findOne("users", {
-    "id" : ctx.request().getParam("id")
+    "_id" : ctx.request().getParam("id")
   }, null, function (lookup, lookup_err) {
     // error handling
     if (lookup_err != null) {
@@ -183,7 +183,7 @@ router.delete("/api/users/:id").handler(function (ctx) {
     } else {
 
       mongo.remove("users", {
-        "id" : ctx.request().getParam("id")
+        "_id" : ctx.request().getParam("id")
       }, function (remove, remove_err) {
         // error handling
         if (remove_err != null) {
