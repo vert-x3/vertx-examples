@@ -12,6 +12,6 @@ public class MyDeployingVerticle extends AbstractVerticle {
   public void start() throws Exception {
     // The `my-verticle` is deployed using the follwoing convention:
     // `maven:` + groupId + `:` + artifactId + `:` + version + `::` + verticle name
-    vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.0.0-SNAPSHOT::my-verticle");
+    vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.1.0-SNAPSHOT::my-verticle");
   }
 }
