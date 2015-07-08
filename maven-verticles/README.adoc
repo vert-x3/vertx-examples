@@ -1,0 +1,16 @@
+= Vert.x Maven examples
+
+
+This project shows how you can use Apache Maven to package your verticles. Each project is is very similar to the
+maven-simplest project but instead of embedding Vert.x it shows an example of writing the code as a verticle.
+
+It covers:
+
+* Java: link:maven-verticle[]
+* JavaScript: link:maven-verticle-js[]
+* Groovy: link:maven-verticle-groovy[]
+* Groovy compiled: link:maven-verticle-groovy-compile[] (The Groovy files are compiled)
+* Ruby: link:maven-verticle-rb[]
+
+
+

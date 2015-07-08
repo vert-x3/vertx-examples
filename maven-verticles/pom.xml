@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.vertx</groupId>
+  <artifactId>maven-verticles-examples</artifactId>
+  <version>3.0.0</version>
+
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>maven-verticle</module>
+    <module>maven-verticle-rb</module>
+    <module>maven-verticle-groovy</module>
+    <module>maven-verticle-groovy-compiled</module>
+    <module>maven-verticle-js</module>
+  </modules>
+
+</project>
