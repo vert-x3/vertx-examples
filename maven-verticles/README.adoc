@@ -9,8 +9,13 @@ It covers:
 * Java: link:maven-verticle[]
 * JavaScript: link:maven-verticle-js[]
 * Groovy: link:maven-verticle-groovy[]
-* Groovy compiled: link:maven-verticle-groovy-compile[] (The Groovy files are compiled)
+* Groovy compiled: link:maven-verticle-groovy-compiled[] (The Groovy files are compiled)
 * Ruby: link:maven-verticle-rb[]
 
+You can build all projects using:
+
+```
+mvn clean package
+```
 
 
