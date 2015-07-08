@@ -1,11 +1,10 @@
-package io.vertx.example.rxjava.http.unmarshalling;
+package io.vertx.example.rxjava.http.client.simple;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientRequest;
-import io.vertx.rxjava.core.http.HttpClientResponse;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -17,28 +16,21 @@ public class Client extends AbstractVerticle {
     Runner.runExample(Client.class);
   }
 
-  // Unmarshalled response from server
-  static class Data {
-
-    public String message;
-
-  }
-
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
-
     HttpClientRequest req = client.request(HttpMethod.GET, 8080, "localhost", "/");
     req.toObservable().
-        flatMap(HttpClientResponse::toObservable).
 
-        // Unmarshall the response to the Data object via Jackon
-        lift(io.vertx.rxjava.core.RxHelper.unmarshaller(Data.class)).
+        // Status code check and -> Observable<Buffer>
+        flatMap(resp -> {
+          if (resp.statusCode() != 200) {
+            throw new RuntimeException("Wrong status code " + resp.statusCode());
+          }
+          return resp.toObservable();
+        }).
 
-        subscribe(
-            data -> {
-              System.out.println("Got response " + data.message);
-            });
+        subscribe(data -> System.out.println("Server content " + data.toString("UTF-8")));
 
     // End request
     req.end();
