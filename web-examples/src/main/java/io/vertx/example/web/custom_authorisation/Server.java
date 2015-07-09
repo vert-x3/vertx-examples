@@ -9,6 +9,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -35,15 +36,14 @@ public class Server extends AbstractVerticle {
 
     // this route is excluded from the auth handler (it represents your login endpoint)
     router.get("/api/newToken").handler(ctx -> {
-      List<String> authorities = ctx.request().params().getAll("authority");
+      List<String> authorities = new ArrayList<>();
+
+      for (String authority : ctx.request().params().getAll("authority")) {
+        authorities.add(authority);
+      }
 
       ctx.response().putHeader("Content-Type", "text/plain");
-
-      if (authorities != null) {
-        ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60).setPermissions(authorities)));
-      } else {
-        ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60)));
-      }
+      ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60).setPermissions(authorities)));
     });
 
     router.route("/api/protected*").handler(JWTAuthHandler.create(jwt));
