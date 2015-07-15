@@ -1,4 +1,4 @@
-package io.vertx.example.rxjava.http.unmarshalling;
+package io.vertx.example.rxjava.http.client.simple;
 
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
@@ -18,7 +18,7 @@ public class Server extends AbstractVerticle {
   public void start() throws Exception {
     HttpServer server = vertx.createHttpServer();
     server.requestStream().toObservable().subscribe(req -> {
-      req.response().putHeader("content-type", "application/json").end("{\"message\":\"Hello World\"}");
+      req.response().putHeader("content-type", "text/html").end("<html><body><h1>Hello from vert.x!</h1></body></html>");
     });
     server.listen(8080);
   }

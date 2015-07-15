@@ -16,20 +16,17 @@ def jwt = JWTAuth.create(vertx, [
 
 // this route is excluded from the auth handler (it represents your login endpoint)
 router.get("/api/newToken").handler({ ctx ->
-  def authorities = ctx.request().params().getAll("authority")
+  def authorities = []
+
+  ctx.request().params().getAll("authority").each { authority ->
+    authorities.add(authority)
+  }
 
   ctx.response().putHeader("Content-Type", "text/plain")
-
-  if (authorities != null) {
-    ctx.response().end(jwt.generateToken([:], [
-      expiresInSeconds:60,
-      permissions:authorities
-    ]))
-  } else {
-    ctx.response().end(jwt.generateToken([:], [
-      expiresInSeconds:60
-    ]))
-  }
+  ctx.response().end(jwt.generateToken([:], [
+    expiresInSeconds:60,
+    permissions:authorities
+  ]))
 })
 
 router.route("/api/protected*").handler(JWTAuthHandler.create(jwt))

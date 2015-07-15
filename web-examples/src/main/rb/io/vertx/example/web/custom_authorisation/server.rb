@@ -16,22 +16,18 @@ jwt = VertxAuthJwt::JWTAuth.create($vertx, {
 
 # this route is excluded from the auth handler (it represents your login endpoint)
 router.get("/api/newToken").handler() { |ctx|
-  authorities = ctx.request().params().get_all("authority")
+  authorities = Array.new
+
+  ctx.request().params().get_all("authority").each do |authority|
+    authorities.push(authority)
+  end
 
   ctx.response().put_header("Content-Type", "text/plain")
-
-  if (authorities != nil)
-    ctx.response().end(jwt.generate_token({
-    }, {
-      'expiresInSeconds' => 60,
-      'permissions' => authorities
-    }))
-  else
-    ctx.response().end(jwt.generate_token({
-    }, {
-      'expiresInSeconds' => 60
-    }))
-  end
+  ctx.response().end(jwt.generate_token({
+  }, {
+    'expiresInSeconds' => 60,
+    'permissions' => authorities
+  }))
 }
 
 router.route("/api/protected*").handler(&VertxWeb::JWTAuthHandler.create(jwt).method(:handle))

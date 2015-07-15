@@ -16,22 +16,19 @@ var jwt = JWTAuth.create(vertx, {
 
 // this route is excluded from the auth handler (it represents your login endpoint)
 router.get("/api/newToken").handler(function (ctx) {
-  var authorities = ctx.request().params().getAll("authority");
+
+  var authorities = [];
+
+  Array.prototype.forEach.call(ctx.request().params().getAll("authority"), function(authority) {
+    authorities.push(authority);
+  });
 
   ctx.response().putHeader("Content-Type", "text/plain");
-
-  if (authorities !== null) {
-    ctx.response().end(jwt.generateToken({
-    }, {
-      "expiresInSeconds" : 60,
-      "permissions" : authorities
-    }));
-  } else {
-    ctx.response().end(jwt.generateToken({
-    }, {
-      "expiresInSeconds" : 60
-    }));
-  }
+  ctx.response().end(jwt.generateToken({
+  }, {
+    "expiresInSeconds" : 60,
+    "permissions" : authorities
+  }));
 });
 
 // protect the API (any authority is allowed)
