@@ -10,10 +10,10 @@ without parameters and shows how to close the connection.
 
 The example is available in several languages:
 
-* Java: link:src/main/java/io/vertx/examples/jdbc/simple/JDBCExample.java[JDBCExample.java]
-* JavaScript: link:src/main/js/io/vertx/examples/jdbc/simple/jdbc_example.js[jdbc_example.js]
-* Groovy: link:src/main/groovy/io/vertx/examples/jdbc/simple/jdbc_example.groovy[jdbc_example.groovy]
-* Ruby: link:src/main/rb/io/vertx/examples/jdbc/simple/jdbc_example.rb[jdbc_example.rb]
+* Java: link:src/main/java/io/vertx/example/jdbc/simple/JDBCExample.java[JDBCExample.java]
+* JavaScript: link:src/main/js/io/vertx/example/jdbc/simple/jdbc_example.js[jdbc_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/jdbc/simple/jdbc_example.groovy[jdbc_example.groovy]
+* Ruby: link:src/main/rb/io/vertx/example/jdbc/simple/jdbc_example.rb[jdbc_example.rb]
 
 == Query Params
 
@@ -23,10 +23,10 @@ advantage of doing so is to avoid common SQL injection security issues since all
 
 The example is available in several languages:
 
-* Java: link:src/main/java/io/vertx/examples/jdbc/query_params/JDBCExample.java[JDBCExample.java]
-* JavaScript: link:src/main/js/io/vertx/examples/jdbc/query_params/jdbc_example.js[jdbc_example.js]
-* Groovy: link:src/main/groovy/io/vertx/examples/jdbc/query_params/jdbc_example.groovy[jdbc_example.groovy]
-* Ruby: link:src/main/rb/io/vertx/examples/jdbc/query_params/jdbc_example.rb[jdbc_example.rb]
+* Java: link:src/main/java/io/vertx/example/jdbc/query_params/JDBCExample.java[JDBCExample.java]
+* JavaScript: link:src/main/js/io/vertx/example/jdbc/query_params/jdbc_example.js[jdbc_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/jdbc/query_params/jdbc_example.groovy[jdbc_example.groovy]
+* Ruby: link:src/main/rb/io/vertx/example/jdbc/query_params/jdbc_example.rb[jdbc_example.rb]
 
 == Transaction
 
@@ -35,10 +35,10 @@ expected result is `1` since the example is counting the number of inserted rows
 
 The example is available in several languages:
 
-* Java: link:src/main/java/io/vertx/examples/jdbc/transaction/JDBCExample.java[JDBCExample.java]
-* JavaScript: link:src/main/js/io/vertx/examples/jdbc/transaction/jdbc_example.js[jdbc_example.js]
-* Groovy: link:src/main/groovy/io/vertx/examples/jdbc/transaction/jdbc_example.groovy[jdbc_example.groovy]
-* Ruby: link:src/main/rb/io/vertx/examples/jdbc/transaction/jdbc_example.rb[jdbc_example.rb]
+* Java: link:src/main/java/io/vertx/example/jdbc/transaction/JDBCExample.java[JDBCExample.java]
+* JavaScript: link:src/main/js/io/vertx/example/jdbc/transaction/jdbc_example.js[jdbc_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/jdbc/transaction/jdbc_example.groovy[jdbc_example.groovy]
+* Ruby: link:src/main/rb/io/vertx/example/jdbc/transaction/jdbc_example.rb[jdbc_example.rb]
 
 == Transaction Rollback
 
@@ -47,7 +47,7 @@ inserting data we rollback the transaction and the final count show that we have
 
 The example is available in several languages:
 
-* Java: link:src/main/java/io/vertx/examples/jdbc/transaction_rollback/JDBCExample.java[JDBCExample.java]
-* JavaScript: link:src/main/js/io/vertx/examples/jdbc/transaction_rollback/jdbc_example.js[jdbc_example.js]
-* Groovy: link:src/main/groovy/io/vertx/examples/jdbc/transaction_rollback/jdbc_example.groovy[jdbc_example.groovy]
-* Ruby: link:src/main/rb/io/vertx/examples/jdbc/transaction_rollback/jdbc_example.rb[jdbc_example.rb]
+* Java: link:src/main/java/io/vertx/example/jdbc/transaction_rollback/JDBCExample.java[JDBCExample.java]
+* JavaScript: link:src/main/js/io/vertx/example/jdbc/transaction_rollback/jdbc_example.js[jdbc_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/jdbc/transaction_rollback/jdbc_example.groovy[jdbc_example.groovy]
+* Ruby: link:src/main/rb/io/vertx/example/jdbc/transaction_rollback/jdbc_example.rb[jdbc_example.rb]
