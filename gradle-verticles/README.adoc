@@ -1,0 +1,21 @@
+= Vert.x Gradle examples
+
+
+This project shows how you can use Gradle to package your verticles. Each project is is very similar to the
+gradle-simplest project but instead of embedding Vert.x it shows an example of writing the code as a verticle.
+
+It covers:
+
+* Java: link:gradle-verticle[]
+* JavaScript: link:gradle-verticle-js[]
+* Groovy: link:gradle-verticle-groovy[]
+* Groovy compiled: link:gradle-verticle-groovy-compiled[] (The Groovy files are compiled)
+* Ruby: link:gradle-verticle-rb[]
+
+You can build all projects using:
+
+```
+./gradlew clean shadow
+```
+
+
