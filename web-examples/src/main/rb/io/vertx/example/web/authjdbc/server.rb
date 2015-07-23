@@ -40,6 +40,13 @@ client = VertxJdbc::JDBCClient.create_shared($vertx, {
   'driver_class' => "org.hsqldb.jdbcDriver"
 })
 
+#     If you are planning NOT to build a fat jar, then use the BoneCP pool since it
+#     can handle loading the jdbc driver classes from outside vert.x lib directory
+#    JDBCClient client = JDBCClient.createShared(vertx, new JsonObject()
+#        .put("provider_class", "io.vertx.ext.jdbc.spi.impl.BoneCPDataSourceProvider")
+#        .put("jdbcUrl", "jdbc:hsqldb:mem:test?shutdown=true")
+#        .put("username", "sa")
+#        .put("password", ""));
 
 router = VertxWeb::Router.router($vertx)
 
