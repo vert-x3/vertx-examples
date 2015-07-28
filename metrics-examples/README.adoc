@@ -9,9 +9,39 @@ be queried via the Dropwizard MetricsService.
 This example is a UI monitoring dashboard built on top of the Dropwizard metrics implementation.
 
 The link:src/main/java/io/vertx/example/metrics/dashboard/[Java monitoring dashboard example]
+The link:src/main/groovy/io/vertx/example/metrics/dashboard/[Groovy monitoring dashboard example]
+The link:src/main/js/io/vertx/example/metrics/dashboard/[JavaScript monitoring dashboard example]
+The link:src/main/rb/io/vertx/example/metrics/dashboard/[Ruby monitoring dashboard example]
 
 The dashboard uses the vertx-web eventbus bridge to push metrics periodically on the event bus. The metrics
 are retrieved from the MetricsService in Json format.
 
 Run the dashboard either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 to see the dashboard
+
+Launch the example as follows:
+
+----
+# compile the example
+mvn clean package
+
+# enable metrics
+export VERTX_OPTS=-Dvertx.metrics.options.enabled=true
+
+# java
+cd src/main/java/io/vertx/example/metrics/dashboard
+vertx run io.vertx.example.metrics.dashboard.Dashboard -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+
+# javascript
+cd src/main/js/io/vertx/example/metrics/dashboard
+vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+
+# groovy
+cd src/main/groovy/io/vertx/example/metrics/dashboard
+vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+
+# ruby
+cd src/main/rb/io/vertx/example/metrics/dashboard
+vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+----
+
