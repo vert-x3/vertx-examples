@@ -18,13 +18,12 @@
 <head>
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
-  <script src="highcharts.js"></script></head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.7/highcharts.js"></script></head>
   <script src="vertxbus.js"></script>
 <body>
   <h1>Metrics dashboard</h1>
 
-  <div class="news">Latest news: </div><br>
-  <div id="status" class="news"></div>
+  <div class="news">Latest value: <span id="value"></span></div><br>
 
   <div id="container" style="height: 400px; min-width: 310px"></div>
 
@@ -53,6 +52,8 @@
                 var sent = metrics["messages.sent"];
                 if (sent != null) {
                   sentSeries.addPoint([x, sent.oneSecondRate], false, true);
+                  // Add the value to the `value` placeholder (ease testing)
+                  $("#value").html(sent.oneSecondRate);
                 }
                 that.redraw();
               });
