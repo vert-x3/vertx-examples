@@ -1,0 +1,8 @@
+{
+  "name": "commonjs",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "vertx3-eventbus-client": "3.0.0-1"
+  }
+}
