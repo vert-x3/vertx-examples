@@ -1,18 +1,17 @@
-package io.vertx.example.web.templates.jade;
+package io.vertx.example.web.templating.handlebars;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.templ.HandlebarsTemplateEngine;
-import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.
  *
  * In this application you will see the usage of:
  *
- *  * Jade templates
+ *  * Handlebars templates
  *  * Vert.x Web
  *
  * @author <a href="mailto:pmlopes@gmail.com>Paulo Lopes</a>
@@ -40,7 +39,7 @@ public class Server extends AbstractVerticle {
       ctx.put("name", "Vert.x Web");
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.jade", res -> {
+      engine.render(ctx, "templates/index.hbs", res -> {
         if (res.succeeded()) {
           ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
         } else {
@@ -49,7 +48,7 @@ public class Server extends AbstractVerticle {
       });
     });
 
-    // start a HTTP web server on port 8080
+   // start a HTTP web server on port 8080
     vertx.createHttpServer().requestHandler(router::accept).listen(8080);
   }
 }

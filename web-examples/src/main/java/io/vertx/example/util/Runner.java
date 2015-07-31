@@ -71,7 +71,7 @@ public class Runner {
 
   static class JSTemplatingRunner {
     public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/web/templating/server.js");
+      Runner.runJSExample("io/vertx/example/web/templating/mvel/server.js");
     }
   }
 
@@ -121,7 +121,7 @@ public class Runner {
 
   static class GroovyTemplatingRunner {
     public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/templating/server.groovy");
+      Runner.runGroovyExample("io/vertx/example/web/templating/mvel/server.groovy");
     }
   }
 
@@ -177,7 +177,7 @@ public class Runner {
 
   static class RubyTemplatingRunner {
     public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/web/templating/server.rb");
+      Runner.runRubyExample("io/vertx/example/web/templating/mvel/server.rb");
     }
   }
 }

@@ -1,10 +1,9 @@
-package io.vertx.example.web.templates.handlebars;
+package io.vertx.example.web.templating.thymeleaf;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine;
 import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
 
 /**
@@ -12,7 +11,7 @@ import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
  *
  * In this application you will see the usage of:
  *
- *  * Handlebars templates
+ *  * Thymeleaf templates
  *  * Vert.x Web
  *
  * @author <a href="mailto:pmlopes@gmail.com>Paulo Lopes</a>
@@ -27,20 +26,20 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    // In order to use a template we first need to create an engine
-    final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create();
+    // In order to use a JADE template we first need to create an engine
+    final ThymeleafTemplateEngine engine = ThymeleafTemplateEngine.create();
 
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
 
-    // Entry point to the application, this will render a custom template.
+    // Entry point to the application, this will render a custom JADE template.
     router.get().handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("name", "Vert.x Web");
+      ctx.put("welcome", "Hi there!");
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.hbs", res -> {
+      engine.render(ctx, "templates/index.html", res -> {
         if (res.succeeded()) {
           ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
         } else {

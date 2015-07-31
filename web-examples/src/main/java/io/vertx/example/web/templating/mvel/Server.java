@@ -14,7 +14,7 @@
  *  You may elect to redistribute this code under either of these licenses.
  */
 
-package io.vertx.example.web.templating;
+package io.vertx.example.web.templating.mvel;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
