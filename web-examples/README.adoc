@@ -83,6 +83,57 @@ NOTE: Depending on your browser you may see it increase by two each time you ref
 actually send two HTTP requests every time you refresh - one to request the favicon for the site and one to request the
 actual page.
 
+== EventBus Bridge - Client CommonJS loader
+
+This example demonstrates how to use commonjs to load the eventbus client bridge using link:http://npmjs.com[npm].
+
+The link:src/main/java/io/vertx/example/web/vertxbus/commonjs[Java CommonJS loader example]
+
+In order to use the javascript client one needs to define a link:src/main/java/io/vertx/example/web/vertxbus/commonjs/webroot/package.json[package.json]
+where a dependency to `vertx3-eventbus-client` is added. Of course this is a minimal example so no other dependencies
+are added. The Vert.x code will then serve the static resources and setup a event bus bridge that broadcasts the current
+time every second.
+
+Before running the example you need to download the dependencies, the easiest form of doing this is using `npm install`.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080
+
+== EventBus Bridge - Client AMD loader
+
+This example demonstrates how to use AMD to load the eventbus client bridge using link:http://bower.io[bower.io] to download the dependencies
+and link:http://dojotoolkit.org[Dojo Toolkit] to load the packages at runtime.
+
+The link:src/main/java/io/vertx/example/web/vertxbus/amd[Java AMD loader example]
+
+In order to use the javascript client one needs to define a link:src/main/java/io/vertx/example/web/vertxbus/amd/webroot/bower.json[bower.json]
+where a dependency to `vertx3-eventbus-client` is added. Of course this is a minimal example so no other dependencies
+are added. The Vert.x code will then serve the static resources and setup a event bus bridge that broadcasts the current
+time every second.
+
+Before running the example you need to download the dependencies, the easiest form of doing this is using `bower install`.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080
+
+== EventBus Bridge - Node.JS loader
+
+This example demonstrates how to use NodeJS to load the eventbus client bridge using link:http://npmjs.com[npm] to download
+the dependencies.
+
+The link:src/main/java/io/vertx/example/web/vertxbus/node[Java NodeJS loader example]
+
+In order to use the javascript client one needs to define a link:src/main/java/io/vertx/example/web/vertxbus/node/package.json[package.json]
+where a dependency to `vertx3-eventbus-client` is added. Of course this is a minimal example so no other dependencies
+are added. The Vert.x code will setup a event bus bridge that broadcasts the current time every second.
+
+The second part of the code is the NodeJS link:src/main/java/io/vertx/example/web/vertxbus/node/index.js[app] where a SockJS
+client is created to the running Server.
+
+Before running the example you need to download the dependencies, the easiest form of doing this is using `npm install`.
+
+Run the server either in your IDE or on the command line, then run the node client `npm start`.
+
 == Real-time - client side event bus
 
 This example demonstrates a full duplex connection between the browser and the server side.
