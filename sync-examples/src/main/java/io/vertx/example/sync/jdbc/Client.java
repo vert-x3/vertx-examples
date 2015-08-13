@@ -32,20 +32,20 @@ public class Client extends SyncVerticle {
 
     // Get a connection
 
-    try (SQLConnection conn = syncResult(jdbc::getConnection)) {
+    try (SQLConnection conn = awaitResult(jdbc::getConnection)) {
 
       // Create a table
-      Void v = syncResult(h -> conn.execute("CREATE TABLE test(col VARCHAR(20))", h));
+      Void v = awaitResult(h -> conn.execute("CREATE TABLE test(col VARCHAR(20))", h));
 
       // Insert some stuff
       for (int i = 0; i < 10; i++) {
         int ii = i;
-        UpdateResult res = syncResult(h -> conn.update("INSERT INTO test (col) VALUES ('val" + ii + "')", h));
+        UpdateResult res = awaitResult(h -> conn.update("INSERT INTO test (col) VALUES ('val" + ii + "')", h));
         System.out.println("Rows updated: " + res.getUpdated());
       }
 
       // Select the results
-      ResultSet res = syncResult(h -> conn.query("SELECT * FROM test", h));
+      ResultSet res = awaitResult(h -> conn.query("SELECT * FROM test", h));
       System.out.println("Selected " + res.getNumRows() + " results");
 
       res.getResults().forEach(System.out::println);

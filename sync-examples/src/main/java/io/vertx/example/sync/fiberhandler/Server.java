@@ -42,7 +42,7 @@ public class Server extends SyncVerticle {
     vertx.createHttpServer().requestHandler(fiberHandler(req -> {
 
       // Send a message to address and wait for a reply
-      Message<String> reply = syncResult(h -> eb.send(ADDRESS, "blah", h));
+      Message<String> reply = awaitResult(h -> eb.send(ADDRESS, "blah", h));
 
       System.out.println("Got reply: " + reply.body());
 

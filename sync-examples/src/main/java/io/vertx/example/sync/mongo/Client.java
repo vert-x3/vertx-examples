@@ -9,7 +9,7 @@ import io.vertx.ext.sync.SyncVerticle;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.vertx.ext.sync.Sync.syncResult;
+import static io.vertx.ext.sync.Sync.awaitResult;
 
 
 /**
@@ -32,7 +32,7 @@ public class Client extends SyncVerticle {
 
     // Deploy an embedded mongo database so we can test against that
 
-    String deploymentID = syncResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
+    String deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
 
     System.out.println("dep id of embedded mongo verticle is " + deploymentID);
 
@@ -40,19 +40,19 @@ public class Client extends SyncVerticle {
     MongoClient mongo = MongoClient.createShared(vertx, config);
 
     //Create a collection
-    Void v = syncResult(h -> mongo.createCollection("users", h));
+    Void v = awaitResult(h -> mongo.createCollection("users", h));
 
     // Insert some docs:
     List<JsonObject> users = Arrays.asList(new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
       new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble"));
 
     for (JsonObject user: users) {
-      String id = syncResult(h -> mongo.insert("users", user, h));
+      String id = awaitResult(h -> mongo.insert("users", user, h));
       System.out.println("Inserted id is " + id);
     }
 
     // Now query them
-    List<JsonObject> results = syncResult(h -> mongo.find("users", new JsonObject(), h));
+    List<JsonObject> results = awaitResult(h -> mongo.find("users", new JsonObject(), h));
     System.out.println("Retrieved " + results.size() + " results");
 
     // Print them

@@ -4,7 +4,7 @@ import co.paralleluniverse.fibers.Suspendable;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.sync.SyncVerticle;
 
-import static io.vertx.ext.sync.Sync.syncEvent;
+import static io.vertx.ext.sync.Sync.awaitEvent;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Server extends SyncVerticle {
 
     // Wait for a single event - this just demonstrates that you can wait for single events
     System.out.println("Waiting for single event");
-    long tid = syncEvent(h -> vertx.setTimer(1000, h));
+    long tid = awaitEvent(h -> vertx.setTimer(1000, h));
     System.out.println("Single event has fired");
 
 

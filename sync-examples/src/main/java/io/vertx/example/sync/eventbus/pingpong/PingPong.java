@@ -38,7 +38,7 @@ public class PingPong extends SyncVerticle {
     // This runs on an event loop but the event loop is at no time blocked!
     for (int i = 0; i < 10; i++) {
       System.out.println("Thread is " + Thread.currentThread());
-      Message<String> reply = syncResult(h -> eb.send(ADDRESS, "ping", h));
+      Message<String> reply = awaitResult(h -> eb.send(ADDRESS, "ping", h));
       System.out.println("got reply: " + reply.body());
 
       // Like Thread.sleep but doesn't block the OS thread
