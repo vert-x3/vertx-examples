@@ -54,7 +54,7 @@ You can run the example in your IDE with the provided `main` method.
 
 === pingpong
 
-This examples demonstrates using `syncResult` to get send event bus messages and get the reply back, synchronously.
+This examples demonstrates using `awaitResult` to get send event bus messages and get the reply back, synchronously.
 
 The example sets up an event bus consumer which just replies "pong" to every messages it receives.
 
@@ -76,7 +76,7 @@ Then open a browser and point it at `localhost:8080`.
 
 == singleevent
 
-This example demonstrates using `syncEvent` to get a single event synchronously.
+This example demonstrates using `awaitEvent` to get a single event synchronously.
 
 It creates a timer which fires after one second. The fiber blocks until the event is available.
 
@@ -84,7 +84,7 @@ You can run the example in your IDE with the provided `main` method.
 
 == jdbc
 
-This example demonstrates using `syncResult` to interact with the Vert.x JDBC client in a synchronous way.
+This example demonstrates using `awaitResult` to interact with the Vert.x JDBC client in a synchronous way.
 
 The example creates a client, gets a connection, creates a table, inserts some rows then selects the rows back before
 displaying them and closing the connection.
@@ -96,7 +96,7 @@ You can run the example in your IDE with the provided `main` method.
 
 == mongo
 
-This example demonstrates using `syncResult` to interact with the Vert.x Mongo client in a synchronous way.
+This example demonstrates using `awaitResult` to interact with the Vert.x Mongo client in a synchronous way.
 
 The example first deploys an in-memory Mongo DB instance, then creates a client, creates a collection, inserts some
 documents, then finds the documents.
