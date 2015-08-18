@@ -29,6 +29,7 @@
     <module>redis-examples</module>
     <module>jdbc-examples</module>
     <module>jca-examples</module>
+    <module>sync-examples</module>
   </modules>
 
   <profiles>

@@ -1,0 +1,107 @@
+= Vert.x-sync examples
+
+Here you will find examples demonstrating Vert.x-Sync in action.
+
+Vertx-sync allows you to deploy verticles that run using *Fibers*. Fibers are very lightweight threads that can be
+blocked without blocking a kernel thread.
+
+This enables you to write your verticle code in a familiar synchronous style (i.e. no callbacks or promises or Rx).
+
+As no kernel threads are blocked your application retains the scalability advantages of a non (kernel thread) blocking
+application.
+
+In order to run the sync examples in your IDE you must add the following JVM option in your IDE run configuration:
+
+----
+-javaagent:/path/to/the/quasar/jar/
+----
+
+e.g.
+
+----
+-javaagent:/home/tim/.m2/repository/co/paralleluniverse/quasar-core/0.7.2/quasar-core-0.7.2.jar
+----
+
+== eventbus
+
+=== combine
+
+This example demonstrates using `HandlerReceiverAdaptor` to take two asynchronous stream of events and combining them by
+using the underlying Quasar channel.
+
+It creates adaptors for two different event bus messages consumers on different addresses.
+
+A periodic timer is created that sends a message to both addresses every 500ms.
+
+It then gets the Quasar `ReceivePort` for each adaptor and combines them into a `Mix`.
+
+The first ten messages are then received from the mix, synchronously.
+
+You can run the example in your IDE with the provided `main` method.
+
+=== consume
+
+This example demonstrates using `HandlerReceiverAdaptor` to take two asynchronous stream of events and allow them to
+be received in a synchronous way.
+
+It creates adaptors for two different event bus messages consumers on different addresses.
+
+A periodic timer is created that sends a message to both addresses every 500ms.
+
+The first ten messages are then received from each adaptor, synchronously.
+
+You can run the example in your IDE with the provided `main` method.
+
+=== pingpong
+
+This examples demonstrates using `awaitResult` to get send event bus messages and get the reply back, synchronously.
+
+The example sets up an event bus consumer which just replies "pong" to every messages it receives.
+
+The example then loops 10 times sending a message and getting a reply. It also demonstrates using `Strand.sleep` which
+is like `Thread.sleep` but blocks the fiber, not the kernel thread.
+
+You can run the example in your IDE with the provided `main` method.
+
+== fiberhandler
+
+This example demonstrates using a `FiberHandler` to run a standard handler using a Fiber.
+
+In this case the standard handler is an `HttpServer` request handler which sends an event bus message and gets a reply
+back synchronously after one second before ending the response.
+
+You can run the example in your IDE with the provided `main` method.
+
+Then open a browser and point it at `localhost:8080`.
+
+== singleevent
+
+This example demonstrates using `awaitEvent` to get a single event synchronously.
+
+It creates a timer which fires after one second. The fiber blocks until the event is available.
+
+You can run the example in your IDE with the provided `main` method.
+
+== jdbc
+
+This example demonstrates using `awaitResult` to interact with the Vert.x JDBC client in a synchronous way.
+
+The example creates a client, gets a connection, creates a table, inserts some rows then selects the rows back before
+displaying them and closing the connection.
+
+Compare the complexity of this example with the equivalent
+link:/jdbc-examples/src/main/java/io/vertx/example/jdbc/simple/JDBCExample.java[asynchronous example]
+
+You can run the example in your IDE with the provided `main` method.
+
+== mongo
+
+This example demonstrates using `awaitResult` to interact with the Vert.x Mongo client in a synchronous way.
+
+The example first deploys an in-memory Mongo DB instance, then creates a client, creates a collection, inserts some
+documents, then finds the documents.
+
+You can run the example in your IDE with the provided `main` method.
+
+
+
