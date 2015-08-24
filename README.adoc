@@ -95,7 +95,7 @@ into your project as you would with any dependency.
 
 Pre-requisites: You will need to have Java 8 JDK installed.
 
-1. Download a link:http://vertx.io/downloads.html [Vert.x 3 distribution]
+1. Download a link:https://bintray.com/vertx/downloads/distribution/view [Vert.x 3 distribution]
 2. Unzip it somewhere on your disk (e.g. in your home directory)
 3. Set your `PATH` environment variable to include the installation directory
 4. Test the install by typing `vertx -version`.
