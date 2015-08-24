@@ -41,7 +41,7 @@ public class Server extends AbstractVerticle {
       // and now delegate to the engine to render it.
       engine.render(ctx, "templates/index.hbs", res -> {
         if (res.succeeded()) {
-          ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
+          ctx.response().end(res.result());
         } else {
           ctx.fail(res.cause());
         }
