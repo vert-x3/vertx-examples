@@ -32,20 +32,22 @@ public class JDBCExample extends AbstractVerticle {
         System.err.println(conn.cause().getMessage());
         return;
       }
+      final SQLConnection connection = conn.result();
 
       // create a test table
-      execute(conn.result(), "create table test(id int primary key, name varchar(255))", create -> {
+      connection.execute("create table test(id int primary key, name varchar(255))", create -> {
+
         // insert some test data
-        execute(conn.result(), "insert into test values (1, 'Hello'), (2, 'World')", insert -> {
+        connection.execute("insert into test values (1, 'Hello'), (2, 'World')", insert -> {
 
           // query some data with arguments
-          query(conn.result(), "select * from test where id = ?", new JsonArray().add(2), rs-> {
-            for (JsonArray line : rs.getResults()) {
+          connection.queryWithParams("select * from test where id = ?", new JsonArray().add(2), rs -> {
+            for (JsonArray line : rs.result().getResults()) {
               System.out.println(line.encode());
             }
 
             // and close the connection
-            conn.result().close(done -> {
+            connection.close(done -> {
               if (done.failed()) {
                 throw new RuntimeException(done.cause());
               }
@@ -53,26 +55,6 @@ public class JDBCExample extends AbstractVerticle {
           });
         });
       });
-    });
-  }
-
-  private void execute(SQLConnection conn, String sql, Handler<Void> done) {
-    conn.execute(sql, res -> {
-      if (res.failed()) {
-        throw new RuntimeException(res.cause());
-      }
-
-      done.handle(null);
-    });
-  }
-
-  private void query(SQLConnection conn, String sql, JsonArray params, Handler<ResultSet> done) {
-    conn.queryWithParams(sql, params, res -> {
-      if (res.failed()) {
-        throw new RuntimeException(res.cause());
-      }
-
-      done.handle(res.result());
     });
   }
 }

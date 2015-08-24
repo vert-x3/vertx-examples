@@ -1,23 +1,5 @@
 require 'json'
 require 'vertx-jdbc/jdbc_client'
-def query(conn, sql, params, done)
-  conn.query_with_params(sql, params) { |res_err,res|
-    if (res_err != nil)
-      raise res_err
-    end
-
-    done.handle(res)
-  }
-end
-def execute(conn, sql, done)
-  conn.execute(sql) { |res_err,res|
-    if (res_err != nil)
-      raise res_err
-    end
-
-    done.handle(nil)
-  }
-end
 
 client = VertxJdbc::JDBCClient.create_shared($vertx, {
   'url' => "jdbc:hsqldb:mem:test?shutdown=true",
@@ -30,22 +12,24 @@ client.get_connection() { |conn_err,conn|
     STDERR.puts conn_err.get_message()
     return
   end
+  connection = conn
 
   # create a test table
-  execute(conn, "create table test(id int primary key, name varchar(255))") { |create|
+  connection.execute("create table test(id int primary key, name varchar(255))") { |create_err,create|
+
     # insert some test data
-    execute(conn, "insert into test values (1, 'Hello'), (2, 'World')") { |insert|
+    connection.execute("insert into test values (1, 'Hello'), (2, 'World')") { |insert_err,insert|
 
       # query some data with arguments
-      query(conn, "select * from test where id = ?", [
+      connection.query_with_params("select * from test where id = ?", [
         2
-      ]) { |rs|
+      ]) { |rs_err,rs|
         rs['results'].each do |line|
           puts JSON.generate(line)
         end
 
         # and close the connection
-        conn.close() { |done_err,done|
+        connection.close() { |done_err,done|
           if (done_err != nil)
             raise done_err
           end
