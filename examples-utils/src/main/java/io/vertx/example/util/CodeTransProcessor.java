@@ -218,7 +218,7 @@ public class CodeTransProcessor extends AbstractProcessor {
 
   /**
    * Checks whether the generation of the given class to the given lang is explicitly excluded. Exclusions are
-   * managed in the configuration file. If no configuration file are provided, the translation is not skipped.
+   * managed in the configuration file. If no configuration file is provided, the translation is not skipped.
    *
    * @param type the type
    * @param lang the language
@@ -237,6 +237,12 @@ public class CodeTransProcessor extends AbstractProcessor {
       //   "langs": ["lang 1", "lang 2"]
       // }
       // If not langs - skip all languages
+
+      if (exclude.get("package") == null) {
+        throw new IllegalStateException("Malformed configuration - Missing 'package' attribute in the 'codetrans" +
+            ".config' file");
+      }
+
       String pck = exclude.get("package").asText();
       ArrayNode langs = (ArrayNode) exclude.get("langs");
       if (type.getQualifiedName().toString().startsWith(pck) && isLanguageSkipped(langs, lang)) {
