@@ -47,6 +47,7 @@
             <target>1.8</target>
             <compilerArgs>
               <arg>-Acodetrans.output=${basedir}/src/main</arg>
+              <arg>-Acodetrans.config=${basedir}/codetrans-config.json</arg>
             </compilerArgs>
           </configuration>
         </plugin>

@@ -1,0 +1,10 @@
+{
+  "excludes": [
+    {
+      "package": "io.vertx.example.jdbc.transaction"
+    },
+    {
+      "package": "io.vertx.example.jdbc.transaction_rollback"
+    }
+  ]
+}
