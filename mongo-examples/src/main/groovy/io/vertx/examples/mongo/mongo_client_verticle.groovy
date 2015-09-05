@@ -1,5 +1,5 @@
 import io.vertx.core.Vertx
-import io.vertx.ext.mongo.MongoClient
+import io.vertx.groovy.ext.mongo.MongoClient
 
 config = Vertx.currentContext().config()
 uri = config.getString("mongo.uri", System.getProperty("mongo.uri", "mongodb://localhost:27017"))

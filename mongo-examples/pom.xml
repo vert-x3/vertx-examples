@@ -21,12 +21,12 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>io.vertx</groupId>
       <artifactId>examples-utils</artifactId>
       <version>${project.version}</version>
     </dependency>
-
+-->
   </dependencies>
 
   <build>
