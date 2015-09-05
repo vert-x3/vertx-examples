@@ -14,7 +14,7 @@ public class WorkerVerticle extends AbstractVerticle {
 
     vertx.eventBus().consumer("sample.data", message -> {
       System.out.println("[Worker] Consuming data in " + Thread.currentThread().getName());
-      String body = message.body().toString();
+      String body = (String) message.body();
       message.reply(body.toUpperCase());
     });
   }

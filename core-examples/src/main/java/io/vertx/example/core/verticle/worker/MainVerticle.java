@@ -28,7 +28,7 @@ public class MainVerticle extends AbstractVerticle {
         "sample.data",
         "hello vert.x",
         r -> {
-          System.out.println("[Main] Receiving reply ' " + r.result().body().toString()
+          System.out.println("[Main] Receiving reply ' " + r.result().body()
               + "' in " + Thread.currentThread().getName());
         }
     );
