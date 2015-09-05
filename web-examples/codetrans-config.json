@@ -1,0 +1,37 @@
+{
+  "excludes": [
+
+    // Template examples
+    // Only MVEL examples are polyglot
+    {
+      "package": "io.vertx.example.web.templating.handlebars"
+    },
+    {
+      "package": "io.vertx.example.web.templating.jade"
+    },
+    {
+      "package": "io.vertx.example.web.templating.thymeleaf"
+    },
+
+    // Angular
+    {
+      "package": "io.vertx.example.web.angularjs"
+    },
+    {
+      "package": "io.vertx.example.web.angular_realtime"
+    },
+
+    // JDBC and Mongo
+    {
+      "package": "io.vertx.example.web.jdbc"
+    },
+    {
+      "package": "io.vertx.example.web.mongo"
+    },
+
+    // Form
+    {
+      "package": "io.vertx.example.web.form"
+    }
+  ]
+}
