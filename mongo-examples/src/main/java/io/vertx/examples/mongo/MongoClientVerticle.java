@@ -5,10 +5,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 
-
-/**
- * A verticle setting and reading a value in Redis.
- */
 public class MongoClientVerticle extends AbstractVerticle {
 
     @Override
@@ -22,7 +18,7 @@ public class MongoClientVerticle extends AbstractVerticle {
                 .put("connection_string", uri)
                 .put("db_name", db);
 
-        MongoClient mongoClient = MongoClient.createShared(vertx, config);
+        MongoClient mongoClient = MongoClient.createShared(vertx, mongoconfig);
 
         JsonObject product1 = new JsonObject().put("itemId", "12345").put("name", "Cooler").put("price", 100.0);
 
