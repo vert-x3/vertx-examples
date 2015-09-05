@@ -32,6 +32,15 @@
     // Form
     {
       "package": "io.vertx.example.web.form"
+    },
+
+    // vert.x bus
+    {
+      "package": "io.vertx.example.web.vertxbus"
+    },
+
+    {
+      "package": "io.vertx.example.web.realtime"
     }
   ]
 }
