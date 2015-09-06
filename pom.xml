@@ -27,6 +27,7 @@
     <module>service-proxy-examples</module>
     <module>spring-examples</module>
     <module>redis-examples</module>
+    <module>mongo-examples</module>
     <module>jdbc-examples</module>
     <module>jca-examples</module>
     <module>sync-examples</module>

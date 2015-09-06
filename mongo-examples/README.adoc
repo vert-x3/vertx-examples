@@ -1,0 +1,43 @@
+= Vert.x Mongo Client examples
+
+Here you will find examples demonstrating the usage of the Vert.x Mongo Client.
+The structure of the project is based on the vertx-redis example.
+
+The example is available in several languages:
+
+* Java: link:src/main/java/io/vertx/examples/mongo/MongoClientVerticle.java[MongoClientVerticle.java]
+* JavaScript: link:src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js[mongo_client_verticle.js]
+* Groovy: link:src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy[mongo_client_verticle.groovy]
+* Ruby: link:src/main/rb/io/vertx/examples/mongo/mongo_client_verticle.rb[mongo_client_verticle.rb]
+
+To run this example, you need a running Mongo instance. Once running, you can configure the
+verticles with the mongo host:
+
+----
+{
+    "uri": "mongodb://localhost:27017",
+    "db" : "test"
+}
+----
+
+By default it uses `localhost` as host. The post is set to `27017`.
+
+Once the mongo instance is running, you can launch it using:
+
+----
+# mandatory, it copies the vertx-mongo-client
+mvn clean package
+
+# java
+vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-3.0.0.jar -conf my-mongo-config.json
+
+# javascript
+vertx run src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js  -cp target/mongo-examples-3.0.0.jar -conf my-mongo-config.json
+
+# groovy
+vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-3.0.0.jar -conf my-mongo-config.json
+
+# ruby
+vertx run src/main/rb/io/vertx/examples/mongo/mongo_client_verticle.rb   -cp target/mongo-examples-3.0.0.jar -conf my-mongo-config.json
+----
+
