@@ -20,7 +20,7 @@ public class MongoClientVerticle extends AbstractVerticle {
 
         MongoClient mongoClient = MongoClient.createShared(vertx, mongoconfig);
 
-        JsonObject product1 = new JsonObject().put("itemId", "12345").put("name", "Cooler").put("price", 100.0);
+        JsonObject product1 = new JsonObject().put("itemId", "12345").put("name", "Cooler").put("price", "100.0");
 
         mongoClient.save("products", product1, id -> {
             System.out.println("Inserted id: " + id.result());
