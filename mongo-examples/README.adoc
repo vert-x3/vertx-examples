@@ -1,6 +1,7 @@
 = Vert.x Mongo Client examples
 
 Here you will find examples demonstrating the usage of the Vert.x Mongo Client.
+The strutucture of the project is based on the vertx-redis example.
 
 The example is available in several languages:
 
