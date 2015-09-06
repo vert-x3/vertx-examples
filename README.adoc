@@ -179,7 +179,7 @@ ecosystem.
 
 The link:redis-examples/README.adoc[Vert.x Redis Example] shows how you can interact with Redis using the vert.x redis client.
 
-=== Redis example
+=== Mongo example
 
 The link:mongo-examples/README.adoc[Vert.x Mongo Example] shows how you can interact with MongoDB using the vert.x mongo client.
 
