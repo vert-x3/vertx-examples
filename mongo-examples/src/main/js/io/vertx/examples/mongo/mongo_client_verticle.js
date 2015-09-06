@@ -1,24 +1,47 @@
+var Vertx = require("vertx-js/vertx");
 var MongoClient = require("vertx-mongo-js/mongo_client");
 
-var config = Java.type("io.vertx.groovy.core.Vertx").currentContext().config
-var uri = config["mongo.uri"] != null ? config["mongo.uri"] : "mongodb://localhost:27017"
-var db = config["mongo.db"] != null ? config["mongo.db"] : "test"
+var config = Vertx.currentContext().config();
 
-var client = MongoClient.createShared(vertx, { "connection_string": uri, "db_name": db})
+var uri = config.mongo_uri;
+if (uri === null) {
+  uri = "mongodb://localhost:27017";
+}
+var db = config.mongo_db;
+if (db === null) {
+  db = "test";
+}
 
-var product = {"itemId":"12345", "name": "Cooler", "price":"100.0"}
+var mongoconfig = {
+  "connection_string" : uri,
+  "db_name" : db
+};
 
-client.save("products", product, function(id, ins_err) {
-  console.log("Inserted id: " + id)
+var mongoClient = MongoClient.createShared(vertx, mongoconfig);
 
-  client.find("products", {"itemId":"12345"},  function(f_result, fin_err) {
-    console.log("Name is " + f_result[0]["name"])
+var product1 = {
+  "itemId" : "12345",
+  "name" : "Cooler",
+  "price" : "100.0"
+};
 
-    client.remove("products", {"itemId":"12345"}, function(d_result, del_err) {
-      if (!del_err){
-        console.log("Product removed ")
+mongoClient.save("products", product1, function (id, id_err) {
+  console.log("Inserted id: " + id);
+
+  mongoClient.find("products", {
+    "itemId" : "12345"
+  }, function (res, res_err) {
+    console.log("Name is " + res[0].name);
+
+    mongoClient.remove("products", {
+      "itemId" : "12345"
+    }, function (rs, rs_err) {
+      if (rs_err == null) {
+        console.log("Product removed ");
       }
-    })
-  })
+    });
 
-})
+  });
+
+});
+

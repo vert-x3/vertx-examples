@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.vertx</groupId>
-    <artifactId>mongo-examples</artifactId>
-    <version>3.0.0</version>
+  <groupId>io.vertx</groupId>
+  <artifactId>mongo-examples</artifactId>
+  <version>3.0.0</version>
 
   <dependencies>
     <dependency>
@@ -21,24 +21,26 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>examples-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <!-- We specify the Maven compiler plugin as we need to set it to Java 1.8 -->
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
-          <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            <compilerArgs>
-              <arg>-Acodetrans.output=${basedir}/src/main</arg>
-            </compilerArgs>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <compilerArgs>
+            <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>

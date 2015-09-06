@@ -1,27 +1,47 @@
+require 'vertx/vertx'
 require 'vertx-mongo/mongo_client'
 
-config = Java::IoVertxGroovyCore::Vertx.current_context().config()
+config = Vertx::Vertx.current_context().config()
 
-uri = if config["mongo.uri"].nil? then "mongodb://localhost:27017" else config["mongo.uri"] end
-db = if config["mongo.db"].nil? then "test" else config["mongo.db"] end
+uri = config['mongo_uri']
+if (uri == nil)
+  uri = "mongodb://localhost:27017"
+end
+db = config['mongo_db']
+if (db == nil)
+  db = "test"
+end
 
-client = VertxMongo::MongoClient.create_shared($vertx, {
+mongoconfig = {
   'connection_string' => uri,
   'db_name' => db
-})
+}
 
-product = {"itemId" => "12345", "name" => "Cooler", "price" => "100.0"}
+mongoClient = VertxMongo::MongoClient.create_shared($vertx, mongoconfig)
 
-client.save("products", product) { |err, id|
+product1 = {
+  'itemId' => "12345",
+  'name' => "Cooler",
+  'price' => "100.0"
+}
+
+mongoClient.save("products", product1) { |id_err,id|
   puts "Inserted id: #{id}"
 
-  client.find("products", {"itemId" => "12345"}) {|f_err, f_res|
-    puts "Name is #{f_res[0]['name']}"
+  mongoClient.find("products", {
+    'itemId' => "12345"
+  }) { |res_err,res|
+    puts "Name is #{res[0]['name']}"
 
-    client.remove("products", {"itemId" => "12345"}) {| d_err |
-      if (d_err == nil)
-        puts "Product removed"
+    mongoClient.remove("products", {
+      'itemId' => "12345"
+    }) { |rs_err,rs|
+      if (rs_err == nil)
+        puts "Product removed "
       end
     }
+
   }
+
 }
+

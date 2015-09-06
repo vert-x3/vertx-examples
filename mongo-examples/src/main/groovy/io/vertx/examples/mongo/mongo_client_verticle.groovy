@@ -1,26 +1,47 @@
-import io.vertx.groovy.ext.mongo.MongoClient
 import io.vertx.groovy.core.Vertx
+import io.vertx.groovy.ext.mongo.MongoClient
 
-config = Vertx.currentContext().config()
-uri = config["mongo.uri"] ?: "mongodb://localhost:27017"
-db = config["mongo.db"] ?: "test"
+def config = Vertx.currentContext().config()
 
-mongoClient = MongoClient.createShared(vertx, ["connection_string": uri, "db_name": db])
+def uri = config.mongo_uri
+if (uri == null) {
+  uri = "mongodb://localhost:27017"
+}
+def db = config.mongo_db
+if (db == null) {
+  db = "test"
+}
 
-product = ["itemId":"12345", "name": "Cooler", "price":"100.0"]
+def mongoconfig = [
+  connection_string:uri,
+  db_name:db
+]
 
-mongoClient.save("products", product, { id ->
-  println "Inserted id: ${id.result()}"
+def mongoClient = MongoClient.createShared(vertx, mongoconfig)
 
-  mongoClient.find("products", ["itemId":"12345"],  { res ->
-    println "Product Name is ${res.result[0]["name"]}"
+def product1 = [
+  itemId:"12345",
+  name:"Cooler",
+  price:"100.0"
+]
 
-    mongoClient.remove("products", ["itemId":"12345"], { rs ->
-      if (rs.succeeded()){
-        println "Product removed "
+mongoClient.save("products", product1, { id ->
+  println("Inserted id: ${id.result()}")
+
+  mongoClient.find("products", [
+    itemId:"12345"
+  ], { res ->
+    println("Name is ${res.result()[0].name}")
+
+    mongoClient.remove("products", [
+      itemId:"12345"
+    ], { rs ->
+      if (rs.succeeded()) {
+        println("Product removed ")
       }
     })
 
   })
 
 })
+

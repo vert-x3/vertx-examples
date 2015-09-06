@@ -1,7 +1,6 @@
 = Vert.x Mongo Client examples
 
 Here you will find examples demonstrating the usage of the Vert.x Mongo Client.
-The structure of the project is based on the vertx-redis example.
 
 The example is available in several languages:
 
@@ -15,19 +14,16 @@ verticles with the mongo host:
 
 ----
 {
-    "uri": "mongodb://localhost:27017",
-    "db" : "test"
+    "mongo_uri": "mongodb://localhost:27017",
+    "mongo_db" : "test"
 }
 ----
 
-By default it uses `localhost` as host. The post is set to `27017`.
+By default it uses `localhost` as host. The port is set to `27017`.
 
 Once the mongo instance is running, you can launch it using:
 
 ----
-# mandatory, it copies the vertx-mongo-client
-mvn clean package
-
 # java
 vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-3.0.0.jar -conf my-mongo-config.json
 

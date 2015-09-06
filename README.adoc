@@ -127,14 +127,6 @@ your Vert.x (or other asynchronous) applications.
 
 The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x Unit.
 
-=== Data access examples
-
-==== Mongo DB examples
-
-==== JDBC examples
-
-TODO
-
 === Mail examples
 
 The link:mail-examples/README.adoc[Vert.x Mail examples]
