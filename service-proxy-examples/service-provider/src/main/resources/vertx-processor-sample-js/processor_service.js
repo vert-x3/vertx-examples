@@ -16,6 +16,7 @@
 
 /** @module vertx-processor-sample-js/processor_service */
 var utils = require('vertx-js/util/utils');
+var Vertx = require('vertx-js/vertx');
 
 var io = Packages.io;
 var JsonObject = io.vertx.core.json.JsonObject;

@@ -30,18 +30,18 @@ export VERTX_OPTS=-Dvertx.metrics.options.enabled=true
 
 # java
 cd src/main/java/io/vertx/example/metrics/dashboard
-vertx run io.vertx.example.metrics.dashboard.Dashboard -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+vertx run io.vertx.example.metrics.dashboard.Dashboard -cp ./../../../../../../../../target/metrics-examples-3.1.0-SNAPSHOT.jar:.
 
 # javascript
 cd src/main/js/io/vertx/example/metrics/dashboard
-vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.1.0-SNAPSHOT.jar:.
 
 # groovy
 cd src/main/groovy/io/vertx/example/metrics/dashboard
-vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.1.0-SNAPSHOT.jar:.
 
 # ruby
 cd src/main/rb/io/vertx/example/metrics/dashboard
-vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.0.0.jar:.
+vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.1.0-SNAPSHOT.jar:.
 ----
 

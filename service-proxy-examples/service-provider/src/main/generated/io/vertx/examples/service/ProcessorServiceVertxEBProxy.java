@@ -43,11 +43,17 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
 
   private Vertx _vertx;
   private String _address;
+  private DeliveryOptions _options;
   private boolean closed;
 
   public ProcessorServiceVertxEBProxy(Vertx vertx, String address) {
+    this(vertx, address, null);
+  }
+
+  public ProcessorServiceVertxEBProxy(Vertx vertx, String address, DeliveryOptions options) {
     this._vertx = vertx;
     this._address = address;
+    this._options = options;
   }
 
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
@@ -57,7 +63,7 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
     }
     JsonObject _json = new JsonObject();
     _json.put("document", document);
-    DeliveryOptions _deliveryOptions = new DeliveryOptions();
+    DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "process");
     _vertx.eventBus().<JsonObject>send(_address, _json, _deliveryOptions, res -> {
       if (res.failed()) {
