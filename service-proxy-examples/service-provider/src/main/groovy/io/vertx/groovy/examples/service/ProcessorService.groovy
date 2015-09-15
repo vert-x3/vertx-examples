@@ -26,19 +26,19 @@ import io.vertx.core.Handler
 */
 @CompileStatic
 public class ProcessorService {
-  final def io.vertx.examples.service.ProcessorService delegate;
-  public ProcessorService(io.vertx.examples.service.ProcessorService delegate) {
-    this.delegate = delegate;
+  private final def io.vertx.examples.service.ProcessorService delegate;
+  public ProcessorService(Object delegate) {
+    this.delegate = (io.vertx.examples.service.ProcessorService) delegate;
   }
   public Object getDelegate() {
     return delegate;
   }
   public static ProcessorService create(Vertx vertx) {
-    def ret= InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.create((io.vertx.core.Vertx)vertx.getDelegate()), io.vertx.examples.service.ProcessorService.class, io.vertx.groovy.examples.service.ProcessorService.class);
+    def ret= InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.create((io.vertx.core.Vertx)vertx.getDelegate()), io.vertx.groovy.examples.service.ProcessorService.class);
     return ret;
   }
   public static ProcessorService createProxy(Vertx vertx, String address) {
-    def ret= InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.createProxy((io.vertx.core.Vertx)vertx.getDelegate(), address), io.vertx.examples.service.ProcessorService.class, io.vertx.groovy.examples.service.ProcessorService.class);
+    def ret= InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.createProxy((io.vertx.core.Vertx)vertx.getDelegate(), address), io.vertx.groovy.examples.service.ProcessorService.class);
     return ret;
   }
   public void process(Map<String, Object> document, Handler<AsyncResult<Map<String, Object>>> resultHandler) {
