@@ -3,7 +3,7 @@
 This project is very similar to the maven-verticle project but instead of using a Java verticle is uses a Ruby
 verticle.
 
-You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Starter`
+You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Launcher`
 and passes in the arguments `run src/main/js/MyRubyVerticle`.
 
 The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.

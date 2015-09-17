@@ -3,7 +3,7 @@
 This project is very similar to the maven-simplest project but instead of embedding Vert.x it shows an example
 of writing the code as a verticle.
 
-You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Starter`
+You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Launcher`
 and passes in the arguments `run io.vertx.example.HelloWorldVerticle`.
 
 The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.

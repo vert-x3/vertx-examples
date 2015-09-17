@@ -307,9 +307,9 @@ Don't specify the verticle name. This launches an empty vert.x instance (called 
 In the third terminal, display the list of the Java process and kill the first one (smaller pid):
 
 ----
-> jps | grep Starter
-97297 Starter
-97284 Starter
+> jps | grep Launcher
+97297 Launcher
+97284 Launcher
 > kill -9 97284
 ----
 
