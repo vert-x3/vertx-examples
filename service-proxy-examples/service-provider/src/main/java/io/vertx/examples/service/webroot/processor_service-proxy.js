@@ -15,72 +15,77 @@
  */
 
 /** @module vertx-processor-sample-js/processor_service */
-var utils = require('vertx-js/util/utils');
-var Vertx = require('vertx-js/vertx');
-
-var io = Packages.io;
-var JsonObject = io.vertx.core.json.JsonObject;
-var JProcessorService = io.vertx.examples.service.ProcessorService;
 
 /**
  The service interface.
 
  @class
-*/
-var ProcessorService = function(j_val) {
+ */
+var ProcessorService = function(eb, address) {
 
-  var j_processorService = j_val;
+  var j_eb = eb;
+  var j_address = address;
+  var closed = false;
   var that = this;
+  var convCharCollection = function(coll) {
+    var ret = [];
+    for (var i = 0;i < coll.length;i++) {
+      ret.push(String.fromCharCode(coll[i]));
+    }
+    return ret;
+  };
 
   /**
 
    @public
-   @param document {Object} 
-   @param resultHandler {function} 
+   @param document {Object}
+   @param resultHandler {function}
    */
   this.process = function(document, resultHandler) {
     var __args = arguments;
     if (__args.length === 2 && typeof __args[0] === 'object' && typeof __args[1] === 'function') {
-      j_processorService["process(io.vertx.core.json.JsonObject,io.vertx.core.Handler)"](utils.convParamJsonObject(document), function(ar) {
-      if (ar.succeeded()) {
-        resultHandler(utils.convReturnJson(ar.result()), null);
-      } else {
-        resultHandler(null, ar.cause());
+      if (closed) {
+        throw new Error('Proxy is closed');
       }
-    });
+      j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, function(result) {__args[1](result.body); }, function(failure) { __args[1](null, failure); });
+      return;
     } else throw new TypeError('function invoked with invalid arguments');
   };
 
-  // A reference to the underlying Java delegate
-  // NOTE! This is an internal API and must not be used in user code.
-  // If you rely on this property your code is likely to break if we change it / remove it without warning.
-  this._jdel = j_processorService;
 };
 
 /**
 
  @memberof module:vertx-processor-sample-js/processor_service
- @param vertx {Vertx} 
+ @param vertx {Vertx}
  @return {ProcessorService}
  */
 ProcessorService.create = function(vertx) {
   var __args = arguments;
   if (__args.length === 1 && typeof __args[0] === 'object' && __args[0]._jdel) {
-    return utils.convReturnVertxGen(JProcessorService["create(io.vertx.core.Vertx)"](vertx._jdel), ProcessorService);
+    if (closed) {
+      throw new Error('Proxy is closed');
+    }
+    j_eb.send(j_address, {"vertx":__args[0]}, {"action":"create"});
+    return;
   } else throw new TypeError('function invoked with invalid arguments');
 };
 
 /**
 
  @memberof module:vertx-processor-sample-js/processor_service
- @param vertx {Vertx} 
- @param address {string} 
+ @param vertx {Vertx}
+ @param address {string}
  @return {ProcessorService}
  */
 ProcessorService.createProxy = function(vertx, address) {
   var __args = arguments;
   if (__args.length === 2 && typeof __args[0] === 'object' && __args[0]._jdel && typeof __args[1] === 'string') {
-    return utils.convReturnVertxGen(JProcessorService["createProxy(io.vertx.core.Vertx,java.lang.String)"](vertx._jdel, address), ProcessorService);
+    if (closed) {
+      throw new Error('Proxy is closed');
+    }
+    j_eb.send(j_address, {"vertx":__args[0], "address":__args[1]}, {"action":"createProxy"});
+    return;
   } else throw new TypeError('function invoked with invalid arguments');
 };
 
