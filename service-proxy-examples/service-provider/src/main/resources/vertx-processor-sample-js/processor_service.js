@@ -48,7 +48,7 @@ var ProcessorService = function(j_val) {
         resultHandler(null, ar.cause());
       }
     });
-    } else throw new TypeError('function invoked with invalid arguments');
+    } else utils.invalidArgs();
   };
 
   // A reference to the underlying Java delegate
@@ -67,7 +67,7 @@ ProcessorService.create = function(vertx) {
   var __args = arguments;
   if (__args.length === 1 && typeof __args[0] === 'object' && __args[0]._jdel) {
     return utils.convReturnVertxGen(JProcessorService["create(io.vertx.core.Vertx)"](vertx._jdel), ProcessorService);
-  } else throw new TypeError('function invoked with invalid arguments');
+  } else utils.invalidArgs();
 };
 
 /**
@@ -81,7 +81,7 @@ ProcessorService.createProxy = function(vertx, address) {
   var __args = arguments;
   if (__args.length === 2 && typeof __args[0] === 'object' && __args[0]._jdel && typeof __args[1] === 'string') {
     return utils.convReturnVertxGen(JProcessorService["createProxy(io.vertx.core.Vertx,java.lang.String)"](vertx._jdel, address), ProcessorService);
-  } else throw new TypeError('function invoked with invalid arguments');
+  } else utils.invalidArgs();
 };
 
 // We export the Constructor function

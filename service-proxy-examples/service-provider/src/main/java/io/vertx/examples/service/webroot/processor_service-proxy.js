@@ -47,7 +47,7 @@ var ProcessorService = function(eb, address) {
       if (closed) {
         throw new Error('Proxy is closed');
       }
-      j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, function(result) {__args[1](result.body); }, function(failure) { __args[1](null, failure); });
+      j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, function(result) { __args[1](null, result); }, function(failure) { __args[1](failure); });
       return;
     } else throw new TypeError('function invoked with invalid arguments');
   };
@@ -90,4 +90,12 @@ ProcessorService.createProxy = function(vertx, address) {
 };
 
 // We export the Constructor function
-module.exports = ProcessorService;
+if (typeof exports !== 'undefined') {
+  if (typeof module !== 'undefined' && module.exports) {
+    exports = module.exports = vertx.EventBus;
+  } else {
+    exports.EventBus = vertx.EventBus;
+  }
+} else {
+  window.ProcessorService = ProcessorService;
+}

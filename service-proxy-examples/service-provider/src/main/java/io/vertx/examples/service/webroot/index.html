@@ -1,40 +1,30 @@
 <html>
 <head>
-  <title></title>
-  <script>
-    module = {};
-  </script>
+  <title>JSProxy example</title>
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
   <script src="vertxbus.js"></script>
   <script src="processor_service-proxy.js"></script>
 </head>
-
-<style>
-  .news {
-    font-size: 20pt;
-  }
-</style>
-
 <body>
 
-<div class="news">Latest news: </div><br>
-<div id="status" class="news"></div>
+<div id="result"></div>
 
 <script>
  
   var eb = new vertx.EventBus("http://localhost:8080/eventbus");
 
   eb.onopen = function() {
-    var ProcessorService = module.exports;
     processorService = new ProcessorService(eb, "vertx.processor");
-/*
-    eb.registerHandler("news-feed", function(msg) {
-      var str = "<code>" + msg + "</code><br>";
-      $('#status').prepend(str);
-    })
-*/
-    alert('open');
+
+    processorService.process({foo: 'bar'}, function (err, res) {
+      if (err) {
+        document.getElementById('result').innerHTML = 'ERROR: ' + JSON.stringify(err);
+        return;
+      }
+
+      document.getElementById('result').innerHTML = 'RESULT: ' + JSON.stringify(res);
+    });
   }
 
 

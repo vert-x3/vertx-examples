@@ -79,7 +79,7 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
     List<Character> list = new ArrayList<>();
     for (Object obj: arr) {
       Integer jobj = (Integer)obj;
-      list.add((char)(int)jobj);
+      list.add((char)jobj.intValue());
     }
     return list;
   }
@@ -88,7 +88,7 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
     Set<Character> set = new HashSet<>();
     for (Object obj: arr) {
       Integer jobj = (Integer)obj;
-      set.add((char)(int)jobj);
+      set.add((char)jobj.intValue());
     }
     return set;
   }
