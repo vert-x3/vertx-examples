@@ -16,6 +16,13 @@
       <version>${project.version}</version>
     </dependency>
 
+    <!-- Used for deploying service:io.vertx.ext.shell -->
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-service-factory</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>examples-utils</artifactId>
