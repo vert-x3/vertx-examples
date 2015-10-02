@@ -14,20 +14,20 @@
 
 <body>
 
-<div class="news">Latest news: </div><br>
+<div class="news">Latest news:</div>
+<br>
+
 <div id="status" class="news"></div>
 
 <script>
- 
-  var eb = new vertx.EventBus("http://localhost:8080/eventbus");
+  var eb = new EventBus("http://localhost:8080/eventbus");
 
-  eb.onopen = function() {
-    eb.registerHandler("news-feed", function(msg) {  
+  eb.onopen = function () {
+    eb.registerHandler("news-feed", function (err, msg) {
       var str = "<code>" + msg + "</code><br>";
       $('#status').prepend(str);
-    })    
-  }        
-
+    })
+  }
 
 </script>
 

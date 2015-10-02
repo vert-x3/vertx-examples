@@ -47,9 +47,9 @@
 </head>
 <body>
 <script>
-  var eb = new vertx.EventBus("/eventbus/");
+  var eb = new EventBus("/eventbus/");
   eb.onopen = function () {
-    eb.registerHandler("chat.to.client", function (msg) {
+    eb.registerHandler("chat.to.client", function (err, msg) {
       $('#chat').append(msg + "\n");
     });
   };
@@ -58,7 +58,6 @@
     if (event.keyCode == 13 || event.which == 13) {
       var message = $('#input').val();
       if (message.length > 0) {
-        console.log($('#input'));
         eb.publish("chat.to.server", message);
         $('#input').val("");
       }

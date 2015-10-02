@@ -89,19 +89,19 @@ function CartController($scope, $filter, $http, $timeout) {
             $scope.eb.close();
           }
 
-          $scope.eb = new vertx.EventBus(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/eventbus');
+          $scope.eb = new EventBus(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/eventbus');
 
           $scope.eb.onopen = function() {
 
             // Get the static data
-            $scope.eb.send('vtoons.listAlbums', {},
-                function(reply) {
-                  $scope.albums = reply;
-                  $scope.$apply();
-                }, function (err) {
-                  console.error('Failed to retrieve albums: ' + err);
-                }
-            );
+            $scope.eb.send('vtoons.listAlbums', {}, function(err, reply) {
+              if (err) {
+                console.error('Failed to retrieve albums: ' + err);
+                return;
+              }
+              $scope.albums = reply;
+              $scope.$apply();
+            });
           };
 
           $scope.eb.onclose = function() {

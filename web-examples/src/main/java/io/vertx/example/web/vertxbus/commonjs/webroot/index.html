@@ -11,10 +11,10 @@
 <script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
 <script src="node_modules/vertx3-eventbus-client/vertxbus.js"></script>
 <script>
-  var eb = new vertx.EventBus('/eventbus/');
+  var eb = new EventBus('/eventbus/');
 
   eb.onopen = function () {
-    eb.registerHandler('feed', function (msg) {
+    eb.registerHandler('feed', function (err, msg) {
       $('#log').prepend('<div>' + msg.now + '</div>');
     });
   };
