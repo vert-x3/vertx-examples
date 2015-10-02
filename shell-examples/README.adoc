@@ -1,0 +1,5 @@
+= Vert.x Shell examples
+
+Here you'll find some examples of how to run Vert.x Shell and how to extend it with custom commands
+
+TODO talk about examples and link to them
