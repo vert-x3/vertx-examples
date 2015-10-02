@@ -15,79 +15,98 @@
  */
 
 /** @module vertx-processor-sample-js/processor_service */
+!function (factory) {
+  if (typeof require === 'function' && typeof module !== 'undefined') {
+    factory();
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD loader
+    define('vertx-processor-sample-js/processor_service-proxy', [], factory);
+  } else {
+    // plain old include
+    ProcessorService = factory();
+  }
+}(function () {
 
-/**
+  /**
  The service interface.
 
  @class
-*/
-var ProcessorService = function(eb, address) {
+  */
+  var ProcessorService = function(eb, address) {
 
-  var j_eb = eb;
-  var j_address = address;
-  var closed = false;
-  var that = this;
-  var convCharCollection = function(coll) {
-    var ret = [];
-    for (var i = 0;i < coll.length;i++) {
-      ret.push(String.fromCharCode(coll[i]));
-    }
-    return ret;
+    var j_eb = eb;
+    var j_address = address;
+    var closed = false;
+    var that = this;
+    var convCharCollection = function(coll) {
+      var ret = [];
+      for (var i = 0;i < coll.length;i++) {
+        ret.push(String.fromCharCode(coll[i]));
+      }
+      return ret;
+    };
+
+    /**
+
+     @public
+     @param document {Object} 
+     @param resultHandler {function} 
+     */
+    this.process = function(document, resultHandler) {
+      var __args = arguments;
+      if (__args.length === 2 && typeof __args[0] === 'object' && typeof __args[1] === 'function') {
+        if (closed) {
+          throw new Error('Proxy is closed');
+        }
+        j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, __args[1]);
+        return;
+      } else throw new TypeError('function invoked with invalid arguments');
+    };
+
   };
 
   /**
 
-   @public
-   @param document {Object} 
-   @param resultHandler {function} 
+   @memberof module:vertx-processor-sample-js/processor_service
+   @param vertx {Vertx} 
+   @return {ProcessorService}
    */
-  this.process = function(document, resultHandler) {
+  ProcessorService.create = function(vertx) {
     var __args = arguments;
-    if (__args.length === 2 && typeof __args[0] === 'object' && typeof __args[1] === 'function') {
+    if (__args.length === 1 && typeof __args[0] === 'object' && __args[0]._jdel) {
       if (closed) {
         throw new Error('Proxy is closed');
       }
-      j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, function(result) { __args[1](result.body); }, function(failure) { __args[1](null, failure); });
+      j_eb.send(j_address, {"vertx":__args[0]}, {"action":"create"});
       return;
     } else throw new TypeError('function invoked with invalid arguments');
   };
 
-};
+  /**
 
-/**
+   @memberof module:vertx-processor-sample-js/processor_service
+   @param vertx {Vertx} 
+   @param address {string} 
+   @return {ProcessorService}
+   */
+  ProcessorService.createProxy = function(vertx, address) {
+    var __args = arguments;
+    if (__args.length === 2 && typeof __args[0] === 'object' && __args[0]._jdel && typeof __args[1] === 'string') {
+      if (closed) {
+        throw new Error('Proxy is closed');
+      }
+      j_eb.send(j_address, {"vertx":__args[0], "address":__args[1]}, {"action":"createProxy"});
+      return;
+    } else throw new TypeError('function invoked with invalid arguments');
+  };
 
- @memberof module:vertx-processor-sample-js/processor_service
- @param vertx {Vertx} 
- @return {ProcessorService}
- */
-ProcessorService.create = function(vertx) {
-  var __args = arguments;
-  if (__args.length === 1 && typeof __args[0] === 'object' && __args[0]._jdel) {
-    if (closed) {
-      throw new Error('Proxy is closed');
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = ProcessorService;
+    } else {
+      exports.ProcessorService = ProcessorService;
     }
-    j_eb.send(j_address, {"vertx":__args[0]}, {"action":"create"});
-    return;
-  } else throw new TypeError('function invoked with invalid arguments');
-};
-
-/**
-
- @memberof module:vertx-processor-sample-js/processor_service
- @param vertx {Vertx} 
- @param address {string} 
- @return {ProcessorService}
- */
-ProcessorService.createProxy = function(vertx, address) {
-  var __args = arguments;
-  if (__args.length === 2 && typeof __args[0] === 'object' && __args[0]._jdel && typeof __args[1] === 'string') {
-    if (closed) {
-      throw new Error('Proxy is closed');
-    }
-    j_eb.send(j_address, {"vertx":__args[0], "address":__args[1]}, {"action":"createProxy"});
-    return;
-  } else throw new TypeError('function invoked with invalid arguments');
-};
-
-// We export the Constructor function
-module.exports = ProcessorService;
+  } else {
+    return ProcessorService;
+  }
+});

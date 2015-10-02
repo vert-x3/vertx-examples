@@ -12,10 +12,10 @@
 
 <script>
  
-  var eb = new vertx.EventBus("http://localhost:8080/eventbus");
+  var eb = new EventBus("http://localhost:8080/eventbus");
 
   eb.onopen = function() {
-    processorService = new ProcessorService(eb, "vertx.processor");
+    var processorService = new ProcessorService(eb, "vertx.processor");
 
     processorService.process({foo: 'bar'}, function (err, res) {
       if (err) {
@@ -26,7 +26,6 @@
       document.getElementById('result').innerHTML = 'RESULT: ' + JSON.stringify(res);
     });
   }
-
 
 </script>
 
