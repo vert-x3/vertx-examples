@@ -18,8 +18,6 @@ import static io.vertx.ext.sync.Sync.awaitResult;
  */
 public class Client extends SyncVerticle {
 
-  private String deploymentID;
-
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
     Runner.runExample(Client.class);
@@ -33,11 +31,11 @@ public class Client extends SyncVerticle {
       .put("connection_string", "mongodb://localhost:27018")
       .put("db_name", "my_DB");
 
-    // Deploy an embedded mongo database so we can test against that
-
-    deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
-
-    System.out.println("dep id of embedded mongo verticle is " + deploymentID);
+    // Deploy an embedded mongo database so we can test against that, this can be disabled using embedded-mongo.skip
+    if (! Boolean.getBoolean("embedded-mongo.skip")) {
+      String deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
+      System.out.println("dep id of embedded mongo verticle is " + deploymentID);
+    }
 
     // Create the client
     MongoClient mongo = MongoClient.createShared(vertx, config);
@@ -61,16 +59,5 @@ public class Client extends SyncVerticle {
     // Print them
     results.forEach(System.out::println);
 
-  }
-
-  @Override
-  public void stop(Future<Void> stopFuture) throws Exception {
-    vertx.undeploy(deploymentID, ar -> {
-      if (ar.succeeded()) {
-        stopFuture.complete();
-      } else {
-        stopFuture.fail(ar.cause());
-      }
-    });
   }
 }
