@@ -1,6 +1,7 @@
 package io.vertx.example.sync.mongo;
 
 import co.paralleluniverse.fibers.Suspendable;
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.mongo.MongoClient;
@@ -17,6 +18,8 @@ import static io.vertx.ext.sync.Sync.awaitResult;
  */
 public class Client extends SyncVerticle {
 
+  private String deploymentID;
+
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
     Runner.runExample(Client.class);
@@ -32,7 +35,7 @@ public class Client extends SyncVerticle {
 
     // Deploy an embedded mongo database so we can test against that
 
-    String deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
+    deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
 
     System.out.println("dep id of embedded mongo verticle is " + deploymentID);
 
@@ -46,7 +49,7 @@ public class Client extends SyncVerticle {
     List<JsonObject> users = Arrays.asList(new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
       new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble"));
 
-    for (JsonObject user: users) {
+    for (JsonObject user : users) {
       String id = awaitResult(h -> mongo.insert("users", user, h));
       System.out.println("Inserted id is " + id);
     }
@@ -60,4 +63,14 @@ public class Client extends SyncVerticle {
 
   }
 
+  @Override
+  public void stop(Future<Void> stopFuture) throws Exception {
+    vertx.undeploy(deploymentID, ar -> {
+      if (ar.succeeded()) {
+        stopFuture.complete();
+      } else {
+        stopFuture.fail(ar.cause());
+      }
+    });
+  }
 }
