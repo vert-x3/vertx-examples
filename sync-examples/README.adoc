@@ -25,7 +25,7 @@ If you use the Quasar agent, in your IDE you must add the following JVM option i
 e.g.
 
 ----
--javaagent:/home/tim/.m2/repository/co/paralleluniverse/quasar-core/0.7.2/quasar-core-0.7.2.jar
+-javaagent:/home/tim/.m2/repository/co/paralleluniverse/quasar-core/0.7.3/quasar-core-0.7.3-jdk8.jar
 ----
 
 The ahead of time instrumentation does not require the agent configuration, however you need to build this example
