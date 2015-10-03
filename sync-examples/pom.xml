@@ -89,4 +89,31 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
+
+  <profiles>
+    <profile>
+      <id>aot</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.vlkan</groupId>
+            <artifactId>quasar-maven-plugin</artifactId>
+            <version>0.7.2</version>
+            <configuration>
+              <check>true</check>
+              <debug>true</debug>
+              <verbose>true</verbose>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>instrument</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
