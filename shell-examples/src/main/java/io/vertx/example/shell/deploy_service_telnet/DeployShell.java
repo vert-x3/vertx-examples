@@ -1,4 +1,4 @@
-package io.vertx.example.shell.deploy_telnet;
+package io.vertx.example.shell.deploy_service_telnet;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;

@@ -1,4 +1,4 @@
-package io.vertx.example.shell.run_telnet;
+package io.vertx.example.shell.run_service_telnet;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;

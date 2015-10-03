@@ -1,4 +1,4 @@
-package io.vertx.example.shell.run_ssh;
+package io.vertx.example.shell.run_service_ssh;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;

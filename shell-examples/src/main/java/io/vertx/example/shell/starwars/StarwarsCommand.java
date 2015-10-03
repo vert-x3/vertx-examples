@@ -6,6 +6,7 @@ import io.vertx.core.cli.CLI;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.net.NetClient;
+import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
@@ -32,20 +33,29 @@ public class StarwarsCommand extends AbstractVerticle {
 
     Command starwars = Command.builder("starwars").
         processHandler(process -> {
+
+          // Connect the client
           NetClient client = process.vertx().createNetClient();
           client.connect(23, "towel.blinkenlights.nl", ar -> {
             if (ar.succeeded()) {
               NetSocket socket = ar.result();
+
+              // Ctrl-C closes the socket
               process.eventHandler(EventType.SIGINT, v -> {
                 socket.close();
-                process.end();
               });
+
+              //
               socket.handler(buff -> {
+                // Push the data to the Shell
                 process.write(buff.toString("UTF-8"));
               }).exceptionHandler(err -> {
                 err.printStackTrace();
-                process.end();
-              }).endHandler(v -> {
+                socket.close();
+              });
+
+              // When socket closes, end the command
+              socket.closeHandler(v -> {
                 process.end();
               });
             } else {
@@ -58,6 +68,10 @@ public class StarwarsCommand extends AbstractVerticle {
         new TelnetOptions().setHost("localhost").setPort(3000)
     ));
     service.getCommandRegistry().registerCommand(starwars);
-    service.start();
+    service.start(ar -> {
+      if (!ar.succeeded()) {
+        ar.cause().printStackTrace();
+      }
+    });
   }
 }

@@ -27,8 +27,11 @@ public class WgetCommand extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
+    // Create the wget CLI
     CLI cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").
         addArgument(new Argument().setIndex(0).setArgName("http-url").setDescription("the HTTP uri to get"));
+
+    // Create the command
     Command helloWorld = Command.builder(cli).
         processHandler(process -> {
           URL url;
@@ -68,6 +71,10 @@ public class WgetCommand extends AbstractVerticle {
         new TelnetOptions().setHost("localhost").setPort(3000)
     ));
     service.getCommandRegistry().registerCommand(helloWorld);
-    service.start();
+    service.start(ar -> {
+      if (!ar.succeeded()) {
+        ar.cause().printStackTrace();
+      }
+    });
   }
 }
