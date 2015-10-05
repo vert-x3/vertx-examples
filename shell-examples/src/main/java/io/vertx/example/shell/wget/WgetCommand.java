@@ -9,6 +9,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
+import io.vertx.ext.shell.command.CommandBuilder;
 import io.vertx.ext.shell.net.TelnetOptions;
 
 import java.net.MalformedURLException;
@@ -32,7 +33,7 @@ public class WgetCommand extends AbstractVerticle {
         addArgument(new Argument().setIndex(0).setArgName("http-url").setDescription("the HTTP uri to get"));
 
     // Create the command
-    Command helloWorld = Command.builder(cli).
+    Command helloWorld = CommandBuilder.command(cli).
         processHandler(process -> {
           URL url;
           try {

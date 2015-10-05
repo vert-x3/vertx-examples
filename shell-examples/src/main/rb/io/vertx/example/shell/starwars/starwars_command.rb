@@ -1,7 +1,7 @@
-require 'vertx-shell/command'
+require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
 
-starwars = VertxShell::Command.builder("starwars").process_handler() { |process|
+starwars = VertxShell::CommandBuilder.command("starwars").process_handler() { |process|
 
   # Connect the client
   client = process.vertx().create_net_client()

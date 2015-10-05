@@ -7,6 +7,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
+import io.vertx.ext.shell.command.CommandBuilder;
 import io.vertx.ext.shell.io.EventType;
 import io.vertx.ext.shell.net.TelnetOptions;
 
@@ -27,7 +28,7 @@ public class TopCommand extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    Command starwars = Command.builder("top").
+    Command starwars = CommandBuilder.command("top").
         processHandler(process -> {
 
           long id = process.vertx().setPeriodic(500, id_ -> {

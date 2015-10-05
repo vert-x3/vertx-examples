@@ -1,7 +1,7 @@
-var Command = require("vertx-shell-js/command");
+var CommandBuilder = require("vertx-shell-js/command_builder");
 var ShellService = require("vertx-shell-js/shell_service");
 
-var starwars = Command.builder("echokeyboard").processHandler(function (process) {
+var starwars = CommandBuilder.command("echokeyboard").processHandler(function (process) {
 
   // Echo
   process.setStdin(function (keys) {

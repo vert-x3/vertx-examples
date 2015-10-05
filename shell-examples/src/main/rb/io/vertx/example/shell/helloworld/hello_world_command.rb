@@ -1,8 +1,9 @@
-require 'vertx-shell/command'
+require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
 
-helloWorld = VertxShell::Command.builder("hello-world").process_handler() { |process|
-  process.write("hello world\n").end()
+helloWorld = VertxShell::CommandBuilder.command("hello-world").process_handler() { |process|
+  process.write("hello world\n")
+  process.end()
 }.build()
 
 service = VertxShell::ShellService.create($vertx, {

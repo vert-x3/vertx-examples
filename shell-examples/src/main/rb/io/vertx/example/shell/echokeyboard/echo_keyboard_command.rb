@@ -1,7 +1,7 @@
-require 'vertx-shell/command'
+require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
 
-starwars = VertxShell::Command.builder("echokeyboard").process_handler() { |process|
+starwars = VertxShell::CommandBuilder.command("echokeyboard").process_handler() { |process|
 
   # Echo
   process.set_stdin() { |keys|

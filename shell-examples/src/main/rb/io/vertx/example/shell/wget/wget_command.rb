@@ -1,5 +1,5 @@
 require 'vertx/cli'
-require 'vertx-shell/command'
+require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
 
 # Create the wget CLI
@@ -10,7 +10,7 @@ cli = Vertx::CLI.create("wget").set_summary("Wget implemented with Vert.x HTTP c
 })
 
 # Create the command
-helloWorld = VertxShell::Command.builder(cli).process_handler() { |process|
+helloWorld = VertxShell::CommandBuilder.command(cli).process_handler() { |process|
 
   begin
     url = Java::JavaNet::URL.new(process.command_line().get_argument_value(0))

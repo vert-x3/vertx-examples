@@ -1,8 +1,9 @@
-import io.vertx.groovy.ext.shell.command.Command
+import io.vertx.groovy.ext.shell.command.CommandBuilder
 import io.vertx.groovy.ext.shell.ShellService
 
-def helloWorld = Command.builder("hello-world").processHandler({ process ->
-  process.write("hello world\n").end()
+def helloWorld = CommandBuilder.command("hello-world").processHandler({ process ->
+  process.write("hello world\n")
+  process.end()
 }).build()
 
 def service = ShellService.create(vertx, [

@@ -1,7 +1,7 @@
-var Command = require("vertx-shell-js/command");
+var CommandBuilder = require("vertx-shell-js/command_builder");
 var ShellService = require("vertx-shell-js/shell_service");
 
-var starwars = Command.builder("starwars").processHandler(function (process) {
+var starwars = CommandBuilder.command("starwars").processHandler(function (process) {
 
   // Connect the client
   var client = process.vertx().createNetClient();

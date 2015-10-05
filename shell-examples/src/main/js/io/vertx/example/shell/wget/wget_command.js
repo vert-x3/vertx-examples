@@ -1,5 +1,5 @@
 var CLI = require("vertx-js/cli");
-var Command = require("vertx-shell-js/command");
+var CommandBuilder = require("vertx-shell-js/command_builder");
 var ShellService = require("vertx-shell-js/shell_service");
 
 // Create the wget CLI
@@ -10,7 +10,7 @@ var cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP clien
 });
 
 // Create the command
-var helloWorld = Command.builder(cli).processHandler(function (process) {
+var helloWorld = CommandBuilder.command(cli).processHandler(function (process) {
   var url;
   try {
     url = new (Java.type("java.net.URL"))(process.commandLine().getArgumentValue(0));

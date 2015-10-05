@@ -1,8 +1,8 @@
 import io.vertx.ext.shell.io.EventType
-import io.vertx.groovy.ext.shell.command.Command
+import io.vertx.groovy.ext.shell.command.CommandBuilder
 import io.vertx.groovy.ext.shell.ShellService
 
-def starwars = Command.builder("echokeyboard").processHandler({ process ->
+def starwars = CommandBuilder.command("echokeyboard").processHandler({ process ->
 
   // Echo
   process.setStdin({ keys ->

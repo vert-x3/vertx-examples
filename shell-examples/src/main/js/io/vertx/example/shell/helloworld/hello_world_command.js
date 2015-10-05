@@ -1,8 +1,9 @@
-var Command = require("vertx-shell-js/command");
+var CommandBuilder = require("vertx-shell-js/command_builder");
 var ShellService = require("vertx-shell-js/shell_service");
 
-var helloWorld = Command.builder("hello-world").processHandler(function (process) {
-  process.write("hello world\n").end();
+var helloWorld = CommandBuilder.command("hello-world").processHandler(function (process) {
+  process.write("hello world\n");
+  process.end();
 }).build();
 
 var service = ShellService.create(vertx, {

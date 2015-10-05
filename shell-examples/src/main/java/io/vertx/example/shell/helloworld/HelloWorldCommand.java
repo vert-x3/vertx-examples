@@ -5,6 +5,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
+import io.vertx.ext.shell.command.CommandBuilder;
 import io.vertx.ext.shell.command.CommandProcess;
 import io.vertx.ext.shell.net.TelnetOptions;
 
@@ -21,7 +22,7 @@ public class HelloWorldCommand extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    Command helloWorld = Command.builder("hello-world").
+    Command helloWorld = CommandBuilder.command("hello-world").
         processHandler(process -> {
           process.write("hello world\n");
           process.end();

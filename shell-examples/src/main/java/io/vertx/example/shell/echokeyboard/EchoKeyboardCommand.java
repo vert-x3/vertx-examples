@@ -5,6 +5,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
+import io.vertx.ext.shell.command.CommandBuilder;
 import io.vertx.ext.shell.io.EventType;
 import io.vertx.ext.shell.net.TelnetOptions;
 
@@ -25,7 +26,7 @@ public class EchoKeyboardCommand extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    Command starwars = Command.builder("echokeyboard").
+    Command starwars = CommandBuilder.command("echokeyboard").
         processHandler(process -> {
 
           // Echo
