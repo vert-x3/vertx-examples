@@ -1,0 +1,13 @@
+{
+  "name": "service-provider-proxy",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "sockjs-client": "1.0.0",
+    "vertx3-eventbus-client": "3.0.0-1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
