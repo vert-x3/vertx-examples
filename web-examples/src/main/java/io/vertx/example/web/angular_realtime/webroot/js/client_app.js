@@ -67,15 +67,17 @@ function CartController($scope, $filter, $http, $timeout) {
       items: orderItems
     };
 
-    $scope.eb.send('vtoons.placeOrder', orderMsg, function(reply) {
+    $scope.eb.send('vtoons.placeOrder', orderMsg, function(err, reply) {
+      if (err) {
+        console.error('Failed to accept order');
+        return;
+      }
       $scope.orderSubmitted = true;
       // lets clear the cart now
       $scope.items = [];
       $scope.$apply();
       // Timeout the order confirmation box after 2 seconds
       // window.setTimeout(function() { $scope.orderSubmitted(false); }, 2000);
-    }, function(err) {
-        console.error('Failed to accept order');
     });
   };
 
@@ -99,7 +101,7 @@ function CartController($scope, $filter, $http, $timeout) {
                 console.error('Failed to retrieve albums: ' + err);
                 return;
               }
-              $scope.albums = reply;
+              $scope.albums = reply.body;
               $scope.$apply();
             });
           };

@@ -24,7 +24,7 @@
 
   eb.onopen = function () {
     eb.registerHandler("news-feed", function (err, msg) {
-      var str = "<code>" + msg + "</code><br>";
+      var str = "<code>" + msg.body + "</code><br>";
       $('#status').prepend(str);
     })
   }

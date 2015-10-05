@@ -15,7 +15,7 @@
 
   eb.onopen = function () {
     eb.registerHandler('feed', function (err, msg) {
-      $('#log').prepend('<div>' + msg.now + '</div>');
+      $('#log').prepend('<div>' + msg.body.now + '</div>');
     });
   };
 

@@ -50,7 +50,7 @@
   var eb = new EventBus("/eventbus/");
   eb.onopen = function () {
     eb.registerHandler("chat.to.client", function (err, msg) {
-      $('#chat').append(msg + "\n");
+      $('#chat').append(msg.body + "\n");
     });
   };
 
