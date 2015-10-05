@@ -27,6 +27,12 @@ public class Runner {
     ExampleRunner.runScriptExample(SHELL_EXAMPLES_JS_DIR, scriptName, DROPWIZARD_OPTIONS);
   }
 
+  static class JSHelloWorldRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/shell/helloworld/hello_world_command.js");
+    }
+  }
+
 /*
   static class JSMetricsDashboardRunner {
     public static void main(String[] args) {
