@@ -47,9 +47,9 @@
             var deliveredSeries = this.series[1];
             var eb = new vertx.EventBus("http://localhost:8080/eventbus");
             eb.onopen = function() {
-              eb.registerHandler("metrics", function(metrics) {
+              eb.registerHandler("metrics", function(err, res) {
                 var x = (new Date()).getTime(); // current time
-                var sent = metrics["messages.sent"];
+                var sent = res.body["messages.sent"];
                 if (sent != null) {
                   sentSeries.addPoint([x, sent.oneSecondRate], false, true);
                   // Add the value to the `value` placeholder (ease testing)

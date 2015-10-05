@@ -27,8 +27,8 @@
     var eb = new EventBus('/eventbus/');
 
     eb.onopen = function () {
-      eb.registerHandler('feed', function (msg) {
-        domConstruct.place('<div>' + msg.now + '</div>', loggingNode);
+      eb.registerHandler('feed', function (err, msg) {
+        domConstruct.place('<div>' + msg.body.now + '</div>', loggingNode);
       });
     };
   });

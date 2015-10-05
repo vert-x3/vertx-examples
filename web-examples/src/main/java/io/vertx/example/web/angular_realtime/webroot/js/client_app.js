@@ -67,15 +67,17 @@ function CartController($scope, $filter, $http, $timeout) {
       items: orderItems
     };
 
-    $scope.eb.send('vtoons.placeOrder', orderMsg, function(reply) {
+    $scope.eb.send('vtoons.placeOrder', orderMsg, function(err, reply) {
+      if (err) {
+        console.error('Failed to accept order');
+        return;
+      }
       $scope.orderSubmitted = true;
       // lets clear the cart now
       $scope.items = [];
       $scope.$apply();
       // Timeout the order confirmation box after 2 seconds
       // window.setTimeout(function() { $scope.orderSubmitted(false); }, 2000);
-    }, function(err) {
-        console.error('Failed to accept order');
     });
   };
 
@@ -89,19 +91,19 @@ function CartController($scope, $filter, $http, $timeout) {
             $scope.eb.close();
           }
 
-          $scope.eb = new vertx.EventBus(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/eventbus');
+          $scope.eb = new EventBus(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/eventbus');
 
           $scope.eb.onopen = function() {
 
             // Get the static data
-            $scope.eb.send('vtoons.listAlbums', {},
-                function(reply) {
-                  $scope.albums = reply;
-                  $scope.$apply();
-                }, function (err) {
-                  console.error('Failed to retrieve albums: ' + err);
-                }
-            );
+            $scope.eb.send('vtoons.listAlbums', {}, function(err, reply) {
+              if (err) {
+                console.error('Failed to retrieve albums: ' + err);
+                return;
+              }
+              $scope.albums = reply.body;
+              $scope.$apply();
+            });
           };
 
           $scope.eb.onclose = function() {
