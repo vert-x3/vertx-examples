@@ -31,6 +31,7 @@
     <module>jdbc-examples</module>
     <module>jca-examples</module>
     <module>sync-examples</module>
+    <module>shell-examples</module>
   </modules>
 
   <profiles>
