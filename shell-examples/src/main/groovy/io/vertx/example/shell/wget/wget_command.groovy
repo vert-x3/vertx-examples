@@ -2,11 +2,14 @@ import io.vertx.groovy.core.cli.CLI
 import io.vertx.groovy.ext.shell.command.Command
 import io.vertx.groovy.ext.shell.ShellService
 
+// Create the wget CLI
 def cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").addArgument([
   index:0,
   argName:"http-url",
   description:"the HTTP uri to get"
 ])
+
+// Create the command
 def helloWorld = Command.builder(cli).processHandler({ process ->
   def url
   try {

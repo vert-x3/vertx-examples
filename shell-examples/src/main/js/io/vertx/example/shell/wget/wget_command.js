@@ -2,11 +2,14 @@ var CLI = require("vertx-js/cli");
 var Command = require("vertx-shell-js/command");
 var ShellService = require("vertx-shell-js/shell_service");
 
+// Create the wget CLI
 var cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").addArgument({
   "index" : 0,
   "argName" : "http-url",
   "description" : "the HTTP uri to get"
 });
+
+// Create the command
 var helloWorld = Command.builder(cli).processHandler(function (process) {
   var url;
   try {

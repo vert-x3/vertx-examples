@@ -2,11 +2,14 @@ require 'vertx/cli'
 require 'vertx-shell/command'
 require 'vertx-shell/shell_service'
 
+# Create the wget CLI
 cli = Vertx::CLI.create("wget").set_summary("Wget implemented with Vert.x HTTP client").add_argument({
   'index' => 0,
   'argName' => "http-url",
   'description' => "the HTTP uri to get"
 })
+
+# Create the command
 helloWorld = VertxShell::Command.builder(cli).process_handler() { |process|
 
   begin

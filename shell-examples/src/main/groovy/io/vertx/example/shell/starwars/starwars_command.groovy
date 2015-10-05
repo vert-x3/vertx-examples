@@ -3,20 +3,29 @@ import io.vertx.groovy.ext.shell.command.Command
 import io.vertx.groovy.ext.shell.ShellService
 
 def starwars = Command.builder("starwars").processHandler({ process ->
+
+  // Connect the client
   def client = process.vertx().createNetClient()
   client.connect(23, "towel.blinkenlights.nl", { ar ->
     if (ar.succeeded()) {
       def socket = ar.result()
+
+      // Ctrl-C closes the socket
       process.eventHandler(EventType.SIGINT, { v ->
         socket.close()
-        process.end()
       })
+
+      //
       socket.handler({ buff ->
+        // Push the data to the Shell
         process.write(buff.toString("UTF-8"))
       }).exceptionHandler({ err ->
         err.printStackTrace()
-        process.end()
-      }).endHandler({ v ->
+        socket.close()
+      })
+
+      // When socket closes, end the command
+      socket.closeHandler({ v ->
         process.end()
       })
     } else {
