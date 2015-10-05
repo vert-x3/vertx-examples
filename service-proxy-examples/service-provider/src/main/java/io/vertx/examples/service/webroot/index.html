@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>JSProxy example</title>
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+  <script src="vertxbus.js"></script>
+  <script src="processor_service-proxy.js"></script>
+</head>
+<body>
+
+<div id="result"></div>
+
+<script>
+ 
+  var eb = new EventBus("http://localhost:8080/eventbus");
+
+  eb.onopen = function() {
+    var processorService = new ProcessorService(eb, "vertx.processor");
+
+    processorService.process({foo: 'bar'}, function (err, res) {
+      if (err) {
+        document.getElementById('result').innerHTML = 'ERROR: ' + JSON.stringify(err);
+        return;
+      }
+
+      document.getElementById('result').innerHTML = 'RESULT: ' + JSON.stringify(res);
+    });
+  }
+
+</script>
+
+</body>
+</html>

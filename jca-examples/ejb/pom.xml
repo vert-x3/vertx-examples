@@ -7,13 +7,13 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-jca-examples</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <properties>
     <ear.name>vertx-jca-examples-app.ear</ear.name>
     <rar.name>vertx-jca-adapter</rar.name>
-    <rar.version>3.0.0</rar.version>
+    <rar.version>${project.version}</rar.version>
     <rar.file.name>${rar.name}-${rar.version}.rar</rar.file.name>
   </properties>
 

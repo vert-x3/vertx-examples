@@ -4,5 +4,5 @@ vertx.deployVerticle("io.vertx.example.core.verticle.worker.WorkerVerticle", [
 ])
 
 vertx.eventBus().send("sample.data", "hello vert.x", { r ->
-  println("[Main] Receiving reply ' ${r.result().body().toString()}' in ${java.lang.Thread.currentThread().getName()}")
+  println("[Main] Receiving reply ' ${r.result().body()}' in ${java.lang.Thread.currentThread().getName()}")
 })
