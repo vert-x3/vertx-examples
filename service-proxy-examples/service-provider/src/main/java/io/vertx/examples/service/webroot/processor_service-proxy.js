@@ -20,7 +20,7 @@
     factory();
   } else if (typeof define === 'function' && define.amd) {
     // AMD loader
-    define('processor_service', [], factory);
+    define('vertx-processor-sample-js/processor_service-proxy', [], factory);
   } else {
     // plain old include
     ProcessorService = factory();
@@ -58,7 +58,7 @@
         if (closed) {
           throw new Error('Proxy is closed');
         }
-        j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, __args[1]);
+        j_eb.send(j_address, {"document":__args[0]}, {"action":"process"}, function(err, result) { __args[1](err, result &&result.body); });
         return;
       } else throw new TypeError('function invoked with invalid arguments');
     };

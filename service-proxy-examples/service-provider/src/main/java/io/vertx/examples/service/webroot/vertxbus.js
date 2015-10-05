@@ -99,9 +99,9 @@
         var handlers = self.handlers[json.address];
         for (var i = 0; i < handlers.length; i++) {
           if (json.type === 'err') {
-            handlers[i](json.body);
+            handlers[i]({failureCode: json.failureCode, failureType: json.failureType, message: json.message});
           } else {
-            handlers[i](null, json.body);
+            handlers[i](null, json);
           }
         }
       } else if (self.replyHandlers[json.address]) {
@@ -111,7 +111,7 @@
         if (json.type === 'err') {
           handler({failureCode: json.failureCode, failureType: json.failureType, message: json.message});
         } else {
-          handler(null, json.body);
+          handler(null, json);
         }
       } else {
         if (json.type === 'err') {
