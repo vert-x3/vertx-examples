@@ -10,6 +10,10 @@ You can run or debug the example in your IDE by just right clicking the main cla
 
 The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.
 
+To run with maven
+
+    mvn exec:java
+    
 To build a "fat jar"
 
     mvn package
