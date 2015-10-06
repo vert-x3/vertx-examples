@@ -11,7 +11,7 @@
 
   <properties>
     <!-- the main class -->
-    <main.class>io.vertx.example.HelloWorldEmbedded</main.class>
+    <exec.mainClass>io.vertx.example.HelloWorldEmbedded</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -58,7 +58,7 @@
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <manifestEntries>
-                    <Main-Class>${main.class}</Main-Class>
+                    <Main-Class>${exec.mainClass}</Main-Class>
                   </manifestEntries>
                 </transformer>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
