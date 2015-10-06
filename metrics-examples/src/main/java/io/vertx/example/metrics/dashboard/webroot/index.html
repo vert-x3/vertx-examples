@@ -45,7 +45,7 @@
             var that = this;
             var sentSeries = this.series[0];
             var deliveredSeries = this.series[1];
-            var eb = new vertx.EventBus("http://localhost:8080/eventbus");
+            var eb = new EventBus("http://localhost:8080/eventbus");
             eb.onopen = function() {
               eb.registerHandler("metrics", function(err, res) {
                 var x = (new Date()).getTime(); // current time
