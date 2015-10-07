@@ -16,6 +16,7 @@
 
 /** @module vertx-processor-sample-js/processor_service */
 var utils = require('vertx-js/util/utils');
+var Vertx = require('vertx-js/vertx');
 
 var io = Packages.io;
 var JsonObject = io.vertx.core.json.JsonObject;
@@ -47,7 +48,7 @@ var ProcessorService = function(j_val) {
         resultHandler(null, ar.cause());
       }
     });
-    } else utils.invalidArgs();
+    } else throw new TypeError('function invoked with invalid arguments');
   };
 
   // A reference to the underlying Java delegate
@@ -66,7 +67,7 @@ ProcessorService.create = function(vertx) {
   var __args = arguments;
   if (__args.length === 1 && typeof __args[0] === 'object' && __args[0]._jdel) {
     return utils.convReturnVertxGen(JProcessorService["create(io.vertx.core.Vertx)"](vertx._jdel), ProcessorService);
-  } else utils.invalidArgs();
+  } else throw new TypeError('function invoked with invalid arguments');
 };
 
 /**
@@ -80,7 +81,7 @@ ProcessorService.createProxy = function(vertx, address) {
   var __args = arguments;
   if (__args.length === 2 && typeof __args[0] === 'object' && __args[0]._jdel && typeof __args[1] === 'string') {
     return utils.convReturnVertxGen(JProcessorService["createProxy(io.vertx.core.Vertx,java.lang.String)"](vertx._jdel, address), ProcessorService);
-  } else utils.invalidArgs();
+  } else throw new TypeError('function invoked with invalid arguments');
 };
 
 // We export the Constructor function

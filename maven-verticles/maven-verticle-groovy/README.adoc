@@ -3,7 +3,7 @@
 This project is very similar to the maven-verticle project but instead of using a Java verticle is uses a Groovy
 verticle.
 
-You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Starter`
+You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Launcher`
 and passes in the arguments `run src/main/groovy/MyGroovyVerticle`.
 
 The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.
@@ -14,7 +14,7 @@ To build a "fat jar"
 
 To run the fat jar:
 
-    java -jar target/maven-verticle-groovy-3.0.0-fat.jar
+    java -jar target/maven-verticle-groovy-3.1.0-fat.jar
 
 (You can take that jar and run it anywhere there is a Java 8+ JDK. It contains all the dependencies it needs so you
 don't need to install Vert.x on the target machine).

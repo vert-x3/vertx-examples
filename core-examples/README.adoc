@@ -278,15 +278,29 @@ This example demonstrates the high availability feature of vert.x. When enabled,
  node when the original node dies abruptly.
 
 link:src/main/java/io/vertx/example/core/verticle/ha/Server.java[The server]
+link:src/main/java/io/vertx/example/core/verticle/ha/BareInstance.java[The bare instance]
 
 To run this example, you need to have a working cluster. Configure Hazelcast and append the required `cluster-host`
 to the commands if needed.
 
+**In your IDE:**
+
+* Start the server by executing the `main` method of the `Server` class
+* Check that the http://localhost:8080 is served correctly
+* Start the _bare_ instance by executing the `main` method of the `BareInstance` class
+
+In a terminal, find the process related to the `Server` class execution and kill it using `kill -9`. The verticle is
+deployed on the _bare_ instance. If you refresh the page, the message should be slightly different.
+
+**In command line:**
+
 To see the HA (high-availability) behavior you need three terminals.
 
-In the first one launch:
+First compile the project with `mvn clean package`
+
+In the first terminal, go the the _core-examples` directory and launch:
 ----
-vertx run Server.java -ha
+vertx run io.vertx.example.core.ha.Server -ha -cp target/classes
 ----
 
 Open a browser to http://localhost:8080. You should see something like:
@@ -297,19 +311,17 @@ Happily served by 97284@Macintosh.local
 
 Be displayed id is OS and JVM specific, so you may have something completely different.
 
-In the second terminal, launch
+In the second terminal, go the the _core-examples` directory and launch:
 ----
-vertx -ha
+vertx bare -cp target/classes/
 ----
-
-Don't specify the verticle name. This launches an empty vert.x instance (called _bare_).
 
 In the third terminal, display the list of the Java process and kill the first one (smaller pid):
 
 ----
-> jps | grep Starter
-97297 Starter
-97284 Starter
+> jps | grep Launcher
+97297 Launcher
+97284 Launcher
 > kill -9 97284
 ----
 

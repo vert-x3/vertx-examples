@@ -3,7 +3,7 @@
   <title></title>
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
-  <script src="vertxbus.js"></script>
+  <script src="vertx-eventbus.js"></script>
 </head>
 
 <style>
@@ -14,20 +14,20 @@
 
 <body>
 
-<div class="news">Latest news: </div><br>
+<div class="news">Latest news:</div>
+<br>
+
 <div id="status" class="news"></div>
 
 <script>
- 
-  var eb = new vertx.EventBus("http://localhost:8080/eventbus");
+  var eb = new EventBus("http://localhost:8080/eventbus");
 
-  eb.onopen = function() {
-    eb.registerHandler("news-feed", function(msg) {  
-      var str = "<code>" + msg + "</code><br>";
+  eb.onopen = function () {
+    eb.registerHandler("news-feed", function (err, msg) {
+      var str = "<code>" + msg.body + "</code><br>";
       $('#status').prepend(str);
-    })    
-  }        
-
+    })
+  }
 
 </script>
 

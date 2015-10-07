@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>3.0.0</version>
+  <version>3.1.0</version>
 
   <modules>
     <module>maven-simplest</module>
@@ -31,6 +31,7 @@
     <module>jdbc-examples</module>
     <module>jca-examples</module>
     <module>sync-examples</module>
+    <module>shell-examples</module>
   </modules>
 
   <profiles>

@@ -4,7 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeEvent;
+import io.vertx.ext.web.handler.sockjs.BridgeEventType;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
@@ -34,7 +34,7 @@ public class Server extends AbstractVerticle {
       // You can use this for monitoring or logging, or to change the raw messages in-flight.
       // It can also be used for fine grained access control.
 
-      if (event.type() == BridgeEvent.Type.SOCKET_CREATED) {
+      if (event.type() == BridgeEventType.SOCKET_CREATED) {
         System.out.println("A socket was created");
       }
 

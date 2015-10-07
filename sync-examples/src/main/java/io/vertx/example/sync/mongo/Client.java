@@ -1,6 +1,7 @@
 package io.vertx.example.sync.mongo;
 
 import co.paralleluniverse.fibers.Suspendable;
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.mongo.MongoClient;
@@ -30,11 +31,11 @@ public class Client extends SyncVerticle {
       .put("connection_string", "mongodb://localhost:27018")
       .put("db_name", "my_DB");
 
-    // Deploy an embedded mongo database so we can test against that
-
-    String deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
-
-    System.out.println("dep id of embedded mongo verticle is " + deploymentID);
+    // Deploy an embedded mongo database so we can test against that, this can be disabled using embedded-mongo.skip
+    if (! Boolean.getBoolean("embedded-mongo.skip")) {
+      String deploymentID = awaitResult(h -> vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", h));
+      System.out.println("dep id of embedded mongo verticle is " + deploymentID);
+    }
 
     // Create the client
     MongoClient mongo = MongoClient.createShared(vertx, config);
@@ -46,7 +47,7 @@ public class Client extends SyncVerticle {
     List<JsonObject> users = Arrays.asList(new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
       new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble"));
 
-    for (JsonObject user: users) {
+    for (JsonObject user : users) {
       String id = awaitResult(h -> mongo.insert("users", user, h));
       System.out.println("Inserted id is " + id);
     }
@@ -59,5 +60,4 @@ public class Client extends SyncVerticle {
     results.forEach(System.out::println);
 
   }
-
 }

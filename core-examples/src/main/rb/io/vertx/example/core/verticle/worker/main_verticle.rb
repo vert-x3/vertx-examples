@@ -4,5 +4,5 @@ $vertx.deploy_verticle("io.vertx.example.core.verticle.worker.WorkerVerticle", {
 })
 
 $vertx.event_bus().send("sample.data", "hello vert.x") { |r_err,r|
-  puts "[Main] Receiving reply ' #{r.body().to_string()}' in #{Java::JavaLang::Thread.current_thread().get_name()}"
+  puts "[Main] Receiving reply ' #{r.body()}' in #{Java::JavaLang::Thread.current_thread().get_name()}"
 }

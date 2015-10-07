@@ -75,7 +75,7 @@ Once done, run the verticle using:
 [source]
 ----
 vertx run io.vertx.examples.service.ProcessorServiceVerticle \
-    -cp target/service-provider-3.0.0.jar -cluster
+    -cp target/service-provider-3.1.0.jar -cluster
 ----
 
 Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
@@ -103,7 +103,7 @@ To run this verticle, package it using: `mvn clean package`, and run it with:
 
 ----
 vertx run io.vertx.examples.service.consumer.ConsumerVerticle \
-    -cp ../service-provider/target/service-provider-3.0.0.jar:target/service-consumer-3.0.0.jar \
+    -cp ../service-provider/target/service-provider-3.1.0.jar:target/service-consumer-3.1.0.jar \
     -cluster
 ----
 
@@ -124,18 +124,18 @@ You can consume the `ProcessorService` in Groovy as shown in this link:service-c
 To launch this groovy verticle run:
 
 ----
-vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-3.0.0.jar -cluster
+vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-3.1.0.jar -cluster
 ----
 
 In JavaScript, the consuming verticle is link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js[here]. To launch it, just run:
 
 ----
-vertx run src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js  -cp ../service-provider/target/service-provider-3.0.0.jar -cluster
+vertx run src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js  -cp ../service-provider/target/service-provider-3.1.0.jar -cluster
 ----
 
 You can also consume the service in ruby as shown link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.rb[here]. To launch it, just run:
 
 ----
-vertx run src/main/rb/io/vertx/examples/service/consumer/consumer_verticle.rb   -cp ../service-provider/target/service-provider-3.0.0.jar -cluster
+vertx run src/main/rb/io/vertx/examples/service/consumer/consumer_verticle.rb   -cp ../service-provider/target/service-provider-3.1.0.jar -cluster
 ----
 

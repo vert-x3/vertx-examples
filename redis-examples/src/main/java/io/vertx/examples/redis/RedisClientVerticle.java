@@ -4,6 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.groovy.core.Vertx;
 import io.vertx.redis.RedisClient;
+import io.vertx.redis.RedisOptions;
 
 /**
  * A verticle setting and reading a value in Redis.
@@ -20,8 +21,7 @@ public class RedisClientVerticle extends AbstractVerticle {
 
     // Create the redis client
     final RedisClient client = RedisClient.create(vertx,
-        new JsonObject()
-            .put("host", host));
+        new RedisOptions().setHost(host));
 
     client.set("key", "value", r -> {
       if (r.succeeded()) {

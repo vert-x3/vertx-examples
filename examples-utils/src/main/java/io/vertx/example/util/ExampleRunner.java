@@ -5,6 +5,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.function.Consumer;
 
 /*
@@ -50,6 +51,20 @@ public class ExampleRunner {
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+    // Smart cwd detection
+
+    // Based on the current directory (.) and the desired directory (exampleDir), we try to compute the vertx.cwd
+    // directory:
+    try {
+      // We need to use the canonical file. Without the file name is .
+      File current = new File(".").getCanonicalFile();
+      if (exampleDir.startsWith(current.getName())  && ! exampleDir.equals(current.getName())) {
+        exampleDir = exampleDir.substring(current.getName().length() + 1);
+      }
+    } catch (IOException e) {
+      // Ignore it.
+    }
+
     System.setProperty("vertx.cwd", exampleDir);
     Consumer<Vertx> runner = vertx -> {
       try {

@@ -10,7 +10,13 @@ This enables you to write your verticle code in a familiar synchronous style (i.
 As no kernel threads are blocked your application retains the scalability advantages of a non (kernel thread) blocking
 application.
 
-In order to run the sync examples in your IDE you must add the following JVM option in your IDE run configuration:
+
+The examples can be run using the:
+
+* Quasar Agent
+* Ahead Of Time instrumentation (aot)
+
+If you use the Quasar agent, in your IDE you must add the following JVM option in your IDE run configuration:
 
 ----
 -javaagent:/path/to/the/quasar/jar/
@@ -19,8 +25,18 @@ In order to run the sync examples in your IDE you must add the following JVM opt
 e.g.
 
 ----
--javaagent:/home/tim/.m2/repository/co/paralleluniverse/quasar-core/0.7.2/quasar-core-0.7.2.jar
+-javaagent:/home/tim/.m2/repository/co/paralleluniverse/quasar-core/0.7.3/quasar-core-0.7.3-jdk8.jar
 ----
+
+The ahead of time instrumentation does not require the agent configuration, however you need to build this example
+using:
+
+----
+mvn clean package -Paot
+----
+
+You will also need to configure your IDE to not replace the classes generated in `target/classes` and use them. In
+IntelliJ, for instance, remove the _Before launch_ `make` action.
 
 == eventbus
 

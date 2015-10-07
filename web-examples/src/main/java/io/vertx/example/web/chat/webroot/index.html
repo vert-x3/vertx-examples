@@ -24,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
-  <script src="vertxbus.js"></script>
+  <script src="vertx-eventbus.js"></script>
   <style>
     .inset {
       box-shadow: inset 0 0 4px #000000;
@@ -47,10 +47,10 @@
 </head>
 <body>
 <script>
-  var eb = new vertx.EventBus("/eventbus/");
+  var eb = new EventBus("/eventbus/");
   eb.onopen = function () {
-    eb.registerHandler("chat.to.client", function (msg) {
-      $('#chat').append(msg + "\n");
+    eb.registerHandler("chat.to.client", function (err, msg) {
+      $('#chat').append(msg.body + "\n");
     });
   };
 
@@ -58,7 +58,6 @@
     if (event.keyCode == 13 || event.which == 13) {
       var message = $('#input').val();
       if (message.length > 0) {
-        console.log($('#input'));
         eb.publish("chat.to.server", message);
         $('#input').val("");
       }

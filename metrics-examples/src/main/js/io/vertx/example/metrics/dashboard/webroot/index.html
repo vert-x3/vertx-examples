@@ -19,7 +19,7 @@
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.7/highcharts.js"></script></head>
-  <script src="vertxbus.js"></script>
+  <script src="vertx-eventbus.js"></script>
 <body>
   <h1>Metrics dashboard</h1>
 
@@ -45,11 +45,11 @@
             var that = this;
             var sentSeries = this.series[0];
             var deliveredSeries = this.series[1];
-            var eb = new vertx.EventBus("http://localhost:8080/eventbus");
+            var eb = new EventBus("http://localhost:8080/eventbus");
             eb.onopen = function() {
-              eb.registerHandler("metrics", function(metrics) {
+              eb.registerHandler("metrics", function(err, res) {
                 var x = (new Date()).getTime(); // current time
-                var sent = metrics["messages.sent"];
+                var sent = res.body["messages.sent"];
                 if (sent != null) {
                   sentSeries.addPoint([x, sent.oneSecondRate], false, true);
                   // Add the value to the `value` placeholder (ease testing)
