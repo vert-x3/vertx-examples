@@ -13,14 +13,14 @@
           async: true,
           packages: [
             {name: 'sockjs', location: '/sockjs-client/dist', main: 'sockjs'},
-            {name: 'vertxbus', location: '/vertx3-eventbus-client', main: 'vertx-eventbus'}
+            {name: 'vertx3bus', location: '/vertx3-eventbus-client', main: 'vertx-eventbus'}
           ]"></script>
 
 <script>
   require([
     'dojo/dom',
     'dojo/dom-construct',
-    'vertxbus'
+    'vertx3bus'
   ], function (dom, domConstruct, EventBus) {
     var loggingNode = dom.byId('log');
 
