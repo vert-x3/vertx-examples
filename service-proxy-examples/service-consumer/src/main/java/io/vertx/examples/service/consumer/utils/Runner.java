@@ -1,4 +1,4 @@
-package io.vertx.example.util;
+package io.vertx.examples.service.consumer.utils;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
@@ -11,46 +11,33 @@ import java.util.function.Consumer;
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
-public class ExampleRunner {
+public class Runner {
 
+  private static final String EXAMPLES_DIR = "service-proxy-examples/service-provider";
+  private static final String EXAMPLES_JAVA_DIR = EXAMPLES_DIR + "/src/main/java/";
 
-  public static void runJavaExample(String prefix, Class clazz, boolean clustered) {
-    runJavaExample(prefix, clazz, new VertxOptions().setClustered(clustered));
+  public static void runExample(Class clazz) {
+    runExample(EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
   }
 
-  public static void runJavaExample(String prefix, Class clazz, VertxOptions options) {
-    String exampleDir = prefix + clazz.getPackage().getName().replace(".", "/");
-    runExample(exampleDir, clazz.getName(), options);
+  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
+      deploymentOptions) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
   }
 
-  public static void runJavaExample(String prefix, Class clazz, DeploymentOptions deploymentOptions) {
-    String exampleDir = prefix + clazz.getPackage().getName().replace(".", "/");
-    runExample(exampleDir, clazz.getName(), new VertxOptions(), deploymentOptions);
-  }
-
-  public static void runScriptExample(String prefix, String scriptName, boolean clustered) {
-    File file = new File(scriptName);
-    String dirPart = file.getParent();
-    String scriptDir = prefix + dirPart;
-    ExampleRunner.runExample(scriptDir, scriptDir + "/" + file.getName(), clustered);
-  }
 
   public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    ExampleRunner.runExample(scriptDir, scriptDir + "/" + file.getName(), options);
-  }
-
-  public static void runExample(String exampleDir, String verticleID, boolean clustered) {
-    runExample(exampleDir, verticleID, new VertxOptions().setClustered(clustered));
-  }
-
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options) {
-    runExample(exampleDir, verticleID, options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+    if (options == null) {
+      // Default parameter
+      options = new VertxOptions();
+    }
     // Smart cwd detection
 
     // Based on the current directory (.) and the desired directory (exampleDir), we try to compute the vertx.cwd
@@ -58,7 +45,7 @@ public class ExampleRunner {
     try {
       // We need to use the canonical file. Without the file name is .
       File current = new File(".").getCanonicalFile();
-      if (exampleDir.startsWith(current.getName())  && ! exampleDir.equals(current.getName())) {
+      if (exampleDir.startsWith(current.getName()) && !exampleDir.equals(current.getName())) {
         exampleDir = exampleDir.substring(current.getName().length() + 1);
       }
     } catch (IOException e) {
@@ -91,5 +78,4 @@ public class ExampleRunner {
       runner.accept(vertx);
     }
   }
-
 }

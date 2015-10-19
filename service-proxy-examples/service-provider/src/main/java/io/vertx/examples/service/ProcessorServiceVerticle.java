@@ -1,8 +1,8 @@
 package io.vertx.examples.service;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.ExampleRunner;
 import io.vertx.examples.service.impl.ProcessorServiceImpl;
+import io.vertx.examples.service.utils.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
@@ -15,12 +15,12 @@ import io.vertx.serviceproxy.ProxyHelper;
  */
 public class ProcessorServiceVerticle extends AbstractVerticle {
 
+  ProcessorService service;
+
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    ExampleRunner.runJavaExample("service-proxy-examples/service-provider/src/main/java/", ProcessorServiceVerticle.class, false);
+    Runner.runExample(ProcessorServiceVerticle.class);
   }
-
-  ProcessorService service;
 
   @Override
   public void start() throws Exception {

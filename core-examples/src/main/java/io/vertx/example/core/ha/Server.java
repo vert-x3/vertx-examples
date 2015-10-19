@@ -2,10 +2,6 @@ package io.vertx.example.core.ha;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
-import io.vertx.core.Vertx;
-import io.vertx.core.VertxOptions;
-import io.vertx.example.util.ExampleRunner;
-import io.vertx.example.util.Runner;
 
 import java.lang.management.ManagementFactory;
 
