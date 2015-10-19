@@ -8,7 +8,8 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-version = '3.1.0'
+ext.vertxVersion = '3.1.0'
+version = '0.0.1'
 
 if (!JavaVersion.current().java8Compatible) {
     throw new IllegalStateException('''A Haiku:
@@ -25,8 +26,8 @@ repositories {
 }
 
 dependencies {
-    compile "io.vertx:vertx-core:$version"
-    compile "io.vertx:vertx-lang-groovy:$version"
+    compile "io.vertx:vertx-core:$vertxVersion"
+    compile "io.vertx:vertx-lang-groovy:$vertxVersion"
 }
 
 processResources {
