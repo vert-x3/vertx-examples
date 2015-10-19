@@ -6,6 +6,18 @@ Vert.x core provides fairly low level functionality for a diverse range of funct
 WebSockets, file system access, timers, verticles and more. Please consult the Vert.x core manual for detailed
 documentation on Vert.x core.
 
+
+Examples can be run directly from the IDE by executing the `main` method. Alternatively, you can run them using the
+`vertx` command line tool (that need to be installed beforehand):
+
+```
+mvn clean compile
+vertx run fully-qualified-name-of-the-example -cp target/classes
+```
+
+Adapt the `-cp` option value for your current working directory and operating system.
+
+
 == Dependencies required
 
 To use Vert.x core in your own Maven or Gradle project add the following dependency
