@@ -58,7 +58,7 @@
             <goals>
               <goal>copy-dependencies</goal>
             </goals>
-            <phase>process-resources</phase>
+            <phase>verify</phase>
             <configuration>
               <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
             </configuration>
