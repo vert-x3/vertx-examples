@@ -12,7 +12,7 @@ The pom.xml uses the Maven shade plugin to assemble the application and all it's
 
 To run with maven
 
-    mvn exec:java
+    mvn compile exec:java
     
 To build a "fat jar"
 
