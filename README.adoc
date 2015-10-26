@@ -7,7 +7,9 @@ This repository contains a range of examples so you can get up and running easil
 
 == Maven users
 
-Start with the link:maven-simplest[simplest Maven example] to show you how setup a simple Vert.x project that uses Maven.
+Start with the link:maven-simplest[simplest Maven example] to show you how setup a simple Vert.x project that uses
+Maven. You need to have Java 8 installed and set the `JAVA_HOME` environment variable to point to your Java 8
+installation.
 
 Use that as a template for setting up a Maven project with Vert.x.
 
