@@ -16,6 +16,11 @@ client.get_connection() { |conn_err,conn|
 
   # create a test table
   connection.execute("create table test(id int primary key, name varchar(255))") { |create_err,create|
+    if (create_err != nil)
+      STDERR.puts "Cannot create the table"
+      create_err.print_stack_trace()
+      return
+    end
 
     # insert some test data
     connection.execute("insert into test values (1, 'Hello'), (2, 'World')") { |insert_err,insert|
@@ -24,6 +29,12 @@ client.get_connection() { |conn_err,conn|
       connection.query_with_params("select * from test where id = ?", [
         2
       ]) { |rs_err,rs|
+        if (rs_err != nil)
+          STDERR.puts "Cannot retrieve the data from the database"
+          rs_err.print_stack_trace()
+          return
+        end
+
         rs['results'].each do |line|
           puts JSON.generate(line)
         end

@@ -36,12 +36,23 @@ public class JDBCExample extends AbstractVerticle {
 
       // create a test table
       connection.execute("create table test(id int primary key, name varchar(255))", create -> {
+        if (create.failed()) {
+          System.err.println("Cannot create the table");
+          create.cause().printStackTrace();
+          return;
+        }
 
         // insert some test data
         connection.execute("insert into test values (1, 'Hello'), (2, 'World')", insert -> {
 
           // query some data with arguments
           connection.queryWithParams("select * from test where id = ?", new JsonArray().add(2), rs -> {
+            if (rs.failed()) {
+              System.err.println("Cannot retrieve the data from the database");
+              rs.cause().printStackTrace();
+              return;
+            }
+
             for (JsonArray line : rs.result().getResults()) {
               System.out.println(line.encode());
             }

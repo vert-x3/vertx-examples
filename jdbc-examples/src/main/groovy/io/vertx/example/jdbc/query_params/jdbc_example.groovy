@@ -15,6 +15,11 @@ client.getConnection({ conn ->
 
   // create a test table
   connection.execute("create table test(id int primary key, name varchar(255))", { create ->
+    if (create.failed()) {
+      System.err.println("Cannot create the table")
+      create.cause().printStackTrace()
+      return
+    }
 
     // insert some test data
     connection.execute("insert into test values (1, 'Hello'), (2, 'World')", { insert ->
@@ -23,6 +28,12 @@ client.getConnection({ conn ->
       connection.queryWithParams("select * from test where id = ?", [
         2
       ], { rs ->
+        if (rs.failed()) {
+          System.err.println("Cannot retrieve the data from the database")
+          rs.cause().printStackTrace()
+          return
+        }
+
         rs.result().results.each { line ->
           println(groovy.json.JsonOutput.toJson(line))
         }

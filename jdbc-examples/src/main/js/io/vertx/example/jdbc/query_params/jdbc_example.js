@@ -15,6 +15,11 @@ client.getConnection(function (conn, conn_err) {
 
   // create a test table
   connection.execute("create table test(id int primary key, name varchar(255))", function (create, create_err) {
+    if (create_err != null) {
+      console.error("Cannot create the table");
+      create_err.printStackTrace();
+      return
+    }
 
     // insert some test data
     connection.execute("insert into test values (1, 'Hello'), (2, 'World')", function (insert, insert_err) {
@@ -23,6 +28,12 @@ client.getConnection(function (conn, conn_err) {
       connection.queryWithParams("select * from test where id = ?", [
         2
       ], function (rs, rs_err) {
+        if (rs_err != null) {
+          console.error("Cannot retrieve the data from the database");
+          rs_err.printStackTrace();
+          return
+        }
+
         Array.prototype.forEach.call(rs.results, function(line) {
           console.log(JSON.stringify(line));
         });
