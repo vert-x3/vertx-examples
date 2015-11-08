@@ -69,7 +69,7 @@ Hitting the send button will send the message through the Vert.x EventBus. If th
 
 Notes
 ---
-Obviously the above is a trivial example, and certainly won't win any awards for style or substance. However, the messaging patterns used are quite typical for an enterprise application and while the application may not seem complext, it provides a working example of JEE JCA integration with an EIS (Vert.x in this case). The example can easily be expanded upon to include other Vert.x or JEE components as your requirements grown in scope and complexity.
+Obviously the above is a trivial example, and certainly won't win any awards for style or substance. However, the messaging patterns used are quite typical for an enterprise application and while the application may not seem complex, it provides a working example of JEE JCA integration with an EIS (Vert.x in this case). The example can easily be expanded upon to include other Vert.x or JEE components as your requirements grown in scope and complexity.
 
 As always, contributions and suggestions are always welcome. 
 
