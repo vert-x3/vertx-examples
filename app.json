@@ -1,0 +1,11 @@
+{
+    "name": "Vert.x on Heroku",
+    "description": "A barebones Vert.x app, which can easily be deployed to Heroku.",
+    "addons": [ "heroku-postgresql" ],
+    "env": {
+        "MAVEN_CUSTOM_OPTS": {
+            "description": "Custom Maven options for the buildpack",
+            "value": "-DskipTests -pl heroku-example"
+        }
+    }
+}

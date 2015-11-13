@@ -71,6 +71,16 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>0.5.6</version>
+        <configuration>
+          <processTypes>
+            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-3.1.0-fat.jar</web>
+          </processTypes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
