@@ -32,6 +32,7 @@
     <module>jca-examples</module>
     <module>sync-examples</module>
     <module>shell-examples</module>
+    <module>heroku-example</module>
   </modules>
 
   <profiles>
