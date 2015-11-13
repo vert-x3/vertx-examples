@@ -18,9 +18,8 @@ Follow these steps, after installing the [Heroku Toolbelt](https://toolbelt.hero
 
 ```sh-session
 $ git clone https://github.com/vert-x3/vertx-examples
-$ cd heroku-examples
 $ heroku create
-$ mvn package heroku:deploy -Dheroku.appName=<appName>
+$ mvn -pl heroku-example package heroku:deploy
 ```
 
 ## Git
