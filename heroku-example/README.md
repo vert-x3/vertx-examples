@@ -29,5 +29,8 @@ Follow these steps to deploy with Git.
 ```sh-session
 $ git clone https://github.com/vert-x3/vertx-examples
 $ heroku create
+$ heroku config:set MAVEN_CUSTOM_OPTS="-DskipTests -pl heroku-example"
 $ git push heroku master
 ```
+
+When creating a project of your own, you'll need to borrow from the [`Procfile`](https://github.com/vert-x3/vertx-examples/blob/master/Procfile) in the root directory of this project, and the `MAVEN_CUSTOM_OPTS` will only be necessary if your app is not the primary module of your Maven project.
