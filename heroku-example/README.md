@@ -6,7 +6,7 @@ This project shows how to deploy a Vert.x 3 applications to Heroku. The same app
 * Using the maven plugin
 * Using the git interface
 
-If you use a fat-jar then deploying on heroku is as simple as one click. The only requirement is to create the Heroku specific [Procfile](./Procfile) with a `Dyno` of type web.
+If you use a fat-jar then deploying on heroku is as simple as one click. The only requirement is to create the Heroku specific [Procfile](../Procfile) with a `Dyno` of type web.
 
 ## To deploy with the one click mode:
 
