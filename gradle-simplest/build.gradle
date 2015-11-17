@@ -1,43 +1,32 @@
-buildscript {
-    repositories { jcenter() }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
-
-version = '3.1.0'
-
-if (!JavaVersion.current().java8Compatible) {
-    throw new IllegalStateException('''A Haiku:
-                                      |  This needs Java 8,
-                                      |  You are using something else,
-                                      |  Refresh. Try again.'''.stripMargin())
+plugins {
+  id 'java'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '1.2.2'
 }
 
 repositories {
-    mavenCentral()
-    maven {
-        url = 'http://oss.sonatype.org/content/repositories/snapshots/'
-    }
+  jcenter()
+  maven {
+    url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+  }
 }
+
+version = '3.1.0'
+sourceCompatibility = '1.8'
 
 dependencies {
-    compile "io.vertx:vertx-core:$version"
+  compile "io.vertx:vertx-core:$version"
 }
 
+mainClassName = 'io.vertx.example.HelloWorldEmbedded'
+
 shadowJar {
-    classifier = 'fat'
-    manifest {
-        attributes 'Main-Class': 'io.vertx.example.HelloWorldEmbedded'
-    }
-    mergeServiceFiles {
-        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
-    }
+  classifier = 'fat'
+  mergeServiceFiles {
+    include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+  }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+  gradleVersion = '2.8'
 }

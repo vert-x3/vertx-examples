@@ -1,6 +1,6 @@
-= Vert.x 3.0 Simplest Gradle project
+= Vert.x 3.1 Simplest Gradle project
 
-This project shows a very simple hello world Vert.x 3.0 project using Gradle, which has a simple HTTP server which
+This project shows a very simple hello world Vert.x 3.1 project using Gradle, which has a simple HTTP server which
 simply returns "Hello World!" to every request.
 
 In this example Vert.x is used embedded. I.e. we use the Vert.x APIs directly in our own classes rather than deploying
@@ -14,7 +14,11 @@ To build the "fat jar"
 
     ./gradlew shadowJar
 
-To run the fat jar:
+Because the application plugin is being used, you may directly run the application:
+
+    ./gradlew run
+
+You may also run the fat jar as a standalone runnable jar:
 
     java -jar build/libs/gradle-simplest-3.1.0-fat.jar
 
