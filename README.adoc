@@ -22,7 +22,7 @@ Start with the link:gradle-simplest[simplest Gradle example] to show you how set
 
 Use that as a template for setting up a Gradle project with Vert.x.
 
-Progress to the link:gradle-verticle[simple Gradle verticle example] to show you how to deploy your code as verticles in
+Progress to the link:gradle-verticles[simple Gradle verticle example] to show you how to deploy your code as verticles in
 a Gradle project
 
 == Neither Maven nor Gradle users
