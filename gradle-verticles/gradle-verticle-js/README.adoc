@@ -1,4 +1,4 @@
-= Vert.x 3.0 Simple Gradle Verticle project for JavaScript
+= Vert.x Simple Gradle Verticle project for JavaScript
 
 This project is very similar to the gradle-verticle project but instead of having a verticle implemented in Java, it
 uses a JavaScript verticle.

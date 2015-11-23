@@ -1,4 +1,4 @@
-= Vert.x 3.0 Simple Maven Verticle project
+= Vert.x Simple Maven Verticle project
 
 This project is very similar to the maven-simplest project but instead of embedding Vert.x it shows an example
 of writing the code as a verticle.

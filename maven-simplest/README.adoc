@@ -1,6 +1,6 @@
-= Vert.x 3.0 Simplest Maven project
+= Vert.x Simplest Maven project
 
-This project shows a very simple hello world Vert.x 3.0 project using Maven, which has a simple HTTP server which
+This project shows a very simple hello world Vert.x project using Maven, which has a simple HTTP server which
 simply returns "Hello World!" to every request.
 
 In this example Vert.x is used embedded. I.e. we use the Vert.x APIs directly in our own classes rather than deploying

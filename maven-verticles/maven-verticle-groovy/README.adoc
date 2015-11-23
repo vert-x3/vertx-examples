@@ -1,4 +1,4 @@
-= Vert.x 3.0 Simple Maven Verticle for Groovy project
+= Vert.x Simple Maven Verticle for Groovy project
 
 This project is very similar to the maven-verticle project but instead of using a Java verticle is uses a Groovy
 verticle.

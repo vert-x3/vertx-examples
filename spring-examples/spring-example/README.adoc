@@ -1,4 +1,4 @@
-= Vert.x 3.0 Spring-vertx example project
+= Vert.x Spring-vertx example project
 
 This project is a demo of exposing Spring-hosted service beans (and therefore Spring-wired services) via vert.x
 verticles. In vert.x 3 it's perfectly possible to share an application context between multiple verticles.

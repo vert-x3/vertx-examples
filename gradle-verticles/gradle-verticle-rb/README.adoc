@@ -1,4 +1,4 @@
-= Vert.x 3.0 Simple Gradle Verticle project for Ruby
+= Vert.x Simple Gradle Verticle project for Ruby
 
 This project is very similar to the gradle-verticle project but instead of having a verticle implemented in Java, it
 uses a Ruby verticle.
