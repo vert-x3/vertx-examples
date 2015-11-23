@@ -1,20 +1,7 @@
-buildscript {
-    repositories { jcenter() }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.1.1'
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
-
-version = '3.1.0'
-
-if (!JavaVersion.current().java8Compatible) {
-    throw new IllegalStateException('''A Haiku:
-                                      |  This needs Java 8,
-                                      |  You are using something else,
-                                      |  Refresh. Try again.'''.stripMargin())
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
 }
 
 repositories {
@@ -24,6 +11,10 @@ repositories {
     }
 }
 
+version = '3.1.0'
+sourceCompatibility = '1.8'
+mainClassName = 'io.vertx.core.Launcher'
+
 dependencies {
     compile "io.vertx:vertx-core:$version"
 }
@@ -31,7 +22,6 @@ dependencies {
 shadowJar {
     classifier = 'fat'
     manifest {
-        attributes 'Main-Class': 'io.vertx.core.Launcher'
         attributes 'Main-Verticle': 'io.vertx.example.HelloWorldVerticle'
     }
     mergeServiceFiles {
@@ -40,5 +30,5 @@ shadowJar {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '2.8'
 }

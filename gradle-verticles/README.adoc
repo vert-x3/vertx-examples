@@ -15,7 +15,7 @@ It covers:
 You can build all projects using:
 
 ```
-./gradlew clean shadow
+./gradlew clean shadowJar
 ```
 
 
