@@ -5,10 +5,10 @@ import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.example.util.Runner;
+import io.vertx.ext.auth.shiro.ShiroAuthOptions;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
-import io.vertx.ext.shell.auth.ShiroAuthOptions;
-import io.vertx.ext.shell.net.SSHOptions;
+import io.vertx.ext.shell.term.SSHTermOptions;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -24,7 +24,7 @@ public class RunShell extends AbstractVerticle {
   public void start(Future<Void> startFuture) throws Exception {
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().
         setSSHOptions(
-            new SSHOptions().
+            new SSHTermOptions().
                 setHost("localhost").
                 setPort(3000).
                 setKeyPairOptions(new JksOptions().

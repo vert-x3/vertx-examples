@@ -1,15 +1,13 @@
 package io.vertx.example.shell.top;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.net.NetClient;
-import io.vertx.core.net.NetSocket;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
 import io.vertx.ext.shell.command.CommandBuilder;
-import io.vertx.ext.shell.io.EventType;
-import io.vertx.ext.shell.net.TelnetOptions;
+import io.vertx.ext.shell.command.CommandRegistry;
+import io.vertx.ext.shell.term.TelnetTermOptions;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -66,17 +64,17 @@ public class TopCommand extends AbstractVerticle {
           });
 
           // Terminate when user hits Ctrl-C
-          process.eventHandler(EventType.SIGINT, v -> {
+          process.interruptHandler(v -> {
             vertx.cancelTimer(id);
             process.end();
           });
 
-        }).build();
+        }).build(vertx);
 
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
-        new TelnetOptions().setHost("localhost").setPort(3000)
+        new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
-    service.getCommandRegistry().registerCommand(starwars);
+    CommandRegistry.get(vertx).registerCommand(starwars);
     service.start(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();

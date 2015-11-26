@@ -1,6 +1,7 @@
 require 'vertx/cli'
 require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
+require 'vertx-shell/command_registry'
 
 # Create the wget CLI
 cli = Vertx::CLI.create("wget").set_summary("Wget implemented with Vert.x HTTP client").add_argument({
@@ -43,7 +44,7 @@ helloWorld = VertxShell::CommandBuilder.command(cli).process_handler() { |proces
   }
   req.end()
 
-}.build()
+}.build($vertx)
 
 service = VertxShell::ShellService.create($vertx, {
   'telnetOptions' => {
@@ -51,7 +52,7 @@ service = VertxShell::ShellService.create($vertx, {
     'port' => 3000
   }
 })
-service.get_command_registry().register_command(helloWorld)
+VertxShell::CommandRegistry.get($vertx).register_command(helloWorld)
 service.start() { |ar_err,ar|
   if (!ar_err == nil)
     ar_err.print_stack_trace()

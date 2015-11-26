@@ -1,10 +1,11 @@
 require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
+require 'vertx-shell/command_registry'
 
 helloWorld = VertxShell::CommandBuilder.command("hello-world").process_handler() { |process|
   process.write("hello world\n")
   process.end()
-}.build()
+}.build($vertx)
 
 service = VertxShell::ShellService.create($vertx, {
   'telnetOptions' => {
@@ -12,7 +13,7 @@ service = VertxShell::ShellService.create($vertx, {
     'port' => 3000
   }
 })
-service.get_command_registry().register_command(helloWorld)
+VertxShell::CommandRegistry.get($vertx).register_command(helloWorld)
 service.start() { |ar_err,ar|
   if (!ar_err == nil)
     ar_err.print_stack_trace()

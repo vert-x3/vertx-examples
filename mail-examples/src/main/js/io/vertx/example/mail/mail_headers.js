@@ -15,7 +15,7 @@ var email = {
 
 var headers = MultiMap.caseInsensitiveMultiMap();
 
-headers.add("X-Mailer", "Vert.x Mail-Client 3.0");
+headers.add("X-Mailer", "Vert.x Mail-Client 3.1");
 headers.add("Message-ID", "12345@example.com");
 headers.add("Reply-To", "reply@example.com");
 headers.add("Received", "by vertx mail service");

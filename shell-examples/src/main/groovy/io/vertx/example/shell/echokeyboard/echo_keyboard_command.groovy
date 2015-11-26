@@ -1,6 +1,6 @@
-import io.vertx.ext.shell.io.EventType
 import io.vertx.groovy.ext.shell.command.CommandBuilder
 import io.vertx.groovy.ext.shell.ShellService
+import io.vertx.groovy.ext.shell.command.CommandRegistry
 
 def starwars = CommandBuilder.command("echokeyboard").processHandler({ process ->
 
@@ -10,11 +10,11 @@ def starwars = CommandBuilder.command("echokeyboard").processHandler({ process -
   })
 
   // Terminate when user hits Ctrl-C
-  process.eventHandler(EventType.SIGINT, { v ->
+  process.interruptHandler({ v ->
     process.end()
   })
 
-}).build()
+}).build(vertx)
 
 def service = ShellService.create(vertx, [
   telnetOptions:[
@@ -22,7 +22,7 @@ def service = ShellService.create(vertx, [
     port:3000
   ]
 ])
-service.getCommandRegistry().registerCommand(starwars)
+CommandRegistry.get(vertx).registerCommand(starwars)
 service.start({ ar ->
   if (!ar.succeeded()) {
     ar.cause().printStackTrace()

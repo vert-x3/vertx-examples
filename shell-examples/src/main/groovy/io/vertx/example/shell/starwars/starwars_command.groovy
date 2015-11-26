@@ -1,6 +1,6 @@
-import io.vertx.ext.shell.io.EventType
 import io.vertx.groovy.ext.shell.command.CommandBuilder
 import io.vertx.groovy.ext.shell.ShellService
+import io.vertx.groovy.ext.shell.command.CommandRegistry
 
 def starwars = CommandBuilder.command("starwars").processHandler({ process ->
 
@@ -11,7 +11,7 @@ def starwars = CommandBuilder.command("starwars").processHandler({ process ->
       def socket = ar.result()
 
       // Ctrl-C closes the socket
-      process.eventHandler(EventType.SIGINT, { v ->
+      process.interruptHandler({ v ->
         socket.close()
       })
 
@@ -32,7 +32,7 @@ def starwars = CommandBuilder.command("starwars").processHandler({ process ->
       process.write("Could not connect to remote Starwars server\n").end()
     }
   })
-}).build()
+}).build(vertx)
 
 def service = ShellService.create(vertx, [
   telnetOptions:[
@@ -40,7 +40,7 @@ def service = ShellService.create(vertx, [
     port:3000
   ]
 ])
-service.getCommandRegistry().registerCommand(starwars)
+CommandRegistry.get(vertx).registerCommand(starwars)
 service.start({ ar ->
   if (!ar.succeeded()) {
     ar.cause().printStackTrace()

@@ -1,5 +1,6 @@
 require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
+require 'vertx-shell/command_registry'
 
 starwars = VertxShell::CommandBuilder.command("starwars").process_handler() { |process|
 
@@ -10,7 +11,7 @@ starwars = VertxShell::CommandBuilder.command("starwars").process_handler() { |p
       socket = ar
 
       # Ctrl-C closes the socket
-      process.event_handler(:SIGINT) { |v|
+      process.interrupt_handler() { |v|
         socket.close()
       }
 
@@ -31,7 +32,7 @@ starwars = VertxShell::CommandBuilder.command("starwars").process_handler() { |p
       process.write("Could not connect to remote Starwars server\n").end()
     end
   }
-}.build()
+}.build($vertx)
 
 service = VertxShell::ShellService.create($vertx, {
   'telnetOptions' => {
@@ -39,7 +40,7 @@ service = VertxShell::ShellService.create($vertx, {
     'port' => 3000
   }
 })
-service.get_command_registry().register_command(starwars)
+VertxShell::CommandRegistry.get($vertx).register_command(starwars)
 service.start() { |ar_err,ar|
   if (!ar_err == nil)
     ar_err.print_stack_trace()

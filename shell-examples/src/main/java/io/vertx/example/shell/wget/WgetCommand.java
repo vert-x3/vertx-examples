@@ -10,7 +10,8 @@ import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
 import io.vertx.ext.shell.command.CommandBuilder;
-import io.vertx.ext.shell.net.TelnetOptions;
+import io.vertx.ext.shell.command.CommandRegistry;
+import io.vertx.ext.shell.term.TelnetTermOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -66,12 +67,12 @@ public class WgetCommand extends AbstractVerticle {
           });
           req.end();
 
-        }).build();
+        }).build(vertx);
 
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
-        new TelnetOptions().setHost("localhost").setPort(3000)
+        new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
-    service.getCommandRegistry().registerCommand(helloWorld);
+    CommandRegistry.get(vertx).registerCommand(helloWorld);
     service.start(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();

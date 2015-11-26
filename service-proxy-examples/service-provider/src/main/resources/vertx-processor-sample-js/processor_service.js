@@ -40,7 +40,7 @@ var ProcessorService = function(j_val) {
    */
   this.process = function(document, resultHandler) {
     var __args = arguments;
-    if (__args.length === 2 && typeof __args[0] === 'object' && typeof __args[1] === 'function') {
+    if (__args.length === 2 && (typeof __args[0] === 'object' && __args[0] != null) && typeof __args[1] === 'function') {
       j_processorService["process(io.vertx.core.json.JsonObject,io.vertx.core.Handler)"](utils.convParamJsonObject(document), function(ar) {
       if (ar.succeeded()) {
         resultHandler(utils.convReturnJson(ar.result()), null);

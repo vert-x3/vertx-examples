@@ -54,7 +54,7 @@
      */
     this.process = function(document, resultHandler) {
       var __args = arguments;
-      if (__args.length === 2 && typeof __args[0] === 'object' && typeof __args[1] === 'function') {
+      if (__args.length === 2 && (typeof __args[0] === 'object' && __args[0] != null) && typeof __args[1] === 'function') {
         if (closed) {
           throw new Error('Proxy is closed');
         }

@@ -6,8 +6,8 @@ import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
 import io.vertx.ext.shell.command.CommandBuilder;
-import io.vertx.ext.shell.command.CommandProcess;
-import io.vertx.ext.shell.net.TelnetOptions;
+import io.vertx.ext.shell.command.CommandRegistry;
+import io.vertx.ext.shell.term.TelnetTermOptions;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -26,12 +26,12 @@ public class HelloWorldCommand extends AbstractVerticle {
         processHandler(process -> {
           process.write("hello world\n");
           process.end();
-        }).build();
+        }).build(vertx);
 
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
-        new TelnetOptions().setHost("localhost").setPort(3000)
+        new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
-    service.getCommandRegistry().registerCommand(helloWorld);
+    CommandRegistry.get(vertx).registerCommand(helloWorld);
     service.start(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();

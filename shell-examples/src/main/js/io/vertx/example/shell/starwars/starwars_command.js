@@ -1,5 +1,6 @@
 var CommandBuilder = require("vertx-shell-js/command_builder");
 var ShellService = require("vertx-shell-js/shell_service");
+var CommandRegistry = require("vertx-shell-js/command_registry");
 
 var starwars = CommandBuilder.command("starwars").processHandler(function (process) {
 
@@ -10,7 +11,7 @@ var starwars = CommandBuilder.command("starwars").processHandler(function (proce
       var socket = ar;
 
       // Ctrl-C closes the socket
-      process.eventHandler('SIGINT', function (v) {
+      process.interruptHandler(function (v) {
         socket.close();
       });
 
@@ -31,7 +32,7 @@ var starwars = CommandBuilder.command("starwars").processHandler(function (proce
       process.write("Could not connect to remote Starwars server\n").end();
     }
   });
-}).build();
+}).build(vertx);
 
 var service = ShellService.create(vertx, {
   "telnetOptions" : {
@@ -39,7 +40,7 @@ var service = ShellService.create(vertx, {
     "port" : 3000
   }
 });
-service.getCommandRegistry().registerCommand(starwars);
+CommandRegistry.get(vertx).registerCommand(starwars);
 service.start(function (ar, ar_err) {
   if (!ar_err == null) {
     ar_err.printStackTrace();

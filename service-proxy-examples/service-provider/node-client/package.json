@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "sockjs-client": "1.0.0",
-    "vertx3-eventbus-client": "3.1.0"
+    "vertx3-eventbus-client": "3.2.0-SNAPSHOT"
   },
   "main": "index.js",
   "scripts": {

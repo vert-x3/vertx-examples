@@ -1,19 +1,20 @@
 require 'vertx-shell/command_builder'
 require 'vertx-shell/shell_service'
+require 'vertx-shell/command_registry'
 
 starwars = VertxShell::CommandBuilder.command("echokeyboard").process_handler() { |process|
 
   # Echo
-  process.set_stdin() { |keys|
+  process.set_stdin(lambda { |keys|
     process.write(keys.replace('\r', '\n'))
-  }
+  })
 
   # Terminate when user hits Ctrl-C
-  process.event_handler(:SIGINT) { |v|
+  process.interrupt_handler() { |v|
     process.end()
   }
 
-}.build()
+}.build($vertx)
 
 service = VertxShell::ShellService.create($vertx, {
   'telnetOptions' => {
@@ -21,7 +22,7 @@ service = VertxShell::ShellService.create($vertx, {
     'port' => 3000
   }
 })
-service.get_command_registry().register_command(starwars)
+VertxShell::CommandRegistry.get($vertx).register_command(starwars)
 service.start() { |ar_err,ar|
   if (!ar_err == nil)
     ar_err.print_stack_trace()

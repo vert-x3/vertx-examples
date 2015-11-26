@@ -36,7 +36,7 @@ public class Server extends AbstractVerticle {
     // this route is excluded from the auth handler
     router.get("/api/newToken").handler(ctx -> {
       ctx.response().putHeader("Content-Type", "text/plain");
-      ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60)));
+      ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60L)));
     });
 
     // this is the secret API

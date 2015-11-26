@@ -43,7 +43,8 @@ public class Server extends AbstractVerticle {
       }
 
       ctx.response().putHeader("Content-Type", "text/plain");
-      ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60).setPermissions(authorities)));
+      ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60L).setPermissions
+          (authorities)));
     });
 
     router.route("/api/protected*").handler(JWTAuthHandler.create(jwt));

@@ -1,6 +1,7 @@
 var CLI = require("vertx-js/cli");
 var CommandBuilder = require("vertx-shell-js/command_builder");
 var ShellService = require("vertx-shell-js/shell_service");
+var CommandRegistry = require("vertx-shell-js/command_registry");
 
 // Create the wget CLI
 var cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").addArgument({
@@ -43,7 +44,7 @@ var helloWorld = CommandBuilder.command(cli).processHandler(function (process) {
   });
   req.end();
 
-}).build();
+}).build(vertx);
 
 var service = ShellService.create(vertx, {
   "telnetOptions" : {
@@ -51,7 +52,7 @@ var service = ShellService.create(vertx, {
     "port" : 3000
   }
 });
-service.getCommandRegistry().registerCommand(helloWorld);
+CommandRegistry.get(vertx).registerCommand(helloWorld);
 service.start(function (ar, ar_err) {
   if (!ar_err == null) {
     ar_err.printStackTrace();

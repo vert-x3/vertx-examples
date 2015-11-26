@@ -4,7 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
-import io.vertx.ext.shell.net.TelnetOptions;
+import io.vertx.ext.shell.term.TelnetTermOptions;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -19,7 +19,7 @@ public class RunShell extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
-        new TelnetOptions().setHost("localhost").setPort(3000)
+        new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
     service.start();
   }

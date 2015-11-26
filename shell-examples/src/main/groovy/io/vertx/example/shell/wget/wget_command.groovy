@@ -1,6 +1,7 @@
 import io.vertx.groovy.core.cli.CLI
 import io.vertx.groovy.ext.shell.command.CommandBuilder
 import io.vertx.groovy.ext.shell.ShellService
+import io.vertx.groovy.ext.shell.command.CommandRegistry
 
 // Create the wget CLI
 def cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").addArgument([
@@ -43,7 +44,7 @@ def helloWorld = CommandBuilder.command(cli).processHandler({ process ->
   })
   req.end()
 
-}).build()
+}).build(vertx)
 
 def service = ShellService.create(vertx, [
   telnetOptions:[
@@ -51,7 +52,7 @@ def service = ShellService.create(vertx, [
     port:3000
   ]
 ])
-service.getCommandRegistry().registerCommand(helloWorld)
+CommandRegistry.get(vertx).registerCommand(helloWorld)
 service.start({ ar ->
   if (!ar.succeeded()) {
     ar.cause().printStackTrace()
