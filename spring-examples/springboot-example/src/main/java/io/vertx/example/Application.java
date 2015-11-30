@@ -2,12 +2,17 @@ package io.vertx.example;
 
 
 import io.vertx.core.Vertx;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+
+import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class Application {
+
+  @Autowired
+  private StaticServer staticServer;
 
   public static void main(String[] args) {
 
@@ -16,9 +21,8 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
-  @Bean
-  public Vertx vertx(){
-      return Vertx.vertx();
+  @PostConstruct
+  public void deployVerticle() {
+    Vertx.vertx().deployVerticle(staticServer);
   }
-
 }
