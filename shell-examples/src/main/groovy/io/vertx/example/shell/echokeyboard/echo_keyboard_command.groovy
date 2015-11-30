@@ -22,7 +22,7 @@ def service = ShellService.create(vertx, [
     port:3000
   ]
 ])
-CommandRegistry.get(vertx).registerCommand(starwars)
+CommandRegistry.getShared(vertx).registerCommand(starwars)
 service.start({ ar ->
   if (!ar.succeeded()) {
     ar.cause().printStackTrace()

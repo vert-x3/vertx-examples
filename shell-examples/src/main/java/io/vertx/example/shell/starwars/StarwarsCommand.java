@@ -60,7 +60,7 @@ public class StarwarsCommand extends AbstractVerticle {
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
         new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
-    CommandRegistry.get(vertx).registerCommand(starwars);
+    CommandRegistry.getShared(vertx).registerCommand(starwars);
     service.start(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();

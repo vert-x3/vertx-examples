@@ -52,7 +52,7 @@ var service = ShellService.create(vertx, {
     "port" : 3000
   }
 });
-CommandRegistry.get(vertx).registerCommand(helloWorld);
+CommandRegistry.getShared(vertx).registerCommand(helloWorld);
 service.start(function (ar, ar_err) {
   if (!ar_err == null) {
     ar_err.printStackTrace();

@@ -40,7 +40,7 @@ var service = ShellService.create(vertx, {
     "port" : 3000
   }
 });
-CommandRegistry.get(vertx).registerCommand(starwars);
+CommandRegistry.getShared(vertx).registerCommand(starwars);
 service.start(function (ar, ar_err) {
   if (!ar_err == null) {
     ar_err.printStackTrace();

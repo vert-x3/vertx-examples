@@ -13,7 +13,7 @@ service = VertxShell::ShellService.create($vertx, {
     'port' => 3000
   }
 })
-VertxShell::CommandRegistry.get($vertx).register_command(helloWorld)
+VertxShell::CommandRegistry.get_shared($vertx).register_command(helloWorld)
 service.start() { |ar_err,ar|
   if (!ar_err == nil)
     ar_err.print_stack_trace()
