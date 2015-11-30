@@ -29,6 +29,13 @@
     </dependency>
 
     <dependency>
+      <!-- declare this dependency to force shiro to use this one. It is the version used by vert.x -->
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.12</version>
+    </dependency>
+
+    <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>examples-utils</artifactId>
       <version>${project.version}</version>
