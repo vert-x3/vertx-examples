@@ -31,6 +31,15 @@ The link:src/main/java/io/vertx/example/shell/deploy_service_telnet[deploy Shell
 Run the shell either in your IDE or on the command line, then connect to the shell using
 `telnet localhost 3000` and type `help` to show the available commands
 
+== Deploy Shell service accessible via Http example
+
+This example shows how to deploy the Vert.x Shell service available via Http as a packaged Vert.x service.
+
+The link:src/main/java/io/vertx/example/shell/deploy_service_http[deploy Shell service accessible via Http example]
+
+Run the shell either in your IDE or on the command line, then point your browser to `http://localhost:8080/shell.html`
+and type `help` to show the available commands
+
 == Run Shell service accessible via SSH example
 
 This example shows how to run the Vert.x Shell service available via SSH as a packaged Vert.x service.
@@ -48,6 +57,15 @@ The link:src/main/java/io/vertx/example/shell/run_service_telnet[run Shell servi
 
 Run the shell either in your IDE or on the command line, then connect to the shell using
 `telnet localhost 3000` and type `help` to show the available commands
+
+== Run Shell service accessible via Http example
+
+This example shows how to deploy the Vert.x Shell service available via Http as a packaged Vert.x service.
+
+The link:src/main/java/io/vertx/example/shell/run_service_http[run Shell service accessible via Http example]
+
+Run the shell either in your IDE or on the command line, then point your browser to
+`http://localhost:8080/shell.html` and type `help` to show the available commands
 
 == Hello World command
 
