@@ -105,3 +105,11 @@ The link:src/main/java/io/vertx/example/shell/starwars[Starwars command via Teln
 Run the shell either in your IDE or on the command line, then connect to the shell using
 `telnet localhost 3000` and type `starwars`. Hit Ctrl-C when you are done.
 
+== Term caster
+
+This examples uses the Vert.x Shell term server to broadcast the current host screen to the client until Ctrl-C is hit.
+
+The TermServer provides only terminal simple terminal capabilities and the handler has total control of the user
+ terminal, unlike the ShellServer that provides shell like features.
+
+The link:src/main/java/io/vertx/example/shell/termcast[Term caster via Telnet example]
