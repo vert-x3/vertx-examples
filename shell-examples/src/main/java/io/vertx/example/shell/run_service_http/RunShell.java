@@ -26,7 +26,7 @@ public class RunShell extends AbstractVerticle {
             new HttpTermOptions().
                 setHost("localhost").
                 setPort(8080).
-                setShiroAuthOptions(new ShiroAuthOptions().
+                setAuthOptions(new ShiroAuthOptions().
                     setConfig(new JsonObject().put("properties_path", "auth.properties")))));
     service.start(ar -> {
       if (ar.succeeded()) {

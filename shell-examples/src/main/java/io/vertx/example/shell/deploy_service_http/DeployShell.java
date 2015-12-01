@@ -22,7 +22,7 @@ public class DeployShell extends AbstractVerticle {
         new JsonObject().
             put("host", "localhost").
             put("port", 8080).
-            put("shiroAuthOptions", new JsonObject().put("config",
+            put("authOptions", new JsonObject().put("provider", "shiro").put("config",
                 new JsonObject().put("properties_path", "auth.properties")))
     );
     vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options), ar -> {

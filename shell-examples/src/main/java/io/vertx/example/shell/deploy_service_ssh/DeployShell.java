@@ -25,7 +25,7 @@ public class DeployShell extends AbstractVerticle {
             put("keyPairOptions", new JsonObject().
                 put("path", "keystore.jks").
                 put("password", "wibble")).
-            put("shiroAuthOptions", new JsonObject().put("config",
+            put("authOptions", new JsonObject().put("provider", "shiro").put("config",
                     new JsonObject().put("properties_path", "auth.properties"))
 
             )

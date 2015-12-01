@@ -30,7 +30,7 @@ public class RunShell extends AbstractVerticle {
                 setKeyPairOptions(new JksOptions().
                     setPath("keystore.jks").
                     setPassword("wibble")).
-                setShiroAuthOptions(new ShiroAuthOptions().
+                setAuthOptions(new ShiroAuthOptions().
                     setConfig(new JsonObject().put("properties_path", "auth.properties")))));
     service.start(ar -> {
       if (ar.succeeded()) {
