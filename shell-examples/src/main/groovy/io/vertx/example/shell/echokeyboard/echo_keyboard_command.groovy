@@ -5,7 +5,7 @@ import io.vertx.groovy.ext.shell.command.CommandRegistry
 def starwars = CommandBuilder.command("echokeyboard").processHandler({ process ->
 
   // Echo
-  process.setStdin({ keys ->
+  process.stdinHandler({ keys ->
     process.write(keys.replace('\r', '\n'))
   })
 

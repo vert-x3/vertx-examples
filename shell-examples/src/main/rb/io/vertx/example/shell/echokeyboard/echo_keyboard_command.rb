@@ -5,9 +5,9 @@ require 'vertx-shell/command_registry'
 starwars = VertxShell::CommandBuilder.command("echokeyboard").process_handler() { |process|
 
   # Echo
-  process.set_stdin(lambda { |keys|
+  process.stdin_handler() { |keys|
     process.write(keys.replace('\r', '\n'))
-  })
+  }
 
   # Terminate when user hits Ctrl-C
   process.interrupt_handler() { |v|

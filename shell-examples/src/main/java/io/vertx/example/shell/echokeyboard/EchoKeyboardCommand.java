@@ -31,7 +31,7 @@ public class EchoKeyboardCommand extends AbstractVerticle {
         processHandler(process -> {
 
           // Echo
-          process.setStdin(keys -> {
+          process.stdinHandler(keys -> {
             process.write(keys.replace('\r', '\n'));
           });
 

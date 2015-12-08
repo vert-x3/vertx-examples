@@ -5,7 +5,7 @@ var CommandRegistry = require("vertx-shell-js/command_registry");
 var starwars = CommandBuilder.command("echokeyboard").processHandler(function (process) {
 
   // Echo
-  process.setStdin(function (keys) {
+  process.stdinHandler(function (keys) {
     process.write(keys.replace('\r', '\n'));
   });
 

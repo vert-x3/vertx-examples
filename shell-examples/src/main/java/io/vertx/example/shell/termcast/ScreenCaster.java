@@ -20,7 +20,7 @@ public class ScreenCaster {
     this.vertx = vertx;
     this.robot = robot;
     this.term = term;
-    term.setStdin(keys -> {
+    term.stdinHandler(keys -> {
       // Ctrl-C or Ctrl-D
       if (keys.contains("\u0003") || keys.contains("\u0004")) {
         interrupted = true;
@@ -73,7 +73,7 @@ public class ScreenCaster {
         }
       }
     }
-    term.stdout().write(sb.toString());
+    term.write(sb.toString());
     vertx.setTimer(100, v -> broadcast());
   }
 }

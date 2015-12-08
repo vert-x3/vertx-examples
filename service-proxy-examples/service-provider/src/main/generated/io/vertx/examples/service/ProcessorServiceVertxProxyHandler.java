@@ -136,8 +136,7 @@ public class ProcessorServiceVertxProxyHandler extends ProxyHandler {
       if (res.failed()) {
         msg.fail(-1, res.cause().getMessage());
       } else {
-        msg.reply(res.result());
-      }
+        if (res.result() != null  && res.result().getClass().isEnum()) {          msg.reply(((Enum) res.result()).name());        } else {          msg.reply(res.result());        }      }
     };
   }
 
