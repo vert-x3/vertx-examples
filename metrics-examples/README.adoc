@@ -19,29 +19,27 @@ are retrieved from the MetricsService in Json format.
 Run the dashboard either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 to see the dashboard
 
-Launch the example as follows:
+You can also launch the example using the `vertx` cli as follows:
 
 ----
-# compile the example
+# compile the example, you need to have built example-utils before.
 mvn clean package
 
-# enable metrics
-export VERTX_OPTS=-Dvertx.metrics.options.enabled=true
-
 # java
-cd src/main/java/io/vertx/example/metrics/dashboard
-vertx run io.vertx.example.metrics.dashboard.Dashboard -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:.
+vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-3.2.0-SNAPSHOT.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
 
 # javascript
 cd src/main/js/io/vertx/example/metrics/dashboard
-vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:.
+vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:. -Dvertx.metrics.options.enabled=true
+
 
 # groovy
 cd src/main/groovy/io/vertx/example/metrics/dashboard
-vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:.
+vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:. -Dvertx.metrics.options.enabled=true
+
 
 # ruby
 cd src/main/rb/io/vertx/example/metrics/dashboard
-vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:.
+vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:. -Dvertx.metrics.options.enabled=true
 ----
 
