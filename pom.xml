@@ -33,6 +33,7 @@
     <module>sync-examples</module>
     <module>shell-examples</module>
     <module>heroku-example</module>
+    <module>jgroups-examples</module>
   </modules>
 
   <profiles>
