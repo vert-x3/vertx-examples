@@ -26,20 +26,20 @@ You can also launch the example using the `vertx` cli as follows:
 mvn clean package
 
 # java
-vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-3.2.0-SNAPSHOT.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
+vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-3.2.0.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
 
 # javascript
 cd src/main/js/io/vertx/example/metrics/dashboard
-vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:. -Dvertx.metrics.options.enabled=true
+vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.2.0.jar:. -Dvertx.metrics.options.enabled=true
 
 
 # groovy
 cd src/main/groovy/io/vertx/example/metrics/dashboard
-vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:. -Dvertx.metrics.options.enabled=true
+vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.2.0.jar:. -Dvertx.metrics.options.enabled=true
 
 
 # ruby
 cd src/main/rb/io/vertx/example/metrics/dashboard
-vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.2.0-SNAPSHOT.jar:. -Dvertx.metrics.options.enabled=true
+vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.2.0.jar:. -Dvertx.metrics.options.enabled=true
 ----
 
