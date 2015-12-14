@@ -2,17 +2,6 @@
 
 or Ceylon Vert.x examples - as you like.
 
-This requires to use the Ceylon repository snapshot: add this remote Ceylon repo containing the requires modules for running Vert.x https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-lang-ceylon/ws/target/repo/
-
-Edit the file `~/.ceylon/config` and make it look like:
-
-----
-[repositories]
-remote=https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-lang-ceylon/ws/target/repo/
-----
-
-Or use `ceylon config` if you have Ceylon installed.
-
 === Vert.x Stack
 
 This current stack of modules is supported:
@@ -26,7 +15,6 @@ This current stack of modules is supported:
 - https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-lang-ceylon/ws/target/repo/io/vertx/ceylon/auth/shiro/1.0.0-SNAPSHOT/module-doc/api/index.html[Vert.x Auth Shiro]
 
 For more info please refer to http://vertx.io/docs/
-
 
 === Usage from Ceylon
 
