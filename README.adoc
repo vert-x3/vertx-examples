@@ -31,6 +31,18 @@ That's fine too :)
 
 You can run most of the examples at the command line using `vertx run` if you have Vert.x installed (see below).
 
+
+== Some examples need examples-utils
+
+You may find examples that need examples-utils. You need to build it from link:examples-utils:
+
+```
+git clone https://github.com/vert-x3/vertx-examples.git
+cd vertx-examples
+cd examples-utils
+mvn clean install
+```
+
 == The examples
 
 The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other
@@ -87,7 +99,7 @@ cd core-examples/src/main/js/echo
 vertx run echo_server.js
 ----
 
-Yes! You can run *Java source files* directly using Vert.x (no compilation required) :)
+Yes! You can run *Java source files* directly using Vert.x (no compilation required).
 
 ==== Installing Vert.x
 
@@ -97,7 +109,7 @@ into your project as you would with any dependency.
 
 Pre-requisites: You will need to have Java 8 JDK installed.
 
-1. Download a link:https://bintray.com/vertx/downloads/distribution/view [Vert.x 3 distribution]
+1. Download a link:https://bintray.com/vertx/downloads/distribution/view[Vert.x 3 distribution]
 2. Unzip it somewhere on your disk (e.g. in your home directory)
 3. Set your `PATH` environment variable to include the installation directory
 4. Test the install by typing `vertx -version`.
@@ -107,8 +119,6 @@ On the download page, you will find several _distributions_. Each distribution h
 
 * **Min**: The _min_ distribution contains only Vert.x Core, the support of the different
  languages, and the Hazelcast clustering.
-* **Base**: The _base_ distribution extends the _min_ distribution with the service layer, the
- reactive technologies integration, and the metrics.
 * **Full**: The _full_ distribution contains all the components of the Vert.x stack. It includes
  Vert.x web and the different data access technologies.
 
