@@ -1,0 +1,24 @@
+= Vert.x 3.2 Gradle redeploy project
+
+This project shows how to use the Vert.x 3.2 redeploy feature. Vert.x watches for file changes and will then compile these changes. The hello world verticle will be redeployed automatically.
+Simply start the application with:
+
+    ./gradlew run
+
+Now point your browser at http://localhost:8080. Then you can make changes to the hello world verticle and reload the browser.
+
+The whole configuration for this is rather simple:
+
+    mainClassName = 'io.vertx.core.Launcher'
+    def mainVerticleName = 'io.vertx.example.HelloWorldVerticle'
+
+    // Vert.x watches for file changes in all subdirectories
+    // of src/ but only for files with .java extension
+    def watchForChange = 'src/**/*.java'
+
+    // Vert.x will call this task on changes
+    def doOnChange = './gradlew classes'
+
+    run {
+        args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
+    }
