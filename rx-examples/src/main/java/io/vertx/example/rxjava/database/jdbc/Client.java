@@ -42,7 +42,7 @@ public class Client extends AbstractVerticle {
           }, err -> {
             System.out.println("Database problem");
             err.printStackTrace();
-          });
+          }, conn::close);
         },
 
         // Could not connect
