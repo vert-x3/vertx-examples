@@ -62,7 +62,6 @@ public class ExampleSpringConfiguration {
     jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
     jpaProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
     factory.setJpaProperties(jpaProperties);
-    factory.afterPropertiesSet();
     return factory;
   }
 
