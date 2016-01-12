@@ -73,6 +73,43 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <executions>
+          <execution>
+            <id>run</id>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>io.vertx.core.Launcher</mainClass>
+              <arguments>
+                <argument>run</argument>
+                <argument>${main.verticle}</argument>
+                <argument>-cp</argument>
+                <argument>${project.build.outputDirectory}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>run-app</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <argument>-jar</argument>
+                <argument>target/${project.artifactId}-${project.version}-fat.jar</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

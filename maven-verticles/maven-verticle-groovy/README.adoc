@@ -21,5 +21,10 @@ don't need to install Vert.x on the target machine).
 
 Now point your browser at http://localhost:8080
 
+You can also launch the application from Maven directly:
+
+* to run it using the classes form target/classes: `mvn compile exec:java@run`
+* to run the fat jar: `mvn package exec:exec@run-app`
+
 
 
