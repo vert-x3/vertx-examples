@@ -22,3 +22,8 @@ Verticles can be exposed as a service and consumed using a white-board pattern. 
 
 * link:src/main/java/io/vertx/example/osgi/VertxVerticleHost.java[The whiteboard pattern host]
 * link:src/main/java/io/vertx/example/osgi/VertxHttpClientVerticle.java[A verticle exposed as an OSGi service]
+
+== Other examples
+
+You can find another example of vert.x application in the OSGi context on http://paulbakker.io/osgi/vertx-osgi/
+(the code is on https://github.com/paulbakker/osgi-vertx-demo).
