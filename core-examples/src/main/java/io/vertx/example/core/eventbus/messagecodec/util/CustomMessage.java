@@ -1,10 +1,8 @@
 package io.vertx.example.core.eventbus.messagecodec.util;
 
 /**
- * Created by Bong on 2016-01-14.
- *
- * @author Bong
- * @version 1.0.0
+ * Custom message for example
+ * @author Junbong
  */
 public class CustomMessage {
   private final int statusCode;

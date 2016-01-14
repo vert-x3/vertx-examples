@@ -7,10 +7,8 @@ import io.vertx.example.core.eventbus.messagecodec.util.CustomMessageCodec;
 import io.vertx.example.util.Runner;
 
 /**
- * Created by Bong on 2016-01-14.
- *
- * @author Bong
- * @version 1.0.0
+ * Publisher
+ * @author Junbong
  */
 public class Sender extends AbstractVerticle {
   public static void main(String[] args) {
@@ -25,19 +23,42 @@ public class Sender extends AbstractVerticle {
     eventBus.registerDefaultCodec(CustomMessage.class, new CustomMessageCodec());
 
     // Custom message
-    CustomMessage message = new CustomMessage(200, "A00000001", "everything ok");
+    CustomMessage clusterWideMessage = new CustomMessage(200, "a00000001", "Message sent from publisher!");
+    CustomMessage localMessage = new CustomMessage(200, "a0000001", "Local message!");
 
-    // Send message
+    // Send a message to [cluster receiver] every second
     getVertx().setPeriodic(1000, _id -> {
-
-
-      eventBus.send("custom-message-receiver", message, reply -> {
+      eventBus.send("cluster-message-receiver", clusterWideMessage, reply -> {
         if (reply.succeeded()) {
-          System.out.println("Received reply!");
+          CustomMessage replyMessage = (CustomMessage) reply.result().body();
+          System.out.println("Received reply: "+replyMessage.getSummary());
         } else {
-          System.out.println("No reply");
+          System.out.println("No reply from cluster receiver");
         }
       });
+    });
+
+
+    // Deploy local receiver
+    getVertx().deployVerticle(LocalReceiver.class.getName(), deployResult -> {
+      // Deploy succeed
+      if (deployResult.succeeded()) {
+        // Send a message to [local receiver] every 2 second
+        getVertx().setPeriodic(2000, _id -> {
+          eventBus.send("local-message-receiver", localMessage, reply -> {
+            if (reply.succeeded()) {
+              CustomMessage replyMessage = (CustomMessage) reply.result().body();
+              System.out.println("Received local reply: "+replyMessage.getSummary());
+            } else {
+              System.out.println("No reply from local receiver");
+            }
+          });
+        });
+
+      // Deploy failed
+      } else {
+        deployResult.cause().printStackTrace();
+      }
     });
   }
 }
