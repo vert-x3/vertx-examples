@@ -241,6 +241,33 @@ vertx run Sender.java -cluster
 The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
 event bus.
 
+=== MessageCodec
+
+This example demonstrates how to write custom MessageCodec for send / publish / receive any type of object.
+It means you can send or receive custom data type objects directly through EventBus as well as primitive types like String.
+
+In this example, there are two type of receivers.
+The first one is a `local type` which is deployed from sender, the other one is a `cluster-wide type` that launched from another instance of cluster.
+So you can see how MessageCodec works differently on the local EventBus and clustered EventBus.
+
+link:src/main/java/io/vertx/example/core/eventbus/messagecodec/Sender.java[Java event bus sender]
+link:src/main/java/io/vertx/example/core/eventbus/messagecodec/LocalReceiver.java[Java event bus local receiver]
+link:src/main/java/io/vertx/example/core/eventbus/messagecodec/ClusterReceiver.java[Java event bus cluster-wide receiver]
+link:src/main/java/io/vertx/example/core/eventbus/messagecodec/util/CustomMessageCodec.java[Java event bus custom message codec]
+
+You can start as many senders or receivers as you like in your IDE or at the command line.
+
+At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
+
+----
+vertx run ClusterReceiver.java -cluster
+
+vertx run Sender.java -cluster
+----
+
+The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
+event bus.
+
 == Verticle examples
 
 These examples show verticles being deployed and undeployed
