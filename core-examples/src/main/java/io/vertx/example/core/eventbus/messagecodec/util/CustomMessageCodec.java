@@ -29,8 +29,9 @@ public class CustomMessageCodec implements MessageCodec<CustomMessage, CustomMes
   }
 
   @Override
-  public CustomMessage decodeFromWire(int pos, Buffer buffer) {
-    int _pos = pos;
+  public CustomMessage decodeFromWire(int position, Buffer buffer) {
+    // My custom message starting from this *position* of buffer
+    int _pos = position;
 
     // Length of JSON
     int length = buffer.getInt(_pos);
