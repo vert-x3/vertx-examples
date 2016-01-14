@@ -3,13 +3,10 @@ package io.vertx.example.core.eventbus.messagecodec;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.example.core.eventbus.messagecodec.util.CustomMessage;
-import io.vertx.example.core.eventbus.messagecodec.util.CustomMessageCodec;
 
 /**
- * Created by Bong on 2016-01-14.
- *
- * @author Bong
- * @version 1.0.0
+ * Local receiver
+ * @author Junbong
  */
 public class LocalReceiver extends AbstractVerticle {
   @Override
