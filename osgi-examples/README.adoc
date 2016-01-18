@@ -23,6 +23,36 @@ Verticles can be exposed as a service and consumed using a white-board pattern. 
 * link:src/main/java/io/vertx/example/osgi/VertxVerticleHost.java[The whiteboard pattern host]
 * link:src/main/java/io/vertx/example/osgi/VertxHttpClientVerticle.java[A verticle exposed as an OSGi service]
 
+== JDBC
+
+An example using the vert.x JDBC client is available in link:src/main/java/io/vertx/example/osgi/jdbc.
+Notice that depending on the connection pool implementation, you may have to put the JDBC driver in your classpath.
+This is the case if you use the default connection pool using C3P0.
+
+Here is the list of the bundles to deploy this example:
+
+```
+    4|Active     |    1|Apache Felix iPOJO (1.12.1)|1.12.1
+   14|Active     |    1|Jackson-annotations (2.6.0)|2.6.0
+   15|Active     |    1|Jackson-core (2.6.1)|2.6.1
+   16|Active     |    1|jackson-databind (2.6.1)|2.6.1
+   17|Active     |    1|Netty/Buffer (4.0.33.Final)|4.0.33.Final
+   18|Active     |    1|Netty/Codec (4.0.33.Final)|4.0.33.Final
+   19|Active     |    1|Netty/Codec/HTTP (4.0.33.Final)|4.0.33.Final
+   20|Active     |    1|Netty/Common (4.0.33.Final)|4.0.33.Final
+   21|Active     |    1|Netty/Handler (4.0.33.Final)|4.0.33.Final
+   22|Active     |    1|Netty/Transport (4.0.33.Final)|4.0.33.Final
+   23|Active     |    1|Apache ServiceMix :: Bundles :: c3p0 (0.9.5.2_1)|0.9.5.2_1
+   24|Active     |    1|osgi-examples (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT <--- this project
+   25|Active     |    1|vertx-auth-common (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
+   26|Active     |    1|Vert.x Core (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
+   27|Active     |    1|vertx-jdbc-client (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
+   28|Active     |    1|vertx-sql-common (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
+   29|Active     |    1|vertx-web (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
+```
+
+The HSQL JDBC driver is in the application classpath.
+
 == Other examples
 
 You can find another example of vert.x application in the OSGi context on http://paulbakker.io/osgi/vertx-osgi/
