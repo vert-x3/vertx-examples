@@ -9730,20 +9730,20 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZE']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+
  * @example
    <doc:example>
      <doc:source>
-       <span ng-non-bindable>{{1288323623006 | date:'medium'}}</span>:
-           {{1288323623006 | date:'medium'}}<br>
-       <span ng-non-bindable>{{1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>:
-          {{1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
-       <span ng-non-bindable>{{1288323623006 | date:'MM/dd/yyyy @ h:mma'}}</span>:
-          {{'1288323623006' | date:'MM/dd/yyyy @ h:mma'}}<br>
+       <span ng-non-bindable>{{1288323.3.0-SNAPSHOT06 | date:'medium'}}</span>:
+           {{1288323.3.0-SNAPSHOT06 | date:'medium'}}<br>
+       <span ng-non-bindable>{{1288323.3.0-SNAPSHOT06 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>:
+          {{1288323.3.0-SNAPSHOT06 | date:'yyyy-MM-dd HH:mm:ss Z'}}<br>
+       <span ng-non-bindable>{{1288323.3.0-SNAPSHOT06 | date:'MM/dd/yyyy @ h:mma'}}</span>:
+          {{'1288323.3.0-SNAPSHOT06' | date:'MM/dd/yyyy @ h:mma'}}<br>
      </doc:source>
      <doc:scenario>
        it('should format date', function() {
-         expect(binding("1288323623006 | date:'medium'")).
+         expect(binding("1288323.3.0-SNAPSHOT06 | date:'medium'")).
             toMatch(/Oct 2\d, 2010 \d{1,2}:\d{2}:\d{2} (AM|PM)/);
-         expect(binding("1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'")).
+         expect(binding("1288323.3.0-SNAPSHOT06 | date:'yyyy-MM-dd HH:mm:ss Z'")).
             toMatch(/2010\-10\-2\d \d{2}:\d{2}:\d{2} \-?\d{4}/);
-         expect(binding("'1288323623006' | date:'MM/dd/yyyy @ h:mma'")).
+         expect(binding("'1288323.3.0-SNAPSHOT06' | date:'MM/dd/yyyy @ h:mma'")).
             toMatch(/10\/2\d\/2010 @ \d{1,2}:\d{2}(AM|PM)/);
        });
      </doc:scenario>

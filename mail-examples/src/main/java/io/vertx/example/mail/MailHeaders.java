@@ -38,7 +38,7 @@ public class MailHeaders extends AbstractVerticle {
 
     MultiMap headers = MultiMap.caseInsensitiveMultiMap();
 
-    headers.add("X-Mailer", "Vert.x Mail-Client 3.2.0");
+    headers.add("X-Mailer", "Vert.x Mail-Client 3.3.0-SNAPSHOT");
     headers.add("Message-ID", "12345@example.com");
     headers.add("Reply-To", "reply@example.com");
     headers.add("Received", "by vertx mail service");
