@@ -42,7 +42,7 @@ shared void run() {
 
 === Usage from Vert.x
 
-Download Vert.x 3.2 SNAPSHOT : https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-stack/ws/stack-dist/target/ , add $VERTX_HOME/bin to your path
+Download Vert.x from http://vertx.io/download, add $VERTX_HOME/bin to your path.
 
 Run a Ceylon Verticle from Vert.x
 
