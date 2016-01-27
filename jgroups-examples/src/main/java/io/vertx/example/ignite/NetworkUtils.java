@@ -1,4 +1,4 @@
-package io.vertx.example.jgroups;
+package io.vertx.example.ignite;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;

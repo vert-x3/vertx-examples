@@ -37,6 +37,43 @@
             <target>1.8</target>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.4.0</version>
+          <executions>
+            <execution>
+              <id>consumer</id>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <executable>java</executable>
+                <arguments>
+                  <argument>-classpath</argument>
+                  <classpath></classpath>
+                  <argument>io.vertx.example.ignite.ConsumerApp</argument>
+                </arguments>
+              </configuration>
+            </execution>
+
+            <execution>
+              <id>producer</id>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <executable>java</executable>
+                <arguments>
+                  <argument>-classpath</argument>
+                  <classpath></classpath>
+                  <argument>io.vertx.example.ignite.ProducerApp</argument>
+                </arguments>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
