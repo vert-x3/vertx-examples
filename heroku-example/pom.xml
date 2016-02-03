@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>heroku-example</artifactId>
-  <version>3.3.0-SNAPSHOT</version>
+  <version>3.2.1</version>
 
   <properties>
     <!-- the main verticle -->
@@ -77,10 +77,17 @@
         <version>0.5.6</version>
         <configuration>
           <processTypes>
-            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-3.3.0-SNAPSHOT-fat.jar</web>
+            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-3.2.1-fat.jar</web>
           </processTypes>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>staging</id>
+      <url>https://oss.sonatype.org/content/repositories/iovertx-2388</url>
+    </repository>
+  </repositories>
 </project>

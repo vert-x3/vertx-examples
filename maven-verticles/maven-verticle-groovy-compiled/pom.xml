@@ -7,7 +7,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticle-compiled-groovy</artifactId>
-  <version>3.3.0-SNAPSHOT</version>
+  <version>3.2.1</version>
 
   <properties>
     <!-- the Groovy class, must be prefixed by `groovy:` to use the Groovy Vert.x support -->
@@ -144,14 +144,8 @@
 
   <repositories>
     <repository>
-      <id>oss.snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
+      <id>staging</id>
+      <url>https://oss.sonatype.org/content/repositories/iovertx-2388</url>
     </repository>
   </repositories>
 </project>

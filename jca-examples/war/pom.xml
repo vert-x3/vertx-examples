@@ -8,7 +8,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-jca-examples</artifactId>
-    <version>3.3.0-SNAPSHOT</version>
+    <version>3.2.1</version>
   </parent>
 
   <artifactId>vertx-jca-examples-web</artifactId>
