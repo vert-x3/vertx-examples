@@ -23,9 +23,8 @@ public class VertxActivator implements BundleActivator {
     Vertx vertx = Vertx.vertx();
     vertxRegistration = context.registerService(Vertx.class, vertx, null);
     LOGGER.info("Vert.x service registered");
-    vertxRegistration = context.registerService(Vertx.class, vertx, null);
-    LOGGER.info("Vert.x Event Bus service registered");
     ebRegistration = context.registerService(EventBus.class, vertx.eventBus(), null);
+    LOGGER.info("Vert.x Event Bus service registered");
   }
 
   @Override
