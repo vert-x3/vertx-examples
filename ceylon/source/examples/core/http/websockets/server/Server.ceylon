@@ -42,11 +42,11 @@ shared class Server() extends Verticle() {
   
   shared actual void start() {
     value server = vertx.createHttpServer();
-    server.requestHandler((HttpServerRequest req) => 
+    server.requestHandler((req) => 
       req.response().
         putHeader("content-type", "text/html").
         end(index)
-    ).websocketHandler((ServerWebSocket ws) =>
+    ).websocketHandler((ws) =>
       ws.handler(ws.writeBinaryMessage)).listen(8080);
   }
 }

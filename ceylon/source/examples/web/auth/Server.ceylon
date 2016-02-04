@@ -37,7 +37,7 @@ shared class Server() extends Verticle() {
     router_.route("/loginhandler").handler(formLoginHandler.create(authProvider).handle);
     
     // Implement logout
-    router_.route("/logout").handler((RoutingContext context) {
+    router_.route("/logout").handler((context) {
       context.clearUser();
       // Redirect back to the index page
       context.response().putHeader("location", "/").setStatusCode(302).end();

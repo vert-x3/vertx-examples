@@ -6,13 +6,13 @@ shared class ExecBlocking() extends Verticle() {
   
   shared actual void start() {
     value server = vertx.createHttpServer();
-    server.requestHandler((HttpServerRequest req) => 
+    server.requestHandler((req) => 
       
         // Let's say we have to call a blocking API (e.g. JDBC) to execute a query for each
         // request. We can't do this directly or it will block the event loop
         // But you can do this using executeBlocking:
 
-        vertx.executeBlocking((Future<String> fut) {
+        vertx.executeBlocking<String>((fut) {
       
         // Do the blocking operation in here
       
@@ -21,7 +21,7 @@ shared class ExecBlocking() extends Verticle() {
         String result = "armadillos!";
         
         fut.complete(result);        
-      }, (String?|Throwable res) {
+      }, (res) {
         
         if (is String res) {
           
