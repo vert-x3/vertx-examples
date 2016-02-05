@@ -6,6 +6,3 @@ resource=resource
 [defaults]
 encoding=UTF-8
 flatclasspath=true
-
-[repositories]
-remote=https://modules.ceylon-lang.org/uploads/14616/public/repo/
