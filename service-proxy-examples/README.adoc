@@ -24,7 +24,7 @@ link:service-provider/src/main/java/io/vertx/examples/service/ProcessorService.j
 Compiling this class creates two other classes:
 
 link:service-provider/src/main/generated/io/vertx/examples/service/ProcessorServiceVertxEBProxy.java[Processor Service Client]
-link:service-provider/src/main/generated/io/vertx/examples/service/ProcessorServiceProxyHandler.java[Processor Service Handler]
+link:service-provider/src/main/generated/io/vertx/examples/service/ProcessorServiceVertxProxyHandler.java[Processor Service Handler]
 
 These classes are going to be used in the provider and consumer code
 
