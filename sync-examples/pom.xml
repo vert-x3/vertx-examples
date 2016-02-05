@@ -115,11 +115,4 @@
       </build>
     </profile>
   </profiles>
-
-  <repositories>
-    <repository>
-      <id>staging</id>
-      <url>https://oss.sonatype.org/content/repositories/iovertx-2397</url>
-    </repository>
-  </repositories>
 </project>

@@ -10,9 +10,6 @@ version = '3.2.1'
 
 repositories {
     mavenCentral()
-    maven {
-        url = 'https://oss.sonatype.org/content/repositories/iovertx-2397/'
-    }
 }
 
 dependencies {
