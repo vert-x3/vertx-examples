@@ -13,8 +13,7 @@ installation.
 
 Use that as a template for setting up a Maven project with Vert.x.
 
-Progress to the link:maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in
-a Maven project.
+Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy, Ruby and JavaScript verticles.
 
 == Gradle users
 
