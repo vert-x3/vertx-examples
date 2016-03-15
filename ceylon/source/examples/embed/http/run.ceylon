@@ -2,7 +2,6 @@ import io.vertx.ceylon.core {
   vertx
 }
 import io.vertx.ceylon.core.http {
-  HttpServerRequest,
   HttpServer
 }
 
