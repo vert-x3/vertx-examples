@@ -45,3 +45,10 @@ This test uses a SSL connect to the mail server using Port 465 (which is
 actually deprecated, but is supported by many mail servers e.g. googlemail
 and AOL support port 465). The preferred way to send secure mails is TLS
 required and port 587.
+
+== link:src/main/java/io/vertx/example/mail/MailImages.java[MailImages]
+
+Send a mail with inline images
+
+This test sends a HTML mail with an inline image referenced in the html text by
+Content-ID.
