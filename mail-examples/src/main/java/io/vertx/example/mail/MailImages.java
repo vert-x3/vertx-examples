@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.CaseInsensitiveHeaders;
+import io.vertx.core.MultiMap;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.mail.MailAttachment;
 import io.vertx.ext.mail.MailClient;
@@ -32,10 +32,9 @@ public class MailImages extends AbstractVerticle {
     MailMessage email = new MailMessage()
         .setFrom("user@example.com (Sender)")
         .setTo("user@example.com (User Name)")
-        .setBounceAddress("user@example.com (Bounce)")
         .setSubject("Test email")
         .setText("full message is readable as html only")
-        .setHtml("visit vert.x <a href=\"\"><img src=\"cid:image1@example.com\"></a>");
+        .setHtml("visit vert.x <a href=\"http://vertx.io/\"><img src=\"cid:image1@example.com\"></a>");
 
     List<MailAttachment> list=new ArrayList<>();
     MailAttachment attachment = new MailAttachment();
@@ -43,7 +42,9 @@ public class MailImages extends AbstractVerticle {
     attachment.setContentType("image/png");
     attachment.setName("logo-white-big.png");
     attachment.setDisposition("inline");
-    attachment.setHeaders(new CaseInsensitiveHeaders().add("Content-ID", "<image1@example.com>"));
+    MultiMap headers = MultiMap.caseInsensitiveMultiMap();
+    headers.add("Content-ID", "<image1@example.com>");
+    attachment.setHeaders(headers);
     list.add(attachment);
     email.setInlineAttachment(list);
 

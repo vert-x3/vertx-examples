@@ -2,7 +2,6 @@ package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.MultiMap;
-import io.vertx.core.http.CaseInsensitiveHeaders;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.mail.MailMessage;
@@ -26,7 +25,6 @@ public class MailHeaders extends AbstractVerticle {
     Runner.runExample(MailHeaders.class);
   }
 
-
   public void start() {
     MailConfig mailConfig = new MailConfig().setHostname("smtp.example.com").setPort(465).setSsl(true);
 
@@ -39,7 +37,7 @@ public class MailHeaders extends AbstractVerticle {
     MultiMap headers = MultiMap.caseInsensitiveMultiMap();
 
     headers.add("X-Mailer", "Vert.x Mail-Client 3.2.1");
-    headers.add("Message-ID", "12345@example.com");
+    headers.add("Message-ID", "<12345@example.com>");
     headers.add("Reply-To", "reply@example.com");
     headers.add("Received", "by vertx mail service");
     headers.add("Received", "from [192.168.1.1] by localhost");
