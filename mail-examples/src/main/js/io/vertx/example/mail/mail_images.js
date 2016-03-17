@@ -15,7 +15,7 @@ var email = {
 var list = [];
 var attachment = {
 };
-attachment.data = vertx.fileSystem().readFileBlocking("logo-white-big.png");
+attachment.data = vertx.fileSystem().readFileBlocking("../../../../../../../logo-white-big.png");
 attachment.contentType = "image/png";
 attachment.name = "logo-white-big.png";
 attachment.disposition = "inline";

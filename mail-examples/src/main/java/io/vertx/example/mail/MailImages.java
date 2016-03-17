@@ -1,7 +1,6 @@
 package io.vertx.example.mail;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.vertx.core.AbstractVerticle;
@@ -38,7 +37,7 @@ public class MailImages extends AbstractVerticle {
 
     List<MailAttachment> list=new ArrayList<>();
     MailAttachment attachment = new MailAttachment();
-    attachment.setData(vertx.fileSystem().readFileBlocking("logo-white-big.png"));
+    attachment.setData(vertx.fileSystem().readFileBlocking("../../../../../../../logo-white-big.png"));
     attachment.setContentType("image/png");
     attachment.setName("logo-white-big.png");
     attachment.setDisposition("inline");

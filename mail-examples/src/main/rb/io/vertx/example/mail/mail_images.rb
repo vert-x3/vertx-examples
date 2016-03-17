@@ -15,7 +15,7 @@ email = {
 list = Array.new
 attachment = {
 }
-attachment['data'] = $vertx.file_system().read_file_blocking("logo-white-big.png")
+attachment['data'] = $vertx.file_system().read_file_blocking("../../../../../../../logo-white-big.png")
 attachment['contentType'] = "image/png"
 attachment['name'] = "logo-white-big.png"
 attachment['disposition'] = "inline"
