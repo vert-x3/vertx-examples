@@ -2,7 +2,8 @@
 
 Basic JSON API written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can be used with Vert.x.
 
-This project is build on Gradle and is ready to be deployed on Heroku, hence it combines parts of the following examples:
+This project is build on Gradle and is ready to be deployed on Heroku, hence it combines parts of the following 
+examples:
 
 - Gradle:
     - [gradle_redeploy](https://github.com/vert-x3/vertx-examples/tree/master/gradle-redeploy)
@@ -37,7 +38,12 @@ The jar file can now be found in `./build/libs/app-shadow.jar` and deployed on y
 
 ### Heroku
 
-To deploy to Heroku, simply create an account, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and run the following:
+This project includes a custom `Procfile` to simplify deployment to Heroku, however you would need to place the 
+contents of this example into a separate Git repository first (because the global [`Procfile`](https://github.com/vert-x3/vertx-examples/blob/master/Procfile) 
+in the root directory points to the `heroku-example`).
+ 
+Once in your new Git repository, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and issue the 
+following:
 
 ```
 heroku login
@@ -46,5 +52,3 @@ git push heroku master
 ```
 
 *Note:* All your changes should be committed to Git before issuing the last command.
- 
-The `Procfile` required for Heroku deployments is included in the project.
