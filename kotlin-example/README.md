@@ -2,13 +2,13 @@
 
 Basic JSON API written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can be used with Vert.x.
 
-This project is build on Gradle and is ready to be deployed on Heroku, hence it combines parts of the following 
+This project is built on Gradle and is ready to be deployed on Heroku, hence it combines parts of the following 
 examples:
 
 - Gradle:
-    - [gradle_redeploy](https://github.com/vert-x3/vertx-examples/tree/master/gradle-redeploy)
-    - [gradle_simplest](https://github.com/vert-x3/vertx-examples/tree/master/gradle-simplest)
-    - [gradle_verticles](https://github.com/vert-x3/vertx-examples/tree/master/gradle-verticles)
+    - [gradle-redeploy](https://github.com/vert-x3/vertx-examples/tree/master/gradle-redeploy)
+    - [gradle-simplest](https://github.com/vert-x3/vertx-examples/tree/master/gradle-simplest)
+    - [gradle-verticles](https://github.com/vert-x3/vertx-examples/tree/master/gradle-verticles)
 - Heroku:
     - [heroku-example](https://github.com/vert-x3/vertx-examples/tree/master/heroku-example)
 
@@ -34,7 +34,7 @@ You can generate a single "shadow jar" (more on that [here](https://github.com/j
 ./gradlew shadowJar
 ```
 
-The jar file can now be found in `./build/libs/app-shadow.jar` and deployed on your custom platform.
+The jar file can now be retrieved from `./build/libs/app-shadow.jar` and deployed onto your preferred platform.
 
 ### Heroku
 
@@ -51,4 +51,4 @@ heroku create
 git push heroku master
 ```
 
-*Note:* All your changes should be committed to Git before issuing the last command.
+*Note:* All your changes must be committed to Git before issuing the last command.
