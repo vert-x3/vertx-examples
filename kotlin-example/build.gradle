@@ -1,0 +1,67 @@
+buildscript {
+    ext {
+        kotlin_version = '1.0.1-2'
+        vertx_version = '3.2.1'
+    }
+
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+apply plugin: 'kotlin'
+
+sourceCompatibility = '1.8'
+mainClassName = 'io.vertx.core.Launcher'
+def mainVerticleName = 'io.vertx.example.MainVerticle'
+
+repositories {
+    jcenter()
+}
+dependencies {
+    compile "io.vertx:vertx-core:$vertx_version"
+    compile "io.vertx:vertx-web:$vertx_version"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
+}
+
+// Redeploy watcher.
+run {
+    args = ['run', mainVerticleName,
+            "--launcher-class=$mainClassName",
+            "--redeploy=src/**/*.*",
+            "--on-redeploy=./gradlew classes"
+    ]
+}
+
+// Naming and packaging settings for the "fat" jar.
+shadowJar {
+    baseName = 'app'
+    classifier = 'fat'
+
+    manifest {
+        attributes 'Main-Verticle': mainVerticleName
+    }
+    mergeServiceFiles {
+        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
+
+// Heroku relies on a 'stage' task to deploy.
+task stage {
+    dependsOn shadowJar
+}
