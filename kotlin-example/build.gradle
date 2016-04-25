@@ -44,7 +44,7 @@ run {
     ]
 }
 
-// Naming and packaging settings for the "fat" jar.
+// Naming and packaging settings for the "shadow jar".
 shadowJar {
     baseName = 'app'
     classifier = 'shadow'
@@ -61,7 +61,7 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
 }
 
-// Heroku relies on a 'stage' task to deploy.
+// Heroku relies on the 'stage' task to deploy.
 task stage {
     dependsOn shadowJar
 }
