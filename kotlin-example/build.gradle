@@ -21,6 +21,7 @@ plugins {
 apply plugin: 'kotlin'
 
 sourceCompatibility = '1.8'
+
 mainClassName = 'io.vertx.core.Launcher'
 def mainVerticleName = 'io.vertx.example.MainVerticle'
 
