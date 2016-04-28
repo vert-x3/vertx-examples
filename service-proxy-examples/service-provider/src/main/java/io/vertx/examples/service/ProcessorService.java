@@ -16,6 +16,9 @@ import io.vertx.serviceproxy.ProxyHelper;
 @VertxGen // Generate clients in non-java languages
 public interface ProcessorService {
 
+  int NO_NAME_ERROR = 2;
+  int BAD_NAME_ERROR = 3;
+
   // A couple of factory methods to create an instance and a proxy
   static ProcessorService create(Vertx vertx) {
     return new ProcessorServiceImpl();

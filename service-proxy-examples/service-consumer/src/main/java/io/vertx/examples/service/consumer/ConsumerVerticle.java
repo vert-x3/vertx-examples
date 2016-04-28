@@ -6,8 +6,8 @@ import io.vertx.examples.service.ProcessorService;
 import io.vertx.examples.service.utils.Runner;
 import io.vertx.serviceproxy.ServiceException;
 
-import static io.vertx.examples.service.impl.ProcessorServiceImpl.BAD_NAME_ERROR;
-import static io.vertx.examples.service.impl.ProcessorServiceImpl.NO_NAME_ERROR;
+import static io.vertx.examples.service.ProcessorService.BAD_NAME_ERROR;
+import static io.vertx.examples.service.ProcessorService.NO_NAME_ERROR;
 
 
 /**

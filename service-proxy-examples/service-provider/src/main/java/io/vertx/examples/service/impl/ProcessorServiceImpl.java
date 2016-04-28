@@ -15,8 +15,6 @@ import io.vertx.examples.service.ProcessorService;
  * 'name' key, in which case an error is returned.
  */
 public class ProcessorServiceImpl implements ProcessorService {
-  public static int NO_NAME_ERROR = 2;
-  public static int BAD_NAME_ERROR = 3;
 
   @Override
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
