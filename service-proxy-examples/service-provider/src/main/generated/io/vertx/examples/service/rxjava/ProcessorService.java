@@ -53,15 +53,7 @@ public class ProcessorService {
   }
 
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) { 
-    delegate.process(document, new Handler<AsyncResult<io.vertx.core.json.JsonObject>>() {
-      public void handle(AsyncResult<io.vertx.core.json.JsonObject> ar) {
-        if (ar.succeeded()) {
-          resultHandler.handle(io.vertx.core.Future.succeededFuture(ar.result()));
-        } else {
-          resultHandler.handle(io.vertx.core.Future.failedFuture(ar.cause()));
-        }
-      }
-    });
+    delegate.process(document, resultHandler);
   }
 
   public Observable<JsonObject> processObservable(JsonObject document) { 
