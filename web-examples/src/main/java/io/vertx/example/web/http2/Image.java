@@ -1,6 +1,8 @@
 package io.vertx.example.web.http2;
 
+import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.impl.VertxInternal;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,9 +20,9 @@ public class Image {
   private final int height;
   private final int[] data;
 
-  public Image(String name) {
+  public Image(Vertx vertx, String name) {
     try {
-      final BufferedImage raster = ImageIO.read(getClass().getResourceAsStream(name));
+      final BufferedImage raster = ImageIO.read(((VertxInternal) vertx).resolveFile(name));
       width = raster.getWidth();
       height = raster.getHeight();
 
@@ -41,8 +43,6 @@ public class Image {
           out.close();
           g2.dispose();
         }
-
-      System.out.println(colorMap.size());
 
     } catch (IOException e) {
       throw new RuntimeException(e);

@@ -1,5 +1,6 @@
 var Router = require("vertx-web-js/router");
-var image = new (Java.type("io.vertx.example.web.http2.Image"))("coin.png");
+
+var image = new (Java.type("io.vertx.example.web.http2.Image"))(vertx, "coin.png");
 
 var router = Router.router(vertx);
 
@@ -14,7 +15,7 @@ router.get("/img/:x/:y").handler(function (ctx) {
 vertx.createHttpServer({
   "ssl" : true,
   "useAlpn" : true,
-  "sslEngine" : 'JDK',
+  "sslEngine" : 'OPENSSL',
   "pemKeyCertOptions" : {
     "keyPath" : "tls/server-key.pem",
     "certPath" : "tls/server-cert.pem"

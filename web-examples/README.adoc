@@ -389,7 +389,3 @@ note is that there is no API differences between HTTP1.1 and HTTP2 regarding web
 the server.
 
 The link:src/main/java/io/vertx/example/web/http2/Server.java[HTTP2 example]
-
-The big difference here is that in order to start the HTTP2 server you are required to load the ALPN agent with your
-JVM. This means that you should first download the ALPN agent that is compatible with your JVM version and then run
-e.g.: `java -javaagent:jetty.alpnAgent.path -jar your-fat.jar http2.Server`.

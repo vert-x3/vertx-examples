@@ -1,7 +1,7 @@
-import groovy.transform.Field
 import io.vertx.groovy.ext.web.Router
 import io.vertx.core.net.SSLEngine
-@Field def image = new io.vertx.example.web.http2.Image("coin.png")
+
+def image = new io.vertx.example.web.http2.Image(vertx, "coin.png")
 
 def router = Router.router(vertx)
 
@@ -16,7 +16,7 @@ router.get("/img/:x/:y").handler({ ctx ->
 vertx.createHttpServer([
   ssl:true,
   useAlpn:true,
-  sslEngine:SSLEngine.JDK,
+  sslEngine:SSLEngine.OPENSSL,
   pemKeyCertOptions:[
     keyPath:"tls/server-key.pem",
     certPath:"tls/server-cert.pem"
