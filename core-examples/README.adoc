@@ -188,6 +188,22 @@ You can run the server then open a browser and point it at link:http://localhost
 
 NOTE: in practice you would probably use Vert.x-Web to build a web application that uses WebSockets
 
+== HTTP/2 examples
+
+These examples demonstrate usage of HTTP/2 with Vert.x.
+
+=== Simple
+
+A very simple HTTP/2 server which always responds with the same response:
+
+link:src/main/java/io/vertx/example/core/http2/simple/Server.java[Java simple HTTP/2 server]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+And a simple HTTP/2 client which makes a request to the server.
+
+link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP client]
+
 == Event bus examples
 
 These examples demonstrate usage of the event bus in Vert.x
