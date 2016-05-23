@@ -218,6 +218,15 @@ And a client sets a push handler to be notified of the incoming server side push
 
 link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP client push aware]
 
+=== H2C
+
+Like the simple server but using clear text, also known as _h2c_, without TLS:
+
+link:src/main/java/io/vertx/example/core/http2/h2c/Server.java[Java simple HTTP/2 server in clear text]
+link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP client in clear text]
+
+NOTE: this example won't work with browsers are they don't support h2c
+
 == Event bus examples
 
 These examples demonstrate usage of the event bus in Vert.x
