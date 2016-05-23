@@ -204,6 +204,20 @@ And a simple HTTP/2 client which makes a request to the server.
 
 link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP client]
 
+=== Push
+
+This example shows HTTP/2 push.
+
+The server pushes `script.js` along with `index.html`:
+
+link:src/main/java/io/vertx/example/core/http2/push/Server.java[Java HTTP/2 server pushing content]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+And a client sets a push handler to be notified of the incoming server side pushes:
+
+link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP client push aware]
+
 == Event bus examples
 
 These examples demonstrate usage of the event bus in Vert.x
