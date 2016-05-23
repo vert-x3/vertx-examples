@@ -33,7 +33,7 @@ public class Client extends AbstractVerticle {
     HttpClient client = vertx.createHttpClient(options);
 
     HttpClientRequest request = client.get(8443, "localhost", "/", resp -> {
-      System.out.println("Got response " + resp.statusCode());
+      System.out.println("Got response " + resp.statusCode() + " with protocol " + resp.version());
       resp.bodyHandler(body -> System.out.println("Got data " + body.toString("ISO-8859-1")));
     });
 
