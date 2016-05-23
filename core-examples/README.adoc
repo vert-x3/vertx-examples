@@ -227,6 +227,13 @@ link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP 
 
 NOTE: this example won't work with browsers are they don't support h2c
 
+=== Custom frames
+
+HTTP/2 can be extended with custom frames, this example shows how to write and receive custom frames:
+
+link:src/main/java/io/vertx/example/core/http2/customframes/Server.java[Java HTTP/2 server]
+link:src/main/java/io/vertx/example/core/http2/customframes/Client.java[Java simple HTTP client]
+
 == Event bus examples
 
 These examples demonstrate usage of the event bus in Vert.x
