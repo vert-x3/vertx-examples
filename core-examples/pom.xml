@@ -35,6 +35,12 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-handler-proxy</artifactId>
+      <version>4.1.0.CR7</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
 
   <build>
