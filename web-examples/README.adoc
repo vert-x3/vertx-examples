@@ -381,3 +381,11 @@ tokens, in order to show that you cannot access the last resource.
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and click around the links
+
+== HTTP2
+
+The HTTP2 example is a simplified http://http-test-2.frb.io/chuck-norris.html[Chuck Norris] test. The important thing to
+note is that there is no API differences between HTTP1.1 and HTTP2 regarding web. The only change is the bootstrap of
+the server.
+
+The link:src/main/java/io/vertx/example/web/http2/Server.java[HTTP2 example]
