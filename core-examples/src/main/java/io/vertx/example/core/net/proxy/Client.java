@@ -25,7 +25,7 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     NetClientOptions options = new NetClientOptions().setProxyOptions(
-        new ProxyOptions().setProxyType(ProxyType.SOCKS5).setProxyHost("localhost").setProxyPort(1080));
+        new ProxyOptions().setType(ProxyType.SOCKS5).setHost("localhost").setPort(1080));
     vertx.createNetClient(options).connect(23, "aardmud.org", res -> {
       if (res.succeeded()) {
         NetSocket socket = res.result();

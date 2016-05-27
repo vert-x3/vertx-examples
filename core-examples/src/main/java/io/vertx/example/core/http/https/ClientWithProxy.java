@@ -24,7 +24,7 @@ public class ClientWithProxy extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     HttpClientOptions options = new HttpClientOptions().setSsl(true)
-        .setProxyOptions(new ProxyOptions().setProxyType(ProxyType.HTTP).setProxyHost("localhost").setProxyPort(3128));
+        .setProxyOptions(new ProxyOptions().setType(ProxyType.HTTP).setHost("localhost").setPort(3128));
     vertx.createHttpClient(options).getNow(443, "en.wikipedia.org", "/", resp -> {
       System.out.println("Got response " + resp.statusCode());
       resp.bodyHandler(body -> System.out.println("Got data " + body.toString("UTF-8")));
