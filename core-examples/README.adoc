@@ -314,6 +314,30 @@ vertx run Sender.java -cluster
 The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
 event bus.
 
+=== SSL
+
+This example demonstrates point to point messaging between a receiver and a sender with a transport level encryption.
+
+The receiver listens on an address on the event bus for incoming messages. When it receives a message it replies to it.
+
+The sender sends a message to that address every second, when it receives a reply it logs it.
+
+link:src/main/java/io/vertx/example/core/eventbus/ssl/Receiver.java[Java event bus receiver]
+link:src/main/java/io/vertx/example/core/eventbus/ssl/Sender.java[Java event bus sender]
+
+You can run the Java sender and receiver in your IDE or at the command line.
+
+At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
+
+----
+vertx run Receiver.java -cluster
+
+vertx run Sender.java -cluster
+----
+
+The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
+event bus. Depending of your configuration you may need to append to both command: ` -cp ../../../../../../../resources` in order to configure the cluster.
+
 == Verticle examples
 
 These examples show verticles being deployed and undeployed
