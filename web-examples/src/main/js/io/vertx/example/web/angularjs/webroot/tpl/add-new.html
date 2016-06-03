@@ -1,0 +1,25 @@
+<h2>Add new user</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form novalidate name="AddNewForm" id="add-new-form" method="post" action="">
+            <div class="form-group">
+                <label>Username:</label>
+                <input class="form-control" type="text" ng-model="user.username" required />
+            </div>
+            <div class="form-group">
+                <label>First name:</label>
+                <input class="form-control" type="text" ng-model="user.firstName" required />
+            </div>
+            <div class="form-group">
+                <label>Last name:</label>
+                <input class="form-control" type="text" ng-model="user.lastName" required />
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input class="form-control" type="text" ng-model="user.address" />
+            </div>
+            <button class="btn btn-primary" ng-disabled="AddNewForm.$invalid || isUnchanged(user)" id="add-new-btn" ng-click="add_new(user)">Save!</button>
+            <a href="#/" class="btn">Cancel</a>
+        </form>
+    </div>
+</div>
