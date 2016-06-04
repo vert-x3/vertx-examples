@@ -9,9 +9,23 @@ options = {
   'trustAll' => true
 }
 
-$vertx.create_http_client(options).get_now(8443, "localhost", "/") { |resp|
+client = $vertx.create_http_client(options)
+
+request = client.get(8443, "localhost", "/") { |resp|
   puts "Got response #{resp.status_code()} with protocol #{resp.version()}"
   resp.body_handler() { |body|
     puts "Got data #{body.to_string("ISO-8859-1")}"
   }
 }
+
+# Set handler for server side push
+request.push_handler() { |pushedReq|
+  puts "Receiving pushed content"
+  pushedReq.handler() { |pushedResp|
+    pushedResp.body_handler() { |body|
+      puts "Got pushed data #{body.to_string("ISO-8859-1")}"
+    }
+  }
+}
+
+request.end()

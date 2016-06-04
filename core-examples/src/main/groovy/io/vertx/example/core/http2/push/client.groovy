@@ -11,9 +11,23 @@ def options = [
   trustAll:true
 ]
 
-vertx.createHttpClient(options).getNow(8443, "localhost", "/", { resp ->
+def client = vertx.createHttpClient(options)
+
+def request = client.get(8443, "localhost", "/", { resp ->
   println("Got response ${resp.statusCode()} with protocol ${resp.version()}")
   resp.bodyHandler({ body ->
     println("Got data ${body.toString("ISO-8859-1")}")
   })
 })
+
+// Set handler for server side push
+request.pushHandler({ pushedReq ->
+  println("Receiving pushed content")
+  pushedReq.handler({ pushedResp ->
+    pushedResp.bodyHandler({ body ->
+      println("Got pushed data ${body.toString("ISO-8859-1")}")
+    })
+  })
+})
+
+request.end()
