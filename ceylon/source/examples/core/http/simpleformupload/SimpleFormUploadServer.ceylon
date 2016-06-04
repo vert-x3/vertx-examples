@@ -24,7 +24,7 @@ shared class SimpleFormUploadServer() extends Verticle() {
     
     value server = vertx.createHttpServer();
     
-    server.requestHandler((HttpServerRequest req) {
+    server.requestHandler((req) {
       switch(req.uri())
       case ("/") {
         req.response().putHeader("Content-Type", "text/html").end(index);

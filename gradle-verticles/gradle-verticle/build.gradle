@@ -6,12 +6,9 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven {
-        url = 'http://oss.sonatype.org/content/repositories/snapshots/'
-    }
 }
 
-version = '3.3.0-SNAPSHOT'
+version = '3.2.1'
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
 

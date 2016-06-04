@@ -6,9 +6,9 @@
 #   docker run -t -i -p 8080:8080 sample/vertx-java-fat
 ###
 
-FROM java:8
+FROM java:8-jre
 
-ENV VERTICLE_FILE hello-verticle-fatjar-3.3.0-SNAPSHOT-fat.jar
+ENV VERTICLE_FILE hello-verticle-fatjar-3.2.1-fat.jar
 
 # Set the location of the verticles
 ENV VERTICLE_HOME /usr/verticles

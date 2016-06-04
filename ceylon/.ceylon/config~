@@ -1,0 +1,11 @@
+
+[compiler]
+source=source
+resource=resource
+
+[defaults]
+encoding=UTF-8
+flatclasspath=true
+
+[repositories]
+remote=https://herd.ceylon-lang.org/uploads/14616

@@ -4,8 +4,8 @@ This project shows a simple example using the JGroup cluster manager (instead of
 
 This project is composed by two small applications:
 
-* link:src/main/java/io/vertx/example/jgroups/ProducerApp.java[Producer App] - sending data on the event bus
-* link:src/main/java/io/vertx/example/jgroups/ConsumerApp.java[Consumer App] - receiving data from the event bus
+* link:src/main/java/io/vertx/example/ignite/ProducerApp.java[Producer App] - sending data on the event bus
+* link:src/main/java/io/vertx/example/ignite/ConsumerApp.java[Consumer App] - receiving data from the event bus
 
 Starts these applications from your IDE, and you should see the sent and receive data (don't forget to start both
 application).
