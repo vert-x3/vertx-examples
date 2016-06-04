@@ -12,7 +12,7 @@ shared class ExecBlocking() extends Verticle() {
         // request. We can't do this directly or it will block the event loop
         // But you can do this using executeBlocking:
 
-        vertx.executeBlocking<String>((fut) {
+        vertx.executeBlocking<String>((Future<String> fut) {
       
         // Do the blocking operation in here
       
@@ -21,7 +21,7 @@ shared class ExecBlocking() extends Verticle() {
         String result = "armadillos!";
         
         fut.complete(result);        
-      }, (res) {
+      }, (String?|Throwable res) {
         
         if (is String res) {
           
