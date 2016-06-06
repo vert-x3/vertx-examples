@@ -1,7 +1,7 @@
 
 server = $vertx.create_http_server({
   'useAlpn' => true,
-  'sslEngineOptions' => {
+  'openSslEngineOptions' => {
   },
   'ssl' => true,
   'pemKeyCertOptions' => {

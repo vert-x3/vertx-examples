@@ -6,7 +6,7 @@ import io.vertx.groovy.core.buffer.Buffer
 def options = [
   ssl:true,
   useAlpn:true,
-  sslEngineOptions:[:],
+  openSslEngineOptions:[:],
   protocolVersion:HttpVersion.HTTP_2,
   trustAll:true
 ]

@@ -40,7 +40,7 @@ public class Server extends AbstractVerticle {
             new HttpServerOptions()
                     .setSsl(true)
                     .setUseAlpn(true)
-                    .setSslEngineOptions(new OpenSSLEngineOptions())
+                    .setOpenSslEngineOptions(new OpenSSLEngineOptions())
                     .setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("tls/server-key.pem").setCertPath("tls/server-cert.pem"))).requestHandler(router::accept)
             .listen(8443);
   }

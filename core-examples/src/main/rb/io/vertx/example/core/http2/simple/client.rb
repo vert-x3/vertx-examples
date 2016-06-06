@@ -4,7 +4,7 @@
 options = {
   'ssl' => true,
   'useAlpn' => true,
-  'sslEngineOptions' => {
+  'openSslEngineOptions' => {
   },
   'protocolVersion' => :HTTP_2,
   'trustAll' => true

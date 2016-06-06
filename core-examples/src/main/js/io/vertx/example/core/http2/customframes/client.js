@@ -5,7 +5,7 @@ var Buffer = require("vertx-js/buffer");
 var options = {
   "ssl" : true,
   "useAlpn" : true,
-  "sslEngineOptions" : {
+  "openSslEngineOptions" : {
   },
   "protocolVersion" : 'HTTP_2',
   "trustAll" : true

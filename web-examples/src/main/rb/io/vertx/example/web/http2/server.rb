@@ -15,7 +15,7 @@ router.get("/img/:x/:y").handler() { |ctx|
 $vertx.create_http_server({
   'ssl' => true,
   'useAlpn' => true,
-  'sslEngineOptions' => {
+  'openSslEngineOptions' => {
   },
   'pemKeyCertOptions' => {
     'keyPath' => "tls/server-key.pem",

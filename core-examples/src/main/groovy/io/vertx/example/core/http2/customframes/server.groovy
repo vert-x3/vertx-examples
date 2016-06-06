@@ -2,7 +2,7 @@ import io.vertx.groovy.core.buffer.Buffer
 
 def server = vertx.createHttpServer([
   useAlpn:true,
-  sslEngineOptions:[:],
+  openSslEngineOptions:[:],
   ssl:true,
   pemKeyCertOptions:[
     keyPath:"server-key.pem",
