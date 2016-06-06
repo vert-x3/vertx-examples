@@ -30,7 +30,6 @@ public class ConsumerApp extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    System.out.println(((VertxInternal) vertx).getClusterManager());
     vertx.eventBus().consumer("news", message -> {
       System.out.println(">> " + message.body());
     });

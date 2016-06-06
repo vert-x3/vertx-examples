@@ -14,3 +14,13 @@ application).
 
 The applications try to pick the network address automatically, but it may be wrong. In this case pass the IP of the
 interface you want to use as parameter.
+
+== Launching the example from the command line
+
+you can launch the producer and consumer as follows:
+
+----
+mvn clean package
+java -jar target/ignite-examples-3.3.0-SNAPSHOT-fat.jar run io.vertx.example.ignite.ProducerApp -cluster
+java -jar target/ignite-examples-3.3.0-SNAPSHOT-fat.jar run io.vertx.example.ignite.ConsumerApp -cluster
+----
