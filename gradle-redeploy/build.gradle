@@ -6,9 +6,6 @@ plugins {
 
 repositories {
   jcenter()
-  maven {
-    url = 'https://oss.sonatype.org/content/repositories/snapshots/'
-  }
 }
 
 version = '3.3.0-SNAPSHOT'

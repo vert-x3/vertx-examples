@@ -10,7 +10,7 @@ shared class Sender() extends Verticle() {
     
     value eb = vertx.eventBus();
     
-    vertx.setPeriodic(1000, (Integer id) => eb.send("ping-address", "ping!", void (Message<String>|Throwable reply) {
+    vertx.setPeriodic(1000, (id) => eb.send("ping-address", "ping!", void (Message<String>|Throwable reply) {
       switch(reply)
       case (is Message<String>) {
         assert(exists body = reply.body());

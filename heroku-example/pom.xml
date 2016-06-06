@@ -77,7 +77,7 @@
         <version>0.5.6</version>
         <configuration>
           <processTypes>
-            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-3.3.0-SNAPSHOT-fat.jar</web>
+            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-${project.version}-fat.jar</web>
           </processTypes>
         </configuration>
       </plugin>

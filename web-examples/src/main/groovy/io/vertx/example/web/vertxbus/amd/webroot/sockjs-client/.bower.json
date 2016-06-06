@@ -1,0 +1,38 @@
+{
+  "name": "sockjs-client",
+  "version": "1.0.0",
+  "homepage": "http://sockjs.org",
+  "authors": [
+    "Bryce Kahle <bkahle@gmail.com>"
+  ],
+  "description": "Realtime library that provides a cross-browser, low latency, full duplex, cross-domain communication channel that behaves like a native WebSocket object.",
+  "main": "dist/sockjs.js",
+  "keywords": [
+    "realtime",
+    "websockets",
+    "sockjs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sockjs/sockjs-client.git"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "bin",
+    "lib",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "d3417e7914124002b7ad212976176e5c0d506efb"
+  },
+  "_source": "git://github.com/sockjs/sockjs-client.git",
+  "_target": "1.0.0",
+  "_originalSource": "sockjs-client"
+}

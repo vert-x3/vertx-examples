@@ -12,7 +12,7 @@ def options = [
 ]
 
 vertx.createHttpClient(options).getNow(8443, "localhost", "/", { resp ->
-  println("Got response ${resp.statusCode()}")
+  println("Got response ${resp.statusCode()} with protocol ${resp.version()}")
   resp.bodyHandler({ body ->
     println("Got data ${body.toString("ISO-8859-1")}")
   })

@@ -34,7 +34,6 @@
     <module>shell-examples</module>
     <module>heroku-example</module>
     <module>jgroups-examples</module>
-    <module>ignite-examples</module>
   </modules>
 
   <profiles>

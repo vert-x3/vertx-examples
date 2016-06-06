@@ -204,6 +204,36 @@ And a simple HTTP/2 client which makes a request to the server.
 
 link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP client]
 
+=== Push
+
+This example shows HTTP/2 push.
+
+The server pushes `script.js` along with `index.html`:
+
+link:src/main/java/io/vertx/example/core/http2/push/Server.java[Java HTTP/2 server pushing content]
+
+You can run the server then open a browser and point it at link:http://localhost:8080[]
+
+And a client sets a push handler to be notified of the incoming server side pushes:
+
+link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP client push aware]
+
+=== H2C
+
+Like the simple server but using clear text, also known as _h2c_, without TLS:
+
+link:src/main/java/io/vertx/example/core/http2/h2c/Server.java[Java simple HTTP/2 server in clear text]
+link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP client in clear text]
+
+NOTE: this example won't work with browsers are they don't support h2c
+
+=== Custom frames
+
+HTTP/2 can be extended with custom frames, this example shows how to write and receive custom frames:
+
+link:src/main/java/io/vertx/example/core/http2/customframes/Server.java[Java HTTP/2 server]
+link:src/main/java/io/vertx/example/core/http2/customframes/Client.java[Java simple HTTP client]
+
 == Event bus examples
 
 These examples demonstrate usage of the event bus in Vert.x
@@ -283,6 +313,30 @@ vertx run Sender.java -cluster
 
 The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
 event bus.
+
+=== SSL
+
+This example demonstrates point to point messaging between a receiver and a sender with a transport level encryption.
+
+The receiver listens on an address on the event bus for incoming messages. When it receives a message it replies to it.
+
+The sender sends a message to that address every second, when it receives a reply it logs it.
+
+link:src/main/java/io/vertx/example/core/eventbus/ssl/Receiver.java[Java event bus receiver]
+link:src/main/java/io/vertx/example/core/eventbus/ssl/Sender.java[Java event bus sender]
+
+You can run the Java sender and receiver in your IDE or at the command line.
+
+At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
+
+----
+vertx run Receiver.java -cluster
+
+vertx run Sender.java -cluster
+----
+
+The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
+event bus. Depending of your configuration you may need to append to both command: ` -cp ../../../../../../../resources` in order to configure the cluster.
 
 == Verticle examples
 

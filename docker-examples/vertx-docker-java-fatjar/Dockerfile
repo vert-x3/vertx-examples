@@ -6,7 +6,7 @@
 #   docker run -t -i -p 8080:8080 sample/vertx-java-fat
 ###
 
-FROM java:8
+FROM java:8-jre
 
 ENV VERTICLE_FILE hello-verticle-fatjar-3.3.0-SNAPSHOT-fat.jar
 

@@ -11,7 +11,7 @@ import java.lang { System }
 shared void runModuleVerticle(Module mod, Boolean clustered = false) {
 
   // Determine current path
-  Path path = mod.qualifiedName.split((Character ch) => ch == '.').fold(current.childPath("source"))((Path path, String name) => path.childPath(name));
+  Path path = mod.qualifiedName.split((ch) => ch == '.').fold(current.childPath("source"))((path, name) => path.childPath(name));
   value p = "``path.string``";
   System.setProperty("vertx.cwd", p);
   
@@ -20,7 +20,7 @@ shared void runModuleVerticle(Module mod, Boolean clustered = false) {
   } else {
     vertx.clusteredVertx(VertxOptions {
       clustered = true;
-    }, void (Vertx|Throwable ar) {
+    }, (ar) {
       switch (ar)
       case (is Vertx) {
         deployVerticle(vertx.vertx(), mod);
@@ -33,7 +33,7 @@ shared void runModuleVerticle(Module mod, Boolean clustered = false) {
 }
 
 void deployVerticle(Vertx vertx, Module mod) {
-  vertx.deployVerticle("ceylon:``mod.name``/``mod.version``", void (String|Throwable ar) {
+  vertx.deployVerticle("ceylon:``mod.name``/``mod.version``", (String|Throwable ar) {
     if (is String ar) {
       print("Deployed ``mod.name`` example");
     } else {

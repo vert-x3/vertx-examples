@@ -1,0 +1,8 @@
+
+[compiler]
+source=source
+resource=resource
+
+[defaults]
+encoding=UTF-8
+flatclasspath=true
