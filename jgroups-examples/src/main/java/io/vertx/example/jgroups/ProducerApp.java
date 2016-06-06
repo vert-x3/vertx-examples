@@ -1,4 +1,4 @@
-package io.vertx.example.ignite;
+package io.vertx.example.jgroups;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -6,7 +6,7 @@ import io.vertx.core.VertxOptions;
 /**
  * @author <a href="http://escoffier.me">Clement Escoffier</a>
  */
-public class ConsumerApp {
+public class ProducerApp {
 
   public static void main(String[] args) {
     String ip = NetworkUtils.getInterface();
@@ -21,8 +21,9 @@ public class ConsumerApp {
         System.err.println("Cannot create vert.x instance : " + ar.cause());
       } else {
         Vertx vertx = ar.result();
-        vertx.eventBus().consumer("news", message -> {
-          System.out.println(">> " + message.body());
+        vertx.setPeriodic(3000, x -> {
+          System.out.println("Sending data to 'news'");
+          vertx.eventBus().send("news", "hello vert.x");
         });
       }
     });
