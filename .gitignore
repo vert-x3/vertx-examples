@@ -32,3 +32,4 @@ web-examples/src/main/java/io/vertx/example/web/vertxbus/node/node_modules
 web-examples/src/main/java/io/vertx/example/web/vertxbus/webpack/client/node_modules
 web-examples/src/main/java/io/vertx/example/web/react/node_modules
 service-proxy-examples/service-provider/node-client/node_modules
+openshift2-example/**/*.jar
