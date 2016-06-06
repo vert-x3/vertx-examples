@@ -22,6 +22,7 @@ vertx.deployVerticle(MAIL_SERVICE_VERTICLE, [
   mailService.sendMail(email, { result ->
     if (result.succeeded()) {
       println(result.result())
+      println("Mail sent")
     } else {
       println("got exception")
       result.cause().printStackTrace()

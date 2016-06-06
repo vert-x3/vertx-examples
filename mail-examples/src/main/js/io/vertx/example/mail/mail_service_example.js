@@ -22,6 +22,7 @@ vertx.deployVerticle(MAIL_SERVICE_VERTICLE, {
   mailService.sendMail(email, function (result, result_err) {
     if (result_err == null) {
       console.log(result);
+      console.log("Mail sent");
     } else {
       console.log("got exception");
       result_err.printStackTrace();

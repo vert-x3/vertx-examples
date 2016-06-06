@@ -27,5 +27,11 @@ email['headers'] = headers
 email['text'] = "This message should have a custom Message-ID"
 
 mailClient.send_mail(email) { |result_err,result|
-  puts "mail has been sent"
+  if (result_err == nil)
+    puts result
+    puts "Mail sent"
+  else
+    puts "got exception"
+    result_err.print_stack_trace()
+  end
 }

@@ -27,5 +27,11 @@ email.headers = headers;
 email.text = "This message should have a custom Message-ID";
 
 mailClient.sendMail(email, function (result, result_err) {
-  console.log("mail has been sent");
+  if (result_err == null) {
+    console.log(result);
+    console.log("Mail sent");
+  } else {
+    console.log("got exception");
+    result_err.printStackTrace();
+  }
 });

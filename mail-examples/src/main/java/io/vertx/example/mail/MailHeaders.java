@@ -51,7 +51,13 @@ public class MailHeaders extends AbstractVerticle {
     email.setText("This message should have a custom Message-ID");
 
     mailClient.sendMail(email, result -> {
-      System.out.println("mail has been sent");
+      if (result.succeeded()) {
+        System.out.println(result.result());
+        System.out.println("Mail sent");
+      } else {
+        System.out.println("got exception");
+        result.cause().printStackTrace();
+      }
     });
   }
 

@@ -44,6 +44,7 @@ email.attachment = list
 mailClient.sendMail(email, { result ->
   if (result.succeeded()) {
     println(result.result())
+    println("Mail sent")
   } else {
     println("got exception")
     result.cause().printStackTrace()

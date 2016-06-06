@@ -32,6 +32,7 @@ email['inlineAttachment'] = list
 mailClient.send_mail(email) { |result_err,result|
   if (result_err == nil)
     puts result
+    puts "Mail sent"
   else
     puts "got exception"
     result_err.print_stack_trace()

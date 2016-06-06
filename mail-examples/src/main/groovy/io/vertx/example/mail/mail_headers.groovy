@@ -27,5 +27,11 @@ email.headers = headers
 email.text = "This message should have a custom Message-ID"
 
 mailClient.sendMail(email, { result ->
-  println("mail has been sent")
+  if (result.succeeded()) {
+    println(result.result())
+    println("Mail sent")
+  } else {
+    println("got exception")
+    result.cause().printStackTrace()
+  }
 })

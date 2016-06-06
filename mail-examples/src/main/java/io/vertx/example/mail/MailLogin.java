@@ -70,6 +70,7 @@ public class MailLogin extends AbstractVerticle {
     mailClient.sendMail(email, result -> {
       if (result.succeeded()) {
         System.out.println(result.result());
+        System.out.println("Mail sent");
       } else {
         System.out.println("got exception");
         result.cause().printStackTrace();
