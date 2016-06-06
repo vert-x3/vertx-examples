@@ -1,12 +1,12 @@
-import io.vertx.groovy.ext.web.templ.FreeMarkerTemplateEngine
 import io.vertx.groovy.ext.web.Router
-
-// In order to use a template we first need to create an engine
-def engine = FreeMarkerTemplateEngine.create()
+import io.vertx.groovy.ext.web.templ.FreeMarkerTemplateEngine
 
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.
 def router = Router.router(vertx)
+
+// In order to use a template we first need to create an engine
+def engine = FreeMarkerTemplateEngine.create()
 
 // Entry point to the application, this will render a custom template.
 router.get().handler({ ctx ->
