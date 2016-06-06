@@ -11,7 +11,7 @@ import io.vertx.ext.mail.MailClient;
 import java.util.Arrays;
 
 /**
- * send a mail via a smtp service using SSL we add a few headers to the mail (this can be used for example for mail api
+ * send a mail via a smtp service with a few headers to the mail (this can be used for example for mail api
  * headers e.g. from mailgun or sendgrid or to add Reply-To and custom Received headers)
  * <p>
  * you can either supply all headers (setFixedHeaders(true)) or give a set of headers to be set over the headers that
@@ -28,7 +28,10 @@ public class MailHeaders extends AbstractVerticle {
 
 
   public void start() {
-    MailConfig mailConfig = new MailConfig().setHostname("smtp.example.com").setPort(465).setSsl(true);
+    // Start a local STMP server, remove this line if you want to use your own server.
+    // It just prints the sent message to the console
+    LocalSmtpServer.start(2528);
+    MailConfig mailConfig = new MailConfig().setHostname("localhost").setPort(2528);
 
     MailClient mailClient = MailClient.createShared(vertx, mailConfig);
 
@@ -48,7 +51,7 @@ public class MailHeaders extends AbstractVerticle {
     email.setText("This message should have a custom Message-ID");
 
     mailClient.sendMail(email, result -> {
-      System.out.println("mail is finished");
+      System.out.println("mail has been sent");
     });
   }
 

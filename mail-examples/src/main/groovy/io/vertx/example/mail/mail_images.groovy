@@ -1,7 +1,12 @@
 import io.vertx.groovy.ext.mail.MailClient
 import io.vertx.groovy.core.MultiMap
+// Start a local STMP server, remove this line if you want to use your own server.
+// It just prints the sent message to the console
+io.vertx.example.mail.LocalSmtpServer.start(2526)
 
-def mailClient = MailClient.createShared(vertx, [:])
+def mailClient = MailClient.createShared(vertx, [
+  port:2526
+])
 
 def email = [
   from:"user@example.com (Sender)",
@@ -13,7 +18,7 @@ def email = [
 
 def list = []
 def attachment = [:]
-attachment.data = vertx.fileSystem().readFileBlocking("../../../../../../../logo-white-big.png")
+attachment.data = vertx.fileSystem().readFileBlocking("logo-white-big.png")
 attachment.contentType = "image/png"
 attachment.name = "logo-white-big.png"
 attachment.disposition = "inline"

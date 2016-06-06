@@ -1,7 +1,11 @@
 require 'vertx-mail/mail_client'
 require 'vertx/multi_map'
+# Start a local STMP server, remove this line if you want to use your own server.
+# It just prints the sent message to the console
+Java::IoVertxExampleMail::LocalSmtpServer.start(2526)
 
 mailClient = VertxMail::MailClient.create_shared($vertx, {
+  'port' => 2526
 })
 
 email = {
@@ -15,7 +19,7 @@ email = {
 list = Array.new
 attachment = {
 }
-attachment['data'] = $vertx.file_system().read_file_blocking("../../../../../../../logo-white-big.png")
+attachment['data'] = $vertx.file_system().read_file_blocking("logo-white-big.png")
 attachment['contentType'] = "image/png"
 attachment['name'] = "logo-white-big.png"
 attachment['disposition'] = "inline"

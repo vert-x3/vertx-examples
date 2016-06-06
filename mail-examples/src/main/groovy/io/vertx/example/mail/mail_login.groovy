@@ -1,10 +1,13 @@
 import io.vertx.ext.mail.LoginOption
-import io.vertx.ext.mail.StartTLSOptions
 import io.vertx.groovy.ext.mail.MailClient
+// Start a local STMP server, remove this line if you want to use your own server.
+// It just prints the sent message to the console
+io.vertx.example.mail.LocalSmtpServer.startWithAuth(5870)
+
+
 def mailConfig = [
-  hostname:"smtp.example.com",
-  port:587,
-  starttls:StartTLSOptions.REQUIRED,
+  hostname:"localhost",
+  port:5870,
   login:LoginOption.REQUIRED,
   authMethods:"PLAIN",
   username:"username",

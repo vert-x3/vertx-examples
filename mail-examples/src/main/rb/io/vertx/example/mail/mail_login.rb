@@ -1,8 +1,12 @@
 require 'vertx-mail/mail_client'
+# Start a local STMP server, remove this line if you want to use your own server.
+# It just prints the sent message to the console
+Java::IoVertxExampleMail::LocalSmtpServer.start_with_auth(5870)
+
+
 mailConfig = {
-  'hostname' => "smtp.example.com",
-  'port' => 587,
-  'starttls' => :REQUIRED,
+  'hostname' => "localhost",
+  'port' => 5870,
   'login' => :REQUIRED,
   'authMethods' => "PLAIN",
   'username' => "username",

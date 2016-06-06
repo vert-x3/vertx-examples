@@ -25,8 +25,11 @@ public class MailImages extends AbstractVerticle {
 
   @Override
   public void start() {
+    // Start a local STMP server, remove this line if you want to use your own server.
+    // It just prints the sent message to the console
+    LocalSmtpServer.start(2526);
 
-    MailClient mailClient = MailClient.createShared(vertx, new MailConfig());
+    MailClient mailClient = MailClient.createShared(vertx, new MailConfig().setPort(2526));
 
     MailMessage email = new MailMessage()
         .setFrom("user@example.com (Sender)")
@@ -37,7 +40,7 @@ public class MailImages extends AbstractVerticle {
 
     List<MailAttachment> list=new ArrayList<>();
     MailAttachment attachment = new MailAttachment();
-    attachment.setData(vertx.fileSystem().readFileBlocking("../../../../../../../logo-white-big.png"));
+    attachment.setData(vertx.fileSystem().readFileBlocking("logo-white-big.png"));
     attachment.setContentType("image/png");
     attachment.setName("logo-white-big.png");
     attachment.setDisposition("inline");

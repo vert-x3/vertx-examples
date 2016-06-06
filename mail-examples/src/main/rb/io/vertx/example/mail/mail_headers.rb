@@ -1,9 +1,11 @@
 require 'vertx-mail/mail_client'
 require 'vertx/multi_map'
+# Start a local STMP server, remove this line if you want to use your own server.
+# It just prints the sent message to the console
+Java::IoVertxExampleMail::LocalSmtpServer.start(2528)
 mailConfig = {
-  'hostname' => "smtp.example.com",
-  'port' => 465,
-  'ssl' => true
+  'hostname' => "localhost",
+  'port' => 2528
 }
 
 mailClient = VertxMail::MailClient.create_shared($vertx, mailConfig)
@@ -25,5 +27,5 @@ email['headers'] = headers
 email['text'] = "This message should have a custom Message-ID"
 
 mailClient.send_mail(email) { |result_err,result|
-  puts "mail is finished"
+  puts "mail has been sent"
 }
