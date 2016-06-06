@@ -1,12 +1,14 @@
 package io.vertx.example.jgroups;
 
+import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.impl.VertxInternal;
 
 /**
  * @author <a href="http://escoffier.me">Clement Escoffier</a>
  */
-public class ConsumerApp {
+public class ConsumerApp extends AbstractVerticle {
 
   public static void main(String[] args) {
     String ip = NetworkUtils.getInterface();
@@ -21,11 +23,16 @@ public class ConsumerApp {
         System.err.println("Cannot create vert.x instance : " + ar.cause());
       } else {
         Vertx vertx = ar.result();
-        vertx.eventBus().consumer("news", message -> {
-          System.out.println(">> " + message.body());
-        });
+        vertx.deployVerticle(ConsumerApp.class.getName());
       }
     });
   }
 
+  @Override
+  public void start() throws Exception {
+    System.out.println(((VertxInternal) vertx).getClusterManager());
+    vertx.eventBus().consumer("news", message -> {
+      System.out.println(">> " + message.body());
+    });
+  }
 }
