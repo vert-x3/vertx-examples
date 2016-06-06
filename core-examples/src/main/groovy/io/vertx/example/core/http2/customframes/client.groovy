@@ -1,5 +1,4 @@
 import io.vertx.core.http.HttpVersion
-import io.vertx.core.net.SSLEngine
 import io.vertx.groovy.core.buffer.Buffer
 
 // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
@@ -7,7 +6,7 @@ import io.vertx.groovy.core.buffer.Buffer
 def options = [
   ssl:true,
   useAlpn:true,
-  sslEngine:SSLEngine.OPENSSL,
+  sslEngineOptions:[:],
   protocolVersion:HttpVersion.HTTP_2,
   trustAll:true
 ]

@@ -1,12 +1,11 @@
 import io.vertx.core.http.HttpVersion
-import io.vertx.core.net.SSLEngine
 
 // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
 def options = [
   ssl:true,
   useAlpn:true,
-  sslEngine:SSLEngine.OPENSSL,
+  sslEngineOptions:[:],
   protocolVersion:HttpVersion.HTTP_2,
   trustAll:true
 ]

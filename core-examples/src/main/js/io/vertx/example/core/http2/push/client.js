@@ -4,7 +4,8 @@
 var options = {
   "ssl" : true,
   "useAlpn" : true,
-  "sslEngine" : 'OPENSSL',
+  "sslEngineOptions" : {
+  },
   "protocolVersion" : 'HTTP_2',
   "trustAll" : true
 };
