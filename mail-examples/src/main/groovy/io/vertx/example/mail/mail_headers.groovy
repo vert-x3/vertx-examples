@@ -1,9 +1,11 @@
 import io.vertx.groovy.ext.mail.MailClient
 import io.vertx.groovy.core.MultiMap
+// Start a local STMP server, remove this line if you want to use your own server.
+// It just prints the sent message to the console
+io.vertx.example.mail.LocalSmtpServer.start(2528)
 def mailConfig = [
-  hostname:"smtp.example.com",
-  port:465,
-  ssl:true
+  hostname:"localhost",
+  port:2528
 ]
 
 def mailClient = MailClient.createShared(vertx, mailConfig)
@@ -25,5 +27,11 @@ email.headers = headers
 email.text = "This message should have a custom Message-ID"
 
 mailClient.sendMail(email, { result ->
-  println("mail is finished")
+  if (result.succeeded()) {
+    println(result.result())
+    println("Mail sent")
+  } else {
+    println("got exception")
+    result.cause().printStackTrace()
+  }
 })

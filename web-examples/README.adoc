@@ -393,8 +393,9 @@ The link:src/main/java/io/vertx/example/web/http2/Server.java[HTTP2 example]
 == React.js Realtime chat
 
 This example shows how you can integrate Vert.x EventBus SockJS bridge in a simple React.JS application. Since react is
-writen in ES6 + JSX you will need to use webpack to bundle you client application, for this run `npm install` to install
-all the dependencies locally and later you can compile your client application with: `./node_modules/.bin/webpack -p`
+written in ES6 + JSX you will need to use webpack to bundle you client application, for this run `npm install` to
+install all the dependencies locally and later you can compile your client application with: `./node_modules/
+.bin/webpack -p`
 
 Important files to note:
 
@@ -403,4 +404,3 @@ Important files to note:
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and chat with a couple of browser windows!
->>>>>>> 8f69bf5e3a9907d7fb84b7a2d3621aca281b7a42

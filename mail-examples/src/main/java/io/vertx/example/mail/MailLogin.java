@@ -28,10 +28,15 @@ public class MailLogin extends AbstractVerticle {
   }
 
   public void start() {
+    // Start a local STMP server, remove this line if you want to use your own server.
+    // It just prints the sent message to the console
+    LocalSmtpServer.startWithAuth(5870);
+
+
     MailConfig mailConfig = new MailConfig()
-      .setHostname("smtp.example.com")
-      .setPort(587)
-      .setStarttls(StartTLSOptions.REQUIRED)
+      .setHostname("localhost")
+      .setPort(5870)
+      //.setStarttls(StartTLSOptions.REQUIRED)
       .setLogin(LoginOption.REQUIRED)
       .setAuthMethods("PLAIN")
       .setUsername("username")
@@ -65,6 +70,7 @@ public class MailLogin extends AbstractVerticle {
     mailClient.sendMail(email, result -> {
       if (result.succeeded()) {
         System.out.println(result.result());
+        System.out.println("Mail sent");
       } else {
         System.out.println("got exception");
         result.cause().printStackTrace();

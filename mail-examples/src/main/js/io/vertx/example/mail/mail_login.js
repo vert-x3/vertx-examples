@@ -1,8 +1,12 @@
 var MailClient = require("vertx-mail-js/mail_client");
+// Start a local STMP server, remove this line if you want to use your own server.
+// It just prints the sent message to the console
+Java.type("io.vertx.example.mail.LocalSmtpServer").startWithAuth(5870);
+
+
 var mailConfig = {
-  "hostname" : "smtp.example.com",
-  "port" : 587,
-  "starttls" : 'REQUIRED',
+  "hostname" : "localhost",
+  "port" : 5870,
   "login" : 'REQUIRED',
   "authMethods" : "PLAIN",
   "username" : "username",
@@ -39,6 +43,7 @@ email.attachment = list;
 mailClient.sendMail(email, function (result, result_err) {
   if (result_err == null) {
     console.log(result);
+    console.log("Mail sent");
   } else {
     console.log("got exception");
     result_err.printStackTrace();
