@@ -43,10 +43,6 @@
       "package": "io.vertx.example.web.realtime"
     },
 
-    {
-      "package": "io.vertx.example.web.upload"
-    },
-
     // Rest, JS only
     {
       "package": "io.vertx.example.web.rest",
