@@ -13,7 +13,7 @@ public class Client extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Runner.runGroovyExample("io/vertx/example/core/http2/simple/client.groovy");
   }
 
   @Override

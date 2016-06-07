@@ -14,4 +14,17 @@
     <module>service-provider</module>
     <module>service-consumer</module>
   </modules>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

@@ -14,4 +14,17 @@
     <module>maven-service-factory-verticle</module>
     <module>maven-service-factory-api</module>
   </modules>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>
