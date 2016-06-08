@@ -30,7 +30,7 @@ public class Server extends AbstractVerticle {
     final Router router = Router.router(vertx);
 
     // In order to use a template we first need to create an engine
-    final PebbleTemplateEngine engine = PebbleTemplateEngine.create();
+    final PebbleTemplateEngine engine = PebbleTemplateEngine.create(vertx);
 
     // Entry point to the application, this will render a custom template.
     router.get().handler(ctx -> {
