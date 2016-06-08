@@ -7,7 +7,7 @@ Java.type("io.vertx.example.mail.LocalSmtpServer").startWithAuth(5870);
 var mailConfig = {
   "hostname" : "localhost",
   "port" : 5870,
-  "login" : 'REQUIRED',
+  "login" : "REQUIRED",
   "authMethods" : "PLAIN",
   "username" : "username",
   "password" : "password"

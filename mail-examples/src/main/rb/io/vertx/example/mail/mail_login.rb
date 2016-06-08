@@ -7,7 +7,7 @@ Java::IoVertxExampleMail::LocalSmtpServer.start_with_auth(5870)
 mailConfig = {
   'hostname' => "localhost",
   'port' => 5870,
-  'login' => :REQUIRED,
+  'login' => "REQUIRED",
   'authMethods' => "PLAIN",
   'username' => "username",
   'password' => "password"

@@ -6,7 +6,7 @@ var PebbleTemplateEngine = require("vertx-web-js/pebble_template_engine");
 var router = Router.router(vertx);
 
 // In order to use a template we first need to create an engine
-var engine = PebbleTemplateEngine.create();
+var engine = PebbleTemplateEngine.create(vertx);
 
 // Entry point to the application, this will render a custom template.
 router.get().handler(function (ctx) {

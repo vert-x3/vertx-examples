@@ -1,6 +1,6 @@
 
 options = {
-  'protocolVersion' => :HTTP_2
+  'protocolVersion' => "HTTP_2"
 }
 
 $vertx.create_http_client(options).get_now(8080, "localhost", "/") { |resp|

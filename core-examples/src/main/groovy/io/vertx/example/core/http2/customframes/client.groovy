@@ -7,7 +7,7 @@ def options = [
   ssl:true,
   useAlpn:true,
   openSslEngineOptions:[:],
-  protocolVersion:HttpVersion.HTTP_2,
+  protocolVersion:"HTTP_2",
   trustAll:true
 ]
 

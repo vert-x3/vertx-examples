@@ -1,7 +1,7 @@
 import io.vertx.core.http.HttpVersion
 
 def options = [
-  protocolVersion:HttpVersion.HTTP_2
+  protocolVersion:"HTTP_2"
 ]
 
 vertx.createHttpClient(options).getNow(8080, "localhost", "/", { resp ->

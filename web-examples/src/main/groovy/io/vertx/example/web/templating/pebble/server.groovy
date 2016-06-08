@@ -6,7 +6,7 @@ import io.vertx.groovy.ext.web.templ.PebbleTemplateEngine
 def router = Router.router(vertx)
 
 // In order to use a template we first need to create an engine
-def engine = PebbleTemplateEngine.create()
+def engine = PebbleTemplateEngine.create(vertx)
 
 // Entry point to the application, this will render a custom template.
 router.get().handler({ ctx ->

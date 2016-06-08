@@ -1,6 +1,6 @@
 
 var options = {
-  "protocolVersion" : 'HTTP_2'
+  "protocolVersion" : "HTTP_2"
 };
 
 vertx.createHttpClient(options).getNow(8080, "localhost", "/", function (resp) {

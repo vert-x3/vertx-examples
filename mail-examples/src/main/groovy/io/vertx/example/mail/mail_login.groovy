@@ -8,7 +8,7 @@ io.vertx.example.mail.LocalSmtpServer.startWithAuth(5870)
 def mailConfig = [
   hostname:"localhost",
   port:5870,
-  login:LoginOption.REQUIRED,
+  login:"REQUIRED",
   authMethods:"PLAIN",
   username:"username",
   password:"password"

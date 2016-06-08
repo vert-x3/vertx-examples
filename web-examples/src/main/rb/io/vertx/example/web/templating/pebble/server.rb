@@ -6,7 +6,7 @@ require 'vertx-web/pebble_template_engine'
 router = VertxWeb::Router.router($vertx)
 
 # In order to use a template we first need to create an engine
-engine = VertxWeb::PebbleTemplateEngine.create()
+engine = VertxWeb::PebbleTemplateEngine.create($vertx)
 
 # Entry point to the application, this will render a custom template.
 router.get().handler() { |ctx|
