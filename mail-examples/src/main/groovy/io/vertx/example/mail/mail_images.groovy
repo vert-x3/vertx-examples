@@ -21,7 +21,7 @@ def attachment = [
   name:"logo-white-big.png",
   disposition:"inline",
   headers:[
-    Content-ID:"<image1@example.com>"
+    'Content-ID':"<image1@example.com>"
   ]
 ]
 

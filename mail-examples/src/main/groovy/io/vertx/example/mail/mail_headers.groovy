@@ -13,9 +13,9 @@ def email = [
   from:"user1@example.com",
   to:["user2@example.com", "user3@example.com", "user4@example.com"],
   headers:[
-    X-Mailer:"Vert.x Mail-Client 3.3.0-SNAPSHOT",
-    Message-ID:"12345@example.com",
-    Reply-To:"reply@example.com",
+    'X-Mailer':"Vert.x Mail-Client 3.3.0-SNAPSHOT",
+    'Message-ID':"12345@example.com",
+    'Reply-To':"reply@example.com",
     Received:[
       "by vertx mail service",
       "from [192.168.1.1] by localhost"
