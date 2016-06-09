@@ -1,8 +1,6 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.MultiMap;
-import io.vertx.core.http.CaseInsensitiveHeaders;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.mail.MailMessage;
@@ -37,18 +35,13 @@ public class MailHeaders extends AbstractVerticle {
 
     MailMessage email = new MailMessage()
       .setFrom("user1@example.com")
-      .setTo(Arrays.asList("user2@example.com", "user3@example.com", "user4@example.com"));
-
-    MultiMap headers = MultiMap.caseInsensitiveMultiMap();
-
-    headers.add("X-Mailer", "Vert.x Mail-Client 3.3.0-SNAPSHOT");
-    headers.add("Message-ID", "12345@example.com");
-    headers.add("Reply-To", "reply@example.com");
-    headers.add("Received", "by vertx mail service");
-    headers.add("Received", "from [192.168.1.1] by localhost");
-
-    email.setHeaders(headers);
-    email.setText("This message should have a custom Message-ID");
+      .setTo(Arrays.asList("user2@example.com", "user3@example.com", "user4@example.com"))
+      .addHeader("X-Mailer", "Vert.x Mail-Client 3.3.0-SNAPSHOT")
+      .addHeader("Message-ID", "12345@example.com")
+      .addHeader("Reply-To", "reply@example.com")
+      .addHeader("Received", "by vertx mail service")
+      .addHeader("Received", "from [192.168.1.1] by localhost")
+      .setText("This message should have a custom Message-ID");
 
     mailClient.sendMail(email, result -> {
       if (result.succeeded()) {

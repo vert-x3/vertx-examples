@@ -1,5 +1,4 @@
 import io.vertx.groovy.ext.mail.MailClient
-import io.vertx.groovy.core.MultiMap
 // Start a local STMP server, remove this line if you want to use your own server.
 // It just prints the sent message to the console
 io.vertx.example.mail.LocalSmtpServer.start(2526)
@@ -16,15 +15,17 @@ def email = [
   html:"visit vert.x <a href=\"http://vertx.io/\"><img src=\"cid:image1@example.com\"></a>"
 ]
 
+def attachment = [
+  data:vertx.fileSystem().readFileBlocking("logo-white-big.png"),
+  contentType:"image/png",
+  name:"logo-white-big.png",
+  disposition:"inline",
+  headers:[
+    Content-ID:"<image1@example.com>"
+  ]
+]
+
 def list = []
-def attachment = [:]
-attachment.data = vertx.fileSystem().readFileBlocking("logo-white-big.png")
-attachment.contentType = "image/png"
-attachment.name = "logo-white-big.png"
-attachment.disposition = "inline"
-def headers = MultiMap.caseInsensitiveMultiMap()
-headers.add("Content-ID", "<image1@example.com>")
-attachment.headers = headers
 list.add(attachment)
 email.inlineAttachment = list
 
