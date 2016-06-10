@@ -23,7 +23,6 @@ public class Server extends AbstractVerticle {
     HttpServer server =
       vertx.createHttpServer(new HttpServerOptions().
           setUseAlpn(true).
-          setOpenSslEngineOptions(new OpenSSLEngineOptions()).
           setSsl(true).
           setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("server-key.pem").setCertPath("server-cert.pem")
       ));

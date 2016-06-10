@@ -24,7 +24,6 @@ public class Client extends AbstractVerticle {
     HttpClientOptions options = new HttpClientOptions().
         setSsl(true).
         setUseAlpn(true).
-        setOpenSslEngineOptions(new OpenSSLEngineOptions()).
         setProtocolVersion(HttpVersion.HTTP_2).
         setTrustAll(true);
 

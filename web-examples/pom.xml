@@ -25,7 +25,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>1.1.33.Fork16</version>
+      <version>1.1.33.Fork17</version>
     </dependency>
 
     <dependency>
