@@ -1,10 +1,9 @@
 package io.vertx.example.web.http2;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.core.net.PemKeyCertOptions;
-import io.vertx.core.net.SSLEngine;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 
@@ -41,7 +40,7 @@ public class Server extends AbstractVerticle {
             new HttpServerOptions()
                     .setSsl(true)
                     .setUseAlpn(true)
-                    .setSslEngine(SSLEngine.OPENSSL)
+                    .setOpenSslEngineOptions(new OpenSSLEngineOptions())
                     .setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("tls/server-key.pem").setCertPath("tls/server-cert.pem"))).requestHandler(router::accept)
             .listen(8443);
   }

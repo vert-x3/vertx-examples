@@ -40,7 +40,7 @@
       <!-- declare this dependency to force shiro to use this one. It is the version used by vert.x -->
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.12</version>
+      <version>1.7.21</version>
     </dependency>
 
     <dependency>
@@ -71,17 +71,16 @@
     </pluginManagement>
   </build>
 
-
   <repositories>
     <repository>
       <id>oss.snapshots</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
       <releases>
         <enabled>false</enabled>
       </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
 </project>

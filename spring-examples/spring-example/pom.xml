@@ -12,8 +12,8 @@
     <!-- the main verticle class name -->
     <main.class>io.vertx.examples.spring.SpringExampleRunner</main.class>
     <spring.data.jpa.version>1.8.0.RELEASE</spring.data.jpa.version>
-    <h2.version>1.4.187</h2.version>
-    <slf4j.version>1.7.12</slf4j.version>
+    <h2.version>1.4.191</h2.version>
+    <slf4j.version>1.7.21</slf4j.version>
     <hibernate.version>4.3.10.Final</hibernate.version>
   </properties>
 
@@ -101,4 +101,17 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

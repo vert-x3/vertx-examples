@@ -4,13 +4,14 @@
 var options = {
   "ssl" : true,
   "useAlpn" : true,
-  "sslEngine" : 'OPENSSL',
-  "protocolVersion" : 'HTTP_2',
+  "openSslEngineOptions" : {
+  },
+  "protocolVersion" : "HTTP_2",
   "trustAll" : true
 };
 
 vertx.createHttpClient(options).getNow(8443, "localhost", "/", function (resp) {
-  console.log("Got response " + resp.statusCode());
+  console.log("Got response " + resp.statusCode() + " with protocol " + resp.version());
   resp.bodyHandler(function (body) {
     console.log("Got data " + body.toString("ISO-8859-1"));
   });

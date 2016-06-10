@@ -99,13 +99,13 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>2.3.2</version>
+      <version>2.3.4</version>
     </dependency>
 
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
-      <version>2.1.2.RELEASE</version>
+      <version>3.0.0.RELEASE</version>
     </dependency>
 
     <dependency>
@@ -161,17 +161,17 @@
     </pluginManagement>
   </build>
 
-
   <repositories>
     <repository>
       <id>oss.snapshots</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
       <releases>
         <enabled>false</enabled>
       </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
+
 </project>

@@ -4,7 +4,7 @@
     // Template examples
     // Only MVEL examples are polyglot
     {
-      "package": "io.vertx.example.web.templating.handlebars"
+      "package": "io.vertx.example.web.templating.handllebars"
     },
     {
       "package": "io.vertx.example.web.templating.jade"
@@ -19,6 +19,11 @@
     },
     {
       "package": "io.vertx.example.web.angular_realtime"
+    },
+
+    // React
+    {
+      "package": "io.vertx.example.web.react"
     },
 
     // JDBC and Mongo

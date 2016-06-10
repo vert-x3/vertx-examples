@@ -77,10 +77,23 @@
         <version>0.5.6</version>
         <configuration>
           <processTypes>
-            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-3.3.0-SNAPSHOT-fat.jar</web>
+            <web>java $JAVA_OPTS -Dhttp.port=$PORT -jar target/heroku-example-${project.version}-fat.jar</web>
           </processTypes>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

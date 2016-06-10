@@ -3,9 +3,8 @@ package io.vertx.example.core.http2.simple;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.net.JksOptions;
+import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.core.net.PemKeyCertOptions;
-import io.vertx.core.net.SSLEngine;
 import io.vertx.example.util.Runner;
 
 /*
@@ -24,7 +23,7 @@ public class Server extends AbstractVerticle {
     HttpServer server =
       vertx.createHttpServer(new HttpServerOptions().
           setUseAlpn(true).
-          setSslEngine(SSLEngine.OPENSSL).
+          setOpenSslEngineOptions(new OpenSSLEngineOptions()).
           setSsl(true).
           setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("server-key.pem").setCertPath("server-cert.pem")
       ));

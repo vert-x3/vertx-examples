@@ -50,6 +50,7 @@
             <target>1.8</target>
             <compilerArgs>
               <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
+              <arg>-Acodetrans.config=${basedir}/codetrans-config.json</arg>
             </compilerArgs>
           </configuration>
         </plugin>
@@ -61,14 +62,13 @@
     <repository>
       <id>oss.snapshots</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
       <releases>
         <enabled>false</enabled>
       </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
-
 
 </project>

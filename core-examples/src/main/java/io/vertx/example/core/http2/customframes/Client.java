@@ -5,7 +5,7 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpVersion;
-import io.vertx.core.net.SSLEngine;
+import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.example.util.Runner;
 
 /*
@@ -26,7 +26,7 @@ public class Client extends AbstractVerticle {
     HttpClientOptions options = new HttpClientOptions().
         setSsl(true).
         setUseAlpn(true).
-        setSslEngine(SSLEngine.OPENSSL).
+        setOpenSslEngineOptions(new OpenSSLEngineOptions()).
         setProtocolVersion(HttpVersion.HTTP_2).
         setTrustAll(true);
 

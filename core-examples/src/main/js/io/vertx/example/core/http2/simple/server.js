@@ -1,7 +1,8 @@
 
 var server = vertx.createHttpServer({
   "useAlpn" : true,
-  "sslEngine" : 'OPENSSL',
+  "openSslEngineOptions" : {
+  },
   "ssl" : true,
   "pemKeyCertOptions" : {
     "keyPath" : "server-key.pem",

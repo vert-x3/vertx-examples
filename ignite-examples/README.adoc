@@ -1,7 +1,6 @@
-= Vert.x Ignite examples
+= Vert.x Apache Ignite examples
 
-This project shows a simple example using the cluster manager based on Apache Ignite (instead of the Hazelcast cluster
-manager).
+This project shows a simple example using the Apache Ignite cluster manager (instead of the Hazelcast cluster manager).
 
 This project is composed by two small applications:
 
@@ -16,20 +15,12 @@ application).
 The applications try to pick the network address automatically, but it may be wrong. In this case pass the IP of the
 interface you want to use as parameter.
 
-This example uses the default member discovery (using multicast). Check the documentation for further details.
+== Launching the example from the command line
 
-== Running from Maven
-
-You can run this example as follows:
-
-In a terminal, launch:
+you can launch the producer and consumer as follows:
 
 ----
-mvn compile exec:exec@producer
-----
-
-In another terminal, launch:
-
-----
-mvn compile exec:exec@consumer
+mvn clean package
+java -jar target/ignite-examples-3.3.0-SNAPSHOT-fat.jar run io.vertx.example.ignite.ProducerApp -cluster
+java -jar target/ignite-examples-3.3.0-SNAPSHOT-fat.jar run io.vertx.example.ignite.ConsumerApp -cluster
 ----

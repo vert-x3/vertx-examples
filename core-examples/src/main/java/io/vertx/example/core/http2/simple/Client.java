@@ -3,7 +3,7 @@ package io.vertx.example.core.http2.simple;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpVersion;
-import io.vertx.core.net.SSLEngine;
+import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.example.util.Runner;
 
 /*
@@ -13,7 +13,7 @@ public class Client extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Runner.runGroovyExample("io/vertx/example/core/http2/simple/client.groovy");
   }
 
   @Override
@@ -24,7 +24,7 @@ public class Client extends AbstractVerticle {
     HttpClientOptions options = new HttpClientOptions().
         setSsl(true).
         setUseAlpn(true).
-        setSslEngine(SSLEngine.OPENSSL).
+        setOpenSslEngineOptions(new OpenSSLEngineOptions()).
         setProtocolVersion(HttpVersion.HTTP_2).
         setTrustAll(true);
 

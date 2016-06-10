@@ -25,12 +25,12 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    // In order to use a template we first need to create an engine
-    final PebbleTemplateEngine engine = PebbleTemplateEngine.create();
-
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
+
+    // In order to use a template we first need to create an engine
+    final PebbleTemplateEngine engine = PebbleTemplateEngine.create(vertx);
 
     // Entry point to the application, this will render a custom template.
     router.get().handler(ctx -> {

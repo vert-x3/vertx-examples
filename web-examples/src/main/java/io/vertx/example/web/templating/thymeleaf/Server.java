@@ -26,12 +26,12 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    // In order to use a JADE template we first need to create an engine
-    final ThymeleafTemplateEngine engine = ThymeleafTemplateEngine.create();
-
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
+
+    // In order to use a Thymeleaf template we first need to create an engine
+    final ThymeleafTemplateEngine engine = ThymeleafTemplateEngine.create();
 
     // Entry point to the application, this will render a custom JADE template.
     router.get().handler(ctx -> {

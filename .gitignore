@@ -25,8 +25,11 @@ src/test/groovy/io/vertx/groovy/codegen/**/*.groovy
 openshift-example/quickstart-diy/application/*.jar
 openshift-example/vertx-cartridge/application/*.jar
 web-examples/src/main/java/io/vertx/example/web/vertxbus/amd/webroot/sockjs-client
+/web-examples/src/main/java/io/vertx/example/web/react/webroot/dist
 web-examples/src/main/java/io/vertx/example/web/vertxbus/amd/webroot/vertx3-eventbus-client
 web-examples/src/main/java/io/vertx/example/web/vertxbus/commonjs/webroot/node_modules
 web-examples/src/main/java/io/vertx/example/web/vertxbus/node/node_modules
 web-examples/src/main/java/io/vertx/example/web/vertxbus/webpack/client/node_modules
+web-examples/src/main/java/io/vertx/example/web/react/node_modules
 service-proxy-examples/service-provider/node-client/node_modules
+openshift2-example/**/*.jar

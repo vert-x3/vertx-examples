@@ -1,8 +1,7 @@
-import io.vertx.core.net.SSLEngine
 
 def server = vertx.createHttpServer([
   useAlpn:true,
-  sslEngine:SSLEngine.OPENSSL,
+  openSslEngineOptions:[:],
   ssl:true,
   pemKeyCertOptions:[
     keyPath:"server-key.pem",
