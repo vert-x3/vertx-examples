@@ -15,8 +15,8 @@
 */
 package io.vertx.example.amqp;
 
-import io.vertx.amqp.bridge.AmqpBridge;
-import io.vertx.amqp.bridge.AmqpConstants;
+import io.vertx.amqpbridge.AmqpBridge;
+import io.vertx.amqpbridge.AmqpConstants;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.MessageProducer;
 import io.vertx.core.json.JsonObject;
