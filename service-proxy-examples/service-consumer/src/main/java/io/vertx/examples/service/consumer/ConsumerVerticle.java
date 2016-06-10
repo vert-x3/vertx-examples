@@ -4,10 +4,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.ProcessorService;
 import io.vertx.examples.service.utils.Runner;
-import io.vertx.serviceproxy.ServiceException;
-
-import static io.vertx.examples.service.ProcessorService.BAD_NAME_ERROR;
-import static io.vertx.examples.service.ProcessorService.NO_NAME_ERROR;
 
 
 /**
@@ -30,18 +26,7 @@ public class ConsumerVerticle extends AbstractVerticle {
       if (r.succeeded()) {
         System.out.println(r.result().encodePrettily());
       } else {
-        if (r.cause() instanceof ServiceException) {
-          ServiceException exc = (ServiceException) r.cause();
-          if (exc.failureCode() == BAD_NAME_ERROR) {
-            System.out.println("Failed to process the document: The name in the document is bad. " +
-                "The name provided is: " + exc.getDebugInfo().getString("name"));
-          } else if (exc.failureCode() == NO_NAME_ERROR) {
-            System.out.println("Failed to process the document: No name was found");
-          }
-        } else {
-          System.out.println("Unexpected error: " + r.cause());
-
-        }
+        System.out.println(r.cause());
       }
     });
   }

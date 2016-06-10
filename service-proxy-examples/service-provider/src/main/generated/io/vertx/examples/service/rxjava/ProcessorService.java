@@ -17,6 +17,7 @@
 package io.vertx.examples.service.rxjava;
 
 import java.util.Map;
+import io.vertx.lang.rxjava.InternalHelper;
 import rx.Observable;
 import io.vertx.rxjava.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -43,17 +44,17 @@ public class ProcessorService {
   }
 
   public static ProcessorService create(Vertx vertx) { 
-    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create((io.vertx.core.Vertx)vertx.getDelegate()));
+    ProcessorService ret= ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create((io.vertx.core.Vertx) vertx.getDelegate()));
     return ret;
   }
 
   public static ProcessorService createProxy(Vertx vertx, String address) { 
-    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy((io.vertx.core.Vertx)vertx.getDelegate(), address));
+    ProcessorService ret= ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy((io.vertx.core.Vertx) vertx.getDelegate(), address));
     return ret;
   }
 
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) { 
-    delegate.process(document, resultHandler);
+    this.delegate.process(document, resultHandler);
   }
 
   public Observable<JsonObject> processObservable(JsonObject document) { 

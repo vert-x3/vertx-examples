@@ -35,22 +35,24 @@ public class ProcessorService {
     return delegate;
   }
   public static ProcessorService create(Vertx vertx) {
-    def ret = InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.create(vertx != null ? (io.vertx.core.Vertx)vertx.getDelegate() : null), io.vertx.examples.service.groovy.ProcessorService.class);
+    def ret= InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.create((io.vertx.core.Vertx)vertx.getDelegate()), io.vertx.examples.service.groovy.ProcessorService.class);
     return ret;
   }
   public static ProcessorService createProxy(Vertx vertx, String address) {
-    def ret = InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.createProxy(vertx != null ? (io.vertx.core.Vertx)vertx.getDelegate() : null, address), io.vertx.examples.service.groovy.ProcessorService.class);
+    def ret= InternalHelper.safeCreate(io.vertx.examples.service.ProcessorService.createProxy((io.vertx.core.Vertx)vertx.getDelegate(), address), io.vertx.examples.service.groovy.ProcessorService.class);
     return ret;
   }
   public void process(Map<String, Object> document, Handler<AsyncResult<Map<String, Object>>> resultHandler) {
-    delegate.process(document != null ? new io.vertx.core.json.JsonObject(document) : null, resultHandler != null ? new Handler<AsyncResult<io.vertx.core.json.JsonObject>>() {
-      public void handle(AsyncResult<io.vertx.core.json.JsonObject> ar) {
-        if (ar.succeeded()) {
-          resultHandler.handle(io.vertx.core.Future.succeededFuture((Map<String, Object>)InternalHelper.wrapObject(ar.result())));
+    this.delegate.process(document != null ? new io.vertx.core.json.JsonObject(document) : null, new Handler<AsyncResult<io.vertx.core.json.JsonObject>>() {
+      public void handle(AsyncResult<io.vertx.core.json.JsonObject> event) {
+        AsyncResult<Map<String, Object>> f
+        if (event.succeeded()) {
+          f = InternalHelper.<Map<String, Object>>result((Map<String, Object>)InternalHelper.wrapObject(event.result()))
         } else {
-          resultHandler.handle(io.vertx.core.Future.failedFuture(ar.cause()));
+          f = InternalHelper.<Map<String, Object>>failure(event.cause())
         }
+        resultHandler.handle(f)
       }
-    } : null);
+    });
   }
 }
