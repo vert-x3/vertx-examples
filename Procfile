@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dhttp.port=$PORT -jar heroku-example/target/heroku-example-3.3.0-SNAPSHOT-fat.jar
+web: java $JAVA_OPTS -Dhttp.port=$PORT -jar heroku-example/target/heroku-example-3.3.0.CR1-fat.jar

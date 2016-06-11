@@ -21,8 +21,8 @@ you can launch the producer and consumer as follows:
 
 ----
 mvn clean package
-java -jar target/jgroups-examples-3.3.0-SNAPSHOT-fat.jar run io.vertx.example.jgroups.ProducerApp -cluster -cp . \
+java -jar target/jgroups-examples-3.3.0.CR1-fat.jar run io.vertx.example.jgroups.ProducerApp -cluster -cp . \
     -Djgroups.bind_addr=127.0.0.1
-java -jar target/jgroups-examples-3.3.0-SNAPSHOT-fat.jar run io.vertx.example.jgroups.ConsumerApp -cluster -cp . \
+java -jar target/jgroups-examples-3.3.0.CR1-fat.jar run io.vertx.example.jgroups.ConsumerApp -cluster -cp . \
     -Djgroups.bind_addr=127.0.0.1
 ----
