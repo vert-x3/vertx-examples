@@ -10,15 +10,13 @@
     <version>3.3.0.CR1</version>
   </parent>
 
-  <version>3.3.0</version>
-
   <artifactId>maven-service-factory-verticle</artifactId>
 
   <dependencies>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>3.3.0.CR1</version>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
