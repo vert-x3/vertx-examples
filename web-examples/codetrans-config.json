@@ -4,7 +4,7 @@
     // Template examples
     // Only MVEL examples are polyglot
     {
-      "package": "io.vertx.example.web.templating.handllebars"
+      "package": "io.vertx.example.web.templating.handlebars"
     },
     {
       "package": "io.vertx.example.web.templating.jade"
