@@ -10,6 +10,7 @@ buildscript {
       url "https://oss.sonatype.org/content/repositories/iovertx-2911"
     }
   }
+
   dependencies {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -30,6 +31,9 @@ def mainVerticleName = 'io.vertx.example.MainVerticle'
 
 repositories {
   jcenter()
+  maven {
+    url "https://oss.sonatype.org/content/repositories/iovertx-2911"
+  }
 }
 dependencies {
   compile "io.vertx:vertx-core:$vertx_version"
