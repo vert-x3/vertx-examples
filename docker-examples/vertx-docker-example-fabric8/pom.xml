@@ -62,11 +62,11 @@
                   </ports>
                   <cmd>
                     <exec>
-                       <arg>vertx</arg>
-                       <arg>run</arg>
-                       <arg>${verticle.name}</arg>
-                       <arg>-cp</arg>
-                       <arg>/usr/verticles/${project.artifactId}-${project.version}.jar</arg>
+                      <arg>vertx</arg>
+                      <arg>run</arg>
+                      <arg>${verticle.name}</arg>
+                      <arg>-cp</arg>
+                      <arg>/usr/verticles/${project.artifactId}-${project.version}.jar</arg>
                     </exec>
                   </cmd>
                   <assembly>
@@ -121,10 +121,10 @@
       <id>oss.snapshots</id>
       <url>https://oss.sonatype.org/content/repositories/iovertx-2911/</url>
       <releases>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
       </releases>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
     </repository>
   </repositories>

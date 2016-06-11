@@ -5,8 +5,6 @@ require 'vertx/buffer'
 options = {
   'ssl' => true,
   'useAlpn' => true,
-  'openSslEngineOptions' => {
-  },
   'protocolVersion' => "HTTP_2",
   'trustAll' => true
 }
