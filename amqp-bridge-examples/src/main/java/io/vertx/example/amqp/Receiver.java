@@ -23,6 +23,10 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 
 public class Receiver extends AbstractVerticle {
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    Runner.runExample(Receiver.class);
+  }
 
   @Override
   public void start() throws Exception {
@@ -45,10 +49,5 @@ public class Receiver extends AbstractVerticle {
         System.out.println("Received a message with body: " + amqpBody);
       });
     });
-  }
-
-  // Convenience method so you can run it in your IDE
-  public static void main(String[] args) {
-    Runner.runExample(Receiver.class);
   }
 }
