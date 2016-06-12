@@ -8,11 +8,29 @@ import io.vertx.core.net.ProxyType;
 import io.vertx.example.util.Runner;
 
 /**
- * connect to a tcp server using a socks proxy.
+ * Connect to a tcp server using a socks proxy.
  *
  * for this example to work, you need a socks5 proxy running on localhost:1080
- * (you can use a dynamic port tunnel with ssh for example)
  *
+ * To install a SOCKS5 proxy in
+ *
+ * - Linux: you can use Dante (https://www.inet.no/dante/), most Linux distributions include dante-server as package
+ *
+ * - Mac: dante can be installed with homebrew
+ *
+ * - Windows: unknown if dante is supported
+ *
+ * as alternative, you can use ssh as SOCKS5 server, it supports port forwarding with a "dynamic" port, which is the
+ * connect method of SOCKS5
+ *
+ * {@code ssh -D 127.0.0.1:1080 host}
+ * 
+ * the same is possible with Putty when using Windows (define a Dynamic tunnel from port 1080 in Options / Connection /
+ * SSH / Tunnels)
+ *
+ * For testing, a SOCKS5 proxy is available in the core tests jar as {@link io.vertx.test.core.SocksProxy} that can be
+ * started as part of a unit test
+ * 
  * @author <a href="http://oss.lehmann.cx/">Alexander Lehmann</a>
  */
 public class Client extends AbstractVerticle {
