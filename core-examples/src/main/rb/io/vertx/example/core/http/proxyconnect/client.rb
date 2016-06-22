@@ -1,5 +1,6 @@
 request = $vertx.create_http_client({
   'proxyOptions' => {
+    'type' => "HTTP",
     'host' => "localhost",
     'port' => 8080
   }

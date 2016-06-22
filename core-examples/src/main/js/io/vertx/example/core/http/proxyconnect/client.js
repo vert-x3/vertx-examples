@@ -1,5 +1,6 @@
 var request = vertx.createHttpClient({
   "proxyOptions" : {
+    "type" : "HTTP",
     "host" : "localhost",
     "port" : 8080
   }
