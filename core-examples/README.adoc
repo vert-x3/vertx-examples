@@ -93,6 +93,15 @@ And a simple HTTPS client which makes a request to the server.
 
 link:src/main/java/io/vertx/example/core/http/https/Client.java[Java simple HTTPS client]
 
+=== Proxy connect
+
+Connecting to a web server using an proxy. The proxy receives requests and connects to the endpoint server using a socket, then pass
+all the events between the client and the proxied server.
+
+link:src/main/java/io/vertx/example/core/http/proxyconnect/Server.java[The Java endpoint server]
+link:src/main/java/io/vertx/example/core/http/proxyconnect/Proxy.java[The Java proxy]
+link:src/main/java/io/vertx/example/core/http/proxyconnect/Client.java[The client]
+
 === Proxy
 
 A simple toy HTTP proxy. The proxy receives requests and forwards them to the endpoint server, it also takes responses
