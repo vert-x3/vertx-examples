@@ -32,32 +32,23 @@ public class Server extends AbstractVerticle {
     server.requestHandler(req -> {
       String path = req.path();
       HttpServerResponse resp = req.response();
-      switch (path) {
-        case "/":
+      if ("/".equals(path)) {
+        resp.push(HttpMethod.GET, "/script.js", ar -> {
+          if (ar.succeeded()) {
+            System.out.println("sending push");
+            HttpServerResponse pushedResp = ar.result();
+            pushedResp.sendFile("script.js");
+          } else {
+            // Sometimes Safari forbids push : "Server push not allowed to opposite endpoint."
+          }
+        });
 
-          resp.push(HttpMethod.GET, "/script.js", ar -> {
-            if (ar.succeeded()) {
-              System.out.println("sending push");
-              HttpServerResponse pushedResp = ar.result();
-              pushedResp.exceptionHandler(err -> {
-
-              });
-              pushedResp.sendFile("script.js");
-            } else {
-              // Sometimes Safari forbids push : "Server push not allowed to opposite endpoint."
-              System.out.println(ar.cause().getMessage());;
-            }
-          });
-
-          resp.sendFile("index.html");
-          break;
-        case "/script.js":
-          resp.sendFile("script.js");
-          break;
-        default:
-          System.out.println("Not found " + path);
-          resp.setStatusCode(404).end();
-          break;
+        resp.sendFile("index.html");
+      } else if ("/script.js".equals(path)) {
+        resp.sendFile("script.js");
+      } else {
+        System.out.println("Not found " + path);
+        resp.setStatusCode(404).end();
       }
     });
 

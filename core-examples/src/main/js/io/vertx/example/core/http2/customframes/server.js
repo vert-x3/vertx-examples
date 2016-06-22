@@ -2,8 +2,6 @@ var Buffer = require("vertx-js/buffer");
 
 var server = vertx.createHttpServer({
   "useAlpn" : true,
-  "openSslEngineOptions" : {
-  },
   "ssl" : true,
   "pemKeyCertOptions" : {
     "keyPath" : "server-key.pem",

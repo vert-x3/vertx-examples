@@ -2,8 +2,6 @@ require 'vertx/buffer'
 
 server = $vertx.create_http_server({
   'useAlpn' => true,
-  'openSslEngineOptions' => {
-  },
   'ssl' => true,
   'pemKeyCertOptions' => {
     'keyPath' => "server-key.pem",
