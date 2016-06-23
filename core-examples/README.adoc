@@ -93,6 +93,15 @@ And a simple HTTPS client which makes a request to the server.
 
 link:src/main/java/io/vertx/example/core/http/https/Client.java[Java simple HTTPS client]
 
+=== Proxy connect
+
+Connecting to a web server using an proxy. The proxy receives requests and connects to the endpoint server using a socket, then pass
+all the events between the client and the proxied server.
+
+link:src/main/java/io/vertx/example/core/http/proxyconnect/Server.java[The Java endpoint server]
+link:src/main/java/io/vertx/example/core/http/proxyconnect/Proxy.java[The Java proxy]
+link:src/main/java/io/vertx/example/core/http/proxyconnect/Client.java[The client]
+
 === Proxy
 
 A simple toy HTTP proxy. The proxy receives requests and forwards them to the endpoint server, it also takes responses
@@ -367,7 +376,8 @@ link:src/main/java/io/vertx/example/core/verticle/asyncstart/OtherVerticle.java[
 
 === Worker Verticle example
 
-A simple example illustrating how worker verticle can be created and the thread switches when interacting with them. The worker verticle is not executed in the event loop and so can do blocking operations.
+A simple example illustrating how worker verticle can be created and the thread switches when interacting with them. The worker verticle is not           System.out.println(Thread.currentThread());
+ed in the event loop and so can do blocking operations.
 
 link:src/main/java/io/vertx/example/core/verticle/worker/MainVerticle.java[Java verticle deploying the worker verticle and interacting with it]
 link:src/main/java/io/vertx/example/core/verticle/worker/WorkerVerticle.java[Java verticle deployed as a worker verticle]
@@ -378,6 +388,10 @@ This example demonstrates how you can include blocking code in with your non blo
 block an event loop:
 
 link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[Java execute blocking code example]
+
+Run the example then open a browser and point it at link:http://localhost:8080[]
+
+link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingDedicatedPoolExample.java[Java execute blocking with a specific worker pool code example]
 
 Run the example then open a browser and point it at link:http://localhost:8080[]
 

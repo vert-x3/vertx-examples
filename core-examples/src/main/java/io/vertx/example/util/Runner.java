@@ -31,6 +31,10 @@ public class Runner {
     runExample(CORE_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
   }
 
+  public static void runExample(Class clazz, DeploymentOptions options) {
+    runExample(CORE_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), options);
+  }
+
   // JavaScript examples
 
   public static void runJSExample(String scriptName) {
