@@ -376,7 +376,8 @@ link:src/main/java/io/vertx/example/core/verticle/asyncstart/OtherVerticle.java[
 
 === Worker Verticle example
 
-A simple example illustrating how worker verticle can be created and the thread switches when interacting with them. The worker verticle is not executed in the event loop and so can do blocking operations.
+A simple example illustrating how worker verticle can be created and the thread switches when interacting with them. The worker verticle is not           System.out.println(Thread.currentThread());
+ed in the event loop and so can do blocking operations.
 
 link:src/main/java/io/vertx/example/core/verticle/worker/MainVerticle.java[Java verticle deploying the worker verticle and interacting with it]
 link:src/main/java/io/vertx/example/core/verticle/worker/WorkerVerticle.java[Java verticle deployed as a worker verticle]
@@ -387,6 +388,10 @@ This example demonstrates how you can include blocking code in with your non blo
 block an event loop:
 
 link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[Java execute blocking code example]
+
+Run the example then open a browser and point it at link:http://localhost:8080[]
+
+link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingDedicatedPoolExample.java[Java execute blocking with a specific worker pool code example]
 
 Run the example then open a browser and point it at link:http://localhost:8080[]
 
