@@ -7,11 +7,11 @@ plugins {
 repositories {
   mavenCentral()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-2911"
+    url "https://oss.sonatype.org/content/repositories/iovertx-2939"
   }
 }
 
-version = '3.3.0.CR1'
+version = '3.3.0'
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
 
