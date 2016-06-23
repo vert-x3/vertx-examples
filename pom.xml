@@ -35,6 +35,7 @@
     <module>heroku-example</module>
     <module>jgroups-examples</module>
     <module>ignite-examples</module>
+    <module>amqp-bridge-examples</module>
   </modules>
 
   <profiles>
