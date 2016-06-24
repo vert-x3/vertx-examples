@@ -1,0 +1,29 @@
+= Fatjar examples
+
+Here you will find examples showing Vert.x fatjar in action.
+
+== HTTP/2 fatjar
+
+An HTTP/2 server fatjar using Boring SSL engine and embedding the server key/certificates in _pem_ format.
+
+The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.
+
+To build with Maven
+
+    mvn package
+
+To run the fat jar:
+
+    java -jar target/http2-fatjar-3.3.0.jar
+
+The build.gradle uses the Gradle shadowJar plugin to assemble the application and all it's dependencies into a single "fat" jar.
+
+To build with Gradle
+
+    ./gradlew shadowJar
+
+To run the fat jar:
+
+    java -jar build/libs/http2-fatjar-3.3-fat.jar
+
+NOTE: embedding the key in the jar is a discouraged practice - it is done purposely to keep the example simple

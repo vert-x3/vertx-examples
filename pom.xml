@@ -36,6 +36,7 @@
     <module>jgroups-examples</module>
     <module>ignite-examples</module>
     <module>amqp-bridge-examples</module>
+    <module>fatjar/http2-fatjar</module>
   </modules>
 
   <profiles>
