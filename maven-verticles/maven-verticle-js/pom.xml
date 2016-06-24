@@ -112,16 +112,4 @@
     </plugins>
   </build>
 
-  <repositories>
-    <repository>
-      <id>oss.snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/iovertx-2939/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 </project>

@@ -14,17 +14,4 @@
     <module>maven-service-factory-verticle</module>
     <module>maven-service-factory-api</module>
   </modules>
-
-  <repositories>
-    <repository>
-      <id>oss.snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/iovertx-2939/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 </project>
