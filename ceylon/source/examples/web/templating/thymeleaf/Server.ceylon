@@ -24,8 +24,6 @@ shared class Server() extends Verticle() {
         
         //
         engine.render(ctx, "templates/index.html", (Buffer|Throwable res) {
-          print("done");
-          
           switch(res)
           case (is Buffer) {
             ctx.response().end(res);
