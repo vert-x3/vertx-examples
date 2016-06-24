@@ -1,9 +1,8 @@
-package io.vertx.example.core.http2.simple;
+package io.vertx.example.core.http2.h2c;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpVersion;
-import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.example.util.Runner;
 
 /*
@@ -13,22 +12,16 @@ public class Client extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runGroovyExample("io/vertx/example/core/http2/simple/client.groovy");
+    Runner.runExample(Client.class);
   }
 
   @Override
   public void start() throws Exception {
 
-    // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
-
-    HttpClientOptions options = new HttpClientOptions().
-        setSsl(true).
-        setUseAlpn(true).
-        setProtocolVersion(HttpVersion.HTTP_2).
-        setTrustAll(true);
+    HttpClientOptions options = new HttpClientOptions().setProtocolVersion(HttpVersion.HTTP_2);
 
     vertx.createHttpClient(options
-    ).getNow(8443, "localhost", "/", resp -> {
+    ).getNow(8080, "localhost", "/", resp -> {
       System.out.println("Got response " + resp.statusCode() + " with protocol " + resp.version());
       resp.bodyHandler(body -> System.out.println("Got data " + body.toString("ISO-8859-1")));
     });
