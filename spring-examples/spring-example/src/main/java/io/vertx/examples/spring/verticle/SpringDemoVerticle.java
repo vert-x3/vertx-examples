@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
+import io.vertx.core.json.Json;
 import io.vertx.examples.spring.service.ProductService;
 import org.springframework.context.ApplicationContext;
 
@@ -20,31 +21,33 @@ public class SpringDemoVerticle extends AbstractVerticle {
 
   public static final String ALL_PRODUCTS_ADDRESS = "example.all.products";
 
-  private final ObjectMapper mapper = new ObjectMapper();
+  // Reuse the Vert.x Mapper, alternatively you can use your own.
+  private final ObjectMapper mapper = Json.mapper;
+
   private final ProductService service;
 
   public SpringDemoVerticle(final ApplicationContext context) {
-
     service = (ProductService) context.getBean("productService");
-
   }
 
   private Handler<Message<String>> allProductsHandler(ProductService service) {
+    // It is important to use an executeBlocking construct here
+    // as the service calls are blocking (dealing with a database)
     return msg -> vertx.<String>executeBlocking(future -> {
-      try {
-        future.complete(mapper.writeValueAsString(service.getAllProducts()));
-      } catch (JsonProcessingException e) {
-        System.out.println("Failed to serialize result");
-        future.fail(e);
-      }
-    },
-    result -> {
-      if (result.succeeded()) {
-        msg.reply(result.result());
-      } else {
-        msg.reply(result.cause().toString());
-      }
-    });
+          try {
+            future.complete(mapper.writeValueAsString(service.getAllProducts()));
+          } catch (JsonProcessingException e) {
+            System.out.println("Failed to serialize result");
+            future.fail(e);
+          }
+        },
+        result -> {
+          if (result.succeeded()) {
+            msg.reply(result.result());
+          } else {
+            msg.reply(result.cause().toString());
+          }
+        });
   }
 
   @Override

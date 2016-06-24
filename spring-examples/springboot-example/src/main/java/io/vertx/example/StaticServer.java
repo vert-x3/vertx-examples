@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class StaticServer extends AbstractVerticle {
 
-    @Override
-    public void start() throws Exception {
-        Router router = Router.router(vertx);
+  @Override
+  public void start() throws Exception {
+    Router router = Router.router(vertx);
 
-        // Serve the static pages
-        router.route().handler(StaticHandler.create());
+    // Serve the static pages
+    router.route().handler(StaticHandler.create());
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(8080);
-    }
+    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+  }
 }

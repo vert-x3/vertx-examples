@@ -23,8 +23,16 @@ public class Runner {
     runExample(CORE_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
   }
 
+  public static void runClusteredExample(Class clazz, VertxOptions options) {
+    runExample(CORE_EXAMPLES_JAVA_DIR, clazz, options.setClustered(true), null);
+  }
+
   public static void runExample(Class clazz) {
     runExample(CORE_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
+  }
+
+  public static void runExample(Class clazz, DeploymentOptions options) {
+    runExample(CORE_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), options);
   }
 
   // JavaScript examples

@@ -18,8 +18,15 @@ public class ProcessorServiceImpl implements ProcessorService {
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
     System.out.println("Processing...");
     JsonObject result = document.copy();
-    result.put("approved", true);
-    resultHandler.handle(Future.succeededFuture(result));
+    if (!document.containsKey("name")) {
+      resultHandler.handle(ServiceException.fail(NO_NAME_ERROR, "No name in the document"));
+    } else if (document.getString("name").isEmpty()  || document.getString("name").equalsIgnoreCase("bad")) {
+      resultHandler.handle(ServiceException.fail(BAD_NAME_ERROR, "Bad name in the document: " +
+        document.getString("name"), new JsonObject().put("name", document.getString("name"))));
+    } else {
+      result.put("approved", true);
+      resultHandler.handle(Future.succeededFuture(result));
+    }
   }
 
 }

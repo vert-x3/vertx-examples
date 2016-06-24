@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>rx-examples</artifactId>
-  <version>3.2.1</version>
+  <version>3.3.0</version>
 
   <dependencies>
     <dependency>
@@ -84,4 +84,17 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/iovertx-2939/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

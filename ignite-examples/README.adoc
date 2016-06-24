@@ -1,0 +1,26 @@
+= Vert.x Apache Ignite examples
+
+This project shows a simple example using the Apache Ignite cluster manager (instead of the Hazelcast cluster manager).
+
+This project is composed by two small applications:
+
+* link:src/main/java/io/vertx/example/ignite/ProducerApp.java[Producer App] - sending data on the event bus
+* link:src/main/java/io/vertx/example/ignite/ConsumerApp.java[Consumer App] - receiving data from the event bus
+
+Starts these applications from your IDE, and you should see the sent and receive data (don't forget to start both
+application).
+
+== Network interface selection
+
+The applications try to pick the network address automatically, but it may be wrong. In this case pass the IP of the
+interface you want to use as parameter.
+
+== Launching the example from the command line
+
+you can launch the producer and consumer as follows:
+
+----
+mvn clean package
+java -jar target/ignite-examples-3.3.0-fat.jar run io.vertx.example.ignite.ProducerApp -cluster
+java -jar target/ignite-examples-3.3.0-fat.jar run io.vertx.example.ignite.ConsumerApp -cluster
+----

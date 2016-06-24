@@ -6,14 +6,13 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>vertx-docker-example</artifactId>
-  <version>3.2.1</version>
+  <version>3.3.0</version>
 
   <name>Sample Docker Image with Maven</name>
 
   <properties>
     <docker.image>vertx/vertx3-example</docker.image>
   </properties>
-
 
   <dependencies>
     <dependency>
@@ -72,4 +71,17 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/iovertx-2939/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

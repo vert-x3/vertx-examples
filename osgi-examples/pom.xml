@@ -6,7 +6,8 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>osgi-examples</artifactId>
-  <version>3.2.1</version>
+  <version>3.3.0</version>
+
 
   <packaging>bundle</packaging>
 
@@ -76,4 +77,17 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/iovertx-2939/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>sync-examples</artifactId>
-  <version>3.2.1</version>
+  <version>3.3.0</version>
 
   <dependencies>
 
@@ -26,7 +26,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-sync</artifactId>
-      <version>3.2.1</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -38,7 +38,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-sql-common</artifactId>
-      <version>3.2.1</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -88,6 +88,19 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/iovertx-2939/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
   <profiles>
     <profile>

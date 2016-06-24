@@ -1,39 +1,42 @@
 plugins {
-    id 'java'
-    id 'groovy'
-    id 'application'
-    id 'com.github.johnrengelman.shadow' version '1.2.2'
+  id 'java'
+  id 'groovy'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
+  maven {
+    url "https://oss.sonatype.org/content/repositories/iovertx-2939"
+  }
 }
 
 
-version = '3.2.1'
+version = '3.3.0'
 
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
 
 dependencies {
-    compile "io.vertx:vertx-core:$version"
-    compile "io.vertx:vertx-lang-groovy:$version"
+  compile "io.vertx:vertx-core:$version"
+  compile "io.vertx:vertx-lang-groovy:$version"
 }
 
 processResources {
-    from 'src/main/groovy'
+  from 'src/main/groovy'
 }
 
 shadowJar {
-    classifier = 'fat'
-    manifest {
-        attributes 'Main-Verticle': 'groovy:MyGroovyVerticle'
-    }
-    mergeServiceFiles {
-        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
-    }
+  classifier = 'fat'
+  manifest {
+    attributes 'Main-Verticle': 'groovy:MyGroovyVerticle'
+  }
+  mergeServiceFiles {
+    include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+  }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
+  gradleVersion = '2.8'
 }
