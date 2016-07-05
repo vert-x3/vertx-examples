@@ -37,6 +37,7 @@
     <module>ignite-examples</module>
     <module>amqp-bridge-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
+    <module>camel-bridge-examples</module>
   </modules>
 
   <profiles>

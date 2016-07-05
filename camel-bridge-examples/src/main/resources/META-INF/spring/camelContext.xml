@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <context:property-placeholder location="classpath:myapp.properties" ignore-resource-not-found="true"/>
+  <bean id="helloServiceBean" class="io.vertx.example.camel.rmi.HelloServiceImpl"/>
+
+  <bean id="rmiServer" class="java.rmi.registry.LocateRegistry" factory-method="createRegistry">
+    <constructor-arg index="0" value="${port}"/>
+  </bean>
+
+  <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring" depends-on="rmiServer">
+    <endpoint id="rmiService" uri="rmi://localhost:${port}/helloServiceBean?remoteInterfaces=io.vertx.example.camel.rmi.HelloService"/>
+    <camel:route>
+      <from ref="rmiService"/>
+      <to uri="log:Incoming request on RMI"/>
+      <to uri="bean:helloServiceBean"/>
+    </camel:route>
+  </camelContext>
+</beans>

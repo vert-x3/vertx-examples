@@ -205,6 +205,11 @@ The Vert.x JCA Example project provides a JEE compliant application that enables
 
 The link:amqp-bridge-examples/README.adoc[Vert.x AMQP Bridge Examples] show how you can interact with AMQP 1.0 servers using the Vert.x AMQP Bridge.
 
+=== Camel Bridge examples
+
+The link:camel-bridge-examples/README.adoc[Vert.x Camel Bridge Examples] show how you can use Apache Camel routes from
+the event bus.
+
 === Vert.x fatjar examples
 
 The link:fatjar-examples/README.adoc[Vert.x fatjar Examples] show how you can build fatjar with Maven or Gradle.
