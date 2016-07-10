@@ -14,7 +14,7 @@ To build with Maven
 
 To run the fat jar:
 
-    java -jar target/http2-fatjar-3.3.0.jar
+    java -jar target/http2-fatjar-3.3.2.jar
 
 The build.gradle uses the Gradle shadowJar plugin to assemble the application and all it's dependencies into a single "fat" jar.
 

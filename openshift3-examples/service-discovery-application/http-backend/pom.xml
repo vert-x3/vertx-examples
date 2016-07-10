@@ -6,7 +6,7 @@
 
   <groupId>io.vertx.examples.openshift</groupId>
   <artifactId>http-backend</artifactId>
-  <version>3.3.0</version>
+  <version>3.3.2</version>
 
   <properties>
     <main.verticle>io.vertx.examples.openshift.MyHttpVerticle</main.verticle>
@@ -149,6 +149,16 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+        </repository>
+      </repositories>
     </profile>
   </profiles>
 </project>

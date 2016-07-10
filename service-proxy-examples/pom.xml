@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>service-proxy-examples</artifactId>
-  <version>3.3.0</version>
+  <version>3.3.2</version>
 
   <packaging>pom</packaging>
 
@@ -14,5 +14,17 @@
     <module>service-provider</module>
     <module>service-consumer</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
 </project>

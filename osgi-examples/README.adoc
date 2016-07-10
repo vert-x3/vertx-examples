@@ -43,12 +43,12 @@ Here is the list of the bundles to deploy this example:
    21|Active     |    1|Netty/Handler (4.0.33.Final)|4.0.33.Final
    22|Active     |    1|Netty/Transport (4.0.33.Final)|4.0.33.Final
    23|Active     |    1|Apache ServiceMix :: Bundles :: c3p0 (0.9.5.2_1)|0.9.5.2_1
-   24|Active     |    1|osgi-examples (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT <--- this project
-   25|Active     |    1|vertx-auth-common (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
-   26|Active     |    1|Vert.x Core (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
-   27|Active     |    1|vertx-jdbc-client (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
-   28|Active     |    1|vertx-sql-common (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
-   29|Active     |    1|vertx-web (3.3.0.SNAPSHOT)|3.3.0.SNAPSHOT
+   24|Active     |    1|osgi-examples (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT <--- this project
+   25|Active     |    1|vertx-auth-common (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
+   26|Active     |    1|Vert.x Core (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
+   27|Active     |    1|vertx-jdbc-client (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
+   28|Active     |    1|vertx-sql-common (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
+   29|Active     |    1|vertx-web (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
 ```
 
 The HSQL JDBC driver is in the application classpath.
