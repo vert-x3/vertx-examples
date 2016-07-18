@@ -27,31 +27,37 @@ Verticles can be exposed as a service and consumed using a white-board pattern. 
 
 An example using the vert.x JDBC client is available in link:src/main/java/io/vertx/example/osgi/jdbc.
 Notice that depending on the connection pool implementation, you may have to put the JDBC driver in your classpath.
-This is the case if you use the default connection pool using C3P0.
+This is the case if you use the default connection pool using C3P0. In this example, we use HikariCP.
 
 Here is the list of the bundles to deploy this example:
 
 ```
-    4|Active     |    1|Apache Felix iPOJO (1.12.1)|1.12.1
-   14|Active     |    1|Jackson-annotations (2.6.0)|2.6.0
-   15|Active     |    1|Jackson-core (2.6.1)|2.6.1
-   16|Active     |    1|jackson-databind (2.6.1)|2.6.1
-   17|Active     |    1|Netty/Buffer (4.0.33.Final)|4.0.33.Final
-   18|Active     |    1|Netty/Codec (4.0.33.Final)|4.0.33.Final
-   19|Active     |    1|Netty/Codec/HTTP (4.0.33.Final)|4.0.33.Final
-   20|Active     |    1|Netty/Common (4.0.33.Final)|4.0.33.Final
-   21|Active     |    1|Netty/Handler (4.0.33.Final)|4.0.33.Final
-   22|Active     |    1|Netty/Transport (4.0.33.Final)|4.0.33.Final
-   23|Active     |    1|Apache ServiceMix :: Bundles :: c3p0 (0.9.5.2_1)|0.9.5.2_1
-   24|Active     |    1|osgi-examples (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT <--- this project
-   25|Active     |    1|vertx-auth-common (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
-   26|Active     |    1|Vert.x Core (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
-   27|Active     |    1|vertx-jdbc-client (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
-   28|Active     |    1|vertx-sql-common (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
-   29|Active     |    1|vertx-web (3.3.2.SNAPSHOT)|3.3.2.SNAPSHOT
+[13] - io.vertx.core - 3.3.2
+[14] - io.netty.common - 4.1.1.Final
+[15] - io.netty.buffer - 4.1.1.Final
+[16] - io.netty.transport - 4.1.1.Final
+[17] - io.netty.handler - 4.1.1.Final
+[18] - io.netty.codec - 4.1.1.Final
+[19] - io.netty.handler-proxy - 4.1.1.Final
+[20] - io.netty.codec-socks - 4.1.1.Final
+[21] - io.netty.codec-http - 4.1.1.Final
+[22] - io.netty.codec-http2 - 4.1.1.Final
+[23] - io.netty.codec-dns - 4.1.1.Final
+[24] - io.netty.resolver - 4.1.1.Final
+[25] - io.netty.resolver-dns - 4.1.1.Final
+[26] - com.fasterxml.jackson.core.jackson-core - 2.7.4
+[27] - com.fasterxml.jackson.core.jackson-databind - 2.7.4
+[28] - com.fasterxml.jackson.core.jackson-annotations - 2.7.0
+[29] - vertx-web - 3.3.2
+[30] - vertx-auth-common - 3.3.2
+[31] - vertx-jdbc-client - 3.3.2
+[32] - vertx-sql-common - 3.3.2
+[33] - com.zaxxer.HikariCP - 2.4.6
+[34] - org.hsqldb.hsqldb - 2.3.4
+[35] - org.apache.felix.ipojo - 1.12.1
+[36] - org.apache.commons.io - 2.5.0
+[37] - io.vertx.osgi-examples - 3.3.2 <--- current project
 ```
-
-The HSQL JDBC driver is in the application classpath.
 
 == Other examples
 

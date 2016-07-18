@@ -39,6 +39,7 @@
     <module>amqp-bridge-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
     <module>camel-bridge-examples</module>
+    <module>osgi-examples</module>
   </modules>
 
   <profiles>
@@ -55,12 +56,6 @@
         <module>docker-examples/vertx-docker-example</module>
         <module>docker-examples/vertx-docker-example-fabric8</module>
         <module>docker-examples/vertx-docker-java-fatjar</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>osgi</id>
-      <modules>
-        <module>osgi-examples</module>
       </modules>
     </profile>
     <profile>

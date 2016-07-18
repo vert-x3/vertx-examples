@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static io.vertx.example.osgi.TcclSwitch.executeWithTCCLSwitch;
+
 /**
  * A vert.x web application in OSGi.
  *
@@ -35,7 +37,7 @@ public class VertxWebApplication extends AbstractVerticle {
   private Map<String, JsonObject> products = new HashMap<>();
 
   @Validate
-  public void start() {
+  public void start() throws Exception {
     setUpInitialData();
     Router router = Router.router(vertx);
     router.route().handler(BodyHandler.create());
@@ -46,7 +48,8 @@ public class VertxWebApplication extends AbstractVerticle {
     router.get("/assets/*").handler(StaticHandler.create("assets", this.getClass().getClassLoader()));
 
     LOGGER.info("Creating HTTP server for vert.x web application");
-    server = vertx.createHttpServer().requestHandler(router::accept).listen(8081);
+    HttpServer server = vertx.createHttpServer();
+    server.requestHandler(router::accept).listen(8081);
   }
 
   @Invalidate

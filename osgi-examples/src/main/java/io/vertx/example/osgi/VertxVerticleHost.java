@@ -4,6 +4,8 @@ import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 import org.apache.felix.ipojo.annotations.*;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -18,6 +20,8 @@ public class VertxVerticleHost {
   @Requires
   Vertx vertx;
 
+  ConcurrentHashMap<Verticle, String> deploymentIds = new ConcurrentHashMap<>();
+
   @Invalidate
   public void stop() {
     // We should unregister all deployed verticles.
@@ -26,12 +30,23 @@ public class VertxVerticleHost {
   @Bind(aggregate = true)
   public void bindVerticle(Verticle verticle) {
     LOGGER.info("Deploying verticle " + verticle);
-    vertx.deployVerticle(verticle);
+    TcclSwitch.executeWithTCCLSwitch(() -> {
+      vertx.deployVerticle(verticle, ar -> {
+        if (ar.succeeded()) {
+          deploymentIds.put(verticle, ar.result());
+        } else {
+          LOGGER.log(Level.SEVERE, "Cannot deploy " + verticle, ar.cause());
+        }
+      });
+    });
   }
 
   @Unbind(aggregate = true)
   public void unbindVerticle(Verticle verticle) {
-    LOGGER.info("Undeploying verticle " + verticle);
-    vertx.undeploy(verticle.getVertx().getOrCreateContext().deploymentID());
+    String id = deploymentIds.get(verticle);
+    LOGGER.info("Undeploying verticle " + verticle + " (" + id + ")");
+    if (id != null) {
+      vertx.undeploy(id);
+    }
   }
 }

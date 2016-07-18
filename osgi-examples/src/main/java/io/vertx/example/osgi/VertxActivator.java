@@ -8,6 +8,8 @@ import org.osgi.framework.ServiceRegistration;
 
 import java.util.logging.Logger;
 
+import static io.vertx.example.osgi.TcclSwitch.executeWithTCCLSwitch;
+
 /**
  * A bundle activator registering the Vert.x instance and the event bus as OSGi service.
  */
@@ -20,7 +22,9 @@ public class VertxActivator implements BundleActivator {
   @Override
   public void start(BundleContext context) throws Exception {
     LOGGER.info("Creating Vert.x instance");
-    Vertx vertx = Vertx.vertx();
+
+    Vertx vertx = executeWithTCCLSwitch(() -> Vertx.vertx());
+
     vertxRegistration = context.registerService(Vertx.class, vertx, null);
     LOGGER.info("Vert.x service registered");
     ebRegistration = context.registerService(EventBus.class, vertx.eventBus(), null);

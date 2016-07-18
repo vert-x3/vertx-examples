@@ -1,6 +1,7 @@
 package io.vertx.example.osgi;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpClient;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
@@ -20,7 +21,8 @@ public class VertxHttpClientVerticle extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    getVertx().createHttpClient().getNow("perdu.com", "/", response -> {
+    HttpClient client = vertx.createHttpClient();
+    client.getNow("perdu.com", "/", response -> {
       response.bodyHandler(buffer -> LOGGER.info(buffer.toString("UTF-8")));
     });
   }
