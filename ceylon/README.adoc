@@ -45,7 +45,7 @@ shared void run() {
 Download Vert.x from http://vertx.io/download, add $VERTX_HOME/bin to your path. Then edit the `vertx-stack.json` and set the `included` boolean to `true` for the `vertx-lang-ceylon` dependency. Ceylon support is not included by default as it breaks the on-demand Java compilation. Once edited, launch:
 
 ----
-vertx resolve --dir=lib --stack=./vertx-stack.json
+vertx resolve --dir=lib
 ----
 
 It will download vertx-lang-ceylon and its dependencies.
