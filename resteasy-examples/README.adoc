@@ -1,0 +1,49 @@
+= Vert.x Resteasy examples
+
+Here you will find examples demonstrating Vert.x and Resteasy in action.
+
+== Dependencies required
+
+To use Vert.x Resteasy in your own Maven or Gradle project you will need following dependencies
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-core
+----
+
+and
+
+----
+Group ID: org.jboss.resteasy
+Artifact ID: resteasy-vertx
+----
+
+== Hello World
+
+The traditional hello world example. This one creates a server which just responds with "Hello World! to each request.
+
+The link:src/main/java/io/vertx/example/resteasy/helloworld/Server.java[Resteasy Hello world example]
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080/ or link:http://localhost:8080/whatever
+
+== Jax-RS async response
+
+Unlike Vert.x, Resteasy is not async by default, but it is capable of handling non blocking async response,
+specially with Vert.x
+
+Here's a simple example which shows a Jax-RS controller using an async response awaiting replies
+from an event bus sent message.
+
+The link:src/main/java/io/vertx/example/resteasy/asyncresponse/Main.java[Resteasy async response example]
+
+The API allows you to list all products, retrieve details for a particular product and to add a new product.
+
+Product information is provided in JSON.
+
+List all products:: GET /products
+Get a product:: GET /products/<product_id>
+Add a product:: PUT /products/<product_id>
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080/

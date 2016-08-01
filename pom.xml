@@ -40,6 +40,7 @@
     <module>fatjar-examples/http2-fatjar</module>
     <module>camel-bridge-examples</module>
     <module>osgi-examples</module>
+    <module>resteasy-examples</module>
   </modules>
 
   <profiles>
