@@ -22,7 +22,7 @@ Artifact ID: resteasy-vertx
 
 The traditional hello world example. This one creates a server which just responds with "Hello World! to each request.
 
-The link:src/main/java/io/vertx/example/resteasy/helloworld/Server.java[Resteasy Hello world example]
+The link:src/main/java/io/vertx/examples/resteasy/helloworld/Server.java[Resteasy Hello world example]
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080/ or link:http://localhost:8080/whatever
