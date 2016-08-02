@@ -35,7 +35,7 @@ specially with Vert.x
 Here's a simple example which shows a Jax-RS controller using an async response awaiting replies
 from an event bus sent message.
 
-The link:src/main/java/io/vertx/example/resteasy/asyncresponse/Main.java[Resteasy async response example]
+The link:src/main/java/io/vertx/examples/resteasy/asyncresponse/Main.java[Resteasy async response example]
 
 The API allows you to list all products, retrieve details for a particular product and to add a new product.
 
