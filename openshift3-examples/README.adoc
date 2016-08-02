@@ -1,0 +1,226 @@
+# Openshift 3 Examples
+
+This project illustrates how to use Vert.x on Openshift 3 and on Kubernetes.
+
+## Install the CDK
+
+- Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.
+- Install Vagrant, from link:https://www.vagrantup.com/[vagrantup.com], or from your operating system’s packages.
+- From link:https://access.redhat.com/downloads/content/293/ver=2/rhel---7/2.0.0/x86_64/product-software[Red Hat Customer Portal]
+download Red Hat Container Tools (cdk-2.0.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.
+- Unzip `cdk-2.0.0.zip` into a directory of your choosing.
+
+Install the required vagrant plugins:
+
+[source]
+----
+vagrant plugin install vagrant-service-manager
+vagrant plugin install vagrant-registration
+----
+
+Add the RHEL 7.2 Vagrant box to Vagrant with the command:
+
+[source]
+----
+vagrant box add --name cdkv2 <path to downloaded .box file>
+----
+
+Update CDK Memory and CPU
+
+[source]
+----
+cd <CDK-PATH>/components/rhel/rhel-ose
+export VM_MEMORY=8192
+----
+
+Execute Vagrant:
+
+[source]
+----
+export SUB_USERNAME=<your-subscription-username>
+export SUB_PASSWORD=<your-subscription-password>
+vagrant up
+eval "$(vagrant service-manager env docker)"
+----
+
+### Install Openshift Client
+
+You can download and unpack the CLI from the link:https://access.redhat.com/downloads/content/290/ver=3.1/rhel---7/3.1.1.6/x86_64/product-software[Red Hat Customer Portal] for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.
+
+link:https://access.redhat.com/downloads/content/290[Download the CLI]
+
+### Access Openshift console
+
+Open Openshift console:  https://10.1.2.2:8443/console/ +
+(Accept the certificate and proceed)
+
+Log in Openshift with **openshift-dev/devel** as your credentials in CDK
+
+### Configure the Openshift CLI client
+
+Run:
+
+[source]
+----
+oc login 10.1.2.2:8443 -u openshift-dev -p devel
+# login with **openshift-dev/devel**
+----
+
+### Create the project / namespace
+
+Now that Openshift should run, create a new project with:
+
+[source]
+----
+oc new-project vertx-demo
+oc policy add-role-to-user view openshift-dev -n vertx-demo
+oc policy add-role-to-group view system:serviceaccounts -n vertx-demo
+----
+
+The two last instructions give access to the Kubernetes service registry in order to let the different services
+discover each other.
+
+If you plan to use the Fabric8 Maven plugin to deploy the microservices, you may need to execute:
+
+[source]
+----
+export FABRIC8_PROFILES=kubernetes
+export KUBERNETES_MASTER=https://10.1.2.2:8443/
+----
+
+## Simple Web Application
+
+The `simple-web-application` project provides a very simple web app running on top of Openshift3 / Kubernetes. It
+uses Vert.x core and Vert.x web. No clustering involved.
+
+### Deploy it using the Fabric8 Maven Plugin
+
+You can deploy the application using a Maven plugin building a Docker image and the Maven Fabric8 Plugin to create
+the Kubernetes metadata and deploy the application.
+
+----
+cd simple-web-application
+mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+----
+
+### Deploy it with a Docker build (and the OpenShift command line)
+
+You can also write your own `Dockerfile` and trigger the build on Openshift:
+
+----
+cd simple-web-application
+oc new-build --binary --name=simple-web-application -l app=simple-web-application
+mvn package; oc start-build simple-web-application --from-dir=. --follow
+oc new-app simple-web-application -l app=simple-web-application
+oc expose service simple-web-application
+----
+
+### Check the application
+
+Once you have deployed it (using one way or the other), you should have in the Openshift console a link to the root
+of the application (`simple-vertx-demo.rhel-cdk.10.1.2.2.xip.io` or `simple-web-application-vertx-demo.rhel-cdk.10.1
+.2.2.xip.io`). Click on this link to access the application. The application serves `/` and `/api`.
+
+## Clustered Application
+
+This example illustrates how Vert.x clustering can be used on Openshift. It uses Hazelcast and a custom discovery
+strategy made especially for Vert.x. The application is composed by 2 nodes:
+
+1. the first node serve HTTP request and send a message (on the event bus to the second node)
+2. the second node receives messages and replies
+
+### Cluster configuration
+
+To enable clustering you need
+
+1. Add the `vertx-service-discovery-bridge-kubernetes` and `slf4j-api` to your project. The first artifact provides
+the custom Hazelcast discovery.
+2. Provide a `cluster.xml` file using `io.vertx.servicediscovery.hazelcast.HazelcastKubernetesDiscoveryStrategy` as
+custom `discovery-strategy`
+3. Starts the application with `-cluster` (if you use `io.vertx.core.Launcher`)
+4. Add a `vertx-cluster=true` label to the Kubernetes service
+
+### Building and deploying the application using the Fabric8 Maven Plugin
+
+You can deploy the application using a Maven plugin building a Docker image and the Maven Fabric8 Plugin to create
+the Kubernetes metadata and deploy the application.
+
+----
+cd clustered-application/clustered-application-http
+mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+cd ../clustered-application-service
+mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+----
+
+### Building and deploying the application using a Docker build (and the Openshift command line)
+
+You can also deploy this example using the `oc` command:
+
+----
+cd clustered-application/clustered-application-http
+oc new-build --binary --name=clustered-app-http -l app=clustered-app-http
+mvn package; oc start-build clustered-app-http --from-dir=. --follow
+oc new-app clustered-app-http -l app=clustered-app-http
+oc expose service clustered-app-http  -l vertx-cluster=true
+
+cd ../clustered-application-service
+oc new-build --binary --name=clustered-app-service -l app=clustered-app-service
+mvn package; oc start-build clustered-app-service --from-dir=. --follow
+oc new-app clustered-app-service -l app=clustered-app-service
+oc expose service clustered-app-service -l vertx-cluster=true
+----
+
+### Check
+
+Once deployed, you can check the application by clicking on the _service_ link (`clustered-vertx-demo.rhel-cdk.10.1.2
+.2.xip.io`). You can pass a `name` query parameter (`?name=vert.x`) to change the message.
+
+## Service Discovery
+
+This example illustrates how you can use Vert.x service discovery in a Kubernetes / Openshift environment. Services
+are retrieved from the Kubernetes service registry.
+
+This example is composed by 2 projects:
+
+* A. A simple HTTP frontend (`http-frontend`) looking for another HTTP service (provided by the second project)
+* B. A second HTTP service (`http-backend`) consumed by the first project
+
+A discovers B using the Vert.x service discovery and its bridge for Kubernetes.
+
+### Building and deploying the application using the Fabric8 Maven Plugin
+
+You can deploy the application using a Maven plugin building a Docker image and the Maven Fabric8 Plugin to create
+the Kubernetes metadata and deploy the application.
+
+----
+cd service-discovery-application/http-backend
+mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+cd ../http-frontend
+mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+----
+
+### Building and deploying the application using a Docker build (and the Openshift command line)
+
+You can also deploy this example using the `oc` command:
+
+----
+cd service-discovery-application/http-backend
+oc new-build --binary --name=http-backend -l app=http-backend
+mvn package; oc start-build http-backend --from-dir=. --follow
+oc new-app http-backend -l app=http-backend -l service-type=http-endpoint
+oc expose service http-backend -l service-type=http-endpoint
+
+cd ../http-frontend
+oc new-build --binary --name=http-frontend -l app=http-frontend
+mvn package; oc start-build http-frontend --from-dir=. --follow
+oc new-app http-frontend -l app=http-frontend
+oc expose service http-frontend
+----
+
+### Check
+
+Once deployed, you can check the application by clicking on the _service_ link
+(`http://frontend-vertx-demo.rhel-cdk.10.1.2.2.xip.io/`). You can pass a `name` query parameter (`?name=vert.x`) to
+change the message.
+
+

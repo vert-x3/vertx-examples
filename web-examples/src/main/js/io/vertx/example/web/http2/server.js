@@ -15,7 +15,6 @@ router.get("/img/:x/:y").handler(function (ctx) {
 vertx.createHttpServer({
   "ssl" : true,
   "useAlpn" : true,
-  "sslEngine" : 'OPENSSL',
   "pemKeyCertOptions" : {
     "keyPath" : "tls/server-key.pem",
     "certPath" : "tls/server-cert.pem"

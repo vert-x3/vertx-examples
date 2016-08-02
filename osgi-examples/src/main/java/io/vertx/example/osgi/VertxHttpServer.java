@@ -6,6 +6,8 @@ import org.apache.felix.ipojo.annotations.*;
 
 import java.util.logging.Logger;
 
+import static io.vertx.example.osgi.TcclSwitch.executeWithTCCLSwitch;
+
 /**
  * A component creating a Vert.x HTTP Server.
  */
@@ -17,12 +19,14 @@ public class VertxHttpServer {
 
   @Requires
   Vertx vertx;
+
   private HttpServer server;
 
   @Validate
-  public void start() {
+  public void start() throws Exception {
     LOGGER.info("Creating vertx HTTP server");
-    server = vertx.createHttpServer().requestHandler((r) -> {
+    HttpServer server = executeWithTCCLSwitch(() -> vertx.createHttpServer());
+    server.requestHandler((r) -> {
       r.response().end("Hello from OSGi !");
     }).listen(8080);
   }

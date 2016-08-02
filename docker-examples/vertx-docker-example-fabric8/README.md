@@ -1,6 +1,9 @@
 # Vert.x Docker Example for Fabric8
 
 This project builds a docker image launching a very simple Vert.x verticle that you can deploy to [Kubernetes](http://kubernetes.io/) using the [Fabric8](http://fabric8.io/) [maven plugin](http://fabric8.io/guide/mavenPlugin.html).
+
+Also check the Openshift 3 examples that illustrates how to run Vert.x application, clustered application and service
+ discovery in Kubernetes environment (https://github.com/vert-x3/vertx-examples/tree/master/openshift3-examples).
  
 # Build the image
 
@@ -25,6 +28,12 @@ Otherwise if you want to spin up your own Kubernetes installation on your laptop
 # Deployment on Kubernetes
 
 The build creates the `kubernates.json` file with the required metadata in `target/classes`.
+
+Build and deploy using:
+
+```
+mvn clean package fabric8:json docker:build fabric8:apply
+```
 
 ## Pushing the image
 

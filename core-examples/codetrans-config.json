@@ -1,0 +1,7 @@
+{
+  "excludes": [
+    {
+      "package": "io.vertx.example.core.eventbus.messagecodec"
+    }
+  ]
+}

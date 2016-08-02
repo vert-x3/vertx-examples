@@ -1,14 +1,17 @@
 plugins {
   id 'java'
   id 'application'
-  id 'com.github.johnrengelman.shadow' version '1.2.2'
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
 repositories {
   jcenter()
+  maven {
+    url "https://oss.sonatype.org/content/repositories/iovertx-2993"
+  }
 }
 
-version = '3.2.1'
+version = '3.3.2'
 sourceCompatibility = '1.8'
 
 dependencies {

@@ -21,6 +21,11 @@
       "package": "io.vertx.example.web.angular_realtime"
     },
 
+    // React
+    {
+      "package": "io.vertx.example.web.react"
+    },
+
     // JDBC and Mongo
     {
       "package": "io.vertx.example.web.jdbc"

@@ -18,6 +18,7 @@ public class SpringExampleRunner {
     final Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(new SpringDemoVerticle(context));
     vertx.deployVerticle(new ServerVerticle());
+    System.out.println("Deployment done");
   }
 
 }

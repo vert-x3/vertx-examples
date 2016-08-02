@@ -14,6 +14,12 @@
 
   <artifactId>springboot-example</artifactId>
 
+
+  <properties>
+    <vertx.version>3.3.2</vertx.version>
+    <java.version>1.8</java.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -22,18 +28,15 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>3.2.1</version>
+      <version>${vertx.version}</version>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
-      <version>3.2.1</version>
+      <version>${vertx.version}</version>
     </dependency>
   </dependencies>
 
-  <properties>
-    <java.version>1.8</java.version>
-  </properties>
 
   <build>
     <pluginManagement>
@@ -57,4 +60,17 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+
 </project>

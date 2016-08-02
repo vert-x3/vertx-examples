@@ -172,10 +172,13 @@ The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
 It also contains an example of application that can be deployed on Fabric8.
 
-=== Openshift examples
+=== Openshift & Kubernetes examples
 
-The link:openshift-example/README.adoc[Vert.x OpenShift example] shows how to deploy Vert.x application to OpenShift
-following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
+The link:openshift2-example/README.adoc[Vert.x OpenShift 2 example] shows how to deploy Vert.x application to
+OpenShift 2 following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
+
+The link:openshift3-examples/README.adoc[Vert.x OpenShift 3 examples] shows how to deploy Vert.x applications on
+Openshift 3 and Kubernetes. It also demonstrates clustering and service discovery.
 
 === Spring Examples
 
@@ -201,3 +204,15 @@ The Vert.x JCA Example project provides a JEE compliant application that enables
  [Wildfly](http://wildfly.org) application server. While simple in implementation, the link:jca-examples[JCA examples]
  provides a good point of departure for your own development.
 
+=== AMQP Bridge examples
+
+The link:amqp-bridge-examples/README.adoc[Vert.x AMQP Bridge Examples] show how you can interact with AMQP 1.0 servers using the Vert.x AMQP Bridge.
+
+=== Camel Bridge examples
+
+The link:camel-bridge-examples/README.adoc[Vert.x Camel Bridge Examples] show how you can use Apache Camel routes from
+the event bus.
+
+=== Vert.x fatjar examples
+
+The link:fatjar-examples/README.adoc[Vert.x fatjar Examples] show how you can build fatjar with Maven or Gradle.

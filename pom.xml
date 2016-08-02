@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>3.2.1</version>
+  <version>3.3.2</version>
 
   <modules>
     <module>maven-simplest</module>
@@ -22,7 +22,8 @@
     <module>unit-examples</module>
     <module>metrics-examples</module>
     <module>mail-examples</module>
-    <module>openshift-example</module>
+    <module>openshift2-example</module>
+    <module>openshift3-examples</module>
     <module>maven-service-factory-examples</module>
     <module>service-proxy-examples</module>
     <module>spring-examples</module>
@@ -34,6 +35,12 @@
     <module>shell-examples</module>
     <module>heroku-example</module>
     <module>jgroups-examples</module>
+    <module>ignite-examples</module>
+    <module>amqp-bridge-examples</module>
+    <module>fatjar-examples/http2-fatjar</module>
+    <module>camel-bridge-examples</module>
+    <module>osgi-examples</module>
+    <module>resteasy-examples</module>
   </modules>
 
   <profiles>
@@ -53,10 +60,13 @@
       </modules>
     </profile>
     <profile>
-      <id>osgi</id>
-      <modules>
-        <module>osgi-examples</module>
-      </modules>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+        </repository>
+      </repositories>
     </profile>
   </profiles>
 </project>

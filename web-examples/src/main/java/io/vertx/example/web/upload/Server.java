@@ -22,7 +22,7 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Enable multipart form data parsing
-    router.route().handler(BodyHandler.create().setUploadsDirectory(System.getProperty("java.io.tmpdir")));
+    router.route().handler(BodyHandler.create().setUploadsDirectory("uploads"));
 
     router.route("/").handler(routingContext -> {
       routingContext.response().putHeader("content-type", "text/html").end(

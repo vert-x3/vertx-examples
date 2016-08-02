@@ -10,5 +10,6 @@ service.process(document, function (r, r_err) {
     console.log(JSON.stringify(r));
   } else {
     console.log(r_err);
+    Java.type("io.vertx.examples.service.consumer.Failures").dealWithFailure(r_err);
   }
 });

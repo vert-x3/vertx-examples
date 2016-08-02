@@ -27,6 +27,7 @@ public class ConsumerVerticle extends AbstractVerticle {
         System.out.println(r.result().encodePrettily());
       } else {
         System.out.println(r.cause());
+        Failures.dealWithFailure(r.cause());
       }
     });
   }

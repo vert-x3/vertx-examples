@@ -4,6 +4,7 @@ package io.vertx.example;
 import io.vertx.core.Vertx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +17,7 @@ public class Application {
 
   public static void main(String[] args) {
 
-    // This is basically the same example as the web-examples staticsite example but it's booted using
+    // This is basically the same example as the web-examples static site example but it's booted using
     // SpringBoot, not Vert.x
     SpringApplication.run(Application.class, args);
   }

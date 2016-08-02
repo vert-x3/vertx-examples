@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-examples</artifactId>
-  <version>3.2.1</version>
+  <version>3.3.2</version>
 
   <dependencies>
 
@@ -25,7 +25,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>1.1.33.Fork16</version>
+      <version>1.1.33.Fork17</version>
     </dependency>
 
     <dependency>
@@ -105,7 +105,7 @@
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
-      <version>2.1.2.RELEASE</version>
+      <version>3.0.0.RELEASE</version>
     </dependency>
 
     <dependency>
@@ -121,6 +121,21 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web-templ-mvel</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-templ-thymeleaf</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-templ-freemarker</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-templ-pebble</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -145,5 +160,17 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
 </project>
