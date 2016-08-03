@@ -25,16 +25,17 @@ To use the circuit breaker you need to:
 == Client example
 
 * Creates a circuit breaker which
-  can fail 5 times before opening the circuit
-  consider a failure if the operation does not succeed in time
-  time spent in open state before attempting to re-try is 5 seconds
+  * can fail 5 times before opening the circuit
+  * consider a failure if the operation does not succeed in time
+  * time spent in open state before attempting to re-try is 5 seconds
 
 * The execute method sends a request to localhost at port 8080
 
 * The fallback is called whenever the circuit is open
 
-You can run the Client file by vertx commandline tools or by the main method if you are using an IDE.
-If you run the example without running any server, the execution will fail due to timeout.
+* You can run the Client file by vertx commandline tools or by the main method.
+
+* If you run the example without running any server, the execution will fail due to timeout.
 
 
 
