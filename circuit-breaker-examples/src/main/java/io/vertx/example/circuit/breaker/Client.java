@@ -3,7 +3,8 @@ package io.vertx.example.circuit.breaker;
 import io.vertx.circuitbreaker.CircuitBreaker;
 import io.vertx.circuitbreaker.CircuitBreakerOptions;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Vertx;
+import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 
 /**
  * @author <a href="pahan.224@gmail.com">Pahan</a>
@@ -11,42 +12,43 @@ import io.vertx.core.Vertx;
 
 public class Client extends AbstractVerticle {
 
-  public static void main(String[] args)
-  {
-    Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(Client.class.getName());
+  public static void main(String[] args) {
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override
-  public void start()
-  {
-    CircuitBreaker breaker = CircuitBreaker.create("my-circuit-breaker", vertx,
-      new CircuitBreakerOptions().setMaxFailures(5).setTimeout(5000)
-    ).openHandler(v -> {
-      System.out.println("Circuit opened");
-    }).closeHandler(v -> {
-      System.out.println("Circuit closed");
+  public void start() {
+    CircuitBreakerOptions options = new CircuitBreakerOptions()
+        .setMaxFailures(5)
+        .setTimeout(5000)
+        .setFallbackOnFailure(true);
+
+    CircuitBreaker breaker =
+        CircuitBreaker.create("my-circuit-breaker", vertx, options)
+        .openHandler(v -> {
+          System.out.println("Circuit opened");
+        }).closeHandler(v -> {
+          System.out.println("Circuit closed");
+        });
+
+    Future<String> result = breaker.executeWithFallback(future -> {
+      vertx.createHttpClient().getNow(8080, "localhost", "/", response -> {
+        if (response.statusCode() != 200) {
+          future.fail("HTTP error");
+        } else {
+          response.exceptionHandler(future::fail).bodyHandler(buffer -> {
+            future.complete(buffer.toString());
+          });
+        }
+      });
+    }, v -> {
+      // Executed when the circuit is opened
+      return "Hello (fallback)";
     });
 
-    breaker.executeWithFallback(
-      future -> {
-        vertx.createHttpClient().getNow(8080, "localhost", "/", response -> {
-          if (response.statusCode() != 200) {
-            future.fail("HTTP error");
-          } else {
-            response
-              .exceptionHandler(future::fail)
-              .bodyHandler(buffer -> {
-                future.complete(buffer.toString());
-              });
-          }
-        });
-      }, v -> {
-        // Executed when the circuit is opened
-        return "Hello";
-      })
-      .setHandler(ar -> {
-        // Do something with the result
-      });
+    result.setHandler(ar -> {
+      // Do something with the result
+      System.out.println("Result: " + ar.result());
+    });
   }
 }

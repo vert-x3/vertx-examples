@@ -24,18 +24,41 @@ To use the circuit breaker you need to:
 
 == Client example
 
+
 ** Creates a circuit breaker which
   * can fail 5 times before opening the circuit
   * consider a failure if the operation does not succeed in time
   * time spent in open state before attempting to re-try is 5 seconds
+  * call the fallback method on failures
 
 ** The execute method sends a request to localhost at port 8080
 
 ** The fallback is called whenever the circuit is open
 
-You can run the Client file by vertx commandline tools or by the main method.
+To run this example you need to:
 
-If you run the example without running any server, the execution will fail due to timeout.
+1. start or not the server (if not started, the circuit breaker will invoke the fallback)
+2. start the client
+
+
+To start the server, run the `Server.java` class from your IDE or call:
+
+----
+vertx run src/main/java/io/vertx/example/circuit/breaker/Server.java
+----
+
+To start the client, run the `Client.java` class from your IDE or call:
+
+----
+# java version
+vertx run src/main/java/io/vertx/example/circuit/breaker/Client.java
+
+# groovy version
+vertx run src/main/groovy/io/vertx/example/circuit/breaker/client.groovy
+
+# javascript version
+vertx run src/main/js/io/vertx/example/circuit/breaker/client.js
+----
 
 
 

@@ -1,0 +1,12 @@
+{
+  "excludes": [
+
+
+    // only the ruby code is invalid (too many lambdas)
+    {
+      "package": "io.vertx.example.circuit.breaker",
+      "langs": ["rb"]
+    }
+
+  ]
+}
