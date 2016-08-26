@@ -43,6 +43,7 @@
     <module>osgi-examples</module>
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
+    <module>service-discovery-examples</module>
   </modules>
 
   <profiles>
