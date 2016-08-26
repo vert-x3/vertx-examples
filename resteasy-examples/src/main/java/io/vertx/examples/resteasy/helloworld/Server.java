@@ -27,8 +27,8 @@ public class Server extends AbstractVerticle {
     vertx.createHttpServer()
         .requestHandler(new VertxRequestHandler(vertx, deployment))
         .listen(8080, ar -> {
-          System.out.println(ar.succeeded());
+          System.out.println("Server started on port "+ ar.result().actualPort());
         });
-    System.out.println("started");
+
   }
 }

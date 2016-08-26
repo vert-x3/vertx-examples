@@ -20,7 +20,8 @@ public class Server extends AbstractVerticle {
     // Start the front end server using the Jax-RS controller
     vertx.createHttpServer()
         .requestHandler(new VertxRequestHandler(vertx, deployment))
-        .listen(8080);
-    System.out.println("started");
+        .listen(8080, ar -> {
+          System.out.println("Server started on port "+ ar.result().actualPort());
+        });
   }
 }

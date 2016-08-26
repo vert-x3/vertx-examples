@@ -1,0 +1,64 @@
+= Vert.x Circuit Breaker examples
+
+Here you will find examples demonstrating Vert.x Circuit Breaker.
+
+Vert.x Circuit Breaker is an implementation of the Circuit Breaker _pattern_ for Vert.x.
+
+It keeps track of the
+number of failures and _open the circuit_ when a threshold is reached. Optionally, a fallback is executed.
+
+Supported failures are:
+
+* failures reported by your code
+* exception thrown by your code
+* uncompleted futures (timeout)
+
+Operations guarded by a circuit breaker are intended to by non-blocking and asynchronous in order to benefits from
+the Vert.x execution model.
+
+To use the circuit breaker you need to:
+
+* Create a circuit breaker, with the configuration you want (timeout, number of failure before opening the circuit)
+
+* Execute some code using the breaker
+
+== Client example
+
+
+** Creates a circuit breaker which
+  * can fail 5 times before opening the circuit
+  * consider a failure if the operation does not succeed in time
+  * time spent in open state before attempting to re-try is 5 seconds
+  * call the fallback method on failures
+
+** The execute method sends a request to localhost at port 8080
+
+** The fallback is called whenever the circuit is open
+
+To run this example you need to:
+
+1. start or not the server (if not started, the circuit breaker will invoke the fallback)
+2. start the client
+
+
+To start the server, run the `Server.java` class from your IDE or call:
+
+----
+vertx run src/main/java/io/vertx/example/circuit/breaker/Server.java
+----
+
+To start the client, run the `Client.java` class from your IDE or call:
+
+----
+# java version
+vertx run src/main/java/io/vertx/example/circuit/breaker/Client.java
+
+# groovy version
+vertx run src/main/groovy/io/vertx/example/circuit/breaker/client.groovy
+
+# javascript version
+vertx run src/main/js/io/vertx/example/circuit/breaker/client.js
+----
+
+
+

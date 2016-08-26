@@ -43,3 +43,16 @@ cd src/main/rb/io/vertx/example/metrics/dashboard
 vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.3.2.jar:. -Dvertx.metrics.options.enabled=true
 ----
 
+To enable JMX append the following options: `-Dvertx.metrics.options.jmxEnabled=true -Dvertx.metrics.options.jmxDomain=vertx`. Then, if you open a JMX explorer (such the JConsole), in the list of beans you will find the Vert.x metrics under the
+ `vertx` domain.
+
+If you want to use Jolokia to expose the JMX metrics as a REST interface, download the Jolokia JVM agent from https://jolokia.org/download.html and create a `JAVA_OPTS` env variable as follow:
+
+----
+export JAVA_OPTS="-javaagent:path/to/jolokia-jvm-x.x.x-agent.jar=port=7777,host=localhost"
+----
+
+Once defined, relaunch the application with the JMX metrics enabled.
+
+
+
