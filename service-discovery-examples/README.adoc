@@ -8,7 +8,7 @@ A service provider can:
 
 * publish a service record
 
-* un-publish a published record
+* un-publish a published record (withdraw a record)
 
 * update the status of a published service (down, out of service…​)
 
