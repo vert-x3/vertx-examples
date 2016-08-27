@@ -1,0 +1,38 @@
+= Vert.x Service Discovery examples
+
+Here you will find examples demonstrating Vert.x Service Discovery
+
+Vert.x service discovery provides an infrastructure to publish and discover various resources, such as service proxies, HTTP endpoints, data sources and etc.
+
+A service provider can:
+
+* publish a service record
+
+* un-publish a published record (withdraw a record)
+
+* update the status of a published service (down, out of service…​)
+
+A service consumer can:
+
+* lookup for services
+
+* bind to a selected service (it gets a ServiceReference) and use it
+
+* release the service once the consumer is done with it
+
+* listen for arrival, departure and modification of services.
+
+Providers and consumers must create their own ServiceDiscovery instance. These instances are collaborating in background to keep the set of services in sync.
+
+== ServiceDiscoveryVerticle example
+
+* Creates and publish a few services
+
+* Unpublish a service
+
+* Consumes a published service and release it.
+
+You can run the ServiceDiscoveryVerticle.java class from your IDE or call:
+
+  vertx run src/main/java/io/vertx/example/service/discovery/ServiceDiscoveryVerticle.java
+
