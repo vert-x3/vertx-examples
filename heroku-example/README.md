@@ -10,7 +10,7 @@ If you use a fat-jar then deploying on heroku is as simple as one click. The onl
 
 ## To deploy with the one click mode:
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?&template=https%3A%2F%2Fgithub.com%2Fvert-x3%2Fvertx-examples)
 
 ## Use the Heroku Toolbelt
 
