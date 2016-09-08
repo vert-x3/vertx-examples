@@ -14,7 +14,7 @@ To build a "fat jar"
 
 To run the fat jar:
 
-    java -jar target/maven-verticle-3.3.2-fat.jar
+    java -jar target/maven-verticle-3.3.3-fat.jar
 
 (You can take that jar and run it anywhere there is a Java 8+ JDK. It contains all the dependencies it needs so you
 don't need to install Vert.x on the target machine).
@@ -30,16 +30,16 @@ The application can be launched directly from Maven:
 Writing code in verticles allow you to scale it more easily, e.g. let's say you have 8 cores on your server and you
 want to utilize them all, you can deploy 8 instances as follows:
 
-    java -jar target/maven-verticle-3.3.2-fat.jar -instances 8
+    java -jar target/maven-verticle-3.3.3-fat.jar -instances 8
 
 You can also enable clustering and ha at the command line, e.g.
 
-    java -jar target/maven-verticle-3.3.2-fat.jar -cluster
+    java -jar target/maven-verticle-3.3.3-fat.jar -cluster
 
-    java -jar target/maven-verticle-3.3.2-fat.jar -ha
+    java -jar target/maven-verticle-3.3.3-fat.jar -ha
 
 You can also pass a configuration to the verticle:
 
-    java -jar target/maven-verticle-3.3.2-fat.jar -conf src/conf/my-conf.json
+    java -jar target/maven-verticle-3.3.3-fat.jar -conf src/conf/my-conf.json
 
 Please see the docs for a full list of Vert.x command line options.

@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>3.3.2</version>
+  <version>3.3.3</version>
 
   <modules>
     <module>maven-simplest</module>
@@ -67,7 +67,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3291</url>
         </repository>
       </repositories>
     </profile>

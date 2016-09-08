@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "vertx3-eventbus-client": "3.3.2"
+    "vertx3-eventbus-client": "3.3.3"
   }
 }
