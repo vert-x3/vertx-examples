@@ -6,9 +6,9 @@ plugins {
 
 repositories {
   mavenCentral()
-  maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
-  }
+//  maven {
+//    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
+//  }
 }
 
 version = '3.3.3'
