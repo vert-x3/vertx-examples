@@ -1,7 +1,7 @@
 
 FROM java:8-jre-alpine
 
-ENV JAVA_APP_JAR simple-web-application-3.3.2-fat.jar
+ENV JAVA_APP_JAR simple-web-application-3.3.3-fat.jar
 
 EXPOSE 8080
 

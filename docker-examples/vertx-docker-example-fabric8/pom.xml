@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>vertx-docker-example-fabric</artifactId>
-  <version>3.3.2</version>
+  <version>3.3.3</version>
 
   <name>Sample Docker Image for Fabric8</name>
 
@@ -109,7 +109,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-2993</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3295</url>
         </repository>
       </repositories>
     </profile>

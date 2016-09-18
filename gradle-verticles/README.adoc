@@ -1,7 +1,7 @@
 = Vert.x Gradle examples
 
 
-This project shows how you can use Gradle to package your verticles. Each project is is very similar to the
+This project shows how you can use Gradle to package your verticles. Each project is very similar to the
 gradle-simplest project but instead of embedding Vert.x it shows an example of writing the code as a verticle.
 
 It covers:

@@ -39,17 +39,19 @@ public class VertxWebApplication extends AbstractVerticle {
   @Validate
   public void start() throws Exception {
     setUpInitialData();
-    Router router = Router.router(vertx);
-    router.route().handler(BodyHandler.create());
-    router.get("/products/:productID").handler(this::handleGetProduct);
-    router.put("/products/:productID").handler(this::handleAddProduct);
-    router.get("/products").handler(this::handleListProducts);
+    TcclSwitch.executeWithTCCLSwitch(() -> {
+      Router router = Router.router(vertx);
+      router.route().handler(BodyHandler.create());
+      router.get("/products/:productID").handler(this::handleGetProduct);
+      router.put("/products/:productID").handler(this::handleAddProduct);
+      router.get("/products").handler(this::handleListProducts);
 
-    router.get("/assets/*").handler(StaticHandler.create("assets", this.getClass().getClassLoader()));
+      router.get("/assets/*").handler(StaticHandler.create("assets", this.getClass().getClassLoader()));
 
-    LOGGER.info("Creating HTTP server for vert.x web application");
-    HttpServer server = vertx.createHttpServer();
-    server.requestHandler(router::accept).listen(8081);
+      LOGGER.info("Creating HTTP server for vert.x web application");
+      HttpServer server = vertx.createHttpServer();
+      server.requestHandler(router::accept).listen(8081);
+    });
   }
 
   @Invalidate
