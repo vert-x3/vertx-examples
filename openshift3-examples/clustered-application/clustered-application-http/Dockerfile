@@ -1,5 +1,5 @@
 
-FROM java:8-jre-alpine
+FROM openjdk:8-jre-alpine
 
 ENV JAVA_APP_JAR clustered-application-http-3.3.3-fat.jar
 

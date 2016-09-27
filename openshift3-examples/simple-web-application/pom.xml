@@ -109,7 +109,7 @@
                 <image>
                   <name>${docker.image}</name>
                   <build>
-                    <from>java:8-jre-alpine</from>
+                    <from>openjdk:8-jre-alpine</from>
                     <tags>
                       <tag>latest</tag>
                       <tag>${project.version}</tag>
