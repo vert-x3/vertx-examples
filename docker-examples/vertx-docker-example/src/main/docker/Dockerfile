@@ -19,5 +19,5 @@ COPY ./verticles $VERTICLE_HOME
 
 # We use the "sh -c" to turn around https://github.com/docker/docker/issues/5509 - variable not expanded
 ENTRYPOINT ["sh", "-c"]
-CMD ["vertx run $VERTICLE_NAME -cp $VERTICLE_HOME/* $VERTX_OPTIONS"]
+CMD ["exec vertx run $VERTICLE_NAME -cp $VERTICLE_HOME/* $VERTX_OPTIONS"]
 
