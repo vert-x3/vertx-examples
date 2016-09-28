@@ -10,4 +10,4 @@ RUN chmod 777 /app/
 
 WORKDIR /app/
 ENTRYPOINT ["sh", "-c"]
-CMD ["java -jar $JAVA_APP_JAR -cluster"]
+CMD ["exec java -jar $JAVA_APP_JAR -cluster"]
