@@ -1,5 +1,5 @@
 
-FROM java:8-jre-alpine
+FROM openjdk:8-jre-alpine
 
 ENV JAVA_APP_JAR http-backend-3.3.3-fat.jar
 
@@ -10,4 +10,4 @@ RUN chmod 777 /app/
 
 WORKDIR /app/
 ENTRYPOINT ["sh", "-c"]
-CMD ["java -jar $JAVA_APP_JAR"]
+CMD ["exec java -jar $JAVA_APP_JAR"]
