@@ -26,7 +26,12 @@ def mainVerticleName = 'io.vertx.example.HelloWorldVerticle'
 def watchForChange = 'src/**/*.java'
 
 // Vert.x will call this task on changes
-def doOnChange = './gradlew classes'
+def doOnChange
+if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+  doOnChange = '.\\gradlew classes'
+} else {
+  doOnChange = './gradlew classes'
+}
 
 run {
   args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
