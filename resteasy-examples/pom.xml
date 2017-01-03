@@ -12,7 +12,7 @@
   <properties>
     <!-- the main verticle class name -->
     <main.class>io.vertx.examples.spring.SpringExampleRunner</main.class>
-    <resteasy.version>3.1.0.Beta1</resteasy.version>
+    <resteasy.version>3.1.0.Final</resteasy.version>
   </properties>
 
   <dependencies>
