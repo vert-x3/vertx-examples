@@ -1,13 +1,15 @@
-Spring Examples
+= Spring Examples
 
-This projects presents how vert.x and Spring can interact.
+These projects present how Vert.x and Spring can interact.
 
-=== Spring Boot Example
+== Spring Boot Example
 
-The link:springboot-example/README.adoc[Vert.x SpringBoot Example] shows how you can embed Vert.x in a SpringBoot
-application.
+The link:springboot-example/README.adoc[Vert.x Spring Boot Example] shows how you can embed Vert.x in a Spring Boot application.
 
-=== Spring example
+== Spring Example
 
-The link:spring-example/README.adoc[Vert.x Spring Example] shows how you can access Spring beans as services in a vert.x
-application
+The link:spring-example/README.adoc[Vert.x Spring Example] shows how you can access Spring beans as services in a Vert.x application
+
+== Spring Boot Clustering
+
+The link:spring-boot-clustering/README.adoc[Spring Boot Clustering Examples] show how you can setup a clustered Vert.x embedded in Spring Boot.
