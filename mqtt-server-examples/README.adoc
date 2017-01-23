@@ -1,0 +1,6 @@
+= Vert.x MQTT Server examples
+
+Here you will find examples demonstrating Vert.x MQTT Server in action.
+
+Vert.x MQTT Server provides a server which is able to handle connections, communication and messages exchange with remote MQTT clients. 
+Please consult the Vert.x MQTT Server documentation for more information.
