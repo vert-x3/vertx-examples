@@ -16,6 +16,7 @@
 
 package io.vertx.example.mqtt;
 
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -33,7 +34,10 @@ public class MqttServerVerticleApp {
 
         Vertx vertx = Vertx.vertx();
 
-        vertx.deployVerticle("io.vertx.mqtt.examples.verticle.MqttServerVerticle");
+        DeploymentOptions options = new DeploymentOptions();
+        options.setInstances(5);
+
+        vertx.deployVerticle("io.vertx.example.mqtt.MqttServerVerticle", options);
 
         try {
             System.in.read();
