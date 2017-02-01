@@ -7,7 +7,7 @@ plugins {
 repositories {
   jcenter()
 //  maven {
-//    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
+//    url "https://oss.sonatype.org/content/repositories/snapshots"
 //  }
 }
 
@@ -39,11 +39,11 @@ run {
 
 shadowJar {
   classifier = 'fat'
-  
+
   manifest {
       attributes "Main-Verticle": mainVerticleName
   }
-  
+
   mergeServiceFiles {
     include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
   }

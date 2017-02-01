@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.web.Router
+import io.vertx.ext.web.Router
 
 def image = new io.vertx.example.web.http2.Image(vertx, "coin.png")
 

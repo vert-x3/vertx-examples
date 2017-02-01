@@ -1,5 +1,5 @@
 import groovy.transform.Field
-import io.vertx.groovy.ext.mail.MailService
+import io.vertx.ext.mail.MailService
 @Field def MAIL_SERVICE_VERTICLE = "io.vertx.ext.mail.MailServiceVerticle"
 // Start a local STMP server, remove this line if you want to use your own server.
 // It just prints the sent message to the console

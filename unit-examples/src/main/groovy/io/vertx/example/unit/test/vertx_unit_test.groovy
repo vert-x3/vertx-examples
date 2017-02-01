@@ -1,6 +1,6 @@
 import groovy.transform.Field
-import io.vertx.groovy.ext.unit.TestSuite
-import io.vertx.groovy.core.Vertx
+import io.vertx.ext.unit.TestSuite
+import io.vertx.core.Vertx
 @Field def vertx
 
 def options = [

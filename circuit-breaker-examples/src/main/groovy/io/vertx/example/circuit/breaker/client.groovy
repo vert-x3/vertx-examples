@@ -1,4 +1,4 @@
-import io.vertx.groovy.circuitbreaker.CircuitBreaker
+import io.vertx.circuitbreaker.CircuitBreaker
 def options = [
   maxFailures:5,
   timeout:5000,

@@ -1,12 +1,12 @@
-import io.vertx.groovy.ext.shell.command.CommandBuilder
-import io.vertx.groovy.ext.shell.ShellService
-import io.vertx.groovy.ext.shell.command.CommandRegistry
+import io.vertx.ext.shell.command.CommandBuilder
+import io.vertx.ext.shell.ShellService
+import io.vertx.ext.shell.command.CommandRegistry
 
 def starwars = CommandBuilder.command("echokeyboard").processHandler({ process ->
 
   // Echo
   process.stdinHandler({ keys ->
-    process.write(keys.replace('\r', '\n'))
+    process.write(keys.replace('\r' as char, '\n' as char))
   })
 
   // Terminate when user hits Ctrl-C

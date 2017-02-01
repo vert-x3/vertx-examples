@@ -18,6 +18,7 @@ package io.vertx.examples.service.rxjava;
 
 import java.util.Map;
 import rx.Observable;
+import rx.Single;
 import io.vertx.rxjava.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.AsyncResult;
@@ -30,25 +31,31 @@ import io.vertx.core.Handler;
  * NOTE: This class has been automatically generated from the {@link io.vertx.examples.service.ProcessorService original} non RX-ified interface using Vert.x codegen.
  */
 
+@io.vertx.lang.rxjava.RxGen(io.vertx.examples.service.ProcessorService.class)
 public class ProcessorService {
 
-  final io.vertx.examples.service.ProcessorService delegate;
+  public static final io.vertx.lang.rxjava.TypeArg<ProcessorService> __TYPE_ARG = new io.vertx.lang.rxjava.TypeArg<>(
+    obj -> new ProcessorService((io.vertx.examples.service.ProcessorService) obj),
+    ProcessorService::getDelegate
+  );
 
+  private final io.vertx.examples.service.ProcessorService delegate;
+  
   public ProcessorService(io.vertx.examples.service.ProcessorService delegate) {
     this.delegate = delegate;
   }
 
-  public Object getDelegate() {
+  public io.vertx.examples.service.ProcessorService getDelegate() {
     return delegate;
   }
 
   public static ProcessorService create(Vertx vertx) { 
-    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create((io.vertx.core.Vertx)vertx.getDelegate()));
+    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
     return ret;
   }
 
   public static ProcessorService createProxy(Vertx vertx, String address) { 
-    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy((io.vertx.core.Vertx)vertx.getDelegate(), address));
+    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
     return ret;
   }
 
@@ -56,10 +63,10 @@ public class ProcessorService {
     delegate.process(document, resultHandler);
   }
 
-  public Observable<JsonObject> processObservable(JsonObject document) { 
-    io.vertx.rx.java.ObservableFuture<JsonObject> resultHandler = io.vertx.rx.java.RxHelper.observableFuture();
-    process(document, resultHandler.toHandler());
-    return resultHandler;
+  public Single<JsonObject> rxProcess(JsonObject document) { 
+    return Single.create(new io.vertx.rx.java.SingleOnSubscribeAdapter<>(fut -> {
+      process(document, fut);
+    }));
   }
 
 

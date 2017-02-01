@@ -1,4 +1,4 @@
-import io.vertx.examples.service.groovy.ProcessorService
+import io.vertx.examples.service.ProcessorService
 def service = ProcessorService.createProxy(vertx, "vertx.processor")
 
 def document = [

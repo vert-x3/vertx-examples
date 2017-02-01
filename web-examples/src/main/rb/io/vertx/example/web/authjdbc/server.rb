@@ -56,7 +56,7 @@ router.route().handler(&VertxWeb::BodyHandler.create().method(:handle))
 router.route().handler(&VertxWeb::SessionHandler.create(VertxWeb::LocalSessionStore.create($vertx)).method(:handle))
 
 # Simple auth service which uses a JDBC data source
-authProvider = VertxAuthJdbc::JDBCAuth.create(client)
+authProvider = VertxAuthJdbc::JDBCAuth.create($vertx, client)
 
 # We need a user session handler too to make sure the user is stored in the session between requests
 router.route().handler(&VertxWeb::UserSessionHandler.create(authProvider).method(:handle))

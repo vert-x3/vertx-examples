@@ -1,6 +1,7 @@
+require 'vertx/vertx'
 require 'vertx-redis/redis_client'
 # If a config file is set, read the host and port.
-host = Java::IoVertxGroovyCore::Vertx.current_context().config()["host"]
+host = Vertx::Vertx.current_context().config()['host']
 if (host == nil)
   host = "127.0.0.1"
 end

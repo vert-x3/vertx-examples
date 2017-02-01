@@ -1,5 +1,5 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.StaticHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.StaticHandler
 
 def router = Router.router(vertx)
 

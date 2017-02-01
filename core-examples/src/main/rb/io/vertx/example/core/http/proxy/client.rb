@@ -8,10 +8,8 @@ request = $vertx.create_http_client({
 
 request.set_chunked(true)
 
-i = 0
-while (i < 10)
+(0...10).each do |i|
   request.write("client-chunk-#{i}")
-  i+=1
 end
 
 request.end()

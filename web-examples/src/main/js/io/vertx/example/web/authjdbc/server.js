@@ -56,7 +56,7 @@ router.route().handler(BodyHandler.create().handle);
 router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)).handle);
 
 // Simple auth service which uses a JDBC data source
-var authProvider = JDBCAuth.create(client);
+var authProvider = JDBCAuth.create(vertx, client);
 
 // We need a user session handler too to make sure the user is stored in the session between requests
 router.route().handler(UserSessionHandler.create(authProvider).handle);

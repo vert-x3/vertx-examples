@@ -1,5 +1,5 @@
 import io.vertx.core.http.HttpVersion
-import io.vertx.groovy.core.buffer.Buffer
+import io.vertx.core.buffer.Buffer
 
 // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 

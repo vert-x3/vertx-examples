@@ -15,10 +15,8 @@ $vertx.create_http_server().request_handler() { |req|
     # Now send back a response
     req.response().set_chunked(true)
 
-    i = 0
-    while (i < 10)
+    (0...10).each do |i|
       req.response().write("server-data-chunk-#{i}")
-      i+=1
     end
 
     req.response().end()

@@ -1,4 +1,4 @@
-import io.vertx.groovy.core.streams.Pump
+import io.vertx.core.streams.Pump
 def req = vertx.createHttpClient([:]).put(8080, "localhost", "/someurl", { resp ->
   println("Response ${resp.statusCode()}")
 })
