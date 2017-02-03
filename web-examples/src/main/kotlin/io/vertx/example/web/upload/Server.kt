@@ -1,8 +1,10 @@
+package io.vertx.example.web.upload
+
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.BodyHandler
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var router = Router.router(vertx)

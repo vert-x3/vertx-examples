@@ -1,6 +1,8 @@
+package io.vertx.example.core.execblocking
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class ExecBlockingExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     vertx.createHttpServer().requestHandler({ request ->
@@ -9,7 +11,7 @@ class start : io.vertx.core.AbstractVerticle()  {
       // request. We can't do this directly or it will block the event loop
       // But you can do this using executeBlocking:
 
-      vertx.executeBlocking({ future ->
+      vertx.executeBlocking<String>({ future ->
 
         // Do the blocking operation in here
 

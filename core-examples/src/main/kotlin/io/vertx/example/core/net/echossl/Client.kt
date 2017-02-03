@@ -1,6 +1,8 @@
+package io.vertx.example.core.net.echossl
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var options = io.vertx.core.net.NetClientOptions(

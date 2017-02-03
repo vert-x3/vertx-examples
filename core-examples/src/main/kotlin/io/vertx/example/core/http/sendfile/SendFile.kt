@@ -1,12 +1,14 @@
+package io.vertx.example.core.http.sendfile
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class SendFile : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     // In reality it's highly recommend you use Vert.x-Web for applications like this.
 
     vertx.createHttpServer().requestHandler({ req ->
-      var filename = null
+      var filename: String? = null
       if (req.path() == "/") {
         filename = "index.html"
       } else if (req.path() == "/page1.html") {

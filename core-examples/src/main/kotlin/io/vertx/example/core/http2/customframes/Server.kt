@@ -1,7 +1,9 @@
+package io.vertx.example.core.http2.customframes
+
 import io.vertx.core.buffer.Buffer
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var server = vertx.createHttpServer(io.vertx.core.http.HttpServerOptions(

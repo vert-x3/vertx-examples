@@ -1,6 +1,8 @@
+package io.vertx.example.core.eventbus.pointtopoint
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Sender : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     var eb = vertx.eventBus()
 
@@ -8,7 +10,7 @@ class start : io.vertx.core.AbstractVerticle()  {
 
     vertx.setPeriodic(1000, { v ->
 
-      eb.send("ping-address", "ping!", { reply ->
+      eb.send<Any>("ping-address", "ping!", { reply ->
         if (reply.succeeded()) {
           println("Received reply ${reply.result().body()}")
         } else {

@@ -1,7 +1,9 @@
+package io.vertx.example.core.net.echossl
+
 import io.vertx.core.streams.Pump
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var options = io.vertx.core.net.NetServerOptions(

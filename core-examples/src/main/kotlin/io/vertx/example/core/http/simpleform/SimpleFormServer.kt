@@ -1,6 +1,8 @@
+package io.vertx.example.core.http.simpleform
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class SimpleFormServer : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     vertx.createHttpServer().requestHandler({ req ->
       if (req.uri() == "/") {

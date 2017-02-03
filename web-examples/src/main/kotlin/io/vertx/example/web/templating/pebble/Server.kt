@@ -1,8 +1,10 @@
+package io.vertx.example.web.templating.pebble
+
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.templ.PebbleTemplateEngine
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     // To simplify the development of the web components we use a Router to route all HTTP requests

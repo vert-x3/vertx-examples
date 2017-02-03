@@ -1,6 +1,8 @@
+package io.vertx.example.core.verticle.deploy
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class DeployExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     println("Main verticle has started, let's deploy some others...")

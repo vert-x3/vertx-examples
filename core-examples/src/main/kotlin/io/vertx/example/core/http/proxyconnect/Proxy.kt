@@ -1,7 +1,9 @@
+package io.vertx.example.core.http.proxyconnect
+
 import io.vertx.core.http.HttpMethod
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Proxy : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var client = vertx.createNetClient(io.vertx.core.net.NetClientOptions(

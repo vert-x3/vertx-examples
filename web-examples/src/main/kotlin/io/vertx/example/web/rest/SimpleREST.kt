@@ -1,8 +1,10 @@
+package io.vertx.example.web.rest
+
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.BodyHandler
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class SimpleREST : io.vertx.core.AbstractVerticle()  {
   var products = mutableMapOf<String, Any?>()
   fun addProduct(product: io.vertx.core.json.JsonObject) {
     products[product.getString("id")] = product

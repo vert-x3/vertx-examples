@@ -1,6 +1,8 @@
+package io.vertx.example.core.http.proxy
+
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     var request = vertx.createHttpClient(io.vertx.core.http.HttpClientOptions(
     )).put(8080, "localhost", "/", { resp ->

@@ -1,7 +1,9 @@
+package io.vertx.example.jdbc.simple
+
 import io.vertx.ext.jdbc.JDBCClient
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class JDBCExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var client = JDBCClient.createShared(vertx, json {

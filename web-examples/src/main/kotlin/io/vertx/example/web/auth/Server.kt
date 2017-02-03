@@ -1,3 +1,5 @@
+package io.vertx.example.web.auth
+
 import io.vertx.ext.auth.shiro.ShiroAuth
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType
 import io.vertx.ext.web.Router
@@ -11,7 +13,7 @@ import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var router = Router.router(vertx)

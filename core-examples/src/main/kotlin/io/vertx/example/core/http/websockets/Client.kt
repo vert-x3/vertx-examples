@@ -1,7 +1,9 @@
+package io.vertx.example.core.http.websockets
+
 import io.vertx.core.buffer.Buffer
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     var client = vertx.createHttpClient()
 

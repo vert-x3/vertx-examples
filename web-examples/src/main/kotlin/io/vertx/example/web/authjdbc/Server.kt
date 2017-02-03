@@ -1,3 +1,5 @@
+package io.vertx.example.web.authjdbc
+
 import io.vertx.ext.auth.jdbc.JDBCAuth
 import io.vertx.ext.jdbc.JDBCClient
 import io.vertx.ext.web.Router
@@ -11,7 +13,7 @@ import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   var conn: java.sql.Connection
   fun setUpInitialData(url: String) {
     conn = java.sql.DriverManager.getConnection(url)

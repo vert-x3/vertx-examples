@@ -1,7 +1,9 @@
+package io.vertx.example.web.http2
+
 import io.vertx.ext.web.Router
 import io.vertx.kotlin.common.json.*
 
-class start : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var image = io.vertx.example.web.http2.Image(vertx, "coin.png")
