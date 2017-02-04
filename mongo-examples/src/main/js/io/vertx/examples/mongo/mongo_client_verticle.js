@@ -4,11 +4,11 @@ var MongoClient = require("vertx-mongo-js/mongo_client");
 var config = Vertx.currentContext().config();
 
 var uri = config.mongo_uri;
-if (uri === null) {
+if (uri === null ||uri === undefined) {
   uri = "mongodb://localhost:27017";
 }
 var db = config.mongo_db;
-if (db === null) {
+if (db === null ||db === undefined) {
   db = "test";
 }
 
