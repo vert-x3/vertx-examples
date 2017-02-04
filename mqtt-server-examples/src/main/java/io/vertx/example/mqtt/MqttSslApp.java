@@ -30,51 +30,51 @@ import java.io.IOException;
  */
 public class MqttSslApp {
 
-    private static final Logger log = LoggerFactory.getLogger(MqttSslApp.class);
+  private static final Logger log = LoggerFactory.getLogger(MqttSslApp.class);
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        Vertx vertx = Vertx.vertx();
+    Vertx vertx = Vertx.vertx();
 
-        PemKeyCertOptions pemKeyCertOptions = new PemKeyCertOptions()
-                .setKeyPath("./src/test/resources/tls/server-key.pem")
-                .setCertPath("./src/test/resources/tls/server-cert.pem");
+    PemKeyCertOptions pemKeyCertOptions = new PemKeyCertOptions()
+      .setKeyPath("./src/test/resources/tls/server-key.pem")
+      .setCertPath("./src/test/resources/tls/server-cert.pem");
 
-        MqttServerOptions options = new MqttServerOptions()
-                .setPort(MqttServerOptions.DEFAULT_TLS_PORT)
-                .setKeyCertOptions(pemKeyCertOptions)
-                .setSsl(true);
+    MqttServerOptions options = new MqttServerOptions()
+      .setPort(MqttServerOptions.DEFAULT_TLS_PORT)
+      .setKeyCertOptions(pemKeyCertOptions)
+      .setSsl(true);
 
-        MqttServer mqttServer = MqttServer.create(vertx, options);
+    MqttServer mqttServer = MqttServer.create(vertx, options);
 
-        mqttServer
-                .endpointHandler(endpoint -> {
+    mqttServer
+      .endpointHandler(endpoint -> {
 
-                    // shows main connect info
-                    log.info("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
+        // shows main connect info
+        log.info("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
 
-                    // accept connection from the remote client
-                    endpoint.accept(false);
+        // accept connection from the remote client
+        endpoint.accept(false);
 
-                })
-                .listen(ar -> {
+      })
+      .listen(ar -> {
 
-                    if (ar.succeeded()) {
-                        log.info("MQTT server is listening on port " + ar.result().actualPort());
-                    } else {
-                        log.error("Error on starting the server", ar.cause());
-                    }
-                });
-
-        try {
-            System.in.read();
-            mqttServer.close(v -> {
-                log.info("MQTT server closed");
-            });
-            vertx.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (ar.succeeded()) {
+          log.info("MQTT server is listening on port " + ar.result().actualPort());
+        } else {
+          log.error("Error on starting the server", ar.cause());
         }
+      });
 
+    try {
+      System.in.read();
+      mqttServer.close(v -> {
+        log.info("MQTT server closed");
+      });
+      vertx.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+
+  }
 }

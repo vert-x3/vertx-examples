@@ -30,41 +30,41 @@ import java.nio.charset.Charset;
  */
 public class MqttServerVerticle extends AbstractVerticle {
 
-    private static final Logger log = LoggerFactory.getLogger(MqttServerVerticle.class);
+  private static final Logger log = LoggerFactory.getLogger(MqttServerVerticle.class);
 
-    private MqttServer server;
+  private MqttServer server;
 
-    @Override
-    public void start(Future<Void> startFuture) throws Exception {
+  @Override
+  public void start(Future<Void> startFuture) throws Exception {
 
-        MqttServerOptions options = new MqttServerOptions();
-        options.setHost("0.0.0.0").setPort(1883);
+    MqttServerOptions options = new MqttServerOptions();
+    options.setHost("0.0.0.0").setPort(1883);
 
-        this.server = MqttServer.create(this.vertx, options);
+    this.server = MqttServer.create(this.vertx, options);
 
-        this.server.endpointHandler(endpoint -> {
+    this.server.endpointHandler(endpoint -> {
 
-            log.info("connected client " + endpoint.clientIdentifier() + " on verticle id = " + this.deploymentID());
+      log.info("connected client " + endpoint.clientIdentifier() + " on verticle id = " + this.deploymentID());
 
-            endpoint.publishHandler(message -> {
+      endpoint.publishHandler(message -> {
 
-                log.info("Just received message on [" + message.topicName() + "] payload [" + message.payload().toString(Charset.defaultCharset()) + "] with QoS [" + message.qosLevel() + "]");
+        log.info("Just received message on [" + message.topicName() + "] payload [" + message.payload().toString(Charset.defaultCharset()) + "] with QoS [" + message.qosLevel() + "]");
 
-            });
+      });
 
-            endpoint.accept(false);
-        });
+      endpoint.accept(false);
+    });
 
-        this.server.listen(ar -> {
+    this.server.listen(ar -> {
 
-            if (ar.succeeded()) {
-                log.info("MQTT server started and listening on port " + ar.result().actualPort());
-            } else {
-                log.error("MQTT server error on start", ar.cause());
-            }
+      if (ar.succeeded()) {
+        log.info("MQTT server started and listening on port " + ar.result().actualPort());
+      } else {
+        log.error("MQTT server error on start", ar.cause());
+      }
 
-        });
+    });
 
-    }
+  }
 }
 

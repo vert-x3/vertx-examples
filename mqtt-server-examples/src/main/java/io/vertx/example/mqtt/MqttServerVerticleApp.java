@@ -28,22 +28,22 @@ import java.io.IOException;
  */
 public class MqttServerVerticleApp {
 
-    private static final Logger log = LoggerFactory.getLogger(MqttServerVerticleApp.class);
+  private static final Logger log = LoggerFactory.getLogger(MqttServerVerticleApp.class);
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        Vertx vertx = Vertx.vertx();
+    Vertx vertx = Vertx.vertx();
 
-        DeploymentOptions options = new DeploymentOptions();
-        options.setInstances(5);
+    DeploymentOptions options = new DeploymentOptions();
+    options.setInstances(5);
 
-        vertx.deployVerticle("io.vertx.example.mqtt.MqttServerVerticle", options);
+    vertx.deployVerticle("io.vertx.example.mqtt.MqttServerVerticle", options);
 
-        try {
-            System.in.read();
-            vertx.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    try {
+      System.in.read();
+      vertx.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 }
