@@ -37,15 +37,21 @@ public class Runner {
     runScriptExample(MQTT_SERVER_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(true));
   }
 
-  static class JSSimpleServerRunner {
+  static class JSSimpleRunner {
     public static void main(String[] args) {
       Runner.runJSExample("io/vertx/example/mqtt/server/simple/server.js");
     }
   }
 
-  static class JSSslServerRunner {
+  static class JSSslRunner {
     public static void main(String[] args) {
       Runner.runJSExample("io/vertx/example/mqtt/server/ssl/server.js");
+    }
+  }
+
+  static class JSAppRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/mqtt/server/app/app.js");
     }
   }
 
@@ -59,15 +65,21 @@ public class Runner {
     runScriptExample(MQTT_SERVER_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
   }
 
-  static class GroovySimpleServerRunner {
+  static class GroovySimpleRunner {
     public static void main(String[] args) {
       Runner.runGroovyExample("io/vertx/example/mqtt/server/simple/server.groovy");
     }
   }
 
-  static class GroovySslServerRunner {
+  static class GroovySslRunner {
     public static void main(String[] args) {
       Runner.runGroovyExample("io/vertx/example/mqtt/server/ssl/server.groovy");
+    }
+  }
+
+  static class GroovyAppRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/mqtt/server/app/app.groovy");
     }
   }
 
@@ -81,15 +93,21 @@ public class Runner {
     runScriptExample(MQTT_SERVER_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
   }
 
-  static class RubySimpleServerRunner {
+  static class RubySimpleRunner {
     public static void main(String[] args) {
       Runner.runRubyExample("io/vertx/example/mqtt/server/simple/server.rb");
     }
   }
 
-  static class RubySslServerRunner {
+  static class RubySslRunner {
     public static void main(String[] args) {
       Runner.runRubyExample("io/vertx/example/mqtt/server/ssl/server.rb");
+    }
+  }
+
+  static class RubyAppRunner {
+    public static void main(String[] args) {
+      Runner.runRubyExample("io/vertx/example/mqtt/server/app/app.rb");
     }
   }
 

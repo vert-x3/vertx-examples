@@ -14,31 +14,30 @@
  * limitations under the License.
  */
 
-package io.vertx.example.mqtt;
+package io.vertx.example.mqtt.server.app;
 
 import io.netty.handler.codec.mqtt.MqttQoS;
-import io.vertx.core.Vertx;
+import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
+import io.vertx.example.mqtt.server.util.Runner;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttTopicSubscription;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An example of using the MQTT server
  */
-public class MqttApp {
+public class App extends AbstractVerticle {
 
-  private static final Logger log = LoggerFactory.getLogger(MqttApp.class);
-
+  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
+    Runner.runExample(App.class);
+  }
 
-    Vertx vertx = Vertx.vertx();
+  @Override
+  public void start() throws Exception {
 
     MqttServer mqttServer = MqttServer.create(vertx);
 
@@ -46,17 +45,17 @@ public class MqttApp {
       .endpointHandler(endpoint -> {
 
         // shows main connect info
-        log.info("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
+        System.out.println("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
 
         if (endpoint.auth() != null) {
-          log.info("[username = " + endpoint.auth().userName() + ", password = " + endpoint.auth().password() + "]");
+          System.out.println("[username = " + endpoint.auth().userName() + ", password = " + endpoint.auth().password() + "]");
         }
         if (endpoint.will() != null) {
-          log.info("[will flag = " + endpoint.will().isWillFlag() + " topic = " + endpoint.will().willTopic() + " msg = " + endpoint.will().willMessage() +
+          System.out.println("[will flag = " + endpoint.will().isWillFlag() + " topic = " + endpoint.will().willTopic() + " msg = " + endpoint.will().willMessage() +
             " QoS = " + endpoint.will().willQos() + " isRetain = " + endpoint.will().isWillRetain() + "]");
         }
 
-        log.info("[keep alive timeout = " + endpoint.keepAliveTimeSeconds() + "]");
+        System.out.println("[keep alive timeout = " + endpoint.keepAliveTimeSeconds() + "]");
 
         // accept connection from the remote client
         endpoint.accept(false);
@@ -66,7 +65,7 @@ public class MqttApp {
 
           List<Integer> grantedQosLevels = new ArrayList<>();
           for (MqttTopicSubscription s : subscribe.topicSubscriptions()) {
-            log.info("Subscription for " + s.topicName() + " with QoS " + s.qualityOfService());
+            System.out.println("Subscription for " + s.topicName() + " with QoS " + s.qualityOfService());
             grantedQosLevels.add(s.qualityOfService().value());
           }
           // ack the subscriptions request
@@ -82,7 +81,7 @@ public class MqttApp {
           // specifing handlers for handling QoS 1 and 2
           endpoint.publishAcknowledgeHandler(messageId -> {
 
-            log.info("Received ack for message = " + messageId);
+            System.out.println("Received ack for message = " + messageId);
 
           }).publishReceivedHandler(messageId -> {
 
@@ -90,7 +89,7 @@ public class MqttApp {
 
           }).publishCompleteHandler(messageId -> {
 
-            log.info("Received ack for message = " + messageId);
+            System.out.println("Received ack for message = " + messageId);
           });
         });
 
@@ -98,7 +97,7 @@ public class MqttApp {
         endpoint.unsubscribeHandler(unsubscribe -> {
 
           for (String t : unsubscribe.topics()) {
-            log.info("Unsubscription for " + t);
+            System.out.println("Unsubscription for " + t);
           }
           // ack the subscriptions request
           endpoint.unsubscribeAcknowledge(unsubscribe.messageId());
@@ -107,25 +106,25 @@ public class MqttApp {
         // handling ping from client
         endpoint.pingHandler(v -> {
 
-          log.info("Ping received from client");
+          System.out.println("Ping received from client");
         });
 
         // handling disconnect message
         endpoint.disconnectHandler(v -> {
 
-          log.info("Received disconnect from client");
+          System.out.println("Received disconnect from client");
         });
 
         // handling closing connection
         endpoint.closeHandler(v -> {
 
-          log.info("Connection closed");
+          System.out.println("Connection closed");
         });
 
         // handling incoming published messages
         endpoint.publishHandler(message -> {
 
-          log.info("Just received message on [" + message.topicName() + "] payload [" + message.payload().toString(Charset.defaultCharset()) + "] with QoS [" + message.qosLevel() + "]");
+          System.out.println("Just received message on [" + message.topicName() + "] payload [" + message.payload() + "] with QoS [" + message.qosLevel() + "]");
 
           if (message.qosLevel() == MqttQoS.AT_LEAST_ONCE) {
             endpoint.publishAcknowledge(message.messageId());
@@ -134,30 +133,16 @@ public class MqttApp {
           }
 
         }).publishReleaseHandler(messageId -> {
-
           endpoint.publishComplete(messageId);
         });
-
       })
       .listen(ar -> {
 
         if (ar.succeeded()) {
-          log.info("MQTT server is listening on port " + ar.result().actualPort());
+          System.out.println("MQTT server is listening on port " + mqttServer.actualPort());
         } else {
-          log.error("Error on starting the server", ar.cause());
+          System.err.println("Error on starting the server" + ar.cause().getMessage());
         }
       });
-
-    try {
-      System.in.read();
-      mqttServer.close(v -> {
-        log.info("MQTT server closed");
-      });
-      vertx.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-
   }
 }
