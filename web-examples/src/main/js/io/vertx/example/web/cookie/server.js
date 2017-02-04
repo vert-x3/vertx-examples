@@ -13,7 +13,7 @@ router.route().handler(function (ctx) {
   var someCookie = ctx.getCookie("visits");
 
   var visits = 0;
-  if (someCookie !== null) {
+  if (someCookie !== null &&someCookie !== undefined) {
     var cookieValue = someCookie.getValue();
     try {
       visits = Java.type("java.lang.Long").parseLong(cookieValue);
