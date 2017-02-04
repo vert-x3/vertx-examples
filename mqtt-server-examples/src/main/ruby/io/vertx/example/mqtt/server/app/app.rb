@@ -15,7 +15,7 @@ mqttServer.endpoint_handler() { |endpoint|
     puts "[will flag = #{endpoint.will().will_flag?()} topic = #{endpoint.will().will_topic()} msg = #{endpoint.will().will_message()} QoS = #{endpoint.will().will_qos()} isRetain = #{endpoint.will().will_retain?()}]"
   end
 
-  puts "[keep alive timeout = #{endpoint.keep_alive_time_seconds()}]"
+  puts "[keep alive timeout = #{endpoint.keep_alive_timeout_seconds()}]"
 
   # accept connection from the remote client
   endpoint.accept(false)
@@ -26,7 +26,7 @@ mqttServer.endpoint_handler() { |endpoint|
     grantedQosLevels = Array.new
     subscribe.topic_subscriptions().each do |s|
       puts "Subscription for #{s.topic_name()} with QoS #{s.quality_of_service()}"
-      grantedQosLevels.push(s.quality_of_service().value())
+      grantedQosLevels.push(s.quality_of_service())
     end
     # ack the subscriptions request
     endpoint.subscribe_acknowledge(subscribe.message_id(), grantedQosLevels)
@@ -91,7 +91,7 @@ mqttServer.endpoint_handler() { |endpoint|
   }.publish_release_handler() { |messageId|
     endpoint.publish_complete(messageId)
   }
-}.listen() { |ar_err,ar|
+}.listen(1883, "0.0.0.0") { |ar_err,ar|
 
   if (ar_err == nil)
     puts "MQTT server is listening on port #{mqttServer.actual_port()}"

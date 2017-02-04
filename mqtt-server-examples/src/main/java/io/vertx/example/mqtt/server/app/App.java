@@ -55,7 +55,7 @@ public class App extends AbstractVerticle {
             " QoS = " + endpoint.will().willQos() + " isRetain = " + endpoint.will().isWillRetain() + "]");
         }
 
-        System.out.println("[keep alive timeout = " + endpoint.keepAliveTimeSeconds() + "]");
+        System.out.println("[keep alive timeout = " + endpoint.keepAliveTimeoutSeconds() + "]");
 
         // accept connection from the remote client
         endpoint.accept(false);
@@ -63,10 +63,10 @@ public class App extends AbstractVerticle {
         // handling requests for subscriptions
         endpoint.subscribeHandler(subscribe -> {
 
-          List<Integer> grantedQosLevels = new ArrayList<>();
+          List<MqttQoS> grantedQosLevels = new ArrayList<>();
           for (MqttTopicSubscription s : subscribe.topicSubscriptions()) {
             System.out.println("Subscription for " + s.topicName() + " with QoS " + s.qualityOfService());
-            grantedQosLevels.add(s.qualityOfService().value());
+            grantedQosLevels.add(s.qualityOfService());
           }
           // ack the subscriptions request
           endpoint.subscribeAcknowledge(subscribe.messageId(), grantedQosLevels);
@@ -136,7 +136,7 @@ public class App extends AbstractVerticle {
           endpoint.publishComplete(messageId);
         });
       })
-      .listen(ar -> {
+      .listen(1883, "0.0.0.0", ar -> {
 
         if (ar.succeeded()) {
           System.out.println("MQTT server is listening on port " + mqttServer.actualPort());

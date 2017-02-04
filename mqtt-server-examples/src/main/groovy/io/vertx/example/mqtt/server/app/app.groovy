@@ -16,7 +16,7 @@ mqttServer.endpointHandler({ endpoint ->
     println("[will flag = ${endpoint.will().isWillFlag()} topic = ${endpoint.will().willTopic()} msg = ${endpoint.will().willMessage()} QoS = ${endpoint.will().willQos()} isRetain = ${endpoint.will().isWillRetain()}]")
   }
 
-  println("[keep alive timeout = ${endpoint.keepAliveTimeSeconds()}]")
+  println("[keep alive timeout = ${endpoint.keepAliveTimeoutSeconds()}]")
 
   // accept connection from the remote client
   endpoint.accept(false)
@@ -27,7 +27,7 @@ mqttServer.endpointHandler({ endpoint ->
     def grantedQosLevels = []
     subscribe.topicSubscriptions().each { s ->
       println("Subscription for ${s.topicName()} with QoS ${s.qualityOfService()}")
-      grantedQosLevels.add(s.qualityOfService().value())
+      grantedQosLevels.add(s.qualityOfService())
     }
     // ack the subscriptions request
     endpoint.subscribeAcknowledge(subscribe.messageId(), grantedQosLevels)
@@ -92,7 +92,7 @@ mqttServer.endpointHandler({ endpoint ->
   }).publishReleaseHandler({ messageId ->
     endpoint.publishComplete(messageId)
   })
-}).listen({ ar ->
+}).listen(1883, "0.0.0.0", { ar ->
 
   if (ar.succeeded()) {
     println("MQTT server is listening on port ${mqttServer.actualPort()}")

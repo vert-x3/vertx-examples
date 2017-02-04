@@ -15,7 +15,7 @@ mqttServer.endpointHandler(function (endpoint) {
     console.log("[will flag = " + endpoint.will().isWillFlag() + " topic = " + endpoint.will().willTopic() + " msg = " + endpoint.will().willMessage() + " QoS = " + endpoint.will().willQos() + " isRetain = " + endpoint.will().isWillRetain() + "]");
   }
 
-  console.log("[keep alive timeout = " + endpoint.keepAliveTimeSeconds() + "]");
+  console.log("[keep alive timeout = " + endpoint.keepAliveTimeoutSeconds() + "]");
 
   // accept connection from the remote client
   endpoint.accept(false);
@@ -26,7 +26,7 @@ mqttServer.endpointHandler(function (endpoint) {
     var grantedQosLevels = [];
     Array.prototype.forEach.call(subscribe.topicSubscriptions(), function(s) {
       console.log("Subscription for " + s.topicName() + " with QoS " + s.qualityOfService());
-      grantedQosLevels.push(s.qualityOfService().value());
+      grantedQosLevels.push(s.qualityOfService());
     });
     // ack the subscriptions request
     endpoint.subscribeAcknowledge(subscribe.messageId(), grantedQosLevels);
@@ -91,7 +91,7 @@ mqttServer.endpointHandler(function (endpoint) {
   }).publishReleaseHandler(function (messageId) {
     endpoint.publishComplete(messageId);
   });
-}).listen(function (ar, ar_err) {
+}).listen(1883, "0.0.0.0", function (ar, ar_err) {
 
   if (ar_err == null) {
     console.log("MQTT server is listening on port " + mqttServer.actualPort());
