@@ -34,7 +34,6 @@
     <module>sync-examples</module>
     <module>shell-examples</module>
     <module>heroku-example</module>
-    <module>jgroups-examples</module>
     <module>ignite-examples</module>
     <module>amqp-bridge-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
