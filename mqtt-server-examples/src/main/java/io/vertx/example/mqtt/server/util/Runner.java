@@ -43,6 +43,12 @@ public class Runner {
     }
   }
 
+  static class JSSslServerRunner {
+    public static void main(String[] args) {
+      Runner.runJSExample("io/vertx/example/mqtt/server/ssl/server.js");
+    }
+  }
+
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
@@ -59,6 +65,12 @@ public class Runner {
     }
   }
 
+  static class GroovySslServerRunner {
+    public static void main(String[] args) {
+      Runner.runGroovyExample("io/vertx/example/mqtt/server/ssl/server.groovy");
+    }
+  }
+
   // Ruby examples
 
   public static void runRubyExample(String scriptName) {
@@ -72,6 +84,12 @@ public class Runner {
   static class RubySimpleServerRunner {
     public static void main(String[] args) {
       Runner.runRubyExample("io/vertx/example/mqtt/server/simple/server.rb");
+    }
+  }
+
+  static class RubySslServerRunner {
+    public static void main(String[] args) {
+      Runner.runRubyExample("io/vertx/example/mqtt/server/ssl/server.rb");
     }
   }
 
