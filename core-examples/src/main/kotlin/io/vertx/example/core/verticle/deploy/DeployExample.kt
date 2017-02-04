@@ -1,6 +1,8 @@
 package io.vertx.example.core.verticle.deploy
 
+import io.vertx.core.DeploymentOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.*
 
 class DeployExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -41,15 +43,15 @@ class DeployExample : io.vertx.core.AbstractVerticle()  {
     var config = json {
       obj("foo" to "bar")
     }
-    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", io.vertx.core.DeploymentOptions(
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", DeploymentOptions(
       config = config))
 
     // Deploy 10 instances
-    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", io.vertx.core.DeploymentOptions(
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", DeploymentOptions(
       instances = 10))
 
     // Deploy it as a worker verticle
-    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", io.vertx.core.DeploymentOptions(
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", DeploymentOptions(
       worker = true))
 
 

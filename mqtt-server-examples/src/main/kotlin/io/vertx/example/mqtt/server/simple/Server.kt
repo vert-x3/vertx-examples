@@ -1,12 +1,14 @@
 package io.vertx.example.mqtt.server.simple
 
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.mqtt.*
 import io.vertx.mqtt.MqttServer
+import io.vertx.mqtt.MqttServerOptions
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
-    var options = io.vertx.mqtt.MqttServerOptions(
+    var options = MqttServerOptions(
       port = 1883,
       host = "0.0.0.0")
 

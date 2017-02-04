@@ -1,8 +1,12 @@
 package io.vertx.example.mail
 
 import io.vertx.ext.mail.LoginOption
+import io.vertx.ext.mail.MailAttachment
 import io.vertx.ext.mail.MailClient
+import io.vertx.ext.mail.MailConfig
+import io.vertx.ext.mail.MailMessage
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.ext.mail.*
 
 class MailLogin : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -11,10 +15,10 @@ class MailLogin : io.vertx.core.AbstractVerticle()  {
     io.vertx.example.mail.LocalSmtpServer.startWithAuth(5870)
 
 
-    var mailConfig = io.vertx.ext.mail.MailConfig(
+    var mailConfig = MailConfig(
       hostname = "localhost",
       port = 5870,
-      login = "REQUIRED",
+      login = LoginOption.REQUIRED,
       authMethods = "PLAIN",
       username = "username",
       password = "password")
@@ -23,7 +27,7 @@ class MailLogin : io.vertx.core.AbstractVerticle()  {
 
     var image = vertx.fileSystem().readFileBlocking("logo-white-big.png")
 
-    var email = io.vertx.ext.mail.MailMessage(
+    var email = MailMessage(
       from = "user1@example.com",
       to = "user2@example.com",
       cc = "user3@example.com",
@@ -35,7 +39,7 @@ class MailLogin : io.vertx.core.AbstractVerticle()  {
 
     var list = mutableListOf<Any?>()
 
-    list.add(io.vertx.ext.mail.MailAttachment(
+    list.add(MailAttachment(
       data = image,
       name = "logo-white-big.png",
       contentType = "image/png",

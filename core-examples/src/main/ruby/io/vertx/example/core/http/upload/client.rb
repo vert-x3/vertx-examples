@@ -10,7 +10,7 @@ fs.props(filename) { |ares_err,ares|
   props = ares
   puts "props is #{props}"
   size = props.size()
-  req.headers().set("content-length", Java::JavaLang::String.value_of(size))
+  req.headers().set("content-length", "#{size}")
   fs.open(filename, {
   }) { |ares2_err,ares2|
     file = ares2

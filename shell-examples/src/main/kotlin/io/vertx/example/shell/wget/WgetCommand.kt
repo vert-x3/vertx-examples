@@ -1,16 +1,22 @@
 package io.vertx.example.shell.wget
 
+import io.vertx.core.cli.Argument
 import io.vertx.core.cli.CLI
 import io.vertx.ext.shell.ShellService
+import io.vertx.ext.shell.ShellServiceOptions
 import io.vertx.ext.shell.command.CommandBuilder
 import io.vertx.ext.shell.command.CommandRegistry
+import io.vertx.ext.shell.term.TelnetTermOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.cli.*
+import io.vertx.kotlin.ext.shell.*
+import io.vertx.kotlin.ext.shell.term.*
 
 class WgetCommand : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     // Create the wget CLI
-    var cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").addArgument(io.vertx.core.cli.Argument(
+    var cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").addArgument(Argument(
       index = 0,
       argName = "http-url",
       description = "the HTTP uri to get"))
@@ -51,8 +57,8 @@ class WgetCommand : io.vertx.core.AbstractVerticle()  {
 
     }).build(vertx)
 
-    var service = ShellService.create(vertx, io.vertx.ext.shell.ShellServiceOptions(
-      telnetOptions = io.vertx.ext.shell.term.TelnetTermOptions(
+    var service = ShellService.create(vertx, ShellServiceOptions(
+      telnetOptions = TelnetTermOptions(
         host = "localhost",
         port = 3000)))
     CommandRegistry.getShared(vertx).registerCommand(helloWorld)

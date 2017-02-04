@@ -2,8 +2,11 @@ package io.vertx.example.web.chat
 
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.handler.sockjs.BridgeOptions
+import io.vertx.ext.web.handler.sockjs.PermittedOptions
 import io.vertx.ext.web.handler.sockjs.SockJSHandler
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.ext.web.handler.sockjs.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -11,10 +14,10 @@ class Server : io.vertx.core.AbstractVerticle()  {
     var router = Router.router(vertx)
 
     // Allow events for the designated addresses in/out of the event bus bridge
-    var opts = io.vertx.ext.web.handler.sockjs.BridgeOptions(
-      inboundPermitteds = listOf(io.vertx.ext.web.handler.sockjs.PermittedOptions(
+    var opts = BridgeOptions(
+      inboundPermitteds = listOf(PermittedOptions(
         address = "chat.to.server")),
-      outboundPermitteds = listOf(io.vertx.ext.web.handler.sockjs.PermittedOptions(
+      outboundPermitteds = listOf(PermittedOptions(
         address = "chat.to.client")))
 
     // Create the event bus bridge and add it to the router.

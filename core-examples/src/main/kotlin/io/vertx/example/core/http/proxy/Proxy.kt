@@ -1,11 +1,12 @@
 package io.vertx.example.core.http.proxy
 
+import io.vertx.core.http.HttpClientOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.http.*
 
 class Proxy : io.vertx.core.AbstractVerticle()  {
   override fun start() {
-    var client = vertx.createHttpClient(io.vertx.core.http.HttpClientOptions(
-    ))
+    var client = vertx.createHttpClient(HttpClientOptions())
     vertx.createHttpServer().requestHandler({ req ->
       println("Proxying request: ${req.uri()}")
       var c_req = client.request(req.method(), 8282, "localhost", req.uri(), { c_res ->

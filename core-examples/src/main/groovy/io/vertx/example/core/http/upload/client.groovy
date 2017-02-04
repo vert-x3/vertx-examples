@@ -9,7 +9,7 @@ fs.props(filename, { ares ->
   def props = ares.result()
   println("props is ${props}")
   def size = props.size()
-  req.headers().set("content-length", java.lang.String.valueOf(size))
+  req.headers().set("content-length", "${size}")
   fs.open(filename, [:], { ares2 ->
     def file = ares2.result()
     def pump = Pump.pump(file, req)

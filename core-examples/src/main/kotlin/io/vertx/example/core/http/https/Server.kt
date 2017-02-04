@@ -1,13 +1,17 @@
 package io.vertx.example.core.http.https
 
+import io.vertx.core.http.HttpServerOptions
+import io.vertx.core.net.JksOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.http.*
+import io.vertx.kotlin.core.net.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
-    var server = vertx.createHttpServer(io.vertx.core.http.HttpServerOptions(
+    var server = vertx.createHttpServer(HttpServerOptions(
       ssl = true,
-      keyStoreOptions = io.vertx.core.net.JksOptions(
+      keyStoreOptions = JksOptions(
         path = "server-keystore.jks",
         password = "wibble")))
 

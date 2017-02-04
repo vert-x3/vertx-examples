@@ -1,9 +1,13 @@
 package io.vertx.example.shell.starwars
 
 import io.vertx.ext.shell.ShellService
+import io.vertx.ext.shell.ShellServiceOptions
 import io.vertx.ext.shell.command.CommandBuilder
 import io.vertx.ext.shell.command.CommandRegistry
+import io.vertx.ext.shell.term.TelnetTermOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.ext.shell.*
+import io.vertx.kotlin.ext.shell.term.*
 
 class StarwarsCommand : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -40,8 +44,8 @@ class StarwarsCommand : io.vertx.core.AbstractVerticle()  {
       })
     }).build(vertx)
 
-    var service = ShellService.create(vertx, io.vertx.ext.shell.ShellServiceOptions(
-      telnetOptions = io.vertx.ext.shell.term.TelnetTermOptions(
+    var service = ShellService.create(vertx, ShellServiceOptions(
+      telnetOptions = TelnetTermOptions(
         host = "localhost",
         port = 3000)))
     CommandRegistry.getShared(vertx).registerCommand(starwars)

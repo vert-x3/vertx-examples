@@ -1,14 +1,18 @@
 package io.vertx.example.mqtt.server.ssl
 
+import io.vertx.core.net.PemKeyCertOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.net.*
+import io.vertx.kotlin.mqtt.*
 import io.vertx.mqtt.MqttServer
+import io.vertx.mqtt.MqttServerOptions
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
-    var options = io.vertx.mqtt.MqttServerOptions(
+    var options = MqttServerOptions(
       port = 8883,
-      pemKeyCertOptions = io.vertx.core.net.PemKeyCertOptions(
+      pemKeyCertOptions = PemKeyCertOptions(
         keyPath = "server-key.pem",
         certPath = "server-cert.pem"),
       ssl = true)

@@ -2,7 +2,9 @@ package io.vertx.examples.redis
 
 import io.vertx.core.Vertx
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.redis.*
 import io.vertx.redis.RedisClient
+import io.vertx.redis.RedisOptions
 
 class RedisClientVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -13,7 +15,7 @@ class RedisClientVerticle : io.vertx.core.AbstractVerticle()  {
     }
 
     // Create the redis client
-    var client = RedisClient.create(vertx, io.vertx.redis.RedisOptions(
+    var client = RedisClient.create(vertx, RedisOptions(
       host = host))
 
     client.set("key", "value", { r ->

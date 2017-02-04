@@ -1,7 +1,11 @@
 package io.vertx.example.mail
 
+import io.vertx.core.DeploymentOptions
+import io.vertx.ext.mail.MailMessage
 import io.vertx.ext.mail.MailService
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.*
+import io.vertx.kotlin.ext.mail.*
 
 class MailServiceExample : io.vertx.core.AbstractVerticle()  {
   var MAIL_SERVICE_VERTICLE = "io.vertx.ext.mail.MailServiceVerticle"
@@ -15,11 +19,11 @@ class MailServiceExample : io.vertx.core.AbstractVerticle()  {
     }
     config.put("port", 2527)
     config.put("address", "vertx.mail")
-    vertx.deployVerticle(MAIL_SERVICE_VERTICLE, io.vertx.core.DeploymentOptions(
+    vertx.deployVerticle(MAIL_SERVICE_VERTICLE, DeploymentOptions(
       config = config), { done ->
       var mailService = MailService.createEventBusProxy(vertx, "vertx.mail")
 
-      var email = io.vertx.ext.mail.MailMessage(
+      var email = MailMessage(
         bounceAddress = "bounce@example.com",
         to = "user@example.com",
         subject = "this message has no content at all")

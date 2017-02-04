@@ -1,14 +1,18 @@
 package io.vertx.example.core.http2.simple
 
+import io.vertx.core.http.HttpServerOptions
+import io.vertx.core.net.PemKeyCertOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.http.*
+import io.vertx.kotlin.core.net.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
-    var server = vertx.createHttpServer(io.vertx.core.http.HttpServerOptions(
+    var server = vertx.createHttpServer(HttpServerOptions(
       useAlpn = true,
       ssl = true,
-      pemKeyCertOptions = io.vertx.core.net.PemKeyCertOptions(
+      pemKeyCertOptions = PemKeyCertOptions(
         keyPath = "server-key.pem",
         certPath = "server-cert.pem")))
 

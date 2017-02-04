@@ -1,11 +1,13 @@
 package io.vertx.example.circuit.breaker
 
 import io.vertx.circuitbreaker.CircuitBreaker
+import io.vertx.circuitbreaker.CircuitBreakerOptions
+import io.vertx.kotlin.circuitbreaker.*
 import io.vertx.kotlin.common.json.*
 
 class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
-    var options = io.vertx.circuitbreaker.CircuitBreakerOptions(
+    var options = CircuitBreakerOptions(
       maxFailures = 5,
       timeout = 5000,
       fallbackOnFailure = true)

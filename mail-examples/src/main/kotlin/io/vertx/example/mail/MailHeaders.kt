@@ -1,20 +1,23 @@
 package io.vertx.example.mail
 
 import io.vertx.ext.mail.MailClient
+import io.vertx.ext.mail.MailConfig
+import io.vertx.ext.mail.MailMessage
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.ext.mail.*
 
 class MailHeaders : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     // Start a local STMP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     io.vertx.example.mail.LocalSmtpServer.start(2528)
-    var mailConfig = io.vertx.ext.mail.MailConfig(
+    var mailConfig = MailConfig(
       hostname = "localhost",
       port = 2528)
 
     var mailClient = MailClient.createShared(vertx, mailConfig)
 
-    var email = io.vertx.ext.mail.MailMessage(
+    var email = MailMessage(
       from = "user1@example.com",
       to = listOf("user2@example.com", "user3@example.com", "user4@example.com"),
       headers = mapOf(

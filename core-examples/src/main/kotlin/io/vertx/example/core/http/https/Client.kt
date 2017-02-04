@@ -1,13 +1,15 @@
 package io.vertx.example.core.http.https
 
+import io.vertx.core.http.HttpClientOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.http.*
 
 class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
-    vertx.createHttpClient(io.vertx.core.http.HttpClientOptions(
+    vertx.createHttpClient(HttpClientOptions(
       ssl = true,
       trustAll = true)).getNow(4443, "localhost", "/", { resp ->
       println("Got response ${resp.statusCode()}")

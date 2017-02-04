@@ -3,8 +3,11 @@ package io.vertx.example.metrics.dashboard
 import io.vertx.ext.dropwizard.MetricsService
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.handler.sockjs.BridgeOptions
+import io.vertx.ext.web.handler.sockjs.PermittedOptions
 import io.vertx.ext.web.handler.sockjs.SockJSHandler
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.ext.web.handler.sockjs.*
 
 class Dashboard : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -15,8 +18,8 @@ class Dashboard : io.vertx.core.AbstractVerticle()  {
 
     // Allow outbound traffic to the news-feed address
 
-    var options = io.vertx.ext.web.handler.sockjs.BridgeOptions(
-      outboundPermitteds = listOf(io.vertx.ext.web.handler.sockjs.PermittedOptions(
+    var options = BridgeOptions(
+      outboundPermitteds = listOf(PermittedOptions(
         address = "metrics")))
 
     router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options))

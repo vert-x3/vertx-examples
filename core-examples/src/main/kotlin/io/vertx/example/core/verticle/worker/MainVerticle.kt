@@ -1,11 +1,13 @@
 package io.vertx.example.core.verticle.worker
 
+import io.vertx.core.DeploymentOptions
 import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.*
 
 class MainVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     println("[Main] Running in ${java.lang.Thread.currentThread().getName()}")
-    vertx.deployVerticle("io.vertx.example.core.verticle.worker.WorkerVerticle", io.vertx.core.DeploymentOptions(
+    vertx.deployVerticle("io.vertx.example.core.verticle.worker.WorkerVerticle", DeploymentOptions(
       worker = true))
 
     vertx.eventBus().send<Any>("sample.data", "hello vert.x", { r ->
