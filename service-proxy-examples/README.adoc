@@ -136,6 +136,6 @@ vertx run src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js  -
 You can also consume the service in ruby as shown link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.rb[here]. To launch it, just run:
 
 ----
-vertx run src/main/rb/io/vertx/examples/service/consumer/consumer_verticle.rb   -cp ../service-provider/target/service-provider-3.4.0-SNAPSHOT.jar -cluster
+vertx run src/main/ruby/io/vertx/examples/service/consumer/consumer_verticle.rb   -cp ../service-provider/target/service-provider-3.4.0-SNAPSHOT.jar -cluster
 ----
 

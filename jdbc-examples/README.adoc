@@ -13,7 +13,7 @@ The example is available in several languages:
 * Java: link:src/main/java/io/vertx/example/jdbc/simple/JDBCExample.java[JDBCExample.java]
 * JavaScript: link:src/main/js/io/vertx/example/jdbc/simple/jdbc_example.js[jdbc_example.js]
 * Groovy: link:src/main/groovy/io/vertx/example/jdbc/simple/jdbc_example.groovy[jdbc_example.groovy]
-* Ruby: link:src/main/rb/io/vertx/example/jdbc/simple/jdbc_example.rb[jdbc_example.rb]
+* Ruby: link:src/main/ruby/io/vertx/example/jdbc/simple/jdbc_example.rb[jdbc_example.rb]
 
 == Query Params
 
@@ -26,7 +26,7 @@ The example is available in several languages:
 * Java: link:src/main/java/io/vertx/example/jdbc/query_params/JDBCExample.java[JDBCExample.java]
 * JavaScript: link:src/main/js/io/vertx/example/jdbc/query_params/jdbc_example.js[jdbc_example.js]
 * Groovy: link:src/main/groovy/io/vertx/example/jdbc/query_params/jdbc_example.groovy[jdbc_example.groovy]
-* Ruby: link:src/main/rb/io/vertx/example/jdbc/query_params/jdbc_example.rb[jdbc_example.rb]
+* Ruby: link:src/main/ruby/io/vertx/example/jdbc/query_params/jdbc_example.rb[jdbc_example.rb]
 
 == Transaction
 

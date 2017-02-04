@@ -7,7 +7,7 @@ The example is available in several languages:
 * Java: link:src/main/java/io/vertx/examples/redis/RedisClientVerticle.java[RedisClientVerticle.java]
 * JavaScript: link:src/main/js/io/vertx/examples/redis/redis_client_verticle.js[redis_client_verticle.js]
 * Groovy: link:src/main/groovy/io/vertx/examples/redis/redis_client_verticle.groovy[redis_client_verticle.groovy]
-* Ruby: link:src/main/rb/io/vertx/examples/redis/redis_client_verticle.rb[redis_client_verticle.rb]
+* Ruby: link:src/main/ruby/io/vertx/examples/redis/redis_client_verticle.rb[redis_client_verticle.rb]
 
 To run this example, you need a running Redis instance. Once running, you can configure the
 verticles with the redis host:
@@ -36,6 +36,6 @@ vertx run src/main/js/io/vertx/examples/redis/redis_client_verticle.js  -cp targ
 vertx run src/main/groovy/io/vertx/examples/redis/redis_client_verticle.groovy   -cp target/redis-examples-3.4.0-SNAPSHOT.jar -conf my-redis-config.json
 
 # ruby
-vertx run src/main/rb/io/vertx/examples/redis/redis_client_verticle.rb   -cp target/redis-examples-3.4.0-SNAPSHOT.jar -conf my-redis-config.json
+vertx run src/main/ruby/io/vertx/examples/redis/redis_client_verticle.rb   -cp target/redis-examples-3.4.0-SNAPSHOT.jar -conf my-redis-config.json
 ----
 

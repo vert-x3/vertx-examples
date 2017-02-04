@@ -39,7 +39,7 @@
   <build>
     <resources>
       <resource>
-        <directory>${project.basedir}/src/main/rb</directory>
+        <directory>${project.basedir}/src/main/ruby</directory>
       </resource>
     </resources>
 

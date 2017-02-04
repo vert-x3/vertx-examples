@@ -20,7 +20,7 @@ dependencies {
 }
 
 processResources {
-  from 'src/main/rb'
+  from 'src/main/ruby'
 }
 
 shadowJar {

@@ -21,7 +21,7 @@ public class Runner {
   private static final String SHELL_EXAMPLES_JAVA_DIR = SHELL_EXAMPLES_DIR + "/src/main/java/";
   private static final String SHELL_EXAMPLES_JS_DIR = SHELL_EXAMPLES_DIR + "/src/main/js/";
   private static final String SHELL_EXAMPLES_GROOVY_DIR = SHELL_EXAMPLES_DIR + "/src/main/groovy/";
-  private static final String SHELL_EXAMPLES_RUBY_DIR = SHELL_EXAMPLES_DIR + "/src/main/rb/";
+  private static final String SHELL_EXAMPLES_RUBY_DIR = SHELL_EXAMPLES_DIR + "/src/main/ruby/";
 
   public static void runExample(Class clazz) {
     runExample(SHELL_EXAMPLES_JAVA_DIR, clazz,
