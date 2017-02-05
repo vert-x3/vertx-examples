@@ -4,7 +4,6 @@ import io.vertx.ext.mail.MailAttachment
 import io.vertx.ext.mail.MailClient
 import io.vertx.ext.mail.MailConfig
 import io.vertx.ext.mail.MailMessage
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.ext.mail.*
 
 class MailImages : io.vertx.core.AbstractVerticle()  {

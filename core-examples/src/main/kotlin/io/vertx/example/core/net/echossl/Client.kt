@@ -1,7 +1,6 @@
 package io.vertx.example.core.net.echossl
 
 import io.vertx.core.net.NetClientOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.net.*
 
 class Client : io.vertx.core.AbstractVerticle()  {

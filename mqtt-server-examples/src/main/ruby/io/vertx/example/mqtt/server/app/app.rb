@@ -15,7 +15,7 @@ mqttServer.endpoint_handler() { |endpoint|
     puts "[will flag = #{endpoint.will().will_flag?()} topic = #{endpoint.will().will_topic()} msg = #{endpoint.will().will_message()} QoS = #{endpoint.will().will_qos()} isRetain = #{endpoint.will().will_retain?()}]"
   end
 
-  puts "[keep alive timeout = #{endpoint.keep_alive_timeout_seconds()}]"
+  puts "[keep alive timeout = #{endpoint.keep_alive_time_seconds()}]"
 
   # accept connection from the remote client
   endpoint.accept(false)

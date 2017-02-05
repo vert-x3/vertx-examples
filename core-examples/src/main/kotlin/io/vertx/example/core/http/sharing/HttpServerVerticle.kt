@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.sharing
 
-import io.vertx.kotlin.common.json.*
 
 class HttpServerVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {

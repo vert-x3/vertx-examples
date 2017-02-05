@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.sendfile
 
-import io.vertx.kotlin.common.json.*
 
 class SendFile : io.vertx.core.AbstractVerticle()  {
   override fun start() {

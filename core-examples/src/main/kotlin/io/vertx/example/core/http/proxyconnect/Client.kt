@@ -3,7 +3,6 @@ package io.vertx.example.core.http.proxyconnect
 import io.vertx.core.http.HttpClientOptions
 import io.vertx.core.net.ProxyOptions
 import io.vertx.core.net.ProxyType
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.http.*
 import io.vertx.kotlin.core.net.*
 

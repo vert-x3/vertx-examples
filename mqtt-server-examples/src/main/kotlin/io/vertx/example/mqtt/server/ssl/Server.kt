@@ -1,7 +1,6 @@
 package io.vertx.example.mqtt.server.ssl
 
 import io.vertx.core.net.PemKeyCertOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.net.*
 import io.vertx.kotlin.mqtt.*
 import io.vertx.mqtt.MqttServer

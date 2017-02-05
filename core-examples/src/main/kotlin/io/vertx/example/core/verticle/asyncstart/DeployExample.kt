@@ -1,6 +1,5 @@
 package io.vertx.example.core.verticle.asyncstart
 
-import io.vertx.kotlin.common.json.*
 
 class DeployExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {

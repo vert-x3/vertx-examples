@@ -1,6 +1,5 @@
 package io.vertx.example.core.verticle.worker
 
-import io.vertx.kotlin.common.json.*
 
 class WorkerVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {

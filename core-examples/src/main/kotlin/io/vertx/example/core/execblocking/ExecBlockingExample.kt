@@ -1,6 +1,5 @@
 package io.vertx.example.core.execblocking
 
-import io.vertx.kotlin.common.json.*
 
 class ExecBlockingExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {

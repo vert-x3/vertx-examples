@@ -3,7 +3,6 @@ package io.vertx.example.circuit.breaker
 import io.vertx.circuitbreaker.CircuitBreaker
 import io.vertx.circuitbreaker.CircuitBreakerOptions
 import io.vertx.kotlin.circuitbreaker.*
-import io.vertx.kotlin.common.json.*
 
 class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {

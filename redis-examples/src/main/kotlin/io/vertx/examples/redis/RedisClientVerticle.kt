@@ -1,7 +1,6 @@
 package io.vertx.examples.redis
 
 import io.vertx.core.Vertx
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.redis.*
 import io.vertx.redis.RedisClient
 import io.vertx.redis.RedisOptions

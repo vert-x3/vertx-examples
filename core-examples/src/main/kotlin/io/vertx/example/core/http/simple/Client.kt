@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.simple
 
-import io.vertx.kotlin.common.json.*
 
 class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {

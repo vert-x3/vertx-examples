@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.websockets
 
-import io.vertx.kotlin.common.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

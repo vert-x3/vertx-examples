@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.simpleform
 
-import io.vertx.kotlin.common.json.*
 
 class SimpleFormServer : io.vertx.core.AbstractVerticle()  {
   override fun start() {

@@ -2,7 +2,6 @@ package io.vertx.example.core.http2.simple
 
 import io.vertx.core.http.HttpServerOptions
 import io.vertx.core.net.PemKeyCertOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.http.*
 import io.vertx.kotlin.core.net.*
 

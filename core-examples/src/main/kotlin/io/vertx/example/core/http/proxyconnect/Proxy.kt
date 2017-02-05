@@ -2,7 +2,6 @@ package io.vertx.example.core.http.proxyconnect
 
 import io.vertx.core.http.HttpMethod
 import io.vertx.core.net.NetClientOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.net.*
 
 class Proxy : io.vertx.core.AbstractVerticle()  {

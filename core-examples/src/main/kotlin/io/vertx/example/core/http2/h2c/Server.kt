@@ -1,7 +1,6 @@
 package io.vertx.example.core.http2.h2c
 
 import io.vertx.core.http.HttpServerOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.http.*
 
 class Server : io.vertx.core.AbstractVerticle()  {

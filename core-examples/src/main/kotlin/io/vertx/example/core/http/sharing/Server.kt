@@ -1,7 +1,6 @@
 package io.vertx.example.core.http.sharing
 
 import io.vertx.core.DeploymentOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.*
 
 class Server : io.vertx.core.AbstractVerticle()  {

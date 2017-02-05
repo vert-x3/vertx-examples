@@ -1,7 +1,6 @@
 package io.vertx.example.web.blockinghandler
 
 import io.vertx.ext.web.Router
-import io.vertx.kotlin.common.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

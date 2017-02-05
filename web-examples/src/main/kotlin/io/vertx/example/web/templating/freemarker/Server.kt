@@ -2,7 +2,6 @@ package io.vertx.example.web.templating.freemarker
 
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.templ.FreeMarkerTemplateEngine
-import io.vertx.kotlin.common.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

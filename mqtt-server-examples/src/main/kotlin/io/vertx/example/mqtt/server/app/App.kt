@@ -2,7 +2,6 @@ package io.vertx.example.mqtt.server.app
 
 import io.netty.handler.codec.mqtt.MqttQoS
 import io.vertx.core.buffer.Buffer
-import io.vertx.kotlin.common.json.*
 import io.vertx.mqtt.MqttServer
 
 class App : io.vertx.core.AbstractVerticle()  {
@@ -22,7 +21,7 @@ class App : io.vertx.core.AbstractVerticle()  {
         println("[will flag = ${endpoint.will().isWillFlag()} topic = ${endpoint.will().willTopic()} msg = ${endpoint.will().willMessage()} QoS = ${endpoint.will().willQos()} isRetain = ${endpoint.will().isWillRetain()}]")
       }
 
-      println("[keep alive timeout = ${endpoint.keepAliveTimeoutSeconds()}]")
+      println("[keep alive timeout = ${endpoint.keepAliveTimeSeconds()}]")
 
       // accept connection from the remote client
       endpoint.accept(false)

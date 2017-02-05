@@ -1,6 +1,5 @@
 package io.vertx.example.core.eventbus.pointtopoint
 
-import io.vertx.kotlin.common.json.*
 
 class Receiver : io.vertx.core.AbstractVerticle()  {
   override fun start() {

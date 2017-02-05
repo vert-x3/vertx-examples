@@ -2,7 +2,6 @@ package io.vertx.example.core.http.upload
 
 import io.vertx.core.file.OpenOptions
 import io.vertx.core.streams.Pump
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.file.*
 
 class Server : io.vertx.core.AbstractVerticle()  {

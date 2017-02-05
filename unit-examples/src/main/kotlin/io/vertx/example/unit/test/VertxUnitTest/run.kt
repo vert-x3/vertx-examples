@@ -4,7 +4,6 @@ import io.vertx.core.Vertx
 import io.vertx.ext.unit.TestOptions
 import io.vertx.ext.unit.TestSuite
 import io.vertx.ext.unit.report.ReportOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.ext.unit.*
 import io.vertx.kotlin.ext.unit.report.*
 

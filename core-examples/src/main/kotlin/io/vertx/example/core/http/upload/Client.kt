@@ -3,7 +3,6 @@ package io.vertx.example.core.http.upload
 import io.vertx.core.file.OpenOptions
 import io.vertx.core.http.HttpClientOptions
 import io.vertx.core.streams.Pump
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.file.*
 import io.vertx.kotlin.core.http.*
 

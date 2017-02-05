@@ -3,7 +3,6 @@ package io.vertx.example.core.net.echossl
 import io.vertx.core.net.JksOptions
 import io.vertx.core.net.NetServerOptions
 import io.vertx.core.streams.Pump
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.net.*
 
 class Server : io.vertx.core.AbstractVerticle()  {

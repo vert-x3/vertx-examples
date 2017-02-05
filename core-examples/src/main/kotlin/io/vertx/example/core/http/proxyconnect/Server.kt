@@ -1,6 +1,5 @@
 package io.vertx.example.core.http.proxyconnect
 
-import io.vertx.kotlin.common.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

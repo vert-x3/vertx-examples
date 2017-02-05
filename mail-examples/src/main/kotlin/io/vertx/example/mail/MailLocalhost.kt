@@ -3,7 +3,6 @@ package io.vertx.example.mail
 import io.vertx.ext.mail.MailClient
 import io.vertx.ext.mail.MailConfig
 import io.vertx.ext.mail.MailMessage
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.ext.mail.*
 
 class MailLocalhost : io.vertx.core.AbstractVerticle()  {

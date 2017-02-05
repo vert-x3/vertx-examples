@@ -5,7 +5,6 @@ import io.vertx.ext.web.handler.StaticHandler
 import io.vertx.ext.web.handler.sockjs.BridgeOptions
 import io.vertx.ext.web.handler.sockjs.PermittedOptions
 import io.vertx.ext.web.handler.sockjs.SockJSHandler
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.ext.web.handler.sockjs.*
 
 class Server : io.vertx.core.AbstractVerticle()  {

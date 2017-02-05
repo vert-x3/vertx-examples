@@ -1,7 +1,6 @@
 package io.vertx.example.core.http.https
 
 import io.vertx.core.http.HttpClientOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.http.*
 
 class Client : io.vertx.core.AbstractVerticle()  {

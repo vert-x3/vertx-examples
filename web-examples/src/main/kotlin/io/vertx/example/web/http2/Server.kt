@@ -3,7 +3,6 @@ package io.vertx.example.web.http2
 import io.vertx.core.http.HttpServerOptions
 import io.vertx.core.net.PemKeyCertOptions
 import io.vertx.ext.web.Router
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.http.*
 import io.vertx.kotlin.core.net.*
 

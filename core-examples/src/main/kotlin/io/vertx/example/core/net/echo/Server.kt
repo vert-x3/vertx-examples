@@ -1,7 +1,6 @@
 package io.vertx.example.core.net.echo
 
 import io.vertx.core.streams.Pump
-import io.vertx.kotlin.common.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

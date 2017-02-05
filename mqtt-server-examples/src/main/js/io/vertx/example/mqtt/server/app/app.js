@@ -15,7 +15,7 @@ mqttServer.endpointHandler(function (endpoint) {
     console.log("[will flag = " + endpoint.will().isWillFlag() + " topic = " + endpoint.will().willTopic() + " msg = " + endpoint.will().willMessage() + " QoS = " + endpoint.will().willQos() + " isRetain = " + endpoint.will().isWillRetain() + "]");
   }
 
-  console.log("[keep alive timeout = " + endpoint.keepAliveTimeoutSeconds() + "]");
+  console.log("[keep alive timeout = " + endpoint.keepAliveTimeSeconds() + "]");
 
   // accept connection from the remote client
   endpoint.accept(false);

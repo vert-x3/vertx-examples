@@ -7,7 +7,6 @@ import io.vertx.ext.shell.ShellServiceOptions
 import io.vertx.ext.shell.command.CommandBuilder
 import io.vertx.ext.shell.command.CommandRegistry
 import io.vertx.ext.shell.term.TelnetTermOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.cli.*
 import io.vertx.kotlin.ext.shell.*
 import io.vertx.kotlin.ext.shell.term.*

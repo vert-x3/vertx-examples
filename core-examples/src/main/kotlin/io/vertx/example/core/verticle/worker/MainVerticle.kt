@@ -1,7 +1,6 @@
 package io.vertx.example.core.verticle.worker
 
 import io.vertx.core.DeploymentOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.*
 
 class MainVerticle : io.vertx.core.AbstractVerticle()  {
