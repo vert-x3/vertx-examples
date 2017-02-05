@@ -1,7 +1,7 @@
 package io.vertx.example.jdbc.simple
 
 import io.vertx.ext.jdbc.JDBCClient
-import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.json.*
 
 class JDBCExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {

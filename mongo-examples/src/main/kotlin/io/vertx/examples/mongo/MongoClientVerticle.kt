@@ -2,7 +2,7 @@ package io.vertx.examples.mongo
 
 import io.vertx.core.Vertx
 import io.vertx.ext.mongo.MongoClient
-import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.json.*
 
 class MongoClientVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {

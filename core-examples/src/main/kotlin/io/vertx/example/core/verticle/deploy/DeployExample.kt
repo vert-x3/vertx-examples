@@ -1,8 +1,8 @@
 package io.vertx.example.core.verticle.deploy
 
 import io.vertx.core.DeploymentOptions
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.*
+import io.vertx.kotlin.core.json.*
 
 class DeployExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {

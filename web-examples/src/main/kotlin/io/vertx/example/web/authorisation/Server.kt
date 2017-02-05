@@ -5,7 +5,7 @@ import io.vertx.ext.auth.jwt.JWTOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.JWTAuthHandler
 import io.vertx.ext.web.handler.StaticHandler
-import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.json.*
 import io.vertx.kotlin.ext.auth.jwt.*
 
 class Server : io.vertx.core.AbstractVerticle()  {

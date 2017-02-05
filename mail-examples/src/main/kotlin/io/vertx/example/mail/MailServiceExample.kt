@@ -3,8 +3,8 @@ package io.vertx.example.mail
 import io.vertx.core.DeploymentOptions
 import io.vertx.ext.mail.MailMessage
 import io.vertx.ext.mail.MailService
-import io.vertx.kotlin.common.json.*
 import io.vertx.kotlin.core.*
+import io.vertx.kotlin.core.json.*
 import io.vertx.kotlin.ext.mail.*
 
 class MailServiceExample : io.vertx.core.AbstractVerticle()  {

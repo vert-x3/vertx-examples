@@ -2,7 +2,7 @@ package io.vertx.example.web.rest
 
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.BodyHandler
-import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.json.*
 
 class SimpleREST : io.vertx.core.AbstractVerticle()  {
   var products = mutableMapOf<String, Any?>()

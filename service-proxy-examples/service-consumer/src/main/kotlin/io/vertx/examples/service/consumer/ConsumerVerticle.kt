@@ -1,7 +1,7 @@
 package io.vertx.examples.service.consumer
 
 import io.vertx.examples.service.ProcessorService
-import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.json.*
 
 class ConsumerVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {

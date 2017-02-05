@@ -11,7 +11,7 @@ import io.vertx.ext.web.handler.SessionHandler
 import io.vertx.ext.web.handler.StaticHandler
 import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
-import io.vertx.kotlin.common.json.*
+import io.vertx.kotlin.core.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
