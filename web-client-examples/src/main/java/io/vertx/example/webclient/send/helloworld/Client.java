@@ -1,8 +1,7 @@
-package io.vertx.example.webclient.send.buffer;
+package io.vertx.example.webclient.send.helloworld;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
