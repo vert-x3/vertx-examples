@@ -38,26 +38,25 @@ public class Client extends AbstractVerticle {
 
         //
         mongo.
-            createCollectionObservable("users").
+            rxCreateCollection("users").toObservable().
 
             // After collection is created we insert each document
             flatMap(v -> documents.flatMap(
-                doc -> mongo.insertObservable("users", doc))
+                doc -> mongo.rxInsert("users", doc).toObservable())
             ).subscribe(
 
             id -> {
               System.out.println("Inserted document " + id);
-            }, error -> {
-              System.out.println("Err");
-              error.printStackTrace();
-            }, () -> {
 
               // Everything has been inserted now we can query mongo
               System.out.println("Insertions done");
-              mongo.findObservable("users", new JsonObject()).
-                  subscribe(results -> {
-                    System.out.println("Results " + results);
-                  });
+              mongo.rxFind("users", new JsonObject()).
+                subscribe(results -> {
+                  System.out.println("Results " + results);
+                });
+            }, error -> {
+              System.out.println("Err");
+              error.printStackTrace();
             });
       } else {
         System.out.println("Could not start mongo embedded");
