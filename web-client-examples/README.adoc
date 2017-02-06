@@ -1,0 +1,37 @@
+= Vert.x Web-Client examples
+
+Here you will find examples demonstrating Vert.x Web Client in action.
+
+Vert.x Web Client is an asynchronous HTTP and HTTP/2 client. Please consult the Vert.x Web Client manual for detailed
+documentation on Vert.x Web Client.
+
+== Logging
+
+When running in an IDE you can edit `src/main/resources/vertx-default-jul-logging.properties` to configure logging.
+Trace logging is enabled for Vert.x Web Client classes so you can easily trace requests as they are routed through different
+handlers.
+
+== Dependencies required
+
+To use Vert.x Web Client in your own Maven or Gradle project you will need following dependencies
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-core
+----
+
+and
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-web-client
+----
+
+If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine
+you are using.
+
+== Simple
+
+This uses the web client to send a request and log the response
+
+The link:src/main/java/io/vertx/example/web/client/simpe/Client.java[Java simple example]

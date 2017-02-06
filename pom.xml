@@ -17,6 +17,7 @@
     <module>maven-verticles</module>
     <module>core-examples</module>
     <module>web-examples</module>
+    <module>web-client-examples</module>
     <module>rx-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
