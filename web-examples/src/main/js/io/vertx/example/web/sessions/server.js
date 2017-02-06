@@ -13,7 +13,7 @@ router.route().handler(function (routingContext) {
   var session = routingContext.session();
 
   var cnt = session.get("hitcount");
-  cnt = (cnt === null ||cnt === undefined ? 0 : cnt) + 1;
+  cnt = ((cnt === null || cnt === undefined) ? 0 : cnt) + 1;
 
   session.put("hitcount", cnt);
 

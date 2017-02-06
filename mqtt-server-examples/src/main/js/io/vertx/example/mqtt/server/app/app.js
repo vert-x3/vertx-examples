@@ -8,10 +8,10 @@ mqttServer.endpointHandler(function (endpoint) {
   // shows main connect info
   console.log("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
 
-  if (endpoint.auth() !== null &&endpoint.auth() !== undefined) {
+  if ((endpoint.auth() !== null && endpoint.auth() !== undefined)) {
     console.log("[username = " + endpoint.auth().userName() + ", password = " + endpoint.auth().password() + "]");
   }
-  if (endpoint.will() !== null &&endpoint.will() !== undefined) {
+  if ((endpoint.will() !== null && endpoint.will() !== undefined)) {
     console.log("[will flag = " + endpoint.will().isWillFlag() + " topic = " + endpoint.will().willTopic() + " msg = " + endpoint.will().willMessage() + " QoS = " + endpoint.will().willQos() + " isRetain = " + endpoint.will().isWillRetain() + "]");
   }
 

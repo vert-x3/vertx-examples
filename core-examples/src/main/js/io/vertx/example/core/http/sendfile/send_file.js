@@ -12,7 +12,7 @@ vertx.createHttpServer().requestHandler(function (req) {
   } else {
     req.response().setStatusCode(404).end();
   }
-  if (filename !== null &&filename !== undefined) {
+  if ((filename !== null && filename !== undefined)) {
     req.response().sendFile(filename);
   }
 }).listen(8080);
