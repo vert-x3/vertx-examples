@@ -141,12 +141,20 @@ Vert.x Web Client that provides an easy to use web client for Vert.x.
 
 The link:web-client-examples/README.adoc[Vert.x Web Client examples] contains a wide range of examples using the Vert.x Web Client
 
-=== Vertx unit examples
+=== Vertx Unit examples
 
-Vertx-unit is a toolkit for writing asynchronous tests. We include some examples of how to use this tool to test
+Vertx-Unit is a library for writing asynchronous tests. We include some examples of how to use this tool to test
 your Vert.x (or other asynchronous) applications.
 
 The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x Unit.
+
+=== RxJava examples
+
+Vert.x for RxJava provides most of its APIs as RxJava so you can use those if you prefer.
+
+RxJava is a great choice when you want to perform complex operations on multiple asynchronous streams of data.
+
+The link:rx-examples/README.adoc[Vert.x RxJava examples] contains a wide range of examples using Vert.x for RxJava
 
 === Mail examples
 
