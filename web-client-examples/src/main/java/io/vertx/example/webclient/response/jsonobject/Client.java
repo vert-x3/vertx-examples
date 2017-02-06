@@ -1,4 +1,4 @@
-package io.vertx.example.webclient.body.jsonobject;
+package io.vertx.example.webclient.response.jsonobject;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;

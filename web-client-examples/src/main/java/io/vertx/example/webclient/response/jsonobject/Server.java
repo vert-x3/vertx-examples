@@ -1,6 +1,7 @@
-package io.vertx.example.webclient.send.upload;
+package io.vertx.example.webclient.response.jsonobject;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 
 /*
@@ -17,11 +18,14 @@ public class Server extends AbstractVerticle {
   public void start() throws Exception {
 
     vertx.createHttpServer().requestHandler(req -> {
-
-      req.bodyHandler(buff -> {
-        System.out.println("Receiving user " + buff + " from client ");
-        req.response().end();
-      });
+      req.response()
+        .putHeader("Content/type", "application/json")
+        .end(new JsonObject()
+          .put("firstName", "Date")
+          .put("lastName", "Cooper")
+          .put("male", true)
+          .encode()
+        );
 
     }).listen(8080, listenResult -> {
       if (listenResult.failed()) {

@@ -1,4 +1,4 @@
-package io.vertx.example.webclient.body.helloworld;
+package io.vertx.example.webclient.send.stream;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
@@ -17,7 +17,12 @@ public class Server extends AbstractVerticle {
   public void start() throws Exception {
 
     vertx.createHttpServer().requestHandler(req -> {
-      req.response().end("Hello World");
+
+      req.bodyHandler(buff -> {
+        System.out.println("Receiving user " + buff + " from client ");
+        req.response().end();
+      });
+
     }).listen(8080, listenResult -> {
       if (listenResult.failed()) {
         System.out.println("Could not start HTTP server");

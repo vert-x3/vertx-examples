@@ -1,4 +1,4 @@
-package io.vertx.example.webclient.body.jsonobject;
+package io.vertx.example.webclient.response.jsonpojo;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
@@ -12,6 +12,12 @@ public class Server extends AbstractVerticle {
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
     Runner.runExample(Server.class);
+  }
+
+  public static class User {
+    public String firstName;
+    public String lastName;
+    public boolean male;
   }
 
   @Override

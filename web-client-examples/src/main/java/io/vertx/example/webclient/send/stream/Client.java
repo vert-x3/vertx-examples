@@ -1,4 +1,4 @@
-package io.vertx.example.webclient.send.upload;
+package io.vertx.example.webclient.send.stream;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;

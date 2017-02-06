@@ -32,6 +32,114 @@ you are using.
 
 == Simple
 
-This uses the web client to send a request and log the response
+This example uses the web client to send a request and log the response.
 
-The link:src/main/java/io/vertx/example/web/client/simpe/Client.java[Java simple example]
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/simple/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/simple/Client.java[Java simple HTTP client]
+
+== Query params
+
+This example uses the web client to send a request with query params using the fluent API and log the response.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/queryparams/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/queryparams/Client.java[Java query params HTTP client]
+
+The server logs the query string on the console.
+
+The client add several query parameters to the http request with the fluent API, the client takes care of
+encoding the parameters.
+
+== HTTPS
+
+This example is like the simple example but shows how to configure the client for sending SSL/TLS requests.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/https/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/https/Client.java[Java SSL/TLS HTTP client]
+
+== Sending bodies
+
+The web client is able to send various kinds of bodies to the server.
+
+=== Hello World
+
+This examples shows how to send a body with "Hello World" with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/send/helloworld/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/send/helloworld/Client.java[Java client sending a form]
+
+=== Sending a form
+
+This examples shows how to send a form with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/send/formurlencoded/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/send/formurlencoded/Client.java[Java client sending a form]
+
+=== Sending a json object
+
+This examples shows how to send a json object with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/send/jsonobject/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/send/jsonobject/Client.java[Java client sending a json object]
+
+=== Sending a POJO mapped to json
+
+This examples shows how to send a simple java object encoded as a json object with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/send/jsonpojo/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/send/jsonpojo/Client.java[Java client sending a POJO encoded as a json object]
+
+=== Sending a multipart form
+
+This examples shows how to send a multipart form with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/send/multipartform/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/send/multipartform/Client.java[Java client sending a multipart form]
+
+=== Sending a stream
+
+This examples shows how to send a vertx read stream with the web client.
+
+The web client takes care of setting up the pump between the read stream and the http client request.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/send/stream/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/send/stream/Client.java[Java client sending an async file]
+
+== Receiving response bodies
+
+The web client can unmarshall response bodies to various formats.
+
+=== Receiving a json object body
+
+This examples shows how to decode a json object body with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/response/jsonobject/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/response/jsonobject/Client.java[Java client expecting a json object body]
+
+=== Receiving a POJO mapped to json
+
+This examples shows how to decode a json object body to a simple java object with the web client.
+
+First you need to run the server then you can run the client.
+
+link:src/main/java/io/vertx/example/webclient/response/jsonpojo/Server.java[Java HTTP server]
+link:src/main/java/io/vertx/example/webclient/response/jsonpojo/Client.java[Java client expecting a json object body as a POJO]

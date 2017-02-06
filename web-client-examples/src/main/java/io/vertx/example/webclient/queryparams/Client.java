@@ -19,30 +19,19 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    vertx.createHttpServer().requestHandler(req -> {
-      System.out.println("Got request with query params: " + req.query());
-      req.response().end();
-    }).listen(8080, listenResult -> {
-      if (listenResult.failed()) {
-        System.out.println("Could not start HTTP server");
-        listenResult.cause().printStackTrace();
-      } else {
+    WebClient client = WebClient.create(vertx);
 
-        WebClient client = WebClient.create(vertx);
-
-        client.get(8080, "localhost", "/")
-          .addQueryParam("firstName", "Dale")
-          .addQueryParam("lastName", "Cooper")
-          .addQueryParam("male", "true")
-          .send(ar -> {
-            if (ar.succeeded()) {
-              HttpResponse<Buffer> response = ar.result();
-              System.out.println("Got HTTP response with status " + response.statusCode());
-            } else {
-              ar.cause().printStackTrace();
-            }
-          });
-      }
-    });
+    client.get(8080, "localhost", "/")
+      .addQueryParam("firstName", "Dale")
+      .addQueryParam("lastName", "Cooper")
+      .addQueryParam("male", "true")
+      .send(ar -> {
+        if (ar.succeeded()) {
+          HttpResponse<Buffer> response = ar.result();
+          System.out.println("Got HTTP response with status " + response.statusCode());
+        } else {
+          ar.cause().printStackTrace();
+        }
+      });
   }
 }
