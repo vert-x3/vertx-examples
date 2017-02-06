@@ -7,7 +7,7 @@ import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 
 /*
- * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class Client extends AbstractVerticle {
 
@@ -35,13 +35,13 @@ public class Client extends AbstractVerticle {
           .addQueryParam("lastName", "Cooper")
           .addQueryParam("male", "true")
           .send(ar -> {
-          if (ar.succeeded()) {
-            HttpResponse<Buffer> response = ar.result();
-            System.out.println("Got HTTP response with status " + response.statusCode());
-          } else {
-            ar.cause().printStackTrace();
-          }
-        });
+            if (ar.succeeded()) {
+              HttpResponse<Buffer> response = ar.result();
+              System.out.println("Got HTTP response with status " + response.statusCode());
+            } else {
+              ar.cause().printStackTrace();
+            }
+          });
       }
     });
   }

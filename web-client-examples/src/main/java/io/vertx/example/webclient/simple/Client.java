@@ -7,7 +7,7 @@ import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 
 /*
- * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class Client extends AbstractVerticle {
 
@@ -19,27 +19,15 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    vertx.createHttpServer().requestHandler(req -> {
+    WebClient client = WebClient.create(vertx);
 
-      req.response().end("Hello World");
-
-    }).listen(8080, listenResult -> {
-      if (listenResult.failed()) {
-        System.out.println("Could not start HTTP server");
-        listenResult.cause().printStackTrace();
+    client.get(8080, "localhost", "/").send(ar -> {
+      if (ar.succeeded()) {
+        HttpResponse<Buffer> response = ar.result();
+        System.out.println("Got HTTP response with status " + response.statusCode() + " with data " +
+          response.body().toString("ISO-8859-1"));
       } else {
-
-        WebClient client = WebClient.create(vertx);
-
-        client.get(8080, "localhost", "/").send(ar -> {
-          if (ar.succeeded()) {
-            HttpResponse<Buffer> response = ar.result();
-            System.out.println("Got HTTP response with status " + response.statusCode() + " with data " +
-              response.body().toString("ISO-8859-1"));
-          } else {
-            ar.cause().printStackTrace();
-          }
-        });
+        ar.cause().printStackTrace();
       }
     });
   }

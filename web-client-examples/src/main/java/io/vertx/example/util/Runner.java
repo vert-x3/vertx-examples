@@ -46,7 +46,7 @@ public class Runner {
   }
 
   public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
+    deploymentOptions) {
     runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
   }
 

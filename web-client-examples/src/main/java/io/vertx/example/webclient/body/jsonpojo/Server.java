@@ -3,18 +3,15 @@ package io.vertx.example.webclient.body.jsonpojo;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.WebClient;
-import io.vertx.ext.web.codec.BodyCodec;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class Client extends AbstractVerticle {
+public class Server extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Runner.runExample(Server.class);
   }
 
   public static class User {
@@ -41,23 +38,7 @@ public class Client extends AbstractVerticle {
         System.out.println("Could not start HTTP server");
         listenResult.cause().printStackTrace();
       } else {
-
-        WebClient client = WebClient.create(vertx);
-
-        client.get(8080, "localhost", "/")
-          .as(BodyCodec.json(User.class))
-          .send(ar -> {
-            if (ar.succeeded()) {
-              HttpResponse<User> response = ar.result();
-              System.out.println("Got HTTP response body");
-              User user = response.body();
-              System.out.println("FirstName " + user.firstName);
-              System.out.println("LastName " + user.lastName);
-              System.out.println("Male " + user.male);
-            } else {
-              ar.cause().printStackTrace();
-            }
-          });
+        System.out.println("Server started");
       }
     });
   }
