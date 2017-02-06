@@ -15,7 +15,7 @@ Use that as a template for setting up a Maven project with Vert.x.
 
 Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy, Ruby and JavaScript verticles.
 
-Want to start right away, open the first example in Eclipse Che: 
+Want to start right away, open the first example in Eclipse Che:
 
 image:http://beta.codenvy.com/factory/resources/codenvy-contribute.svg["Open workspace in Eclipse Che", link="http://beta.codenvy.com/f?id=9skz1321dxbqpj5j"]
 
@@ -134,6 +134,12 @@ The link:core-examples/README.adoc[Vert.x core examples] contains a wide range o
 Vert.x-Web is a toolkit for building web applications using Vert.x
 
 The link:web-examples/README.adoc[Vert.x-Web examples] contains a wide range of examples using Vert.x-Web
+
+=== Vert.x Web Client examples
+
+Vert.x Web Client that provides an easy to use web client for Vert.x.
+
+The link:web-client-examples/README.adoc[Vert.x Web Client examples] contains a wide range of examples using the Vert.x Web Client
 
 === Vertx unit examples
 
