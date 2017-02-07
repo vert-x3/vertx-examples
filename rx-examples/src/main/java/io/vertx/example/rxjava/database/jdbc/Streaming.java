@@ -4,6 +4,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.ext.jdbc.JDBCClient;
+import io.vertx.rxjava.ext.sql.SQLRowStream;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -28,12 +29,10 @@ public class Streaming extends AbstractVerticle {
         flatMap(conn -> conn.rxUpdate("CREATE TABLE test(col VARCHAR(20))").
         flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val1')")).
         flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val2')")).
-        flatMap(result -> conn.rxQueryStream("SELECT * FROM test"))).subscribe(
-
-      rowStream -> rowStream.toObservable().subscribe(
-        row -> System.out.println("Row : " + row.encode()),
-        Throwable::printStackTrace
-      ),
-      Throwable::printStackTrace);
+        flatMap(result -> conn.rxQueryStream("SELECT * FROM test"))).
+        flatMapObservable(SQLRowStream::toObservable).
+        subscribe(
+          row -> System.out.println("Row : " + row.encode())
+        );
   }
 }
