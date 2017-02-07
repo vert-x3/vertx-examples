@@ -12,7 +12,7 @@ public class Streaming extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Runner.runExample(Streaming.class);
   }
 
   @Override
@@ -24,26 +24,16 @@ public class Streaming extends AbstractVerticle {
     JDBCClient jdbc = JDBCClient.createShared(vertx, config);
 
     // Connect to the database
-    jdbc.rxGetConnection().subscribe(
-      conn -> {
+    jdbc.rxGetConnection().
+        flatMap(conn -> conn.rxUpdate("CREATE TABLE test(col VARCHAR(20))").
+        flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val1')")).
+        flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val2')")).
+        flatMap(result -> conn.rxQueryStream("SELECT * FROM test"))).subscribe(
 
-        conn.rxUpdate("CREATE TABLE test(col VARCHAR(20))").
-          flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val1')")).
-          flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val2')")).
-          flatMap(result -> conn.rxQueryStream("SELECT * FROM test")).subscribe(
-            rowStream -> {
-              rowStream.toObservable().subscribe(
-                row -> System.out.println("Row : " + row.encode()),
-                Throwable::printStackTrace,
-                conn::close
-              );
-            },
-          Throwable::printStackTrace);
-      },
-
-      // Could not connect
-      Throwable::printStackTrace
-    );
-
+      rowStream -> rowStream.toObservable().subscribe(
+        row -> System.out.println("Row : " + row.encode()),
+        Throwable::printStackTrace
+      ),
+      Throwable::printStackTrace);
   }
 }
