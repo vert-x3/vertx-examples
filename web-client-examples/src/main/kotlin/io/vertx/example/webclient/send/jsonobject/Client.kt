@@ -10,7 +10,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
 
     var user = json {
       obj(
-        "firstName" to "Date",
+        "firstName" to "Dale",
         "lastName" to "Cooper",
         "male" to true
       )
