@@ -23,7 +23,7 @@ public class Client extends AbstractVerticle {
     WebClient client = WebClient.create(vertx);
 
     JsonObject user = new JsonObject()
-      .put("firstName", "Date")
+      .put("firstName", "Dale")
       .put("lastName", "Cooper")
       .put("male", true);
 
