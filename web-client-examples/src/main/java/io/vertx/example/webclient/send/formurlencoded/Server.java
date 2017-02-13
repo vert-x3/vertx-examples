@@ -23,6 +23,8 @@ public class Server extends AbstractVerticle {
         System.out.println("firstName: " + req.getFormAttribute("firstName"));
         System.out.println("lastName: " + req.getFormAttribute("lastName"));
         System.out.println("male: " + req.getFormAttribute("male"));
+
+        req.response().end();
       });
 
     }).listen(8080, listenResult -> {
