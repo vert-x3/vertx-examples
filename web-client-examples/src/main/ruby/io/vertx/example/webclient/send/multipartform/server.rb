@@ -6,6 +6,8 @@ $vertx.create_http_server().request_handler() { |req|
     puts "firstName: #{req.get_form_attribute("firstName")}"
     puts "lastName: #{req.get_form_attribute("lastName")}"
     puts "male: #{req.get_form_attribute("male")}"
+
+    req.response().end()
   }
 
 }.listen(8080) { |listenResult_err,listenResult|

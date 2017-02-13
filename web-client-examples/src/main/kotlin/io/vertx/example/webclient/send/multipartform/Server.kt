@@ -11,6 +11,8 @@ class Server : io.vertx.core.AbstractVerticle()  {
         println("firstName: ${req.getFormAttribute("firstName")}")
         println("lastName: ${req.getFormAttribute("lastName")}")
         println("male: ${req.getFormAttribute("male")}")
+
+        req.response().end()
       })
 
     }).listen(8080, { listenResult ->

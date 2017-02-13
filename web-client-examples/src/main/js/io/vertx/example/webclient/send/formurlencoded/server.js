@@ -6,6 +6,8 @@ vertx.createHttpServer().requestHandler(function (req) {
     console.log("firstName: " + req.getFormAttribute("firstName"));
     console.log("lastName: " + req.getFormAttribute("lastName"));
     console.log("male: " + req.getFormAttribute("male"));
+
+    req.response().end();
   });
 
 }).listen(8080, function (listenResult, listenResult_err) {
