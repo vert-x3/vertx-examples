@@ -2,7 +2,7 @@
 vertx.createHttpServer().requestHandler({ req ->
 
   req.bodyHandler({ buff ->
-    println("Receiving user ${buff} from client ")
+    println("Receiving user ${buff.toString()} from client ")
     req.response().end()
   })
 

@@ -2,7 +2,7 @@
 $vertx.create_http_server().request_handler() { |req|
 
   req.body_handler() { |buff|
-    puts "Receiving user #{buff} from client "
+    puts "Receiving user #{buff.to_string()} from client "
     req.response().end()
   }
 
