@@ -1,0 +1,19 @@
+{
+  "excludes": [
+    {
+      "package": "io.vertx.example.grpc.consumer"
+    },
+    {
+      "package": "io.vertx.example.grpc.conversation"
+    },
+    {
+      "package": "io.vertx.example.grpc.empty"
+    },
+    {
+      "package": "io.vertx.example.grpc.pingpong"
+    },
+    {
+      "package": "io.vertx.example.grpc.producer"
+    }
+  ]
+}

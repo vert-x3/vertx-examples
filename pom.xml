@@ -45,6 +45,7 @@
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>
     <module>mqtt-server-examples</module>
+    <module>grpc-examples</module>
   </modules>
 
   <profiles>
