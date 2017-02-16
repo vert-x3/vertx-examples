@@ -1,3 +1,56 @@
 = Vert.x gRPC examples
 
-todo
+Here you will find examples demonstrating Vert.x gRPC in action.
+
+These examples are adapter from the https://github.com/grpc/grpc-java/tree/master/examples[gRPC examples].
+
+== Dependencies required
+
+To use Vert.x gRPC in your own Maven or Gradle project add the following dependency
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-grpc
+----
+
+You will need to use the `com.google.protobuf` plugin to compile the `.proto` files.
+These examples use the `io.vertx:protoc-gen-grpc-java` plugin that creates
+server and stub classes for Vert.x, this plugin is an extension of the
+ `io.grpc:protoc-gen-grpc-java` plugin.
+
+The protobuf compiler is available for Maven or Gradle and is OS dependant.
+
+== Hello World example
+
+This example shows a simple gRPC service that invokes a service that
+takes takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper.
+
+link:src/main/java/io/vertx/example/grpc/helloworld/Server.java[gRPC server example]
+
+The gRPC service extends the `GreeterGrpc.GreeterVertxImplBase` generated class and
+implements the service logic.
+
+link:src/main/java/io/vertx/example/grpc/helloworld/Client.java[gRPC client example]
+
+The gRPC client creates an instance of the `GreeterGrpc.newVertxStub` generated class and
+then use it to invoke the service.
+
+You can run the server and then run the client.
+
+You can read more about it on the http://www.grpc.io/docs/quickstart/java.html[gRPC website]
+
+== Route Guide example
+
+This example shows the various kind of gRPC service calls:
+
+- simple RPC
+- server-side streaming RPC
+- client-side streaming RPC
+- bidirectional streaming RPC
+
+link:src/main/java/io/vertx/example/grpc/routeguide/Server.java[gRPC server example]
+link:src/main/java/io/vertx/example/grpc/routeguide/Client.java[gRPC client example]
+
+You can run the server and then run the client.
+
+You can read more about it on the http://www.grpc.io/docs/tutorials/basic/java.html[gRPC website]
