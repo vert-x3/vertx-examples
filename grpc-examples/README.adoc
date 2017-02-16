@@ -1,0 +1,23 @@
+= Vert.x gRPC examples
+
+Here you will find examples demonstrating the usage of the Vert.x gRPC.
+
+== Empty exchanges
+
+This example show how to handle RPC calls that do not receive or return data.
+
+== Ping Pong exchanges
+
+This example show how to handle RPC calls that send a single object and receive a single object.
+
+== Consumer exchange
+
+This example show how to handle RPC calls that do receive an arbitrary stream of response objects.
+
+== Producer exchange
+
+This example show how to handle RPC calls that do sends an arbitrary stream of request objects.
+
+== Conversational exchange
+
+This example shows how to handle arbitrary streams of request and response objects.

@@ -1,4 +1,10 @@
 {
+  "kotlin": {
+    "excludes": [
+      "io.vertx.example.core.http.sharing",
+      "io.vertx.example.core.verticle.worker"
+    ]
+  },
   "excludes": [
     {
       "package": "io.vertx.example.core.eventbus.messagecodec"

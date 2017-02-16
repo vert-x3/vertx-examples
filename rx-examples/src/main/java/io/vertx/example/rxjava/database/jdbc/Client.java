@@ -5,8 +5,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.ext.jdbc.JDBCClient;
-import io.vertx.rxjava.ext.sql.SQLConnection;
-import rx.Observable;
+import rx.Single;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -27,22 +26,23 @@ public class Client extends AbstractVerticle {
     JDBCClient jdbc = JDBCClient.createShared(vertx, config);
 
     // Connect to the database
-    jdbc.getConnectionObservable().subscribe(
+    jdbc.rxGetConnection().subscribe(
         conn -> {
 
           // Now chain some statements using flatmap composition
-          Observable<ResultSet> resa = conn.updateObservable("CREATE TABLE test(col VARCHAR(20))").
-              flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val1')")).
-              flatMap(result -> conn.updateObservable("INSERT INTO test (col) VALUES ('val2')")).
-              flatMap(result -> conn.queryObservable("SELECT * FROM test"));
+          Single<ResultSet> resa = conn.rxUpdate("CREATE TABLE test(col VARCHAR(20))").
+              flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val1')")).
+              flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val2')")).
+              flatMap(result -> conn.rxQuery("SELECT * FROM test"));
 
           // Subscribe to the final result
           resa.subscribe(resultSet -> {
             System.out.println("Results : " + resultSet.getRows());
+            conn.close();
           }, err -> {
             System.out.println("Database problem");
             err.printStackTrace();
-          }, conn::close);
+          });
         },
 
         // Could not connect

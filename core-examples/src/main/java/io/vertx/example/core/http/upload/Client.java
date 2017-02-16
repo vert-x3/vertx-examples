@@ -32,7 +32,7 @@ public class Client extends AbstractVerticle {
       FileProps props = ares.result();
       System.out.println("props is " + props);
       long size = props.size();
-      req.headers().set("content-length", String.valueOf(size));
+      req.headers().set("content-length", "" + size);
       fs.open(filename, new OpenOptions(), ares2 -> {
         AsyncFile file = ares2.result();
         Pump pump = Pump.pump(file, req);

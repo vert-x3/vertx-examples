@@ -1,14 +1,14 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.CookieHandler
-import io.vertx.groovy.ext.web.handler.BodyHandler
-import io.vertx.groovy.ext.web.sstore.LocalSessionStore
-import io.vertx.groovy.ext.web.handler.SessionHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.CookieHandler
+import io.vertx.ext.web.handler.BodyHandler
+import io.vertx.ext.web.sstore.LocalSessionStore
+import io.vertx.ext.web.handler.SessionHandler
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType
-import io.vertx.groovy.ext.auth.shiro.ShiroAuth
-import io.vertx.groovy.ext.web.handler.UserSessionHandler
-import io.vertx.groovy.ext.web.handler.RedirectAuthHandler
-import io.vertx.groovy.ext.web.handler.StaticHandler
-import io.vertx.groovy.ext.web.handler.FormLoginHandler
+import io.vertx.ext.auth.shiro.ShiroAuth
+import io.vertx.ext.web.handler.UserSessionHandler
+import io.vertx.ext.web.handler.RedirectAuthHandler
+import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.handler.FormLoginHandler
 
 def router = Router.router(vertx)
 

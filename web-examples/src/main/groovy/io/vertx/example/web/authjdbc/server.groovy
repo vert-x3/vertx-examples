@@ -1,15 +1,15 @@
 import groovy.transform.Field
-import io.vertx.groovy.ext.jdbc.JDBCClient
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.CookieHandler
-import io.vertx.groovy.ext.web.handler.BodyHandler
-import io.vertx.groovy.ext.web.sstore.LocalSessionStore
-import io.vertx.groovy.ext.web.handler.SessionHandler
-import io.vertx.groovy.ext.auth.jdbc.JDBCAuth
-import io.vertx.groovy.ext.web.handler.UserSessionHandler
-import io.vertx.groovy.ext.web.handler.RedirectAuthHandler
-import io.vertx.groovy.ext.web.handler.StaticHandler
-import io.vertx.groovy.ext.web.handler.FormLoginHandler
+import io.vertx.ext.jdbc.JDBCClient
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.CookieHandler
+import io.vertx.ext.web.handler.BodyHandler
+import io.vertx.ext.web.sstore.LocalSessionStore
+import io.vertx.ext.web.handler.SessionHandler
+import io.vertx.ext.auth.jdbc.JDBCAuth
+import io.vertx.ext.web.handler.UserSessionHandler
+import io.vertx.ext.web.handler.RedirectAuthHandler
+import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.handler.FormLoginHandler
 @Field def conn
 def setUpInitialData(url) {
   conn = java.sql.DriverManager.getConnection(url)
@@ -57,7 +57,7 @@ router.route().handler(BodyHandler.create())
 router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)))
 
 // Simple auth service which uses a JDBC data source
-def authProvider = JDBCAuth.create(client)
+def authProvider = JDBCAuth.create(vertx, client)
 
 // We need a user session handler too to make sure the user is stored in the session between requests
 router.route().handler(UserSessionHandler.create(authProvider))

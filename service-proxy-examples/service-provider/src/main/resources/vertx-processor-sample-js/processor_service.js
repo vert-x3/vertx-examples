@@ -20,7 +20,7 @@ var Vertx = require('vertx-js/vertx');
 
 var io = Packages.io;
 var JsonObject = io.vertx.core.json.JsonObject;
-var JProcessorService = io.vertx.examples.service.ProcessorService;
+var JProcessorService = Java.type('io.vertx.examples.service.ProcessorService');
 
 /**
  The service interface.
@@ -57,6 +57,25 @@ var ProcessorService = function(j_val) {
   this._jdel = j_processorService;
 };
 
+ProcessorService._jclass = utils.getJavaClass("io.vertx.examples.service.ProcessorService");
+ProcessorService._jtype = {
+  accept: function(obj) {
+    return ProcessorService._jclass.isInstance(obj._jdel);
+  },
+  wrap: function(jdel) {
+    var obj = Object.create(ProcessorService.prototype, {});
+    ProcessorService.apply(obj, arguments);
+    return obj;
+  },
+  unwrap: function(obj) {
+    return obj._jdel;
+  }
+};
+ProcessorService._create = function(jdel) {
+  var obj = Object.create(ProcessorService.prototype, {});
+  ProcessorService.apply(obj, arguments);
+  return obj;
+}
 /**
 
  @memberof module:vertx-processor-sample-js/processor_service
@@ -66,7 +85,7 @@ var ProcessorService = function(j_val) {
 ProcessorService.create = function(vertx) {
   var __args = arguments;
   if (__args.length === 1 && typeof __args[0] === 'object' && __args[0]._jdel) {
-    return utils.convReturnVertxGen(JProcessorService["create(io.vertx.core.Vertx)"](vertx._jdel), ProcessorService);
+    return utils.convReturnVertxGen(ProcessorService, JProcessorService["create(io.vertx.core.Vertx)"](vertx._jdel));
   } else throw new TypeError('function invoked with invalid arguments');
 };
 
@@ -80,9 +99,8 @@ ProcessorService.create = function(vertx) {
 ProcessorService.createProxy = function(vertx, address) {
   var __args = arguments;
   if (__args.length === 2 && typeof __args[0] === 'object' && __args[0]._jdel && typeof __args[1] === 'string') {
-    return utils.convReturnVertxGen(JProcessorService["createProxy(io.vertx.core.Vertx,java.lang.String)"](vertx._jdel, address), ProcessorService);
+    return utils.convReturnVertxGen(ProcessorService, JProcessorService["createProxy(io.vertx.core.Vertx,java.lang.String)"](vertx._jdel, address));
   } else throw new TypeError('function invoked with invalid arguments');
 };
 
-// We export the Constructor function
 module.exports = ProcessorService;

@@ -1,5 +1,5 @@
-import io.vertx.groovy.core.Vertx
-import io.vertx.groovy.ext.mongo.MongoClient
+import io.vertx.core.Vertx
+import io.vertx.ext.mongo.MongoClient
 
 def config = Vertx.currentContext().config()
 

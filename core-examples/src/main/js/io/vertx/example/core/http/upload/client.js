@@ -10,7 +10,7 @@ fs.props(filename, function (ares, ares_err) {
   var props = ares;
   console.log("props is " + props);
   var size = props.size();
-  req.headers().set("content-length", Java.type("java.lang.String").valueOf(size));
+  req.headers().set("content-length", "" + size);
   fs.open(filename, {
   }, function (ares2, ares2_err) {
     var file = ares2;

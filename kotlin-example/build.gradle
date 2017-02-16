@@ -1,13 +1,13 @@
 buildscript {
   ext {
     kotlin_version = '1.0.1-2'
-    vertx_version = '3.3.3'
+    vertx_version = '3.4.0-SNAPSHOT'
   }
 
   repositories {
     jcenter()
 //    maven {
-//      url "https://oss.sonatype.org/content/repositories/iovertx-3295"
+//      url "https://oss.sonatype.org/content/repositories/snapshots"
 //    }
   }
 
@@ -32,7 +32,7 @@ def mainVerticleName = 'io.vertx.example.MainVerticle'
 repositories {
   jcenter()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
+    url "https://oss.sonatype.org/content/repositories/snapshots"
   }
 }
 dependencies {

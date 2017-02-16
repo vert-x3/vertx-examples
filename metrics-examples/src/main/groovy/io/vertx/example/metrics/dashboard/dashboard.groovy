@@ -1,7 +1,7 @@
-import io.vertx.groovy.ext.dropwizard.MetricsService
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.sockjs.SockJSHandler
-import io.vertx.groovy.ext.web.handler.StaticHandler
+import io.vertx.ext.dropwizard.MetricsService
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.sockjs.SockJSHandler
+import io.vertx.ext.web.handler.StaticHandler
 
 def service = MetricsService.create(vertx)
 

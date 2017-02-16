@@ -1,7 +1,8 @@
+var Vertx = require("vertx-js/vertx");
 var RedisClient = require("vertx-redis-js/redis_client");
 // If a config file is set, read the host and port.
-var host = Java.type("io.vertx.groovy.core.Vertx").currentContext().config()["host"];
-if (host === null) {
+var host = Vertx.currentContext().config().host;
+if ((host === null || host === undefined)) {
   host = "127.0.0.1";
 }
 
