@@ -3,7 +3,7 @@ var WebClient = require("vertx-web-client-js/web_client");
 var client = WebClient.create(vertx);
 
 var user = {
-  "firstName" : "Date",
+  "firstName" : "Dale",
   "lastName" : "Cooper",
   "male" : true
 };

@@ -19,7 +19,7 @@ public class Server extends AbstractVerticle {
     vertx.createHttpServer().requestHandler(req -> {
 
       req.bodyHandler(buff -> {
-        System.out.println("Receiving user " + buff + " from client ");
+        System.out.println("Receiving user " + buff.toString() + " from client ");
         req.response().end();
       });
 

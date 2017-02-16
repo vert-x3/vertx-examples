@@ -156,6 +156,10 @@ RxJava is a great choice when you want to perform complex operations on multiple
 
 The link:rx-examples/README.adoc[Vert.x RxJava examples] contains a wide range of examples using Vert.x for RxJava
 
+=== gRPC examples
+
+The link:grpc-examples/README.adoc[Vert.x gRPC Examples] show how you can implement a gRPC service and invoke a gRPC service with Vert.x.
+
 === Mail examples
 
 The link:mail-examples/README.adoc[Vert.x Mail examples]

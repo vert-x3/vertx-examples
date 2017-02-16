@@ -27,7 +27,7 @@ public class Server extends AbstractVerticle {
       req.response()
         .putHeader("Content/type", "application/json")
         .end(new JsonObject()
-          .put("firstName", "Date")
+          .put("firstName", "Dale")
           .put("lastName", "Cooper")
           .put("male", true)
           .encode()

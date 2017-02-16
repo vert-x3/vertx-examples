@@ -11,17 +11,27 @@
 
   <packaging>bundle</packaging>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -45,7 +55,6 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-jdbc-client</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -119,14 +128,6 @@
       <version>0.9.1.2_1</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- TODO Temporary hack -->
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-osgi-bundle</artifactId>
-      <version>1.0.6</version>
-    </dependency>
-
     <dependency>
       <groupId>org.apache.servicemix.bundles</groupId>
       <artifactId>org.apache.servicemix.bundles.hsqldb</artifactId>
@@ -146,9 +147,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <!-- TODO use Vert.x BOM to align version and netty -->
-
   <build>
     <plugins>
       <!-- BND Maven Plugin Configuration -->

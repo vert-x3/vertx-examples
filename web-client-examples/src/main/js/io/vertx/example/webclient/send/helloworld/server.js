@@ -2,7 +2,7 @@
 vertx.createHttpServer().requestHandler(function (req) {
 
   req.bodyHandler(function (buff) {
-    console.log("Receiving user " + buff + " from client ");
+    console.log("Receiving user " + buff.toString() + " from client ");
     req.response().end();
   });
 

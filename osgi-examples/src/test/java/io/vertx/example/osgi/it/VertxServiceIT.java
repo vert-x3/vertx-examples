@@ -46,8 +46,6 @@ public class VertxServiceIT {
   @Configuration
   public Option[] config() {
     return options(
-      // TODO hack
-      mavenBundle("org.jetbrains.kotlin", "kotlin-osgi-bundle").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-core").versionAsInProject(),
 
       mavenBundle("io.netty", "netty-common").versionAsInProject(),

@@ -3,7 +3,7 @@ require 'vertx-web-client/web_client'
 client = VertxWebClient::WebClient.create($vertx)
 
 user = {
-  'firstName' => "Date",
+  'firstName' => "Dale",
   'lastName' => "Cooper",
   'male' => true
 }
