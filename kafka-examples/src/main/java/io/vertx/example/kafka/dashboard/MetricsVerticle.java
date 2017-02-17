@@ -15,7 +15,7 @@ import java.util.UUID;
 public class MetricsVerticle extends AbstractVerticle {
 
   private OperatingSystemMXBean systemMBean;
-  private KafkaWriteStream<String, String> producer;
+  private KafkaWriteStream<String, JsonObject> producer;
 
   @Override
   public void start() throws Exception {
@@ -28,14 +28,14 @@ public class MetricsVerticle extends AbstractVerticle {
     JsonObject config = config();
 
     // Create the producer
-    producer = KafkaWriteStream.create(vertx, config.getMap(), String.class, String.class);
+    producer = KafkaWriteStream.create(vertx, config.getMap(), String.class, JsonObject.class);
 
     // Publish the metircs in Kafka
     vertx.setPeriodic(1000, id -> {
       JsonObject metrics = new JsonObject();
       metrics.put("CPU", systemMBean.getProcessCpuLoad());
       metrics.put("Mem", systemMBean.getTotalPhysicalMemorySize() - systemMBean.getFreePhysicalMemorySize());
-      producer.write(new ProducerRecord<>("the_topic", new JsonObject().put(pid, metrics).encode()));
+      producer.write(new ProducerRecord<>("the_topic", new JsonObject().put(pid, metrics)));
     });
   }
 

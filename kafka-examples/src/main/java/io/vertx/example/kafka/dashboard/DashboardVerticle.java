@@ -49,11 +49,11 @@ public class DashboardVerticle extends AbstractVerticle {
     JsonObject config = config();
 
     // Create the consumer
-    KafkaReadStream<String, String> consumer = KafkaReadStream.create(vertx, config.getMap(), String.class, String.class);
+    KafkaReadStream<String, JsonObject> consumer = KafkaReadStream.create(vertx, config.getMap(), String.class, JsonObject.class);
 
     // Aggregates metrics in the dashboard
     consumer.handler(record -> {
-      JsonObject obj = new JsonObject(record.value());
+      JsonObject obj = record.value();
       dashboard.mergeIn(obj);
     });
 
