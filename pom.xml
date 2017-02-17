@@ -47,6 +47,7 @@
     <module>service-discovery-examples</module>
     <module>mqtt-server-examples</module>
     <module>grpc-examples</module>
+    <module>kafka-examples</module>
   </modules>
 
   <profiles>

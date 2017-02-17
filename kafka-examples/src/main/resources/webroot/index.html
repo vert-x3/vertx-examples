@@ -1,0 +1,78 @@
+<!--
+  ~ Copyright 2011-2012 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html>
+<head>
+  <script src="jquery-1.11.2.min.js"></script>
+  <script src="sockjs.min.js"></script>
+  <script src="highcharts.js"></script></head>
+  <script src="vertxbus.js"></script>
+  <script src="charts.js"></script>
+<body>
+  <h1>Metrics dashboard</h1>
+
+  <script>
+
+    var charts = new Charts();
+
+    var eb = new vertx.EventBus("http://" + location.host + "/eventbus");
+    eb.onopen = function() {
+      eb.registerHandler("dashboard", function(dashboard) {
+        var x = (new Date()).getTime(); // current time
+
+        console.log(dashboard)
+
+        for (var id in dashboard) {
+          if (dashboard.hasOwnProperty(id)) {
+            var metrics = dashboard[id];
+            for (var metric in metrics) {
+              if (metrics.hasOwnProperty(metric)) {
+                var chart = charts.getChart(metric);
+                var y = metrics[metric];
+                var serie = chart.getSerie(id, function() {
+                  var data = [], time = (new Date()).getTime(),i ;
+                  for (i = -19; i <= 0; i += 1) {
+                    data.push({
+                      x: time + i * 1000,
+                      y: y
+                    });
+                  }
+                  return data;
+                });
+                serie.addPoint([x, y], false, true);
+              }
+            }
+          }
+        }
+
+        // Remove metrics
+        charts.removeSeries(function(id) {
+          if (dashboard[id] === undefined) {
+            return true;
+          }
+          return false;
+        });
+
+        //
+        charts.redraw();
+      });
+    };
+
+  </script>
+
+
+</body>
+</html>
