@@ -216,6 +216,11 @@ The link:mongo-examples/README.adoc[Vert.x Mongo Example] shows how you can inte
 The link:jdbc-examples/README.adoc[Vert.x JDBC Examples] shows how you can interact JDBC Databases using the vert.x JDBC
 client.
 
+=== Kafka example
+
+The link:kafka-examples/README.adoc[Vert.x Kafka Examples] shows how you can interact Kafka using the vert.x Kafka
+client.
+
 === JCA example
 
 The Vert.x JCA Example project provides a JEE compliant application that enables to you deploy the application into a

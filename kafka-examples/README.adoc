@@ -1,3 +1,23 @@
 = Vert.x Kafka Client examples
 
-Todo.
+Here you will find examples demonstrating the usage of the Vert.x Kafka Client.
+
+== Monitoring dashboard
+
+The monitoring dashboard examples shows the usage of both the producer and consumer APIs of the Kafka client.
+
+The link:src/main/java/io/vertx/example/kafka/dashboard/MetricsVerticle.java[MetricsVerticle.java] uses the
+Kafka producer API to produce metrics in Json format.
+
+The link:src/main/java/io/vertx/example/kafka/dashboard/DashboardVerticle.java[DashboardVerticle.java] uses the
+Kafka producer API to consume the metrics and send them to a monitoring dashboard using the Event Bus.
+
+The link:src/main/java/io/vertx/example/kafka/dashboard/MainVerticle.java[MainVerticle.java] is the main program
+you should start as it starts a Kafka broker and then configures the DashboardVerticle and the MetricsVerticle
+with their consumer and producer config.
+
+Run the `MainVerticle` main method and then open your browser at http://localhost:8080/
+
+In real usage you would the Kafka broker would probably be managed externally and the `DashboardVerticle` /
+`MetricsVerticle` would be executed separately with their own configuration.
+
