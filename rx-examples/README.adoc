@@ -39,7 +39,7 @@ link:src/main/java/io/vertx/example/rxjava/web/client/unmarshalling/Client.java[
 This example demonstrates how an RxJava `Observable` source can be sent _real-time_ to the browser
 via a `SockJSSocket`.
 
-link:src/main/java/io/vertx/example/rxjava/http/client/reduce/Client.java[RxJava real-time web]
+link:src/main/java/io/vertx/example/rxjava/web/realtime/Server.java[RxJava real-time web]
 
 SocksJS gives a WebSocket-like API in client side JavaScript even if the browser or network doesn't support WebSockets.
 
