@@ -5,7 +5,7 @@ Highcharts.setOptions({
 });
 
 var Chart = function(metric) {
-  $("body").append('<div id="' + metric + '" style="height: 150px; min-width: 310px"></div>');
+  $("#container").append('<div id="' + metric + '" style="height: 150px; min-width: 310px"></div>');
   var series = {};
   var widget = new Highcharts.Chart({
     chart: {

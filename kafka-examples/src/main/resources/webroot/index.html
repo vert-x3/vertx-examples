@@ -24,6 +24,12 @@
 <body>
   <h1>Metrics dashboard</h1>
 
+  <div class="news">Latest CPU: <span id="CPU-val"></span>&nbsp;|&nbsp;Latest mem: <span id="Mem-val"></span></div>
+
+
+  <div id="container"></div>
+
+
   <script>
 
     var charts = new Charts();
@@ -33,7 +39,7 @@
       eb.registerHandler("dashboard", function(dashboard) {
         var x = (new Date()).getTime(); // current time
 
-        console.log(dashboard)
+        console.log(dashboard);
 
         for (var id in dashboard) {
           if (dashboard.hasOwnProperty(id)) {
@@ -42,6 +48,7 @@
               if (metrics.hasOwnProperty(metric)) {
                 var chart = charts.getChart(metric);
                 var y = metrics[metric];
+                $("#" + metric + "-val").html(y);
                 var serie = chart.getSerie(id, function() {
                   var data = [], time = (new Date()).getTime(),i ;
                   for (i = -19; i <= 0; i += 1) {
@@ -60,10 +67,7 @@
 
         // Remove metrics
         charts.removeSeries(function(id) {
-          if (dashboard[id] === undefined) {
-            return true;
-          }
-          return false;
+          return dashboard[id] === undefined;
         });
 
         //
