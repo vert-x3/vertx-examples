@@ -11,6 +11,8 @@ import rx.Observable;
  */
 public class Client extends AbstractVerticle {
 
+  private MongoClient mongo;
+
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
     Runner.runExample(Client.class);
@@ -28,40 +30,38 @@ public class Client extends AbstractVerticle {
       if (db.succeeded()) {
 
         // Create the client
-        MongoClient mongo = MongoClient.createShared(vertx, config);
+        mongo = MongoClient.createShared(vertx, config);
 
-        // Documents to insert
-        Observable<JsonObject> documents = Observable.just(
-            new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
-            new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble")
-        );
+        insertAndFind();
 
-        //
-        mongo.
-            rxCreateCollection("users").toObservable().
-
-            // After collection is created we insert each document
-            flatMap(v -> documents.flatMap(
-                doc -> mongo.rxInsert("users", doc).toObservable())
-            ).subscribe(
-
-            id -> {
-              System.out.println("Inserted document " + id);
-
-              // Everything has been inserted now we can query mongo
-              System.out.println("Insertions done");
-              mongo.rxFind("users", new JsonObject()).
-                subscribe(results -> {
-                  System.out.println("Results " + results);
-                });
-            }, error -> {
-              System.out.println("Err");
-              error.printStackTrace();
-            });
       } else {
         System.out.println("Could not start mongo embedded");
         db.cause().printStackTrace();
       }
+    });
+  }
+
+  private void insertAndFind() {
+    // Documents to insert
+    Observable<JsonObject> documents = Observable.just(
+      new JsonObject().put("username", "temporalfox").put("firstname", "Julien").put("password", "bilto"),
+      new JsonObject().put("username", "purplefox").put("firstname", "Tim").put("password", "wibble")
+    );
+
+    mongo.rxCreateCollection("users").flatMapObservable(v -> {
+      // After collection is created we insert each document
+      return documents.flatMap(doc -> mongo.rxInsert("users", doc).toObservable());
+    }).doOnNext(id -> {
+      System.out.println("Inserted document " + id);
+    }).last().toSingle().flatMap(id -> {
+      // Everything has been inserted now we can query mongo
+      System.out.println("Insertions done");
+      return mongo.rxFind("users", new JsonObject());
+    }).subscribe(results -> {
+      System.out.println("Results " + results);
+    }, error -> {
+      System.out.println("Err");
+      error.printStackTrace();
     });
   }
 }
