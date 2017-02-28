@@ -9,11 +9,12 @@
   <version>3.4.0-SNAPSHOT</version>
 
   <properties>
-    <grpc.version>1.1.1-SNAPSHOT</grpc.version><!-- CURRENT_GRPC_VERSION -->
+    <vertx.grpc.version>1.1.1-SNAPSHOT</vertx.grpc.version>
+    <jetty.alpnAgent.version>2.0.4</jetty.alpnAgent.version>
+    <jetty.alpnAgent.path>${settings.localRepository}/org/mortbay/jetty/alpn/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar</jetty.alpnAgent.path>
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
@@ -26,9 +27,28 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>examples-utils</artifactId>
+      <version>${project.version}</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mortbay.jetty.alpn</groupId>
+      <artifactId>jetty-alpn-agent</artifactId>
+      <version>${jetty.alpnAgent.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
+    <extensions>
+      <extension>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>1.4.1.Final</version>
+      </extension>
+    </extensions>
     <pluginManagement>
       <plugins>
         <!-- We specify the Maven compiler plugin as we need to set it to Java 1.8 -->
@@ -38,6 +58,13 @@
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <argLine> -javaagent:${jetty.alpnAgent.path}</argLine>
           </configuration>
         </plugin>
       </plugins>
@@ -55,10 +82,11 @@
           -->
           <protocArtifact>com.google.protobuf:protoc:3.1.0:exe:${os.detected.classifier}</protocArtifact>
           <pluginId>grpc-java</pluginId>
-          <pluginArtifact>io.vertx:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+          <pluginArtifact>io.vertx:protoc-gen-grpc-java:${vertx.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
         </configuration>
         <executions>
           <execution>
+            <id>compile</id>
             <goals>
               <goal>compile</goal>
               <goal>compile-custom</goal>
@@ -67,13 +95,6 @@
         </executions>
       </plugin>
     </plugins>
-    <extensions>
-      <extension>
-        <groupId>kr.motd.maven</groupId>
-        <artifactId>os-maven-plugin</artifactId>
-        <version>1.4.1.Final</version>
-      </extension>
-    </extensions>
   </build>
 
   <profiles>
@@ -87,5 +108,4 @@
       </repositories>
     </profile>
   </profiles>
-
 </project>
