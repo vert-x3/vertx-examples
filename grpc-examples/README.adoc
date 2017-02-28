@@ -24,21 +24,36 @@ The protobuf compiler is available for Maven or Gradle and is OS dependant.
 
 This example show how to handle RPC calls that do not receive or return data.
 
+link:src/main/java/io/vertx/example/grpc/empty/Client.java[gRPC client example]
+link:src/main/java/io/vertx/example/grpc/empty/Server.java[gRPC server example]
+
 == Ping Pong exchanges
 
 This example show how to handle RPC calls that send a single object and receive a single object.
+
+link:src/main/java/io/vertx/example/grpc/pingpong/Client.java[gRPC client example]
+link:src/main/java/io/vertx/example/grpc/pingpong/Server.java[gRPC server example]
 
 == Consumer exchange
 
 This example show how to handle RPC calls that do receive an arbitrary stream of response objects.
 
+link:src/main/java/io/vertx/example/grpc/consumer/Client.java[gRPC client example]
+link:src/main/java/io/vertx/example/grpc/consumer/Server.java[gRPC server example]
+
 == Producer exchange
 
 This example show how to handle RPC calls that do sends an arbitrary stream of request objects.
 
+link:src/main/java/io/vertx/example/grpc/producer/Client.java[gRPC client example]
+link:src/main/java/io/vertx/example/grpc/producer/Server.java[gRPC server example]
+
 == Conversational exchange
 
 This example shows how to handle arbitrary streams of request and response objects.
+
+link:src/main/java/io/vertx/example/grpc/conversation/Client.java[gRPC client example]
+link:src/main/java/io/vertx/example/grpc/conversation/Server.java[gRPC server example]
 
 == Hello World example
 
