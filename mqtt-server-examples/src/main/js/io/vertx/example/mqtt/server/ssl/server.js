@@ -14,7 +14,7 @@ var mqttServer = MqttServer.create(vertx, options);
 mqttServer.endpointHandler(function (endpoint) {
 
   // shows main connect info
-  console.log("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
+  console.log("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, " + "clean session = " + endpoint.isCleanSession());
 
   // accept connection from the remote client
   endpoint.accept(false);

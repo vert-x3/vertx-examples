@@ -25,7 +25,7 @@ repositories {
 def grpcVersion = '1.1.1-SNAPSHOT' // CURRENT_GRPC_VERSION
 
 dependencies {
-  compile "io.vertx:vertx-grpc:3.4.0-SNAPSHOT"
+  compile "io.vertx:vertx-grpc:3.4.0"
 }
 
 protobuf {
