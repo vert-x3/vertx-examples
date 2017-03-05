@@ -23,6 +23,7 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-maven-service-factory</artifactId>
       <version>${project.version}</version>
+      <classifier>shaded</classifier>
     </dependency>
   </dependencies>
 
