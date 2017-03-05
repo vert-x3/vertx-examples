@@ -7,7 +7,7 @@ buildscript {
   repositories {
     jcenter()
 //    maven {
-//      url "https://oss.sonatype.org/content/repositories/iovertx-3664/"
+//      url "https://oss.sonatype.org/content/repositories/iovertx-3665/"
 //    }
   }
 
@@ -32,7 +32,7 @@ def mainVerticleName = 'io.vertx.example.MainVerticle'
 repositories {
   jcenter()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3664/"
+    url "https://oss.sonatype.org/content/repositories/iovertx-3665/"
   }
 }
 dependencies {
