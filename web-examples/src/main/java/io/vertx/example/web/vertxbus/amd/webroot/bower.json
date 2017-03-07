@@ -8,6 +8,6 @@
   ],
   "dependencies": {
     "sockjs-client": "1.0.0",
-    "vertx3-eventbus-client": "3.3.3"
+    "vertx3-eventbus-client": "3.4.0"
   }
 }
