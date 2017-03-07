@@ -1,6 +1,6 @@
-import io.vertx.groovy.ext.shell.command.CommandBuilder
-import io.vertx.groovy.ext.shell.ShellService
-import io.vertx.groovy.ext.shell.command.CommandRegistry
+import io.vertx.ext.shell.command.CommandBuilder
+import io.vertx.ext.shell.ShellService
+import io.vertx.ext.shell.command.CommandRegistry
 
 def starwars = CommandBuilder.command("starwars").processHandler({ process ->
 

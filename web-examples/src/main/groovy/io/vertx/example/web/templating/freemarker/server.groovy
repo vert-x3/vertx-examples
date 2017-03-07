@@ -1,5 +1,5 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.templ.FreeMarkerTemplateEngine
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.templ.FreeMarkerTemplateEngine
 
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.

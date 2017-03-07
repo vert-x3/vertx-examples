@@ -1,4 +1,4 @@
-import io.vertx.groovy.core.streams.Pump
+import io.vertx.core.streams.Pump
 
 vertx.createNetServer().connectHandler({ sock ->
 

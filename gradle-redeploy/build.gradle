@@ -6,12 +6,12 @@ plugins {
 
 repositories {
   jcenter()
-//  maven {
-//    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
-//  }
+  maven {
+    url "https://oss.sonatype.org/content/repositories/iovertx-3671/"
+  }
 }
 
-version = '3.3.3'
+version = '3.4.0'
 sourceCompatibility = '1.8'
 
 dependencies {
@@ -39,11 +39,11 @@ run {
 
 shadowJar {
   classifier = 'fat'
-  
+
   manifest {
       attributes "Main-Verticle": mainVerticleName
   }
-  
+
   mergeServiceFiles {
     include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
   }

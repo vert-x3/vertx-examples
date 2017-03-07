@@ -35,8 +35,8 @@ var helloWorld = CommandBuilder.command(cli).processHandler(function (process) {
     process.write(resp.statusCode() + " " + resp.statusMessage() + "\n");
     var contentType = resp.getHeader("Content-Type");
     var contentLength = resp.getHeader("Content-Length");
-    process.write("Length: " + (contentLength !== null ? contentLength : "unspecified"));
-    if (contentType !== null) {
+    process.write("Length: " + ((contentLength !== null && contentLength !== undefined) ? contentLength : "unspecified"));
+    if ((contentType !== null && contentType !== undefined)) {
       process.write("[" + contentType + "]");
     }
     process.write("\n");

@@ -7,11 +7,11 @@ plugins {
 repositories {
   jcenter()
 //  maven {
-//    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
+//    url "https://oss.sonatype.org/content/repositories/iovertx-3671/"
 //  }
 }
 
-version = '3.3.3'
+version = '3.4.0'
 sourceCompatibility = '1.8'
 
 dependencies {
@@ -31,5 +31,5 @@ shadowJar {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.8'
+  gradleVersion = '3.4.1'
 }

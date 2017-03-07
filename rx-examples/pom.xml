@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>rx-examples</artifactId>
-  <version>3.3.3</version>
+  <version>3.4.0</version>
 
   <dependencies>
     <dependency>
@@ -18,6 +18,11 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -55,6 +60,12 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.7</version>
+    </dependency>
+
+    <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-service-factory</artifactId>
       <version>${project.version}</version>
@@ -91,7 +102,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3295</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3671/</url>
         </repository>
       </repositories>
     </profile>

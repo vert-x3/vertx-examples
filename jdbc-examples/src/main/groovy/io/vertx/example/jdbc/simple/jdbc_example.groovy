@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.jdbc.JDBCClient
+import io.vertx.ext.jdbc.JDBCClient
 
 def client = JDBCClient.createShared(vertx, [
   url:"jdbc:hsqldb:mem:test?shutdown=true",

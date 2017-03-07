@@ -6,22 +6,32 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>osgi-examples</artifactId>
-  <version>3.3.3</version>
+  <version>3.4.0</version>
 
 
   <packaging>bundle</packaging>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -45,7 +55,6 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-jdbc-client</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -138,7 +147,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <!-- BND Maven Plugin Configuration -->
@@ -181,6 +189,11 @@
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
+            <configuration>
+              <systemProperties>
+                <project.version>${project.version}</project.version>
+              </systemProperties>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -210,7 +223,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3295</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3671/</url>
         </repository>
       </repositories>
     </profile>

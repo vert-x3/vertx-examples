@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.mail.MailClient
+import io.vertx.ext.mail.MailClient
 // Start a local STMP server, remove this line if you want to use your own server.
 // It just prints the sent message to the console
 io.vertx.example.mail.LocalSmtpServer.start(2528)
@@ -13,7 +13,7 @@ def email = [
   from:"user1@example.com",
   to:["user2@example.com", "user3@example.com", "user4@example.com"],
   headers:[
-    'X-Mailer':"Vert.x Mail-Client 3.3.3",
+    'X-Mailer':"Vert.x Mail-Client 3.4.0",
     'Message-ID':"12345@example.com",
     'Reply-To':"reply@example.com",
     Received:[

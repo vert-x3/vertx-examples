@@ -7,7 +7,7 @@ vertx.createHttpServer().requestHandler({ req ->
 
     // Determine proxied server address
     def proxyAddress = req.uri()
-    def idx = proxyAddress.indexOf(':')
+    def idx = proxyAddress.indexOf(':' as char)
     def host = proxyAddress.substring(0, idx)
     def port = java.lang.Integer.parseInt(proxyAddress.substring(idx + 1))
 

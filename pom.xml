@@ -10,13 +10,14 @@
 
   <packaging>pom</packaging>
 
-  <version>3.3.3</version>
+  <version>3.4.0</version>
 
   <modules>
     <module>maven-simplest</module>
     <module>maven-verticles</module>
     <module>core-examples</module>
     <module>web-examples</module>
+    <module>web-client-examples</module>
     <module>rx-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
@@ -28,13 +29,13 @@
     <module>service-proxy-examples</module>
     <module>spring-examples</module>
     <module>redis-examples</module>
+    <module>consul-examples</module>
     <module>mongo-examples</module>
     <module>jdbc-examples</module>
     <module>jca-examples</module>
     <module>sync-examples</module>
     <module>shell-examples</module>
     <module>heroku-example</module>
-    <module>jgroups-examples</module>
     <module>ignite-examples</module>
     <module>amqp-bridge-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
@@ -44,6 +45,9 @@
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>
+    <module>mqtt-server-examples</module>
+    <module>grpc-examples</module>
+    <module>kafka-examples</module>
   </modules>
 
   <profiles>
@@ -67,7 +71,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3295</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3671</url>
         </repository>
       </repositories>
     </profile>

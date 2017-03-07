@@ -1,4 +1,4 @@
-import io.vertx.groovy.core.buffer.Buffer
+import io.vertx.core.buffer.Buffer
 def client = vertx.createHttpClient()
 
 client.websocket(8080, "localhost", "/some-uri", { websocket ->

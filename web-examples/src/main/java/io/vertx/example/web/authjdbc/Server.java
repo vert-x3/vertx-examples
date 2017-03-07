@@ -53,7 +53,7 @@ public class Server extends AbstractVerticle {
     router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
     // Simple auth service which uses a JDBC data source
-    AuthProvider authProvider = JDBCAuth.create(client);
+    AuthProvider authProvider = JDBCAuth.create(vertx, client);
 
     // We need a user session handler too to make sure the user is stored in the session between requests
     router.route().handler(UserSessionHandler.create(authProvider));
@@ -79,7 +79,7 @@ public class Server extends AbstractVerticle {
 
     vertx.createHttpServer().requestHandler(router::accept).listen(8080);
   }
-  
+
   private Connection conn;
 
   private void setUpInitialData(String url) throws SQLException {
@@ -98,10 +98,10 @@ public class Server extends AbstractVerticle {
     executeStatement("insert into roles_perms values ('dev', 'eat_pizza');");
     executeStatement("insert into roles_perms values ('admin', 'merge_pr');");
   }
-  
+
   private void executeStatement(String sql) throws SQLException {
     conn.createStatement().execute(sql);
   }
-  
+
 }
 

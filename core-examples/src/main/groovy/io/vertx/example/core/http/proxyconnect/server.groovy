@@ -15,7 +15,7 @@ vertx.createHttpServer().requestHandler({ req ->
     // Now send back a response
     req.response().setChunked(true)
 
-    for (def i = 0;i < 10;i++) {
+    (0..<10).each { i ->
       req.response().write("server-data-chunk-${i}")
     }
 

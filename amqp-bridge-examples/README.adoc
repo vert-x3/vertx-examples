@@ -28,5 +28,5 @@ link:src/main/js/io/vertx/example/amqp/receiver.js[JavaScript message receiver] 
 link:src/main/js/io/vertx/example/amqp/sender.js[JavaScript message sender] +
 link:src/main/groovy/io/vertx/example/amqp/receiver.groovy[Groovy message receiver] +
 link:src/main/groovy/io/vertx/example/amqp/sender.groovy[Groovy message sender] +
-link:src/main/rb/io/vertx/example/amqp/receiver.rb[Ruby message receiver] +
-link:src/main/rb/io/vertx/example/amqp/sender.rb[Ruby message sender]
+link:src/main/ruby/io/vertx/example/amqp/receiver.rb[Ruby message receiver] +
+link:src/main/ruby/io/vertx/example/amqp/sender.rb[Ruby message sender]
