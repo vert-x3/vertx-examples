@@ -1,7 +1,7 @@
 buildscript {
   ext {
     kotlin_version = '1.0.1-2'
-    vertx_version = '3.4.0'
+    vertx_version = '3.4.1'
   }
 
   repositories {

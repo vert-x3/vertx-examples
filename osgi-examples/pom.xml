@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>osgi-examples</artifactId>
-  <version>3.4.0</version>
+  <version>3.4.1</version>
 
 
   <packaging>bundle</packaging>

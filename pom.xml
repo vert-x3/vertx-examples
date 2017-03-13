@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>3.4.0</version>
+  <version>3.4.1</version>
 
   <modules>
     <module>maven-simplest</module>

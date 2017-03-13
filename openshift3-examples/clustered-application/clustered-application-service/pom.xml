@@ -6,7 +6,7 @@
 
   <groupId>io.vertx.examples.openshift</groupId>
   <artifactId>clustered-application-service</artifactId>
-  <version>3.4.0</version>
+  <version>3.4.1</version>
 
   <properties>
     <main.verticle>io.vertx.examples.openshift.MyServiceVerticle</main.verticle>
