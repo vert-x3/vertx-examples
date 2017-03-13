@@ -17,12 +17,7 @@ repositories {
   mavenLocal()
 }
 
-// IMPORTANT: You probably want the non-SNAPSHOT version of gRPC. Make sure you
-// are looking at a tagged version of the example and not "master"!
-
-// Feel free to delete the comment at the next line. It is just for safely
-// updating the version in our release process.
-def grpcVersion = '1.1.1-SNAPSHOT' // CURRENT_GRPC_VERSION
+def grpcVersion = '1.1.2' // CURRENT_GRPC_VERSION
 
 dependencies {
   compile "io.vertx:vertx-grpc:3.4.1"
