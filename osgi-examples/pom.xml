@@ -223,7 +223,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3678//</url>
         </repository>
       </repositories>
     </profile>
