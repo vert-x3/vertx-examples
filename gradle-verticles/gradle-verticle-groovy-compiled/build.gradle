@@ -8,7 +8,7 @@ plugins {
 repositories {
   mavenCentral()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3681//"
+    url "https://oss.sonatype.org/content/repositories/iovertx-3681"
   }
 }
 
