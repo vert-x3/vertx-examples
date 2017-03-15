@@ -117,15 +117,7 @@ Once launched you should see:
 {"name":"vertx","approved":true}
 ----
 
-The service can be consumed from Java, as presented above, but also from Groovy, JavaScript and Ruby.
-
-You can consume the `ProcessorService` in Groovy as shown in this link:service-consumer/src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy[Groovy verticle].
-
-To launch this groovy verticle run:
-
-----
-vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-3.4.0.jar -cluster
-----
+The service can be consumed from Java, as presented above, but also from JavaScript and Ruby.
 
 In JavaScript, the consuming verticle is link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js[here]. To launch it, just run:
 
