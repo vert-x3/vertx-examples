@@ -1,0 +1,5 @@
+= Spring Boot Clustering Examples
+
+These projects show how you can setup a clustered Vert.x embedded in Spring Boot, having the Spring container managing the clustering engine:
+
+* link:springboot-clustering-hazelcast/README.adoc[Spring Boot Hazelcast Clustering]

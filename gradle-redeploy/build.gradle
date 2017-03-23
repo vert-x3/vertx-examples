@@ -6,12 +6,12 @@ plugins {
 
 repositories {
   jcenter()
-//  maven {
-//    url "https://oss.sonatype.org/content/repositories/iovertx-3295"
-//  }
+  maven {
+    url "https://oss.sonatype.org/content/repositories/snapshots"
+  }
 }
 
-version = '3.3.3'
+version = '3.4.1'
 sourceCompatibility = '1.8'
 
 dependencies {
@@ -26,7 +26,12 @@ def mainVerticleName = 'io.vertx.example.HelloWorldVerticle'
 def watchForChange = 'src/**/*.java'
 
 // Vert.x will call this task on changes
-def doOnChange = './gradlew classes'
+def doOnChange
+if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+  doOnChange = '.\\gradlew classes'
+} else {
+  doOnChange = './gradlew classes'
+}
 
 run {
   args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
@@ -34,11 +39,11 @@ run {
 
 shadowJar {
   classifier = 'fat'
-  
+
   manifest {
       attributes "Main-Verticle": mainVerticleName
   }
-  
+
   mergeServiceFiles {
     include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
   }

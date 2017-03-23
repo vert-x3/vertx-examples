@@ -1,4 +1,4 @@
-import io.vertx.groovy.amqpbridge.AmqpBridge
+import io.vertx.amqpbridge.AmqpBridge as AmqpBridge
 
 def bridge = AmqpBridge.create(vertx)
 

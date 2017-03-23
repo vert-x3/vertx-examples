@@ -18,7 +18,7 @@ public class Runner {
   private static final String EXAMPLES_JAVA_DIR = EXAMPLES_DIR + "/src/main/java/";
   private static final String EXAMPLES_JS_DIR = EXAMPLES_DIR + "/src/main/js/";
   private static final String EXAMPLES_GROOVY_DIR = EXAMPLES_DIR + "/src/main/groovy/";
-  private static final String EXAMPLES_RUBY_DIR = EXAMPLES_DIR + "/src/main/rb/";
+  private static final String EXAMPLES_RUBY_DIR = EXAMPLES_DIR + "/src/main/ruby/";
 
   public static void runClusteredExample(Class clazz) {
     runExample(EXAMPLES_JAVA_DIR, clazz,

@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>maven-service-factory-examples</artifactId>
-    <version>3.3.3</version>
+    <version>3.4.1</version>
   </parent>
 
   <artifactId>maven-service-factory-api</artifactId>
@@ -17,6 +17,13 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
       <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-maven-service-factory</artifactId>
+      <version>${project.version}</version>
+      <classifier>shaded</classifier>
     </dependency>
   </dependencies>
 

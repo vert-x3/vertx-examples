@@ -1,6 +1,7 @@
-import io.vertx.groovy.redis.RedisClient
+import io.vertx.core.Vertx
+import io.vertx.redis.RedisClient
 // If a config file is set, read the host and port.
-def host = io.vertx.groovy.core.Vertx.currentContext().config()["host"]
+def host = Vertx.currentContext().config().host
 if (host == null) {
   host = "127.0.0.1"
 }

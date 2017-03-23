@@ -1,0 +1,12 @@
+{
+
+  "excludes": [
+
+  ],
+
+  "js": {
+    "excludes": [
+      "io.vertx.example.mail.MailLogin"
+    ]
+  }
+}

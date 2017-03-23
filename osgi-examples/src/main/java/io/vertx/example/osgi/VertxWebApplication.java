@@ -71,7 +71,7 @@ public class VertxWebApplication extends AbstractVerticle {
       if (product == null) {
         sendError(404, response);
       } else {
-        response.putHeader("content-type", "application/json").end(product.encodePrettily());
+        response.putHeader("content-type", "application/json").end(product.encode());
       }
     }
   }

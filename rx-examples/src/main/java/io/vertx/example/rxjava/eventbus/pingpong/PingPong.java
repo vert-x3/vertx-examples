@@ -27,7 +27,7 @@ public class PingPong extends AbstractVerticle {
 
         // Send a message every second
         vertx.setPeriodic(1000, v -> {
-            eb.sendObservable(ADDRESS, "PING")
+            eb.rxSend(ADDRESS, "PING")
                     .subscribe(reply -> {
                         System.out.println("Received reply " + reply.body());
                     });

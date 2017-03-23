@@ -1,8 +1,7 @@
 package io.vertx.examples.redis;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.JsonObject;
-import io.vertx.groovy.core.Vertx;
+import io.vertx.core.Vertx;
 import io.vertx.redis.RedisClient;
 import io.vertx.redis.RedisOptions;
 
@@ -14,7 +13,7 @@ public class RedisClientVerticle extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     // If a config file is set, read the host and port.
-    String host = (String) Vertx.currentContext().config().get("host");
+    String host = Vertx.currentContext().config().getString("host");
     if (host == null) {
       host = "127.0.0.1";
     }

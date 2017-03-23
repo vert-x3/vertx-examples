@@ -10,7 +10,7 @@ It covers:
 * JavaScript: link:gradle-verticle-js[]
 * Groovy: link:gradle-verticle-groovy[]
 * Groovy compiled: link:gradle-verticle-groovy-compiled[] (The Groovy files are compiled)
-* Ruby: link:gradle-verticle-rb[]
+* Ruby: link:gradle-verticle-ruby[]
 
 You can build all projects using:
 

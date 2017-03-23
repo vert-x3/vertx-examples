@@ -7,7 +7,7 @@ The example is available in several languages:
 * Java: link:src/main/java/io/vertx/examples/mongo/MongoClientVerticle.java[MongoClientVerticle.java]
 * JavaScript: link:src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js[mongo_client_verticle.js]
 * Groovy: link:src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy[mongo_client_verticle.groovy]
-* Ruby: link:src/main/rb/io/vertx/examples/mongo/mongo_client_verticle.rb[mongo_client_verticle.rb]
+* Ruby: link:src/main/ruby/io/vertx/examples/mongo/mongo_client_verticle.rb[mongo_client_verticle.rb]
 
 To run this example, you need a running Mongo instance. Once running, you can configure the
 verticles with the mongo host:
@@ -25,15 +25,15 @@ Once the mongo instance is running, you can launch it using:
 
 ----
 # java
-vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-3.3.3.jar -conf my-mongo-config.json
+vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
 
 # javascript
-vertx run src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js  -cp target/mongo-examples-3.3.3.jar -conf my-mongo-config.json
+vertx run src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js  -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
 
 # groovy
-vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-3.3.3.jar -conf my-mongo-config.json
+vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
 
 # ruby
-vertx run src/main/rb/io/vertx/examples/mongo/mongo_client_verticle.rb   -cp target/mongo-examples-3.3.3.jar -conf my-mongo-config.json
+vertx run src/main/ruby/io/vertx/examples/mongo/mongo_client_verticle.rb   -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
 ----
 
