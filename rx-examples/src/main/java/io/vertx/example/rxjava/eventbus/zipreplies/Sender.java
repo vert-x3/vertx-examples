@@ -4,7 +4,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.eventbus.EventBus;
 import io.vertx.rxjava.core.eventbus.Message;
-import rx.Observable;
+import rx.Single;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -24,11 +24,11 @@ public class Sender extends AbstractVerticle {
     vertx.setPeriodic(1000, v -> {
 
       // Send two messages expecting replies
-      Observable<Message<Integer>> reply1 = eb.<Integer>sendObservable("heatsensor1", "ping");
-      Observable<Message<Integer>> reply2 = eb.<Integer>sendObservable("heatsensor2", "ping");
+      Single<Message<Integer>> reply1 = eb.<Integer>rxSend("heatsensor1", "ping");
+      Single<Message<Integer>> reply2 = eb.<Integer>rxSend("heatsensor2", "ping");
 
       // Zip responses to receive both at the same time
-      Observable<int[]> reply = reply1.zipWith(reply2, (msg1, msg2) -> new int[]{msg1.body(), msg2.body()});
+      Single<int[]> reply = reply1.zipWith(reply2, (msg1, msg2) -> new int[]{msg1.body(), msg2.body()});
 
       reply.subscribe(heats -> {
 

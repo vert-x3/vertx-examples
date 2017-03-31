@@ -6,13 +6,15 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>spring-examples</artifactId>
-  <version>3.3.3</version>
+  <version>3.4.1</version>
 
   <packaging>pom</packaging>
 
   <modules>
     <module>springboot-example</module>
     <module>spring-example</module>
+    <module>springboot-clustering</module>
+    <module>spring-verticle-factory</module>
   </modules>
 
 </project>

@@ -1,0 +1,56 @@
+= Spring Verticle Factory Example
+
+This project shows how you can build a Verticle factory based on the Spring container.
+
+Why not injecting a verticle instance and deploy it directly?
+Because Vert.x follows the Multi-Reactor pattern,
+so if you want to scale accross your server's CPU,
+you need to http://vertx.io/docs/vertx-core/java/#_specifying_number_of_verticle_instances[deploy multiple instances of your verticle].
+
+Only then Vert.x will guarantee that the instances run on separate event loops.
+
+== The code
+
+The `io.vertx.examples.spring.verticlefactory.SpringVerticleFactory` class is an `ApplicationContextAware` Spring component.
+It is given an `ApplicationContext` on startup and will use it to create verticle instances.
+As it is managed by the Spring container, it must be registered manually (usually one can do this via the Java service loaders).
+
+The `io.vertx.examples.spring.verticlefactory.SpringVerticleFactory` depends on a simple greeter component.
+It sets up an HttpServer and use the greeter to generate a hello message for the HTTP response.
+
+IMPORTANT: When you invoke Spring beans from standard verticles, remember that you must not call blocking code
+or you will block the event loop.
+
+== Trying
+
+
+In a terminal, compile and run the example:
+
+[source,shell]
+----
+mvn compile exec:java@run
+----
+
+Then in another tab or window, send a few requests to the server.
+
+[source,shell]
+----
+seq 10 | while read i; do curl http://localhost:8080/?name=Thomas${i}; echo; done
+----
+
+If you look at the console, you'll notice that the requests have indeed been managed by different event loops:
+
+[source]
+[subs="verbatim,quotes"]
+----
+12:46:02.661 [*vert.x-eventloop-thread-2*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas1
+12:46:02.685 [*vert.x-eventloop-thread-4*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas2
+12:46:02.698 [*vert.x-eventloop-thread-1*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas3
+12:46:02.711 [*vert.x-eventloop-thread-3*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas4
+12:46:02.722 [*vert.x-eventloop-thread-2*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas5
+12:46:02.733 [*vert.x-eventloop-thread-4*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas6
+12:46:02.748 [*vert.x-eventloop-thread-1*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas7
+12:46:02.761 [*vert.x-eventloop-thread-3*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas8
+12:46:02.773 [*vert.x-eventloop-thread-2*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas9
+12:46:02.785 [*vert.x-eventloop-thread-4*] INFO io.vertx.examples.spring.verticlefactory.GreetingVerticle - Got request for name: Thomas10
+----

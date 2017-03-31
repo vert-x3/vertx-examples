@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Simple use of Cross-Site XMLHttpRequest (Using Access Control)</title>
+    <script type="text/javascript">
+        //<![CDATA[
+
+        var invocation = new XMLHttpRequest();
+        var url = 'http://localhost:8080/access-control-with-get/';
+        var invocationHistoryText;
+
+        function callOtherDomain(){
+            if(invocation)
+            {
+                invocation.open('GET', url, true);
+                invocation.onreadystatechange = handler;
+                invocation.send();
+            }
+            else
+            {
+                invocationHistoryText = "No Invocation TookPlace At All";
+                var textNode = document.createTextNode(invocationHistoryText);
+                var textDiv = document.getElementById("textDiv");
+                textDiv.appendChild(textNode);
+            }
+
+        }
+        function handler(evtXHR)
+        {
+            if (invocation.readyState == 4)
+            {
+                if (invocation.status == 200)
+                {
+                    var response = invocation.responseXML;
+                    var invocationHistory = response.getElementsByTagName('invocationHistory').item(0).firstChild.data;
+                    invocationHistoryText = document.createTextNode(invocationHistory);
+                    var textDiv = document.getElementById("textDiv");
+                    textDiv.appendChild(invocationHistoryText);
+
+                }
+                else
+                    alert("Invocation Errors Occured");
+            }
+            else
+                dump("currently the application is at" + invocation.readyState);
+        }
+        //]]>
+
+
+    </script>
+</head>
+<body>
+<form id="controlsToInvoke" action="">
+    <p>
+        <input type="button" value="Click to Invoke Another Site" onclick="callOtherDomain()" />
+    </p>
+</form>
+<p id="intro">
+    This page basically makes invocations to another domain using cross-site XMLHttpRequest mitigated by Access Control.  This is the simple scenario that is <em>NOT</em> preflighted, and the invocation to a resource on another domain takes place using a simple HTTP GET.
+</p>
+<div id="textDiv">
+    This XHTML document invokes another resource using cross-site XHR.
+</div>
+</body>
+</html>

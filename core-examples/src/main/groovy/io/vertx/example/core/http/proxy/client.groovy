@@ -7,7 +7,7 @@ def request = vertx.createHttpClient([:]).put(8080, "localhost", "/", { resp ->
 
 request.setChunked(true)
 
-for (def i = 0;i < 10;i++) {
+(0..<10).each { i ->
   request.write("client-chunk-${i}")
 }
 

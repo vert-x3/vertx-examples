@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>core-examples</artifactId>
-  <version>3.3.3</version>
+  <version>3.4.1</version>
 
   <dependencies>
 
@@ -19,7 +19,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>1.1.33.Fork21</version>
+      <version>1.1.33.Fork26</version>
     </dependency>
 
     <dependency>
@@ -64,7 +64,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3295</url>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
       </repositories>
     </profile>

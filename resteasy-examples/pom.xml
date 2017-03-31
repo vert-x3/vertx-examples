@@ -6,13 +6,13 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>resteasy-examples</artifactId>
-  <version>3.3.3</version>
+  <version>3.4.1</version>
   <name>resteasy-example</name>
 
   <properties>
     <!-- the main verticle class name -->
     <main.class>io.vertx.examples.spring.SpringExampleRunner</main.class>
-    <resteasy.version>3.1.0.Beta1</resteasy.version>
+    <resteasy.version>3.1.0.Final</resteasy.version>
   </properties>
 
   <dependencies>
@@ -52,7 +52,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3295</url>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
       </repositories>
     </profile>

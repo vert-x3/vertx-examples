@@ -1,7 +1,7 @@
-import io.vertx.groovy.ext.web.Router
-import io.vertx.groovy.ext.web.handler.CookieHandler
-import io.vertx.groovy.ext.web.sstore.LocalSessionStore
-import io.vertx.groovy.ext.web.handler.SessionHandler
+import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.CookieHandler
+import io.vertx.ext.web.sstore.LocalSessionStore
+import io.vertx.ext.web.handler.SessionHandler
 
 def router = Router.router(vertx)
 

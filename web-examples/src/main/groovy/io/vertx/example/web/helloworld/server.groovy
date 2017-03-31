@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.web.Router
+import io.vertx.ext.web.Router
 
 def router = Router.router(vertx)
 

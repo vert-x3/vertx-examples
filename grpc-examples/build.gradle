@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    // ASSUMES GRADLE 2.12 OR HIGHER. Use plugin version 0.7.5 with earlier
+    // gradle versions
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
+  }
+}
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+}
+
+def grpcVersion = '1.1.2' // CURRENT_GRPC_VERSION
+
+dependencies {
+  compile "io.vertx:vertx-grpc:3.4.1"
+}
+
+protobuf {
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.2.0'
+  }
+  plugins {
+    grpc {
+      artifact = "io.vertx:protoc-gen-grpc-java:${grpcVersion}"
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      grpc
+    }
+  }}
+
+// Provide convenience executables for trying out the examples.
+//apply plugin: 'application'

@@ -1,17 +1,17 @@
-= Vert.x SpringBoot example
+= Vert.x Spring Boot example
 
-This example shows how you can embed Vert.x in SpringBoot.
+This example shows how you can embed Vert.x in Spring Boot.
 
-So now you can add all the goodness of Vert.x to your SpringBoot applications
+So now you can add all the goodness of Vert.x to your Spring Boot applications
 
 It's basically the same example as the Vert.x-Web "staticsite" example in this repository but instead of using
-Vert.x to boot it it uses SpringBoot to start it.
+Vert.x to boot it it uses Spring Boot to start it.
 
-The end result is more or less the same as using Vert.x without SpringBoot:
+The end result is more or less the same as using Vert.x without Spring Boot:
 
 * There is a similar amount of code and boilerplate (both very little)
-* Both Vert.x and SpringBoot create executable fat jars (The Vert.x jar is considerable smaller than the SpringBoot one though)
-* The SpringBoot version seems a bit slower to startup than the Vert.x version
+* Both Vert.x and Spring Boot create executable fat jars (The Vert.x jar is considerable smaller than the Spring Boot one though)
+* The Spring Boot version seems a bit slower to startup than the Vert.x version
 
 To build the "fat jar"
 

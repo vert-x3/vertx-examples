@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.shell.ShellService
+import io.vertx.ext.shell.ShellService
 def service = ShellService.create(vertx, [
   telnetOptions:[
     host:"localhost",
