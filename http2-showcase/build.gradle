@@ -1,0 +1,28 @@
+plugins {
+	id 'java'
+	id 'application'
+//	id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+repositories {
+	mavenLocal()
+}
+
+dependencies {
+	compile "io.vertx:vertx-core:$vertxVersion"
+	compile "io.vertx:vertx-web:$vertxVersion"
+	compile "io.vertx:vertx-web-templ-handlebars:$vertxVersion"
+
+	runtime "io.netty:netty-tcnative-boringssl-static:1.1.33.Fork26"
+}
+
+mainClassName = 'io.vertx.core.Launcher'
+def mainVerticle = 'io.vertx.examples.http2.Http2ServerVerticle'
+
+run {
+	args = ['run', mainVerticle]
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.5'
+}
