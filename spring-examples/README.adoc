@@ -12,7 +12,7 @@ The link:spring-example/README.adoc[Vert.x Spring Example] shows how you can acc
 
 == Spring Boot Clustering
 
-The link:spring-boot-clustering/README.adoc[Spring Boot Clustering Examples] show how you can setup a clustered Vert.x embedded in Spring Boot.
+The link:springboot-clustering/README.adoc[Spring Boot Clustering Examples] show how you can setup a clustered Vert.x embedded in Spring Boot.
 
 == Spring Verticle Factory
 
