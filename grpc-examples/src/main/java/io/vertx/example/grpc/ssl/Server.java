@@ -21,7 +21,7 @@ public class Server extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    VertxServer server = VertxServerBuilder.forPort(vertx, 50051)
+    VertxServer server = VertxServerBuilder.forPort(vertx, 8080)
       .addService(new GreeterGrpc.GreeterVertxImplBase() {
       @Override
       public void sayHello(HelloRequest request, Future<HelloReply> future) {

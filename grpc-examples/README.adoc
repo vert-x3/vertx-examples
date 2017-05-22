@@ -74,6 +74,25 @@ You can run the server and then run the client.
 
 You can read more about it on the http://www.grpc.io/docs/quickstart/java.html[gRPC website]
 
+== SSL example
+
+This example is the _Hello World example_ with SSL configuration.
+
+It shows a simple gRPC service that invokes a service that
+takes takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper. The communication uses SSL.
+
+link:src/main/java/io/vertx/example/grpc/ssl/Server.java[gRPC server example]
+
+The gRPC service extends the `GreeterGrpc.GreeterVertxImplBase` generated class and
+implements the service logic.
+
+link:src/main/java/io/vertx/example/grpc/ssl/Client.java[gRPC client example]
+
+The gRPC client creates an instance of the `GreeterGrpc.newVertxStub` generated class and
+then use it to invoke the service.
+
+You can run the server and then run the client.
+
 == Route Guide example
 
 This example is adapted from the https://github.com/grpc/grpc-java/tree/master/examples[gRPC examples].

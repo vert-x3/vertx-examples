@@ -20,8 +20,7 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     ManagedChannel channel = VertxChannelBuilder
-      .forAddress(vertx, "localhost", 50051)
-      .usePlaintext(true)
+      .forAddress(vertx, "localhost", 8080)
       .useSsl(options -> options.setSsl(true)
         .setUseAlpn(true)
         .setTrustStoreOptions(new JksOptions()
