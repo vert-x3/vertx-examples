@@ -134,10 +134,6 @@ Before running the example you need to download the dependencies, the easiest fo
 
 Run the server either in your IDE or on the command line, then run the node client `npm start`.
 
-== EventBus Bridge - Java client
-
-The link:src/main/java/io/vertx/example/web/vertxbus/java contains an example of communication between a client and a service using the SockJS event bus. This example is written in java, and the client interacts using SockJS (in Java, using the web socket protocol).
-
 == Real-time - client side event bus
 
 This example demonstrates a full duplex connection between the browser and the server side.
