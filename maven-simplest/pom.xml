@@ -7,10 +7,11 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-simplest</artifactId>
-  <version>3.4.1</version>
+  <version>1.0</version>
 
   <properties>
     <!-- the main class -->
+    <vertx.version>3.4.1</vertx.version>
     <exec.mainClass>io.vertx.example.HelloWorldEmbedded</exec.mainClass>
   </properties>
 
@@ -18,7 +19,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>${project.version}</version>
+      <version>${vertx.version}</version>
     </dependency>
   </dependencies>
 
@@ -67,7 +68,7 @@
               </transformers>
               <artifactSet>
               </artifactSet>
-              <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
+              <outputFile>${project.build.directory}/${project.artifactId}-${vertx.version}-fat.jar</outputFile>
             </configuration>
           </execution>
         </executions>
@@ -88,7 +89,7 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>target/${project.artifactId}-${project.version}-fat.jar</argument>
+                <argument>target/${project.artifactId}-${vertx.version}-fat.jar</argument>
               </arguments>
             </configuration>
           </execution>
