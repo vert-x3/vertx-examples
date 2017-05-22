@@ -15,23 +15,17 @@ public class Client {
       System.out.println("Connected");
       sendPing(ws);
 
-      vertx.setPeriodic(5000, id -> {
-        sendPing(ws);
-      });
+      vertx.setPeriodic(5000, id -> sendPing(ws));
 
       // Register
       JsonObject msg = new JsonObject().put("type", "register").put("address", "feed");
       ws.writeFrame(io.vertx.core.http.WebSocketFrame.textFrame(msg.encode(), true));
 
-      ws.handler(buff -> {
-        System.out.println(buff);
-      });
-    }, fail -> {
-      System.out.println("Failed: " + fail);
-    });
+      ws.handler(System.out::println);
+    }, fail -> System.out.println("Failed: " + fail));
   }
 
-  static void sendPing(WebSocket ws) {
+  private static void sendPing(WebSocket ws) {
     JsonObject msg = new JsonObject().put("type", "ping");
     ws.writeFrame(io.vertx.core.http.WebSocketFrame.textFrame(msg.encode(), true));
   }

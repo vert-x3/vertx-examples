@@ -48,7 +48,7 @@ public class Server extends AbstractVerticle {
 
     EventBus eb = vertx.eventBus();
 
-    vertx.setPeriodic(1000l, t -> {
+    vertx.setPeriodic(1000L, t -> {
       // Create a timestamp string
       String timestamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(Date.from(Instant.now()));
 
