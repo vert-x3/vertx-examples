@@ -239,3 +239,7 @@ the event bus.
 === Vert.x fatjar examples
 
 The link:fatjar-examples/README.adoc[Vert.x fatjar Examples] show how you can build fatjar with Maven or Gradle.
+
+=== Http/2 Showcase
+
+This link:http2-showcase/README.md application highlights the benefits of HTTP/2 when dealing with latency on the web.

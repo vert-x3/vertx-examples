@@ -1,0 +1,19 @@
+= Cheatsheets
+
+[[Book]]
+== Book
+
+++++
+ A book JPA entity.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[author]]`author`|`String`|-
+|[[id]]`id`|`Number (Long)`|-
+|[[name]]`name`|`String`|-
+|===
+

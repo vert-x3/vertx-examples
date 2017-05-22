@@ -12,8 +12,12 @@ The link:spring-example/README.adoc[Vert.x Spring Example] shows how you can acc
 
 == Spring Boot Clustering
 
-The link:spring-boot-clustering/README.adoc[Spring Boot Clustering Examples] show how you can setup a clustered Vert.x embedded in Spring Boot.
+The link:springboot-clustering/README.adoc[Spring Boot Clustering Examples] show how you can setup a clustered Vert.x embedded in Spring Boot.
 
 == Spring Verticle Factory
 
 The link:spring-verticle-factory/README.adoc[Spring Verticle Factory Example] shows how you can build a Verticle factory based on the Spring container.
+
+== Spring Worker Example
+
+The link:spring-worker-example/README.adoc[Vert.x Spring Worker Example] shows how you how to expose Spring services over the event bus with worker verticles.
