@@ -48,6 +48,10 @@
       "package": "io.vertx.example.web.realtime"
     },
 
+    {
+      "package": "io.vertx.example.web.vertxbus.java"
+    },
+
     // Rest, JS only
     {
       "package": "io.vertx.example.web.rest",
