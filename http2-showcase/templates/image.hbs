@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid #999;
+            }
+            table thead {
+                background-color: #095899;
+                color: white;
+                font-weight: bold;
+                text-align: center;
+            }
+            table td, th {
+                padding: 7px;
+                border: 1px solid #999;
+            }
+            table tr.displayed td {
+                background-color: #EAEAEA;
+            }
+        </style>
+    </head>
+    <body onload="showtimes()" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; display: flex">
+        <p style="margin: 0; width: 1087px">
+        {{#each imgs}}
+            {{#each this}}
+                <img style="border:0; padding: 0;margin: 0" width="{{tileWidth}}" height="{{tileHeight}}" src="{{this}}" />
+            {{/each}}
+            <br/>
+        {{/each}}
+        </p>
+        <div style="vertical-align: top; flex: 1">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Latency</th>
+                        <th colspan="2">Protocols</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each latencies}}
+                    <tr {{#if this.displayed}}class="displayed"{{/if}}>
+                        <td style="text-align: right">{{this.latency}}ms</td>
+                        <td style="text-align: center"><a href="http://{{host}}:{{http1Port}}/image.hbs?latency={{this.latency}}">HTTP 1.1</a></td>
+                        <td style="text-align: center"><a href="https://{{host}}:{{http2Port}}/image.hbs?latency={{this.latency}}">HTTP 2</a></td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <ul style="list-style-type: none; padding: 0">
+            </ul>
+            <table id="time">
+                <thead>
+                    <tr>
+                        <td colspan="2">Times from connection start (ms)</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DOM loaded</td>
+                        <td id="connection-times-loaded" style="text-align: right">Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>DOM complete (images loaded)</td>
+                        <td id="connection-times-complete" style="text-align: right">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            function showtimes() {
+                var connectionTimesLoaded = (window.performance.timing.domContentLoadedEventEnd - window.performance.timing.connectStart);
+                var connectionsTimesComplete = (window.performance.timing.domComplete - window.performance.timing.connectStart);
+                document.getElementById('connection-times-loaded').innerHTML = connectionTimesLoaded;
+                document.getElementById('connection-times-complete').innerHTML = connectionsTimesComplete;
+            }
+        </script>
+    </body>
+</html>
