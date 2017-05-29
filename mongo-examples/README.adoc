@@ -25,15 +25,15 @@ Once the mongo instance is running, you can launch it using:
 
 ----
 # java
-vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
+vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-3.4.2-SNAPSHOT.jar -conf my-mongo-config.json
 
 # javascript
-vertx run src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js  -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
+vertx run src/main/js/io/vertx/examples/mongo/mongo_client_verticle.js  -cp target/mongo-examples-3.4.2-SNAPSHOT.jar -conf my-mongo-config.json
 
 # groovy
-vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
+vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-3.4.2-SNAPSHOT.jar -conf my-mongo-config.json
 
 # ruby
-vertx run src/main/ruby/io/vertx/examples/mongo/mongo_client_verticle.rb   -cp target/mongo-examples-3.4.1.jar -conf my-mongo-config.json
+vertx run src/main/ruby/io/vertx/examples/mongo/mongo_client_verticle.rb   -cp target/mongo-examples-3.4.2-SNAPSHOT.jar -conf my-mongo-config.json
 ----
 

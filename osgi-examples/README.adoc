@@ -32,7 +32,7 @@ This is the case if you use the default connection pool using C3P0. In this exam
 Here is the list of the bundles to deploy this example:
 
 ```
-[13] - io.vertx.core - 3.4.1
+[13] - io.vertx.core - 3.4.2-SNAPSHOT
 [14] - io.netty.common - 4.1.1.Final
 [15] - io.netty.buffer - 4.1.1.Final
 [16] - io.netty.transport - 4.1.1.Final
@@ -48,15 +48,15 @@ Here is the list of the bundles to deploy this example:
 [26] - com.fasterxml.jackson.core.jackson-core - 2.7.4
 [27] - com.fasterxml.jackson.core.jackson-databind - 2.7.4
 [28] - com.fasterxml.jackson.core.jackson-annotations - 2.7.0
-[29] - vertx-web - 3.4.1
-[30] - vertx-auth-common - 3.4.1
-[31] - vertx-jdbc-client - 3.4.1
-[32] - vertx-sql-common - 3.4.1
+[29] - vertx-web - 3.4.2-SNAPSHOT
+[30] - vertx-auth-common - 3.4.2-SNAPSHOT
+[31] - vertx-jdbc-client - 3.4.2-SNAPSHOT
+[32] - vertx-sql-common - 3.4.2-SNAPSHOT
 [33] - com.zaxxer.HikariCP - 2.4.6
 [34] - org.hsqldb.hsqldb - 2.3.4
 [35] - org.apache.felix.ipojo - 1.12.1
 [36] - org.apache.commons.io - 2.5.0
-[37] - io.vertx.osgi-examples - 3.4.1 <--- current project
+[37] - io.vertx.osgi-examples - 3.4.2-SNAPSHOT <--- current project
 ```
 
 == Other examples

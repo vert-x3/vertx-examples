@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>consul-examples</artifactId>
-  <version>3.4.1</version>
+  <version>3.4.2-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
