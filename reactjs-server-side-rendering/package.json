@@ -1,0 +1,44 @@
+{
+  "name": "vertx-reactjs-server-side-rendering",
+  "version": "1.0.0",
+  "description": "Example showing how to mix react.js and vert.x and server side rendering",
+
+  "mainVerticle": "server.js",
+
+  "scripts": {
+    "clean": "rm -Rf .vertx",
+
+    "install": "node ./webpack.config.js",
+    "postinstall": "mvn -f .vertx/pom.xml package",
+
+    "build": "./node_modules/.bin/webpack",
+    "build:release": "npm run clean && ./node_modules/.bin/webpack -p && npm run clean",
+
+    "prestart": "npm run build:release",
+    "start": "java -jar run.jar",
+
+    "watch": "npm run start -- --redeploy=\"src/**\" --on-redeploy=\"npm run watch\""
+  },
+
+  "author": "Paulo Lopes",
+  "license": "MIT",
+
+  "dependencies": {
+      "react": "^15.4.2",
+      "react-dom": "^15.4.2",
+      "react-router": "^3.0.2"
+  },
+
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "webpack": "^2.2.0"
+  },
+
+  "javaDependencies": {
+    "io.vertx:vertx-lang-js": "3.4.1",
+    "io.vertx:vertx-web": "3.4.1"
+  }
+}
