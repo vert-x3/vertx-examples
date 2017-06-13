@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>kafka-examples</artifactId>
-  <version>3.4.2-SNAPSHOT</version>
+  <version>3.4.2</version>
 
   <dependencies>
 
@@ -111,7 +111,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
         </repository>
       </repositories>
     </profile>

@@ -70,7 +70,7 @@ public class ProcessorService {
   }
 
 
-  public static ProcessorService newInstance(io.vertx.examples.service.ProcessorService arg) {
+  public static  ProcessorService newInstance(io.vertx.examples.service.ProcessorService arg) {
     return arg != null ? new ProcessorService(arg) : null;
   }
 }

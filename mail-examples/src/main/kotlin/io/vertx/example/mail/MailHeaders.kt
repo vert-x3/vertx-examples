@@ -20,7 +20,7 @@ class MailHeaders : io.vertx.core.AbstractVerticle()  {
       from = "user1@example.com",
       to = listOf("user2@example.com", "user3@example.com", "user4@example.com"),
       headers = mapOf(
-        "X-Mailer" to "Vert.x Mail-Client 3.4.2-SNAPSHOT",
+        "X-Mailer" to "Vert.x Mail-Client 3.4.2",
         "Message-ID" to "12345@example.com",
         "Reply-To" to "reply@example.com",
         "Received" to listOf("by vertx mail service", "from [192.168.1.1] by localhost")

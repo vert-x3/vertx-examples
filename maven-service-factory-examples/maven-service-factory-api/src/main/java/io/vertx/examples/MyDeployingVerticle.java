@@ -13,7 +13,7 @@ public class MyDeployingVerticle extends AbstractVerticle {
   public void start(Future<Void> future) throws Exception {
     // The `my-verticle` is deployed using the following convention:
     // `maven:` + groupId + `:` + artifactId + `:` + version + `::` + verticle name
-    vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.4.2-SNAPSHOT::my-verticle",
+    vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.4.2::my-verticle",
         ar -> {
           if (ar.succeeded()) {
             future.complete();

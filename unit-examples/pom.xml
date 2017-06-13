@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>unit-examples</artifactId>
-  <version>3.4.2-SNAPSHOT</version>
+  <version>3.4.2</version>
 
   <dependencies>
 
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.4.2-SNAPSHOT</version>
+      <version>3.6.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -71,7 +71,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
         </repository>
       </repositories>
     </profile>
