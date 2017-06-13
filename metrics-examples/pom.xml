@@ -39,6 +39,22 @@
       <artifactId>vertx-dropwizard-metrics</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient_dropwizard</artifactId>
+      <version>0.0.23</version>
+    </dependency>
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>client</artifactId>
+      <version>0.0.10</version>
+    </dependency>
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient_vertx</artifactId>
+      <version>0.0.23</version>
+    </dependency>
   </dependencies>
 
   <build>
