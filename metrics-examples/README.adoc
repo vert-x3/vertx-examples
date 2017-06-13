@@ -54,5 +54,42 @@ export JAVA_OPTS="-javaagent:path/to/jolokia-jvm-x.x.x-agent.jar=port=7777,host=
 
 Once defined, relaunch the application with the JMX metrics enabled.
 
+== Monitoring for prometheus
+
+This example is a monitoring setup for Prometheus via Dropwizard metrics.
+
+The link:src/main/java/io/vertx/example/metrics/prometheus/[Java monitoring example]
+The link:src/main/groovy/io/vertx/example/metrics/prometheus/[Groovy monitoring example]
+The link:src/main/js/io/vertx/example/metrics/prometheus/[JavaScript monitoring example]
+The link:src/main/ruby/io/vertx/example/metrics/prometheus/[Ruby monitoring example]
+The link:src/main/kotlin/io/vertx/example/metrics/prometheus/[Kotlin monitoring example]
+
+The verticle uses Dropwizard metrics to register a Prometheus CollectorRegistry (in this
+case the defaultRegistry) which is bound to a router via MetricsHandler. To create some metrics
+data a counter "testCounter" is periodically incremented.
+
+Run the verticle either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080/metrics to see if the counter is increased.
+
+You can also launch the example using the `vertx` cli as follows:
+
+----
+# compile the example, you need to have built example-utils before.
+mvn clean package
+
+# java
+vertx run io.vertx.example.metrics.prometheus.PrometheusMetricsVerticle -cp target/metrics-examples-3.4.1.jar:src/main/java/io/vertx/example/metrics/prometheus -Dvertx.metrics.options.enabled=true
+
+# javascript
+cd src/main/js/io/vertx/example/metrics/prometheus
+vertx run prometheus.js -cp ./../../../../../../../../target/metrics-examples-3.4.1.jar:. -Dvertx.metrics.options.enabled=true
 
 
+# groovy
+cd src/main/groovy/io/vertx/example/metrics/prometheus
+vertx run prometheus.groovy -cp ./../../../../../../../../target/metrics-examples-3.4.1.jar:. -Dvertx.metrics.options.enabled=true
+
+
+# ruby
+cd src/main/ruby/io/vertx/example/metrics/prometheus
+vertx run prometheus.rb -cp ./../../../../../../../../target/metrics-examples-3.4.1.jar:. -Dvertx.metrics.options.enabled=true
