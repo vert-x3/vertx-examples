@@ -8,6 +8,11 @@
   <artifactId>kafka-examples</artifactId>
   <version>3.4.2</version>
 
+  <properties>
+    <kafka.version>0.10.2.1</kafka.version>
+    <debezium.version>0.5.1</debezium.version>
+  </properties>
+
   <dependencies>
 
     <dependency>
@@ -30,18 +35,18 @@
     <dependency>
       <groupId>io.debezium</groupId>
       <artifactId>debezium-core</artifactId>
-      <version>0.3.1</version>
+      <version>${debezium.version}</version>
     </dependency>
     <dependency>
       <groupId>io.debezium</groupId>
       <artifactId>debezium-core</artifactId>
-      <version>0.4.0</version>
+      <version>${debezium.version}</version>
       <type>test-jar</type>
     </dependency>
     <dependency>
       <groupId>org.apache.kafka</groupId>
-      <artifactId>kafka_2.11</artifactId>
-      <version>0.10.1.1</version>
+      <artifactId>kafka_2.12</artifactId>
+      <version>${kafka.version}</version>
     </dependency>
 
     <dependency>
@@ -63,11 +68,11 @@
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
-<!--
-            <compilerArgs>
-              <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
-            </compilerArgs>
--->
+            <!--
+                        <compilerArgs>
+                          <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
+                        </compilerArgs>
+            -->
           </configuration>
         </plugin>
       </plugins>
