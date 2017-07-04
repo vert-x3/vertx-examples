@@ -1,10 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
 val MAIN_VERTICLE = "io.vertx.example.MainVerticle"
-val MAIN_CLASS = "io.vertx.core.launcher"
+val MAIN_CLASS = "io.vertx.core.Launcher"
 val KOTLIN_VER = "1.1.3"
 val VERTX_VER = "3.4.2"
 val SHADOW_VER = "2.0.1"
@@ -21,6 +20,7 @@ buildscript {
         jcenter()
         mavenCentral()
     }
+
     dependencies {
         // Have to manually specify the version due to a Gradle Kotlin DSL bug.
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.3")
@@ -33,6 +33,7 @@ apply {
     plugin("com.github.johnrengelman.shadow")
 }
 
+// Type safe way to apply plugins.
 plugins {
     java
     application
@@ -57,12 +58,14 @@ dependencies {
 }
 
 application { mainClassName = MAIN_CLASS }
-
 java { setTargetCompatibility("1.8") }
 
 tasks {
+    val watcherPath = "src/**/*.kt"
+    val watcherAction = "./gradlew classes"
     val shadowJar: ShadowJar by getting
     val compileKotlin: KotlinCompile by getting
+    val run: JavaExec by getting
 
     compileKotlin.apply {
         kotlinOptions.jvmTarget = "1.8"
@@ -71,27 +74,26 @@ tasks {
         }
     }
 
+    run.args(
+        "run",
+        MAIN_VERTICLE,
+        "--launcher-class=$MAIN_CLASS",
+        "--redeploy=$watcherPath",
+        "--on-redeploy=$watcherAction"
+    )
+
     // Naming and packaging settings for the "shadow jar".
     shadowJar.apply {
-        baseName = "app"
-        classifier = "shadow"
+        baseName = project.name
+        classifier = ""
         manifest {
             attributes["Main-Verticle"] = MAIN_VERTICLE
             attributes["Main-Class"] = MAIN_CLASS
         }
+
         mergeServiceFiles {
             include("META-INF/services/io.vertx.core.spi.VerticleFactory")
         }
-    }
-
-    // Setup all tasks of type "Jar".
-    withType<Jar> {
-        dependsOn("classes")
-        manifest {
-            attributes["Main-Verticle"] = MAIN_VERTICLE
-            attributes["Main-Class"] = MAIN_CLASS
-        }
-        from("src/main/kotlin", configurations.compile.map { zipTree(it) })
     }
 
     task(name = "wrapper", type = Wrapper::class) {
@@ -101,18 +103,5 @@ tasks {
     // Heroku relies on the 'stage' task to deploy.
     task("stage") {
         dependsOn(shadowJar)
-    }
-
-    // TODO: Find out how to customise the "run" task to setup program arguments.
-    task(name = "launchVerticle", type = JavaExec::class) {
-        dependsOn("jar")
-        classpath = java.sourceSets.asMap["main"]?.runtimeClasspath
-        main = MAIN_CLASS
-        args.add("run")
-        args.add(MAIN_VERTICLE)
-        args.add("--launcher-class=$MAIN_VERTICLE")
-        // Redeploy watcher.
-        args.add("\\\"--redeploy=src/**/*.*\\\"")
-        args.add("--on-redeploy=./gradlew classes")
     }
 }
