@@ -26,9 +26,9 @@ Send a mail to an external smtp server (e.g. googlemail, sendgrid, aol etc)
 requiring a login.
 
 The login will currently use DIGEST-MD5, CRAM-MD5, PLAIN and LOGIN in order of
-preference, if the server announces AUTH but you don't need it (e.g. if you are
-authenticated by a local ip address) turn login off with `LoginOption.DISABLE`
-To specifically select a AUTH method or define the order of preference, you
+preference. If the server announces AUTH but you don't need it (e.g. if you are
+authenticated by a local ip address) turn login off with `LoginOption.DISABLE`.
+To specifically select an AUTH method or define the order of preference, you
 can do `setAuthMethods("METHOD1 METHOD2")`.
 
 == link:src/main/java/io/vertx/example/mail/MailServiceExample.java[MailServiceExample]
@@ -40,8 +40,8 @@ config object.
 This example shows how to leave out the From address in a mail but setting
 the bounceAddress property instead.
 
-the example deploys the mail service, however you can refactor the example to skip this step and start the service as
- follows:
+the example deploys the mail service, however you can refactor the example to
+skip this step and start the service as follows:
 
 ----
 vertx run service:io.vertx.mail-service

@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>metrics-examples</artifactId>
-  <version>3.4.1</version>
+  <version>3.4.2</version>
 
   <dependencies>
     <dependency>
@@ -39,6 +39,22 @@
       <artifactId>vertx-dropwizard-metrics</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient_dropwizard</artifactId>
+      <version>0.0.23</version>
+    </dependency>
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>client</artifactId>
+      <version>0.0.10</version>
+    </dependency>
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient_vertx</artifactId>
+      <version>0.0.23</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -66,7 +82,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
         </repository>
       </repositories>
     </profile>
