@@ -8,6 +8,10 @@
   <artifactId>web-examples</artifactId>
   <version>3.4.2</version>
 
+  <properties>
+    <slf4j.version>1.7.21</slf4j.version>
+  </properties>
+
   <dependencies>
 
     <dependency>
@@ -124,6 +128,12 @@
       <artifactId>vertx-web-templ-pebble</artifactId>
       <version>${project.version}</version>
       <classifier>shaded</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
 
   </dependencies>
