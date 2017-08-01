@@ -25,14 +25,19 @@ public class Streaming extends AbstractVerticle {
 
     jdbc
       .rxGetConnection() // Connect to the database
-      .flatMapObservable(conn -> { // With the connection...
+      .flatMapPublisher(conn -> { // With the connection...
         return conn.rxUpdate("CREATE TABLE test(col VARCHAR(20))") // ...create test table
           .flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val1')")) // ...insert a row
           .flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val2')")) // ...another one
           .flatMap(result -> conn.rxQueryStream("SELECT * FROM test")) // ...get values stream
-          .flatMapObservable(sqlRowStream -> {
-            return sqlRowStream.toObservable() // Transform the stream into an Observable...
-              .doOnTerminate(conn::close); // ...and close the connection when the stream is fully read or an error occurs
+          .flatMapPublisher(sqlRowStream -> {
+            return sqlRowStream.toFlowable() // Transform the stream into a Flowable...
+              .doOnTerminate(() -> {
+                // ...and close the connection when the stream is fully read or an
+                // error occurs
+                conn.close();
+                System.out.println("Connection closed");
+              });
           });
       }).subscribe(row -> System.out.println("Row : " + row.encode()));
   }
