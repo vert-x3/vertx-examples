@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title></title>
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+  <script src="vertx-eventbus.js"></script>
+</head>
+
+<style>
+  .news {
+    font-size: 20pt;
+  }
+</style>
+
+<body>
+
+<div class="news">Latest news:</div>
+<br>
+
+<div id="status" class="news"></div>
+
+<script>
+  var sock = new SockJS('http://localhost:8080/news-feed');
+
+  sock.onmessage = function(e) {
+    var str = "<code>" + e.data + "</code><br>";
+    $('#status').prepend(str);
+  };
+
+</script>
+
+</body>
+</html>
