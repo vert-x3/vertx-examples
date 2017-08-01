@@ -46,7 +46,7 @@
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>
-    <module>mqtt-server-examples</module>
+    <module>mqtt-examples</module>
     <module>grpc-examples</module>
     <module>kafka-examples</module>
   </modules>
