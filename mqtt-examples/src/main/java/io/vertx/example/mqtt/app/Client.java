@@ -1,0 +1,97 @@
+/*
+ * Copyright 2016 Red Hat Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.vertx.example.mqtt.app;
+
+import io.netty.handler.codec.mqtt.MqttQoS;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.example.mqtt.util.Runner;
+import io.vertx.mqtt.MqttClient;
+import io.vertx.mqtt.MqttClientOptions;
+
+import java.nio.charset.Charset;
+
+/**
+ * An example of using the MQTT client
+ */
+public class Client extends AbstractVerticle {
+
+  private static final String MQTT_TOPIC = "/my_topic";
+  private static final String MQTT_MESSAGE = "Hello Vert.x MQTT Client";
+
+  // Convenience method so you can run it in your IDE
+  public static void main(String[] args) {
+    Runner.runExample(Client.class);
+  }
+
+  @Override
+  public void start() throws Exception {
+    MqttClientOptions options = new MqttClientOptions()
+      .setPort(1883)
+      .setHost("0.0.0.0")
+      .setKeepAliveTimeSeconds(2);
+
+    MqttClient client = MqttClient.create(Vertx.vertx(), options);
+
+
+    // handler will be called when we have a message in topic we subscribing for
+    client.publishHandler(publish -> {
+      System.out.println("Just received message on [" + publish.topicName() + "] payload [" + publish.payload().toString(Charset.defaultCharset()) + "] with QoS [" + publish.qosLevel() + "]");
+    });
+
+    // handle response on subscribe request
+    client.subscribeCompleteHandler(h -> {
+      System.out.println("Receive SUBACK from server");
+      System.out.print("Granted QoS levels: ");
+      h.grantedQoSLevels().forEach(System.out::print);
+      System.out.println();
+
+      // let's publish a message to the subscribed topic
+      client.publish(
+        MQTT_TOPIC,
+        Buffer.buffer(MQTT_MESSAGE.getBytes()),
+        MqttQoS.AT_MOST_ONCE,
+        false,
+        false,
+        s -> System.out.println("Publish sent to a server"));
+
+      // unsubscribe from receiving messages for earlier subscribed topic
+      vertx.setTimer(5000, l -> client.unsubscribe(MQTT_TOPIC));
+    });
+
+    // handle response on unsubscribe request
+    client.unsubscribeCompleteHandler(h -> {
+      System.out.println("Receive UNSUBACK from server");
+      vertx.setTimer(5000, l ->
+        // disconnect for server
+        client.disconnect(d -> System.out.println("Disconnected form server"))
+      );
+    });
+
+    // connect to a server
+    client.connect(ch -> {
+      if (ch.succeeded()) {
+        System.out.println("Connected to a server");
+        client.subscribe(MQTT_TOPIC, 0);
+      } else {
+        System.out.println("Failed to connect to a server");
+        System.out.println(ch.cause());
+      }
+    });
+  }
+}
