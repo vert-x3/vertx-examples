@@ -147,6 +147,12 @@
       <version>${slf4j.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-sockjs-service-proxy</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -162,6 +168,15 @@
             <compilerArgs>
               <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
               <arg>-Acodetrans.config=${basedir}/codetrans-config.json</arg>
+            </compilerArgs>
+            <annotationProcessors>
+              <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
+            </annotationProcessors>
+            <generatedSourcesDirectory>
+              ${project.basedir}/src/main/generated
+            </generatedSourcesDirectory>
+            <compilerArgs>
+              <arg>-AoutputDirectory=${project.basedir}/src/main</arg>
             </compilerArgs>
           </configuration>
         </plugin>
