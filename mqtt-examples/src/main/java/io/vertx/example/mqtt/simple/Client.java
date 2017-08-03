@@ -30,6 +30,8 @@ public class Client extends AbstractVerticle {
 
   private static final String MQTT_TOPIC = "/my_topic";
   private static final String MQTT_MESSAGE = "Hello Vert.x MQTT Client";
+  private static final String SERVER_HOST = "0.0.0.0";
+  private static final int SERVER_PORT = 1883;
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -39,13 +41,13 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     MqttClientOptions options = new MqttClientOptions()
-      .setPort(1883)
-      .setHost("0.0.0.0");
+      .setPort(SERVER_PORT)
+      .setHost(SERVER_HOST);
 
     MqttClient mqttClient = MqttClient.create(vertx, options);
 
     mqttClient.connect(ch -> {
-      if(ch.succeeded()) {
+      if (ch.succeeded()) {
         System.out.println("Connected to a server");
 
         mqttClient.publish(
@@ -54,13 +56,11 @@ public class Client extends AbstractVerticle {
           MqttQoS.AT_MOST_ONCE,
           false,
           false,
-          s -> System.out.println("Publish sent to a server"));
+          s -> mqttClient.disconnect(d -> System.out.println("Disconnected from server")));
       } else {
         System.out.println("Failed to connect to a server");
         System.out.println(ch.cause());
       }
     });
-
   }
-
 }

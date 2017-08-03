@@ -33,6 +33,8 @@ public class Client extends AbstractVerticle {
 
   private static final String MQTT_TOPIC = "/my_topic";
   private static final String MQTT_MESSAGE = "Hello Vert.x MQTT Client";
+  private static final String SERVER_HOST = "0.0.0.0";
+  private static final int SERVER_PORT = 1883;
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -42,8 +44,8 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     MqttClientOptions options = new MqttClientOptions()
-      .setPort(1883)
-      .setHost("0.0.0.0")
+      .setPort(SERVER_PORT)
+      .setHost(SERVER_HOST)
       .setKeepAliveTimeSeconds(2);
 
     MqttClient client = MqttClient.create(Vertx.vertx(), options);
@@ -56,11 +58,8 @@ public class Client extends AbstractVerticle {
 
     // handle response on subscribe request
     client.subscribeCompleteHandler(h -> {
-      System.out.println("Receive SUBACK from server");
-      System.out.print("Granted QoS levels: ");
-      h.grantedQoSLevels().forEach(System.out::print);
-      System.out.println();
-
+      System.out.println("Receive SUBACK from server with granted QoS : " + h.grantedQoSLevels());
+      
       // let's publish a message to the subscribed topic
       client.publish(
         MQTT_TOPIC,
