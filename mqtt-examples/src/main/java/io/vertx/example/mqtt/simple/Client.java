@@ -52,7 +52,7 @@ public class Client extends AbstractVerticle {
 
         mqttClient.publish(
           MQTT_TOPIC,
-          Buffer.buffer(MQTT_MESSAGE.getBytes()),
+          Buffer.buffer(MQTT_MESSAGE),
           MqttQoS.AT_MOST_ONCE,
           false,
           false,

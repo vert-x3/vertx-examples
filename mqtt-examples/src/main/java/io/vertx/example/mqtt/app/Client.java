@@ -59,11 +59,11 @@ public class Client extends AbstractVerticle {
     // handle response on subscribe request
     client.subscribeCompleteHandler(h -> {
       System.out.println("Receive SUBACK from server with granted QoS : " + h.grantedQoSLevels());
-      
+
       // let's publish a message to the subscribed topic
       client.publish(
         MQTT_TOPIC,
-        Buffer.buffer(MQTT_MESSAGE.getBytes()),
+        Buffer.buffer(MQTT_MESSAGE),
         MqttQoS.AT_MOST_ONCE,
         false,
         false,

@@ -1,10 +1,10 @@
-package io.vertx.example.mqtt.server.app
+package io.vertx.example.mqtt.app
 
 import io.netty.handler.codec.mqtt.MqttQoS
 import io.vertx.core.buffer.Buffer
 import io.vertx.mqtt.MqttServer
 
-class App : io.vertx.core.AbstractVerticle()  {
+class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var mqttServer = MqttServer.create(vertx)
