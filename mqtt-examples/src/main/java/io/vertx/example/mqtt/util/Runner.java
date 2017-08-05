@@ -13,28 +13,28 @@ import java.util.function.Consumer;
  */
 public class Runner {
 
-  private static final String MQTT_SERVER_EXAMPLES_DIR = "mqtt-server-examples";
-  private static final String MQTT_SERVER_EXAMPLES_JAVA_DIR = MQTT_SERVER_EXAMPLES_DIR + "/src/main/java/";
-  private static final String MQTT_SERVER_EXAMPLES_JS_DIR = MQTT_SERVER_EXAMPLES_DIR + "/src/main/js/";
-  private static final String MQTT_SERVER_EXAMPLES_GROOVY_DIR = MQTT_SERVER_EXAMPLES_DIR + "/src/main/groovy/";
-  private static final String MQTT_SERVER_EXAMPLES_RUBY_DIR = MQTT_SERVER_EXAMPLES_DIR + "/src/main/ruby/";
+  private static final String MQTT_EXAMPLES_DIR = "mqtt-examples";
+  private static final String MQTT_EXAMPLES_JAVA_DIR = MQTT_EXAMPLES_DIR + "/src/main/java/";
+  private static final String MQTT_EXAMPLES_JS_DIR = MQTT_EXAMPLES_DIR + "/src/main/js/";
+  private static final String MQTT_EXAMPLES_GROOVY_DIR = MQTT_EXAMPLES_DIR + "/src/main/groovy/";
+  private static final String MQTT_EXAMPLES_RUBY_DIR = MQTT_EXAMPLES_DIR + "/src/main/ruby/";
 
   public static void runExample(Class clazz) {
-    runExample(MQTT_SERVER_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
+    runExample(MQTT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
   }
 
   public static void runExample(Class clazz, DeploymentOptions options) {
-    runExample(MQTT_SERVER_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), options);
+    runExample(MQTT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), options);
   }
 
   // JavaScript examples
 
   public static void runJSExample(String scriptName) {
-    runScriptExample(MQTT_SERVER_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(false));
+    runScriptExample(MQTT_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(false));
   }
 
   public static void runJSExampleClustered(String scriptName) {
-    runScriptExample(MQTT_SERVER_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(true));
+    runScriptExample(MQTT_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(true));
   }
 
   static class JSSimpleRunner {
@@ -58,11 +58,11 @@ public class Runner {
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    runScriptExample(MQTT_SERVER_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(false));
+    runScriptExample(MQTT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(false));
   }
 
   public static void runGroovyExampleClustered(String scriptName) {
-    runScriptExample(MQTT_SERVER_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
+    runScriptExample(MQTT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
   }
 
   static class GroovySimpleRunner {
@@ -86,11 +86,11 @@ public class Runner {
   // Ruby examples
 
   public static void runRubyExample(String scriptName) {
-    runScriptExample(MQTT_SERVER_EXAMPLES_RUBY_DIR, scriptName, new VertxOptions().setClustered(false));
+    runScriptExample(MQTT_EXAMPLES_RUBY_DIR, scriptName, new VertxOptions().setClustered(false));
   }
 
   public static void runRubyExampleClustered(String scriptName) {
-    runScriptExample(MQTT_SERVER_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
+    runScriptExample(MQTT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
   }
 
   static class RubySimpleRunner {
