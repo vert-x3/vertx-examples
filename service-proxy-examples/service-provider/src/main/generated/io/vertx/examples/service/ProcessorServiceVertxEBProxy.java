@@ -66,7 +66,7 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
 
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
     if (closed) {
-      resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
+    resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
       return;
     }
     JsonObject _json = new JsonObject();

@@ -34,7 +34,7 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-rxjava2</artifactId>
+      <artifactId>vertx-rx-java2</artifactId>
       <version>${project.version}</version>
     </dependency>
 
