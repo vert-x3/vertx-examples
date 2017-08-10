@@ -20,7 +20,6 @@ import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.example.mqtt.util.Runner;
-import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttTopicSubscription;
 
@@ -30,11 +29,11 @@ import java.util.List;
 /**
  * An example of using the MQTT server
  */
-public class App extends AbstractVerticle {
+public class Server extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(App.class);
+    Runner.runExample(Server.class);
   }
 
   @Override
