@@ -1,13 +1,13 @@
 var MqttClient = require("vertx-mqtt-server-js/mqtt_client");
 var Buffer = require("vertx-js/buffer");
-var SERVER_PORT = 8883;
 var MQTT_MESSAGE = "Hello Vert.x MQTT Client";
+var BROKER_HOST = "localhost";
+var BROKER_PORT = 8883;
 var MQTT_TOPIC = "/my_topic";
-var SERVER_HOST = "0.0.0.0";
 var options = {
 };
-options.port = SERVER_PORT;
-options.host = SERVER_HOST;
+options.port = BROKER_PORT;
+options.host = BROKER_HOST;
 options.ssl = true;
 options.trustAll = true;
 

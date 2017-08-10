@@ -30,8 +30,8 @@ public class Client extends AbstractVerticle {
 
   private static final String MQTT_TOPIC = "/my_topic";
   private static final String MQTT_MESSAGE = "Hello Vert.x MQTT Client";
-  private static final String SERVER_HOST = "0.0.0.0";
-  private static final int SERVER_PORT = 1883;
+  private static final String BROKER_HOST = "localhost";
+  private static final int BROKER_PORT = 1883;
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -41,8 +41,8 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     MqttClientOptions options = new MqttClientOptions()
-      .setPort(SERVER_PORT)
-      .setHost(SERVER_HOST);
+      .setPort(BROKER_PORT)
+      .setHost(BROKER_HOST);
 
     MqttClient mqttClient = MqttClient.create(vertx, options);
 

@@ -3,7 +3,6 @@ package io.vertx.example.mqtt.ssl;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttClient;
 import io.vertx.mqtt.MqttClientOptions;
@@ -12,8 +11,8 @@ public class Client extends AbstractVerticle {
 
   private static final String MQTT_TOPIC = "/my_topic";
   private static final String MQTT_MESSAGE = "Hello Vert.x MQTT Client";
-  private static final String SERVER_HOST = "0.0.0.0";
-  private static final int SERVER_PORT = 8883;
+  private static final String BROKER_HOST = "localhost";
+  private static final int BROKER_PORT = 8883;
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -23,8 +22,8 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     MqttClientOptions options = new MqttClientOptions();
-      options.setPort(SERVER_PORT);
-      options.setHost(SERVER_HOST);
+      options.setPort(BROKER_PORT);
+      options.setHost(BROKER_HOST);
       options.setSsl(true);
       options.setTrustAll(true);
 

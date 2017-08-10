@@ -1,13 +1,13 @@
 require 'vertx-mqtt-server/mqtt_client'
 require 'vertx/buffer'
-@SERVER_PORT = 8883
 @MQTT_MESSAGE = "Hello Vert.x MQTT Client"
+@BROKER_HOST = "localhost"
+@BROKER_PORT = 8883
 @MQTT_TOPIC = "/my_topic"
-@SERVER_HOST = "0.0.0.0"
 options = {
 }
-options['port'] = @SERVER_PORT
-options['host'] = @SERVER_HOST
+options['port'] = @BROKER_PORT
+options['host'] = @BROKER_HOST
 options['ssl'] = true
 options['trustAll'] = true
 

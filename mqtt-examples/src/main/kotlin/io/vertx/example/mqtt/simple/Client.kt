@@ -7,14 +7,14 @@ import io.vertx.mqtt.MqttClient
 import io.vertx.mqtt.MqttClientOptions
 
 class Client : io.vertx.core.AbstractVerticle()  {
-  var SERVER_PORT = 1883
   var MQTT_MESSAGE = "Hello Vert.x MQTT Client"
+  var BROKER_HOST = "localhost"
+  var BROKER_PORT = 1883
   var MQTT_TOPIC = "/my_topic"
-  var SERVER_HOST = "0.0.0.0"
   override fun start() {
     var options = MqttClientOptions(
-      port = SERVER_PORT,
-      host = SERVER_HOST)
+      port = BROKER_PORT,
+      host = BROKER_HOST)
 
     var mqttClient = MqttClient.create(vertx, options)
 

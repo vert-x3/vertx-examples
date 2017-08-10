@@ -2,13 +2,13 @@ import groovy.transform.Field
 import io.vertx.mqtt.MqttClient
 import io.vertx.core.buffer.Buffer
 import io.netty.handler.codec.mqtt.MqttQoS
-@Field def SERVER_PORT = 8883
 @Field def MQTT_MESSAGE = "Hello Vert.x MQTT Client"
+@Field def BROKER_HOST = "localhost"
+@Field def BROKER_PORT = 8883
 @Field def MQTT_TOPIC = "/my_topic"
-@Field def SERVER_HOST = "0.0.0.0"
 def options = [:]
-options.port = SERVER_PORT
-options.host = SERVER_HOST
+options.port = BROKER_PORT
+options.host = BROKER_HOST
 options.ssl = true
 options.trustAll = true
 

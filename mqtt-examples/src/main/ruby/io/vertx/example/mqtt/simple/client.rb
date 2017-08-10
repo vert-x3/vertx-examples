@@ -1,12 +1,12 @@
 require 'vertx-mqtt-server/mqtt_client'
 require 'vertx/buffer'
-@SERVER_PORT = 1883
 @MQTT_MESSAGE = "Hello Vert.x MQTT Client"
+@BROKER_HOST = "localhost"
+@BROKER_PORT = 1883
 @MQTT_TOPIC = "/my_topic"
-@SERVER_HOST = "0.0.0.0"
 options = {
-  'port' => @SERVER_PORT,
-  'host' => @SERVER_HOST
+  'port' => @BROKER_PORT,
+  'host' => @BROKER_HOST
 }
 
 mqttClient = VertxMqttServer::MqttClient.create($vertx, options)
