@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-examples</artifactId>
-  <version>3.4.2</version>
+  <version>3.5.0-SNAPSHOT</version>
 
   <properties>
     <slf4j.version>1.7.21</slf4j.version>
@@ -65,6 +65,12 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-auth-jwt</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-auth-oauth2</artifactId>
       <version>${project.version}</version>
     </dependency>
 
