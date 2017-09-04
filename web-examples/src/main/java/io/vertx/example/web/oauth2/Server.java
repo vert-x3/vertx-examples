@@ -69,7 +69,7 @@ public class Server extends AbstractVerticle {
     // The protected resource
     router.get("/protected").handler(ctx -> {
       AccessToken user = (AccessToken) ctx.user();
-
+      // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
       user.userInfo(res -> {
         if (res.failed()) {
           // request didn't succeed because the token was revoked so we
@@ -82,6 +82,9 @@ public class Server extends AbstractVerticle {
           final JsonObject userInfo = res.result();
 
           // fetch the user emails from the github API
+
+          // the fetch method will retrieve any resource and ensure the right
+          // secure headers are passed.
           user.fetch("https://api.github.com/user/emails", res2 -> {
             if (res2.failed()) {
               // request didn't succeed because the token was revoked so we
