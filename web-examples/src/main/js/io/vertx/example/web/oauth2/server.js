@@ -38,7 +38,7 @@ router.get("/").handler(function (ctx) {
 // The protected resource
 router.get("/protected").handler(function (ctx) {
   var user = ctx.user();
-
+  // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
   user.userInfo(function (res, res_err) {
     if (res_err != null) {
       // request didn't succeed because the token was revoked so we
@@ -51,6 +51,9 @@ router.get("/protected").handler(function (ctx) {
       var userInfo = res;
 
       // fetch the user emails from the github API
+
+      // the fetch method will retrieve any resource and ensure the right
+      // secure headers are passed.
       user.fetch("https://api.github.com/user/emails", function (res2, res2_err) {
         if (res2_err != null) {
           // request didn't succeed because the token was revoked so we

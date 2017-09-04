@@ -39,7 +39,7 @@ router.get("/").handler({ ctx ->
 // The protected resource
 router.get("/protected").handler({ ctx ->
   def user = ctx.user()
-
+  // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
   user.userInfo({ res ->
     if (res.failed()) {
       // request didn't succeed because the token was revoked so we
@@ -52,6 +52,9 @@ router.get("/protected").handler({ ctx ->
       def userInfo = res.result()
 
       // fetch the user emails from the github API
+
+      // the fetch method will retrieve any resource and ensure the right
+      // secure headers are passed.
       user.fetch("https://api.github.com/user/emails", { res2 ->
         if (res2.failed()) {
           // request didn't succeed because the token was revoked so we
