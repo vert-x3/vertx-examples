@@ -1,7 +1,6 @@
 package io.vertx.example.web.oauth2;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.oauth2.AccessToken;
@@ -24,8 +23,8 @@ public class Server extends AbstractVerticle {
 
   // you should never store these in code,
   // these are your github application credentials
-  private static final String CLIENT_ID = "xxxxxxxxxxxxxxxxxxxx";
-  private static final String CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  private static final String CLIENT_ID = "57cdaa1952a3f4ee3df8";
+  private static final String CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704";
 
   // In order to use a template we first need to create an engine
   private final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create();
