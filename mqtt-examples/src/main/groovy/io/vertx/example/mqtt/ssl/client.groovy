@@ -7,14 +7,12 @@ import io.netty.handler.codec.mqtt.MqttQoS
 @Field def BROKER_PORT = 8883
 @Field def MQTT_TOPIC = "/my_topic"
 def options = [:]
-options.port = BROKER_PORT
-options.host = BROKER_HOST
 options.ssl = true
 options.trustAll = true
 
 def mqttClient = MqttClient.create(vertx, options)
 
-mqttClient.connect({ ch ->
+mqttClient.connect(BROKER_PORT, BROKER_HOST, { ch ->
   if (ch.succeeded()) {
     println("Connected to a server")
 

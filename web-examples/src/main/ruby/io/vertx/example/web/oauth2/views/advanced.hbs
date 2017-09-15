@@ -12,7 +12,7 @@
   {{#if userInfo.private_emails}}
   With your permission, we were also able to dig up your private email addresses:
   {{#each userInfo.private_emails}}
-    {{email}},
+    {{email}}{{#unless @last}},{{/unless}}
   {{/each}}
   {{else}}
   Also, you're a bit secretive about your private email addresses.

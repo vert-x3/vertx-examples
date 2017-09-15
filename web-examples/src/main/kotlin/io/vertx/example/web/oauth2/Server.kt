@@ -11,8 +11,8 @@ import io.vertx.ext.web.sstore.LocalSessionStore
 import io.vertx.ext.web.templ.HandlebarsTemplateEngine
 
 class Server : io.vertx.core.AbstractVerticle()  {
-  var CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  var CLIENT_ID = "xxxxxxxxxxxxxxxxxxxx"
+  var CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"
+  var CLIENT_ID = "57cdaa1952a3f4ee3df8"
   var engine = HandlebarsTemplateEngine.create()
   override fun start() {
     // To simplify the development of the web components we use a Router to route all HTTP requests

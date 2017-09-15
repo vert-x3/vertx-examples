@@ -10,12 +10,10 @@ import io.vertx.mqtt.MqttClientOptions
 class Client : io.vertx.core.AbstractVerticle()  {
   var MQTT_MESSAGE = "Hello Vert.x MQTT Client"
   var BROKER_HOST = "localhost"
-  var BROKER_PORT = 1883
   var MQTT_TOPIC = "/my_topic"
+  var BROKER_PORT = 1883
   override fun start() {
     var options = MqttClientOptions(
-      port = BROKER_PORT,
-      host = BROKER_HOST,
       keepAliveTimeSeconds = 2)
 
     var client = MqttClient.create(Vertx.vertx(), options)
@@ -27,7 +25,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
     })
 
     // handle response on subscribe request
-    client.subscribeCompleteHandler({ h ->
+    client.subscribeCompletionHandler({ h ->
       println("Receive SUBACK from server with granted QoS : ${h.grantedQoSLevels()}")
 
       // let's publish a message to the subscribed topic
@@ -42,7 +40,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
     })
 
     // handle response on unsubscribe request
-    client.unsubscribeCompleteHandler({ h ->
+    client.unsubscribeCompletionHandler({ h ->
       println("Receive UNSUBACK from server")
       vertx.setTimer(5000, { l ->
         client.disconnect({ d ->
@@ -52,7 +50,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
     })
 
     // connect to a server
-    client.connect({ ch ->
+    client.connect(BROKER_PORT, BROKER_HOST, { ch ->
       if (ch.succeeded()) {
         println("Connected to a server")
         client.subscribe(MQTT_TOPIC, 0)

@@ -3,11 +3,9 @@ require 'vertx-mqtt-server/mqtt_client'
 require 'vertx/buffer'
 @MQTT_MESSAGE = "Hello Vert.x MQTT Client"
 @BROKER_HOST = "localhost"
-@BROKER_PORT = 1883
 @MQTT_TOPIC = "/my_topic"
+@BROKER_PORT = 1883
 options = {
-  'port' => @BROKER_PORT,
-  'host' => @BROKER_HOST,
   'keepAliveTimeSeconds' => 2
 }
 
@@ -20,7 +18,7 @@ client.publish_handler() { |publish|
 }
 
 # handle response on subscribe request
-client.subscribe_complete_handler() { |h|
+client.subscribe_completion_handler() { |h|
   puts "Receive SUBACK from server with granted QoS : #{h.granted_qo_s_levels()}"
 
   # let's publish a message to the subscribed topic
@@ -35,7 +33,7 @@ client.subscribe_complete_handler() { |h|
 }
 
 # handle response on unsubscribe request
-client.unsubscribe_complete_handler() { |h|
+client.unsubscribe_completion_handler() { |h|
   puts "Receive UNSUBACK from server"
   $vertx.set_timer(5000) { |l|
     client.disconnect() { |d_err,d|
@@ -45,7 +43,7 @@ client.unsubscribe_complete_handler() { |h|
 }
 
 # connect to a server
-client.connect() { |ch_err,ch|
+client.connect(@BROKER_PORT, @BROKER_HOST) { |ch_err,ch|
   if (ch_err == nil)
     puts "Connected to a server"
     client.subscribe(@MQTT_TOPIC, 0)

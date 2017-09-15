@@ -49,7 +49,7 @@ class Server : io.vertx.core.AbstractVerticle()  {
 
           endpoint.publishRelease(messageId)
 
-        }).publishCompleteHandler({ messageId ->
+        }).publishCompletionHandler({ messageId ->
 
           println("Received ack for message = ${messageId}")
         })

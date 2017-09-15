@@ -7,8 +7,8 @@ require 'vertx-web/user_session_handler'
 require 'vertx-web/o_auth2_auth_handler'
 require 'vertx-auth-oauth2/access_token'
 require 'vertx-web/handlebars_template_engine'
-@CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-@CLIENT_ID = "xxxxxxxxxxxxxxxxxxxx"
+@CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"
+@CLIENT_ID = "57cdaa1952a3f4ee3df8"
 @engine = VertxWeb::HandlebarsTemplateEngine.create()
 # To simplify the development of the web components we use a Router to route all HTTP requests
 # to organize our code in a reusable way.

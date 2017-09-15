@@ -4,14 +4,9 @@ var MQTT_MESSAGE = "Hello Vert.x MQTT Client";
 var BROKER_HOST = "localhost";
 var BROKER_PORT = 1883;
 var MQTT_TOPIC = "/my_topic";
-var options = {
-  "port" : BROKER_PORT,
-  "host" : BROKER_HOST
-};
+var mqttClient = MqttClient.create(vertx);
 
-var mqttClient = MqttClient.create(vertx, options);
-
-mqttClient.connect(function (ch, ch_err) {
+mqttClient.connect(BROKER_PORT, BROKER_HOST, function (ch, ch_err) {
   if (ch_err == null) {
     console.log("Connected to a server");
 

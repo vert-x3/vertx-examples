@@ -6,14 +6,12 @@ var BROKER_PORT = 8883;
 var MQTT_TOPIC = "/my_topic";
 var options = {
 };
-options.port = BROKER_PORT;
-options.host = BROKER_HOST;
 options.ssl = true;
 options.trustAll = true;
 
 var mqttClient = MqttClient.create(vertx, options);
 
-mqttClient.connect(function (ch, ch_err) {
+mqttClient.connect(BROKER_PORT, BROKER_HOST, function (ch, ch_err) {
   if (ch_err == null) {
     console.log("Connected to a server");
 

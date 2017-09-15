@@ -3,11 +3,9 @@ var MqttClient = require("vertx-mqtt-server-js/mqtt_client");
 var Buffer = require("vertx-js/buffer");
 var MQTT_MESSAGE = "Hello Vert.x MQTT Client";
 var BROKER_HOST = "localhost";
-var BROKER_PORT = 1883;
 var MQTT_TOPIC = "/my_topic";
+var BROKER_PORT = 1883;
 var options = {
-  "port" : BROKER_PORT,
-  "host" : BROKER_HOST,
   "keepAliveTimeSeconds" : 2
 };
 
@@ -20,7 +18,7 @@ client.publishHandler(function (publish) {
 });
 
 // handle response on subscribe request
-client.subscribeCompleteHandler(function (h) {
+client.subscribeCompletionHandler(function (h) {
   console.log("Receive SUBACK from server with granted QoS : " + h.grantedQoSLevels());
 
   // let's publish a message to the subscribed topic
@@ -35,7 +33,7 @@ client.subscribeCompleteHandler(function (h) {
 });
 
 // handle response on unsubscribe request
-client.unsubscribeCompleteHandler(function (h) {
+client.unsubscribeCompletionHandler(function (h) {
   console.log("Receive UNSUBACK from server");
   vertx.setTimer(5000, function (l) {
     client.disconnect(function (d, d_err) {
@@ -45,7 +43,7 @@ client.unsubscribeCompleteHandler(function (h) {
 });
 
 // connect to a server
-client.connect(function (ch, ch_err) {
+client.connect(BROKER_PORT, BROKER_HOST, function (ch, ch_err) {
   if (ch_err == null) {
     console.log("Connected to a server");
     client.subscribe(MQTT_TOPIC, 0);

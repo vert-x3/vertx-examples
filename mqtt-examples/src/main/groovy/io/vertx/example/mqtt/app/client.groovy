@@ -5,11 +5,9 @@ import io.vertx.core.buffer.Buffer
 import io.netty.handler.codec.mqtt.MqttQoS
 @Field def MQTT_MESSAGE = "Hello Vert.x MQTT Client"
 @Field def BROKER_HOST = "localhost"
-@Field def BROKER_PORT = 1883
 @Field def MQTT_TOPIC = "/my_topic"
+@Field def BROKER_PORT = 1883
 def options = [
-  port:BROKER_PORT,
-  host:BROKER_HOST,
   keepAliveTimeSeconds:2
 ]
 
@@ -22,7 +20,7 @@ client.publishHandler({ publish ->
 })
 
 // handle response on subscribe request
-client.subscribeCompleteHandler({ h ->
+client.subscribeCompletionHandler({ h ->
   println("Receive SUBACK from server with granted QoS : ${h.grantedQoSLevels()}")
 
   // let's publish a message to the subscribed topic
@@ -37,7 +35,7 @@ client.subscribeCompleteHandler({ h ->
 })
 
 // handle response on unsubscribe request
-client.unsubscribeCompleteHandler({ h ->
+client.unsubscribeCompletionHandler({ h ->
   println("Receive UNSUBACK from server")
   vertx.setTimer(5000, { l ->
     client.disconnect({ d ->
@@ -47,7 +45,7 @@ client.unsubscribeCompleteHandler({ h ->
 })
 
 // connect to a server
-client.connect({ ch ->
+client.connect(BROKER_PORT, BROKER_HOST, { ch ->
   if (ch.succeeded()) {
     println("Connected to a server")
     client.subscribe(MQTT_TOPIC, 0)

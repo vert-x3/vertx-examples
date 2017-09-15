@@ -4,14 +4,9 @@ require 'vertx/buffer'
 @BROKER_HOST = "localhost"
 @BROKER_PORT = 1883
 @MQTT_TOPIC = "/my_topic"
-options = {
-  'port' => @BROKER_PORT,
-  'host' => @BROKER_HOST
-}
+mqttClient = VertxMqttServer::MqttClient.create($vertx)
 
-mqttClient = VertxMqttServer::MqttClient.create($vertx, options)
-
-mqttClient.connect() { |ch_err,ch|
+mqttClient.connect(@BROKER_PORT, @BROKER_HOST) { |ch_err,ch|
   if (ch_err == nil)
     puts "Connected to a server"
 

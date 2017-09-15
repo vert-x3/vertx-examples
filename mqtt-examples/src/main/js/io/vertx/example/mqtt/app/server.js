@@ -43,7 +43,7 @@ mqttServer.endpointHandler(function (endpoint) {
 
       endpoint.publishRelease(messageId);
 
-    }).publishCompleteHandler(function (messageId) {
+    }).publishCompletionHandler(function (messageId) {
 
       console.log("Received ack for message = " + messageId);
     });

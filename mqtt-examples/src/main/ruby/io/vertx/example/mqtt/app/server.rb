@@ -43,7 +43,7 @@ mqttServer.endpoint_handler() { |endpoint|
 
       endpoint.publish_release(messageId)
 
-    }.publish_complete_handler() { |messageId|
+    }.publish_completion_handler() { |messageId|
 
       puts "Received ack for message = #{messageId}"
     }
