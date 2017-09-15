@@ -19,6 +19,7 @@
     <module>web-examples</module>
     <module>web-client-examples</module>
     <module>rx-examples</module>
+    <module>rxjava2-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
     <module>metrics-examples</module>
@@ -45,7 +46,7 @@
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>
-    <module>mqtt-server-examples</module>
+    <module>mqtt-examples</module>
     <module>grpc-examples</module>
     <module>kafka-examples</module>
   </modules>
@@ -71,7 +72,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
+          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
       </repositories>
     </profile>
