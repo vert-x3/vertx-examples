@@ -1,16 +1,6 @@
-# Vert.x Kotlin Example
+# Vert.x Kotlin Coroutines Example
 
-Basic JSON API written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can be used with Vert.x.
-
-This project is built on Gradle and is ready to be deployed on Heroku, hence it combines parts of the following 
-examples:
-
-- Gradle:
-    - [gradle-redeploy](https://github.com/vert-x3/vertx-examples/tree/master/gradle-redeploy)
-    - [gradle-simplest](https://github.com/vert-x3/vertx-examples/tree/master/gradle-simplest)
-    - [gradle-verticles](https://github.com/vert-x3/vertx-examples/tree/master/gradle-verticles)
-- Heroku:
-    - [heroku-example](https://github.com/vert-x3/vertx-examples/tree/master/heroku-example)
+JSON API written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can be Kotlin coroutines can be used with Vert.x.
 
 ## Running
 
@@ -38,11 +28,11 @@ The jar file can now be retrieved from `./build/libs/app-shadow.jar` and deploye
 
 ### Heroku
 
-This project includes a custom `Procfile` to simplify deployment to Heroku, however you would need to place the 
-contents of this example into a separate Git repository first (because the global [`Procfile`](https://github.com/vert-x3/vertx-examples/blob/master/Procfile) 
+This project includes a custom `Procfile` to simplify deployment to Heroku, however you would need to place the
+contents of this example into a separate Git repository first (because the global [`Procfile`](https://github.com/vert-x3/vertx-examples/blob/master/Procfile)
 in the root directory points to the `heroku-example`).
- 
-Once in your new Git repository, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and issue the 
+
+Once in your new Git repository, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and issue the
 following:
 
 ```
