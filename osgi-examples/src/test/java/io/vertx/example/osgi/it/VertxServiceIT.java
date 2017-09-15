@@ -71,6 +71,7 @@ public class VertxServiceIT {
       mavenBundle("io.reactivex", "rxjava", "1.3.0"),
 
       mavenBundle("io.vertx", "vertx-web").versionAsInProject(),
+      mavenBundle("io.vertx", "vertx-bridge-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web-client").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-rx-java").versionAsInProject(),
