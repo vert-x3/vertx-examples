@@ -43,10 +43,7 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    MqttClientOptions options = new MqttClientOptions()
-      .setPort(BROKER_PORT)
-      .setHost(BROKER_HOST)
-      .setKeepAliveTimeSeconds(2);
+    MqttClientOptions options = new MqttClientOptions().setKeepAliveTimeSeconds(2);
 
     MqttClient client = MqttClient.create(Vertx.vertx(), options);
 
@@ -57,7 +54,7 @@ public class Client extends AbstractVerticle {
     });
 
     // handle response on subscribe request
-    client.subscribeCompleteHandler(h -> {
+    client.subscribeCompletionHandler(h -> {
       System.out.println("Receive SUBACK from server with granted QoS : " + h.grantedQoSLevels());
 
       // let's publish a message to the subscribed topic
@@ -74,7 +71,7 @@ public class Client extends AbstractVerticle {
     });
 
     // handle response on unsubscribe request
-    client.unsubscribeCompleteHandler(h -> {
+    client.unsubscribeCompletionHandler(h -> {
       System.out.println("Receive UNSUBACK from server");
       vertx.setTimer(5000, l ->
         // disconnect for server
@@ -83,7 +80,7 @@ public class Client extends AbstractVerticle {
     });
 
     // connect to a server
-    client.connect(ch -> {
+    client.connect(BROKER_PORT, BROKER_HOST, ch -> {
       if (ch.succeeded()) {
         System.out.println("Connected to a server");
         client.subscribe(MQTT_TOPIC, 0);

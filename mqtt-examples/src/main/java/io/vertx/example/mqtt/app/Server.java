@@ -87,7 +87,7 @@ public class Server extends AbstractVerticle {
 
             endpoint.publishRelease(messageId);
 
-          }).publishCompleteHandler(messageId -> {
+          }).publishCompletionHandler(messageId -> {
 
             System.out.println("Received ack for message = " + messageId);
           });

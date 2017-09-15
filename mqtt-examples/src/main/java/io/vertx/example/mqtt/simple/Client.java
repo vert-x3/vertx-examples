@@ -21,7 +21,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttClient;
-import io.vertx.mqtt.MqttClientOptions;
 
 /**
  * An example of using the MQTT client as a verticle
@@ -40,13 +39,9 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    MqttClientOptions options = new MqttClientOptions()
-      .setPort(BROKER_PORT)
-      .setHost(BROKER_HOST);
+    MqttClient mqttClient = MqttClient.create(vertx);
 
-    MqttClient mqttClient = MqttClient.create(vertx, options);
-
-    mqttClient.connect(ch -> {
+    mqttClient.connect(BROKER_PORT, BROKER_HOST, ch -> {
       if (ch.succeeded()) {
         System.out.println("Connected to a server");
 

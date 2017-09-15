@@ -22,14 +22,12 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     MqttClientOptions options = new MqttClientOptions();
-      options.setPort(BROKER_PORT);
-      options.setHost(BROKER_HOST);
       options.setSsl(true);
       options.setTrustAll(true);
 
     MqttClient mqttClient = MqttClient.create(vertx, options);
 
-    mqttClient.connect(ch -> {
+    mqttClient.connect(BROKER_PORT, BROKER_HOST, ch -> {
       if (ch.succeeded()) {
         System.out.println("Connected to a server");
 
