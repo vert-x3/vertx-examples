@@ -28,6 +28,9 @@ public class JDBCExample extends AbstractVerticle {
         .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
         .put("driver_class", "org.hsqldb.jdbcDriver")
         .put("max_pool_size", 30));
+    
+    // it would be nice if the above config showed username / password field names
+    // => http://vertx.io/docs/vertx-jdbc-client/java/
 
     client.getConnection(conn -> {
       if (conn.failed()) {
