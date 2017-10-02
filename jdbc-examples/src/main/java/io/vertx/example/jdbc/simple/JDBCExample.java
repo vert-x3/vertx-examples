@@ -27,7 +27,9 @@ public class JDBCExample extends AbstractVerticle {
     final JDBCClient client = JDBCClient.createShared(vertx, new JsonObject()
         .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
         .put("driver_class", "org.hsqldb.jdbcDriver")
-        .put("max_pool_size", 30));
+        .put("max_pool_size", 30)
+        .put("user", "SA")
+        .put("password", ""));
 
     client.getConnection(conn -> {
       if (conn.failed()) {
