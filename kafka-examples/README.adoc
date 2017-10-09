@@ -10,7 +10,7 @@ The link:src/main/java/io/vertx/example/kafka/dashboard/MetricsVerticle.java[Met
 Kafka producer API to produce metrics in Json format.
 
 The link:src/main/java/io/vertx/example/kafka/dashboard/DashboardVerticle.java[DashboardVerticle.java] uses the
-Kafka producer API to consume the metrics and send them to a monitoring dashboard using the Event Bus.
+Kafka consumer API to consume the metrics and send them to a monitoring dashboard using the Event Bus.
 
 The link:src/main/java/io/vertx/example/kafka/dashboard/MainVerticle.java[MainVerticle.java] is the main program
 you should start as it starts a Kafka broker and then configures the DashboardVerticle and the MetricsVerticle
