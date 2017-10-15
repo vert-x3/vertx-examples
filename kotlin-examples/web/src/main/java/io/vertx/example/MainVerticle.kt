@@ -11,16 +11,16 @@ import io.vertx.ext.web.RoutingContext
 @Suppress("unused")
 class MainVerticle : AbstractVerticle() {
 
-    override fun start(startFuture: Future<Void>?) {
+    override fun start(startFuture: Future<Void>) {
         val router = createRouter()
 
         vertx.createHttpServer()
                 .requestHandler { router.accept(it) }
                 .listen(config().getInteger("http.port", 8080)) { result ->
                     if (result.succeeded()) {
-                        startFuture?.complete()
+                        startFuture.complete()
                     } else {
-                        startFuture?.fail(result.cause())
+                        startFuture.fail(result.cause())
                     }
                 }
     }
