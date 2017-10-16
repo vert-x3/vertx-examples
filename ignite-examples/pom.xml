@@ -14,13 +14,13 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>${project.version}</version>
+      <version>3.4.2</version>
     </dependency>
 
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-ignite</artifactId>
-      <version>${project.version}</version>
+      <version>3.4.2</version>
     </dependency>
   </dependencies>
 
