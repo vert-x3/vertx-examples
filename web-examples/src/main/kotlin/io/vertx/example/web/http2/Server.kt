@@ -18,7 +18,7 @@ class Server : io.vertx.core.AbstractVerticle()  {
     })
 
     router.get("/img/:x/:y").handler({ ctx ->
-      ctx.response().putHeader("Content-Type", "image/png").end(image.getPixel(java.lang.Integer.parseInt(ctx.pathParam("x")), java.lang.Integer.parseInt(ctx.pathParam("y"))))
+      ctx.response().putHeader("Content-Type", "image/png").end(image.getPixel(Int.parseInt(ctx.pathParam("x")), Int.parseInt(ctx.pathParam("y"))))
     })
 
     vertx.createHttpServer(HttpServerOptions(

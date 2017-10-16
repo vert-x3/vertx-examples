@@ -16,7 +16,7 @@ class Proxy : io.vertx.core.AbstractVerticle()  {
         var proxyAddress = req.uri()
         var idx = proxyAddress.indexOf(':')
         var host = proxyAddress.substring(0, idx)
-        var port = java.lang.Integer.parseInt(proxyAddress.substring(idx + 1))
+        var port = Int.parseInt(proxyAddress.substring(idx + 1))
 
         println("Connecting to proxy ${proxyAddress}")
         client.connect(port, host, { ar ->
