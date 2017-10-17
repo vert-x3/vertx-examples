@@ -53,6 +53,17 @@
   </modules>
 
   <profiles>
+
+    <profile>
+      <id>java9</id>
+      <activation>
+        <jdk>9</jdk>
+      </activation>
+      <modules>
+        <module>java9-examples</module>
+      </modules>
+    </profile>
+
     <profile>
       <!-- Use -DskipDocker as the docker module requires docker to be installed, there are built an their own profile -->
       <id>docker</id>
