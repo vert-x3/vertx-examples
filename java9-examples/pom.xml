@@ -39,7 +39,7 @@
 
     <pluginManagement>
       <plugins>
-        <!-- We specify the Maven compiler plugin as we need to set it to Java 1.8 -->
+        <!-- We specify the Maven compiler plugin as we need to set it to Java 9 -->
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
