@@ -1,9 +1,10 @@
 package org.digieng.vertx.kotlintest
 
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.RequestBody
-import okhttp3.Request.Builder as RequestBuilder
+import io.vertx.core.Vertx
+import io.vertx.core.buffer.Buffer
+import io.vertx.kotlin.ext.web.client.WebClientOptions
+import io.vertx.ext.web.client.WebClient
+
 
 // Contains HTTP client functionality to use for testing.
 // Author - Nick Apperley.
@@ -11,55 +12,67 @@ import okhttp3.Request.Builder as RequestBuilder
 object HttpClient {
     var host = "localhost"
     var port = 8080
-    val client
-        get() = OkHttpClient()
-}
+    var delay = 1000L
 
-@Suppress("PrivatePropertyName")
-private val PLAIN_TEXT = MediaType.parse("text/plain")
+    fun useClient(vertx: Vertx, block: WebClient?.() -> Unit) {
+        val client = WebClient.create(vertx, WebClientOptions(defaultPort = port, defaultHost = host))
 
-infix fun OkHttpClient.httpGetStatus(path: String): Int {
-    val req = RequestBuilder().run {
-        url("http://${HttpClient.host}:${HttpClient.port}$path")
-        build()
+        block(client)
+        client.close()
     }
-    val resp = newCall(req).execute()
-
-    return resp.code()
 }
 
-infix fun OkHttpClient.httpPostStatus(args: Pair<String, String>): Int {
+infix fun WebClient?.httpGetStatus(path: String): Int {
+    var status = 0
+
+    if (this != null) {
+        get(path).send { ar ->
+            if (ar.succeeded()) status = ar.result().statusCode()
+            else println("HTTP Client Failure: ${ar.cause()}")
+        }
+        Thread.sleep(HttpClient.delay)
+    }
+    return status
+}
+
+infix fun WebClient?.httpPostStatus(args: Pair<String, String>): Int {
     val (path, data) = args
-    val req = RequestBuilder().run {
-        url("http://${HttpClient.host}:${HttpClient.port}$path")
-        post(RequestBody.create(PLAIN_TEXT, data))
-        build()
-    }
-    val resp = newCall(req).execute()
+    var status = 0
 
-    return resp.code()
+    if (this != null) {
+        post(path).sendBuffer(Buffer.buffer(data)) { ar ->
+            if (ar.succeeded()) status = ar.result().statusCode()
+            else println("HTTP Client Failure: ${ar.cause()}")
+        }
+        Thread.sleep(HttpClient.delay)
+    }
+    return status
 }
 
-infix fun OkHttpClient.httpPutStatus(args: Pair<String, String>): Int {
+infix fun WebClient?.httpPutStatus(args: Pair<String, String>): Int {
     val (path, data) = args
-    val req = RequestBuilder().run {
-        url("http://${HttpClient.host}:${HttpClient.port}$path")
-        put(RequestBody.create(PLAIN_TEXT, data))
-        build()
-    }
-    val resp = newCall(req).execute()
+    var status = 0
 
-    return resp.code()
+    if (this != null) {
+        put(path).sendBuffer(Buffer.buffer(data)) { ar ->
+            if (ar.succeeded()) status = ar.result().statusCode()
+            else println("HTTP Client Failure: ${ar.cause()}")
+        }
+        Thread.sleep(HttpClient.delay)
+    }
+    return status
 }
 
-infix fun OkHttpClient.httpDeleteStatus(args: Pair<String, String>): Int {
+infix fun WebClient?.httpDeleteStatus(args: Pair<String, String>): Int {
     val (path, data) = args
-    val req = RequestBuilder().run {
-        url("http://${HttpClient.host}:${HttpClient.port}$path")
-        delete(RequestBody.create(PLAIN_TEXT, data))
-        build()
-    }
-    val resp = newCall(req).execute()
+    var status = 0
 
-    return resp.code()
+    if (this != null) {
+        delete(path).sendBuffer(Buffer.buffer(data)) { ar ->
+            if (ar.succeeded()) status = ar.result().statusCode()
+            else println("HTTP Client Failure: ${ar.cause()}")
+        }
+        Thread.sleep(HttpClient.delay)
+    }
+    return status
 }

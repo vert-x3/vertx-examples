@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val VERTX_VER = "3.5.0"
 val KOTLIN_TEST_VER = "2.0.6"
-val OK_HTTP_VER = "3.9.0"
 
 
 group = "org.digieng"
@@ -47,7 +46,7 @@ apply {
 
 dependencies {
     compile(kotlin(module = "stdlib-jre8", version = KOTLIN_VER))
-    compile("com.squareup.okhttp3:okhttp:$OK_HTTP_VER")
+    compile("io.vertx:vertx-web-client:$VERTX_VER")
     compile("io.kotlintest:kotlintest:$KOTLIN_TEST_VER")
     testCompile("io.vertx:vertx-core:$VERTX_VER")
     testCompile("io.vertx:vertx-lang-kotlin:$VERTX_VER")

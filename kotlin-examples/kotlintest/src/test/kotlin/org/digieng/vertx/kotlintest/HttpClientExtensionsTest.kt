@@ -38,12 +38,14 @@ class HttpClientExtensionsTest : FunSpec() {
         httpMethod: HttpMethod
     ) {
         if (initialDelay > 0L) Thread.sleep(initialDelay)
-        val client = HttpClient.client
-        statusCode = when (httpMethod) {
-            HttpMethod.POST -> client httpPostStatus (path to data)
-            HttpMethod.PUT -> client httpPutStatus (path to data)
-            HttpMethod.DELETE -> client httpDeleteStatus (path to data)
-            else -> client httpGetStatus path
+        HttpClient.delay = 500L
+        HttpClient.useClient(vertx!!) {
+            statusCode = when (httpMethod) {
+                HttpMethod.POST -> this httpPostStatus (path to data)
+                HttpMethod.PUT -> this httpPutStatus (path to data)
+                HttpMethod.DELETE -> this httpDeleteStatus (path to data)
+                else -> this httpGetStatus path
+            }
         }
     }
 
