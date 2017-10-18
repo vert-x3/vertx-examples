@@ -1,0 +1,7 @@
+============
+Gradle Info
+============
+
+Using Gradle 4.2.1. In order to change the Gradle wrapper run the following:
+  gradle wrapper --gradle-version 4.2.1
+

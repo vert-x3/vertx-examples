@@ -15,14 +15,14 @@ class MainVerticle : AbstractVerticle() {
         val router = createRouter()
 
         vertx.createHttpServer()
-                .requestHandler { router.accept(it) }
-                .listen(config().getInteger("http.port", 8080)) { result ->
-                    if (result.succeeded()) {
-                        startFuture?.complete()
-                    } else {
-                        startFuture?.fail(result.cause())
-                    }
+            .requestHandler { router.accept(it) }
+            .listen(config().getInteger("http.port", 8080)) { result ->
+                if (result.succeeded()) {
+                    startFuture?.complete()
+                } else {
+                    startFuture?.fail(result.cause())
                 }
+            }
     }
 
     private fun createRouter() = Router.router(vertx).apply {
@@ -51,10 +51,10 @@ class MainVerticle : AbstractVerticle() {
 
     private val MOCK_ISLANDS by lazy {
         listOf(
-                Island("Kotlin", Country("Russia", "RU")),
-                Island("Stewart Island", Country("New Zealand", "NZ")),
-                Island("Cockatoo Island", Country("Australia", "AU")),
-                Island("Tasmania", Country("Australia", "AU"))
+            Island("Kotlin", Country("Russia", "RU")),
+            Island("Stewart Island", Country("New Zealand", "NZ")),
+            Island("Cockatoo Island", Country("Australia", "AU")),
+            Island("Tasmania", Country("Australia", "AU"))
         )
     }
 
