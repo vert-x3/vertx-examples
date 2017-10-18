@@ -1,6 +1,6 @@
 buildscript {
   ext {
-    kotlin_version = '1.0.1-2'
+    kotlin_version = '1.1.0'
     vertx_version = '3.4.2'
   }
 
@@ -35,11 +35,18 @@ repositories {
     url "https://oss.sonatype.org/content/repositories/iovertx-3684/"
   }
 }
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
+}
+
 dependencies {
   compile "io.vertx:vertx-core:$vertx_version"
   compile "io.vertx:vertx-web:$vertx_version"
 
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
   compile "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
 }
 
