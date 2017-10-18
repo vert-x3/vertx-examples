@@ -2,6 +2,6 @@
 Gradle Info
 ============
 
-Using Gradle 4.1 (rev 20170624053347+0000). In order to change the Gradle wrapper run the following:
-  gradle wrapper --gradle-distribution-url https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170624053347+0000-all.zip
+Using Gradle 4.2.1. In order to change the Gradle wrapper run the following:
+  gradle wrapper --gradle-version 4.2.1
 
