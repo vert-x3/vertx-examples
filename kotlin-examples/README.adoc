@@ -13,4 +13,4 @@ demonstrate how it can be used with Vert.x.
 
 === kotlintest
 
-The link:kotlintest/README.md[Kotlintest example] shows how to test Vert.x code using [KotlinTest](https://github.com/kotlintest/kotlintest).
+The link:kotlintest/README.md[Kotlintest example] shows how to test Vert.x code using https://github.com/kotlintest/kotlintest[KotlinTest].

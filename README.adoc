@@ -163,7 +163,7 @@ The link:grpc-examples/README.adoc[Vert.x gRPC Examples] show how you can implem
 === Kotlin examples
 
 The link:kotlin-examples/README.adoc[Vert.x Kotlin Examples] shows a few examples with Kotlin such a REST application,
-Kotlin coroutines and usage of [KotlinTest](https://github.com/kotlintest/kotlintest).
+Kotlin coroutines and usage of https://github.com/kotlintest/kotlintest[KotlinTest].
 
 === Mail examples
 
