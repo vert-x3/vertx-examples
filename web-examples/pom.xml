@@ -129,6 +129,11 @@
       <version>${project.version}</version>
       <classifier>shaded</classifier>
     </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-api-contract</artifactId>
+      <version>3.5.0</version> <!-- TODO Change when project version change to 3.5.0 -->
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
