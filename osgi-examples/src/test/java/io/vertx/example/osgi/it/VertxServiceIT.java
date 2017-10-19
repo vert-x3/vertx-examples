@@ -46,6 +46,9 @@ public class VertxServiceIT {
   @Configuration
   public Option[] config() {
     return options(
+
+      systemPackages("sun.misc"),
+
       mavenBundle("io.vertx", "vertx-core").versionAsInProject(),
 
       mavenBundle("io.netty", "netty-common").versionAsInProject(),
@@ -65,7 +68,13 @@ public class VertxServiceIT {
       mavenBundle("com.fasterxml.jackson.core", "jackson-databind").versionAsInProject(),
       mavenBundle("com.fasterxml.jackson.core", "jackson-annotations").versionAsInProject(),
 
+      mavenBundle("io.reactivex", "rxjava", "1.3.0"),
+
       mavenBundle("io.vertx", "vertx-web").versionAsInProject(),
+      mavenBundle("io.vertx", "vertx-web-client").versionAsInProject(),
+      mavenBundle("io.vertx", "vertx-web-common").versionAsInProject(),
+      mavenBundle("io.vertx", "vertx-rx-java").versionAsInProject(),
+
       mavenBundle("io.vertx", "vertx-auth-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-jdbc-client").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-sql-common").versionAsInProject(),
@@ -75,7 +84,7 @@ public class VertxServiceIT {
       mavenBundle("org.apache.felix", "org.apache.felix.ipojo").versionAsInProject(),
       mavenBundle("commons-io", "commons-io").versionAsInProject(),
 
-      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.4.1") + ".jar"),
+      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.4.2") + ".jar"),
 
       junitBundles()
     );

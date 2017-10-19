@@ -1,7 +1,7 @@
 
 FROM openjdk:8-jre-alpine
 
-ENV JAVA_APP_JAR http-frontend-3.4.1-fat.jar
+ENV JAVA_APP_JAR http-frontend-3.4.2-fat.jar
 
 EXPOSE 8080
 

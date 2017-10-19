@@ -6,12 +6,12 @@ plugins {
 
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
-version = '3.4.1'
+version = '3.4.2'
 
 repositories {
   mavenCentral()
   maven {
-    url "https://oss.sonatype.org/content/repositories/snapshots"
+    url "https://oss.sonatype.org/content/repositories/iovertx-3684/"
   }
 }
 
@@ -35,5 +35,5 @@ shadowJar {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '3.4.1'
+  gradleVersion = '4.0'
 }

@@ -143,3 +143,12 @@ First you need to run the server then you can run the client.
 
 link:src/main/java/io/vertx/example/webclient/response/jsonpojo/Server.java[Java HTTP server]
 link:src/main/java/io/vertx/example/webclient/response/jsonpojo/Client.java[Java client expecting a json object body as a POJO]
+
+=== Receiving a OAUTH2 protected resource
+
+This examples shows how to download a oauth2 protected resource, the example makes use of 2 requests:
+
+* first acquire a OAUTH2 access token
+* get the resource using the token
+
+link:src/main/java/io/vertx/example/webclient/oauth/TwitterOAuthExample.java[Twitter OAuth Example]
