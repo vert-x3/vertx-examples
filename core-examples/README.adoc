@@ -492,5 +492,8 @@ You can run these examples using the `vertx` command line. For example:
 vertx run script.groovy
 ```
 
+== JSON streaming parser
 
+A simple example illustrating how to use the streaming `JsonParser` to parse a giant array of small objects.
 
+link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java[Java verticle parsing a giant JSON array in a non blocking way]

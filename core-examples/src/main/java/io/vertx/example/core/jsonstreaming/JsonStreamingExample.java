@@ -44,7 +44,12 @@ public class JsonStreamingExample extends AbstractVerticle {
 
         AtomicInteger counter = new AtomicInteger();
 
+        // Here a Json streaming parser is created wrapping an AsyncFile
+        // JsonParser is a ReadStream of JsonEvent and can wrap any ReadStream of Buffer
         JsonParser jsonParser = JsonParser.newParser(asyncFile);
+        // We want to parse a giant array of small obects so we switch the parser to object-value mode
+        // The parser will then emit objects inside the array as a single value event
+        // This is pretty convenient for the developer
         jsonParser.objectValueMode()
           .exceptionHandler(t -> {
             t.printStackTrace();
@@ -54,8 +59,12 @@ public class JsonStreamingExample extends AbstractVerticle {
             System.out.println("Done!");
             asyncFile.close();
           }).handler(event -> {
+          // Got a new JsonEvent
+          // In object-value mode the event should always be of type "VALUE"
           if (event.type() == VALUE) {
+            // Use mapTo to map the JSON obect to a Java class
             DataPoint dataPoint = event.mapTo(DataPoint.class);
+            // Let's not log all objects from this giant file...
             if (counter.incrementAndGet() % 100 == 0) {
               System.out.println("DataPoint = " + dataPoint);
             }
