@@ -241,7 +241,7 @@ The link:amqp-bridge-examples/README.adoc[Vert.x AMQP Bridge Examples] show how 
 
 === Java 9 examples
 
-This link:java9-examples/README.adoc[Java 9 examples] shows how a tiny modular Java 9 application using Vert.x as anonymous modules.
+This link:java9-examples/README.adoc[Java 9 examples] shows how a simple Java 9 modular application using Vert.x as anonymous modules.
 
 === Vert.x fatjar examples
 
