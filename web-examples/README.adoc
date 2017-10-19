@@ -404,3 +404,14 @@ Important files to note:
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and chat with a couple of browser windows!
+
+== OAuth2
+
+The OAuth2 example is a simplified interaction with GitHub OAuth2 server. It will
+show how to secure and authenticate users, plus requesting specific authorities:
+
+* `user:email`
+
+Plus how to interact with secured resources using the user object directly.
+
+The link:src/main/java/io/vertx/example/web/oauth2/Server.java[OAuth2 example]

@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<body>
+<p>Well, well, well, {{userInfo.login}}!</p>
+<p>
+  {{#if userInfo.email}} It looks like your public email address is {{userInfo.email}}.
+  {{else}} It looks like you don't have a public email. That's cool.
+  {{/if}}
+</p>
+<p>
+  {{#if userInfo.private_emails}}
+  With your permission, we were also able to dig up your private email addresses:
+  {{#each userInfo.private_emails}}
+    {{email}}{{#unless @last}},{{/unless}}
+  {{/each}}
+  {{else}}
+  Also, you're a bit secretive about your private email addresses.
+  {{/if}}
+</p>
+</body>
+</html>

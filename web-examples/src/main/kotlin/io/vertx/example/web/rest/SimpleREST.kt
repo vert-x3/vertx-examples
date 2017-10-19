@@ -49,7 +49,7 @@ class SimpleREST : io.vertx.core.AbstractVerticle()  {
       }
     }
   }
-  fun sendError(statusCode: int, response: HttpServerResponse) {
+  fun sendError(statusCode: Int, response: HttpServerResponse) {
     response.setStatusCode(statusCode).end()
   }
   fun handleListProducts(routingContext: RoutingContext) {

@@ -21,7 +21,7 @@ class Server : io.vertx.core.AbstractVerticle()  {
       if (someCookie != null) {
         var cookieValue = someCookie.getValue()
         try {
-          visits = java.lang.Long.parseLong(cookieValue)
+          visits = Long.parseLong(cookieValue)
         } catch(e: Exception) {
           visits = 0L
         }

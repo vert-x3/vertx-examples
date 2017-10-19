@@ -1,0 +1,166 @@
+= Vert.x RxJava2 extension examples
+
+Here you will find examples demonstrating Vert.x RxJava2 extension in action.
+
+Vert.x RxJava 2 extension provides Rxified version of the Vert.x APIs. Please consult the Vert.x RxJava manual
+for detailed documentation on Vert.x core.
+
+== RxJava Web client examples
+
+These examples shows the Rxified HTTP api.
+
+=== Simple
+
+A simple web client.
+
+The client creates an `Single<HttpRequest<String>>` and then subscribe multiple times to the single to send the request.
+
+link:src/main/java/io/vertx/example/rxjava/web/client/simple/Client.java[RxJava simple web client]
+
+=== Zip
+
+A variation of the _simple_ example with two client requests mapped to an `Single<JsonObject>`
+ and then _zipped_ in a single json object.
+
+The main interest is to get the final result when the two responses are delivered.
+
+link:src/main/java/io/vertx/example/rxjava/web/client/zip/Client.java[RxJava zip web client]
+
+=== Unmarshalling
+
+The web client json response is unmarshalled to a Java object using the web client unmarshalling features.
+
+link:src/main/java/io/vertx/example/rxjava/web/client/unmarshalling/Client.java[RxJava unmarshalling web client]
+
+== RxJava Web examples
+
+=== Real-time
+
+This example demonstrates how an RxJava `Observable` source can be sent _real-time_ to the browser
+via a `SockJSSocket`.
+
+link:src/main/java/io/vertx/example/rxjava/web/realtime/Server.java[RxJava real-time web]
+
+SocksJS gives a WebSocket-like API in client side JavaScript even if the browser or network doesn't support WebSockets.
+
+This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server
+and client and you're probably rendering the user interface on the client side.
+
+Run the server either in your IDE or on the command line, then open your browser and hit
+link:http://localhost:8080
+
+This serves the link:src/main/java/io/vertx/example/rxjava/web/realtime/webroot/index.html[index page] which contains
+some JavaScript which opens an event bus connection to the server.
+
+When the connection is open, a SockJS connection is opened on the `/news-feed` uri. When data
+arrives in the handler the script just uses some simple JQuery to write the message to the page.
+
+On the server side, in the link:src/main/java/io/vertx/example/rxjava/web/realtime/Server.java[server] when a SockJS
+connection arrives, we subscribe to an `Observable<String>` (that is created from the EventBus, but it would be
+another source of data) and send to the browser the observed items.
+
+When you get the index page in your browser you should see it update every second as it receives a message.
+
+== RxJava Http examples
+
+These examples shows the Rxified HTTP api.
+
+=== Simple
+
+A simple http server and client.
+
+The server uses an `Observable<HttpServerRequest>` to serve request:
+
+link:src/main/java/io/vertx/example/rxjava/http/client/simple/Server.java[RxJava simple HTTP server]
+
+The client uses an `Observable<HttpClientRequest` and applies `flatMap` to get a `Observable<Buffer>`
+
+link:src/main/java/io/vertx/example/rxjava/http/client/simple/Client.java[RxJava simple HTTP client]
+
+=== Reduce
+
+Same as _simple_ example however the client applies several operations on this observable to end
+with the http client response:
+
+* `flatMap` transforms the `Observable<HttpClientResponse>` -> `Observable<Buffer>`
+* `reduce` merge all response buffers in a single buffer
+* `map` transform the buffer to a string
+* `subscribe` delivers the response content
+
+link:src/main/java/io/vertx/example/rxjava/http/client/reduce/Client.java[RxJava reduce HTTP client]
+
+=== Zip
+
+A variation of the _simple_ example with two client requests mapped to an `Observable<JsonObject>`
+ and then _zipped_ in a single json object.
+
+The main interest is to get the final result when the two responses are delivered.
+
+link:src/main/java/io/vertx/example/rxjava/http/client/zip/Client.java[RxJava zip HTTP client]
+
+=== Unmarshalling
+
+The http client json response is unmarshalled to a Java object: the `RxHelper.unmarshaller` static method
+ creates an Rx operator applied to the response via the `lift`.
+
+link:src/main/java/io/vertx/example/rxjava/http/client/unmarshalling/Client.java[RxJava unmarshalling HTTP client]
+
+== RxJava event bus examples
+
+The event bus provides a natural fit with the Rx api.
+
+=== Publish / Subscribe
+
+A reinterpreation of the core publish / subscribe example with the subscriber using the Rx api.
+
+link:src/main/java/io/vertx/example/rxjava/eventbus/pubsub/Receiver.java[RxJava event bus pubsub receiver]
+link:src/main/java/io/vertx/example/rxjava/eventbus/pubsub/Sender.java[RxJava event bus pubsub sender]
+
+=== Ping / Pong
+
+An example of sending, receiving and replying to messages using the Rx api.
+
+link:src/main/java/io/vertx/example/rxjava/eventbus/pingpong/PingPong.java[RxJava simple ping-pong ]
+
+=== Zip replies
+
+The example Sender sends two messages over the event bus and wait for replies, the
+_zip_ operation is applied to deliver a single reply when the two replies are received.
+
+link:src/main/java/io/vertx/example/rxjava/eventbus/zipreplies/Receiver.java[RxJava zipreplies eventbus receiver]
+link:src/main/java/io/vertx/example/rxjava/eventbus/zipreplies/Sender.java[RxJava zipreplies eventbus sender]
+
+== RxJava Database examples
+
+=== Jdbc example
+
+An example showing the Jdbc Service Rxified api, after the client connected to the database, it chains
+operations via the `flatMap` operation and then subscribes to the result.
+
+link:src/main/java/io/vertx/example/rxjava/database/jdbc/Client.java[RxJava jdbc client]
+
+=== Mongo example
+
+An example showing the Mongo Service Rxified api, after the client connected to Mongo, it chains
+`createCollection` and `insert` via _flatMap_ and then subscribes to the result to do a query
+in the _onComplete_.
+
+link:src/main/java/io/vertx/example/rxjava/database/mongo/Client.java[RxJava Mongo client]
+
+== Scheduler examples
+
+Vertx for RxJava provides schedulers for performing delayed, periodic actions.
+
+=== Periodic events
+
+RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second
+periodic observable scheduled on Vertx event loop.
+
+link:src/main/java/io/vertx/example/rxjava/scheduler/timer/Periodic.java[Periodic scheduled action]
+
+=== Blocking action example
+
+When an Observable operation is blocking, a blocking Vertx scheduler can be used to perform the action, this
+examples shows how blocking operation can be scheduled on Vert.x
+
+link:src/main/java/io/vertx/example/rxjava/scheduler/blocking/Scheduled.java[Blocking scheduled action]

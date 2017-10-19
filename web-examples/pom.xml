@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-examples</artifactId>
-  <version>3.4.2</version>
+  <version>3.5.0</version>
 
   <properties>
     <slf4j.version>1.7.21</slf4j.version>
@@ -29,7 +29,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>1.1.33.Fork26</version>
+      <version>2.0.6.Final</version>
     </dependency>
 
     <dependency>
@@ -65,6 +65,12 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-auth-jwt</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-auth-oauth2</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -129,6 +135,11 @@
       <version>${project.version}</version>
       <classifier>shaded</classifier>
     </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-api-contract</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -164,7 +175,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3720/</url>
         </repository>
       </repositories>
     </profile>

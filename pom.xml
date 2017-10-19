@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>3.4.2</version>
+  <version>3.5.0</version>
 
   <modules>
     <module>maven-simplest</module>
@@ -19,6 +19,7 @@
     <module>web-examples</module>
     <module>web-client-examples</module>
     <module>rx-examples</module>
+    <module>rxjava2-examples</module>
     <module>examples-utils</module>
     <module>unit-examples</module>
     <module>metrics-examples</module>
@@ -45,12 +46,24 @@
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>
-    <module>mqtt-server-examples</module>
+    <module>mqtt-examples</module>
     <module>grpc-examples</module>
     <module>kafka-examples</module>
+    <module>kotlin-examples/coroutines</module>
   </modules>
 
   <profiles>
+
+    <profile>
+      <id>java9</id>
+      <activation>
+        <jdk>9</jdk>
+      </activation>
+      <modules>
+        <module>java9-examples</module>
+      </modules>
+    </profile>
+
     <profile>
       <!-- Use -DskipDocker as the docker module requires docker to be installed, there are built an their own profile -->
       <id>docker</id>
@@ -71,7 +84,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3720/</url>
         </repository>
       </repositories>
     </profile>

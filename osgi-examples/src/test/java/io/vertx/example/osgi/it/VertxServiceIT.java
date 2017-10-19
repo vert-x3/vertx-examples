@@ -71,6 +71,7 @@ public class VertxServiceIT {
       mavenBundle("io.reactivex", "rxjava", "1.3.0"),
 
       mavenBundle("io.vertx", "vertx-web").versionAsInProject(),
+      mavenBundle("io.vertx", "vertx-bridge-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web-client").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-rx-java").versionAsInProject(),
@@ -84,7 +85,7 @@ public class VertxServiceIT {
       mavenBundle("org.apache.felix", "org.apache.felix.ipojo").versionAsInProject(),
       mavenBundle("commons-io", "commons-io").versionAsInProject(),
 
-      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.4.2") + ".jar"),
+      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.5.0") + ".jar"),
 
       junitBundles()
     );

@@ -4,7 +4,9 @@ require 'vertx-jdbc/jdbc_client'
 client = VertxJdbc::JDBCClient.create_shared($vertx, {
   'url' => "jdbc:hsqldb:mem:test?shutdown=true",
   'driver_class' => "org.hsqldb.jdbcDriver",
-  'max_pool_size' => 30
+  'max_pool_size' => 30,
+  'user' => "SA",
+  'password' => ""
 })
 
 client.get_connection() { |conn_err,conn|

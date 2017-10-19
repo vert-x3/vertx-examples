@@ -13,7 +13,7 @@ dependencies {
 	compile "io.vertx:vertx-web:$vertxVersion"
 	compile "io.vertx:vertx-web-templ-handlebars:$vertxVersion"
 
-	runtime "io.netty:netty-tcnative-boringssl-static:1.1.33.Fork26"
+	runtime "io.netty:netty-tcnative-boringssl-static:2.0.6.Final"
 }
 
 mainClassName = 'io.vertx.core.Launcher'
