@@ -160,6 +160,11 @@ The link:rx-examples/README.adoc[Vert.x RxJava examples] contains a wide range o
 
 The link:grpc-examples/README.adoc[Vert.x gRPC Examples] show how you can implement a gRPC service and invoke a gRPC service with Vert.x.
 
+=== Kotlin examples
+
+The link:kotlin-examples/README.adoc[Vert.x Kotlin Examples] shows a few examples with Kotlin such a REST application,
+Kotlin coroutines and usage of [KotlinTest](https://github.com/kotlintest/kotlintest).
+
 === Mail examples
 
 The link:mail-examples/README.adoc[Vert.x Mail examples]
