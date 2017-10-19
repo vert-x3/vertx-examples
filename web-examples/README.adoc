@@ -415,3 +415,10 @@ show how to secure and authenticate users, plus requesting specific authorities:
 Plus how to interact with secured resources using the user object directly.
 
 The link:src/main/java/io/vertx/example/web/oauth2/Server.java[OAuth2 example]
+
+== OpenAPI 3 server
+
+The OpenAPI 3 server the creation of a Vert.x Web router handler that performs web request/response validation
+based on an OpenAPI 3 yaml schema for of the Swagger Petstore application.
+
+The link:src/main/java/io/vertx/example/web/openapi3/OpenAPI3Server.java[OpenAPI 3 example]
