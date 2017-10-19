@@ -10,7 +10,9 @@ class JDBCExample : io.vertx.core.AbstractVerticle()  {
       obj(
         "url" to "jdbc:hsqldb:mem:test?shutdown=true",
         "driver_class" to "org.hsqldb.jdbcDriver",
-        "max_pool_size" to 30
+        "max_pool_size" to 30,
+        "user" to "SA",
+        "password" to ""
       )
     })
 
