@@ -1,6 +1,6 @@
 # Vert.x Kotlin Examples
 
-Here you can find the Vert.x [Kotlin](https://kotlinlang.org/) examples
+Here you can find the Vert.x https://kotlinlang.org/[Kotlin] examples
 
 === Coroutines examples
 
