@@ -2,7 +2,7 @@
 
 Basic JSON API written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can be used with Vert.x.
 
-This project is built on Gradle and is ready to be deployed on Heroku, hence it combines parts of the following 
+This project is built on Gradle (uses version 4.2.1) and is ready to be deployed on Heroku, hence it combines parts of the following 
 examples:
 
 - Gradle:
