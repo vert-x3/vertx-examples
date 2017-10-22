@@ -3,8 +3,7 @@
 This project is very similar to the maven-simplest project but instead of embedding Vert.x it shows an example
 of writing the code as a verticle.
 
-You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Launcher`
-and passes in the arguments `run io.vertx.example.HelloWorldVerticle`.
+You can run it directly in your IDE by creating a run configuration that uses the main class `io.vertx.core.Launcher`, passes in the arguments `run io.vertx.example.HelloWorldVerticle`, and specify using the classpath of module `maven-verticle`. 
 
 The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.
 
@@ -16,7 +15,7 @@ To run the fat jar:
 
     java -jar target/maven-verticle-3.5.0-fat.jar
 
-(You can take that jar and run it anywhere there is a Java 8+ JDK. It contains all the dependencies it needs so you
+(You can take that jar and run it anywhere there is a Java 8+ JRE. It contains all the dependencies it needs so you
 don't need to install Vert.x on the target machine).
 
 Now point your browser at http://localhost:8080
