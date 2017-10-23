@@ -1,6 +1,6 @@
 ### Vert.x + React.js SSR
 
-This projects aims at showing [Vert.x](http://vertx.io) and [react.js]https://facebook.github.io/react/) server side rendering capabilities.
+This projects aims at showing [Vert.x](http://vertx.io) and [react.js](https://facebook.github.io/react/) server side rendering capabilities.
 
 To run the project, simply run `npm install && npm start` from the project's root directory, then point your browser at [http://localhost:8080](http://localhost:8080) to get started.
 
