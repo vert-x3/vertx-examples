@@ -1,4 +1,4 @@
-package io.vertx.example.reactivex.scheduler.timer;
+package io.vertx.example.rxjava.scheduler.timer;
 
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
