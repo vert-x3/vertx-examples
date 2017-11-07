@@ -23,7 +23,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.serviceproxy.ProxyHelper;
+import io.vertx.serviceproxy.ServiceProxyBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -45,7 +45,7 @@ public class BookRestApi extends AbstractVerticle {
 
   @Override
   public void start(Future<Void> startFuture) throws Exception {
-    bookAsyncService = ProxyHelper.createProxy(BookAsyncService.class, vertx, BookAsyncService.ADDRESS);
+    bookAsyncService = new ServiceProxyBuilder(vertx).setAddress(BookAsyncService.ADDRESS).build(BookAsyncService.class);
 
     Router router = Router.router(vertx);
 

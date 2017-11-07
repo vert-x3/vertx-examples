@@ -18,7 +18,7 @@ package io.vertx.example.spring.worker;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-import io.vertx.serviceproxy.ProxyHelper;
+import io.vertx.serviceproxy.ServiceBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class SpringWorker extends AbstractVerticle {
 
   @Override
   public void start(Future<Void> startFuture) throws Exception {
-    ProxyHelper.registerService(BookAsyncService.class, vertx, bookAsyncService, BookAsyncService.ADDRESS).completionHandler(ar -> {
+    new ServiceBinder(vertx).setAddress(BookAsyncService.ADDRESS).register(BookAsyncService.class, bookAsyncService).completionHandler(ar ->{
       if (ar.succeeded()) {
         LOG.info("SpringWorker started");
         startFuture.complete();
