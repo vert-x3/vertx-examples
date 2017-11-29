@@ -168,3 +168,16 @@ examples shows how blocking operation can be scheduled on Vert.x
 
 link:src/main/java/io/vertx/example/reactivex/scheduler/blocking/Scheduled.java[Blocking scheduled action]
 link:src/main/java/io/vertx/example/reactivex/scheduler/blocking/Scheduled.java[Blocking scheduled action]
+
+== Scheduler examples
+
+These examples demonstrate usage of Vert.x net servers and clients with RxJava2
+
+=== Greeter
+
+This example combines `RecordParser` and RxJava2 for a TCP client/server exchange.
+When the client sends a name to the server, it replies with a greeting.
+Names and greetings are line-separated.
+
+link:src/main/java/io/vertx/example/reactivex/net/greeter/Client.java[Greeting client]
+link:src/main/java/io/vertx/example/reactivex/net/greeter/Server.java[Greeting Server]
