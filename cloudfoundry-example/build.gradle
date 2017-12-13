@@ -1,0 +1,28 @@
+plugins {
+	id 'java'
+	id 'application'
+	id "com.github.johnrengelman.shadow" version "2.0.2"
+}
+
+version = '0.1.0'
+jar.baseName = 'vertx-cf'
+jar.enabled = false
+mainClassName = 'hello.MainVerticle'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.vertx:vertx-core:3.5.+'
+    compile 'io.vertx:vertx-web:3.5.+'
+    
+    // logging dependencies
+    compile 'org.slf4j:slf4j-api:1.7.+'
+    compile 'org.slf4j:slf4j-simple:1.7.+'
+
+    // test dependencies
+    testCompile 'junit:junit:4.12'
+    testCompile 'io.vertx:vertx-unit:3.5.+'
+}
