@@ -4,50 +4,22 @@
 <head>
     <title>Simple use of Cross-Site XMLHttpRequest (Using Access Control)</title>
     <script type="text/javascript">
-        //<![CDATA[
-
-        var invocation = new XMLHttpRequest();
         var url = 'http://localhost:8080/access-control-with-get/';
-        var invocationHistoryText;
 
-        function callOtherDomain(){
-            if(invocation)
-            {
-                invocation.open('GET', url, true);
-                invocation.onreadystatechange = handler;
-                invocation.send();
-            }
-            else
-            {
-                invocationHistoryText = "No Invocation TookPlace At All";
-                var textNode = document.createTextNode(invocationHistoryText);
-                var textDiv = document.getElementById("textDiv");
-                textDiv.appendChild(textNode);
-            }
-
-        }
-        function handler(evtXHR)
-        {
-            if (invocation.readyState == 4)
-            {
-                if (invocation.status == 200)
-                {
-                    var response = invocation.responseXML;
-                    var invocationHistory = response.getElementsByTagName('invocationHistory').item(0).firstChild.data;
-                    invocationHistoryText = document.createTextNode(invocationHistory);
-                    var textDiv = document.getElementById("textDiv");
-                    textDiv.appendChild(invocationHistoryText);
-
+        function callOtherDomain() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var e = document.createElement('p');
+                    e.innerHTML = xhttp.responseText;
+                    document.getElementById("textDiv").appendChild(e);
+                } else {
+                    console.log("XMLHttpRequest readyState:" + this.readyState + " status: " + this.status);
                 }
-                else
-                    alert("Invocation Errors Occured");
-            }
-            else
-                dump("currently the application is at" + invocation.readyState);
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
         }
-        //]]>
-
-
     </script>
 </head>
 <body>
@@ -57,7 +29,7 @@
     </p>
 </form>
 <p id="intro">
-    This page basically makes invocations to another domain using cross-site XMLHttpRequest mitigated by Access Control.  This is the simple scenario that is <em>NOT</em> preflighted, and the invocation to a resource on another domain takes place using a simple HTTP GET.
+    This page basically makes invocations to another domain using cross-site XMLHttpRequest mitigated by Access Control. This is the simple scenario that is <em>NOT</em> preflighted, and the invocation to a resource on another domain takes place using a simple HTTP GET.
 </p>
 <div id="textDiv">
     This XHTML document invokes another resource using cross-site XHR.
