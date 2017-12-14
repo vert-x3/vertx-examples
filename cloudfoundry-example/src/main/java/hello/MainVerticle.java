@@ -52,14 +52,13 @@ public class MainVerticle extends AbstractVerticle {
         httpServer.requestHandler(mainRouter::accept);
 
         // Start listening
-        httpServer.listen(PORT, handler -> {
-            if (handler.succeeded()) {
+        httpServer.listen(PORT, asyncResult -> {
+            if (asyncResult.succeeded()) {
                 logger.info("Listening on port: " + PORT);
                 startFuture.complete();
             } else {
-                String errorMessage = "Failed to bind on port " + PORT + ". Is it being used?";
-                logger.error(errorMessage);
-                startFuture.fail(errorMessage);
+                logger.error("Failed to bind on port " + PORT + ". Is it being used?");
+                startFuture.fail(asyncResult.cause());
             }
         });
     }
