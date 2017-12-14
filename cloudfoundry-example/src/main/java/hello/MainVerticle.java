@@ -34,7 +34,6 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start(Future<Void> startFuture) throws Exception {
-        super.start(startFuture);
 
         // PORT env check
         try {
@@ -56,15 +55,18 @@ public class MainVerticle extends AbstractVerticle {
         httpServer.listen(PORT, handler -> {
             if (handler.succeeded()) {
                 logger.info("Listening on port: " + PORT);
+                startFuture.complete();
             } else {
-                logger.error("Failed to bind on port " + PORT + ". Is it being used?");
+                String errorMessage = "Failed to bind on port " + PORT + ". Is it being used?";
+                logger.error(errorMessage);
+                startFuture.fail(errorMessage);
             }
         });
     }
 
     @Override
     public void stop(Future<Void> stopFuture) throws Exception {
-        super.stop(stopFuture);
         logger.info("Stopped listening on port: " + PORT);
+        stopFuture.complete();
     }
 }

@@ -1,8 +1,8 @@
 = Vert.x on Cloud Foundry
 
-This demo shows a very simple hello world Vert.x project for link:https://www.cloudfoundry.org/[Cloud Foundry]. It has a simple HTTP server which simply serves the /webroot/index.html.
+This demo shows a very simple hello world Vert.x project for link:https://www.cloudfoundry.org/[Cloud Foundry]. It has a simple HTTP server which simply serves the `/webroot/index.html`.
 
-This demo uses link:http://vertx.io/[Vert.x] and is packed using the official link:https://github.com/cloudfoundry/java-buildpack[CloudFoundry java-buildpack]. The `manifest.yml` specifies the app's memory to be 768MB because any lower and the java-buildpack throws an error that it can't allocate enough heap space. (See)
+This demo uses link:http://vertx.io/[Vert.x] and is packed using the official link:https://github.com/cloudfoundry/java-buildpack[CloudFoundry java-buildpack]. The `manifest.yml` specifies the app's memory to be 768MB because any lower and the java-buildpack throws an error that it can't allocate enough heap space. (See the link:https://www.cloudfoundry.org/certified-platforms/[list of certified platforms]).
 
 The environment variable `PORT` is normally provided by your CloudFoundry service, and therefore can change when being deployed. Otherwise the default port is `8080`.
 
