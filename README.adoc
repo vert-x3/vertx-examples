@@ -190,6 +190,10 @@ It depicts how a service provider can be implemented and how the published servi
 
 The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples using Vert.x in an OSGi context.
 
+=== Cloud Foundry examples
+
+The link:cloudfoundry-examples/README.adoc[Vert.x Cloud Foundry example] shows how to deploy Vert.x application to a Cloud Foundry service or platform of your choice.
+
 === Docker examples
 
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
