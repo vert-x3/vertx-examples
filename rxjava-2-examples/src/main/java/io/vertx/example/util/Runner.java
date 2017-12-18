@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  */
 public class Runner {
 
-  private static final String RX_EXAMPLES_DIR = "rx-examples";
+  private static final String RX_EXAMPLES_DIR = "rxjava-2-examples";
   private static final String RX_EXAMPLES_JAVA_DIR = RX_EXAMPLES_DIR + "/src/main/java/";
 
   public static void runClusteredExample(Class clazz) {

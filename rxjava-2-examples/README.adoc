@@ -181,3 +181,15 @@ Names and greetings are line-separated.
 
 link:src/main/java/io/vertx/example/reactivex/net/greeter/Client.java[Greeting client]
 link:src/main/java/io/vertx/example/reactivex/net/greeter/Server.java[Greeting Server]
+
+== Rxjava2 Services examples
+
+Provide Rxified Vert.x Services examples
+
+=== Service Proxy example
+
+This example shows you how to make your service proxy Rxified with Rxjava.
+
+link:src/main/java/io/vertx/example/reactivex/services/serviceproxy/ServiceConsumerVerticle.java[Service Consumer Verticle]
+link:src/main/java/io/vertx/example/reactivex/services/serviceproxy/SomeDatabaseServiceVerticle.java[Service Provider Verticle]
+link:src/main/java/io/vertx/example/reactivex/services/serviceproxy/SomeDatabaseService.java[Service Proxy interface]
