@@ -44,9 +44,9 @@ public class Transaction extends AbstractVerticle {
           .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
           .flatMap(resultSet -> conn.rxQuery("SELECT * FROM colors"))
           // commit if all succeeded
-          .doOnSuccess(resultSet -> conn.rxCommit())
+          .doOnSuccess(resultSet -> conn.rxCommit().subscribe())
           // rollback if any failed
-          .doOnError(throwable -> conn.rxRollback())
+          .doOnError(throwable -> conn.rxRollback().subscribe())
           // close the connection regardless succeeded or failed
           .doAfterTerminate(conn::close)
       ).subscribe(resultSet -> {
