@@ -37,10 +37,10 @@ public class Transaction extends AbstractVerticle {
           // disable auto commit to manage transaction manually
           .rxSetAutoCommit(false)
           .flatMap(autoCommit -> conn.rxExecute(sql))
-          .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
-          .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
-          .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
-          .flatMap(resultSet -> conn.rxQuery("SELECT * FROM colors"))
+          .flatMap(executed -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
+          .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
+          .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
+          .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))
           // commit if all succeeded
           .doOnSuccess(resultSet -> conn.rxCommit().subscribe())
           // rollback if any failed
