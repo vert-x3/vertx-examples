@@ -39,7 +39,7 @@ public class Transaction extends AbstractVerticle {
           // switch from Completable to default Single value
           .toSingleDefault(false)
           .flatMap(autoCommit -> conn.rxExecute(sql).toSingleDefault(true))
-          .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
+          .flatMap(executed -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
           .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
           .flatMap(resultSet -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
           .flatMap(resultSet -> conn.rxQuery("SELECT * FROM colors"))
