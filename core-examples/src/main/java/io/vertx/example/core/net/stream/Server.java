@@ -20,7 +20,7 @@ public class Server extends AbstractVerticle {
       // Create batch read stream
       BatchReadStream readStream = new BatchReadStream(socket);
 
-      // Pause reading data (before pumping)
+      // Pause reading data
       readStream.pause();
 
       // Create batch write stream
