@@ -28,10 +28,32 @@ public class Server extends AbstractVerticle {
 
       // Register read stream handler
       readStream.handler(batch -> {
+
+        // Print received batch object from the client
         System.out.println("Server Received : " + batch.getRaw().toString());
-        // Write back to the client
+
+        // Write back batch object to the client
         writeStream.write(batch);
-      });
+
+        // Check if write queue is full
+        if (writeStream.writeQueueFull()) {
+
+          // Pause reading data
+          readStream.pause();
+
+          // Called once write queue is ready to accept more data
+          writeStream.drainHandler(done -> {
+
+            // Resume reading data
+            readStream.resume();
+
+          });
+        }
+      }).endHandler(v -> socket.close())
+        .exceptionHandler(t -> {
+          t.printStackTrace();
+          socket.close();
+        });
 
       // Resume reading data
       readStream.resume();

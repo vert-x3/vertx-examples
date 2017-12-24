@@ -36,7 +36,11 @@ public class Client extends AbstractVerticle {
         // Register read stream handler
         readStream.handler(batch -> {
           System.out.println("Client Received : " + batch.getRaw().toString());
-        });
+        }).endHandler(v -> socket.close())
+          .exceptionHandler(t -> {
+            t.printStackTrace();
+            socket.close();
+          });
 
         // Resume reading data
         readStream.resume();
