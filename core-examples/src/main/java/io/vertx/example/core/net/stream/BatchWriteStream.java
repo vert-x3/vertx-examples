@@ -25,9 +25,11 @@ public class BatchWriteStream implements WriteStream<Batch> {
   @Override
   public BatchWriteStream write(Batch batch) {
     final Buffer protocol = Buffer.buffer();
+    protocol.appendInt(0);
     protocol.appendByte((byte) batch.getType());
     protocol.appendBuffer(batch.getRaw());
-    writeStream.write(Buffer.buffer().appendInt(protocol.length()).appendBuffer(protocol));
+    protocol.setInt(0, protocol.length() - 4);
+    writeStream.write(protocol);
     return this;
   }
 
