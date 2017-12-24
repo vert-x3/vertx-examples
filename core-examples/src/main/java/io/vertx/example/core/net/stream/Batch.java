@@ -5,6 +5,13 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
 /*
+ *
+ * Batch protocol uses prefix length structure
+ *
+ * Message Length    : int
+ * Message Type      : byte('O') for JsonObject | byte('A') for JsonArray | byte('B') for Buffer
+ * Message Payload   : byte[]
+ *
  *  @author <a href="mailto:emad.albloushi@gmail.com">Emad Alblueshi</a>
  */
 
