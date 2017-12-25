@@ -27,31 +27,31 @@ public class Client extends AbstractVerticle {
 
         NetSocket socket = ar.result();
 
-        // Create batch read stream
-        BatchReadStream readStream = new BatchReadStream(socket);
+        // Create batch stream for reading and writing
+        BatchStream batchStream = new BatchStream(socket, socket);
 
         // Pause reading data
-        readStream.pause();
+        batchStream.pause();
 
         // Register read stream handler
-        readStream.handler(batch -> {
+        batchStream.handler(batch -> {
           System.out.println("Client Received : " + batch.getRaw().toString());
-        }).endHandler(v -> socket.close())
+        }).endHandler(v -> batchStream.end())
           .exceptionHandler(t -> {
             t.printStackTrace();
-            socket.close();
+            batchStream.end();
           });
 
         // Resume reading data
-        readStream.resume();
+        batchStream.resume();
 
-        // Dummy JsonObject
+        // JsonObject
         JsonObject jsonObject = new JsonObject()
           .put("id", UUID.randomUUID().toString())
           .put("name", "Vert.x")
           .put("timestamp", Instant.now());
 
-        // Dummy JsonArray
+        // JsonArray
         JsonArray jsonArray = new JsonArray()
           .add(UUID.randomUUID().toString())
           .add("Vert.x")
@@ -60,13 +60,10 @@ public class Client extends AbstractVerticle {
         // Buffer
         Buffer buffer = Buffer.buffer("Vert.x is awesome!");
 
-        // Create batch write stream
-        BatchWriteStream writeStream = new BatchWriteStream(socket);
-
         // Write to socket
-        writeStream.write(new Batch(jsonObject));
-        writeStream.write(new Batch(jsonArray));
-        writeStream.write(new Batch(buffer));
+        batchStream.write(new Batch(jsonObject));
+        batchStream.write(new Batch(jsonArray));
+        batchStream.write(new Batch(buffer));
 
       } else {
         System.out.println("Failed to connect " + ar.cause());

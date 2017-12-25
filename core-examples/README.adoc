@@ -500,11 +500,13 @@ link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java
 
 == ReadStream and WriteStream custom implementation
 
-A simple example illustrating how to implement
-link:src/main/java/io/vertx/example/core/net/stream/Batch.java[custom network protocol] for
-link:src/main/java/io/vertx/example/core/net/stream/BatchReadStream.java[ReadStream] and
-link:src/main/java/io/vertx/example/core/net/stream/BatchWriteStream.java[WriteStream]
-to use them in
-link:src/main/java/io/vertx/example/core/net/stream/Client.java[NetClient]
-and link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer].
+An example illustrating how to create simple custom
+link:src/main/java/io/vertx/example/core/net/stream/Batch.java[length prefix message] with
+link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[ReadStream] and
+link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[WriteStream]
+implementation.
+
+To see how it works simply run
+link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer] then
+link:src/main/java/io/vertx/example/core/net/stream/Client.java[NetClient].
 
