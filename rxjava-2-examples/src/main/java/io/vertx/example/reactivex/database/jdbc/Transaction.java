@@ -1,5 +1,7 @@
 package io.vertx.example.reactivex.database.jdbc;
 
+import io.reactivex.Single;
+import io.reactivex.exceptions.CompositeException;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
@@ -34,19 +36,26 @@ public class Transaction extends AbstractVerticle {
       .rxGetConnection()
       .flatMap(conn ->
         conn
-          // disable auto commit to manage transaction manually
+          // Disable auto commit to handle transaction manually
           .rxSetAutoCommit(false)
-          // switch from Completable to default Single value
+          // Switch from Completable to default Single value
           .toSingleDefault(false)
+          // Create table
           .flatMap(autoCommit -> conn.rxExecute(sql).toSingleDefault(true))
+          // Insert colors
           .flatMap(executed -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
           .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
           .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
-          .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))
           // commit if all succeeded
-          .doOnSuccess(resultSet -> conn.rxCommit().subscribe())
-          // rollback if any failed
-          .doOnError(throwable -> conn.rxRollback().subscribe())
+          .flatMap(updateResult -> conn.rxCommit().toSingleDefault(true).map(commit -> updateResult))
+          // Rollback if any failed with exception propagation
+          .onErrorResumeNext(ex -> conn.rxRollback()
+            .toSingleDefault(true)
+            .onErrorResumeNext(ex2 -> Single.error(new CompositeException(ex, ex2)))
+            .flatMap(ignore -> Single.error(ex))
+          )
+          // Get colors if all succeeded
+          .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))
           // close the connection regardless succeeded or failed
           .doAfterTerminate(conn::close)
       ).subscribe(resultSet -> {

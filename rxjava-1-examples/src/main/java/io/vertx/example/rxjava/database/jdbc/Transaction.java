@@ -5,6 +5,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.ext.jdbc.JDBCClient;
+import rx.Single;
+import rx.exceptions.CompositeException;
 
 /*
  * @author <a href="mailto:emad.albloushi@gmail.com">Emad Alblueshi</a>
@@ -34,18 +36,24 @@ public class Transaction extends AbstractVerticle {
       .rxGetConnection()
       .flatMap(conn ->
         conn
-          // disable auto commit to manage transaction manually
+          // Disable auto commit to handle transaction manually
           .rxSetAutoCommit(false)
+          // Create table
           .flatMap(autoCommit -> conn.rxExecute(sql))
+          // Insert colors
           .flatMap(executed -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
           .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
           .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
+          // Commit if all succeeded
+          .flatMap(updateResult -> conn.rxCommit().map(commit -> updateResult))
+          // Rollback if any failed with exception propagation
+          .onErrorResumeNext(ex -> conn.rxRollback()
+            .onErrorResumeNext(ex2 -> Single.error(new CompositeException(ex, ex2)))
+            .flatMap(ignore -> Single.error(ex))
+          )
+          // Get colors if all succeeded
           .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))
-          // commit if all succeeded
-          .doOnSuccess(resultSet -> conn.rxCommit().subscribe())
-          // rollback if any failed
-          .doOnError(throwable -> conn.rxRollback().subscribe())
-          // close the connection regardless succeeded or failed
+          // Close the connection regardless succeeded or failed
           .doAfterTerminate(conn::close)
       ).subscribe(resultSet -> {
       // Subscribe to get the final result
