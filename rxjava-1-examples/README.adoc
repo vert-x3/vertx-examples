@@ -141,6 +141,13 @@ operations via the `flatMap` operation and then subscribes to the result.
 
 link:src/main/java/io/vertx/example/rxjava/database/jdbc/Client.java[RxJava jdbc client]
 
+=== Jdbc Manual Transaction Handling
+
+An example showing an Rxified Jdbc api to handle transactions manually then commit if all succeeded or rollback with
+exception propagation to the caller in case of anyone failed.
+
+link:src/main/java/io/vertx/example/rxjava/database/jdbc/Transaction.java[RxJava JDBC Transaction]
+
 === Mongo example
 
 An example showing the Mongo Service Rxified api, after the client connected to Mongo, it chains
