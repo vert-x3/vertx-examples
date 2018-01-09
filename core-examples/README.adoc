@@ -497,3 +497,24 @@ vertx run script.groovy
 A simple example illustrating how to use the streaming `JsonParser` to parse a giant array of small objects.
 
 link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java[Java verticle parsing a giant JSON array in a non blocking way]
+
+== Custom ReadStream and WriteStream implementation
+
+An example illustrating how to create your custom prefix length protocol to read and write objects in wire. The example
+uses link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object,
+link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[ReadStream] and
+link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[WriteStream] implementation.
+
+The protocol structure for link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object is simple as
+illustrated below:
+
+```
+Length  : uInt32
+Type    : byte ['O' for JsonObject | 'A' for JsonArray | 'B' for Buffer]
+Payload : Buffer
+```
+
+The link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer] will receive the objects and write them
+back to the
+link:src/main/java/io/vertx/example/core/net/stream/Client.java[NetClient].
+
