@@ -1,0 +1,9 @@
+= Vert.x JUnit 5 examples
+
+This project illustrates how to use JUnit 5 with Vert.x for testing asynchronous operations.
+
+link:pom.xml[pom.xml] declares the dependencies and configures the Maven Surefire plugin.
+Gradle users should check the documentation at http://junit.org/junit5/docs/current/user-guide/#running-tests-build-gradle
+
+The link:src/test/java/hello/SampleVerticleTest.java[SampleVerticleTest.java] file contains a few test cases
+of how to deal with asynchronous events (timers, deployments, network requests, etc).
