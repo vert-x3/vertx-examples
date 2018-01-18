@@ -50,6 +50,7 @@
     <module>grpc-examples</module>
     <module>kafka-examples</module>
     <module>kotlin-examples/coroutines</module>
+    <module>junit5-examples</module>
   </modules>
 
   <profiles>
