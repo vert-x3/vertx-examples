@@ -416,7 +416,7 @@ Plus how to interact with secured resources using the user object directly.
 
 The link:src/main/java/io/vertx/example/web/oauth2/Server.java[OAuth2 example]
 
-== HTTP Request Validation & OpenAPI 3 Router Factory
+== HTTP Request Validation and OpenAPI 3 Router Factory
 
 The link:src/main/java/io/vertx/example/web/validation/ValidationExampleServer.java[ValidationExampleServer] is an
 example of various usages of validation capabilities included in
