@@ -14,9 +14,9 @@
 * under the License.
 */
 
-package io.vertx.examples.service;
+package io.vertx.example.web.proxies;
 
-import io.vertx.examples.service.ProcessorService;
+import io.vertx.example.web.proxies.MyService;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.Future;
@@ -32,29 +32,27 @@ import java.util.function.Function;
 import io.vertx.serviceproxy.ProxyHelper;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
+import io.vertx.example.web.proxies.MyService;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-import io.vertx.examples.service.ProcessorService;
 
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
 */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class ProcessorServiceVertxEBProxy implements ProcessorService {
+public class MyServiceVertxEBProxy implements MyService {
 
   private Vertx _vertx;
   private String _address;
   private DeliveryOptions _options;
   private boolean closed;
 
-  public ProcessorServiceVertxEBProxy(Vertx vertx, String address) {
+  public MyServiceVertxEBProxy(Vertx vertx, String address) {
     this(vertx, address, null);
   }
 
-  public ProcessorServiceVertxEBProxy(Vertx vertx, String address, DeliveryOptions options) {
+  public MyServiceVertxEBProxy(Vertx vertx, String address, DeliveryOptions options) {
     this._vertx = vertx;
     this._address = address;
     this._options = options;
@@ -64,22 +62,23 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
     } catch (IllegalStateException ex) {}
   }
 
-  public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
+  public MyService sayHello(String name, Handler<AsyncResult<String>> handler) {
     if (closed) {
-    resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
-      return;
+    handler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
+      return this;
     }
     JsonObject _json = new JsonObject();
-    _json.put("document", document);
+    _json.put("name", name);
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
-    _deliveryOptions.addHeader("action", "process");
-    _vertx.eventBus().<JsonObject>send(_address, _json, _deliveryOptions, res -> {
+    _deliveryOptions.addHeader("action", "sayHello");
+    _vertx.eventBus().<String>send(_address, _json, _deliveryOptions, res -> {
       if (res.failed()) {
-        resultHandler.handle(Future.failedFuture(res.cause()));
+        handler.handle(Future.failedFuture(res.cause()));
       } else {
-        resultHandler.handle(Future.succeededFuture(res.result().body()));
+        handler.handle(Future.succeededFuture(res.result().body()));
       }
     });
+    return this;
   }
 
 

@@ -404,27 +404,3 @@ Important files to note:
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080 and chat with a couple of browser windows!
-
-== Sock.js Proxy Service (TypeScript)
-
-This example shows how you can work with Sock.js Proxy services. Sock.js Proxy Services allow you to do RPC like
-operations on services deployed on the eventbus, directly from your client browser.
-
-There are some steps required before this example works. You will need to install the `NPM` dependencies in order to get
-webpack installed, once that is done e.g.: `npm install`, `webpack` will drive the typescript compiler and bundle the
-application to a single js bundle.
-
-Important files to note:
-
-* link:src/main/java/io/vertx/example/web/proxies/Server.java[Java Vert.x server]
-* link:src/main/java/io/vertx/example/web/proxies/client/main.ts[TypeScript app example]
-* link:src/main/java/io/vertx/example/web/proxies/client/my_service-proxy.ts[Vert.x generated TypeScript proxy]
-
-Minimal webpack config:
-
-* link:src/main/java/io/vertx/example/web/proxies/package.json[dependencies for webpack]
-* link:src/main/java/io/vertx/example/web/proxies/webpack.config.js[Webpack config]
-* link:src/main/java/io/vertx/example/web/proxies/tsconfig.json[Typescript compiler config]
-
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and chat with a couple of browser windows!

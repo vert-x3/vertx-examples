@@ -14,9 +14,9 @@
 * under the License.
 */
 
-package io.vertx.examples.service;
+package io.vertx.example.web.proxies;
 
-import io.vertx.examples.service.ProcessorService;
+import io.vertx.example.web.proxies.MyService;
 import io.vertx.core.Vertx;
 import io.vertx.core.Handler;
 import io.vertx.core.AsyncResult;
@@ -39,36 +39,34 @@ import io.vertx.serviceproxy.ProxyHelper;
 import io.vertx.serviceproxy.ProxyHandler;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
+import io.vertx.example.web.proxies.MyService;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-import io.vertx.examples.service.ProcessorService;
 
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
 */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class ProcessorServiceVertxProxyHandler extends ProxyHandler {
+public class MyServiceVertxProxyHandler extends ProxyHandler {
 
   public static final long DEFAULT_CONNECTION_TIMEOUT = 5 * 60; // 5 minutes 
 
   private final Vertx vertx;
-  private final ProcessorService service;
+  private final MyService service;
   private final long timerID;
   private long lastAccessed;
   private final long timeoutSeconds;
 
-  public ProcessorServiceVertxProxyHandler(Vertx vertx, ProcessorService service) {
+  public MyServiceVertxProxyHandler(Vertx vertx, MyService service) {
     this(vertx, service, DEFAULT_CONNECTION_TIMEOUT);
   }
 
-  public ProcessorServiceVertxProxyHandler(Vertx vertx, ProcessorService service, long timeoutInSecond) {
+  public MyServiceVertxProxyHandler(Vertx vertx, MyService service, long timeoutInSecond) {
     this(vertx, service, true, timeoutInSecond);
   }
 
-  public ProcessorServiceVertxProxyHandler(Vertx vertx, ProcessorService service, boolean topLevel, long timeoutSeconds) {
+  public MyServiceVertxProxyHandler(Vertx vertx, MyService service, boolean topLevel, long timeoutSeconds) {
     this.vertx = vertx;
     this.service = service;
     this.timeoutSeconds = timeoutSeconds;
@@ -116,10 +114,8 @@ public class ProcessorServiceVertxProxyHandler extends ProxyHandler {
       }
       accessed();
       switch (action) {
-
-
-        case "process": {
-          service.process((io.vertx.core.json.JsonObject)json.getValue("document"), createHandler(msg));
+        case "sayHello": {
+          service.sayHello((java.lang.String)json.getValue("name"), createHandler(msg));
           break;
         }
         default: {

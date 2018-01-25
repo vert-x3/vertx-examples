@@ -13,6 +13,7 @@
   <modules>
     <module>service-provider</module>
     <module>service-consumer</module>
+    <module>sockjs-proxies</module>
   </modules>
 
   <profiles>
