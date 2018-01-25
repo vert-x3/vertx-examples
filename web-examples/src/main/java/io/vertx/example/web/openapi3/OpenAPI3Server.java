@@ -1,17 +1,16 @@
 package io.vertx.example.web.openapi3;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpMethod;
+import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.example.util.Runner;
+import io.vertx.ext.web.Router;
 import io.vertx.ext.web.api.RequestParameter;
 import io.vertx.ext.web.api.RequestParameters;
-import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.Router;
+import io.vertx.ext.web.api.contract.DesignDrivenRouterFactoryOptions;
 import io.vertx.ext.web.api.contract.openapi3.OpenAPI3RouterFactory;
 import io.vertx.ext.web.api.validation.ValidationException;
 
@@ -21,19 +20,20 @@ public class OpenAPI3Server extends AbstractVerticle {
   HttpServer server;
   Logger logger = LoggerFactory.getLogger("OpenAPI3RouterFactory");
 
-  public void start() {
+  public void start(Future future) {
     // Load the api spec. This operation is asynchronous
     OpenAPI3RouterFactory.createRouterFactoryFromFile(this.vertx, getClass().getResource("/petstore.yaml").getFile(), openAPI3RouterFactoryAsyncResult -> {
       if (openAPI3RouterFactoryAsyncResult.failed()) {
         // Something went wrong during router factory initialization
         Throwable exception = openAPI3RouterFactoryAsyncResult.cause();
-        logger.error("oops!", exception);
-        this.stop();
+        logger.error("oops, something went wrong during factory initialization", exception);
+        future.fail(exception);
       }
       // Spec loaded with success
       OpenAPI3RouterFactory routerFactory = openAPI3RouterFactoryAsyncResult.result();
       // Add an handler with operationId
       routerFactory.addHandlerByOperationId("listPets", routingContext -> {
+        // Load the parsed parameters
         RequestParameters params = routingContext.get("parsedParameters");
         // Handle listPets operation
         RequestParameter limitParameter = params.queryParameter(/* Parameter name */ "limit");
@@ -41,9 +41,10 @@ public class OpenAPI3Server extends AbstractVerticle {
           // limit parameter exists, use it!
           Integer limit = limitParameter.getInteger();
         } else {
-          // limit parameter doesn't exist (it's not required). If it's required you don't have to check if it's null!
+          // limit parameter doesn't exist (it's not required).
+          // If it's required you don't have to check if it's null!
         }
-        routingContext.response().setStatusMessage("Called listPets").end();
+        routingContext.response().setStatusMessage("OK").end();
       });
       // Add a failure handler
       routerFactory.addFailureHandlerByOperationId("listPets", routingContext -> {
@@ -63,18 +64,26 @@ public class OpenAPI3Server extends AbstractVerticle {
         routingContext.next();
       });
 
-      // Before router creation you can enable or disable mounting of a default failure handler for ValidationException
-      routerFactory.enableValidationFailureHandler(false);
+      // Before router creation you can enable/disable various router factory behaviours
+      DesignDrivenRouterFactoryOptions factoryOptions = new DesignDrivenRouterFactoryOptions()
+        .setMountValidationFailureHandler(false) // Disable mounting of dedicated validation failure handler
+        .setMountResponseContentTypeHandler(true); // Mount ResponseContentTypeHandler automatically
 
       // Now you have to generate the router
-      Router router = routerFactory.getRouter();
+      Router router = routerFactory.setOptions(factoryOptions).getRouter();
 
       // Now you can use your Router instance
       server = vertx.createHttpServer(new HttpServerOptions().setPort(8080).setHost("localhost"));
-      server.requestHandler(router::accept).listen();
+      server.requestHandler(router::accept).listen((ar) ->  {
+        if (ar.succeeded()) {
+          logger.info("Server started on port " + ar.result().actualPort());
+          future.complete();
+        } else {
+          logger.error("oops, something went wrong during server initialization", ar.cause());
+          future.fail(ar.cause());
+        }
+      });
     });
-
-    logger.info("Server started!");
 
   }
 
