@@ -1,3 +1,6 @@
+// the location for your service proxy is dependent on the generated code
+// path, usually src/main/generated, for demo purposes the file has been
+// copied to the current directory
 import {MyService} from './my_service-proxy'
 
 declare const EventBus : any;
