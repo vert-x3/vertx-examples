@@ -10,7 +10,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.api.RequestParameter;
 import io.vertx.ext.web.api.RequestParameters;
-import io.vertx.ext.web.api.contract.DesignDrivenRouterFactoryOptions;
+import io.vertx.ext.web.api.contract.RouterFactoryOptions;
 import io.vertx.ext.web.api.contract.openapi3.OpenAPI3RouterFactory;
 import io.vertx.ext.web.api.validation.ValidationException;
 
@@ -65,7 +65,7 @@ public class OpenAPI3Server extends AbstractVerticle {
       });
 
       // Before router creation you can enable/disable various router factory behaviours
-      DesignDrivenRouterFactoryOptions factoryOptions = new DesignDrivenRouterFactoryOptions()
+      RouterFactoryOptions factoryOptions = new RouterFactoryOptions()
         .setMountValidationFailureHandler(false) // Disable mounting of dedicated validation failure handler
         .setMountResponseContentTypeHandler(true); // Mount ResponseContentTypeHandler automatically
 
