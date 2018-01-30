@@ -108,6 +108,12 @@ The http client json response is unmarshalled to a Java object: the `RxHelper.un
 
 link:src/main/java/io/vertx/example/reactivex/http/client/unmarshalling/Client.java[RxJava 2 unmarshalling HTTP client]
 
+=== Backpressure
+
+The http server which uses Vert.x-Web router and defines a "drop" strategy when the server is overloaded (backpressure).
+
+link:src/main/java/io/vertx/example/reactivex/web/backpressure/Server[RxJava 2 backpressure HTTP server]
+
 == RxJava event bus examples
 
 The event bus provides a natural fit with the Rx api.
