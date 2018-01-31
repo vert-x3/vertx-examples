@@ -22,7 +22,7 @@ public class OpenAPI3Server extends AbstractVerticle {
 
   public void start(Future future) {
     // Load the api spec. This operation is asynchronous
-    OpenAPI3RouterFactory.createRouterFactoryFromFile(this.vertx, getClass().getResource("/petstore.yaml").getFile(), openAPI3RouterFactoryAsyncResult -> {
+    OpenAPI3RouterFactory.create(this.vertx, "petstore.yaml", openAPI3RouterFactoryAsyncResult -> {
       if (openAPI3RouterFactoryAsyncResult.failed()) {
         // Something went wrong during router factory initialization
         Throwable exception = openAPI3RouterFactoryAsyncResult.cause();
