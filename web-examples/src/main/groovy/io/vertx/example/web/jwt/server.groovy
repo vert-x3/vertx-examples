@@ -21,7 +21,7 @@ router.route("/api/*").handler(JWTAuthHandler.create(jwt, "/api/newToken"))
 router.get("/api/newToken").handler({ ctx ->
   ctx.response().putHeader("Content-Type", "text/plain")
   ctx.response().end(jwt.generateToken([:], [
-    expiresInSeconds:60L
+    expiresInSeconds:60
   ]))
 })
 

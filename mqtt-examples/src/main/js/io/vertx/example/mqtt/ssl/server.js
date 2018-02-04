@@ -1,4 +1,4 @@
-var MqttServer = require("vertx-mqtt-server-js/mqtt_server");
+var MqttServer = require("vertx-mqtt-js/mqtt_server");
 
 var options = {
   "port" : 8883,

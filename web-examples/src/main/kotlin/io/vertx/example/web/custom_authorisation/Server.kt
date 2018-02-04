@@ -1,12 +1,12 @@
 package io.vertx.example.web.custom_authorisation
 
 import io.vertx.ext.auth.jwt.JWTAuth
-import io.vertx.ext.auth.jwt.JWTOptions
+import io.vertx.ext.jwt.JWTOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.JWTAuthHandler
 import io.vertx.ext.web.handler.StaticHandler
 import io.vertx.kotlin.core.json.*
-import io.vertx.kotlin.ext.auth.jwt.*
+import io.vertx.kotlin.ext.jwt.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -34,7 +34,7 @@ class Server : io.vertx.core.AbstractVerticle()  {
       ctx.response().end(jwt.generateToken(json {
         obj()
       }, JWTOptions(
-        expiresInSeconds = 60L,
+        expiresInSeconds = 60,
         permissions = authorities)))
     })
 

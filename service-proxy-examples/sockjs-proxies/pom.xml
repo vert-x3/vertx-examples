@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>sockjs-proxies-examples</artifactId>
-  <version>3.5.0-SNAPSHOT</version>
+  <version>3.5.1</version>
 
   <dependencies>
 

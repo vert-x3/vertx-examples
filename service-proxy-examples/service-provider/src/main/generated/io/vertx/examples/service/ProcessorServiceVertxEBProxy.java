@@ -64,6 +64,7 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
     } catch (IllegalStateException ex) {}
   }
 
+  @Override
   public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) {
     if (closed) {
     resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));

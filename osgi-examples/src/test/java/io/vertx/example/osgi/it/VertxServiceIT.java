@@ -85,7 +85,7 @@ public class VertxServiceIT {
       mavenBundle("org.apache.felix", "org.apache.felix.ipojo").versionAsInProject(),
       mavenBundle("commons-io", "commons-io").versionAsInProject(),
 
-      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.5.0") + ".jar"),
+      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.5.1") + ".jar"),
 
       junitBundles()
     );

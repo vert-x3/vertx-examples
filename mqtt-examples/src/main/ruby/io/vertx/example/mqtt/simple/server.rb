@@ -1,11 +1,11 @@
-require 'vertx-mqtt-server/mqtt_server'
+require 'vertx-mqtt/mqtt_server'
 
 options = {
   'port' => 1883,
   'host' => "0.0.0.0"
 }
 
-server = VertxMqttServer::MqttServer.create($vertx, options)
+server = VertxMqtt::MqttServer.create($vertx, options)
 
 server.endpoint_handler() { |endpoint|
 

@@ -1,5 +1,5 @@
 require 'vertx/vertx'
-require 'vertx-mqtt-server/mqtt_client'
+require 'vertx-mqtt/mqtt_client'
 require 'vertx/buffer'
 @MQTT_MESSAGE = "Hello Vert.x MQTT Client"
 @BROKER_HOST = "localhost"
@@ -9,7 +9,7 @@ options = {
   'keepAliveTimeSeconds' => 2
 }
 
-client = VertxMqttServer::MqttClient.create(Vertx::Vertx.vertx(), options)
+client = VertxMqtt::MqttClient.create(Vertx::Vertx.vertx(), options)
 
 
 # handler will be called when we have a message in topic we subscribing for

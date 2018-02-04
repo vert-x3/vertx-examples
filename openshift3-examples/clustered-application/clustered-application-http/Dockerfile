@@ -1,7 +1,7 @@
 
 FROM openjdk:8-jre-alpine
 
-ENV JAVA_APP_JAR clustered-application-http-3.5.0-fat.jar
+ENV JAVA_APP_JAR clustered-application-http-3.5.1-fat.jar
 
 EXPOSE 8080
 

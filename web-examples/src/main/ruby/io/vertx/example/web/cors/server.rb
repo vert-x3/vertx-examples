@@ -4,33 +4,50 @@ require 'vertx-web/static_handler'
 
 router = VertxWeb::Router.router($vertx)
 
-router.route().handler(&VertxWeb::CorsHandler.create("*").allowed_method(:GET).allowed_method(:POST).allowed_method(:OPTIONS).allowed_header("X-PINGARUNER").allowed_header("Content-Type").method(:handle))
+allowedHeaders = Java::JavaUtil::HashSet.new()
+allowedHeaders.add?("x-requested-with")
+allowedHeaders.add?("Access-Control-Allow-Origin")
+allowedHeaders.add?("origin")
+allowedHeaders.add?("Content-Type")
+allowedHeaders.add?("accept")
+allowedHeaders.add?("X-PINGARUNER")
+
+allowedMethods = Java::JavaUtil::HashSet.new()
+allowedMethods.add?(:GET)
+allowedMethods.add?(:POST)
+allowedMethods.add?(:OPTIONS)
+=begin
+ * these methods aren't necessary for this sample, 
+ * but you may need them for your projects
+ =end
+allowedMethods.add?(:DELETE)
+allowedMethods.add?(:PATCH)
+allowedMethods.add?(:PUT)
+
+router.route().handler(&VertxWeb::CorsHandler.create("*").allowed_headers(allowedHeaders).allowed_methods(allowedMethods).method(:handle))
 
 router.get("/access-control-with-get").handler() { |ctx|
-
-  ctx.response().set_chunked(true)
-
+  httpServerResponse = ctx.response()
+  httpServerResponse.set_chunked(true)
   headers = ctx.request().headers()
   headers.names().each do |key|
-    ctx.response().write(key)
-    ctx.response().write(headers.get(key))
-    ctx.response().write("\n")
+    httpServerResponse.write("#{key}: ")
+    httpServerResponse.write(headers.get(key))
+    httpServerResponse.write("<br>")
   end
-
-  ctx.response().end()
+  httpServerResponse.put_header("Content-Type", "application/text").end("Success")
 }
 
 router.post("/access-control-with-post-preflight").handler() { |ctx|
-  ctx.response().set_chunked(true)
-
+  httpServerResponse = ctx.response()
+  httpServerResponse.set_chunked(true)
   headers = ctx.request().headers()
   headers.names().each do |key|
-    ctx.response().write(key)
-    ctx.response().write(headers.get(key))
-    ctx.response().write("\n")
+    httpServerResponse.write("#{key}: ")
+    httpServerResponse.write(headers.get(key))
+    httpServerResponse.write("<br>")
   end
-
-  ctx.response().end()
+  httpServerResponse.put_header("Content-Type", "application/text").end("Success")
 }
 
 # Serve the static resources

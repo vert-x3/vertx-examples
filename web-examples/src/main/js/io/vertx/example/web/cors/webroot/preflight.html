@@ -2,73 +2,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Simple use of Cross-Site XMLHttpRequest (Using Access Control)</title>
-    <script type="text/javascript">
-        //<![CDATA[
+<title>Simple use of Cross-Site XMLHttpRequest (Using Access Control)</title>
+<script type="text/javascript">
+	var url = 'http://localhost:8080/access-control-with-post-preflight/';
 
-        var invocation = new XMLHttpRequest();
-        var url = 'http://localhost:8080/access-control-with-post-preflight/';
-        var invocationHistoryText;
-        var body = '<?xml version="1.0"?><person><name>Arun</name></person>';
-
-        function callOtherDomain(){
-            if(invocation)
-            {
-                invocation.open('POST', url, true);
-                invocation.setRequestHeader('X-PINGARUNER', 'pingpong');
-                invocation.setRequestHeader('Content-Type',
-                        'application/xml');
-                invocation.onreadystatechange = handler;
-                invocation.send(body);
-            }
-            else
-            {
-                invocationHistoryText = "No Invocation TookPlace At All";
-                var textNode = document.createTextNode(invocationHistoryText);
-                var textDiv = document.getElementById("textDiv");
-                textDiv.appendChild(textNode);
-            }
-
-        }
-        function handler(evtXHR)
-        {
-            if (invocation.readyState == 4)
-            {
-                if (invocation.status == 200)
-                {
-                    var response = invocation.responseText;
-                    //var invocationHistory = response.getElementsByTagName('invocationHistory').item(0).firstChild.data;
-                    invocationHistoryText = document.createTextNode(response);
-                    var textDiv = document.getElementById("textDiv");
-                    textDiv.appendChild(invocationHistoryText);
-
-                }
-                else
-                {
-                    alert("Invocation Errors Occured " + invocation.readyState + " and the status is " + invocation.status);
-                }
-            }
-            else
-            {
-                dump("currently the application is at" + invocation.readyState);
-            }
-        }
-        //]]>
-
-
-    </script>
+	function callOtherDomain() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var e = document.createElement('p');
+				e.innerHTML = xhttp.responseText;
+				document.getElementById("textDiv").appendChild(e);
+			} else {
+				console.log("XMLHttpRequest readyState:" + this.readyState
+						+ " status: " + this.status);
+			}
+		};
+		xhttp.open("POST", url, true);
+		xhttp.setRequestHeader('X-PINGARUNER', 'pingpong');
+		xhttp.setRequestHeader('Content-Type', 'application/text');
+		xhttp.send();
+	}
+</script>
 </head>
 <body>
-<form id="controlsToInvoke" action="">
-    <p>
-        <input type="button" value="Click to Invoke Another Site" onclick="callOtherDomain()" />
-    </p>
-</form>
-<p id="intro">
-    This page POSTs XML data to another domain using cross-site XMLHttpRequest mitigated by Access Control.  This is the preflight scenario and the invocation to a resource on another domain takes place using first an OPTIONS request, then an actual POST request.
-</p>
-<div id="textDiv">
-    This XHTML document POSTs to another resource using cross-site XHR.  If you get a response back, the content of that response should reflect what you POSTed.
-</div>
+	<form id="controlsToInvoke" action="">
+		<p>
+			<input type="button" value="Click to Invoke Another Site"
+				onclick="callOtherDomain()" />
+		</p>
+	</form>
+	<p id="intro">This page POSTs XML data to another domain using
+		cross-site XMLHttpRequest mitigated by Access Control. This is the
+		preflight scenario and the invocation to a resource on another domain
+		takes place using first an OPTIONS request, then an actual POST
+		request.</p>
+	<div id="textDiv">This XHTML document POSTs to another resource
+		using cross-site XHR. If you get a response back, the content of that
+		response should reflect what you POSTed.</div>
 </body>
 </html>

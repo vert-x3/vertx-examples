@@ -1,4 +1,4 @@
-require 'vertx-mqtt-server/mqtt_server'
+require 'vertx-mqtt/mqtt_server'
 
 options = {
   'port' => 8883,
@@ -9,7 +9,7 @@ options = {
   'ssl' => true
 }
 
-mqttServer = VertxMqttServer::MqttServer.create($vertx, options)
+mqttServer = VertxMqtt::MqttServer.create($vertx, options)
 
 mqttServer.endpoint_handler() { |endpoint|
 

@@ -1,5 +1,5 @@
 var Vertx = require("vertx-js/vertx");
-var MqttClient = require("vertx-mqtt-server-js/mqtt_client");
+var MqttClient = require("vertx-mqtt-js/mqtt_client");
 var Buffer = require("vertx-js/buffer");
 var MQTT_MESSAGE = "Hello Vert.x MQTT Client";
 var BROKER_HOST = "localhost";

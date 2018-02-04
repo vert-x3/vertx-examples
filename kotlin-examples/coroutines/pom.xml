@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>kotlin-coroutines-examples</artifactId>
-  <version>3.5.0</version>
+  <version>3.5.1</version>
 
   <properties>
     <slf4j.version>1.7.21</slf4j.version>

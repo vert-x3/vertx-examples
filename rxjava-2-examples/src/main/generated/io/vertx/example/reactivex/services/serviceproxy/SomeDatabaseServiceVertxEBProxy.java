@@ -63,6 +63,7 @@ public class SomeDatabaseServiceVertxEBProxy implements SomeDatabaseService {
     } catch (IllegalStateException ex) {}
   }
 
+  @Override
   public SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler) {
     if (closed) {
     resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));

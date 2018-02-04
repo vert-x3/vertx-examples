@@ -62,6 +62,7 @@ public class MyServiceVertxEBProxy implements MyService {
     } catch (IllegalStateException ex) {}
   }
 
+  @Override
   public MyService sayHello(String name, Handler<AsyncResult<String>> handler) {
     if (closed) {
     handler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
