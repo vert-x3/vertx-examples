@@ -22,6 +22,11 @@ public class Server extends AbstractVerticle {
 
   private static final int NUMBER_OF_REQUESTS = 1000;
   private static final int N_THREADS = 100;
+  private static final int PORT = 8080;
+
+  private static AtomicInteger allCounter = new AtomicInteger();
+  private static AtomicInteger successCounter = new AtomicInteger();
+  private static AtomicInteger failureCounter = new AtomicInteger();
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) throws InterruptedException {
@@ -47,25 +52,31 @@ public class Server extends AbstractVerticle {
         router.accept(req);
       });
 
-    server.rxListen(8080).subscribe(res -> generateRequests());
+    server.rxListen(PORT).subscribe(res -> generateRequests());
   }
 
   private void generateRequests() throws InterruptedException {
-    AtomicInteger ok = new AtomicInteger(0);
-    AtomicInteger fail = new AtomicInteger(0);
-
     List<Callable<HttpClient>> tasks = Collections.nCopies(NUMBER_OF_REQUESTS,
       () -> vertx.createHttpClient()
-        .getNow(8080, "localhost", "/", resp ->
-          log(resp, resp.statusCode() == 200 ? ok.incrementAndGet() : ok.get(),
-            resp.statusCode() == 503 ? fail.incrementAndGet() : fail.get())
+        .getNow(PORT, "localhost", "/", resp ->
+          log(resp, successCounter(resp), failureCounter(resp))
         ));
     Executors.newFixedThreadPool(N_THREADS).invokeAll(tasks);
-
   }
 
-  private void log(HttpClientResponse response, int ok, int fail) {
-    System.out.println(response.statusCode() + ", ok=" + ok + ", fail=" + fail);
+  private int failureCounter(HttpClientResponse resp) {
+    return resp.statusCode() == 503 ? failureCounter.incrementAndGet() : failureCounter.get();
+  }
+
+  private int successCounter(HttpClientResponse resp) {
+    return resp.statusCode() == 200 ? successCounter.incrementAndGet() : successCounter.get();
+  }
+
+  private void log(HttpClientResponse response, int success, int failure) {
+    System.out.println(String
+      .format(
+        "Response status code: [%s] , number of all responses [%s], number of correct responses [%s], number of dropped responses [%s]",
+        response.statusCode(), allCounter.incrementAndGet(), success, failure));
   }
 
 }

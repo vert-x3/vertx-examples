@@ -112,7 +112,7 @@ link:src/main/java/io/vertx/example/reactivex/http/client/unmarshalling/Client.j
 
 The http server which uses Vert.x-Web router and defines a "drop" strategy when the server is overloaded (backpressure).
 
-link:src/main/java/io/vertx/example/reactivex/web/backpressure/Server[RxJava 2 backpressure HTTP server]
+link:src/main/java/io/vertx/example/reactivex/web/backpressure/Server.java[RxJava 2 backpressure HTTP server]
 
 == RxJava event bus examples
 
