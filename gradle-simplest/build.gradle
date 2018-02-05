@@ -7,7 +7,7 @@ plugins {
 repositories {
   jcenter()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3744/"
+    url "https://oss.sonatype.org/content/repositories/iovertx-3745/"
   }
 }
 
