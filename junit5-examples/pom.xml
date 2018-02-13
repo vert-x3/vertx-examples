@@ -22,7 +22,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>junit5-examples</artifactId>
-  <version>3.5.1-SNAPSHOT</version>
+  <version>3.5.1</version>
 
   <properties>
     <junit-jupiter.version>5.0.1</junit-jupiter.version>
