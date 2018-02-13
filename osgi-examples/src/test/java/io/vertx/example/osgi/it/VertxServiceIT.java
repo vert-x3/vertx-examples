@@ -68,13 +68,15 @@ public class VertxServiceIT {
       mavenBundle("com.fasterxml.jackson.core", "jackson-databind").versionAsInProject(),
       mavenBundle("com.fasterxml.jackson.core", "jackson-annotations").versionAsInProject(),
 
-      mavenBundle("io.reactivex", "rxjava", "1.3.0"),
+      mavenBundle("io.reactivex.rxjava2", "rxjava").versionAsInProject(),
+      mavenBundle("org.reactivestreams", "reactive-streams").versionAsInProject(),
 
+      mavenBundle("io.vertx", "vertx-jwt").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-bridge-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web-client").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-web-common").versionAsInProject(),
-      mavenBundle("io.vertx", "vertx-rx-java").versionAsInProject(),
+      mavenBundle("io.vertx", "vertx-rx-java2").versionAsInProject(),
 
       mavenBundle("io.vertx", "vertx-auth-common").versionAsInProject(),
       mavenBundle("io.vertx", "vertx-jdbc-client").versionAsInProject(),
