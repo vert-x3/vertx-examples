@@ -1,0 +1,16 @@
+# Vertx-Clustered-EventBus-with-Zookeeper
+
+An example of an application clustered on multiple nodes (machines) showing Vert.x event bus configuration using [vertxOptions](http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html) and using [Zookeeper](http://vertx.io/docs/vertx-zookeeper/java/) as the cluster manager.
+
+This application consists of:
+
+* link:src/main/java/verticle/SenderVerticle.java[Sender Verticle] - sending data on the event bus
+* link:src/main/java/verticle/ConsumerVerticle.java[Consumer Verticle] - receiving data from the event bus
+* link:src/main/java/MainClassNode1.java[Node1 MainClass] - A clustered Vert.x instance that should run on node1 (machine1) deploying Sender Verticle
+* link:src/main/java/MainClassNode2.java[Node2 MainClass] - A clustered Vert.x instance that should run on node2 (machine2) deploying Consumer Verticle
+
+== Clustering Event Bus
+
+As mentioned in Vert.x documentation: cluster managers do not handle the event bus inter-node transport, this is done directly by Vert.x with TCP connections. So the event bus configuration should be consistent on each node in the cluster, in this project we configure the VertxOptions and these options are used by the event bus. On each node we set the cluster host to be the same node's IP address and any arbitrary port number. Note that if we want to run two Vert.x instances on the same machine we should set the cluster host to be the same IP address and we must choose two different ports to avoid conflict.
+
+Start the two main classes from your IDE, and send a post request to the sender verticle (it starts an HTTP server) you should see the sent and received data (don't forget to start both applications).

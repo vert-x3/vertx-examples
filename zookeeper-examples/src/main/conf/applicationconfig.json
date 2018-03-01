@@ -1,0 +1,9 @@
+{
+  "server.port" : 8080,
+  "zookeeper.host": "192.168.1.12",
+  "zookeeper.initialSleepTime": 3000,
+  "zookeeper.maxTimes": 3,
+  "cluster.host": "192.168.1.12",
+  "cluster.port1": 17001,
+  "cluster.port2": 17002
+}
