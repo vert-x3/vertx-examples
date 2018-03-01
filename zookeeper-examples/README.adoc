@@ -1,6 +1,6 @@
 # Vertx-Clustered-EventBus-with-Zookeeper
 
-An example of an application clustered on multiple nodes (machines) showing Vert.x event bus configuration using [vertxOptions](http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html) and using [Zookeeper](http://vertx.io/docs/vertx-zookeeper/java/) as the cluster manager.
+An example of an application clustered on multiple nodes (machines) showing Vert.x event bus configuration using link:http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html[vertxOptions] and using [Zookeeper](http://vertx.io/docs/vertx-zookeeper/java/) as the cluster manager.
 
 This application consists of:
 
