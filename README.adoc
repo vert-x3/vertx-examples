@@ -160,7 +160,7 @@ Vert.x for RxJava provides most of its APIs as RxJava so you can use those if yo
 
 RxJava is a great choice when you want to perform complex operations on multiple asynchronous streams of data.
 
-The link:rx-examples/README.adoc[Vert.x RxJava examples] contains a wide range of examples using Vert.x for RxJava
+The link:rxjava-2-examples/README.adoc[Vert.x RxJava 2] / link:rxjava-1-examples/README.adoc[Vert.x RxJava 1] examples contains a wide range of examples using Vert.x for RxJava
 
 === gRPC examples
 
