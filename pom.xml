@@ -51,6 +51,7 @@
     <module>kafka-examples</module>
     <module>kotlin-examples/coroutines</module>
     <module>junit5-examples</module>
+    <module>zookeeper-examples</module>
   </modules>
 
   <profiles>
