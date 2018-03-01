@@ -13,4 +13,7 @@ This application consists of:
 
 As mentioned in Vert.x documentation: cluster managers do not handle the event bus inter-node transport, this is done directly by Vert.x with TCP connections. So the event bus configuration should be consistent on each node in the cluster, in this project we configure the VertxOptions and these options are used by the event bus. On each node we set the cluster host to be the same node's IP address and any arbitrary port number. Note that if we want to run two Vert.x instances on the same machine we should set the cluster host to be the same IP address and we must choose two different ports to avoid conflict.
 
-Start the two main classes from your IDE, and send a post request to the sender verticle (it starts an HTTP server) you should see the sent and received data (don't forget to start both applications).
+== Running the project
+
+* Same machine: Start the two main classes from your IDE, in the two main classes set the cluster host to the same machine's IP address and you must choose two different port numbers. The Zookeeper host should also be set to the same machine IP. Then send a post request on the route /user on the sender verticle (it starts an HTTP server) you should see the sent and received data (don't forget to start both applications).
+*Two seperate machines: Start each main class from a different machine, in each main class set the cluster host to the IP address of the machine it is running on. The Zookeeper configuration should be the same on both machines (Zookeeper must be running on the machine whose IP is set). Then send a post request on the route /user to the machine deploying the sender verticle (where the HTTP server is started).
