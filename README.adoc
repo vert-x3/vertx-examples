@@ -207,9 +207,6 @@ It also contains an example of application that can be deployed on Fabric8.
 
 === Openshift & Kubernetes examples
 
-The link:openshift2-example/README.adoc[Vert.x OpenShift 2 example] shows how to deploy Vert.x application to
-OpenShift 2 following the two proposed approaches: using the DIY cartridge or the vert.x 3 cartridge.
-
 The link:openshift3-examples/README.adoc[Vert.x OpenShift 3 examples] shows how to deploy Vert.x applications on
 Openshift 3 and Kubernetes. It also demonstrates clustering and service discovery.
 
