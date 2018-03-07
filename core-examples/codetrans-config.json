@@ -2,7 +2,13 @@
   "kotlin": {
     "excludes": [
       "io.vertx.example.core.http.sharing",
-      "io.vertx.example.core.verticle.worker"
+      "io.vertx.example.core.verticle.worker",
+      "io.vertx.example.core.future.ComposeExample"
+    ]
+  },
+  "ruby": {
+    "excludes": [
+      "io.vertx.example.core.future.ComposeExample"
     ]
   },
   "excludes": [

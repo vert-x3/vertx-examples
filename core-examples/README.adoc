@@ -347,9 +347,13 @@ vertx run Sender.java -cluster
 The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
 event bus. Depending of your configuration you may need to append to both command: ` -cp ../../../../../../../resources` in order to configure the cluster.
 
+== Future
+
+Examples using Vert.x Futures are available in the link:src/main/java/io/vertx/example/core/future[Future] directory.
+
 == Verticle examples
 
-These examples show verticles being deployed and undeployed
+These examples show verticles being deployed and undeployed.
 
 === Deploy example
 
