@@ -17,9 +17,9 @@ As mentioned in Vert.x documentation: cluster managers do not handle the event b
 == Running Zookeeper
 You must have Zookeeper server running on your machine for this example to work.
 
-* Running Zookeeper on Windows: Run link:Zookeeper/bin/windows/run-zookeeper.bat[run-zookeeper.bat] file
+* Running Zookeeper on Windows: Run link:Zookeeper/scripts/windows/run-zookeeper.bat[run-zookeeper.bat] file
 
-* Running Zookeeper on Linux: Run link:Zookeeper/bin/zookeeper-server-start.sh[zookeeper-server-start.sh] file giving it relative path to zookeeper.properties as an argument
+* Running Zookeeper on Linux: Run link:Zookeeper/scripts/zookeeper-server-start.sh[zookeeper-server-start.sh] file giving it relative path to zookeeper.properties as an argument
 
 For more details about where these files come from:
 https://github.com/kafka-dev/kafka/tree/master/bin
