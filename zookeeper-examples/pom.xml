@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example.cluster2</groupId>
-    <artifactId>clusterExample2demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>io.vertx</groupId>
+    <artifactId>zookeeper-examples</artifactId>
+    <version>3.5.1</version>
     <build>
         <plugins>
             <plugin>
@@ -21,18 +21,10 @@
     </build>
 
     <properties>
-        <java.version>1.8</java.version>
-        <vertx.version>3.5.0</vertx.version>
-        <curator.version>2.12.0</curator.version>
+        <vertx.version>3.5.1</vertx.version>
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-unit</artifactId>
-            <version>${vertx.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -42,25 +34,7 @@
 
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-web</artifactId>
-            <version>${vertx.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web-client</artifactId>
-            <version>${vertx.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
             <artifactId>vertx-zookeeper</artifactId>
-            <version>${vertx.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-config</artifactId>
             <version>${vertx.version}</version>
         </dependency>
 
