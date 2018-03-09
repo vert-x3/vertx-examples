@@ -11,11 +11,20 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>simple-web-application</module>
-    <module>clustered-application/clustered-application-http</module>
-    <module>clustered-application/clustered-application-service</module>
-    <module>service-discovery-application/http-backend</module>
-    <module>service-discovery-application/http-frontend</module>
+    <module>vertx-kubernetes-applications</module>
+    <module>vertx-openshift-applications</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3750/</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
 </project>

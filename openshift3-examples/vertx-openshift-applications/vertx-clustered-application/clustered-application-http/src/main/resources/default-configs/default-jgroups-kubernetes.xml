@@ -1,0 +1,54 @@
+<config xmlns="urn:org:jgroups"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups-4.0.xsd">
+
+  <TCP bind_addr="${jgroups.tcp.address:match-interface:eth.*}"
+       bind_port="${jgroups.tcp.port:7800}"
+       enable_diagnostics="false"
+       thread_naming_pattern="pl"
+       send_buf_size="640k"
+       sock_conn_timeout="300"
+       bundler_type="no-bundler"
+       logical_addr_cache_expiration="360000"
+
+       thread_pool.min_threads="${jgroups.thread_pool.min_threads:0}"
+       thread_pool.max_threads="${jgroups.thread_pool.max_threads:200}"
+       thread_pool.keep_alive_time="60000"
+  />
+  <kubernetes.KUBE_PING
+  />
+  <MERGE3 min_interval="10000"
+          max_interval="30000"
+  />
+  <FD_SOCK/>
+  <FD_ALL timeout="60000"
+          interval="15000"
+          timeout_check_interval="5000"
+  />
+  <VERIFY_SUSPECT timeout="5000"/>
+  <pbcast.NAKACK2 use_mcast_xmit="false"
+                  xmit_interval="100"
+                  xmit_table_num_rows="50"
+                  xmit_table_msgs_per_row="1024"
+                  xmit_table_max_compaction_time="30000"
+                  resend_last_seqno="true"
+  />
+  <UNICAST3 xmit_interval="100"
+            xmit_table_num_rows="50"
+            xmit_table_msgs_per_row="1024"
+            xmit_table_max_compaction_time="30000"
+            conn_expiry_timeout="0"
+  />
+  <pbcast.STABLE stability_delay="500"
+                 desired_avg_gossip="5000"
+                 max_bytes="1M"
+  />
+  <pbcast.GMS print_local_addr="false"
+              install_view_locally_first="true"
+              join_timeout="${jgroups.join_timeout:5000}"
+  />
+  <MFC max_credits="2m"
+       min_threshold="0.40"
+  />
+  <FRAG3/>
+</config>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.vertx.examples.openshift</groupId>
+    <artifactId>vertx-openshift-applications</artifactId>
+    <version>3.5.1</version>
+    <relativePath>../..</relativePath>
+  </parent>
+
+  <artifactId>clustered-application-service</artifactId>
+
+  <properties>
+    <vertx.health.path>/</vertx.health.path>
+    <vertx.verticle>io.vertx.examples.openshift.MyServiceVerticle</vertx.verticle>
+    <ispn.cluster.labels>cluster=my-vertx-cluster</ispn.cluster.labels>
+
+    <jgroups-kubernetes.version>1.0.5.Final</jgroups-kubernetes.version>
+    <vertx.version>3.5.1</vertx.version>
+    <vertx-maven-plugin.version>1.0.13</vertx-maven-plugin.version>
+    <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
+
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-infinispan</artifactId>
+      <version>${vertx.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>jgroups</artifactId>
+          <groupId>org.jgroups</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jgroups.kubernetes</groupId>
+      <artifactId>jgroups-kubernetes</artifactId>
+      <version>${jgroups-kubernetes.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>vertx-maven-plugin</artifactId>
+        <version>${vertx-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>vmp-init-package</id>
+            <goals>
+              <goal>initialize</goal>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <redeploy>true</redeploy>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>openshift</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>fabric8-maven-plugin</artifactId>
+            <version>${fabric8-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>fmp</id>
+                <goals>
+                  <goal>resource</goal>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <resources>
+                <labels>
+                  <pod>
+                    <property>
+                      <name>cluster</name>
+                      <value>my-vertx-cluster</value>
+                    </property>
+                  </pod>
+                </labels>
+              </resources>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

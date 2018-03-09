@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.vertx</groupId>
+    <artifactId>openshift3-examples</artifactId>
+    <version>3.5.1</version>
+  </parent>
+
+  <groupId>io.vertx.examples.openshift</groupId>
+  <artifactId>vertx-openshift-applications</artifactId>
+
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>vertx-greeting-application</module>
+    <module>vertx-id-generator</module>
+    <!-- clustered application -->
+    <module>vertx-clustered-application/clustered-application-http</module>
+    <module>vertx-clustered-application/clustered-application-service</module>
+  </modules>
+</project>

@@ -1,226 +1,324 @@
-# Openshift 3 Examples
+= Openshift 3 Examples
 
-This project illustrates how to use Vert.x on Openshift 3 and on Kubernetes.
+This project illustrates how to deploy Eclipse Vert.x application on Kubernetes and Openshift v3.
 
-## Install the CDK
 
-- Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.
-- Install Vagrant, from link:https://www.vagrantup.com/[vagrantup.com], or from your operating system’s packages.
-- From link:https://access.redhat.com/downloads/content/293/ver=2/rhel---7/2.0.0/x86_64/product-software[Red Hat Customer Portal]
-download Red Hat Container Tools (cdk-2.0.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.
-- Unzip `cdk-2.0.0.zip` into a directory of your choosing.
+== Kubernetes
 
-Install the required vagrant plugins:
+=== Installing minikube
+
+You first need a Kubernetes cluster. To run this example locally, you can use https://kubernetes.io/docs/getting-started-guides/minikube/[minikube].
+
+Once installed just run:
+
+[source, bash]
+----
+minikube start
+----
+
+To check that your cluster is started run:
+
+[source, bash]
+----
+$ kubectl get all
+NAME             TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+svc/kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP   5s
+----
+
+To ease the deployment, we are going to _link_ your local Docker to the Docker daemon running in _minikube_. This is not
+possible on external cluster. In this case you will need to push your images to a Docker image registry. To enable this
+_link_ use:
+
+[source, bash]
+----
+eval $(minikube docker-env)
+----
+
+_NOTE:_ The syntax may differ depending on your terminal. Run `minikube docker-env` to get the right syntax.
+
+Now, if you run `docker ps` you should see a set of running containers - they are kubernetes containers.
+
+=== Building a Vert.x application for Kubernetes
+
+Let's start with a simple application exposing a HTTP endpoint. The code is in the `vertx-kubernetes-applications/vertx-kubernetes-greeting-application` directory. The application is quite simple:
+
+[source,java]
+----
+package io.vertx.example.kubernetes.greeting;
+
+
+import io.vertx.core.Vertx;
+import io.vertx.ext.web.Router;
+
+public class GreetingApplication {
+
+  public static void main(String[] args) {
+    Vertx vertx = Vertx.vertx();
+
+    Router router = Router.router(vertx);
+    router.get("/").handler(rc -> rc.response().end("Hello"));
+    router.get("/:name").handler(rc -> rc.response().end("Hello " + rc.pathParam("name")));
+
+    vertx.createHttpServer()
+      .requestHandler(router::accept)
+      .listen(8080);
+  }
+}
+----
+
+As we want to deploy this application as a container, no need to build a _fat-jar_. So, just prepare your application using:
+
+[source, bash]
+----
+mvn dependency:copy-dependencies compile
+----
+
+It just copies the dependencies and compile the sources.
+
+At the root of the application directory, there is a `Dockerfile`:
 
 [source]
 ----
-vagrant plugin install vagrant-service-manager
-vagrant plugin install vagrant-registration
+FROM fabric8/java-alpine-openjdk8-jre
+
+EXPOSE 8080
+
+# Copy dependencies
+COPY target/dependency/* /deployment/libs/
+
+# Copy classes
+COPY target/classes /deployment/classes
+
+ENV JAVA_APP_DIR=/deployment
+ENV JAVA_LIB_DIR=/deployment/libs
+ENV JAVA_CLASSPATH=${JAVA_APP_DIR}/classes:${JAVA_LIB_DIR}/*
+ENV JAVA_MAIN_CLASS="io.vertx.example.kubernetes.greeting.GreetingApplication"
 ----
 
-Add the RHEL 7.2 Vagrant box to Vagrant with the command:
+This `Dockerfile` inherits from `fabric8/java-alpine-openjdk8-jre` an image providing Java 8 configured for containers.
+More details about this image https://github.com/fabric8io-images/java[here]. The application is run as a _simple_ `java
+-cp ... io.vertx.example.kubernetes.greeting.GreetingApplication`.
+
+Let's build this docker image:
+
+[source, bash]
+----
+docker build -t vertx-kubernetes/vertx-kubernetes-greeting .
+----
+
+Remember, we have connected our local docker to the Kubernetes daemon. So, the image is built and available in the
+Kubernetes Docker registry:
+
+[source, bash]
+----
+$ docker images | grep vertx-kubernetes-greeting
+vertx-kubernetes/vertx-kubernetes-greeting            latest              1882bbfd05bb        43 seconds ago      83.4MB
+----
+
+=== Running a Vert.x application for Kubernetes
+
+Now that the image is ready. It's time to instantiate it:
+
+[source, bash]
+----
+kubectl run vertx-greeting --image=vertx-kubernetes/vertx-kubernetes-greeting --image-pull-policy=IfNotPresent --port=8080
+kubectl expose deployment vertx-greeting --type=NodePort
+# Invoke the service:
+curl $(minikube service vertx-greeting --url)
+curl $(minikube service vertx-greeting --url)/vert.x
+----
+
+The first line create a _deployment_ instantiating our image as a pod (containing our container). `vertx-greeting` is the
+name. The `--image` parameter indicates the image. `--image-pull-policy` instructs our deployment to not retrieve the
+image for a Docker registry if it knows the image. Finally, `--port` indicate on which port our application is expecting
+requests.
+
+The second line (with _expose_) creates a _service_ of type _NodePort_ exposing our application endpoint.
+
+The two last lines are just invoking the service to be sure it's working.
+
+=== Updating the application
+
+There are several ways to achieve an update. Let's see one of the approach. First edit the code and rebuild the image:
+
+[source, bash]
+----
+mvn compile
+docker build -t vertx-kubernetes/vertx-kubernetes-greeting .
+----
+
+Then, gets the name of the pod, and delete it:
+
+[source, bash]
+----
+$ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+vertx-greeting-1277436214-1xsqd   1/1       Running   0          2m
+$ kubectl delete po/vertx-greeting-1277436214-1xsqd
+----
+
+Because there is a `deployment` running, it will automatically recreate the pod with the updated image.
+
+=== Using service discovery
+
+Vert.x Service Discovery provides a bridge for Kubernetes, and so a Vert.x application can retrieve services exposed in
+Kubernetes.
+
+The code of the application is available in the `vertx-kubernetes-applications/vertx-kubernetes-client-application`
+directory.
+
+Build it using:
+
+[source,bash]
+----
+mvn dependency:copy-dependencies compile
+docker build -t vertx-kubernetes/vertx-kubernetes-client .
+
+kubectl run vertx-client --image=vertx-kubernetes/vertx-kubernetes-client --image-pull-policy=IfNotPresent --port=8080
+kubectl expose deployment vertx-client --type=NodePort
+
+# Invoke the service
+curl $(minikube service vertx-client --url)
+----
+
+== OpenShift v3
+
+_IMPORTANT_: This section is about OpenShift v3 - more details on https://www.openshift.org/[the OpenShift web page].
+
+OpenShift v3 is an enterprise-grade Kubernetes distribution extending Kubernetes feature set with a service catalog and
+build support. While it's possible to use OpenShift as Kubernetes (so using the previous instructions), in this section we
+ are going to look at Openshift specificities.
+
+=== Getting an OpenShift Cluster
+
+You can use https://www.openshift.com/pricing/index.html[OpenShift Online Starter] for free or install https://docs.openshift.org/latest/minishift/getting-started/installing.html[minishift] - the _minikube_ equivalent for OpenShift.
+
+For _minishift_, once installed just run:
+
+[source, bash]
+----
+minishift start
+eval $(minishift oc-env)
+----
+
+The second line add `oc` - the OpenShift client - to your `$PATH`.
+then, login using:
+
+[source, bash]
+----
+oc login -u developer -p developer
+----
+
+You can also open the OpenShift dashboard using: `minishift console`. Login using the same credentials
+(`developer`/`developer`). We are going to use the `myproject` project. But nothing should be displayed in this project.
+
+=== Deploying a Vert.x application using a Docker build
+
+The first approach to deploy an application to OpenShift is to use a _Docker build_. Unlike with Kubernetes, we are going
+to delegate the image build to OpenShift. Again, the previous approach would still work, but we focus on OpenShift features.
+
+The code of the application is located in `vertx-openshift-applications/vertx-greeting-application`. The project contains
+a `Dockerfile` similar to the one used with Kubernetes:
 
 [source]
 ----
-vagrant box add --name cdkv2 <path to downloaded .box file>
+FROM fabric8/java-alpine-openjdk8-jre
+
+EXPOSE 8080
+
+# Copy dependencies
+COPY target/dependency/* /deployment/libs/
+
+ENV JAVA_APP_DIR=/deployment
+ENV JAVA_LIB_DIR=/deployment/libs
+ENV JAVA_CLASSPATH=${JAVA_APP_DIR}/classes:${JAVA_LIB_DIR}/*
+ENV JAVA_OPTIONS="-Dvertx.cacheDirBase=/tmp"
+ENV JAVA_MAIN_CLASS="io.vertx.example.openshift.greeting.MyGreetingApp"
+
+# Copy classes
+COPY target/classes /deployment/classes
 ----
 
-Update CDK Memory and CPU
+To deploy the application, run from the project directory the following commands:
 
-[source]
+[source,bash]
 ----
-cd <CDK-PATH>/components/rhel/rhel-ose
-export VM_MEMORY=8192
-----
-
-Execute Vagrant:
-
-[source]
-----
-export SUB_USERNAME=<your-subscription-username>
-export SUB_PASSWORD=<your-subscription-password>
-vagrant up
-eval "$(vagrant service-manager env docker)"
+oc new-build --binary --name=vertx-greeting-application -l app=vertx-greeting-application
+mvn dependency:copy-dependencies compile
+oc start-build vertx-greeting-application --from-dir=. --follow
+oc new-app vertx-greeting-application -l app=vertx-greeting-application
+oc expose service vertx-greeting-application
 ----
 
-### Install Openshift Client
+The first instruction creates a _build_ in OpenShift named `vertx-greeting-application`. Then we build the application
+locally. Alternatively we could build the application during the Docker build, but because it would re-download
+dependencies on every build. The third line triggers the build. It uploads the content of the current directory and run
+the docker build in OpenShift. Then, the `oc new-app` command creates a deployment configuration, a service and a pod from
+ our built image. Finally, the last line expose the created service externally so we can call it from our computer.
 
-You can download and unpack the CLI from the link:https://access.redhat.com/downloads/content/290/ver=3.1/rhel---7/3.1.1.6/x86_64/product-software[Red Hat Customer Portal] for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.
+To invoke the application, you can get the url using:
 
-link:https://access.redhat.com/downloads/content/290[Download the CLI]
-
-### Access Openshift console
-
-Open Openshift console:  https://10.1.2.2:8443/console/ +
-(Accept the certificate and proceed)
-
-Log in Openshift with **openshift-dev/devel** as your credentials in CDK
-
-### Configure the Openshift CLI client
-
-Run:
-
-[source]
+[source, bash]
 ----
-oc login 10.1.2.2:8443 -u openshift-dev -p devel
-# login with **openshift-dev/devel**
+$ oc get routes
+vertx-greeting-application  vertx-greeting-application-myproject.192.168.64.30.nip.io  vertx-greeting-application ...
+
+$ curl vertx-greeting-application-myproject.192.168.64.30.nip.io
 ----
 
-### Create the project / namespace
+Alternatively, in the OpenShift dashboard click on the _route_ url.
 
-Now that Openshift should run, create a new project with:
+To update the application, just update the code and run:
 
-[source]
+[source,bash]
 ----
-oc new-project vertx-demo
-oc policy add-role-to-user view openshift-dev -n vertx-demo
-oc policy add-role-to-group view system:serviceaccounts -n vertx-demo
-----
-
-The two last instructions give access to the Kubernetes service registry in order to let the different services
-discover each other.
-
-If you plan to use the Fabric8 Maven plugin to deploy the microservices, you may need to execute:
-
-[source]
-----
-export FABRIC8_PROFILES=kubernetes
-export KUBERNETES_MASTER=https://10.1.2.2:8443/
+mvn dependency:copy-dependencies compile
+oc start-build vertx-greeting-application --from-dir=. --follow
 ----
 
-## Simple Web Application
+The update use a rolling-update strategy.
 
-The `simple-web-application` project provides a very simple web app running on top of Openshift3 / Kubernetes. It
-uses Vert.x core and Vert.x web. No clustering involved.
+=== Deploy it using the Fabric8 Maven Plugin
 
-### Deploy it using the Fabric8 Maven Plugin
+The https://maven.fabric8.io[Fabric8 Maven Plugin] interacts with OpenShift and Kubernetes to deploy your application. It uses a _source to image_ build strategy (S2I) with _binary content_. Basically, it requires a fat jar as input and send this fat jar to OpenShift.
+Then it instructs OpenShift to create a container with this _fat-jar_.
 
-You can deploy the application using a Maven plugin building a Docker image and the Maven Fabric8 Plugin to create
-the Kubernetes metadata and deploy the application.
-
-----
-cd simple-web-application
-mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
-----
-
-### Deploy it with a Docker build (and the OpenShift command line)
-
-You can also write your own `Dockerfile` and trigger the build on Openshift:
+The configuration is done in the `pom.xml` file of the project (`vertx-openshift-applications/vertx-id-generator`).
 
 ----
-cd simple-web-application
-oc new-build --binary --name=simple-web-application -l app=simple-web-application
-mvn package; oc start-build simple-web-application --from-dir=. --follow
-oc new-app simple-web-application -l app=simple-web-application
-oc expose service simple-web-application
+mvn fabric8:deploy -Popenshift
 ----
 
-### Check the application
+This command:
 
-Once you have deployed it (using one way or the other), you should have in the Openshift console a link to the root
-of the application (`simple-vertx-demo.rhel-cdk.10.1.2.2.xip.io` or `simple-web-application-vertx-demo.rhel-cdk.10.1
-.2.2.xip.io`). Click on this link to access the application. The application serves `/` and `/api`.
+1. packages the application as a fat jar
+2. deploy the application in OpenShift
+3. create the _deployment config_, _service_, _pod_ and _route_
 
-## Clustered Application
+So you can use the application. Updating the application just requires re-executing the same command.
 
-This example illustrates how Vert.x clustering can be used on Openshift. It uses Hazelcast and a custom discovery
-strategy made especially for Vert.x. The application is composed by 2 nodes:
+=== Running a clustered application
+
+This example illustrates how Vert.x clustering can be used on Openshift. It uses the Infinispan Cluster Manager and a
+_ping_ (discovery) protocol relying on the Kubernetes API.
 
 1. the first node serve HTTP request and send a message (on the event bus to the second node)
 2. the second node receives messages and replies
 
-### Cluster configuration
+To allow the cluster manager to use the Kubernetes API, we need to grant some permissions:
 
-To enable clustering you need
-
-1. Add the `vertx-service-discovery-bridge-kubernetes` and `slf4j-api` to your project. The first artifact provides
-the custom Hazelcast discovery.
-2. Provide a `cluster.xml` file using `io.vertx.servicediscovery.hazelcast.HazelcastKubernetesDiscoveryStrategy` as
-custom `discovery-strategy`
-3. Starts the application with `-cluster` (if you use `io.vertx.core.Launcher`)
-4. Add a `vertx-cluster=true` label to the Kubernetes service
-
-### Building and deploying the application using the Fabric8 Maven Plugin
-
-You can deploy the application using a Maven plugin building a Docker image and the Maven Fabric8 Plugin to create
-the Kubernetes metadata and deploy the application.
-
+[source,bash]
 ----
-cd clustered-application/clustered-application-http
-mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
-cd ../clustered-application-service
-mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+oc policy add-role-to-user view -z  default -n myproject
 ----
 
-### Building and deploying the application using a Docker build (and the Openshift command line)
+Then, the 2 applications are packaged using the Fabric8 Maven Plugin. Build and deploy them using:
 
-You can also deploy this example using the `oc` command:
-
+[source, bash]
 ----
-cd clustered-application/clustered-application-http
-oc new-build --binary --name=clustered-app-http -l app=clustered-app-http
-mvn package; oc start-build clustered-app-http --from-dir=. --follow
-oc new-app clustered-app-http -l app=clustered-app-http
-oc expose service clustered-app-http  -l vertx-cluster=true
-
-cd ../clustered-application-service
-oc new-build --binary --name=clustered-app-service -l app=clustered-app-service
-mvn package; oc start-build clustered-app-service --from-dir=. --follow
-oc new-app clustered-app-service -l app=clustered-app-service
-oc expose service clustered-app-service -l vertx-cluster=true
+cd vertx-openshift-applications/vertx-clustered-application/clustered-application-service
+mvn fabric8:deploy -Popenshift
+cd ../clustered-application-http
+mvn fabric8:deploy -Popenshift
 ----
-
-### Check
-
-Once deployed, you can check the application by clicking on the _service_ link (`clustered-vertx-demo.rhel-cdk.10.1.2
-.2.xip.io`). You can pass a `name` query parameter (`?name=vert.x`) to change the message.
-
-## Service Discovery
-
-This example illustrates how you can use Vert.x service discovery in a Kubernetes / Openshift environment. Services
-are retrieved from the Kubernetes service registry.
-
-This example is composed by 2 projects:
-
-* A. A simple HTTP frontend (`http-frontend`) looking for another HTTP service (provided by the second project)
-* B. A second HTTP service (`http-backend`) consumed by the first project
-
-A discovers B using the Vert.x service discovery and its bridge for Kubernetes.
-
-### Building and deploying the application using the Fabric8 Maven Plugin
-
-You can deploy the application using a Maven plugin building a Docker image and the Maven Fabric8 Plugin to create
-the Kubernetes metadata and deploy the application.
-
-----
-cd service-discovery-application/http-backend
-mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
-cd ../http-frontend
-mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
-----
-
-### Building and deploying the application using a Docker build (and the Openshift command line)
-
-You can also deploy this example using the `oc` command:
-
-----
-cd service-discovery-application/http-backend
-oc new-build --binary --name=http-backend -l app=http-backend
-mvn package; oc start-build http-backend --from-dir=. --follow
-oc new-app http-backend -l app=http-backend -l service-type=http-endpoint
-oc expose service http-backend -l service-type=http-endpoint
-
-cd ../http-frontend
-oc new-build --binary --name=http-frontend -l app=http-frontend
-mvn package; oc start-build http-frontend --from-dir=. --follow
-oc new-app http-frontend -l app=http-frontend
-oc expose service http-frontend
-----
-
-### Check
-
-Once deployed, you can check the application by clicking on the _service_ link
-(`http://frontend-vertx-demo.rhel-cdk.10.1.2.2.xip.io/`). You can pass a `name` query parameter (`?name=vert.x`) to
-change the message.
-
 
