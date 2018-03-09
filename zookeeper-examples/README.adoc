@@ -9,11 +9,24 @@ This application consists of:
 * link:src/main/java/MainClassNode1.java[Node1 MainClass] - A clustered Vert.x instance that should run on node1 (machine1) deploying Sender Verticle
 * link:src/main/java/MainClassNode2.java[Node2 MainClass] - A clustered Vert.x instance that should run on node2 (machine2) deploying Consumer Verticle
 
-== Clustering Event Bus
+# Clustering Event Bus
 
 As mentioned in Vert.x documentation: cluster managers do not handle the event bus inter-node transport, this is done directly by Vert.x with TCP connections. So the event bus configuration should be consistent on each node in the cluster, in this project we configure the VertxOptions and these options are used by the event bus. On each node we set the cluster host to be the same node's IP address and any arbitrary port number. Note that if we want to run two Vert.x instances on the same machine we should set the cluster host to be the same IP address and we must choose two different ports to avoid conflict.
 
-== Running the project
+# Running the project
+== Running Zookeeper
+You must have Zookeeper server running on your machine for this example to work.
 
-* Same machine: Start the two main classes from your IDE (consumer then sender), in the two main classes set the cluster host to the same machine's IP address and you must choose two different port numbers. The Zookeeper host should also be set to the same machine IP. Then you should see the sent and received data (don't forget to start both applications).
-* Two seperate machines: Start each main class from a different machine (consumer then sender), in each main class set the cluster host to the IP address of the machine it is running on. The Zookeeper configuration should be the same on both machines (Zookeeper must be running on the machine whose IP is set). Then you should see the sent and received data.
+* Running Zookeeper on Windows: Run link:Zookeeper/bin/windows/run-zookeeper.bat[run-zookeeper.bat] file
+
+* Running Zookeeper on Linux: Run link:Zookeeper/bin/zookeeper-server-start.sh[zookeeper-server-start.sh] file giving it relative path to zookeeper.properties as an argument
+
+For more details about where these files come from:
+https://github.com/kafka-dev/kafka/tree/master/bin
+
+https://github.com/bkimminich/apache-kafka-book-examples/tree/master/bat
+
+== Running code
+
+* Same machine: Make sure Zookeeper server is running then start the two main classes from your IDE (consumer then sender). You should see the sent and received data (don't forget to start both applications).
+* Two seperate machines: Make sure Zookeeper is running on the machine(s) whose IP(s) are set to "zookeeperHosts" property then start each main class from a different machine (consumer then sender), in each main class set the cluster host to the IP address of the machine it is running on. The Zookeeper configuration should be the same on both machines. You should see the sent and received data.

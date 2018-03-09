@@ -22,6 +22,7 @@ public class MainClassNode2 {
                 Vertx vertx = res.result();
                 DeploymentOptions deploymentOptions = new DeploymentOptions().setInstances(2);
                 vertx.deployVerticle("verticle.ConsumerVerticle", deploymentOptions);
+                System.out.println("consumer verticle deployed");
             }
         });
     }
@@ -31,9 +32,15 @@ public class MainClassNode2 {
      * @return JsonObject representing Zookeeper configuration
      */
     private static JsonObject configureClusterManager() {
-        // add the IP of the machine hosting the cluster manager
+        /*
+            Set zookeeperHosts property to the IPs of machines running the cluster manager, here we set it to localhost
+            (127.0.0.1), but in case we have multiple machines/docker containers we have to set it on every node to the IPs
+            of the machines running the cluster manager. For example:
+            zkConfig.put("zookeeperHosts", "192.168.1.12"); // Zookeeper is running on this machines
+            zkConfig.put("zookeeperHosts", "192.168.1.12,192.168.1.56");
+         */
         JsonObject zkConfig = new JsonObject();
-        zkConfig.put("zookeeperHosts", "192.168.1.12");
+        zkConfig.put("zookeeperHosts", "localhost");
         zkConfig.put("rootPath", "io.vertx");
         zkConfig.put("retry", new JsonObject()
                 .put("initialSleepTime", 3000)
@@ -48,13 +55,15 @@ public class MainClassNode2 {
      * @return VertxOptions object to be used in deployment
      */
     private static VertxOptions configureVertx(ClusterManager clusterManager) {
-        // add this machine's IP as clusterHost
-        // if vertx instances run on the same machine then we must use different port for each instance
-        // else if working on different separate machines it doesn't matter
+        /*
+            the default value of the cluster host (localhost) is used here, if we want to have multiple machines/docker
+            containers in our cluster we must configure the cluster host properly on each node in order for the event bus
+            to send/consume messages properly between our verticles, to do so we use the method setClusterHost and give it
+            this node's IP. For example:
+            options.setClusterHost(192.168.1.12);
+        */
         VertxOptions options = new VertxOptions()
                 .setClustered(true)
-                .setClusterHost("192.168.1.56")
-                .setClusterPort(17001)
                 .setClusterManager(clusterManager);
         return options;
     }
