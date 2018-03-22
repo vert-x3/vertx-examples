@@ -37,6 +37,7 @@
     <module>shell-examples</module>
     <module>heroku-example</module>
     <module>ignite-examples</module>
+    <module>infinispan-examples</module>
     <module>amqp-bridge-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
     <module>fatjar-examples/ruby-fatjar</module>
