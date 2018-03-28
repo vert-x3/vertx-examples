@@ -76,8 +76,8 @@ Metrics will be available under domain `metrics`.
 
 == View in Grafana
 
-Metrics can be observed from Grafana. This dashboard tracks some HTTP server and event bus metrics from Prometheus:
-link:http://grafana/Vertx-Prometheus.json[Vertx-Prometheus.json].
+Metrics can be observed from Grafana. These dashboards track some HTTP server and event bus metrics:
+link:http://grafana/Vertx-Prometheus.json[for Prometheus], link:http://grafana/Vertx-InfluxDB.json[for InfluxDB].
 
 .HTTP server metrics
 image:grafana/http-server-metrics.png[HTTP server metrics]
