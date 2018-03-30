@@ -324,14 +324,35 @@
               "expr": "sum(irate(vertx_http_server_responseTime_seconds_sum[1m])) / sum(irate(vertx_http_server_responseTime_seconds_count[1m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "Average",
+              "legendFormat": "[avg]",
               "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.5, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "[med]",
+              "refId": "D"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "[95p]",
+              "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "[99p]",
+              "refId": "C"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Average response time",
+          "title": "Global response time",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -399,13 +420,28 @@
               "expr": "sum(irate(vertx_http_server_responseTime_seconds_sum[1m])) by (path) / sum(irate(vertx_http_server_responseTime_seconds_count[1m])) by (path)",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "{{path}} [avg]",
               "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.5, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le,path))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "{{path}} [med]",
+              "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le,path))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "{{path}} [99p]",
+              "refId": "C"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Average response time by path",
+          "title": "Response time by path",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -486,8 +522,32 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "sent",
+              "legendFormat": "[avg]",
               "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.5, sum(rate(vertx_http_server_bytesSent_bucket[1m])) by (le))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "[med]",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum(rate(vertx_http_server_bytesSent_bucket[1m])) by (le))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "[95p]",
+              "refId": "C"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(vertx_http_server_bytesSent_bucket[1m])) by (le))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "[99p]",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -534,7 +594,7 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "fill": 1,
-          "id": 2,
+          "id": 14,
           "legend": {
             "avg": false,
             "current": false,
@@ -563,8 +623,32 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "received",
+              "legendFormat": "[avg]",
               "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.5, sum(rate(vertx_http_server_bytesReceived_bucket[1m])) by (le))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "[med]",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum(rate(vertx_http_server_bytesReceived_bucket[1m])) by (le))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "[95p]",
+              "refId": "C"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(vertx_http_server_bytesReceived_bucket[1m])) by (le))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "[99p]",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -586,6 +670,7 @@
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "bytes",
               "label": null,
               "logBase": 1,
@@ -798,17 +883,31 @@
           "steppedLine": false,
           "targets": [
             {
+              "expr": "sum(irate(vertx_eventbus_sent_total[1m]))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "1 minute instant rate",
+              "refId": "A"
+            },
+            {
               "expr": "sum(rate(vertx_eventbus_sent_total[1m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "Average",
-              "refId": "A"
+              "legendFormat": "1 minute rate",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(rate(vertx_eventbus_sent_total[5m]))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "5 minute rate",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Eventbus: sent ops",
+          "title": "Eventbus: sent rate",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -848,7 +947,7 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "fill": 1,
-          "id": 11,
+          "id": 15,
           "legend": {
             "avg": false,
             "current": false,
@@ -873,17 +972,31 @@
           "steppedLine": false,
           "targets": [
             {
+              "expr": "sum(irate(vertx_eventbus_received_total[1m]))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "1 minute instant rate",
+              "refId": "A"
+            },
+            {
               "expr": "sum(rate(vertx_eventbus_received_total[1m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "Average",
-              "refId": "A"
+              "legendFormat": "1 minute rate",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(rate(vertx_eventbus_received_total[5m]))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "5 minute rate",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Eventbus: received ops",
+          "title": "Eventbus: received rate",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -963,8 +1076,29 @@
               "expr": "sum(irate(vertx_eventbus_processingTime_seconds_sum[1m])) / sum(irate(vertx_eventbus_processingTime_seconds_count[1m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "Average",
+              "legendFormat": "[avg]",
               "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.5, sum(rate(vertx_eventbus_processingTime_seconds_bucket[1m])) by (le))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "[med]",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum(rate(vertx_eventbus_processingTime_seconds_bucket[1m])) by (le))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "[95p]",
+              "refId": "C"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(vertx_eventbus_processingTime_seconds_bucket[1m])) by (le))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "[99p]",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -1010,7 +1144,7 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "fill": 1,
-          "id": 13,
+          "id": 16,
           "legend": {
             "avg": false,
             "current": false,
@@ -1038,7 +1172,29 @@
               "expr": "sum(irate(vertx_eventbus_processingTime_seconds_sum[1m])) by (address) / sum(irate(vertx_eventbus_processingTime_seconds_count[1m])) by (address)",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "{{address}} [avg]",
               "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.5, sum(rate(vertx_eventbus_processingTime_seconds_bucket[1m])) by (le,address))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "{{address}} [med]",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum(rate(vertx_eventbus_processingTime_seconds_bucket[1m])) by (le,address))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "{{address}} [95p]",
+              "refId": "C"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(vertx_eventbus_processingTime_seconds_bucket[1m])) by (le,address))",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "{{address}} [99p]",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -1093,7 +1249,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1123,5 +1279,5 @@
   },
   "timezone": "",
   "title": "Vertx-Prom",
-  "version": 15
+  "version": 18
 }

@@ -39,6 +39,25 @@ The prometheus server must be configured with a scrape configuration to localhos
       - targets: ['localhost:8081']
 ```
 
+By default, histogram sampling will not be provided.
+It can be manually turned on in the Micrometer registry, as shown in commented code in class
+`io.vertx.example.micrometer.prometheus.Main`:
+
+```java
+registry.config().meterFilter(
+    new MeterFilter() {
+      @Override
+      public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
+        return DistributionStatisticConfig.builder()
+            .percentilesHistogram(true)
+            .build()
+            .merge(config);
+      }
+    });
+```
+
+See also link:https://micrometer.io/docs/concepts#_histograms_and_percentiles[Micrometer documentation].
+
 === Prometheus with endpoint bound to existing server
 
 ```bash

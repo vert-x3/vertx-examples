@@ -39,6 +39,20 @@ public final class Main {
         .setEnabled(true))
       .setEnabled(true);
     Vertx vertx = Vertx.vertx(new VertxOptions().setMetricsOptions(options));
+
+    // Uncomment the following to get histograms
+//    PrometheusMeterRegistry registry = (PrometheusMeterRegistry) BackendRegistries.getDefaultNow();
+//    registry.config().meterFilter(
+//        new MeterFilter() {
+//          @Override
+//          public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
+//            return DistributionStatisticConfig.builder()
+//                .percentilesHistogram(true)
+//                .build()
+//                .merge(config);
+//          }
+//        });
+
     vertx.deployVerticle(new SimpleWebServer());
     vertx.deployVerticle(new EventbusConsumer());
     vertx.deployVerticle(new EventbusProducer());
