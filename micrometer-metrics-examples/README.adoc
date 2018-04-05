@@ -1,18 +1,19 @@
 = Vert.x Micrometer Metrics examples
 
-This project shows simple examples using the Vert.x Micrometer Metrics module.
+These examples demonstrate how to use the link:https://vertx.io/docs/vertx-micrometer-metrics/java[Vert.x Micrometer Metrics module].
 
 There are examples for _Prometheus_, _InfluxDB_ and _JMX_ backends.
+
 Each of them deploys 3 verticles:
 
-* `SimpleWebServer`, which creates an HTTP server - visit http://localhost:8080/ to trigger requests.
-* `EventbusProducer`, which sends messages over the event bus
-* `EventbusConsumer`, which receives event bus messages
+* `SimpleWebServer` creates an HTTP server - visit http://localhost:8080/ to trigger requests.
+* `EventbusProducer` sends messages over the event bus.
+* `EventbusConsumer` receives event bus messages.
 
-Each of them simulates a random processing time.
+Each simulates a random processing time.
 
 For _Prometheus_, the verticle `WebServerForBoundPrometheus` is an alternative of `SimpleWebserver`
-that allows to bind the prometheus `/metrics` endpoint to an existing HTTP server.
+that binds the prometheus `/metrics` endpoint to an existing HTTP server.
 
 == Launching the example from the command line
 
@@ -31,7 +32,7 @@ Note: link:https://prometheus.io/docs/prometheus/latest/getting_started/[check h
 java -cp target/micrometer-metrics-examples-3.5.1-fat.jar io.vertx.example.micrometer.prometheus.Main
 ```
 
-The prometheus server must be configured with a scrape configuration to localhost:8081
+You need to configure the Prometheus server to scrape `localhost:8081`.
 
 ```yaml
   - job_name: 'vertx-8081'
@@ -39,9 +40,9 @@ The prometheus server must be configured with a scrape configuration to localhos
       - targets: ['localhost:8081']
 ```
 
-By default, histogram sampling will not be provided.
-It can be manually turned on in the Micrometer registry, as shown in commented code in class
-`io.vertx.example.micrometer.prometheus.Main`:
+By default, histogram sampling is disabled.
+You can enable it manually in the Micrometer registry, as shown in commented code in class
+link:src/main/java/io/vertx/example/micrometer/prometheus/Main.java[`io.vertx.example.micrometer.prometheus.Main`]:
 
 ```java
 registry.config().meterFilter(
@@ -64,7 +65,7 @@ See also link:https://micrometer.io/docs/concepts#_histograms_and_percentiles[Mi
 java -cp target/micrometer-metrics-examples-3.5.1-fat.jar io.vertx.example.micrometer.ometheus.MainWithBoundPrometheus
 ```
 
-The prometheus server must be configured with a scrape configuration to localhost:8080
+You need to configure the Prometheus server to scrape `localhost:8080`.
 
 ```yaml
   - job_name: 'vertx-8080'
@@ -75,7 +76,7 @@ The prometheus server must be configured with a scrape configuration to localhos
 === InfluxDB
 
 This sample application expects an InfluxDB server running on localhost, port 8086, without authentication.
-For quick setup, this docker command will run it:
+For quick setup, you can run it with this docker command:
 
 ```bash
 docker run -p 8086:8086 influxdb
@@ -107,7 +108,9 @@ done
 == View in Grafana
 
 Metrics can be observed from Grafana. These dashboards track some HTTP server and event bus metrics:
-link:grafana/Vertx-Prometheus.json[for Prometheus], link:grafana/Vertx-InfluxDB.json[for InfluxDB].
+
+* link:grafana/Vertx-Prometheus.json[for Prometheus]
+* link:grafana/Vertx-InfluxDB.json[for InfluxDB]
 
 .HTTP server metrics
 image:grafana/http-server-metrics.png[HTTP server metrics]

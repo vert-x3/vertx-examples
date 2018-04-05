@@ -23,7 +23,7 @@ public final class Greetings {
 
   static void get(Vertx vertx, Handler<AsyncResult<String>> responseHandler) {
     vertx.executeBlocking(fut -> {
-      // Simulate random processing time between 200ms and 2s
+      // Simulate worker pool processing time between 200ms and 2s
       int processingTime = RND.nextInt(1800) + 200;
       try {
         Thread.sleep(processingTime);
