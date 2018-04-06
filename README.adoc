@@ -266,6 +266,10 @@ the event bus.
 === JCA example
 
 The Vert.x JCA Example project provides a JEE compliant application that enables to you deploy the application into a
- [Wildfly](http://wildfly.org) application server. While simple in implementation, the link:jca-examples[JCA examples]
+ link:http://wildfly.org[Wildfly] application server. While simple in implementation, the link:jca-examples[JCA examples]
  provides a good point of departure for your own development.
 
+=== Micrometer metrics examples
+
+The link:micrometer-metrics-examples/README.adoc[Vert.x Micrometer metrics examples] show how to collect Vert.x metrics
+with link:https://micrometer.io/[Micrometer] and send them to backends such as Prometheus or InfluxDB.
