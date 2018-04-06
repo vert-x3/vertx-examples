@@ -1,0 +1,119 @@
+= Vert.x Micrometer Metrics examples
+
+These examples demonstrate how to use the link:https://vertx.io/docs/vertx-micrometer-metrics/java[Vert.x Micrometer Metrics module].
+
+There are examples for _Prometheus_, _InfluxDB_ and _JMX_ backends.
+
+Each of them deploys 3 verticles:
+
+* `SimpleWebServer` creates an HTTP server - visit http://localhost:8080/ to trigger requests.
+* `EventbusProducer` sends messages over the event bus.
+* `EventbusConsumer` receives event bus messages.
+
+Each simulates a random processing time.
+
+For _Prometheus_, the verticle `WebServerForBoundPrometheus` is an alternative of `SimpleWebserver`
+that binds the prometheus `/metrics` endpoint to an existing HTTP server.
+
+== Launching the example from the command line
+
+First, build the fat jar:
+```bash
+mvn clean package
+```
+
+Then run any of these Main classes:
+
+=== Prometheus
+
+Note: link:https://prometheus.io/docs/prometheus/latest/getting_started/[check here] for Prometheus getting started guide.
+
+```bash
+java -cp target/micrometer-metrics-examples-3.5.1-fat.jar io.vertx.example.micrometer.prometheus.Main
+```
+
+You need to configure the Prometheus server to scrape `localhost:8081`.
+
+```yaml
+  - job_name: 'vertx-8081'
+    static_configs:
+      - targets: ['localhost:8081']
+```
+
+By default, histogram sampling is disabled.
+You can enable it manually in the Micrometer registry, as shown in commented code in class
+link:src/main/java/io/vertx/example/micrometer/prometheus/Main.java[`io.vertx.example.micrometer.prometheus.Main`]:
+
+```java
+registry.config().meterFilter(
+    new MeterFilter() {
+      @Override
+      public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
+        return DistributionStatisticConfig.builder()
+            .percentilesHistogram(true)
+            .build()
+            .merge(config);
+      }
+    });
+```
+
+See also link:https://micrometer.io/docs/concepts#_histograms_and_percentiles[Micrometer documentation].
+
+=== Prometheus with endpoint bound to existing server
+
+```bash
+java -cp target/micrometer-metrics-examples-3.5.1-fat.jar io.vertx.example.micrometer.ometheus.MainWithBoundPrometheus
+```
+
+You need to configure the Prometheus server to scrape `localhost:8080`.
+
+```yaml
+  - job_name: 'vertx-8080'
+    static_configs:
+      - targets: ['localhost:8080']
+```
+
+=== InfluxDB
+
+This sample application expects an InfluxDB server running on localhost, port 8086, without authentication.
+For quick setup, you can run it with this docker command:
+
+```bash
+docker run -p 8086:8086 influxdb
+```
+
+Start the application:
+```bash
+java -cp target/micrometer-metrics-examples-3.5.1-fat.jar io.vertx.example.micrometer.influxdb.Main
+```
+
+=== JMX
+
+```bash
+java -cp target/micrometer-metrics-examples-3.5.1-fat.jar io.vertx.example.micrometer.jmx.Main
+```
+Metrics will be available under domain `metrics`.
+
+== Triggering some workload
+
+You can trigger some workload to see the impact on HTTP server metrics:
+
+```bash
+while true
+do curl http://localhost:8080/
+    sleep .8
+done
+```
+
+== View in Grafana
+
+Metrics can be observed from Grafana. These dashboards track some HTTP server and event bus metrics:
+
+* link:grafana/Vertx-Prometheus.json[for Prometheus]
+* link:grafana/Vertx-InfluxDB.json[for InfluxDB]
+
+.HTTP server metrics
+image:grafana/http-server-metrics.png[HTTP server metrics]
+
+.Event bus metrics
+image:grafana/eventbus-metrics.png[Event bus metrics]
