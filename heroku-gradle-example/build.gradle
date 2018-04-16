@@ -1,0 +1,42 @@
+plugins {
+  id 'java'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+repositories {
+  mavenCentral()
+  maven {
+    url "https://oss.sonatype.org/content/repositories/iovertx-3750/"
+  }
+}
+
+version = '3.5.1'
+sourceCompatibility = '1.8'
+mainClassName = 'io.vertx.core.Launcher'
+def mainVerticleName = 'io.vertx.example.HelloWorldVerticle'
+
+dependencies {
+  compile "io.vertx:vertx-core:$version"
+}
+
+shadowJar {
+  classifier = 'fat'
+  manifest {
+    attributes 'Main-Verticle': 'io.vertx.example.HelloWorldVerticle'
+  }
+  mergeServiceFiles {
+    include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+  }
+}
+
+task copyToLib(type: Copy) {
+    into "$buildDir/lib"
+    from(configurations.compile)
+}
+
+copyToLib.dependsOn(shadowJar)
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.0'
+}
