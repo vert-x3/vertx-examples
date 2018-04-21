@@ -175,7 +175,7 @@
     </pluginManagement>
 
     <plugins>
-      <!-- Rocker templates require the built-time generator to work -->
+      <!-- Rocker templates require the compile-time generator to work -->
       <plugin>
         <groupId>com.fizzed</groupId>
         <artifactId>rocker-maven-plugin</artifactId>

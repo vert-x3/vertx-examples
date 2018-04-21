@@ -7,6 +7,8 @@ import io.vertx.ext.web.templ.RockerTemplateEngine
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
+    // Note: you need a compile-time generator for Rocker to work properly
+    // See the pom.xml for an example
     var router = Router.router(vertx)
 
     // Populate context with data

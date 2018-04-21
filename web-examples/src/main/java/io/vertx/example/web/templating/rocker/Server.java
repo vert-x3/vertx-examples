@@ -19,6 +19,8 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
+    // Note: you need a compile-time generator for Rocker to work properly
+    // See the pom.xml for an example
     final Router router = Router.router(vertx);
 
     // Populate context with data
