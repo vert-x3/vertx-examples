@@ -15,16 +15,11 @@ As mentioned in Vert.x documentation: cluster managers do not handle the event b
 
 # Running the project
 == Running Zookeeper
-You must have Zookeeper server running on your machine for this example to work.
+You must have Zookeeper server running on your machine for this example to work. In this example we use Docker to start a Zookeeper instance.
 
-* Running Zookeeper on Windows: Run link:Zookeeper/scripts/windows/run-zookeeper.bat[run-zookeeper.bat] file
+* If you don't have Docker installed, link:https://docs.docker.com/install[Install it]
 
-* Running Zookeeper on Linux: Run link:Zookeeper/scripts/zookeeper-server-start.sh[zookeeper-server-start.sh] file giving it relative path to zookeeper.properties as an argument
-
-For more details about where these files come from:
-https://github.com/kafka-dev/kafka/tree/master/bin
-
-https://github.com/bkimminich/apache-kafka-book-examples/tree/master/bat
+* Run sh file link:docker-run-zookeeper.sh[docker-run-zookeeper.sh]
 
 == Running code
 

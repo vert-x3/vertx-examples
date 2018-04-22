@@ -5,14 +5,12 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.core.spi.cluster.ClusterManager;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
 
-import java.net.UnknownHostException;
-
 /*
     Represents Vert.x instance running on a node (node1)
     This class deploys sender verticle on node1 (machine1)
  */
 public class MainClassNode1 {
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) {
         JsonObject zkConfig = configureClusterManager();
         ClusterManager zookeeperClusterManager = new ZookeeperClusterManager(zkConfig);
 
