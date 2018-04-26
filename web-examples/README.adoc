@@ -55,17 +55,17 @@ Add a product:: PUT /products/<product_id>
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080/products[list products] to start playing with the API.
 
-== Static site with templating
+== Site with templating
 
 This example shows a simple web-site containing some static pages and also a page dynamically generated using templates.
 
 The link:src/main/java/io/vertx/example/web/templating/[templating example]
 
-The dynamic page outputs some information (path and headers) of the request. It uses the MVEL template engine but you
-could use any of the other template engines if you prefer.
+Multiple examples with different templating engines, including FreeMarker, Handlebars, Jade, MVEL, Pebble, Rocker,
+and Thymeleaf are available.
 
 Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click on the links
+link:http://localhost:8080/[localhost:8080] and click on the links
 
 == Sessions example
 
