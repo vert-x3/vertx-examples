@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>sockjs-proxies-examples</artifactId>
-  <version>3.5.1</version>
+  <version>3.5.2.CR1</version>
 
   <dependencies>
 
@@ -72,7 +72,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3770/</url>
         </repository>
       </repositories>
     </profile>

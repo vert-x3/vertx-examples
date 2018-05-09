@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>resteasy-examples</artifactId>
-  <version>3.5.1</version>
+  <version>3.5.2.CR1</version>
   <name>resteasy-example</name>
 
   <properties>
@@ -52,7 +52,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3750/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3770/</url>
         </repository>
       </repositories>
     </profile>
