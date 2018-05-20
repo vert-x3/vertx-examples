@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>java9-examples</artifactId>
-  <version>3.5.2.CR1</version>
+  <version>3.5.2.CR2</version>
 
   <dependencies>
 
@@ -58,7 +58,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3771/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3774/</url>
         </repository>
       </repositories>
     </profile>

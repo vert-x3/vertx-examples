@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx.examples.openshift</groupId>
     <artifactId>vertx-openshift-applications</artifactId>
-    <version>3.5.2.CR1</version>
+    <version>3.5.2.CR2</version>
     <relativePath>../..</relativePath>
   </parent>
 
@@ -19,7 +19,7 @@
     <ispn.cluster.labels>cluster=my-vertx-cluster</ispn.cluster.labels>
 
     <jgroups-kubernetes.version>1.0.5.Final</jgroups-kubernetes.version>
-    <vertx.version>3.5.2.CR1</vertx.version>
+    <vertx.version>3.5.2.CR2</vertx.version>
     <vertx-maven-plugin.version>1.0.13</vertx-maven-plugin.version>
     <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
 
@@ -112,7 +112,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3771/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3774/</url>
         </repository>
       </repositories>
     </profile>
