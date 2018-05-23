@@ -63,3 +63,20 @@ Here is the list of the bundles to deploy this example:
 
 You can find another example of vert.x application in the OSGi context on http://paulbakker.io/osgi/vertx-osgi/
 (the code is on https://github.com/paulbakker/osgi-vertx-demo).
+
+== Running the integration tests
+
+Using Apache Felix:
+
+[source, bash]
+----
+mvn clean verify
+----
+
+
+Using Eclipse Equinox:
+
+[source, bash]
+----
+mvn clean verify -Pequinox
+----
