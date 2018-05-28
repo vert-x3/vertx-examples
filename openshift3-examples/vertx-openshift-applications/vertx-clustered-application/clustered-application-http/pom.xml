@@ -6,14 +6,14 @@
 
   <groupId>io.vertx.examples.openshift</groupId>
   <artifactId>clustered-application-http</artifactId>
-  <version>3.5.2.CR2</version>
+  <version>3.5.2.CR3</version>
 
   <properties>
     <vertx.verticle>io.vertx.examples.openshift.MyHttpVerticle</vertx.verticle>
     <ispn.cluster.labels>cluster=my-vertx-cluster</ispn.cluster.labels>
 
     <jgroups-kubernetes.version>1.0.5.Final</jgroups-kubernetes.version>
-    <vertx.version>3.5.2.CR2</vertx.version>
+    <vertx.version>3.5.2.CR3</vertx.version>
     <vertx-maven-plugin.version>1.0.13</vertx-maven-plugin.version>
     <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
 
@@ -111,7 +111,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3774/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3775/</url>
         </repository>
       </repositories>
     </profile>

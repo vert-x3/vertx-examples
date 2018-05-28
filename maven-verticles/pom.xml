@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticles-examples</artifactId>
-  <version>3.5.2.CR2</version>
+  <version>3.5.2.CR3</version>
 
   <packaging>pom</packaging>
 
