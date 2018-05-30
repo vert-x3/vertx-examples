@@ -33,7 +33,7 @@ public class ValidationExampleServer extends AbstractVerticle {
         .addFormParamWithPattern("formParameterName", "a{4}", true)
         .addPathParam("pathParam", ParameterType.FLOAT);
 
-    router.post("/hello")
+    router.post("/hello/:pathParam")
       // Mount validation handler
       .handler(validationHandler)
       //Mount your handler
