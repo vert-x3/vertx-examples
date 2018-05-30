@@ -1,5 +1,12 @@
+import io.vertx.core.net.SelfSignedCertificate
 
-vertx.createHttpServer().requestHandler({ req ->
+def certificate = SelfSignedCertificate.create()
+def serverOptions = [
+  ssl:true,
+  keyCertOptions:certificate.keyCertOptions()
+]
+
+vertx.createHttpServer(serverOptions).requestHandler({ req ->
 
   println("Got request ${req.uri()}")
 

@@ -1,5 +1,12 @@
+require 'vertx/self_signed_certificate'
 
-$vertx.create_http_server().request_handler() { |req|
+certificate = Vertx::SelfSignedCertificate.create()
+serverOptions = {
+  'ssl' => true,
+  'keyCertOptions' => certificate.key_cert_options()
+}
+
+$vertx.create_http_server(serverOptions).request_handler() { |req|
 
   puts "Got request #{req.uri()}"
 

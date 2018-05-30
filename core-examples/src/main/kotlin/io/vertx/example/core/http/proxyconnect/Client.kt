@@ -9,6 +9,9 @@ import io.vertx.kotlin.core.net.*
 class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     var request = vertx.createHttpClient(HttpClientOptions(
+      ssl = true,
+      trustAll = true,
+      verifyHost = false,
       proxyOptions = ProxyOptions(
         type = ProxyType.HTTP,
         host = "localhost",

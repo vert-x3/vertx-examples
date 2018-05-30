@@ -1,4 +1,7 @@
 request = $vertx.create_http_client({
+  'ssl' => true,
+  'trustAll' => true,
+  'verifyHost' => false,
   'proxyOptions' => {
     'type' => "HTTP",
     'host' => "localhost",

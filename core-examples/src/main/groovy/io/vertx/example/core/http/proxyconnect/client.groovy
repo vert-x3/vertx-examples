@@ -1,5 +1,8 @@
 import io.vertx.core.net.ProxyType
 def request = vertx.createHttpClient([
+  ssl:true,
+  trustAll:true,
+  verifyHost:false,
   proxyOptions:[
     type:"HTTP",
     host:"localhost",
