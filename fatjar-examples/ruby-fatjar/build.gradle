@@ -7,11 +7,11 @@ plugins {
 repositories {
   jcenter()
 //  maven {
-//    url "https://oss.sonatype.org/content/repositories/iovertx-3775/"
+//    url "https://oss.sonatype.org/content/repositories/iovertx-3776/"
 //  }
 }
 
-version = '3.5.2.CR3'
+version = '3.5.2'
 sourceCompatibility = '1.8'
 
 dependencies {

@@ -21,6 +21,6 @@ you can launch the producer and consumer as follows:
 
 ----
 mvn clean package
-java -jar target/ignite-examples-3.5.2.CR3-fat.jar run io.vertx.example.ignite.ProducerApp -cluster
-java -jar target/ignite-examples-3.5.2.CR3-fat.jar run io.vertx.example.ignite.ConsumerApp -cluster
+java -jar target/ignite-examples-3.5.2-fat.jar run io.vertx.example.ignite.ProducerApp -cluster
+java -jar target/ignite-examples-3.5.2-fat.jar run io.vertx.example.ignite.ConsumerApp -cluster
 ----
