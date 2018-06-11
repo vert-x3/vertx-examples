@@ -1,5 +1,5 @@
 var Router = require("vertx-web-js/router");
-var PebbleTemplateEngine = require("vertx-web-js/pebble_template_engine");
+var PebbleTemplateEngine = require("vertx-web-templ-pebble-js/pebble_template_engine");
 
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.

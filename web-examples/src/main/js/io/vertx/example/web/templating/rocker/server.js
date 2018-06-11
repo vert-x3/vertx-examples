@@ -1,5 +1,5 @@
 var Router = require("vertx-web-js/router");
-var RockerTemplateEngine = require("vertx-web-js/rocker_template_engine");
+var RockerTemplateEngine = require("vertx-web-templ-rocker-js/rocker_template_engine");
 var TemplateHandler = require("vertx-web-js/template_handler");
 
 var router = Router.router(vertx);

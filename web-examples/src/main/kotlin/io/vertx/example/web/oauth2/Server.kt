@@ -8,7 +8,7 @@ import io.vertx.ext.web.handler.OAuth2AuthHandler
 import io.vertx.ext.web.handler.SessionHandler
 import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine
 
 class Server : io.vertx.core.AbstractVerticle()  {
   var CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"

@@ -81,7 +81,7 @@ public class ProcessorService {
     delegate.process(document, resultHandler);
   }
 
-  public Single<JsonObject> rxProcess(JsonObject document) { 
+    public Single<JsonObject> rxProcess(JsonObject document) { 
     return Single.create(new io.vertx.rx.java.SingleOnSubscribeAdapter<>(fut -> {
       process(document, fut);
     }));

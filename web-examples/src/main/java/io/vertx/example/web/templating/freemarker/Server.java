@@ -3,7 +3,7 @@ package io.vertx.example.web.templating.freemarker;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.ext.web.templ.freemarker.FreeMarkerTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.

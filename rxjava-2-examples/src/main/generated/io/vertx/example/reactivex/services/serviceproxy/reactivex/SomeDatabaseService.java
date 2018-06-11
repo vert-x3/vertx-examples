@@ -69,7 +69,7 @@ public class SomeDatabaseService {
   }
 
   public Single<JsonObject> rxGetDataById(int id) { 
-    return new io.vertx.reactivex.core.impl.AsyncResultSingle<JsonObject>(handler -> {
+    return io.vertx.reactivex.impl.AsyncResultSingle.toSingle(handler -> {
       getDataById(id, handler);
     });
   }

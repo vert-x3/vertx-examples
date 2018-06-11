@@ -3,7 +3,7 @@ package io.vertx.example.web.templating.pebble;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.templ.PebbleTemplateEngine;
+import io.vertx.ext.web.templ.pebble.PebbleTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.

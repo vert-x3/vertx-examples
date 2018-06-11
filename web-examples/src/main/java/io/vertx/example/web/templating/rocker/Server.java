@@ -4,7 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.TemplateHandler;
-import io.vertx.ext.web.templ.RockerTemplateEngine;
+import io.vertx.ext.web.templ.rocker.RockerTemplateEngine;
 
 /**
  * @author <a href="mailto:danielrauf@gmail.com>Daniel Rauf</a>

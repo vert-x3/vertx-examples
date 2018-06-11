@@ -1,10 +1,9 @@
 package io.vertx.example.web.templating.jade;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpHeaders;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.templ.JadeTemplateEngine;
+import io.vertx.ext.web.templ.jade.JadeTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.

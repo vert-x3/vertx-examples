@@ -21,7 +21,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.TemplateHandler;
-import io.vertx.ext.web.templ.MVELTemplateEngine;
+import io.vertx.ext.web.templ.mvel.MVELTemplateEngine;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
