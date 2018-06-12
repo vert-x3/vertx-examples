@@ -369,6 +369,14 @@ This example shows a verticle deploying another verticle in several different wa
 link:src/main/java/io/vertx/example/core/verticle/deploy/DeployExample.java[Java verticle deployment example]
 link:src/main/java/io/vertx/example/core/verticle/deploy/OtherVerticle.java[The verticle that will be deployed]
 
+=== Polyglot Deploy example
+
+This example shows a verticle deploying another language verticle that depends on a NPM module:
+
+link:src/main/java/io/vertx/example/core/verticle/deploy/DeployPolyglotExample.java[Java verticle deployment example]
+link:src/main/resources/jsverticle.js[The verticle that will be deployed]
+link:src/main/resources/package.json
+
 === Asynchronous deployment example
 
 This is similar to the deployment example, but it shows how the start and stop of a verticle can be asynchronous. This
