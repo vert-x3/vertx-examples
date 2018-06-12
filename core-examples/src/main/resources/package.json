@@ -1,0 +1,16 @@
+{
+  "name": "jsverticle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jsverticle.js",
+  "dependencies": {
+    "noop2": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Paulo Lopes",
+  "license": "ISC"
+}
