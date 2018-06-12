@@ -48,12 +48,10 @@ class App : CoroutineVerticle() {
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 9, 'indianajones'"
       )
     val connection = awaitResult<SQLConnection> { client.getConnection(it) }
-    try {
+    connection.use { connection ->
       for (statement in statements) {
         awaitResult<Void> { connection.execute(statement, it) }
       }
-    } finally {
-      connection.close()
     }
 
     // Build Vert.x Web router
@@ -87,7 +85,7 @@ class App : CoroutineVerticle() {
     val movie = ctx.pathParam("id")
     val rating = Integer.parseInt(ctx.queryParam("getRating")[0])
     val connection = awaitResult<SQLConnection> { client.getConnection(it) }
-    try {
+    connection.use { connection ->
       val result = awaitResult<ResultSet> { connection.queryWithParams("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(movie) }, it) }
       if (result.rows.size == 1) {
         awaitResult<UpdateResult> { connection.updateWithParams("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?", json { array(rating, movie) }, it) }
@@ -95,8 +93,6 @@ class App : CoroutineVerticle() {
       } else {
         ctx.response().setStatusCode(404).end()
       }
-    } finally {
-      connection.close()
     }
   }
 

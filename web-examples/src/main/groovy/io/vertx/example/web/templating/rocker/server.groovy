@@ -1,6 +1,6 @@
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.handler.TemplateHandler
 import io.vertx.ext.web.templ.rocker.RockerTemplateEngine
+import io.vertx.ext.web.handler.TemplateHandler
 
 def router = Router.router(vertx)
 
