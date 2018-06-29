@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>kafka-examples</artifactId>
-  <version>3.5.1</version>
+  <version>3.6.0-SNAPSHOT</version>
 
   <properties>
     <kafka.version>1.0.0</kafka.version>

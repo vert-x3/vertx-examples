@@ -1,5 +1,5 @@
 var Router = require("vertx-web-js/router");
-var FreeMarkerTemplateEngine = require("vertx-web-js/free_marker_template_engine");
+var FreeMarkerTemplateEngine = require("vertx-web-templ-freemarker-js/free_marker_template_engine");
 
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.

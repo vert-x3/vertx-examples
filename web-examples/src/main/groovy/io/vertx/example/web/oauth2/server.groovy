@@ -7,7 +7,7 @@ import io.vertx.ext.auth.oauth2.providers.GithubAuth
 import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.handler.OAuth2AuthHandler
 import io.vertx.ext.auth.oauth2.AccessToken
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine
 @Field def CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"
 @Field def CLIENT_ID = "57cdaa1952a3f4ee3df8"
 @Field def engine = HandlebarsTemplateEngine.create()

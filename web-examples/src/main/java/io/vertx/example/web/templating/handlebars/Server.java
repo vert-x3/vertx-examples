@@ -5,7 +5,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine;
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.

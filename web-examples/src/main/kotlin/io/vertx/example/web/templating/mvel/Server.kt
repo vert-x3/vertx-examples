@@ -3,7 +3,7 @@ package io.vertx.example.web.templating.mvel
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.StaticHandler
 import io.vertx.ext.web.handler.TemplateHandler
-import io.vertx.ext.web.templ.MVELTemplateEngine
+import io.vertx.ext.web.templ.mvel.MVELTemplateEngine
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

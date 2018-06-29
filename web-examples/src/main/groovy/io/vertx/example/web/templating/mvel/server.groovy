@@ -1,5 +1,5 @@
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.templ.MVELTemplateEngine
+import io.vertx.ext.web.templ.mvel.MVELTemplateEngine
 import io.vertx.ext.web.handler.TemplateHandler
 import io.vertx.ext.web.handler.StaticHandler
 

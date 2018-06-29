@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.ops4j.pax.exam.CoreOptions.*;
 
@@ -87,7 +87,7 @@ public class VertxServiceIT {
       mavenBundle("org.apache.felix", "org.apache.felix.ipojo").versionAsInProject(),
       mavenBundle("commons-io", "commons-io").versionAsInProject(),
 
-      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.5.1") + ".jar"),
+      bundle("file:target/osgi-examples-" + System.getProperty("project.version", "3.6.0-SNAPSHOT") + ".jar"),
 
       junitBundles()
     );

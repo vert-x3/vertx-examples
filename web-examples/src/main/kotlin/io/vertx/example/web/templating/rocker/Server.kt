@@ -2,7 +2,7 @@ package io.vertx.example.web.templating.rocker
 
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.TemplateHandler
-import io.vertx.ext.web.templ.RockerTemplateEngine
+import io.vertx.ext.web.templ.rocker.RockerTemplateEngine
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {

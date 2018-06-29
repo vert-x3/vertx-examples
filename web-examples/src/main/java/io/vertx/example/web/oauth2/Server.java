@@ -7,9 +7,12 @@ import io.vertx.ext.auth.oauth2.AccessToken;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import io.vertx.ext.auth.oauth2.providers.GithubAuth;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.*;
+import io.vertx.ext.web.handler.CookieHandler;
+import io.vertx.ext.web.handler.OAuth2AuthHandler;
+import io.vertx.ext.web.handler.SessionHandler;
+import io.vertx.ext.web.handler.UserSessionHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine;
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>

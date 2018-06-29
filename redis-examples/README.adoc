@@ -27,15 +27,15 @@ Once the redis instance is running, you can launch it using:
 mvn clean package
 
 # java
-vertx run io.vertx.examples.redis.RedisClientVerticle -cp target/redis-examples-3.5.1.jar -conf my-redis-config.json
+vertx run io.vertx.examples.redis.RedisClientVerticle -cp target/redis-examples-3.6.0-SNAPSHOT.jar -conf my-redis-config.json
 
 # javascript
-vertx run src/main/js/io/vertx/examples/redis/redis_client_verticle.js  -cp target/redis-examples-3.5.1.jar -conf my-redis-config.json
+vertx run src/main/js/io/vertx/examples/redis/redis_client_verticle.js  -cp target/redis-examples-3.6.0-SNAPSHOT.jar -conf my-redis-config.json
 
 # groovy
-vertx run src/main/groovy/io/vertx/examples/redis/redis_client_verticle.groovy   -cp target/redis-examples-3.5.1.jar -conf my-redis-config.json
+vertx run src/main/groovy/io/vertx/examples/redis/redis_client_verticle.groovy   -cp target/redis-examples-3.6.0-SNAPSHOT.jar -conf my-redis-config.json
 
 # ruby
-vertx run src/main/ruby/io/vertx/examples/redis/redis_client_verticle.rb   -cp target/redis-examples-3.5.1.jar -conf my-redis-config.json
+vertx run src/main/ruby/io/vertx/examples/redis/redis_client_verticle.rb   -cp target/redis-examples-3.6.0-SNAPSHOT.jar -conf my-redis-config.json
 ----
 
