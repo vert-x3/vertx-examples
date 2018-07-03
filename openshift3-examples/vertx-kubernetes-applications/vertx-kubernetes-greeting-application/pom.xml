@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx.examples.kubernetes</groupId>
     <artifactId>vertx-kubernetes-applications</artifactId>
-    <version>3.5.2</version>
+    <version>3.5.3.CR1</version>
   </parent>
 
   <artifactId>vertx-kubernetes-greeting-application</artifactId>
