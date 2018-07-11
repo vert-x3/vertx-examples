@@ -16,7 +16,7 @@
 
 
   <properties>
-    <vertx.version>3.5.3.CR1</vertx.version>
+    <vertx.version>3.5.3</vertx.version>
     <java.version>1.8</java.version>
   </properties>
 
@@ -67,7 +67,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3780/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
         </repository>
       </repositories>
     </profile>

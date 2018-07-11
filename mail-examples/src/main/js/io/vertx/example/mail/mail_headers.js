@@ -13,7 +13,7 @@ var email = {
   "from" : "user1@example.com",
   "to" : ["user2@example.com", "user3@example.com", "user4@example.com"],
   "headers" : {
-    "X-Mailer" : "Vert.x Mail-Client 3.5.3.CR1",
+    "X-Mailer" : "Vert.x Mail-Client 3.5.3",
     "Message-ID" : "12345@example.com",
     "Reply-To" : "reply@example.com",
     "Received" : [

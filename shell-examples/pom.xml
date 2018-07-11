@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>shell-examples</artifactId>
-  <version>3.5.2</version>
+  <version>3.5.3</version>
 
   <dependencies>
 
@@ -77,7 +77,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3780/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
         </repository>
       </repositories>
     </profile>
