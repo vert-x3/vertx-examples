@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-examples</artifactId>
-  <version>3.5.1</version>
+  <version>3.5.3</version>
 
   <properties>
     <slf4j.version>1.7.21</slf4j.version>
@@ -201,7 +201,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3750/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
         </repository>
       </repositories>
     </profile>

@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>kafka-examples</artifactId>
-  <version>3.5.1</version>
+  <version>3.5.3</version>
 
   <properties>
     <kafka.version>1.0.0</kafka.version>
@@ -116,7 +116,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3750/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
         </repository>
       </repositories>
     </profile>

@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>spring-examples</artifactId>
-  <version>3.5.1</version>
+  <version>3.5.3</version>
 
   <packaging>pom</packaging>
 
