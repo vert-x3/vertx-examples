@@ -58,7 +58,7 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
 	  messageConsumer.unregister();
 	}
 	if (null != httpServer) {
-      httpServer.close();
+	  httpServer.close();
     }
   }
 
