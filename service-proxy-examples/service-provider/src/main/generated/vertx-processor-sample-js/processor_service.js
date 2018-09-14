@@ -24,7 +24,7 @@ var JProcessorService = Java.type('io.vertx.examples.service.ProcessorService');
 
 /**
  The service interface.
-
+ 
  @class
 */
 var ProcessorService = function(j_val) {
