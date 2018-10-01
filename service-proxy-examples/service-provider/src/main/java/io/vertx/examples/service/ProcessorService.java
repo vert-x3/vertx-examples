@@ -7,10 +7,12 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.impl.ProcessorServiceImpl;
-import io.vertx.serviceproxy.ProxyHelper;
+import io.vertx.serviceproxy.ServiceProxyBuilder;
 
 /**
  * The service interface.
+ * 
+ * @author Lalit Rao
  */
 @ProxyGen // Generate the proxy and handler
 @VertxGen // Generate clients in non-java languages
@@ -25,15 +27,17 @@ public interface ProcessorService {
   }
 
   static ProcessorService createProxy(Vertx vertx, String address) {
-    return ProxyHelper.createProxy(ProcessorService.class, vertx, address);
-    // Alternatively, you can create the proxy directly using:
-    // return new ProcessorServiceVertxEBProxy(vertx, address);
-    // The name of the class to instantiate is the service interface + `VertxEBProxy`.
-    // This class is generated during the compilation
+	ServiceProxyBuilder builder = new ServiceProxyBuilder(vertx)
+	   .setAddress(address);
+	ProcessorService service = builder.build(ProcessorService.class);
+	return service;
+ // Alternatively, you can create the proxy directly using:
+ // return new ProcessorServiceVertxEBProxy(vertx, address);
+ // The name of the class to instantiate is the service interface + `VertxEBProxy`.
+ // This class is generated during the compilation
   }
 
   // The service methods
-
   void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler);
 
 }

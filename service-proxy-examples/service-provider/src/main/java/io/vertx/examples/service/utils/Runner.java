@@ -1,15 +1,17 @@
 package io.vertx.examples.service.utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Set;
+import java.util.function.Consumer;
+
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.function.Consumer;
-
-/*
+/**
  * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author Lalit Rao
  */
 public class Runner {
 
@@ -60,6 +62,7 @@ public class Runner {
         } else {
           vertx.deployVerticle(verticleID);
         }
+        addShutDownhook(vertx);
       } catch (Throwable t) {
         t.printStackTrace();
       }
@@ -77,5 +80,16 @@ public class Runner {
       Vertx vertx = Vertx.vertx(options);
       runner.accept(vertx);
     }
+    
+  }
+  
+  private static void addShutDownhook(final Vertx vertx) {
+	Runtime.getRuntime().addShutdownHook(new Thread() {
+	  public void run() {
+	    Set<String> deployedVerticleIds = vertx.deploymentIDs();
+	    deployedVerticleIds.forEach(vertx::undeploy);
+	    vertx.close();
+	  }
+	});
   }
 }
