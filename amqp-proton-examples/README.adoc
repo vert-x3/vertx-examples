@@ -1,0 +1,24 @@
+= Vert.x Proton examples
+
+Here you will find examples demonstrating the Vert.x Proton AMQP library in action.
+
+This component facilitates AMQP integrations for Vert.x by providing a thin wrapper around the [Apache Qpid](http://qpid.apache.org) Proton-J AMQP 1.0 protocol engine.
+Please consult the Vert.x Proton documentation for more information.
+
+**NOTE: The Client examples require a server with AMQP 1.0 support listening at port 5672 on localhost and offering SASL ANONYMOUS.**
+
+For instance, you could use a server such as Apache ActiveMQ (5.x or Artemis), Apache Qpid (Dispatch router, Broker-J or C++ broker), or the Vert.x Proton server example.
+
+== Client
+
+These examples demonstrate messaging between a client sender, client receiver, and a server. They can be used in conjunction with each other to send and receive messages.
+
+The Receiver example consumes incoming messages from an address, prints their content, and accepts them. The Sender example sends a message to that address every second.
+
+link:src/main/java/io/vertx/example/proton/client/Receiver.java[Receiver] +
+link:src/main/java/io/vertx/example/proton/client/Sender.java[Sender] +
+
+== Server
+
+This server example listens for incoming connections on port 5672. It prints any messages received from client senders, and periodically sends generated messages to client receivers.
+link:src/main/java/io/vertx/example/proton/server/HelloServer.java[HelloServer] +
