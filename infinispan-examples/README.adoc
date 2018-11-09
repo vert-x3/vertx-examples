@@ -27,7 +27,7 @@ you can launch the producer and consumer as follows:
 
 ----
 mvn clean package
-java -jar target/infinispan-examples-3.6.0-SNAPSHOT-fat.jar run io.vertx.example.infinispan.StatsProducerApp -cluster
-java -jar target/infinispan-examples-3.6.0-SNAPSHOT-fat.jar run io.vertx.example.infinispan.StatsConsumerApp -cluster
-java -jar target/infinispan-examples-3.6.0-SNAPSHOT-fat.jar run io.vertx.example.infinispan.DisplayStatsApp -cluster
+java -jar target/infinispan-examples-3.6.0.CR1-fat.jar run io.vertx.example.infinispan.StatsProducerApp -cluster
+java -jar target/infinispan-examples-3.6.0.CR1-fat.jar run io.vertx.example.infinispan.StatsConsumerApp -cluster
+java -jar target/infinispan-examples-3.6.0.CR1-fat.jar run io.vertx.example.infinispan.DisplayStatsApp -cluster
 ----

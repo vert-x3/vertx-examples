@@ -15,7 +15,8 @@ import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.kotlin.coroutines.awaitResult
 import io.vertx.kotlin.coroutines.dispatcher
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class App : CoroutineVerticle() {
@@ -111,7 +112,7 @@ class App : CoroutineVerticle() {
  */
 fun Route.coroutineHandler(fn : suspend (RoutingContext) -> Unit) {
   handler { ctx ->
-    launch(ctx.vertx().dispatcher()) {
+    GlobalScope.launch(ctx.vertx().dispatcher()) {
       try {
         fn(ctx)
       } catch(e: Exception) {

@@ -19,7 +19,6 @@ package io.vertx.examples.service.rxjava;
 import java.util.Map;
 import rx.Observable;
 import rx.Single;
-import io.vertx.rxjava.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -31,7 +30,7 @@ import io.vertx.core.Handler;
  * NOTE: This class has been automatically generated from the {@link io.vertx.examples.service.ProcessorService original} non RX-ified interface using Vert.x codegen.
  */
 
-@io.vertx.lang.rxjava.RxGen(io.vertx.examples.service.ProcessorService.class)
+@io.vertx.lang.rx.RxGen(io.vertx.examples.service.ProcessorService.class)
 public class ProcessorService {
 
   @Override
@@ -52,8 +51,7 @@ public class ProcessorService {
     return delegate.hashCode();
   }
 
-  public static final io.vertx.lang.rxjava.TypeArg<ProcessorService> __TYPE_ARG = new io.vertx.lang.rxjava.TypeArg<>(
-    obj -> new ProcessorService((io.vertx.examples.service.ProcessorService) obj),
+  public static final io.vertx.lang.rx.TypeArg<ProcessorService> __TYPE_ARG = new io.vertx.lang.rx.TypeArg<>(    obj -> new ProcessorService((io.vertx.examples.service.ProcessorService) obj),
     ProcessorService::getDelegate
   );
 
@@ -67,13 +65,13 @@ public class ProcessorService {
     return delegate;
   }
 
-  public static ProcessorService create(Vertx vertx) { 
-    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
+  public static io.vertx.examples.service.rxjava.ProcessorService create(io.vertx.rxjava.core.Vertx vertx) { 
+    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
     return ret;
   }
 
-  public static ProcessorService createProxy(Vertx vertx, String address) { 
-    ProcessorService ret = ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
+  public static io.vertx.examples.service.rxjava.ProcessorService createProxy(io.vertx.rxjava.core.Vertx vertx, String address) { 
+    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
     return ret;
   }
 
@@ -87,6 +85,8 @@ public class ProcessorService {
     }));
   }
 
+  public static final int NO_NAME_ERROR = io.vertx.examples.service.ProcessorService.NO_NAME_ERROR;
+  public static final int BAD_NAME_ERROR = io.vertx.examples.service.ProcessorService.BAD_NAME_ERROR;
 
   public static  ProcessorService newInstance(io.vertx.examples.service.ProcessorService arg) {
     return arg != null ? new ProcessorService(arg) : null;

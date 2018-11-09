@@ -14,36 +14,36 @@
  * under the License.
  */
 
-/** @module vertx-rxified-serviceproxy-example-js/some_database_service */
+/** @module vertx-sockjs-proxy-example-js/my_service */
 var utils = require('vertx-js/util/utils');
 
 var io = Packages.io;
 var JsonObject = io.vertx.core.json.JsonObject;
-var JSomeDatabaseService = Java.type('io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService');
+var JMyService = Java.type('io.vertx.example.web.proxies.MyService');
 
 /**
  @class
 */
-var SomeDatabaseService = function(j_val) {
+var MyService = function(j_val) {
 
-  var j_someDatabaseService = j_val;
+  var j_myService = j_val;
   var that = this;
 
   /**
 
    @public
-   @param id {number} 
-   @param resultHandler {function} 
-   @return {SomeDatabaseService}
+   @param name {string} 
+   @param handler {function} 
+   @return {MyService}
    */
-  this.getDataById =  function(id, resultHandler) {
+  this.sayHello =  function(name, handler) {
     var __args = arguments;
-    if (__args.length === 2 && typeof __args[0] ==='number' && typeof __args[1] === 'function') {
-      j_someDatabaseService["getDataById(int,io.vertx.core.Handler)"](id, function(ar) {
+    if (__args.length === 2 && typeof __args[0] === 'string' && typeof __args[1] === 'function') {
+      j_myService["sayHello(java.lang.String,io.vertx.core.Handler)"](name, function(ar) {
         if (ar.succeeded()) {
-          resultHandler(utils.convReturnJson(ar.result()), null);
+          handler(ar.result(), null);
         } else {
-          resultHandler(null, ar.cause());
+          handler(null, ar.cause());
         }
       }) ;
       return that;
@@ -53,23 +53,23 @@ var SomeDatabaseService = function(j_val) {
   // A reference to the underlying Java delegate
   // NOTE! This is an internal API and must not be used in user code.
   // If you rely on this property your code is likely to break if we change it / remove it without warning.
-  this._jdel = j_someDatabaseService;
+  this._jdel = j_myService;
 };
 
-SomeDatabaseService._jclass = utils.getJavaClass("io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService");
-SomeDatabaseService._jtype = {accept: function(obj) {
-    return SomeDatabaseService._jclass.isInstance(obj._jdel);
+MyService._jclass = utils.getJavaClass("io.vertx.example.web.proxies.MyService");
+MyService._jtype = {accept: function(obj) {
+    return MyService._jclass.isInstance(obj._jdel);
   },wrap: function(jdel) {
-    var obj = Object.create(SomeDatabaseService.prototype, {});
-    SomeDatabaseService.apply(obj, arguments);
+    var obj = Object.create(MyService.prototype, {});
+    MyService.apply(obj, arguments);
     return obj;
   },
   unwrap: function(obj) {
     return obj._jdel;
   }
 };
-SomeDatabaseService._create = function(jdel) {var obj = Object.create(SomeDatabaseService.prototype, {});
-  SomeDatabaseService.apply(obj, arguments);
+MyService._create = function(jdel) {var obj = Object.create(MyService.prototype, {});
+  MyService.apply(obj, arguments);
   return obj;
 }
-module.exports = SomeDatabaseService;
+module.exports = MyService;
