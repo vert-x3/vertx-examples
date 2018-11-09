@@ -32,12 +32,13 @@ public class Server extends AbstractVerticle {
     final Router router = Router.router(vertx);
 
     // In order to use a template we first need to create an engine
-    final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create();
+    final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
 
     // Entry point to the application, this will render a custom template.
     router.get().handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("title", "Seasons of the year");
+      JsonObject data = new JsonObject()
+        .put("title", "Seasons of the year");
       // we define a hardcoded array of json objects
       JsonArray seasons = new JsonArray();
       seasons.add(new JsonObject().put("name", "Spring"));
@@ -45,10 +46,10 @@ public class Server extends AbstractVerticle {
       seasons.add(new JsonObject().put("name", "Autumn"));
       seasons.add(new JsonObject().put("name", "Winter"));
 
-      ctx.put("seasons", seasons);
+      data.put("seasons", seasons);
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.hbs", res -> {
+      engine.render(data, "templates/index.hbs", res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {

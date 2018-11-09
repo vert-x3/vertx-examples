@@ -11,10 +11,13 @@ engine = VertxWebTemplPebble::PebbleTemplateEngine.create($vertx)
 # Entry point to the application, this will render a custom template.
 router.get().handler() { |ctx|
   # we define a hardcoded title for our application
-  ctx.put("name", "Vert.x Web")
+  data = {
+    'name' => "Vert.x Web",
+    'path' => ctx.request().path()
+  }
 
   # and now delegate to the engine to render it.
-  engine.render(ctx, "templates/index.peb") { |res_err,res|
+  engine.render(data, "templates/index.peb") { |res_err,res|
     if (res_err == nil)
       ctx.response().end(res)
     else

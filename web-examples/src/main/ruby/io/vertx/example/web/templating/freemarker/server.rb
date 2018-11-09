@@ -6,15 +6,18 @@ require 'vertx-web-templ-freemarker/free_marker_template_engine'
 router = VertxWeb::Router.router($vertx)
 
 # In order to use a template we first need to create an engine
-engine = VertxWebTemplFreemarker::FreeMarkerTemplateEngine.create()
+engine = VertxWebTemplFreemarker::FreeMarkerTemplateEngine.create($vertx)
 
 # Entry point to the application, this will render a custom template.
 router.get().handler() { |ctx|
   # we define a hardcoded title for our application
-  ctx.put("name", "Vert.x Web")
+  data = {
+    'name' => "Vert.x Web",
+    'path' => ctx.request().path()
+  }
 
   # and now delegate to the engine to render it.
-  engine.render(ctx, "templates/index.ftl") { |res_err,res|
+  engine.render(data, "templates/index.ftl") { |res_err,res|
     if (res_err == nil)
       ctx.response().end(res)
     else

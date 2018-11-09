@@ -1,2 +1,2 @@
-Hello ${context.name}!
-Request path is ${context.request().path()}
+Hello ${name}!
+Request path is ${path}

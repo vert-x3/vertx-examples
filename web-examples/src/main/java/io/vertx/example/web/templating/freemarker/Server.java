@@ -1,6 +1,7 @@
 package io.vertx.example.web.templating.freemarker;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.templ.freemarker.FreeMarkerTemplateEngine;
@@ -30,15 +31,17 @@ public class Server extends AbstractVerticle {
     final Router router = Router.router(vertx);
 
     // In order to use a template we first need to create an engine
-    final FreeMarkerTemplateEngine engine = FreeMarkerTemplateEngine.create();
+    final FreeMarkerTemplateEngine engine = FreeMarkerTemplateEngine.create(vertx);
 
     // Entry point to the application, this will render a custom template.
     router.get().handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("name", "Vert.x Web");
+      JsonObject data = new JsonObject()
+        .put("name", "Vert.x Web")
+        .put("path", ctx.request().path());
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.ftl", res -> {
+      engine.render(data, "templates/index.ftl", res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {

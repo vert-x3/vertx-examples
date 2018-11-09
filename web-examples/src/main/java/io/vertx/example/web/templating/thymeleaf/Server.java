@@ -1,6 +1,7 @@
 package io.vertx.example.web.templating.thymeleaf;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.templ.thymeleaf.ThymeleafTemplateEngine;
@@ -30,15 +31,16 @@ public class Server extends AbstractVerticle {
     final Router router = Router.router(vertx);
 
     // In order to use a Thymeleaf template we first need to create an engine
-    final ThymeleafTemplateEngine engine = ThymeleafTemplateEngine.create();
+    final ThymeleafTemplateEngine engine = ThymeleafTemplateEngine.create(vertx);
 
     // Entry point to the application, this will render a custom JADE template.
     router.get().handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("welcome", "Hi there!");
+      JsonObject data = new JsonObject()
+        .put("welcome", "Hi there!");
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.html", res -> {
+      engine.render(data, "templates/index.html", res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {

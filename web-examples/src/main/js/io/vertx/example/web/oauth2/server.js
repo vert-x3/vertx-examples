@@ -9,7 +9,7 @@ var AccessToken = require("vertx-auth-oauth2-js/access_token");
 var HandlebarsTemplateEngine = require("vertx-web-templ-handlebars-js/handlebars_template_engine");
 var CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704";
 var CLIENT_ID = "57cdaa1952a3f4ee3df8";
-var engine = HandlebarsTemplateEngine.create();
+var engine = HandlebarsTemplateEngine.create(vertx);
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.
 var router = Router.router(vertx);
@@ -25,9 +25,11 @@ router.route("/protected").handler(OAuth2AuthHandler.create(authProvider).setupC
 // Entry point to the application, this will render a custom template.
 router.get("/").handler(function (ctx) {
   // we pass the client id to the template
-  ctx.put("client_id", CLIENT_ID);
+  var data = {
+    "client_id" : CLIENT_ID
+  };
   // and now delegate to the engine to render it.
-  engine.render(ctx, "views", "/index.hbs", function (res, res_err) {
+  engine.render(data, "views/index.hbs", function (res, res_err) {
     if (res_err == null) {
       ctx.response().putHeader("Content-Type", "text/html").end(res);
     } else {
@@ -64,9 +66,11 @@ router.get("/protected").handler(function (ctx) {
         } else {
           userInfo.private_emails = res2.jsonArray();
           // we pass the client info to the template
-          ctx.put("userInfo", userInfo);
+          var data = {
+            "userInfo" : userInfo
+          };
           // and now delegate to the engine to render it.
-          engine.render(ctx, "views", "/advanced.hbs", function (res3, res3_err) {
+          engine.render(data, "views/advanced.hbs", function (res3, res3_err) {
             if (res3_err == null) {
               ctx.response().putHeader("Content-Type", "text/html").end(res3);
             } else {

@@ -9,7 +9,7 @@ require 'vertx-auth-oauth2/access_token'
 require 'vertx-web-templ-handlebars/handlebars_template_engine'
 @CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"
 @CLIENT_ID = "57cdaa1952a3f4ee3df8"
-@engine = VertxWebTemplHandlebars::HandlebarsTemplateEngine.create()
+@engine = VertxWebTemplHandlebars::HandlebarsTemplateEngine.create($vertx)
 # To simplify the development of the web components we use a Router to route all HTTP requests
 # to organize our code in a reusable way.
 router = VertxWeb::Router.router($vertx)
@@ -25,9 +25,11 @@ router.route("/protected").handler(&VertxWeb::OAuth2AuthHandler.create(authProvi
 # Entry point to the application, this will render a custom template.
 router.get("/").handler() { |ctx|
   # we pass the client id to the template
-  ctx.put("client_id", @CLIENT_ID)
+  data = {
+    'client_id' => @CLIENT_ID
+  }
   # and now delegate to the engine to render it.
-  @engine.render(ctx, "views", "/index.hbs") { |res_err,res|
+  @engine.render(data, "views/index.hbs") { |res_err,res|
     if (res_err == nil)
       ctx.response().put_header("Content-Type", "text/html").end(res)
     else
@@ -64,9 +66,11 @@ router.get("/protected").handler() { |ctx|
         else
           userInfo['private_emails'] = res2.json_array()
           # we pass the client info to the template
-          ctx.put("userInfo", userInfo)
+          data = {
+            'userInfo' => userInfo
+          }
           # and now delegate to the engine to render it.
-          @engine.render(ctx, "views", "/advanced.hbs") { |res3_err,res3|
+          @engine.render(data, "views/advanced.hbs") { |res3_err,res3|
             if (res3_err == nil)
               ctx.response().put_header("Content-Type", "text/html").end(res3)
             else

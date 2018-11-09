@@ -1,6 +1,7 @@
 package io.vertx.example.web.templating.jade;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.templ.jade.JadeTemplateEngine;
@@ -30,15 +31,16 @@ public class Server extends AbstractVerticle {
     final Router router = Router.router(vertx);
 
     // In order to use a template we first need to create an engine
-    final JadeTemplateEngine engine = JadeTemplateEngine.create();
+    final JadeTemplateEngine engine = JadeTemplateEngine.create(vertx);
 
     // Entry point to the application, this will render a custom template.
     router.get().handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("name", "Vert.x Web");
+      JsonObject data = new JsonObject()
+        .put("name", "Vert.x Web");
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.jade", res -> {
+      engine.render(data, "templates/index.jade", res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {
