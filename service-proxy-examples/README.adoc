@@ -46,7 +46,9 @@ In the verticle, the handler registration is made using:
 
 [source, java]
 ----
-ProxyHelper.registerService(ProcessorService.class, vertx, service, "vertx.processor");
+new ServiceBinder(vertx)
+   .setAddress("vertx.processor")
+   .register(ProcessorService.class, service);
 ----
 `service` is the service object we register (so an instance of the `ProcessorServiceImpl`. The last parameter is the address on which the service can be invoked.
 
