@@ -15,13 +15,12 @@ import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.kotlin.coroutines.awaitResult
 import io.vertx.kotlin.coroutines.dispatcher
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
 class App : CoroutineVerticle() {
 
-  private lateinit var client : JDBCClient
+  private lateinit var client: JDBCClient
 
   suspend override fun start() {
 
@@ -47,7 +46,7 @@ class App : CoroutineVerticle() {
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 7, 'indianajones'",
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 3, 'indianajones'",
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 9, 'indianajones'"
-      )
+    )
     val connection = awaitResult<SQLConnection> { client.getConnection(it) }
     connection.use { connection ->
       for (statement in statements) {
@@ -62,9 +61,10 @@ class App : CoroutineVerticle() {
     router.get("/getRating/:id").coroutineHandler { ctx -> getRating(ctx) }
 
     // Start the server
-    awaitResult<HttpServer> { vertx.createHttpServer()
-      .requestHandler(router::accept)
-      .listen(config.getInteger("http.port", 8080), it)
+    awaitResult<HttpServer> {
+      vertx.createHttpServer()
+        .requestHandler(router::accept)
+        .listen(config.getInteger("http.port", 8080), it)
     }
   }
 
@@ -105,18 +105,18 @@ class App : CoroutineVerticle() {
       obj("id" to id, "getRating" to result.rows[0]["VALUE"]).encode()
     })
   }
-}
 
-/**
- * An extension method for simplifying coroutines usage with Vert.x Web routers
- */
-fun Route.coroutineHandler(fn : suspend (RoutingContext) -> Unit) {
-  handler { ctx ->
-    GlobalScope.launch(ctx.vertx().dispatcher()) {
-      try {
-        fn(ctx)
-      } catch(e: Exception) {
-        ctx.fail(e)
+  /**
+   * An extension method for simplifying coroutines usage with Vert.x Web routers
+   */
+  fun Route.coroutineHandler(fn: suspend (RoutingContext) -> Unit) {
+    handler { ctx ->
+      launch(ctx.vertx().dispatcher()) {
+        try {
+          fn(ctx)
+        } catch (e: Exception) {
+          ctx.fail(e)
+        }
       }
     }
   }
