@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>sync-examples</artifactId>
-  <version>3.6.0.CR1</version>
+  <version>3.6.0.CR2</version>
 
   <dependencies>
 

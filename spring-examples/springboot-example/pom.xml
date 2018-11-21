@@ -16,7 +16,7 @@
 
 
   <properties>
-    <vertx.version>3.6.0.CR1</vertx.version>
+    <vertx.version>3.6.0.CR2</vertx.version>
     <java.version>1.8</java.version>
   </properties>
 
