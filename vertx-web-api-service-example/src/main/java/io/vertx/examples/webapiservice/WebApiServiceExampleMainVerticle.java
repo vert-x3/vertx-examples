@@ -45,9 +45,6 @@ public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
       if (openAPI3RouterFactoryAsyncResult.succeeded()) {
         OpenAPI3RouterFactory routerFactory = openAPI3RouterFactoryAsyncResult.result();
 
-        // Enable automatic response when ValidationException is thrown
-        routerFactory.enableValidationFailureHandler(true);
-
         // Mount services on event bus based on extensions
         routerFactory.mountServicesFromExtensions();
 
