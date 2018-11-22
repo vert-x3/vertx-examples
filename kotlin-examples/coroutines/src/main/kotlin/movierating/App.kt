@@ -1,20 +1,20 @@
 package movierating
 
-import io.vertx.core.http.HttpServer
 import io.vertx.ext.jdbc.JDBCClient
-import io.vertx.ext.sql.ResultSet
-import io.vertx.ext.sql.SQLConnection
-import io.vertx.ext.sql.UpdateResult
 import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
+import io.vertx.kotlin.core.http.listenAwait
 import io.vertx.kotlin.core.json.array
 import io.vertx.kotlin.core.json.get
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
-import io.vertx.kotlin.coroutines.awaitResult
 import io.vertx.kotlin.coroutines.dispatcher
+import io.vertx.kotlin.ext.sql.executeAwait
+import io.vertx.kotlin.ext.sql.getConnectionAwait
+import io.vertx.kotlin.ext.sql.queryWithParamsAwait
+import io.vertx.kotlin.ext.sql.updateWithParamsAwait
 import kotlinx.coroutines.launch
 
 
@@ -22,7 +22,7 @@ class App : CoroutineVerticle() {
 
   private lateinit var client: JDBCClient
 
-  suspend override fun start() {
+  override suspend fun start() {
 
     client = JDBCClient.createShared(vertx, json {
       obj(
@@ -47,12 +47,8 @@ class App : CoroutineVerticle() {
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 3, 'indianajones'",
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 9, 'indianajones'"
     )
-    val connection = awaitResult<SQLConnection> { client.getConnection(it) }
-    connection.use { connection ->
-      for (statement in statements) {
-        awaitResult<Void> { connection.execute(statement, it) }
-      }
-    }
+    client.getConnectionAwait()
+      .use { connection -> statements.forEach { connection.executeAwait(it) } }
 
     // Build Vert.x Web router
     val router = Router.router(vertx)
@@ -61,17 +57,15 @@ class App : CoroutineVerticle() {
     router.get("/getRating/:id").coroutineHandler { ctx -> getRating(ctx) }
 
     // Start the server
-    awaitResult<HttpServer> {
-      vertx.createHttpServer()
-        .requestHandler(router::accept)
-        .listen(config.getInteger("http.port", 8080), it)
-    }
+    vertx.createHttpServer()
+        .requestHandler(router)
+        .listenAwait(config.getInteger("http.port", 8080))
   }
 
   // Send info about a movie
   suspend fun getMovie(ctx: RoutingContext) {
     val id = ctx.pathParam("id")
-    val result = awaitResult<ResultSet> { client.queryWithParams("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(id) }, it) }
+    val result = client.queryWithParamsAwait("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(id) })
     if (result.rows.size == 1) {
       ctx.response().end(json {
         obj("id" to id, "title" to result.rows[0]["TITLE"]).encode()
@@ -85,11 +79,10 @@ class App : CoroutineVerticle() {
   suspend fun rateMovie(ctx: RoutingContext) {
     val movie = ctx.pathParam("id")
     val rating = Integer.parseInt(ctx.queryParam("getRating")[0])
-    val connection = awaitResult<SQLConnection> { client.getConnection(it) }
-    connection.use { connection ->
-      val result = awaitResult<ResultSet> { connection.queryWithParams("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(movie) }, it) }
+    client.getConnectionAwait().use { connection ->
+      val result = connection.queryWithParamsAwait("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(movie) })
       if (result.rows.size == 1) {
-        awaitResult<UpdateResult> { connection.updateWithParams("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?", json { array(rating, movie) }, it) }
+        connection.updateWithParamsAwait("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?", json { array(rating, movie) })
         ctx.response().setStatusCode(200).end()
       } else {
         ctx.response().setStatusCode(404).end()
@@ -100,7 +93,7 @@ class App : CoroutineVerticle() {
   // Get the current rating of a movie
   suspend fun getRating(ctx: RoutingContext) {
     val id = ctx.pathParam("id")
-    val result = awaitResult<ResultSet> { client.queryWithParams("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?", json { array(id) }, it) }
+    val result = client.queryWithParamsAwait("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?", json { array(id) })
     ctx.response().end(json {
       obj("id" to id, "getRating" to result.rows[0]["VALUE"]).encode()
     })
