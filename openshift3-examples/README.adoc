@@ -60,7 +60,7 @@ public class GreetingApplication {
     router.get("/:name").handler(rc -> rc.response().end("Hello " + rc.pathParam("name")));
 
     vertx.createHttpServer()
-      .requestHandler(router::accept)
+      .requestHandler(router)
       .listen(8080);
   }
 }

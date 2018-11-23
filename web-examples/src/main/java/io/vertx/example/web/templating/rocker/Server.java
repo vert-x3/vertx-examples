@@ -33,6 +33,6 @@ public class Server extends AbstractVerticle {
     // See the pom.xml for an example
     router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()));
 
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }

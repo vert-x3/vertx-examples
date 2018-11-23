@@ -75,4 +75,4 @@ router.get("/products/:productID").handler(this.&handleGetProduct)
 router.put("/products/:productID").handler(this.&handleAddProduct)
 router.get("/products").handler(this.&handleListProducts)
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

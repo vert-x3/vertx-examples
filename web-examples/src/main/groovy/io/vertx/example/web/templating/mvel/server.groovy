@@ -15,4 +15,4 @@ router.route("/dynamic/*").handler({ ctx ->
 // Serve the static pages
 router.route().handler(StaticHandler.create())
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

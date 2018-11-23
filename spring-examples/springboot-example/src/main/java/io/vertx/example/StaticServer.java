@@ -19,6 +19,6 @@ public class StaticServer extends AbstractVerticle {
     // Serve the static pages
     router.route().handler(StaticHandler.create());
 
-    vertx.createHttpServer().requestHandler(router::accept).listen(configuration.httpPort());
+    vertx.createHttpServer().requestHandler(router).listen(configuration.httpPort());
   }
 }

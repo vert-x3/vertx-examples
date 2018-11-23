@@ -74,7 +74,7 @@ public class OpenAPI3Server extends AbstractVerticle {
 
       // Now you can use your Router instance
       server = vertx.createHttpServer(new HttpServerOptions().setPort(8080).setHost("localhost"));
-      server.requestHandler(router::accept).listen((ar) ->  {
+      server.requestHandler(router).listen((ar) ->  {
         if (ar.succeeded()) {
           logger.info("Server started on port " + ar.result().actualPort());
           future.complete();

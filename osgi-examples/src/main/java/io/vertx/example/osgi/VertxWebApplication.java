@@ -50,7 +50,7 @@ public class VertxWebApplication extends AbstractVerticle {
 
       LOGGER.info("Creating HTTP server for vert.x web application");
       HttpServer server = vertx.createHttpServer();
-      server.requestHandler(router::accept).listen(8081);
+      server.requestHandler(router).listen(8081);
     });
   }
 
