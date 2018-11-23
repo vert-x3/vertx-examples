@@ -16,7 +16,7 @@ class Server : AbstractVerticle() {
         val router = Router.router(vertx)
 
         setupRoutes(router)
-        vertx.createHttpServer(serverOptions).requestHandler(router::accept).listen()
+        vertx.createHttpServer(serverOptions).requestHandler(router).listen()
         println("Server running on http://${serverOptions.host}:${serverOptions.port}")
     }
 

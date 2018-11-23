@@ -13,6 +13,6 @@ public class SimpleWebServer extends AbstractVerticle {
     router.get("/").handler(ctx -> {
       Greetings.get(vertx, greetingResult -> ctx.response().end(greetingResult.result()));
     });
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }

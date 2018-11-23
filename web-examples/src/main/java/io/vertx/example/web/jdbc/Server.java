@@ -85,7 +85,7 @@ public class Server extends AbstractVerticle {
       router.post("/products").handler(that::handleAddProduct);
       router.get("/products").handler(that::handleListProducts);
 
-      vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+      vertx.createHttpServer().requestHandler(router).listen(8080);
     });
   }
 

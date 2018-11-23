@@ -37,14 +37,14 @@ public class Http2ServerVerticle extends AbstractVerticle {
     @Override
     public void start(Future<Void> future) {
         http1 = vertx.createHttpServer(createOptions(false));
-        http1.requestHandler(createRouter("http://localhost:8080/image.hbs")::accept);
+        http1.requestHandler(createRouter("http://localhost:8080/image.hbs"));
         http1.listen(res -> {
             if (res.failed()) {
                 future.fail(res.cause());
                 return;
             }
             http2 = vertx.createHttpServer(createOptions(true));
-            http2.requestHandler(createRouter("https://localhost:8443/image.hbs")::accept);
+            http2.requestHandler(createRouter("https://localhost:8443/image.hbs"));
             http2.listen(res2 -> {
                 if (res2.failed()) {
                     future.fail(res.cause());
@@ -57,7 +57,7 @@ public class Http2ServerVerticle extends AbstractVerticle {
 
     @Override
     public void stop(Future<Void> future) {
-        http1.close(res -> http2.close(future.completer()));
+        http1.close(res -> http2.close(future));
     }
 
 

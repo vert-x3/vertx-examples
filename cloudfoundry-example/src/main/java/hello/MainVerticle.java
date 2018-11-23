@@ -49,7 +49,7 @@ public class MainVerticle extends AbstractVerticle {
         Router mainRouter = Router.router(getVertx());
         mainRouter.route("/*")
                 .handler(StaticHandler.create());
-        httpServer.requestHandler(mainRouter::accept);
+        httpServer.requestHandler(mainRouter);
 
         // Start listening
         httpServer.listen(PORT, asyncResult -> {

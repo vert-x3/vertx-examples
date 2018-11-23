@@ -31,6 +31,6 @@ public class HelloVerticle extends AbstractVerticle {
   public void start(Future<Void> startFuture) throws Exception {
     vertx.eventBus().<String>consumer("hello", message -> {
       message.reply("Hello " + message.body() + " from " + ID);
-    }).completionHandler(startFuture.completer());
+    }).completionHandler(startFuture);
   }
 }
