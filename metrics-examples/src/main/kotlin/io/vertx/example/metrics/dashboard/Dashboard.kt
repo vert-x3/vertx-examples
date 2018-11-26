@@ -27,7 +27,7 @@ class Dashboard : io.vertx.core.AbstractVerticle()  {
     router.route().handler(StaticHandler.create())
 
     var httpServer = vertx.createHttpServer()
-    httpServer.requestHandler({ router.accept(it) }).listen(8080)
+    httpServer.requestHandler(router).listen(8080)
 
     // Send a metrics events every second
     vertx.setPeriodic(1000, { t ->
