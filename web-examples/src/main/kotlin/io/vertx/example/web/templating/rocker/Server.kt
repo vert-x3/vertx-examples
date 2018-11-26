@@ -21,6 +21,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
     // See the pom.xml for an example
     router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()))
 
-    vertx.createHttpServer().requestHandler({ router.accept(it) }).listen(8080)
+    vertx.createHttpServer().requestHandler(router).listen(8080)
   }
 }
