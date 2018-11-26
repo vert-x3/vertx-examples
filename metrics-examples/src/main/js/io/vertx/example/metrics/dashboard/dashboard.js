@@ -23,7 +23,7 @@ router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options).
 router.route().handler(StaticHandler.create().handle);
 
 var httpServer = vertx.createHttpServer();
-httpServer.requestHandler(router.accept).listen(8080);
+httpServer.requestHandler(router.handle).listen(8080);
 
 // Send a metrics events every second
 vertx.setPeriodic(1000, function (t) {

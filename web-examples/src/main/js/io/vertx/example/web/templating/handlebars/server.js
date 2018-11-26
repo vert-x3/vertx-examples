@@ -24,4 +24,4 @@ router.get().handler(function (ctx) {
 });
 
 // start a HTTP web server on port 8080
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);

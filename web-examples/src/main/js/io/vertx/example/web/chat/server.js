@@ -26,7 +26,7 @@ router.route("/eventbus/*").handler(ebHandler.handle);
 router.route().handler(StaticHandler.create().handle);
 
 // Start the web server and tell it to use the router to handle requests.
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);
 
 var eb = vertx.eventBus();
 
