@@ -9,8 +9,8 @@
   <version>3.6.0-SNAPSHOT</version>
 
   <properties>
-    <kafka.version>1.0.0</kafka.version>
-    <debezium.version>0.7.1</debezium.version>
+    <kafka.version>1.1.0</kafka.version>
+    <debezium.version>0.8.3.Final</debezium.version>
   </properties>
 
   <dependencies>
