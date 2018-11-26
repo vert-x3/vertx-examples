@@ -26,4 +26,4 @@ router.post("/form").handler(function (ctx) {
   ctx.response().end();
 });
 
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);

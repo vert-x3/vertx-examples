@@ -16,4 +16,4 @@ router.route().handler(function (ctx) {
 // See the pom.xml for an example
 router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()).handle);
 
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);
