@@ -16,4 +16,4 @@ router.route().handler() { |ctx|
 # See the pom.xml for an example
 router.route().handler(&VertxWeb::TemplateHandler.create(VertxWebTemplRocker::RockerTemplateEngine.create()).method(:handle))
 
-$vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
+$vertx.create_http_server().request_handler(&router.method(:handle)).listen(8080)
