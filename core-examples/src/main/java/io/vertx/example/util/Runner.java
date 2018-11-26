@@ -18,6 +18,7 @@ public class Runner {
   private static final String CORE_EXAMPLES_JS_DIR = CORE_EXAMPLES_DIR + "/src/main/js/";
   private static final String CORE_EXAMPLES_GROOVY_DIR = CORE_EXAMPLES_DIR + "/src/main/groovy/";
   private static final String CORE_EXAMPLES_RUBY_DIR = CORE_EXAMPLES_DIR + "/src/main/ruby/";
+  private static final String CORE_EXAMPLES_KOTLIN_DIR = CORE_EXAMPLES_DIR + "/src/main/kotlin/";
 
   public static void runClusteredExample(Class clazz) {
     runExample(CORE_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
@@ -494,6 +495,28 @@ public class Runner {
   static class RubyVerticleDeployRunner {
     public static void main(String[] args) {
       Runner.runGroovyExample("io/vertx/example/core/verticle/deploy/deploy_example.rb");
+    }
+  }
+
+  // Kotlin
+
+  public static void runKotlinExample(String scriptName) {
+    runScriptExample(CORE_EXAMPLES_KOTLIN_DIR, scriptName, new VertxOptions().setClustered(false));
+  }
+
+  public static void runKotlinExampleClustered(String scriptName) {
+    runScriptExample(CORE_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(true));
+  }
+
+  static class KotlinHttpSimpleServerRunner {
+    public static void main(String[] args) {
+      Runner.runKotlinExample("io/vertx/example/core/http/simple/server.kt");
+    }
+  }
+
+  static class KotlinHttpSimpleClientRunner {
+    public static void main(String[] args) {
+      Runner.runKotlinExample("io/vertx/example/core/http/simple/client.kt");
     }
   }
 
