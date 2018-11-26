@@ -12,7 +12,7 @@ repositories {
 }
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
-version = '3.6.0.CR2'
+version = '3.6.0-SNAPSHOT'
 
 dependencies {
   compile "io.vertx:vertx-core:$version"

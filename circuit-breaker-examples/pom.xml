@@ -6,7 +6,7 @@
 
 	<groupId>io.vertx</groupId>
 	<artifactId>circuit-breaker-examples</artifactId>
-  <version>3.6.0.CR2</version>
+  <version>3.6.0-SNAPSHOT</version>
 
 	<build>
 		<plugins>

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>vertx-examples</artifactId>
         <groupId>io.vertx</groupId>
-      <version>3.6.0.CR2</version>
+      <version>3.6.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-service-discovery</artifactId>
-          <version>3.6.0.CR2</version>
+          <version>3.6.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
