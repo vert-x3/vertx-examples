@@ -26,7 +26,7 @@ router.route("/eventbus/*").handler(&ebHandler.method(:handle))
 router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
 
 # Start the web server and tell it to use the router to handle requests.
-$vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
+$vertx.create_http_server().request_handler(&router.method(:handle)).listen(8080)
 
 eb = $vertx.event_bus()
 

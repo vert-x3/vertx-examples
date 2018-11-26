@@ -35,4 +35,4 @@ router.get("/api/protected").handler() { |ctx|
 # Serve the non private static pages
 router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
 
-$vertx.create_http_server().request_handler(&router.method(:accept)).listen(8080)
+$vertx.create_http_server().request_handler(&router.method(:handle)).listen(8080)

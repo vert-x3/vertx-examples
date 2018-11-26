@@ -19,4 +19,4 @@ $vertx.create_http_server({
     'keyPath' => "tls/server-key.pem",
     'certPath' => "tls/server-cert.pem"
   }
-}).request_handler(&router.method(:accept)).listen(8443)
+}).request_handler(&router.method(:handle)).listen(8443)
