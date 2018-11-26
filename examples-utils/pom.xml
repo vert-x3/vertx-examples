@@ -46,6 +46,21 @@
       <artifactId>vertx-lang-ruby</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-ruby-gen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-kotlin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-kotlin-compiler</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
 
