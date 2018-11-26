@@ -97,7 +97,7 @@
           <plugin>
             <groupId>com.vlkan</groupId>
             <artifactId>quasar-maven-plugin</artifactId>
-            <version>0.7.2</version>
+            <version>0.7.9</version>
             <configuration>
               <check>true</check>
               <debug>true</debug>
