@@ -16,7 +16,7 @@ sourceCompatibility = '1.8'
 
 dependencies {
   compile "io.vertx:vertx-core:$version"
-  compile "io.netty:netty-tcnative-boringssl-static:2.0.12.Final"
+  compile "io.netty:netty-tcnative-boringssl-static:2.0.17.Final"
 }
 
 mainClassName = 'io.vertx.core.Launcher'
