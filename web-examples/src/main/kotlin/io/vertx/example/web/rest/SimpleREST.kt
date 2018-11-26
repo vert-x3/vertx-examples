@@ -88,6 +88,6 @@ class SimpleREST : io.vertx.core.AbstractVerticle()  {
     router.put("/products/:productID").handler({ handleAddProduct(it) })
     router.get("/products").handler({ handleListProducts(it) })
 
-    vertx.createHttpServer().requestHandler({ router.accept(it) }).listen(8080)
+    vertx.createHttpServer().requestHandler(router).listen(8080)
   }
 }

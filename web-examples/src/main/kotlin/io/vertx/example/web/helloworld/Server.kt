@@ -11,6 +11,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
       routingContext.response().putHeader("content-type", "text/html").end("Hello World!")
     })
 
-    vertx.createHttpServer().requestHandler({ router.accept(it) }).listen(8080)
+    vertx.createHttpServer().requestHandler(router).listen(8080)
   }
 }

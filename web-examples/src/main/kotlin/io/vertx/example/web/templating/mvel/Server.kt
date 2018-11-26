@@ -20,6 +20,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
     // Serve the static pages
     router.route().handler(StaticHandler.create())
 
-    vertx.createHttpServer().requestHandler({ router.accept(it) }).listen(8080)
+    vertx.createHttpServer().requestHandler(router).listen(8080)
   }
 }

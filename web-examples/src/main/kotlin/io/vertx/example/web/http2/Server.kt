@@ -26,6 +26,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
       useAlpn = true,
       pemKeyCertOptions = PemKeyCertOptions(
         keyPath = "tls/server-key.pem",
-        certPath = "tls/server-cert.pem"))).requestHandler({ router.accept(it) }).listen(8443)
+        certPath = "tls/server-cert.pem"))).requestHandler(router).listen(8443)
   }
 }
