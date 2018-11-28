@@ -64,7 +64,9 @@ public class Dashboard extends AbstractVerticle {
     // Send a metrics events every second
     vertx.setPeriodic(1000, t -> {
       JsonObject metrics = service.getMetricsSnapshot(vertx.eventBus());
-      vertx.eventBus().publish("metrics", metrics);
+      if (metrics != null) {
+        vertx.eventBus().publish("metrics", metrics);
+      }
     });
 
     // Send some messages
