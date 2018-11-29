@@ -7,16 +7,16 @@ plugins {
 repositories {
   jcenter()
 //  maven {
-//    url "https://oss.sonatype.org/content/repositories/iovertx-3783/"
+//    url "https://oss.sonatype.org/content/repositories/iovertx-3811/"
 //  }
 }
 
-version = '3.5.3'
+version = '3.6.0'
 sourceCompatibility = '1.8'
 
 dependencies {
   compile "io.vertx:vertx-core:$version"
-  compile "io.netty:netty-tcnative-boringssl-static:2.0.7.Final"
+  compile "io.netty:netty-tcnative-boringssl-static:2.0.17.Final"
 }
 
 mainClassName = 'io.vertx.core.Launcher'

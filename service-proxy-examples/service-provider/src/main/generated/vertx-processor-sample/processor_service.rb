@@ -56,5 +56,11 @@ module VertxProcessorSample
       end
       raise ArgumentError, "Invalid arguments when calling process(#{document})"
     end
+    def self.NO_NAME_ERROR
+      Java::IoVertxExamplesService::ProcessorService.NO_NAME_ERROR
+    end
+    def self.BAD_NAME_ERROR
+      Java::IoVertxExamplesService::ProcessorService.BAD_NAME_ERROR
+    end
   end
 end

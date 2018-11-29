@@ -72,6 +72,6 @@ app.get().handler((ctx) => {
 
 app.get().handler(StaticHandler.create().handle)
 
-vertx.createHttpServer().requestHandler(app.accept).listen(8080)
+vertx.createHttpServer().requestHandler(app.handle).listen(8080)
 
 console.log('Server listening: http://127.0.0.1:8080/')

@@ -4,16 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.vertx.examples.openshift</groupId>
+  <parent>
+    <groupId>io.vertx.examples.openshift</groupId>
+    <artifactId>vertx-openshift-applications</artifactId>
+    <version>3.6.0</version>
+    <relativePath>../..</relativePath>
+  </parent>
+
   <artifactId>clustered-application-http</artifactId>
-  <version>3.5.3</version>
 
   <properties>
     <vertx.verticle>io.vertx.examples.openshift.MyHttpVerticle</vertx.verticle>
     <ispn.cluster.labels>cluster=my-vertx-cluster</ispn.cluster.labels>
 
     <jgroups-kubernetes.version>1.0.5.Final</jgroups-kubernetes.version>
-    <vertx.version>3.5.3</vertx.version>
+    <vertx.version>3.6.0</vertx.version>
     <vertx-maven-plugin.version>1.0.13</vertx-maven-plugin.version>
     <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
 
@@ -105,15 +110,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>staging</id>
-      <repositories>
-        <repository>
-          <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
-        </repository>
-      </repositories>
     </profile>
   </profiles>
 </project>

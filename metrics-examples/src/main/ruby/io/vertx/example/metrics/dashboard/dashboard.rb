@@ -23,7 +23,7 @@ router.route("/eventbus/*").handler(&VertxWeb::SockJSHandler.create($vertx).brid
 router.route().handler(&VertxWeb::StaticHandler.create().method(:handle))
 
 httpServer = $vertx.create_http_server()
-httpServer.request_handler(&router.method(:accept)).listen(8080)
+httpServer.request_handler(&router.method(:handle)).listen(8080)
 
 # Send a metrics events every second
 $vertx.set_periodic(1000) { |t|

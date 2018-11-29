@@ -14,6 +14,8 @@
  * under the License.
  */
 
+/// <reference path="./my_service-proxy.d.ts" />
+
 /** @module vertx-sockjs-proxy-example-js/my_service */
 !function (factory) {
   if (typeof require === 'function' && typeof module !== 'undefined') {
@@ -28,10 +30,9 @@
 }(function () {
 
   /**
- @class
+   @class
   */
   var MyService = function(eb, address) {
-
     var j_eb = eb;
     var j_address = address;
     var closed = false;
@@ -49,15 +50,15 @@
      @public
      @param name {string} 
      @param handler {function} 
-     @return {todo}
+     @return {MyService}
      */
-    this.sayHello = function(name, handler) {
+    this.sayHello =  function(name, handler) {
       var __args = arguments;
       if (__args.length === 2 && typeof __args[0] === 'string' && typeof __args[1] === 'function') {
         if (closed) {
           throw new Error('Proxy is closed');
         }
-        j_eb.send(j_address, {"name":__args[0]}, {"action":"sayHello"}, function(err, result) { __args[1](err, result &&result.body); });
+        j_eb.send(j_address, {"name":__args[0]}, {"action":"sayHello"}, function(err, result) { __args[1](err, result && result.body); });
         return that;
       } else throw new TypeError('function invoked with invalid arguments');
     };

@@ -7,10 +7,10 @@ import io.vertx.ext.auth.oauth2.providers.GithubAuth
 import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.handler.OAuth2AuthHandler
 import io.vertx.ext.auth.oauth2.AccessToken
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine
 @Field def CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"
 @Field def CLIENT_ID = "57cdaa1952a3f4ee3df8"
-@Field def engine = HandlebarsTemplateEngine.create()
+@Field def engine = HandlebarsTemplateEngine.create(vertx)
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.
 def router = Router.router(vertx)
@@ -26,9 +26,11 @@ router.route("/protected").handler(OAuth2AuthHandler.create(authProvider).setupC
 // Entry point to the application, this will render a custom template.
 router.get("/").handler({ ctx ->
   // we pass the client id to the template
-  ctx.put("client_id", CLIENT_ID)
+  def data = [
+    client_id:CLIENT_ID
+  ]
   // and now delegate to the engine to render it.
-  engine.render(ctx, "views", "/index.hbs", { res ->
+  engine.render(data, "views/index.hbs", { res ->
     if (res.succeeded()) {
       ctx.response().putHeader("Content-Type", "text/html").end(res.result())
     } else {
@@ -65,9 +67,11 @@ router.get("/protected").handler({ ctx ->
         } else {
           userInfo.private_emails = res2.result().jsonArray()
           // we pass the client info to the template
-          ctx.put("userInfo", userInfo)
+          def data = [
+            userInfo:userInfo
+          ]
           // and now delegate to the engine to render it.
-          engine.render(ctx, "views", "/advanced.hbs", { res3 ->
+          engine.render(data, "views/advanced.hbs", { res3 ->
             if (res3.succeeded()) {
               ctx.response().putHeader("Content-Type", "text/html").end(res3.result())
             } else {
@@ -80,4 +84,4 @@ router.get("/protected").handler({ ctx ->
   })
 })
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

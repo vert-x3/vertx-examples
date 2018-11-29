@@ -9,7 +9,7 @@ import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.templ.JadeTemplateEngine;
+import io.vertx.ext.web.templ.jade.JadeTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of MongDB and Vert.x Web.
@@ -38,7 +38,7 @@ public class Server extends AbstractVerticle {
     final MongoClient mongo = MongoClient.createShared(vertx, new JsonObject().put("db_name", "demo"));
 
     // In order to use a JADE template we first need to create an engine
-    final JadeTemplateEngine jade = JadeTemplateEngine.create();
+    final JadeTemplateEngine jade = JadeTemplateEngine.create(vertx);
 
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
@@ -50,10 +50,11 @@ public class Server extends AbstractVerticle {
     // Entry point to the application, this will render a custom JADE template.
     router.get("/").handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("title", "Vert.x Web");
+      JsonObject data = new JsonObject()
+        .put("title", "Vert.x Web");
 
       // and now delegate to the engine to render it.
-      jade.render(ctx, "templates/index", res -> {
+      jade.render(data, "templates/index.jade", res -> {
         if (res.succeeded()) {
           ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
         } else {
@@ -132,6 +133,6 @@ public class Server extends AbstractVerticle {
     router.route().handler(StaticHandler.create());
 
     // start a HTTP web server on port 8080
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }

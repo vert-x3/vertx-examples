@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>grpc-examples</artifactId>
-  <version>3.5.3</version>
+  <version>3.6.0</version>
 
   <properties>
     <vertx.grpc.version>1.9.0</vertx.grpc.version>
@@ -35,9 +35,22 @@
     </dependency>
 
     <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java-util</artifactId>
+      <version>3.5.1</version>
+      <exclusions>
+        <exclusion>
+          <!-- 19.0 ??? 20.0 is required -->
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>2.0.7.Final</version>
+      <version>2.0.17.Final</version>
     </dependency>
 
     <dependency>
@@ -109,7 +122,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

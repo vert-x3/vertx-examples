@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-examples</artifactId>
-  <version>3.5.3</version>
+  <version>3.6.0</version>
 
   <properties>
     <slf4j.version>1.7.21</slf4j.version>
@@ -29,7 +29,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>2.0.7.Final</version>
+      <version>2.0.12.Final</version>
     </dependency>
 
     <dependency>
@@ -201,7 +201,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

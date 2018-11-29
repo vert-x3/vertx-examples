@@ -5,8 +5,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.ext.jdbc.JDBCClient;
-import rx.Single;
-import rx.exceptions.CompositeException;
+import io.vertx.rxjava.ext.sql.SQLClientHelper;
 
 /*
  * @author <a href="mailto:emad.albloushi@gmail.com">Emad Alblueshi</a>
@@ -36,20 +35,14 @@ public class Transaction extends AbstractVerticle {
       .rxGetConnection()
       .flatMap(conn ->
         conn
-          // Disable auto commit to handle transaction manually
-          .rxSetAutoCommit(false)
           // Create table
-          .flatMap(autoCommit -> conn.rxExecute(sql))
-          // Insert colors
-          .flatMap(executed -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
-          .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
-          .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
-          // Commit if all succeeded
-          .flatMap(updateResult -> conn.rxCommit().map(commit -> updateResult))
-          // Rollback if any failed with exception propagation
-          .onErrorResumeNext(ex -> conn.rxRollback()
-            .onErrorResumeNext(ex2 -> Single.error(new CompositeException(ex, ex2)))
-            .flatMap(ignore -> Single.error(ex))
+          .rxExecute(sql).toCompletable()
+          .andThen( // Insert colors
+            conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK"))
+              .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
+              .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
+              // Add transaction management to upstream Single
+              .compose(SQLClientHelper.txSingleTransformer(conn))
           )
           // Get colors if all succeeded
           .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))

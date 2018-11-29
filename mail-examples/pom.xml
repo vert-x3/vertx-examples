@@ -4,7 +4,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>mail-examples</artifactId>
-  <version>3.5.3</version>
+  <version>3.6.0</version>
 
   <dependencies>
     <dependency>
@@ -61,7 +61,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

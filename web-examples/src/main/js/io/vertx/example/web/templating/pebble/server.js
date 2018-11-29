@@ -1,5 +1,5 @@
 var Router = require("vertx-web-js/router");
-var PebbleTemplateEngine = require("vertx-web-js/pebble_template_engine");
+var PebbleTemplateEngine = require("vertx-web-templ-pebble-js/pebble_template_engine");
 
 // To simplify the development of the web components we use a Router to route all HTTP requests
 // to organize our code in a reusable way.
@@ -11,10 +11,13 @@ var engine = PebbleTemplateEngine.create(vertx);
 // Entry point to the application, this will render a custom template.
 router.get().handler(function (ctx) {
   // we define a hardcoded title for our application
-  ctx.put("name", "Vert.x Web");
+  var data = {
+    "name" : "Vert.x Web",
+    "path" : ctx.request().path()
+  };
 
   // and now delegate to the engine to render it.
-  engine.render(ctx, "templates/index.peb", function (res, res_err) {
+  engine.render(data, "templates/index.peb", function (res, res_err) {
     if (res_err == null) {
       ctx.response().end(res);
     } else {
@@ -24,4 +27,4 @@ router.get().handler(function (ctx) {
 });
 
 // start a HTTP web server on port 8080
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);

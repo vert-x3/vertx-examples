@@ -30,11 +30,11 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     // Create the client object
-    ProcessorService someDBService = ProcessorService.create(vertx);
-   
-    // Register the service
-    messageConsumer = new ServiceBinder(vertx).setAddress("vertx.processor")
-        .register(ProcessorService.class, someDBService);
+    service = new ProcessorServiceImpl();
+    // Register the handler
+    new ServiceBinder(vertx)
+      .setAddress("vertx.processor")
+      .register(ProcessorService.class, service);
 
     Router router = Router.router(vertx);
 
@@ -49,17 +49,9 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
     router.route("/eventbus/*").handler(ebHandler);
     router.route().handler(StaticHandler.create());
 
-    httpServer = vertx.createHttpServer().requestHandler(router::accept).listen(8080);
-  }
-  
-  @Override
-  public void stop() throws Exception {
-	if (null != messageConsumer) {
-	  messageConsumer.unregister();
-	}
-	if (null != httpServer) {
-	  httpServer.close();
-    }
+    //
+    vertx.createHttpServer().requestHandler(router).listen(8080);
+
   }
 
 }

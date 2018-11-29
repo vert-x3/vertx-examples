@@ -27,7 +27,7 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 
 
-@io.vertx.lang.reactivex.RxGen(io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService.class)
+@io.vertx.lang.rx.RxGen(io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService.class)
 public class SomeDatabaseService {
 
   @Override
@@ -48,8 +48,7 @@ public class SomeDatabaseService {
     return delegate.hashCode();
   }
 
-  public static final io.vertx.lang.reactivex.TypeArg<SomeDatabaseService> __TYPE_ARG = new io.vertx.lang.reactivex.TypeArg<>(
-    obj -> new SomeDatabaseService((io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService) obj),
+  public static final io.vertx.lang.rx.TypeArg<SomeDatabaseService> __TYPE_ARG = new io.vertx.lang.rx.TypeArg<>(    obj -> new SomeDatabaseService((io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService) obj),
     SomeDatabaseService::getDelegate
   );
 
@@ -63,13 +62,13 @@ public class SomeDatabaseService {
     return delegate;
   }
 
-  public SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler) { 
+  public io.vertx.example.reactivex.services.serviceproxy.reactivex.SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler) { 
     delegate.getDataById(id, resultHandler);
     return this;
   }
 
   public Single<JsonObject> rxGetDataById(int id) { 
-    return new io.vertx.reactivex.core.impl.AsyncResultSingle<JsonObject>(handler -> {
+    return io.vertx.reactivex.impl.AsyncResultSingle.toSingle(handler -> {
       getDataById(id, handler);
     });
   }

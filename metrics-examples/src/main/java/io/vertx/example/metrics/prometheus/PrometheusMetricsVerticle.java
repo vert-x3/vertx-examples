@@ -29,7 +29,7 @@ public class PrometheusMetricsVerticle extends AbstractVerticle {
     router.get("/metrics").handler(new MetricsHandler());
 
     //Start httpserver on localhost:8080
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
 
     //Increase counter every second
     vertx.setPeriodic(1_000L, e -> metricRegistry.counter("testCounter").inc());

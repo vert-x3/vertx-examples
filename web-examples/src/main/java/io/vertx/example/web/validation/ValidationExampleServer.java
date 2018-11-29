@@ -92,7 +92,7 @@ public class ValidationExampleServer extends AbstractVerticle {
         Integer primeNumber = params.queryParameter("primeNumber").getInteger();
       }));
 
-    vertx.createHttpServer().requestHandler(router::accept).listen();
+    vertx.createHttpServer().requestHandler(router).listen();
   }
 
   // Convenience method so you can run it in your IDE

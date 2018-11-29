@@ -39,7 +39,7 @@ public class Server extends AbstractVerticle {
     router.route("/eventbus/*").handler(ebHandler);
 
     // Start the web server and tell it to use the router to handle requests.
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
 
     EventBus eb = vertx.eventBus();
 

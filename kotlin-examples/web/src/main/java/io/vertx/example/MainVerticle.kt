@@ -15,7 +15,7 @@ class MainVerticle : AbstractVerticle() {
         val router = createRouter()
 
         vertx.createHttpServer()
-                .requestHandler { router.accept(it) }
+                .requestHandler(router)
                 .listen(config().getInteger("http.port", 8080)) { result ->
                     if (result.succeeded()) {
                         startFuture.complete()

@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>examples-utils</artifactId>
-  <version>3.5.3</version>
+  <version>3.6.0</version>
 
   <properties>
     <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
@@ -23,27 +23,37 @@
       <optional>true</optional>
     </dependency>
 
+    <!-- For generating examples -->
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-codetrans</artifactId>
       <version>${project.version}</version>
     </dependency>
 
+    <!-- For running examples -->
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-js</artifactId>
       <version>${project.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-groovy</artifactId>
       <version>${project.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-ruby</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-kotlin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-kotlin-compiler</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -72,7 +82,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

@@ -1,12 +1,11 @@
 package io.vertx.example.reactivex.database.jdbc;
 
-import io.reactivex.Single;
-import io.reactivex.exceptions.CompositeException;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.ext.jdbc.JDBCClient;
+import io.vertx.reactivex.ext.sql.SQLClientHelper;
 
 /*
  * @author <a href="mailto:emad.albloushi@gmail.com">Emad Alblueshi</a>
@@ -36,28 +35,19 @@ public class Transaction extends AbstractVerticle {
       .rxGetConnection()
       .flatMap(conn ->
         conn
-          // Disable auto commit to handle transaction manually
-          .rxSetAutoCommit(false)
-          // Switch from Completable to default Single value
-          .toSingleDefault(false)
           // Create table
-          .flatMap(autoCommit -> conn.rxExecute(sql).toSingleDefault(true))
-          // Insert colors
-          .flatMap(executed -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK")))
-          .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
-          .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
-          // commit if all succeeded
-          .flatMap(updateResult -> conn.rxCommit().toSingleDefault(true).map(commit -> updateResult))
-          // Rollback if any failed with exception propagation
-          .onErrorResumeNext(ex -> conn.rxRollback()
-            .toSingleDefault(true)
-            .onErrorResumeNext(ex2 -> Single.error(new CompositeException(ex, ex2)))
-            .flatMap(ignore -> Single.error(ex))
+          .rxExecute(sql)
+          .andThen( // Insert colors
+            conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK"))
+              .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
+              .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
+              // Add transaction management to upstream Single
+              .compose(SQLClientHelper.txSingleTransformer(conn))
           )
           // Get colors if all succeeded
           .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))
-          // close the connection regardless succeeded or failed
-          .doAfterTerminate(conn::close)
+          // Close the connection regardless succeeded or failed
+          .doFinally(conn::close)
       ).subscribe(resultSet -> {
       // Subscribe to get the final result
       System.out.println("Results : " + resultSet.getRows());

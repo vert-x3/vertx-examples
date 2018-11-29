@@ -6,11 +6,11 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>kafka-examples</artifactId>
-  <version>3.5.3</version>
+  <version>3.6.0</version>
 
   <properties>
-    <kafka.version>1.0.0</kafka.version>
-    <debezium.version>0.7.1</debezium.version>
+    <kafka.version>1.1.0</kafka.version>
+    <debezium.version>0.8.3.Final</debezium.version>
   </properties>
 
   <dependencies>
@@ -116,7 +116,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

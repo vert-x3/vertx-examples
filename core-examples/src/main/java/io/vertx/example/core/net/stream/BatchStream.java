@@ -143,6 +143,12 @@ public class BatchStream implements ReadStream<Batch>, WriteStream<Batch> {
   }
 
   @Override
+  public BatchStream fetch(long l) {
+    recordParser.fetch(l);
+    return this;
+  }
+
+  @Override
   public BatchStream resume() {
     recordParser.resume();
     return this;

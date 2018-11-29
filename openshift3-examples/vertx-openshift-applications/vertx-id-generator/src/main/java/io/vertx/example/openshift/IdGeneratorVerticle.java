@@ -13,7 +13,7 @@ public class IdGeneratorVerticle extends AbstractVerticle {
       router.get("/").handler(rc -> rc.response().end(UUID.randomUUID().toString()));
 
       vertx.createHttpServer()
-        .requestHandler(router::accept)
+        .requestHandler(router)
         .listen(8080);
     }
 }

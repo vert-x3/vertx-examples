@@ -1,9 +1,10 @@
 package io.vertx.example.web.templating.pebble;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.templ.PebbleTemplateEngine;
+import io.vertx.ext.web.templ.pebble.PebbleTemplateEngine;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.
@@ -35,10 +36,12 @@ public class Server extends AbstractVerticle {
     // Entry point to the application, this will render a custom template.
     router.get().handler(ctx -> {
       // we define a hardcoded title for our application
-      ctx.put("name", "Vert.x Web");
+      JsonObject data = new JsonObject()
+        .put("name", "Vert.x Web")
+        .put("path", ctx.request().path());
 
       // and now delegate to the engine to render it.
-      engine.render(ctx, "templates/index.peb", res -> {
+      engine.render(data, "templates/index.peb", res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {
@@ -48,6 +51,6 @@ public class Server extends AbstractVerticle {
     });
 
     // start a HTTP web server on port 8080
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }

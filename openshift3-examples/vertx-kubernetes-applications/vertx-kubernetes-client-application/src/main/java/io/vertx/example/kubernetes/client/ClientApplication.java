@@ -31,7 +31,7 @@ public class ClientApplication extends AbstractVerticle {
           System.out.println("D'oh the service is not available");
         } else {
           client = ar.result();
-          vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+          vertx.createHttpServer().requestHandler(router).listen(8080);
         }
       }));
   }

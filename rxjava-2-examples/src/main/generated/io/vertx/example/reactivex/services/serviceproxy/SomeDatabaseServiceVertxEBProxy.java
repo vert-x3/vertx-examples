@@ -16,7 +16,6 @@
 
 package io.vertx.example.reactivex.services.serviceproxy;
 
-import io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.Future;
@@ -32,18 +31,19 @@ import java.util.function.Function;
 import io.vertx.serviceproxy.ProxyHelper;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
+import io.vertx.serviceproxy.ProxyUtils;
+
 import io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
 */
+
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class SomeDatabaseServiceVertxEBProxy implements SomeDatabaseService {
-
   private Vertx _vertx;
   private String _address;
   private DeliveryOptions _options;
@@ -57,20 +57,20 @@ public class SomeDatabaseServiceVertxEBProxy implements SomeDatabaseService {
     this._vertx = vertx;
     this._address = address;
     this._options = options;
-    try {
-      this._vertx.eventBus().registerDefaultCodec(ServiceException.class,
-          new ServiceExceptionMessageCodec());
+    try{
+      this._vertx.eventBus().registerDefaultCodec(ServiceException.class, new ServiceExceptionMessageCodec());
     } catch (IllegalStateException ex) {}
   }
 
   @Override
-  public SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler) {
+  public  SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler){
     if (closed) {
-    resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
+      resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
       return this;
     }
     JsonObject _json = new JsonObject();
     _json.put("id", id);
+
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "getDataById");
     _vertx.eventBus().<JsonObject>send(_address, _json, _deliveryOptions, res -> {
@@ -81,66 +81,5 @@ public class SomeDatabaseServiceVertxEBProxy implements SomeDatabaseService {
       }
     });
     return this;
-  }
-
-
-  private List<Character> convertToListChar(JsonArray arr) {
-    List<Character> list = new ArrayList<>();
-    for (Object obj: arr) {
-      Integer jobj = (Integer)obj;
-      list.add((char)(int)jobj);
-    }
-    return list;
-  }
-
-  private Set<Character> convertToSetChar(JsonArray arr) {
-    Set<Character> set = new HashSet<>();
-    for (Object obj: arr) {
-      Integer jobj = (Integer)obj;
-      set.add((char)(int)jobj);
-    }
-    return set;
-  }
-
-  private <T> Map<String, T> convertMap(Map map) {
-    if (map.isEmpty()) { 
-      return (Map<String, T>) map; 
-    } 
-     
-    Object elem = map.values().stream().findFirst().get(); 
-    if (!(elem instanceof Map) && !(elem instanceof List)) { 
-      return (Map<String, T>) map; 
-    } else { 
-      Function<Object, T> converter; 
-      if (elem instanceof List) { 
-        converter = object -> (T) new JsonArray((List) object); 
-      } else { 
-        converter = object -> (T) new JsonObject((Map) object); 
-      } 
-      return ((Map<String, T>) map).entrySet() 
-       .stream() 
-       .collect(Collectors.toMap(Map.Entry::getKey, converter::apply)); 
-    } 
-  }
-  private <T> List<T> convertList(List list) {
-    if (list.isEmpty()) { 
-          return (List<T>) list; 
-        } 
-     
-    Object elem = list.get(0); 
-    if (!(elem instanceof Map) && !(elem instanceof List)) { 
-      return (List<T>) list; 
-    } else { 
-      Function<Object, T> converter; 
-      if (elem instanceof List) { 
-        converter = object -> (T) new JsonArray((List) object); 
-      } else { 
-        converter = object -> (T) new JsonObject((Map) object); 
-      } 
-      return (List<T>) list.stream().map(converter).collect(Collectors.toList()); 
-    } 
-  }
-  private <T> Set<T> convertSet(List list) {
-    return new HashSet<T>(convertList(list));
   }
 }

@@ -1,5 +1,5 @@
 var Router = require("vertx-web-js/router");
-var RockerTemplateEngine = require("vertx-web-js/rocker_template_engine");
+var RockerTemplateEngine = require("vertx-web-templ-rocker-js/rocker_template_engine");
 var TemplateHandler = require("vertx-web-js/template_handler");
 
 var router = Router.router(vertx);
@@ -16,4 +16,4 @@ router.route().handler(function (ctx) {
 // See the pom.xml for an example
 router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()).handle);
 
-vertx.createHttpServer().requestHandler(router.accept).listen(8080);
+vertx.createHttpServer().requestHandler(router.handle).listen(8080);

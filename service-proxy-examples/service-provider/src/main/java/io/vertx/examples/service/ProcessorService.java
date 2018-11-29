@@ -27,14 +27,13 @@ public interface ProcessorService {
   }
 
   static ProcessorService createProxy(Vertx vertx, String address) {
-	ServiceProxyBuilder builder = new ServiceProxyBuilder(vertx)
-	   .setAddress(address);
-	ProcessorService service = builder.build(ProcessorService.class);
-	return service;
- // Alternatively, you can create the proxy directly using:
- // return new ProcessorServiceVertxEBProxy(vertx, address);
- // The name of the class to instantiate is the service interface + `VertxEBProxy`.
- // This class is generated during the compilation
+    return new ServiceProxyBuilder(vertx)
+      .setAddress(address)
+      .build(ProcessorService.class);
+    // Alternatively, you can create the proxy directly using:
+    // return new ProcessorServiceVertxEBProxy(vertx, address);
+    // The name of the class to instantiate is the service interface + `VertxEBProxy`.
+    // This class is generated during the compilation
   }
 
   // The service methods

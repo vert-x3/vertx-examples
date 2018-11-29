@@ -29,7 +29,7 @@ public class DashboardVerticle extends AbstractVerticle {
 
     // Start http server
     HttpServer httpServer = vertx.createHttpServer();
-    httpServer.requestHandler(router::accept).listen(8080, ar -> {
+    httpServer.requestHandler(router).listen(8080, ar -> {
       if (ar.succeeded()) {
         System.out.println("Http server started");
       } else {

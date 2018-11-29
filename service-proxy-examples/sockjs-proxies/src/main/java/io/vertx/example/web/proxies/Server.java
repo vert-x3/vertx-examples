@@ -7,7 +7,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
-import io.vertx.serviceproxy.ProxyHelper;
+import io.vertx.serviceproxy.ServiceBinder;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -26,7 +26,9 @@ public class Server extends AbstractVerticle {
     MyService service = new MyServiceImpl();
 
     // Register the handler
-    ProxyHelper.registerService(MyService.class, vertx, service, "proxy.example");
+    new ServiceBinder(vertx)
+        .setAddress("proxy.example")
+        .register(MyService.class, service);
 
     Router router = Router.router(vertx);
 
@@ -37,6 +39,6 @@ public class Server extends AbstractVerticle {
     // Serve the static resources
     router.route().handler(StaticHandler.create());
 
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }

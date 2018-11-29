@@ -8,12 +8,13 @@ import io.vertx.ext.web.handler.OAuth2AuthHandler
 import io.vertx.ext.web.handler.SessionHandler
 import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine
+import io.vertx.kotlin.core.json.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   var CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704"
   var CLIENT_ID = "57cdaa1952a3f4ee3df8"
-  var engine = HandlebarsTemplateEngine.create()
+  var engine = HandlebarsTemplateEngine.create(vertx)
   override fun start() {
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
@@ -30,9 +31,11 @@ class Server : io.vertx.core.AbstractVerticle()  {
     // Entry point to the application, this will render a custom template.
     router.get("/").handler({ ctx ->
       // we pass the client id to the template
-      ctx.put("client_id", CLIENT_ID)
+      var data = json {
+        obj("client_id" to CLIENT_ID)
+      }
       // and now delegate to the engine to render it.
-      engine.render(ctx, "views", "/index.hbs", { res ->
+      engine.render(data, "views/index.hbs", { res ->
         if (res.succeeded()) {
           ctx.response().putHeader("Content-Type", "text/html").end(res.result())
         } else {
@@ -69,9 +72,11 @@ class Server : io.vertx.core.AbstractVerticle()  {
             } else {
               userInfo.put("private_emails", res2.result().jsonArray())
               // we pass the client info to the template
-              ctx.put("userInfo", userInfo)
+              var data = json {
+                obj("userInfo" to userInfo)
+              }
               // and now delegate to the engine to render it.
-              engine.render(ctx, "views", "/advanced.hbs", { res3 ->
+              engine.render(data, "views/advanced.hbs", { res3 ->
                 if (res3.succeeded()) {
                   ctx.response().putHeader("Content-Type", "text/html").end(res3.result())
                 } else {
@@ -84,6 +89,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
       })
     })
 
-    vertx.createHttpServer().requestHandler({ router.accept(it) }).listen(8080)
+    vertx.createHttpServer().requestHandler(router).listen(8080)
   }
 }

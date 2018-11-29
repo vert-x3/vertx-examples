@@ -57,7 +57,7 @@ public class BookRestApi extends AbstractVerticle {
     StaticHandler staticHandler = StaticHandler.create();
     router.route().handler(staticHandler);
 
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080, listen -> {
+    vertx.createHttpServer().requestHandler(router).listen(8080, listen -> {
       if (listen.succeeded()) {
         LOG.info("BookRestApi started");
         startFuture.complete();

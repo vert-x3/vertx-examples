@@ -23,7 +23,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>spring-examples</artifactId>
-    <version>3.5.3</version>
+    <version>3.6.0</version>
   </parent>
 
   <artifactId>spring-verticle-factory</artifactId>
@@ -113,7 +113,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

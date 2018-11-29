@@ -17,7 +17,7 @@ public class MyGreetingApp {
 
     // Start the HTTP server.
     vertx.createHttpServer()
-      .requestHandler(router::accept)
+      .requestHandler(router)
       .listen(8080);
   }
 }

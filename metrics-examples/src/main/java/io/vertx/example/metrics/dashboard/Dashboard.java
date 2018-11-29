@@ -59,12 +59,14 @@ public class Dashboard extends AbstractVerticle {
     router.route().handler(StaticHandler.create());
 
     HttpServer httpServer = vertx.createHttpServer();
-    httpServer.requestHandler(router::accept).listen(8080);
+    httpServer.requestHandler(router).listen(8080);
 
     // Send a metrics events every second
     vertx.setPeriodic(1000, t -> {
       JsonObject metrics = service.getMetricsSnapshot(vertx.eventBus());
-      vertx.eventBus().publish("metrics", metrics);
+      if (metrics != null) {
+        vertx.eventBus().publish("metrics", metrics);
+      }
     });
 
     // Send some messages

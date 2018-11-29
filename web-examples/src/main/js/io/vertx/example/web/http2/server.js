@@ -19,4 +19,4 @@ vertx.createHttpServer({
     "keyPath" : "tls/server-key.pem",
     "certPath" : "tls/server-cert.pem"
   }
-}).requestHandler(router.accept).listen(8443);
+}).requestHandler(router.handle).listen(8443);

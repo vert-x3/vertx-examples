@@ -1,5 +1,5 @@
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.templ.RockerTemplateEngine
+import io.vertx.ext.web.templ.rocker.RockerTemplateEngine
 import io.vertx.ext.web.handler.TemplateHandler
 
 def router = Router.router(vertx)
@@ -16,4 +16,4 @@ router.route().handler({ ctx ->
 // See the pom.xml for an example
 router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()))
 
-vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
+vertx.createHttpServer().requestHandler(router).listen(8080)

@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>3.5.3</version>
+  <version>3.6.0</version>
 
   <modules>
     <module>maven-simplest</module>
@@ -39,6 +39,7 @@
     <module>ignite-examples</module>
     <module>infinispan-examples</module>
     <module>amqp-bridge-examples</module>
+    <module>amqp-proton-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
     <module>fatjar-examples/ruby-fatjar</module>
     <module>camel-bridge-examples</module>
@@ -86,7 +87,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3783/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
         </repository>
       </repositories>
     </profile>

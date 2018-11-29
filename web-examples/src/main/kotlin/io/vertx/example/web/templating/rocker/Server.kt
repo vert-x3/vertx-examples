@@ -2,7 +2,7 @@ package io.vertx.example.web.templating.rocker
 
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.TemplateHandler
-import io.vertx.ext.web.templ.RockerTemplateEngine
+import io.vertx.ext.web.templ.rocker.RockerTemplateEngine
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -21,6 +21,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
     // See the pom.xml for an example
     router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()))
 
-    vertx.createHttpServer().requestHandler({ router.accept(it) }).listen(8080)
+    vertx.createHttpServer().requestHandler(router).listen(8080)
   }
 }
