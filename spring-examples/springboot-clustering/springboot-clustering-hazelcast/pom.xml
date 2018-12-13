@@ -23,7 +23,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>springboot-clustering</artifactId>
-    <version>3.6.0</version>
+    <version>3.6.1</version>
   </parent>
 
   <artifactId>springboot-clustering-hazelcast</artifactId>
@@ -80,7 +80,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3811/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3814/</url>
         </repository>
       </repositories>
     </profile>
