@@ -3,7 +3,7 @@ package io.vertx.examples.webapiservice.services;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.examples.webapiservice.models.Transaction;
-import io.vertx.examples.webapiservice.services.impl.TransactionPersistence;
+import io.vertx.examples.webapiservice.persistence.TransactionPersistence;
 import io.vertx.examples.webapiservice.services.impl.TransactionsManagerServiceImpl;
 import io.vertx.ext.web.api.OperationRequest;
 import io.vertx.ext.web.api.OperationResponse;

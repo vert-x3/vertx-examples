@@ -4,6 +4,11 @@ import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.annotations.Fluent;
 import io.vertx.core.json.JsonObject;
 
+/**
+ * Data object that represents a persistence
+ *
+ * @author slinkydeveloper
+ */
 @DataObject(generateConverter = true, publicConverter = false)
 public class Transaction {
 

@@ -5,6 +5,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonArray;
 import io.vertx.examples.webapiservice.models.Transaction;
+import io.vertx.examples.webapiservice.persistence.TransactionPersistence;
 import io.vertx.examples.webapiservice.services.TransactionsManagerService;
 import io.vertx.ext.web.api.OperationRequest;
 import io.vertx.ext.web.api.OperationResponse;
