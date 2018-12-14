@@ -4,7 +4,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.net.URI
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val VERTX_VER = "3.6.0"
+val VERTX_VER = "3.6.1"
 val KOTLIN_TEST_VER = "2.0.6"
 
 
