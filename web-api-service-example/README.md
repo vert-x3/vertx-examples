@@ -20,3 +20,21 @@ On this directory run:
 mvn clean package
 java -jar target/web-api-service-example-3.6.0-fat.jar
 ```
+
+Then post a transaction with `curl`:
+
+```bash
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"id": "xdg-hjhj98", "from":"thomas@example.com","to":"francesco@example.com", "message": "items", "value": 45.67}' \
+  http://localhost:8080/api/transactions
+
+
+curl http://localhost:8080/api/transactions
+```
+
+Eventually check the recorded transactions:
+
+```bash
+curl http://localhost:8080/api/transactions
+```
