@@ -53,7 +53,7 @@
     <module>kotlin-examples/coroutines</module>
     <module>junit5-examples</module>
     <module>zookeeper-examples</module>
-    <module>vertx-web-api-service-example</module>
+    <module>web-api-service-example</module>
   </modules>
 
   <profiles>
