@@ -183,7 +183,7 @@ mail server and the user credentials in the `MailLogin` example.
 
 === Maven Service Factory examples
 
-The link:maven-service-factory-examples[Vert.x Maven service factory examples] shows how to package a verticle that
+The link:maven-service-factory-examples/README.adoc[Vert.x Maven service factory examples] shows how to package a verticle that
 can be deployed using the Maven Service Factory. Such a deployment is also demonstrated using either the command line
 or the api.
 
@@ -198,7 +198,7 @@ The link:osgi-examples/README.adoc[Vert.x OSGi examples] contains a few examples
 
 === Cloud Foundry examples
 
-The link:cloudfoundry-examples/README.adoc[Vert.x Cloud Foundry example] shows how to deploy Vert.x application to a Cloud Foundry service or platform of your choice.
+The link:cloudfoundry-example/README.adoc[Vert.x Cloud Foundry example] shows how to deploy Vert.x application to a Cloud Foundry service or platform of your choice.
 
 === Docker examples
 
@@ -212,7 +212,7 @@ Openshift 3 and Kubernetes. It also demonstrates clustering and service discover
 
 === Spring Examples
 
-The link:spring-examples[Vert.x Spring Examples] shows how vert.x application can be integrated inside a Spring
+The link:spring-examples/README.adoc[Vert.x Spring Examples] shows how vert.x application can be integrated inside a Spring
 ecosystem.
 
 === Redis example
@@ -254,7 +254,7 @@ This link:java9-examples/README.adoc[Java 9 examples] shows how a simple Java 9 
 
 The link:fatjar-examples/README.adoc[Vert.x fatjar Examples] show how you can build fatjar with Maven or Gradle.
 
-=== Http/2 Showcase
+=== HTTP/2 Showcase
 
 This link:http2-showcase/README.md[HTTP/2 Showcase] application highlights the benefits of HTTP/2 when dealing with latency on the web.
 
@@ -265,8 +265,8 @@ the event bus.
 
 === JCA example
 
-The Vert.x JCA Example project provides a JEE compliant application that enables to you deploy the application into a
- link:http://wildfly.org[Wildfly] application server. While simple in implementation, the link:jca-examples[JCA examples]
+The link:jca-examples/README.adoc[Vert.x JCA Examples] provide a JEE compliant application that enables to you deploy the application into a
+ link:http://wildfly.org[Wildfly] application server. While simple in implementation, the JCA examples
  provides a good point of departure for your own development.
 
 === Micrometer metrics examples
