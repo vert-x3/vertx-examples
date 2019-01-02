@@ -10,10 +10,10 @@ mqttServer.endpointHandler({ endpoint ->
   println("MQTT client [${endpoint.clientIdentifier()}] request to connect, clean session = ${endpoint.isCleanSession()}")
 
   if (endpoint.auth() != null) {
-    println("[username = ${endpoint.auth().userName()}, password = ${endpoint.auth().password()}]")
+    println("[username = ${endpoint.auth().username}, password = ${endpoint.auth().password}]")
   }
   if (endpoint.will() != null) {
-    println("[will flag = ${endpoint.will().isWillFlag()} topic = ${endpoint.will().willTopic()} msg = ${endpoint.will().willMessage()} QoS = ${endpoint.will().willQos()} isRetain = ${endpoint.will().isWillRetain()}]")
+    println("[will flag = ${endpoint.will().isWillFlag} topic = ${endpoint.will().willTopic} msg = ${endpoint.will().willMessage} QoS = ${endpoint.will().willQos} isRetain = ${endpoint.will().isWillRetain}]")
   }
 
   println("[keep alive timeout = ${endpoint.keepAliveTimeSeconds()}]")
