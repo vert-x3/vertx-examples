@@ -7,13 +7,13 @@ This repository contains a range of examples so you can get up and running easil
 
 == Maven users
 
-Start with the link:maven-simplest[simplest Maven example] to show you how setup a simple Vert.x project that uses
+Start with the link:maven-simplest[simplest Maven example] to show you how to setup a simple Vert.x project that uses
 Maven. You need to have Java 8 installed and set the `JAVA_HOME` environment variable to point to your Java 8
 installation.
 
 Use that as a template for setting up a Maven project with Vert.x.
 
-Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy, Ruby and JavaScript verticles.
+Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy, Ruby, and JavaScript verticles.
 
 Want to start right away, open the first example in Eclipse Che:
 
@@ -21,7 +21,7 @@ image:http://beta.codenvy.com/factory/resources/codenvy-contribute.svg["Open wor
 
 == Gradle users
 
-Start with the link:gradle-simplest[simplest Gradle example] to show you how setup a simple Vert.x project that uses Gradle.
+Start with the link:gradle-simplest[simplest Gradle example] to show you how to setup a simple Vert.x project that uses Gradle.
 
 Use that as a template for setting up a Gradle project with Vert.x.
 
@@ -53,8 +53,7 @@ services and features.
 
 Most of the examples have been written as verticles. For more information on verticles please consult the Vert.x core manual.
 
-Using verticles allows you to scale and run your code from the command line more easily, but if you prefer to embed, the
-exact same code in the verticles can also be run embedded if you prefer. It's really up to you. Verticles are
+Using verticles allows you to scale and run your code from the command line more easily, but if you prefer the same code in the verticles can also be run embedded. It's really up to you. Verticles are
 entirely optional in Vert.x.
 
 == Different languages
@@ -82,7 +81,7 @@ Just right click the main method or class in your IDE and run as... application 
 ==== Running at the command line
 
 If `vertx` is installed you can also run any verticle directly on the command line. This way of working may be of interest
-to you if you don't want to use Maven or Gradle or perhaps you don't use an IDE.
+to you, if you don't want to use Maven or Gradle or perhaps you don't use an IDE.
 
 Or perhaps you're just a command line kind of person.
 
@@ -150,7 +149,7 @@ The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x
 
 === Vert.x JUnit 5 examples
 
-The `vertx-junit5` modules allows testing Vert.x asynchronous operations with JUnit 5.
+The `vertx-junit5` modules allow testing Vert.x asynchronous operations with JUnit 5.
 
 See link:junit5-examples/README.adoc[Vert.x JUnit 5 examples].
 
@@ -203,7 +202,7 @@ The link:cloudfoundry-example/README.adoc[Vert.x Cloud Foundry example] shows ho
 === Docker examples
 
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
-It also contains an example of application that can be deployed on Fabric8.
+It also contains an example of the application that can be deployed on Fabric8.
 
 === Openshift & Kubernetes examples
 
@@ -217,11 +216,11 @@ ecosystem.
 
 === Redis example
 
-The link:redis-examples/README.adoc[Vert.x Redis Example] shows how you can interact with Redis using the vert.x redis client.
+The link:redis-examples/README.adoc[Vert.x Redis Example] shows how you can interact with Redis using the vert.x Redis client.
 
 === Mongo example
 
-The link:mongo-examples/README.adoc[Vert.x Mongo Example] shows how you can interact with MongoDB using the vert.x mongo client.
+The link:mongo-examples/README.adoc[Vert.x Mongo Example] shows how you can interact with MongoDB using the vert.x Mongo client.
 
 === JDBC example
 
