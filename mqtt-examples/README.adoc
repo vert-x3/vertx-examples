@@ -40,17 +40,17 @@ This example consists of a simple server verticle which serves MQTT connections,
 link:src/main/java/io/vertx/example/mqtt/simple/Server.java[Java echo mqtt server] /
 link:src/main/java/io/vertx/example/mqtt/simple/Client.java[Java echo mqtt client]
 
-link:src/main/kotlin/io/vertx/example/mqtt/simple/Server.java[Kotlin mqtt server app] /
-link:src/main/kotlin/io/vertx/example/mqtt/simple/Client.java[Kotlin mqtt client app]
+link:src/main/kotlin/io/vertx/example/mqtt/simple/Server.kt[Kotlin mqtt server app] /
+link:src/main/kotlin/io/vertx/example/mqtt/simple/Client.kt[Kotlin mqtt client app]
 
-link:src/main/js/io/vertx/example/mqtt/simple/Server.java[JavaScript mqtt server app] /
-link:src/main/js/io/vertx/example/mqtt/simple/Client.java[JavaScript mqtt client app]
+link:src/main/js/io/vertx/example/mqtt/simple/server.js[JavaScript mqtt server app] /
+link:src/main/js/io/vertx/example/mqtt/simple/client.js[JavaScript mqtt client app]
 
-link:src/main/groovy/io/vertx/example/mqtt/simple/Server.java[Groovy mqtt server app] /
-link:src/main/groovy/io/vertx/example/mqtt/simple/Client.java[Groovy mqtt client app]
+link:src/main/groovy/io/vertx/example/mqtt/simple/server.groovy[Groovy mqtt server app] /
+link:src/main/groovy/io/vertx/example/mqtt/simple/client.groovy[Groovy mqtt client app]
 
-link:src/main/ruby/io/vertx/example/mqtt/simple/Server.java[Ruby mqtt server app] /
-link:src/main/ruby/io/vertx/example/mqtt/simple/Client.java[Ruby mqtt client app]
+link:src/main/ruby/io/vertx/example/mqtt/simple/server.rb[Ruby mqtt server app] /
+link:src/main/ruby/io/vertx/example/mqtt/simple/client.rb[Ruby mqtt client app]
 
 
 === App
@@ -59,17 +59,17 @@ In this example you can find a usage of significant part of both of Client and S
 link:src/main/java/io/vertx/example/mqtt/app/Server.java[Java mqtt server app] /
 link:src/main/java/io/vertx/example/mqtt/app/Client.java[Java mqtt client app]
 
-link:src/main/kotlin/io/vertx/example/mqtt/app/Server.java[Kotlin mqtt server app] /
-link:src/main/kotlin/io/vertx/example/mqtt/app/Client.java[Kotlin mqtt client app]
+link:src/main/kotlin/io/vertx/example/mqtt/app/Server.kt[Kotlin mqtt server app] /
+link:src/main/kotlin/io/vertx/example/mqtt/app/Client.kt[Kotlin mqtt client app]
 
-link:src/main/js/io/vertx/example/mqtt/app/Server.java[JavaScript mqtt server app] /
-link:src/main/js/io/vertx/example/mqtt/app/Client.java[JavaScript mqtt client app]
+link:src/main/js/io/vertx/example/mqtt/app/server.js[JavaScript mqtt server app] /
+link:src/main/js/io/vertx/example/mqtt/app/client.js[JavaScript mqtt client app]
 
-link:src/main/groovy/io/vertx/example/mqtt/app/Server.java[Groovy mqtt server app] /
-link:src/main/groovy/io/vertx/example/mqtt/app/Client.java[Groovy mqtt client app]
+link:src/main/groovy/io/vertx/example/mqtt/app/server.groovy[Groovy mqtt server app] /
+link:src/main/groovy/io/vertx/example/mqtt/app/client.groovy[Groovy mqtt client app]
 
-link:src/main/ruby/io/vertx/example/mqtt/app/Server.java[Ruby mqtt server app] /
-link:src/main/ruby/io/vertx/example/mqtt/app/Client.java[Ruby mqtt client app]
+link:src/main/ruby/io/vertx/example/mqtt/app/server.rb[Ruby mqtt server app] /
+link:src/main/ruby/io/vertx/example/mqtt/app/client.rb[Ruby mqtt client app]
 
 === SSL
 
