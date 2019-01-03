@@ -1,2 +1,0 @@
-include 'gradle-verticle', 'gradle-verticle-groovy', 'gradle-verticle-groovy-compiled', 'gradle-verticle-js',
-        'gradle-verticle-rb'
