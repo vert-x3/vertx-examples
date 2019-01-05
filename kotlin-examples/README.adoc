@@ -14,3 +14,7 @@ demonstrate how it can be used with Vert.x.
 === kotlintest
 
 The link:kotlintest/README.md[Kotlintest example] shows how to test Vert.x code using https://github.com/kotlintest/kotlintest[KotlinTest].
+
+== Koin
+
+The link:koin-example/README.md[Koin example] shows how to use a Kotlin based DI framework.
