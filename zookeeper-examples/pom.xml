@@ -6,7 +6,7 @@
 
     <groupId>io.vertx</groupId>
     <artifactId>zookeeper-examples</artifactId>
-  <version>3.6.1</version>
+  <version>3.6.2</version>
     <build>
         <plugins>
             <plugin>
@@ -21,7 +21,7 @@
     </build>
 
     <properties>
-      <vertx.version>3.6.1</vertx.version>
+      <vertx.version>3.6.2</vertx.version>
     </properties>
 
     <dependencies>
