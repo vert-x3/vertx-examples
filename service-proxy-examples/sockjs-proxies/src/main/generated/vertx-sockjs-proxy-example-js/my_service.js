@@ -29,6 +29,7 @@ var MyService = function(j_val) {
   var j_myService = j_val;
   var that = this;
 
+  var __super_sayHello = this.sayHello;
   /**
 
    @public
@@ -47,7 +48,10 @@ var MyService = function(j_val) {
         }
       }) ;
       return that;
-    } else throw new TypeError('function invoked with invalid arguments');
+    } else if (typeof __super_sayHello != 'undefined') {
+      return __super_sayHello.apply(this, __args);
+    }
+    else throw new TypeError('function invoked with invalid arguments');
   };
 
   // A reference to the underlying Java delegate

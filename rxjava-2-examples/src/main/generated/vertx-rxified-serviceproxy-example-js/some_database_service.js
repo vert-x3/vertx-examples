@@ -29,6 +29,7 @@ var SomeDatabaseService = function(j_val) {
   var j_someDatabaseService = j_val;
   var that = this;
 
+  var __super_getDataById = this.getDataById;
   /**
 
    @public
@@ -47,7 +48,10 @@ var SomeDatabaseService = function(j_val) {
         }
       }) ;
       return that;
-    } else throw new TypeError('function invoked with invalid arguments');
+    } else if (typeof __super_getDataById != 'undefined') {
+      return __super_getDataById.apply(this, __args);
+    }
+    else throw new TypeError('function invoked with invalid arguments');
   };
 
   // A reference to the underlying Java delegate

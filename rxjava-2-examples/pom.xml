@@ -34,6 +34,16 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
+      <artifactId>vertx-rx-gen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-rx-java2-gen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
       <artifactId>vertx-rx-java2</artifactId>
       <version>${project.version}</version>
     </dependency>

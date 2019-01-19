@@ -4,6 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
+import io.vertx.examples.service.impl.ProcessorServiceImpl;
 import io.vertx.examples.service.utils.Runner;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
@@ -30,7 +31,7 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     // Create the client object
-    service = new ProcessorServiceImpl();
+    ProcessorService service = new ProcessorServiceImpl();
     // Register the handler
     new ServiceBinder(vertx)
       .setAddress("vertx.processor")

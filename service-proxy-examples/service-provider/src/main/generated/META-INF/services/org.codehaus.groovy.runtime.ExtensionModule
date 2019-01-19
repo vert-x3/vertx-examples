@@ -1,5 +1,0 @@
-moduleFactory = io.vertx.examples.service.groovy.VertxPropertiesModuleFactory
-moduleName = io.vertx.examples.service.ProcessorService-module
-moduleVersion = 1.0
-extensionClasses = io.vertx.examples.service.groovy.ProcessorService_GroovyExtension
-staticExtensionClasses = 
