@@ -4,6 +4,8 @@ import io.vertx.ext.web.Router
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
+    
+    vertx = Vertx.vertx()
 
     var router = Router.router(vertx)
 
