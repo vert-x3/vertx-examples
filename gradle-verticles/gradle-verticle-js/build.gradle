@@ -11,7 +11,7 @@ version = '3.6.3'
 repositories {
   mavenCentral()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3820/"
+    url "https://oss.sonatype.org/content/repositories/iovertx-3821/"
   }
 }
 
