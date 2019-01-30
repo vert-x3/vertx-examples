@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>examples-utils</artifactId>
-  <version>3.6.2</version>
+  <version>3.6.3</version>
 
   <properties>
     <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
@@ -82,7 +82,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3814/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3820/</url>
         </repository>
       </repositories>
     </profile>
