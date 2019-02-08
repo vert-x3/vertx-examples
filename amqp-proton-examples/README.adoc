@@ -2,7 +2,7 @@
 
 Here you will find examples demonstrating the Vert.x Proton AMQP library in action.
 
-This component facilitates AMQP integrations for Vert.x by providing a thin wrapper around the [Apache Qpid](http://qpid.apache.org) Proton-J AMQP 1.0 protocol engine.
+This component facilitates AMQP integrations for Vert.x by providing a thin wrapper around the link:http://qpid.apache.org[Apache Qpid] Proton-J AMQP 1.0 protocol engine.
 Please consult the Vert.x Proton documentation for more information.
 
 **NOTE: The Client examples require a server with AMQP 1.0 support listening at port 5672 on localhost and offering SASL ANONYMOUS.**
