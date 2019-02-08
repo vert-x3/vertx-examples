@@ -18,6 +18,12 @@ The Receiver example consumes incoming messages from an address, prints their co
 link:src/main/java/io/vertx/example/proton/client/Receiver.java[Receiver] +
 link:src/main/java/io/vertx/example/proton/client/Sender.java[Sender] +
 
+The ReconnectReceiver example furthers the above to reconnects on connection closure or disconnect. The ReconnectSender similarly reconnects, until it confirms sending a set number of messages. They each try connecting to localhost:5672 and also localhost:15672.
+
+link:src/main/java/io/vertx/example/proton/client/ReconnectReceiver.java[ReconnectReceiver] +
+link:src/main/java/io/vertx/example/proton/client/ReconnectSender.java[ReconnectSender] +
+
+
 == Server
 
 This server example listens for incoming connections on port 5672. It prints any messages received from client senders, and periodically sends generated messages to client receivers.
