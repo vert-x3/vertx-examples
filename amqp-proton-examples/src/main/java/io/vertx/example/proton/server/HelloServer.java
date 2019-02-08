@@ -102,8 +102,6 @@ public class HelloServer extends AbstractVerticle {
     connection.receiverOpenHandler(receiver -> {
       initReceiver(receiver);
     });
-
-    connection.open();
   }
 
   // Initialise then open new sender (when a client receiver/consumer attaches)
