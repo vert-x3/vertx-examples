@@ -1,0 +1,34 @@
+= Vert.x Simplest vertx-mysql-postgresql-client project
+
+This project shows a very simple hello world Vert.x project using vertx-mysql-postgresql-client, which has a simple HTTP server which
+returns the result of 'SELECT 0' on mysql db.
+
+Under the hood vertx-mysql-postgresql-client uses jasync-sql as the database driver.
+
+In this example Vert.x is used embedded. I.e. we use the Vert.x APIs directly in our own classes rather than deploying
+the code in verticles.
+
+You can run or debug the example in your IDE by just right clicking the main class and run as.. or debug as...
+
+The pom.xml uses the Maven shade plugin to assemble the application and all it's dependencies into a single "fat" jar.
+
+To run with maven
+
+    mvn compile exec:java
+
+To build a "fat jar"
+
+    mvn package
+
+To run the fat jar:
+
+    java -jar target/jasync-examples-3.6.3-fat.jar
+
+(You can take that jar and run it anywhere there is a Java 8+ JDK. It contains all the dependencies it needs so you
+don't need to install Vert.x on the target machine).
+
+You can also run the fat jar with maven:
+
+    mvn package exec:exec@run-app
+
+Now point your browser at http://localhost:8080
