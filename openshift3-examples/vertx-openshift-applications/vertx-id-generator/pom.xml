@@ -11,7 +11,7 @@
   <properties>
     <vertx.verticle>io.vertx.example.openshift.IdGeneratorVerticle</vertx.verticle>
     <vertx.version>3.6.2</vertx.version>
-    <fabric8-vertx-maven-plugin.version>1.0.13</fabric8-vertx-maven-plugin.version>
+    <vertx-maven-plugin.version>1.0.18</vertx-maven-plugin.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -42,9 +42,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>io.fabric8</groupId>
+        <groupId>io.reactiverse</groupId>
         <artifactId>vertx-maven-plugin</artifactId>
-        <version>${fabric8-vertx-maven-plugin.version}</version>
+        <version>${vertx-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>vmp-init-package</id>

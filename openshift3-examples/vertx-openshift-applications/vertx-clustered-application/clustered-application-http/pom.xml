@@ -19,7 +19,7 @@
 
     <jgroups-kubernetes.version>1.0.5.Final</jgroups-kubernetes.version>
     <vertx.version>3.6.2</vertx.version>
-    <vertx-maven-plugin.version>1.0.13</vertx-maven-plugin.version>
+    <vertx-maven-plugin.version>1.0.18</vertx-maven-plugin.version>
     <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -58,7 +58,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>io.fabric8</groupId>
+        <groupId>io.reactiverse</groupId>
         <artifactId>vertx-maven-plugin</artifactId>
         <version>${vertx-maven-plugin.version}</version>
         <executions>
