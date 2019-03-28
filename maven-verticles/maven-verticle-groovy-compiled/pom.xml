@@ -7,7 +7,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticle-compiled-groovy</artifactId>
-  <version>3.6.2</version>
+  <version>3.7.0</version>
 
   <properties>
     <!-- the Groovy class, must be prefixed by `groovy:` to use the Groovy Vert.x support -->

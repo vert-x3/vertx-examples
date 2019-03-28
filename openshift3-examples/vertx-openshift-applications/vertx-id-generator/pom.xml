@@ -3,14 +3,14 @@
   <parent>
     <groupId>io.vertx.examples.openshift</groupId>
     <artifactId>vertx-openshift-applications</artifactId>
-    <version>3.6.2</version>
+    <version>3.7.0</version>
   </parent>
 
   <artifactId>vertx-id-generator</artifactId>
 
   <properties>
     <vertx.verticle>io.vertx.example.openshift.IdGeneratorVerticle</vertx.verticle>
-    <vertx.version>3.6.2</vertx.version>
+    <vertx.version>3.7.0</vertx.version>
     <vertx-maven-plugin.version>1.0.18</vertx-maven-plugin.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>

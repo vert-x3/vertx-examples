@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>amqp-bridge-examples</artifactId>
-  <version>3.6.2</version>
+  <version>3.7.0</version>
 
   <dependencies>
     <!-- primary deps -->
