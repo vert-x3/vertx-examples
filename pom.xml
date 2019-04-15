@@ -54,6 +54,7 @@
     <module>junit5-examples</module>
     <module>zookeeper-examples</module>
     <module>web-api-service-example</module>
+    <module>web-graphql-example</module>
   </modules>
 
   <profiles>
