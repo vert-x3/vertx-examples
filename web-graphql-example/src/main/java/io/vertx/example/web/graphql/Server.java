@@ -33,7 +33,7 @@ public class Server extends AbstractVerticle {
     prepareData();
 
     Router router = Router.router(vertx);
-    router.post().handler(GraphQLHandler.create(createGraphQL()));
+    router.route("/graphql").handler(GraphQLHandler.create(createGraphQL()));
 
     vertx.createHttpServer()
       .requestHandler(router)
