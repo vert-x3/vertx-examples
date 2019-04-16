@@ -6,16 +6,13 @@ import io.vertx.cassandra.CassandraClientOptions;
 import io.vertx.cassandra.ResultSet;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
-import org.apache.thrift.transport.TTransportException;
-
-import java.io.IOException;
 
 public class SimpleExample extends AbstractVerticle {
 
   /**
    * Convenience method so you can run it in your IDE
    */
-  public static void main(String[] args) throws InterruptedException, IOException, TTransportException {
+  public static void main(String[] args) {
     Launcher.main(new String[]{"run", SimpleExample.class.getName()});
   }
 
