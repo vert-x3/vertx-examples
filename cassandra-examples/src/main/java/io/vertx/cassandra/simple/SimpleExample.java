@@ -18,7 +18,7 @@ public class SimpleExample extends AbstractVerticle {
 
   @Override
   public void start() {
-    CassandraClient client = CassandraClient.createNonShared(vertx, new CassandraClientOptions().setPort(9042));
+    CassandraClient client = CassandraClient.createShared(vertx, new CassandraClientOptions().setPort(9042));
     client.execute("select release_version from system.local", rs -> {
       if (rs.succeeded()) {
         ResultSet result = rs.result();

@@ -17,7 +17,7 @@ public class PreparedExample extends AbstractVerticle {
 
   @Override
   public void start() {
-    CassandraClient client = CassandraClient.createNonShared(vertx, new CassandraClientOptions().setPort(9042));
+    CassandraClient client = CassandraClient.createShared(vertx, new CassandraClientOptions().setPort(9042));
     client.prepare("SELECT * from system_schema.tables  WHERE keyspace_name = ? ", preparedStatementAsyncResult -> {
       if (preparedStatementAsyncResult.succeeded()) {
         System.out.println("The query has successfully been prepared");

@@ -18,7 +18,7 @@ public class StreamingExample extends AbstractVerticle {
 
   @Override
   public void start() {
-    CassandraClient client = CassandraClient.createNonShared(vertx, new CassandraClientOptions().setPort(9042));
+    CassandraClient client = CassandraClient.createShared(vertx, new CassandraClientOptions().setPort(9042));
     client.queryStream("SELECT * from system_schema.tables  WHERE keyspace_name = 'system_schema' ", cassandraRowStreamAsyncResult -> {
       if (cassandraRowStreamAsyncResult.succeeded()) {
         System.out.println("Tables in system_schema: ");
