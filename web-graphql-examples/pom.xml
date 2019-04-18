@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.vertx</groupId>
-  <artifactId>web-graphql-example</artifactId>
+  <artifactId>web-graphql-examples</artifactId>
   <version>3.7.0</version>
 
   <dependencies>
