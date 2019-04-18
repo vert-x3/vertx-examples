@@ -1,0 +1,20 @@
+= Vert.x Web GraphQL examples
+
+Here you will find examples demonstrating Vert.x Web GraphQL in action.
+
+https://vertx.io/docs/vertx-web-graphql/java/[Vert.x Web GraphQL] extends Vert.x Web with the https://www.graphql-java.com/[GraphQL-Java] library so that you can build a GraphQL server.
+
+== Simple GraphQL server and client
+
+This example uses the Vert.x Web client to send a request to the GraphQL server and log the response.
+
+The backend is a very basic Hackernews clone: it holds a list of web pages, as well as info about the user who posted each link.
+The link:src/main/resources/links.graphqls[GraphQL schema] describes the data with:
+
+* `Link` and `User` types
+* the `allLinks` query
+
+First you need to run the server then you can run the client.
+
+* link:src/main/java/io/vertx/example/web/graphql/Server.java[Simple Java GraphQL server]
+* link:src/main/java/io/vertx/example/web/graphql/Client.java[Simple Java GraphQL client]
