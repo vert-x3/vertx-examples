@@ -1,8 +1,5 @@
 = Vert.x examples
 
-
-image:https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-examples["Build Status",link="https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-examples/"]
-
 This repository contains a range of examples so you can get up and running easily with Vert.x.
 
 == Maven users
@@ -272,3 +269,7 @@ The link:jca-examples/README.adoc[Vert.x JCA Examples] provide a JEE compliant a
 
 The link:micrometer-metrics-examples/README.adoc[Vert.x Micrometer metrics examples] show how to collect Vert.x metrics
 with link:https://micrometer.io/[Micrometer] and send them to backends such as Prometheus or InfluxDB.
+
+=== GraphQL examples
+
+The link:web-graphql-examples/README.adoc[Vert.x Web GraphQL] examples contain simple client/server GraphQL applications built with https://vertx.io/docs/vertx-web-graphql/java/[Vert.x Web GraphQL] and the https://www.graphql-java.com/[GraphQL-Java] library.
