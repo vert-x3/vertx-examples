@@ -1,4 +1,4 @@
-package io.vertx.cassandra.prepared;
+package io.vertx.example.cassandra.cassandra.prepared;
 
 import com.datastax.driver.core.PreparedStatement;
 import io.vertx.cassandra.CassandraClient;

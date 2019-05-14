@@ -1,4 +1,4 @@
-package io.vertx.cassandra.streaming;
+package io.vertx.example.cassandra.cassandra.streaming;
 
 import io.vertx.cassandra.CassandraClient;
 import io.vertx.cassandra.CassandraClientOptions;

@@ -1,4 +1,4 @@
-package io.vertx.cassandra.simple;
+package io.vertx.example.cassandra.cassandra.simple;
 
 import com.datastax.driver.core.Row;
 import io.vertx.cassandra.CassandraClient;
