@@ -1,0 +1,37 @@
+= Vert.x Cassandra Client examples
+
+== Start Cassandra instance
+
+In order to run this examples you need a Cassandra instance running locally.
+
+On the ways to achieve this is to use link:https://github.com/riptano/ccm[ccm].
+Follow link:https://github.com/riptano/ccm#installation[the installation instructions] for installing `ccm`.
+
+After `ccm` installation you can run a single node Cassandra cluster:
+
+[source,bash]
+----
+ccm create test_node -v 3.11.2 -n 1 -s
+ccm start test_node
+----
+
+== Examples
+
+=== Simple
+
+This example consists of executing a single query: `select release_version from system.local`.
+As the first row is obtained, the current Cassandra version is printed out.
+
+link:src/main/java/io/vertx/example/cassandra/simple/SimpleExample.java[Java SimpleExample]
+
+=== Prepared
+
+This example demonstrates how can you prepare, execute and fetch results of a query.
+
+link:src/main/java/io/vertx/example/cassandra/prepared/PreparedExample.java[Java PreparedExample]
+
+=== Streaming
+
+This example shows a way to fetch query result rows in a streaming manner.
+
+link:src/main/java/io/vertx/example/cassandra/streaming/StreamingExample.java[Java StreamingExample]
