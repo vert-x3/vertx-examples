@@ -2,12 +2,12 @@
 
 == Start Cassandra instance
 
-In order to run this examples you need a cassandra instance running locally.
+In order to run this examples you need a Cassandra instance running locally.
 
-On the ways to achieve this is to user link:https://github.com/riptano/ccm[ccm].
-Follow link:https://github.com/riptano/ccm#installation[the installation instructions] for getting ccm.
+On the ways to achieve this is to use link:https://github.com/riptano/ccm[ccm].
+Follow link:https://github.com/riptano/ccm#installation[the installation instructions] for installing `ccm`.
 
-After ccm installation you can run a single node cassandra cluster:
+After `ccm` installation you can run a single node Cassandra cluster:
 
 [source,bash]
 ----
