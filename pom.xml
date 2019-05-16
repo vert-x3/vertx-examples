@@ -85,6 +85,24 @@
         <module>docker-examples/vertx-docker-java-fatjar</module>
       </modules>
     </profile>
+
+    <profile>
+      <!-- Use -DskipNative as the native-image module requires graalvm + gu install native-image to be installed, there are built an their own profile -->
+      <id>native</id>
+      <activation>
+        <property>
+          <name>!skipNative</name>
+        </property>
+      </activation>
+      <modules>
+        <module>native-image-examples/vertx-http-server</module>
+        <module>native-image-examples/vertx-https-server</module>
+        <module>native-image-examples/vertx-web-client</module>
+        <module>native-image-examples/vertx-grpc-server</module>
+        <module>native-image-examples/vertx-grpc-client</module>
+      </modules>
+    </profile>
+
     <profile>
       <id>staging</id>
       <repositories>
