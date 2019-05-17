@@ -47,20 +47,18 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>io.reactiverse</groupId>
-        <artifactId>vertx-maven-plugin</artifactId>
-        <version>1.0.18</version>
-        <executions>
-          <execution>
-            <id>vmp</id>
-            <goals>
-              <goal>initialize</goal>
-              <goal>package</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
         <configuration>
-          <redeploy>true</redeploy>
+          <archive>
+            <manifest>
+              <mainClass>io.vertx.core.Launcher</mainClass>
+            </manifest>
+            <manifestEntries>
+              <Main-Verticle>${vertx.verticle}</Main-Verticle>
+            </manifestEntries>
+          </archive>
         </configuration>
       </plugin>
       <plugin>

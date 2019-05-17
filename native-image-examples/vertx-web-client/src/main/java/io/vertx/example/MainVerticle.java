@@ -19,7 +19,7 @@ public class MainVerticle extends AbstractVerticle {
         if (ar.succeeded()) {
           HttpResponse<Buffer> response = ar.result();
           System.out.println("Got HTTP response with status " + response.statusCode() + " with data "
-            + response.body().toString("ISO-8859-1"));
+            + response.body());
         } else {
           ar.cause().printStackTrace();
         }
