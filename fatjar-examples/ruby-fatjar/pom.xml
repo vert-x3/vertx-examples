@@ -22,7 +22,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>ruby-fatjar</artifactId>
-  <version>3.7.0</version>
+  <version>3.7.1</version>
 
   <name>Ruby fatjar</name>
 
@@ -83,7 +83,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3827/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3831/</url>
         </repository>
       </repositories>
     </profile>

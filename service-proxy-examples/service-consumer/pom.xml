@@ -7,7 +7,7 @@
   <parent>
     <artifactId>service-proxy-examples</artifactId>
     <groupId>io.vertx</groupId>
-    <version>3.7.0</version>
+    <version>3.7.1</version>
   </parent>
 
   <artifactId>service-consumer</artifactId>
