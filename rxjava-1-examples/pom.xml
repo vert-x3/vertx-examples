@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>rx-java1-examples</artifactId>
-  <version>3.7.1</version>
+  <version>3.8.0</version>
 
   <dependencies>
     <dependency>

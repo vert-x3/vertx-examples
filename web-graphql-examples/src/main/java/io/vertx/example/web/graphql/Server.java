@@ -8,8 +8,8 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
 import io.vertx.core.Launcher;
+import io.vertx.core.Promise;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.graphql.GraphQLHandler;
 import io.vertx.ext.web.handler.graphql.VertxDataFetcher;
@@ -72,7 +72,7 @@ public class Server extends AbstractVerticle {
       .build();
   }
 
-  private void getAllLinks(DataFetchingEnvironment env, Future<List<Link>> future) {
+  private void getAllLinks(DataFetchingEnvironment env, Promise<List<Link>> future) {
     boolean secureOnly = env.getArgument("secureOnly");
     List<Link> result = links.stream()
       .filter(link -> !secureOnly || link.getUrl().startsWith("https://"))
