@@ -51,7 +51,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3831/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3833/</url>
         </repository>
       </repositories>
     </profile>
