@@ -39,6 +39,9 @@ The example is only available in Java:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction/SqlClientExample.java[SqlClientExample.java]
 * Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction/SqlClientExample.kt[SqlClientExample.kt]
+* JavaScript: link:src/main/js/io/vertx/example/sqlclient/transaction/sql_client_example.js[sql_client_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/transaction/sql_client_example.groovy[sql_client_example.groovy]
+* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/transaction/sql_client_example.rb[sql_client_example.rb]
 
 == Transaction Rollback
 
@@ -49,3 +52,6 @@ The example is only available in Java:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.java[SqlClientExample.java]
 * Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.kt[SqlClientExample.kt]
+* JavaScript: link:src/main/js/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.js[sql_client_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.groovy[sql_client_example.groovy]
+* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.rb[sql_client_example.rb]

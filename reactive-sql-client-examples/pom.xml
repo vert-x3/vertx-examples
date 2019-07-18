@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.vertx</groupId>
-  <artifactId>sql-client-examples</artifactId>
+  <artifactId>reactive-sql-client-examples</artifactId>
   <version>3.8.0</version>
 
   <dependencies>

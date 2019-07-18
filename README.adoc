@@ -219,6 +219,10 @@ The link:redis-examples/README.adoc[Vert.x Redis Example] shows how you can inte
 
 The link:mongo-examples/README.adoc[Vert.x Mongo Example] shows how you can interact with MongoDB using the vert.x Mongo client.
 
+=== Reactive SQL client example
+
+The link:reactive-sql-client-examples/README.adoc[Reactive SQL Client Examples] shows how you can interact PostgreSQL or MySQL Databases using the Reactive SQL client.
+
 === JDBC example
 
 The link:jdbc-examples/README.adoc[Vert.x JDBC Examples] shows how you can interact JDBC Databases using the vert.x JDBC
