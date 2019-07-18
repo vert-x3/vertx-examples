@@ -1,0 +1,51 @@
+= Vert.x SQL Client examples
+
+Here you will find examples demonstrating the usage of the Vert.x SQL Client.
+
+== Simple
+
+This example shows the basic functionality of the SQL client, it demonstrates how to connect to a database, perform
+basic data definition queries by creating a test table plus test data, after it shows how to perform simple queries
+without parameters and shows how to close the connection.
+
+The example is available in several languages:
+
+* Java: link:src/main/java/io/vertx/example/sqlclient/simple/SqlClientExample.java[SqlClientExample.java]
+* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/simple/SqlClientExample.kt[SqlClientExample.kt]
+* JavaScript: link:src/main/js/io/vertx/example/sqlclient/simple/sql_client_example.js[sql_client_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/simple/sql_client_example.groovy[sql_client_example.groovy]
+* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/simple/sql_client_example.rb[sql_client_example.rb]
+
+== Query Params
+
+This is a follow up to the `Simple` example. In this example you will see how to write queries with parameters, the
+advantage of doing so is to avoid common SQL injection security issues since all parameters are used in a
+`PreparedStatement` before being sent to the database engine.
+
+The example is available in several languages:
+
+* Java: link:src/main/java/io/vertx/example/sqlclient/query_params/SqlClientExample.java[SqlClientExample.java]
+* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/query_params/SqlClientExample.kt[SqlClientExample.kt]
+* JavaScript: link:src/main/js/io/vertx/example/sqlclient/query_params/sql_client_example.js[sql_client_example.js]
+* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/query_params/sql_client_example.groovy[sql_client_example.groovy]
+* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/query_params/sql_client_example.rb[sql_client_example.rb]
+
+== Transaction
+
+The Transaction example show how to start and finish a transaction using the asynchronous jdbc client. Note that the
+expected result is `1` since the example is counting the number of inserted rows after a the end of the transaction.
+
+The example is only available in Java:
+
+* link:src/main/java/io/vertx/example/sqlclient/transaction/SqlClientExample.java[SqlClientExample.java]
+* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction/SqlClientExample.kt[SqlClientExample.kt]
+
+== Transaction Rollback
+
+The Transaction rollback example is a modified version of the simple Transaction example. In this example after
+inserting data we rollback the transaction and the final count show that we have `0` rows in our table.
+
+The example is only available in Java:
+
+* link:src/main/java/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.java[SqlClientExample.java]
+* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.kt[SqlClientExample.kt]
