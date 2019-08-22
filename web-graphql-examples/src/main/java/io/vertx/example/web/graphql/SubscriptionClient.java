@@ -17,7 +17,7 @@ public class SubscriptionClient extends AbstractVerticle {
   @Override
   public void start() {
     HttpClient httpClient = vertx.createHttpClient(new HttpClientOptions().setDefaultPort(8080));
-    httpClient.webSocket("/graphql").setHandler(websocketRes -> {
+    httpClient.webSocket("/graphql", websocketRes -> {
       if (websocketRes.succeeded()) {
         WebSocket webSocket = websocketRes.result();
 

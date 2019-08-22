@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>rx-java1-examples</artifactId>
-  <version>3.8.0</version>
+  <version>3.8.1</version>
 
   <dependencies>
     <dependency>
@@ -102,7 +102,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3833/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3844/</url>
         </repository>
       </repositories>
     </profile>
