@@ -7,6 +7,7 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import io.reactivex.Flowable;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServerOptions;
@@ -17,6 +18,7 @@ import org.reactivestreams.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
 
@@ -72,19 +74,8 @@ public class SubscriptionServer extends AbstractVerticle {
   }
 
   private Publisher<Link> linksFetcher(DataFetchingEnvironment env) {
-    return subscriber -> {
-      sendData(subscriber, 0);
-    };
-  }
-
-  private void sendData(Subscriber<? super Link> subscriber, int index) {
-    if (index >= links.size()) {
-      subscriber.onComplete();
-    } else {
-      subscriber.onNext(links.get(index));
-
-      vertx.setTimer(1000, t -> sendData(subscriber, index + 1));
-    }
+    return Flowable.fromIterable(links)
+      .delay(1, TimeUnit.SECONDS);
   }
 
 }
