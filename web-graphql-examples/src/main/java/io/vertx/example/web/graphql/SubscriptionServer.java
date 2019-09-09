@@ -12,9 +12,9 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.graphql.*;
+import io.vertx.ext.web.handler.graphql.ApolloWSHandler;
+import io.vertx.reactivex.RxHelper;
 import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +34,10 @@ public class SubscriptionServer extends AbstractVerticle {
   public void start() {
     prepareData();
 
-    final Router router = Router.router(vertx);
+    Router router = Router.router(vertx);
     router.route("/graphql").handler(ApolloWSHandler.create(createGraphQL()));
 
-    final HttpServerOptions httpServerOptions = new HttpServerOptions()
+    HttpServerOptions httpServerOptions = new HttpServerOptions()
       .setWebsocketSubProtocols("graphql-ws");
     vertx.createHttpServer(httpServerOptions)
       .requestHandler(router)
@@ -74,8 +74,8 @@ public class SubscriptionServer extends AbstractVerticle {
   }
 
   private Publisher<Link> linksFetcher(DataFetchingEnvironment env) {
-    return Flowable.fromIterable(links)
-      .delay(1, TimeUnit.SECONDS);
+    return Flowable.interval(1, TimeUnit.SECONDS) // Ticks
+      .zipWith(Flowable.fromIterable(links), (tick, link) -> link) // Emit link on each tick
+      .observeOn(RxHelper.scheduler(context)); // Observe on the verticle context thread
   }
-
 }
