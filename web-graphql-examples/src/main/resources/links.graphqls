@@ -11,3 +11,7 @@ type User {
 type Query {
   allLinks(secureOnly: Boolean = false): [Link]
 }
+
+type Subscription {
+  links: Link
+}
