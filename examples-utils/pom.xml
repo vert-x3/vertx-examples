@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>examples-utils</artifactId>
-  <version>3.8.1</version>
+  <version>3.8.2</version>
 
   <properties>
     <tools.jar>${java.home}/../lib/tools.jar</tools.jar>

@@ -4,7 +4,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>mail-examples</artifactId>
-  <version>3.8.1</version>
+  <version>3.8.2</version>
 
   <dependencies>
     <dependency>
