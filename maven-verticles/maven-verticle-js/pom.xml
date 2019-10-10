@@ -7,7 +7,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticle-javascript</artifactId>
-  <version>3.8.1</version>
+  <version>3.8.2</version>
 
   <properties>
     <main.verticle>MyJavaScriptVerticle.js</main.verticle>
