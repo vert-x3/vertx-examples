@@ -72,7 +72,7 @@ public class MyServiceVertxEBProxy implements MyService {
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "sayHello");
-    _vertx.eventBus().<String>send(_address, _json, _deliveryOptions, res -> {
+    _vertx.eventBus().<String>request(_address, _json, _deliveryOptions, res -> {
       if (res.failed()) {
         handler.handle(Future.failedFuture(res.cause()));
       } else {

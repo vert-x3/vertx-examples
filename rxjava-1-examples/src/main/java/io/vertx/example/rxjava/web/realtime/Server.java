@@ -23,7 +23,7 @@ public class Server extends AbstractVerticle {
 
     Router router = Router.router(vertx);
 
-    router.route("/news-feed/*").handler(SockJSHandler.create(vertx).socketHandler(sockJSSocket -> {
+    router.mountSubRouter("/news-feed/*", SockJSHandler.create(vertx).socketHandler(sockJSSocket -> {
 
       // Consumer the event bus address as an Observable
       Observable<String> msg = vertx.eventBus().<String>consumer("news-feed")
