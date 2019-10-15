@@ -9,6 +9,7 @@ import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+import io.vertx.ext.web.handler.sockjs.SockJSHandlerOptions;
 
 import java.text.DateFormat;
 import java.time.Instant;
@@ -36,8 +37,11 @@ public class Server extends AbstractVerticle {
         .addInboundPermitted(new PermittedOptions().setAddress("com.example:cmd:poke-server"))
         .addOutboundPermitted(new PermittedOptions().setAddress("com.example:stat:server-info"));
 
+    SockJSHandlerOptions options = new SockJSHandlerOptions();
+
     // Create the event bus bridge and add it to the router.
-    SockJSHandler ebHandler = SockJSHandler.create(vertx).bridge(opts);
+    SockJSHandler ebHandler = SockJSHandler.create(vertx);
+    ebHandler.bridge(opts);
     router.route("/eventbus/*").handler(ebHandler);
 
     // Create a router endpoint for the static content.

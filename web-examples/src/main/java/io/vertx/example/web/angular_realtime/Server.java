@@ -105,7 +105,10 @@ public class Server extends AbstractVerticle {
         // all outbound messages are permitted
       .addOutboundPermitted(new PermittedOptions());
 
-    router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(options));
+    SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
+    sockJSHandler.bridge(options);
+    router.route("/eventbus/*").handler(sockJSHandler);
+
 
     // Serve the static resources
     router.route().handler(StaticHandler.create());
