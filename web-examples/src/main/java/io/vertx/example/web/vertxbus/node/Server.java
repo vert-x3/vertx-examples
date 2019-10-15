@@ -35,7 +35,8 @@ public class Server extends AbstractVerticle {
         .addOutboundPermitted(new PermittedOptions().setAddress("feed"));
 
     // Create the event bus bridge and add it to the router.
-    SockJSHandler ebHandler = SockJSHandler.create(vertx).bridge(opts);
+    SockJSHandler ebHandler = SockJSHandler.create(vertx);
+    ebHandler.bridge(opts);
     router.route("/eventbus/*").handler(ebHandler);
 
     // Start the web server and tell it to use the router to handle requests.
