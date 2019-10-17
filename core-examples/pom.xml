@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>core-examples</artifactId>
-  <version>3.8.2</version>
+  <version>3.8.3</version>
 
   <dependencies>
 
@@ -64,7 +64,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3844/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3854/</url>
         </repository>
       </repositories>
     </profile>
