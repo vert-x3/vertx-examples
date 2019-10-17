@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>amqp-proton-examples</artifactId>
-  <version>3.8.2</version>
+  <version>3.8.3</version>
 
   <dependencies>
     <!-- primary deps -->

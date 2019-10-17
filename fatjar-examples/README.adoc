@@ -14,7 +14,7 @@ To build with Maven
 
 To run the fat jar:
 
-    java -jar target/http2-fatjar-3.8.2.jar
+    java -jar target/http2-fatjar-3.8.3.jar
 
 The build.gradle uses the Gradle shadowJar plugin to assemble the application and all it's dependencies into a single "fat" jar.
 
@@ -24,7 +24,7 @@ To build with Gradle
 
 To run the fat jar:
 
-    java -jar build/libs/http2-fatjar-3.8.2-all.jar
+    java -jar build/libs/http2-fatjar-3.8.3-all.jar
 
 NOTE: embedding the key in the jar is a discouraged practice - it is done purposely to keep the example simple
 
@@ -40,7 +40,7 @@ To build with Maven
 
 To run the fat jar:
 
-    java -jar target/ruby-fatjar-3.8.2.jar.jar
+    java -jar target/ruby-fatjar-3.8.3.jar.jar
 
 The build.gradle uses the Gradle shadowJar plugin to assemble the application and all it's dependencies into a single "fat" jar.
 
@@ -50,4 +50,4 @@ To build with Gradle
 
 To run the fat jar:
 
-    java -jar build/libs/ruby-fatjar-3.8.2-all.jar
+    java -jar build/libs/ruby-fatjar-3.8.3-all.jar

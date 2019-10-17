@@ -26,21 +26,21 @@ You can also launch the example using the `vertx` cli as follows:
 mvn clean package
 
 # java
-vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-3.8.2.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
+vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-3.8.3.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
 
 # javascript
 cd src/main/js/io/vertx/example/metrics/dashboard
-vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.8.2.jar:. -Dvertx.metrics.options.enabled=true
+vertx run dashboard.js -cp ./../../../../../../../../target/metrics-examples-3.8.3.jar:. -Dvertx.metrics.options.enabled=true
 
 
 # groovy
 cd src/main/groovy/io/vertx/example/metrics/dashboard
-vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.8.2.jar:. -Dvertx.metrics.options.enabled=true
+vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-3.8.3.jar:. -Dvertx.metrics.options.enabled=true
 
 
 # ruby
 cd src/main/ruby/io/vertx/example/metrics/dashboard
-vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.8.2.jar:. -Dvertx.metrics.options.enabled=true
+vertx run dashboard.rb -cp ./../../../../../../../../target/metrics-examples-3.8.3.jar:. -Dvertx.metrics.options.enabled=true
 ----
 
 To enable JMX append the following options: `-Dvertx.metrics.options.jmxEnabled=true -Dvertx.metrics.options.jmxDomain=vertx`. Then, if you open a JMX explorer (such the JConsole), in the list of beans you will find the Vert.x metrics under the
