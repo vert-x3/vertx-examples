@@ -31,7 +31,7 @@ public class Client extends AbstractVerticle {
           System.out.println("Circuit closed");
         });
 
-    Future<String> result = breaker.executeWithFallback(future -> {
+    breaker.executeWithFallback(future -> {
       vertx.createHttpClient().getNow(8080, "localhost", "/", response -> {
         if (response.statusCode() != 200) {
           future.fail("HTTP error");
@@ -44,9 +44,7 @@ public class Client extends AbstractVerticle {
     }, v -> {
       // Executed when the circuit is opened
       return "Hello (fallback)";
-    });
-
-    result.setHandler(ar -> {
+    }, ar -> {
       // Do something with the result
       System.out.println("Result: " + ar.result());
     });
