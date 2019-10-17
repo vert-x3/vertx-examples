@@ -46,12 +46,14 @@ public class MainVerticle extends AbstractVerticle {
     );
 
     // Deploy the metrics collector : 3 times
-    JsonObject producerConfig = new JsonObject((Map) kafkaCluster.useTo()
-      .getProducerProperties("the_producer"));
-    vertx.deployVerticle(
-      MetricsVerticle.class.getName(),
-      new DeploymentOptions().setConfig(producerConfig).setInstances(3)
-    );
+    for (int i = 0;i < 3;i++) {
+      JsonObject producerConfig = new JsonObject((Map) kafkaCluster.useTo()
+        .getProducerProperties("the_producer-" + i));
+      vertx.deployVerticle(
+        MetricsVerticle.class.getName(),
+        new DeploymentOptions().setConfig(producerConfig)
+      );
+    }
   }
 
   @Override
