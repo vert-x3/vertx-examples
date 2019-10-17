@@ -53,7 +53,7 @@ public class Dashboard extends AbstractVerticle {
                 setAddress("metrics")
         );
 
-    router.mountSubRouter("/eventbus/*", SockJSHandler.create(vertx).bridge(options));
+    router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
 
     // Serve the static resources
     router.route().handler(StaticHandler.create());
