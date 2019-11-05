@@ -37,7 +37,7 @@ public class Client extends AbstractVerticle {
       if (ar.succeeded()) {
         System.out.println("Got the server response.");
       } else {
-        System.out.println("Coult not reach server " + ar.cause().getMessage());
+        System.out.println("Could not reach server " + ar.cause().getMessage());
       }
     });
   }
