@@ -6,12 +6,12 @@ plugins {
 
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
-version = '3.8.3'
+version = '3.8.4'
 
 repositories {
   mavenCentral()
   maven {
-    url "https://oss.sonatype.org/content/repositories/iovertx-3856/"
+    url "https://oss.sonatype.org/content/repositories/iovertx-3858/"
   }
 }
 

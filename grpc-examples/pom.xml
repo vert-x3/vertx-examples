@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>grpc-examples</artifactId>
-  <version>3.8.3</version>
+  <version>3.8.4</version>
 
   <properties>
     <vertx.grpc.version>1.16.1</vertx.grpc.version>
@@ -122,7 +122,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3856/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3858/</url>
         </repository>
       </repositories>
     </profile>

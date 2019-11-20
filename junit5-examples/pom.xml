@@ -22,7 +22,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>junit5-examples</artifactId>
-  <version>3.8.3</version>
+  <version>3.8.4</version>
 
   <properties>
     <junit-jupiter.version>5.1.0</junit-jupiter.version>
@@ -127,7 +127,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3856/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3858/</url>
         </repository>
       </repositories>
     </profile>
