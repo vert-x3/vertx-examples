@@ -35,7 +35,7 @@ public class Application {
   @Autowired
   Vertx vertx;
 
-  @Value("${systemProperties.httpPort:#{null}}")
+  @Value("${httpPort:#{null}}")
   Integer port;
 
   public static void main(String[] args) {

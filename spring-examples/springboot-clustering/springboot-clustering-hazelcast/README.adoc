@@ -37,7 +37,7 @@ So you can start the first instance with an HTTP server on port 8081:
 
 [source,shell]
 ----
-mvn spring-boot:run -DhttpPort=8081
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-DhttpPort=8081"
 ----
 
 And then start the other instances without the HTTP server:

@@ -19,4 +19,12 @@ To build the "fat jar"
 
 To run the fat jar:
 
-    java -jar target/springboot-example-1.2.4.RELEASE.jar
+    java -jar target/springboot-example-2.2.2.RELEASE.jar
+
+To run using spring boot maven plugin
+
+    mvn spring-boot:run
+
+To access application in the browser
+
+    http://localhost:8080/
