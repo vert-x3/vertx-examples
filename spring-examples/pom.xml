@@ -15,7 +15,7 @@
     <module>spring-example</module>
     <module>springboot-clustering</module>
     <module>spring-verticle-factory</module>
-    <!--<module>spring-worker-example</module>-->
+    <module>spring-worker-example</module>
   </modules>
 
 </project>
