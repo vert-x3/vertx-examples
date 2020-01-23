@@ -1,4 +1,4 @@
-$vertx.create_http_server().websocket_handler() { |ws|
+$vertx.create_http_server().web_socket_handler() { |ws|
   ws.handler(&ws.method(:write_binary_message))
 }.request_handler() { |req|
   if (req.uri().==("/"))

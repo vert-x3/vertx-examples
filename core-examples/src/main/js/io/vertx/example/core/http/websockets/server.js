@@ -1,4 +1,4 @@
-vertx.createHttpServer().websocketHandler(function (ws) {
+vertx.createHttpServer().webSocketHandler(function (ws) {
   ws.handler(ws.writeBinaryMessage);
 }).requestHandler(function (req) {
   if (req.uri() == "/") {

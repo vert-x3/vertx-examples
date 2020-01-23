@@ -3,7 +3,7 @@ package io.vertx.example.core.http.websockets
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
-    vertx.createHttpServer().websocketHandler({ ws ->
+    vertx.createHttpServer().webSocketHandler({ ws ->
       ws.handler({ ws.writeBinaryMessage(it) })
     }).requestHandler({ req ->
       if (req.uri() == "/") {

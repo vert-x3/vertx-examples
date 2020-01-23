@@ -11,7 +11,7 @@ def breaker = CircuitBreaker.create("my-circuit-breaker", vertx, options).openHa
   println("Circuit closed")
 })
 
-def result = breaker.executeWithFallback({ future ->
+breaker.executeWithFallback({ future ->
   vertx.createHttpClient().getNow(8080, "localhost", "/", { response ->
     if (response.statusCode() != 200) {
       future.fail("HTTP error")
@@ -24,9 +24,7 @@ def result = breaker.executeWithFallback({ future ->
 }, { v ->
   // Executed when the circuit is opened
   return "Hello (fallback)"
-})
-
-result.setHandler({ ar ->
+}, { ar ->
   // Do something with the result
   println("Result: ${ar.result()}")
 })

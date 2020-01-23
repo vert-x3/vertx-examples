@@ -11,7 +11,7 @@ var breaker = CircuitBreaker.create("my-circuit-breaker", vertx, options).openHa
   console.log("Circuit closed");
 });
 
-var result = breaker.executeWithFallback(function (future) {
+breaker.executeWithFallback(function (future) {
   vertx.createHttpClient().getNow(8080, "localhost", "/", function (response) {
     if (response.statusCode() !== 200) {
       future.fail("HTTP error");
@@ -24,9 +24,7 @@ var result = breaker.executeWithFallback(function (future) {
 }, function (v) {
   // Executed when the circuit is opened
   return "Hello (fallback)"
-});
-
-result.setHandler(function (ar, ar_err) {
+}, function (ar, ar_err) {
   // Do something with the result
   console.log("Result: " + ar);
 });

@@ -17,7 +17,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
       println("Circuit closed")
     })
 
-    var result = breaker.executeWithFallback({ future ->
+    breaker.executeWithFallback({ future ->
       vertx.createHttpClient().getNow(8080, "localhost", "/", { response ->
         if (response.statusCode() != 200) {
           future.fail("HTTP error")
@@ -30,9 +30,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
     }, { v ->
       // Executed when the circuit is opened
       return "Hello (fallback)"
-    })
-
-    result.setHandler({ ar ->
+    }, { ar ->
       // Do something with the result
       println("Result: ${ar.result()}")
     })
