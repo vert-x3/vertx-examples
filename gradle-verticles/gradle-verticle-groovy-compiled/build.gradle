@@ -13,7 +13,7 @@ repositories {
 }
 
 
-version = '3.8.4'
+version = '3.8.5'
 
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'

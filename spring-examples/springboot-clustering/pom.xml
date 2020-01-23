@@ -23,7 +23,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>spring-examples</artifactId>
-    <version>3.8.4</version>
+    <version>3.8.5</version>
   </parent>
 
   <artifactId>springboot-clustering</artifactId>

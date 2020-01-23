@@ -22,7 +22,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>ruby-fatjar</artifactId>
-  <version>3.8.4</version>
+  <version>3.8.5</version>
 
   <name>Ruby fatjar</name>
 

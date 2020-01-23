@@ -14,7 +14,7 @@
   <artifactId>springboot-example</artifactId>
 
   <properties>
-    <vertx.version>3.8.4</vertx.version>
+    <vertx.version>3.8.5</vertx.version>
     <java.version>1.8</java.version>
     <boot.version>2.2.2.RELEASE</boot.version>
   </properties>

@@ -8,7 +8,7 @@
 
 FROM java:8-jre
 
-ENV VERTICLE_FILE hello-verticle-fatjar-3.8.4-fat.jar
+ENV VERTICLE_FILE hello-verticle-fatjar-3.8.5-fat.jar
 
 # Set the location of the verticles
 ENV VERTICLE_HOME /usr/verticles

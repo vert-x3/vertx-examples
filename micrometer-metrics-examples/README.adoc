@@ -29,7 +29,7 @@ Then run any of these Main classes:
 Note: link:https://prometheus.io/docs/prometheus/latest/getting_started/[check here] for Prometheus getting started guide.
 
 ```bash
-java -cp target/micrometer-metrics-examples-3.8.4-fat.jar io.vertx.example.micrometer.prometheus.Main
+java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.prometheus.Main
 ```
 
 You need to configure the Prometheus server to scrape `localhost:8081`.
@@ -62,7 +62,7 @@ See also link:https://micrometer.io/docs/concepts#_histograms_and_percentiles[Mi
 === Prometheus with endpoint bound to existing server
 
 ```bash
-java -cp target/micrometer-metrics-examples-3.8.4-fat.jar io.vertx.example.micrometer.ometheus.MainWithBoundPrometheus
+java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.ometheus.MainWithBoundPrometheus
 ```
 
 You need to configure the Prometheus server to scrape `localhost:8080`.
@@ -84,13 +84,13 @@ docker run -p 8086:8086 influxdb
 
 Start the application:
 ```bash
-java -cp target/micrometer-metrics-examples-3.8.4-fat.jar io.vertx.example.micrometer.influxdb.Main
+java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.influxdb.Main
 ```
 
 === JMX
 
 ```bash
-java -cp target/micrometer-metrics-examples-3.8.4-fat.jar io.vertx.example.micrometer.jmx.Main
+java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.jmx.Main
 ```
 Metrics will be available under domain `metrics`.
 
