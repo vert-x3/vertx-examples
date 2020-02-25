@@ -15,7 +15,7 @@ import io.vertx.ext.web.templ.pebble.PebbleTemplateEngine;
  *  * Vert.x Web
  *
  * @author <a href="mailto:pmlopes@gmail.com>Paulo Lopes</a>
- */
+ **/
 public class Server extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
