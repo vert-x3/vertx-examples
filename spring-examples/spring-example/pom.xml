@@ -13,7 +13,7 @@
     <!-- the main verticle class name -->
     <main.class>io.vertx.examples.spring.SpringExampleRunner</main.class>
     <spring.data.jpa.version>2.2.3.RELEASE</spring.data.jpa.version>
-    <h2.version>1.4.191</h2.version>
+    <h2.version>1.4.200</h2.version>
     <slf4j.version>1.7.21</slf4j.version>
     <hibernate.version>4.3.10.Final</hibernate.version>
   </properties>

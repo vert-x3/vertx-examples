@@ -17,7 +17,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <boot.version>2.2.2.RELEASE</boot.version>
-    <h2.version>1.4.191</h2.version>
+    <h2.version>1.4.200</h2.version>
   </properties>
 
   <dependencyManagement>
