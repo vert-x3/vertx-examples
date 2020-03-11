@@ -62,7 +62,7 @@ See also link:https://micrometer.io/docs/concepts#_histograms_and_percentiles[Mi
 === Prometheus with endpoint bound to existing server
 
 ```bash
-java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.ometheus.MainWithBoundPrometheus
+java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.prometheus.MainWithBoundPrometheus
 ```
 
 You need to configure the Prometheus server to scrape `localhost:8080`.
