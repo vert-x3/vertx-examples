@@ -2,6 +2,7 @@ package io.vertx.example.core.future;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.example.util.Runner;
 
 import java.util.function.Function;
@@ -31,17 +32,17 @@ public class ComposeExample extends AbstractVerticle {
   }
 
   private Future<String> anAsyncAction() {
-    Future<String> future = Future.future();
+    Promise<String> promise = Promise.promise();
     // mimic something that take times
-    vertx.setTimer(100, l -> future.complete("world"));
-    return future;
+    vertx.setTimer(100, l -> promise.complete("world"));
+    return promise.future();
   }
 
   private Future<String> anotherAsyncAction(String name) {
-    Future<String> future = Future.future();
+    Promise<String> promise = Promise.promise();
     // mimic something that take times
-    vertx.setTimer(100, l -> future.complete("hello " + name));
-    return future;
+    vertx.setTimer(100, l -> promise.complete("hello " + name));
+    return promise.future();
   }
 
 
