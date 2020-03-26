@@ -18,9 +18,11 @@ that binds the prometheus `/metrics` endpoint to an existing HTTP server.
 == Launching the example from the command line
 
 First, build the fat jar:
-```bash
+
+[source,bash]
+----
 mvn clean package
-```
+----
 
 Then run any of these Main classes:
 
@@ -28,23 +30,26 @@ Then run any of these Main classes:
 
 Note: link:https://prometheus.io/docs/prometheus/latest/getting_started/[check here] for Prometheus getting started guide.
 
-```bash
+[source,bash]
+----
 java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.prometheus.Main
-```
+----
 
 You need to configure the Prometheus server to scrape `localhost:8081`.
 
-```yaml
+[source,yaml]
+----
   - job_name: 'vertx-8081'
     static_configs:
       - targets: ['localhost:8081']
-```
+----
 
 By default, histogram sampling is disabled.
 You can enable it manually in the Micrometer registry, as shown in commented code in class
 link:src/main/java/io/vertx/example/micrometer/prometheus/Main.java[`io.vertx.example.micrometer.prometheus.Main`]:
 
-```java
+[source,java]
+----
 registry.config().meterFilter(
     new MeterFilter() {
       @Override
@@ -55,55 +60,62 @@ registry.config().meterFilter(
             .merge(config);
       }
     });
-```
+----
 
 See also link:https://micrometer.io/docs/concepts#_histograms_and_percentiles[Micrometer documentation].
 
 === Prometheus with endpoint bound to existing server
 
-```bash
+[source,bash]
+----
 java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.prometheus.MainWithBoundPrometheus
-```
+----
 
 You need to configure the Prometheus server to scrape `localhost:8080`.
 
-```yaml
+[source,yaml]
+----
   - job_name: 'vertx-8080'
     static_configs:
       - targets: ['localhost:8080']
-```
+----
 
 === InfluxDB
 
 This sample application expects an InfluxDB server running on localhost, port 8086, without authentication.
 For quick setup, you can run it with this docker command:
 
-```bash
+[source,bash]
+----
 docker run -p 8086:8086 influxdb
-```
+----
 
 Start the application:
-```bash
+
+[source,bash]
+----
 java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.influxdb.Main
-```
+----
 
 === JMX
 
-```bash
+[source,bash]
+----
 java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.jmx.Main
-```
+----
 Metrics will be available under domain `metrics`.
 
 == Triggering some workload
 
 You can trigger some workload to see the impact on HTTP server metrics:
 
-```bash
+[source,bash]
+----
 while true
 do curl http://localhost:8080/
     sleep .8
 done
-```
+----
 
 == View in Grafana
 
