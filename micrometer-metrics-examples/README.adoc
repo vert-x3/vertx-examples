@@ -28,12 +28,7 @@ Then run any of these Main classes:
 
 === Prometheus
 
-Note: link:https://prometheus.io/docs/prometheus/latest/getting_started/[check here] for Prometheus getting started guide.
-
-[source,bash]
-----
-java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.prometheus.Main
-----
+link:https://prometheus.io/docs/prometheus/latest/getting_started/[Check here] for Prometheus getting started guide.
 
 You need to configure the Prometheus server to scrape `localhost:8081`.
 
@@ -42,6 +37,25 @@ You need to configure the Prometheus server to scrape `localhost:8081`.
   - job_name: 'vertx-8081'
     static_configs:
       - targets: ['localhost:8081']
+----
+
+[TIP]
+====
+To run a pre-configured Prometheus server on your machine with Docker, go to this example directory and run:
+
+[source,bash]
+----
+docker run --network host \
+-v ${PWD}/prometheus:/etc/prometheus \
+-it prom/prometheus
+----
+====
+
+To start the example from the command line:
+
+[source,bash]
+----
+java -cp target/micrometer-metrics-examples-3.8.5-fat.jar io.vertx.example.micrometer.prometheus.Main
 ----
 
 By default, histogram sampling is disabled.
@@ -119,7 +133,20 @@ done
 
 == View in Grafana
 
-Metrics can be observed from Grafana. These dashboards track some HTTP server and event bus metrics:
+Metrics can be observed from https://grafana.com/docs/grafana/latest/guides/getting_started/[Grafana].
+
+[TIP]
+====
+To run a Grafana server on your machine with Docker, go to this example directory and run:
+
+[source,bash]
+----
+docker run --network host \
+-it grafana/grafana
+----
+====
+
+These dashboards track some HTTP server and event bus metrics:
 
 * link:grafana/Vertx-Prometheus.json[for Prometheus]
 * link:grafana/Vertx-InfluxDB.json[for InfluxDB]
