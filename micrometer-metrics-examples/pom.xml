@@ -11,6 +11,7 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <micrometer.version>1.1.0</micrometer.version>
   </properties>
 
   <dependencies>
@@ -33,17 +34,17 @@
     <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-prometheus</artifactId>
-      <version>1.0.0</version>
+      <version>${micrometer.version}</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-influx</artifactId>
-      <version>1.0.0</version>
+      <version>${micrometer.version}</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-jmx</artifactId>
-      <version>1.0.0</version>
+      <version>${micrometer.version}</version>
     </dependency>
   </dependencies>
 
