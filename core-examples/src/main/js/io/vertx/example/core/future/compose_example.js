@@ -1,19 +1,19 @@
-var Future = require("vertx-js/future");
+var Promise = require("vertx-js/promise");
 var anotherAsyncAction = function(name) {
-  var future = Future.future();
+  var promise = Promise.promise();
   // mimic something that take times
   vertx.setTimer(100, function (l) {
-    future.complete("hello " + name);
+    promise.complete("hello " + name);
   });
-  return future
+  return promise.future()
 };
 var anAsyncAction = function() {
-  var future = Future.future();
+  var promise = Promise.promise();
   // mimic something that take times
   vertx.setTimer(100, function (l) {
-    future.complete("world");
+    promise.complete("world");
   });
-  return future
+  return promise.future()
 };
 var future = anAsyncAction();
 future.compose(anotherAsyncAction).setHandler(function (ar, ar_err) {

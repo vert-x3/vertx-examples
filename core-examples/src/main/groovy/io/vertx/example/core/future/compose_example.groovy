@@ -1,19 +1,19 @@
-import io.vertx.core.Future
+import io.vertx.core.Promise
 def anotherAsyncAction(name) {
-  def future = Future.future()
+  def promise = Promise.promise()
   // mimic something that take times
   vertx.setTimer(100, { l ->
-    future.complete("hello ${name}")
+    promise.complete("hello ${name}")
   })
-  return future
+  return promise.future()
 }
 def anAsyncAction() {
-  def future = Future.future()
+  def promise = Promise.promise()
   // mimic something that take times
   vertx.setTimer(100, { l ->
-    future.complete("world")
+    promise.complete("world")
   })
-  return future
+  return promise.future()
 }
 def future = this.anAsyncAction()
 future.compose(this.&anotherAsyncAction).setHandler({ ar ->

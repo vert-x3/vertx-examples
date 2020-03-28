@@ -38,7 +38,7 @@
   },
 
   "javaDependencies": {
-    "io.vertx:vertx-lang-js": "3.8.5",
-    "io.vertx:vertx-web": "3.8.5"
+    "io.vertx:vertx-lang-js": "3.9.0",
+    "io.vertx:vertx-web": "3.9.0"
   }
 }

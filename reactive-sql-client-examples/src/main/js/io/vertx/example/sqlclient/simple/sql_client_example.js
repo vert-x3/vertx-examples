@@ -26,7 +26,7 @@ pool.getConnection(function (res1, res1_err) {
   var connection = res1;
 
   // create a test table
-  connection.query("create table test(id int primary key, name varchar(255))", function (res2, res2_err) {
+  connection.query("create table test(id int primary key, name varchar(255))").execute(function (res2, res2_err) {
     if (res2_err != null) {
       connection.close();
       console.error("Cannot create the table");
@@ -35,10 +35,10 @@ pool.getConnection(function (res1, res1_err) {
     }
 
     // insert some test data
-    connection.query("insert into test values (1, 'Hello'), (2, 'World')", function (res3, res3_err) {
+    connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute(function (res3, res3_err) {
 
       // query some data with arguments
-      connection.query("select * from test", function (rs, rs_err) {
+      connection.query("select * from test").execute(function (rs, rs_err) {
         if (rs_err != null) {
           console.error("Cannot retrieve the data from the database");
           rs_err.printStackTrace();

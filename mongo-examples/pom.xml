@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>mongo-examples</artifactId>
-  <version>3.8.5</version>
+  <version>3.9.0</version>
 
   <dependencies>
     <dependency>
@@ -51,7 +51,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3863/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3868/</url>
         </repository>
       </repositories>
     </profile>

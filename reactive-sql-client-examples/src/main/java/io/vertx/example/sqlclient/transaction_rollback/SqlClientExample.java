@@ -2,8 +2,6 @@ package io.vertx.example.sqlclient.transaction_rollback;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
-import io.vertx.mysqlclient.MySQLConnectOptions;
-import io.vertx.mysqlclient.MySQLPool;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.Pool;
@@ -47,35 +45,38 @@ public class SqlClientExample extends AbstractVerticle {
       Transaction tx = res1.result();
 
       // create a test table
-      tx.query("create table test(id int primary key, name varchar(255))", res2 -> {
-        if (res2.failed()) {
-          tx.close();
-          System.err.println("Cannot create the table");
-          res2.cause().printStackTrace();
-          return;
-        }
+      tx.query("create table test(id int primary key, name varchar(255))")
+        .execute(res2 -> {
+          if (res2.failed()) {
+            tx.close();
+            System.err.println("Cannot create the table");
+            res2.cause().printStackTrace();
+            return;
+          }
 
-        // insert some test data
-        tx.query("insert into test values (1, 'Hello'), (2, 'World')", res3 -> {
+          // insert some test data
+          tx.query("insert into test values (1, 'Hello'), (2, 'World')")
+            .execute(res3 -> {
 
-          // rollback transaction
-          tx.rollback(res4 -> {
+              // rollback transaction
+              tx.rollback(res4 -> {
 
-            // query some data with arguments
-            pool.query("select * from test", rs -> {
-              if (rs.failed()) {
-                System.err.println("Cannot retrieve the data from the database");
-                rs.cause().printStackTrace();
-                return;
-              }
+                // query some data with arguments
+                pool.query("select * from test")
+                  .execute(rs -> {
+                    if (rs.failed()) {
+                      System.err.println("Cannot retrieve the data from the database");
+                      rs.cause().printStackTrace();
+                      return;
+                    }
 
-              for (Row line : rs.result()) {
-                System.out.println("" + line);
-              }
+                    for (Row line : rs.result()) {
+                      System.out.println("" + line);
+                    }
+                  });
+              });
             });
-          });
         });
-      });
     });
   }
 }

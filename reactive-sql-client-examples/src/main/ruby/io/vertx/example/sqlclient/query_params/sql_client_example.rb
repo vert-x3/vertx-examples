@@ -27,7 +27,7 @@ pool.get_connection() { |res1_err,res1|
   connection = res1
 
   # create a test table
-  connection.query("create table test(id int primary key, name varchar(255))") { |res2_err,res2|
+  connection.query("create table test(id int primary key, name varchar(255))").execute() { |res2_err,res2|
     if (res2_err != nil)
       connection.close()
       STDERR.puts "Cannot create the table"
@@ -36,10 +36,10 @@ pool.get_connection() { |res1_err,res1|
     end
 
     # insert some test data
-    connection.query("insert into test values (1, 'Hello'), (2, 'World')") { |res3_err,res3|
+    connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute() { |res3_err,res3|
 
       # query some data with arguments
-      connection.prepared_query("select * from test where id = ?", VertxSqlClient::Tuple.of(2)) { |rs_err,rs|
+      connection.prepared_query("select * from test where id = ?").execute(VertxSqlClient::Tuple.of(2)) { |rs_err,rs|
         if (rs_err != nil)
           STDERR.puts "Cannot retrieve the data from the database"
           rs_err.print_stack_trace()

@@ -18,7 +18,7 @@ You can run the verticle from anywhere using:
 
 [source]
 ----
-vertx run maven:io.vertx:maven-service-factory-verticle:3.8.5::my-verticle
+vertx run maven:io.vertx:maven-service-factory-verticle:3.9.0::my-verticle
 ----
 
 The identifier is constructed as follows:
@@ -34,7 +34,7 @@ link:maven-service-factory-api/src/main/java/io/vertx/examples/MyDeployingVertic
 verticle is deployed using:
 
 ----
-vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.8.5::my-verticle", r -> { ... });
+vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:3.9.0::my-verticle", r -> { ... });
 ----
 
 To run this project just launch:
@@ -42,5 +42,5 @@ To run this project just launch:
 ----
 cd maven-service-factory-api
 mvn clean package
-vertx run io.vertx.examples.MyDeployingVerticle -cp target/maven-service-factory-api-3.8.5.jar
+vertx run io.vertx.examples.MyDeployingVerticle -cp target/maven-service-factory-api-3.9.0.jar
 ----

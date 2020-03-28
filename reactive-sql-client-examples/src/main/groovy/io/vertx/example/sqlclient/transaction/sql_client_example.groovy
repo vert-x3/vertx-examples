@@ -26,7 +26,7 @@ pool.begin({ res1 ->
   def tx = res1.result()
 
   // create a test table
-  tx.query("create table test(id int primary key, name varchar(255))", { res2 ->
+  tx.query("create table test(id int primary key, name varchar(255))").execute({ res2 ->
     if (res2.failed()) {
       tx.close()
       System.err.println("Cannot create the table")
@@ -35,10 +35,10 @@ pool.begin({ res1 ->
     }
 
     // insert some test data
-    tx.query("insert into test values (1, 'Hello'), (2, 'World')", { res3 ->
+    tx.query("insert into test values (1, 'Hello'), (2, 'World')").execute({ res3 ->
 
       // query some data with arguments
-      tx.query("select * from test", { rs ->
+      tx.query("select * from test").execute({ rs ->
         if (rs.failed()) {
           System.err.println("Cannot retrieve the data from the database")
           rs.cause().printStackTrace()

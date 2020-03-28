@@ -34,7 +34,7 @@ class SqlClientExample : io.vertx.core.AbstractVerticle()  {
       var connection = res1.result()
 
       // create a test table
-      connection.query("create table test(id int primary key, name varchar(255))", { res2 ->
+      connection.query("create table test(id int primary key, name varchar(255))").execute({ res2 ->
         if (res2.failed()) {
           connection.close()
           System.err.println("Cannot create the table")
@@ -43,10 +43,10 @@ class SqlClientExample : io.vertx.core.AbstractVerticle()  {
         }
 
         // insert some test data
-        connection.query("insert into test values (1, 'Hello'), (2, 'World')", { res3 ->
+        connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute({ res3 ->
 
           // query some data with arguments
-          connection.preparedQuery("select * from test where id = ?", Tuple.of(2), { rs ->
+          connection.preparedQuery("select * from test where id = ?").execute(Tuple.of(2), { rs ->
             if (rs.failed()) {
               System.err.println("Cannot retrieve the data from the database")
               rs.cause().printStackTrace()

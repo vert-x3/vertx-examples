@@ -26,7 +26,7 @@ pool.begin() { |res1_err,res1|
   tx = res1
 
   # create a test table
-  tx.query("create table test(id int primary key, name varchar(255))") { |res2_err,res2|
+  tx.query("create table test(id int primary key, name varchar(255))").execute() { |res2_err,res2|
     if (res2_err != nil)
       tx.close()
       STDERR.puts "Cannot create the table"
@@ -35,10 +35,10 @@ pool.begin() { |res1_err,res1|
     end
 
     # insert some test data
-    tx.query("insert into test values (1, 'Hello'), (2, 'World')") { |res3_err,res3|
+    tx.query("insert into test values (1, 'Hello'), (2, 'World')").execute() { |res3_err,res3|
 
       # query some data with arguments
-      tx.query("select * from test") { |rs_err,rs|
+      tx.query("select * from test").execute() { |rs_err,rs|
         if (rs_err != nil)
           STDERR.puts "Cannot retrieve the data from the database"
           rs_err.print_stack_trace()
