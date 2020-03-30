@@ -18,7 +18,7 @@ On this directory run:
 
 ```bash
 mvn clean package
-java -jar target/web-api-service-example-3.6.0-fat.jar
+java -jar target/web-api-service-example-3.9.0-fat.jar
 ```
 
 Then post a transaction with `curl`:
