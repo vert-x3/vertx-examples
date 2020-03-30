@@ -11,13 +11,13 @@ var breaker = CircuitBreaker.create("my-circuit-breaker", vertx, options).openHa
   console.log("Circuit closed");
 });
 
-breaker.executeWithFallback(function (future) {
+breaker.executeWithFallback(function (promise) {
   vertx.createHttpClient().getNow(8080, "localhost", "/", function (response) {
     if (response.statusCode() !== 200) {
-      future.fail("HTTP error");
+      promise.fail("HTTP error");
     } else {
-      response.exceptionHandler(future.fail).bodyHandler(function (buffer) {
-        future.complete(buffer.toString());
+      response.exceptionHandler(promise.fail).bodyHandler(function (buffer) {
+        promise.complete(buffer.toString());
       });
     }
   });

@@ -22,7 +22,7 @@ public class ExecBlockingExample extends AbstractVerticle {
       // request. We can't do this directly or it will block the event loop
       // But you can do this using executeBlocking:
 
-      vertx.<String>executeBlocking(future -> {
+      vertx.<String>executeBlocking(promise -> {
 
         // Do the blocking operation in here
 
@@ -33,7 +33,7 @@ public class ExecBlockingExample extends AbstractVerticle {
         }
         String result = "armadillos!";
 
-        future.complete(result);
+        promise.complete(result);
 
       }, res -> {
 

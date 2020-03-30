@@ -16,7 +16,7 @@ def anAsyncAction() {
   return promise.future()
 }
 def future = this.anAsyncAction()
-future.compose(this.&anotherAsyncAction).setHandler({ ar ->
+future.compose(this.&anotherAsyncAction).onComplete({ ar ->
   if (ar.failed()) {
     println("Something bad happened")
     ar.cause().printStackTrace()

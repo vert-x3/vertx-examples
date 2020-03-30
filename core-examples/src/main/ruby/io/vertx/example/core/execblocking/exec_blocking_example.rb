@@ -5,7 +5,7 @@ $vertx.create_http_server().request_handler() { |request|
   # request. We can't do this directly or it will block the event loop
   # But you can do this using executeBlocking:
 
-  $vertx.execute_blocking(lambda { |future|
+  $vertx.execute_blocking(lambda { |promise|
 
     # Do the blocking operation in here
 
@@ -17,7 +17,7 @@ $vertx.create_http_server().request_handler() { |request|
 
     result = "armadillos!"
 
-    future.complete(result)
+    promise.complete(result)
 
   }) { |res_err,res|
 

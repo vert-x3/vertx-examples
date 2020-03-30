@@ -58,6 +58,10 @@ public class SomeDatabaseService {
     this.delegate = delegate;
   }
 
+  public SomeDatabaseService(Object delegate) {
+    this.delegate = (io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService)delegate;
+  }
+
   public io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService getDelegate() {
     return delegate;
   }
@@ -73,8 +77,8 @@ public class SomeDatabaseService {
     });
   }
 
-
-  public static  SomeDatabaseService newInstance(io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService arg) {
+  public static SomeDatabaseService newInstance(io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService arg) {
     return arg != null ? new SomeDatabaseService(arg) : null;
   }
+
 }

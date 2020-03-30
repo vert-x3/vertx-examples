@@ -61,17 +61,21 @@ public class ProcessorService {
     this.delegate = delegate;
   }
 
+  public ProcessorService(Object delegate) {
+    this.delegate = (io.vertx.examples.service.ProcessorService)delegate;
+  }
+
   public io.vertx.examples.service.ProcessorService getDelegate() {
     return delegate;
   }
 
   public static io.vertx.examples.service.rxjava.ProcessorService create(io.vertx.rxjava.core.Vertx vertx) { 
-    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
+    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
     return ret;
   }
 
   public static io.vertx.examples.service.rxjava.ProcessorService createProxy(io.vertx.rxjava.core.Vertx vertx, String address) { 
-    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance(io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
+    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
     return ret;
   }
 
@@ -87,8 +91,8 @@ public class ProcessorService {
 
   public static final int NO_NAME_ERROR = io.vertx.examples.service.ProcessorService.NO_NAME_ERROR;
   public static final int BAD_NAME_ERROR = io.vertx.examples.service.ProcessorService.BAD_NAME_ERROR;
-
-  public static  ProcessorService newInstance(io.vertx.examples.service.ProcessorService arg) {
+  public static ProcessorService newInstance(io.vertx.examples.service.ProcessorService arg) {
     return arg != null ? new ProcessorService(arg) : null;
   }
+
 }

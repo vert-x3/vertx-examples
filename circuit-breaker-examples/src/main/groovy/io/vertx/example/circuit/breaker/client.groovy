@@ -11,13 +11,13 @@ def breaker = CircuitBreaker.create("my-circuit-breaker", vertx, options).openHa
   println("Circuit closed")
 })
 
-breaker.executeWithFallback({ future ->
+breaker.executeWithFallback({ promise ->
   vertx.createHttpClient().getNow(8080, "localhost", "/", { response ->
     if (response.statusCode() != 200) {
-      future.fail("HTTP error")
+      promise.fail("HTTP error")
     } else {
-      response.exceptionHandler(future.&fail).bodyHandler({ buffer ->
-        future.complete(buffer.toString())
+      response.exceptionHandler(promise.&fail).bodyHandler({ buffer ->
+        promise.complete(buffer.toString())
       })
     }
   })

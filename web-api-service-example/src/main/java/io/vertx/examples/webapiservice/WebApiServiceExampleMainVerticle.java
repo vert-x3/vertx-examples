@@ -2,6 +2,7 @@ package io.vertx.examples.webapiservice;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.http.HttpServer;
@@ -40,7 +41,7 @@ public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
    * @return
    */
   private Future<Void> startHttpServer() {
-    Future<Void> future = Future.future();
+    Promise<Void> promise = Promise.promise();
     OpenAPI3RouterFactory.create(this.vertx, "/openapi.json", openAPI3RouterFactoryAsyncResult -> {
       if (openAPI3RouterFactoryAsyncResult.succeeded()) {
         OpenAPI3RouterFactory routerFactory = openAPI3RouterFactoryAsyncResult.result();
@@ -53,21 +54,21 @@ public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
         server = vertx.createHttpServer(new HttpServerOptions().setPort(8080).setHost("localhost"));
         server.requestHandler(router).listen(ar -> {
           // Error starting the HttpServer
-          if (ar.succeeded()) future.complete();
-          else future.fail(ar.cause());
+          if (ar.succeeded()) promise.complete();
+          else promise.fail(ar.cause());
         });
       } else {
         // Something went wrong during router factory initialization
-        future.fail(openAPI3RouterFactoryAsyncResult.cause());
+        promise.fail(openAPI3RouterFactoryAsyncResult.cause());
       }
     });
-    return future;
+    return promise.future();
   }
 
   @Override
-  public void start(Future<Void> future) {
+  public void start(Promise<Void> promise) {
     startTransactionService();
-    startHttpServer().setHandler(future.completer());
+    startHttpServer().onComplete(promise);
   }
 
   /**

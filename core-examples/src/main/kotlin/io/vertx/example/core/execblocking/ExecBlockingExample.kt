@@ -10,7 +10,7 @@ class ExecBlockingExample : io.vertx.core.AbstractVerticle()  {
       // request. We can't do this directly or it will block the event loop
       // But you can do this using executeBlocking:
 
-      vertx.executeBlocking<String>({ future ->
+      vertx.executeBlocking<String>({ promise ->
 
         // Do the blocking operation in here
 
@@ -22,7 +22,7 @@ class ExecBlockingExample : io.vertx.core.AbstractVerticle()  {
 
         var result = "armadillos!"
 
-        future.complete(result)
+        promise.complete(result)
 
       }, { res ->
 

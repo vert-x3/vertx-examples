@@ -17,13 +17,13 @@ class Client : io.vertx.core.AbstractVerticle()  {
       println("Circuit closed")
     })
 
-    breaker.executeWithFallback({ future ->
+    breaker.executeWithFallback({ promise ->
       vertx.createHttpClient().getNow(8080, "localhost", "/", { response ->
         if (response.statusCode() != 200) {
-          future.fail("HTTP error")
+          promise.fail("HTTP error")
         } else {
-          response.exceptionHandler({ future.fail(it) }).bodyHandler({ buffer ->
-            future.complete(buffer.toString())
+          response.exceptionHandler({ promise.fail(it) }).bodyHandler({ buffer ->
+            promise.complete(buffer.toString())
           })
         }
       })

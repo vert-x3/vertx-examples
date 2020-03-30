@@ -17,7 +17,7 @@
 package hello;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class SampleVerticle extends AbstractVerticle {
   private final Logger logger = LoggerFactory.getLogger(SampleVerticle.class);
 
   @Override
-  public void start(Future<Void> startFuture) {
+  public void start(Promise<Void> startPromise) {
     vertx.createHttpServer()
       .requestHandler(req -> {
         req.response()
@@ -39,9 +39,9 @@ public class SampleVerticle extends AbstractVerticle {
       })
       .listen(11981, ar -> {
         if (ar.succeeded()) {
-          startFuture.complete();
+          startPromise.complete();
         } else {
-          startFuture.fail(ar.cause());
+          startPromise.fail(ar.cause());
         }
       });
   }

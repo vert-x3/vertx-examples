@@ -5,7 +5,7 @@ vertx.createHttpServer().requestHandler(function (request) {
   // request. We can't do this directly or it will block the event loop
   // But you can do this using executeBlocking:
 
-  vertx.executeBlocking(function (future) {
+  vertx.executeBlocking(function (promise) {
 
     // Do the blocking operation in here
 
@@ -17,7 +17,7 @@ vertx.createHttpServer().requestHandler(function (request) {
 
     var result = "armadillos!";
 
-    future.complete(result);
+    promise.complete(result);
 
   }, function (res, res_err) {
 

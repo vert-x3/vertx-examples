@@ -16,7 +16,7 @@ var anAsyncAction = function() {
   return promise.future()
 };
 var future = anAsyncAction();
-future.compose(anotherAsyncAction).setHandler(function (ar, ar_err) {
+future.compose(anotherAsyncAction).onComplete(function (ar, ar_err) {
   if (ar_err != null) {
     console.log("Something bad happened");
     ar_err.printStackTrace();

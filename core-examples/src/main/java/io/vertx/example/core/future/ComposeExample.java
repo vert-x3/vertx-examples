@@ -21,7 +21,7 @@ public class ComposeExample extends AbstractVerticle {
   public void start() throws Exception {
     Future<String> future = anAsyncAction();
     future.compose(this::anotherAsyncAction)
-      .setHandler(ar -> {
+      .onComplete(ar -> {
         if (ar.failed()) {
           System.out.println("Something bad happened");
           ar.cause().printStackTrace();

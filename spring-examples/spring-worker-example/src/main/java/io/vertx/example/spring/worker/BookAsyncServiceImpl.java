@@ -38,12 +38,12 @@ public class BookAsyncServiceImpl implements BookAsyncService {
   @Override
   public void add(Book book, Handler<AsyncResult<Book>> resultHandler) {
     Book saved = bookService.save(book);
-    Future.succeededFuture(saved).setHandler(resultHandler);
+    resultHandler.handle(Future.succeededFuture(saved));
   }
 
   @Override
   public void getAll(Handler<AsyncResult<List<Book>>> resultHandler) {
     List<Book> all = bookService.getAll();
-    Future.succeededFuture(all).setHandler(resultHandler);
+    resultHandler.handle(Future.succeededFuture(all));
   }
 }

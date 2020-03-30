@@ -1,7 +1,7 @@
 package io.vertx.example.shell.run_service_ssh;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.example.util.Runner;
@@ -21,7 +21,7 @@ public class RunShell extends AbstractVerticle {
   }
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startPromise) throws Exception {
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().
         setSSHOptions(
             new SSHTermOptions().
@@ -32,12 +32,6 @@ public class RunShell extends AbstractVerticle {
                     setPassword("wibble")).
                 setAuthOptions(new ShiroAuthOptions().
                     setConfig(new JsonObject().put("properties_path", "auth.properties")))));
-    service.start(ar -> {
-      if (ar.succeeded()) {
-        startFuture.succeeded();
-      } else {
-        startFuture.fail(ar.cause());
-      }
-    });
+    service.start(startPromise);
   }
 }

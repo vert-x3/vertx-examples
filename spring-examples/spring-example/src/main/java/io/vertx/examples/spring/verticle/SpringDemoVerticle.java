@@ -33,12 +33,12 @@ public class SpringDemoVerticle extends AbstractVerticle {
   private Handler<Message<String>> allProductsHandler(ProductService service) {
     // It is important to use an executeBlocking construct here
     // as the service calls are blocking (dealing with a database)
-    return msg -> vertx.<String>executeBlocking(future -> {
+    return msg -> vertx.<String>executeBlocking(promise -> {
           try {
-            future.complete(mapper.writeValueAsString(service.getAllProducts()));
+            promise.complete(mapper.writeValueAsString(service.getAllProducts()));
           } catch (JsonProcessingException e) {
             System.out.println("Failed to serialize result");
-            future.fail(e);
+            promise.fail(e);
           }
         },
         result -> {
