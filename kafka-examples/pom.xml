@@ -9,7 +9,7 @@
   <version>3.9.0</version>
 
   <properties>
-    <kafka.version>2.3.0</kafka.version>
+    <kafka.version>2.4.0</kafka.version>
     <debezium.version>0.8.3.Final</debezium.version>
   </properties>
 
