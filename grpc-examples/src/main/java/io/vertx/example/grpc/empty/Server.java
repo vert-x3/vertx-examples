@@ -2,6 +2,7 @@ package io.vertx.example.grpc.empty;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.example.grpc.EmptyPingPongServiceGrpc;
 import io.vertx.example.grpc.EmptyProtos;
 import io.vertx.example.util.Runner;
@@ -24,7 +25,7 @@ public class Server extends AbstractVerticle {
     // The rcp service
     EmptyPingPongServiceGrpc.EmptyPingPongServiceVertxImplBase service = new EmptyPingPongServiceGrpc.EmptyPingPongServiceVertxImplBase() {
       @Override
-      public void emptyCall(EmptyProtos.Empty request, Future<EmptyProtos.Empty> future) {
+      public void emptyCall(EmptyProtos.Empty request, Promise<EmptyProtos.Empty> future) {
         future.complete(EmptyProtos.Empty.newBuilder().build());
       }
     };

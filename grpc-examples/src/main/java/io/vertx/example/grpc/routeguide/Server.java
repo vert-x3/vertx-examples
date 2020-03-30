@@ -8,6 +8,7 @@ import io.grpc.examples.routeguide.RouteNote;
 import io.grpc.examples.routeguide.RouteSummary;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.example.grpc.util.Runner;
 import io.vertx.grpc.GrpcBidiExchange;
 import io.vertx.grpc.GrpcReadStream;
@@ -45,7 +46,7 @@ public class Server extends AbstractVerticle {
     VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new RouteGuideGrpc.RouteGuideVertxImplBase() {
 
       @Override
-      public void getFeature(Point request, Future<Feature> response) {
+      public void getFeature(Point request, Promise<Feature> response) {
         response.complete(checkFeature(request));
       }
 
