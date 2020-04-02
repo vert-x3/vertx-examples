@@ -1,54 +1,54 @@
 package movierating
 
-import io.vertx.ext.jdbc.JDBCClient
 import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.kotlin.core.http.listenAwait
-import io.vertx.kotlin.core.json.array
-import io.vertx.kotlin.core.json.get
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.kotlin.coroutines.dispatcher
-import io.vertx.kotlin.ext.sql.executeAwait
-import io.vertx.kotlin.ext.sql.getConnectionAwait
-import io.vertx.kotlin.ext.sql.queryWithParamsAwait
-import io.vertx.kotlin.ext.sql.updateWithParamsAwait
+import io.vertx.kotlin.sqlclient.executeAwait
+import io.vertx.mysqlclient.MySQLConnectOptions
+import io.vertx.mysqlclient.MySQLPool
+import io.vertx.sqlclient.*
 import kotlinx.coroutines.launch
 
 
 class App : CoroutineVerticle() {
 
-  private lateinit var client: JDBCClient
+  private lateinit var client: MySQLPool
+  private lateinit var getTitleByMovieId : PreparedQuery<RowSet<Row>>
+  private lateinit var insertRatingWithMovieId : PreparedQuery<RowSet<Row>>
+  private lateinit var getAverageRatingByMovieId : PreparedQuery<RowSet<Row>>
 
   override suspend fun start() {
 
-    client = JDBCClient.createShared(vertx, json {
-      obj(
-        "url" to "jdbc:hsqldb:mem:test?shutdown=true",
-        "driver_class" to "org.hsqldb.jdbcDriver",
-        "max_pool_size-loop" to 30
-      )
-    })
+    client = MySQLPool.pool(vertx, MySQLConnectOptions.fromUri("mysql://vertx:vertx@localhost:3306/vertx_example")
+      .setCachePreparedStatements(true)
+      .setPreparedStatementCacheMaxSize(1024), PoolOptions().setMaxSize(50))
 
     // Populate database
-    val statements = listOf(
-      "CREATE TABLE MOVIE (ID VARCHAR(16) PRIMARY KEY, TITLE VARCHAR(256) NOT NULL)",
-      "CREATE TABLE RATING (ID INTEGER IDENTITY PRIMARY KEY, value INTEGER, MOVIE_ID VARCHAR(16))",
-      "INSERT INTO MOVIE (ID, TITLE) VALUES 'starwars', 'Star Wars'",
-      "INSERT INTO MOVIE (ID, TITLE) VALUES 'indianajones', 'Indiana Jones'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 1, 'starwars'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 5, 'starwars'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 9, 'starwars'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 10, 'starwars'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 4, 'indianajones'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 7, 'indianajones'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 3, 'indianajones'",
-      "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 9, 'indianajones'"
-    )
-    client.getConnectionAwait()
-      .use { connection -> statements.forEach { connection.executeAwait(it) } }
+    client.query("""
+      DROP TABLE IF EXISTS movie;
+      DROP TABLE IF EXISTS rating;
+      CREATE TABLE movie (id VARCHAR(16) PRIMARY KEY, title VARCHAR(256) NOT NULL);
+      CREATE TABLE rating (id INTEGER AUTO_INCREMENT PRIMARY KEY, `value` INTEGER, movie_id VARCHAR(16));
+      INSERT INTO movie (id, title) VALUES ('starwars', 'Star Wars');
+      INSERT INTO movie (id, title) VALUES ('indianajones', 'Indiana Jones');
+      INSERT INTO rating (`value`, movie_id) VALUES (1, 'starwars');
+      INSERT INTO rating (`value`, movie_id) VALUES (5, 'starwars');
+      INSERT INTO rating (`value`, movie_id) VALUES (9, 'starwars');
+      INSERT INTO rating (`value`, movie_id) VALUES (10, 'starwars');
+      INSERT INTO rating (`value`, movie_id) VALUES (4, 'indianajones');
+      INSERT INTO rating (`value`, movie_id) VALUES (7, 'indianajones');
+      INSERT INTO rating (`value`, movie_id) VALUES (3, 'indianajones');
+      INSERT INTO rating (`value`, movie_id) VALUES (9, 'indianajones');
+      """.trimIndent()).executeAwait()
+
+    getTitleByMovieId = client.preparedQuery("SELECT title FROM movie WHERE id = ?")
+    insertRatingWithMovieId = client.preparedQuery("INSERT INTO rating (`value`, movie_id) VALUES (?, ?)")
+    getAverageRatingByMovieId = client.preparedQuery("SELECT AVG(`value`) AS avg_rating FROM rating WHERE movie_id = ? ")
 
     // Build Vert.x Web router
     val router = Router.router(vertx)
@@ -64,38 +64,39 @@ class App : CoroutineVerticle() {
 
   // Send info about a movie
   suspend fun getMovie(ctx: RoutingContext) {
-    val id = ctx.pathParam("id")
-    val result = client.queryWithParamsAwait("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(id) })
-    if (result.rows.size == 1) {
+    val movieId = ctx.pathParam("id")
+
+    val rowSet = getTitleByMovieId.executeAwait(Tuple.of(movieId))
+    if (rowSet.size() == 1) {
+      val row = rowSet.iterator().next()
       ctx.response().end(json {
-        obj("id" to id, "title" to result.rows[0]["TITLE"]).encode()
+        obj("id" to movieId, "title" to row.getString("title")).encode()
       })
-    } else {
+    } else{
       ctx.response().setStatusCode(404).end()
     }
   }
 
   // Rate a movie
   suspend fun rateMovie(ctx: RoutingContext) {
-    val movie = ctx.pathParam("id")
+    val movieId = ctx.pathParam("id")
     val rating = Integer.parseInt(ctx.queryParam("getRating")[0])
-    client.getConnectionAwait().use { connection ->
-      val result = connection.queryWithParamsAwait("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(movie) })
-      if (result.rows.size == 1) {
-        connection.updateWithParamsAwait("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?", json { array(rating, movie) })
-        ctx.response().setStatusCode(200).end()
-      } else {
-        ctx.response().setStatusCode(404).end()
-      }
+    val titleRowSet = getTitleByMovieId.executeAwait(Tuple.of(movieId))
+    if (titleRowSet.size() == 1) {
+      insertRatingWithMovieId.executeAwait(Tuple.of(rating, movieId))
+      ctx.response().setStatusCode(200).end()
+    } else {
+      ctx.response().setStatusCode(404).end()
     }
   }
 
   // Get the current rating of a movie
   suspend fun getRating(ctx: RoutingContext) {
-    val id = ctx.pathParam("id")
-    val result = client.queryWithParamsAwait("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?", json { array(id) })
+    val movieId = ctx.pathParam("id")
+    val result = getAverageRatingByMovieId.executeAwait(Tuple.of(movieId))
+    val averageRating = result.iterator().next().getInteger("avg_rating")
     ctx.response().end(json {
-      obj("id" to id, "getRating" to result.rows[0]["VALUE"]).encode()
+      obj("id" to movieId, "getRating" to averageRating).encode()
     })
   }
 

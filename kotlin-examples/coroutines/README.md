@@ -1,10 +1,17 @@
 # Vert.x Kotlin Coroutines Example
 
-A movie getRating REST application written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can Kotlin
-coroutines can be used with Vert.x.  
+A movie rating REST application written in [Kotlin](https://kotlinlang.org/) to demonstrate how Kotlin coroutines can be used with Vert.x.
 
-Coroutines enables to write asynchronous code with sequential statements, the function `rateMovie` is the best example
-showing two SQL client operations wrapped in a `use` block managing the SQL connection.
+Kotlin Coroutines enables to write asynchronous code with sequential statements, the function `rateMovie` is the best example
+showing two asynchronous SQL client operations could be executed sequentially just like writing synchronous code.
+
+## Setup the database
+
+Setup a MySQL database server with Docker
+
+```
+docker run -it --rm=true --name vertx-coroutine-example-test -e MYSQL_USER=vertx -e MYSQL_PASSWORD=vertx -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=vertx_example -p 3306:3306 mysql:8
+```
 
 ## Running from the IDE
 
@@ -19,10 +26,7 @@ Run the main function from the IDE
 
 ## Running from the CLI
 
-Copy hsqldb jar to $VERTX_HOME/lib
-
 ```
-> cp $HOME/.m2/repository/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar $VERTX_HOME/lib/
 > vertx run src/main/kotlin/movierating/App.kt
 ```
 
@@ -37,14 +41,14 @@ You can know more about a movie
 {"id":"starwars","title":"Star Wars"}
 ```
 
-You can get the current getRating of a movie:
+You can get the current rating of a movie:
 
 ```
 > curl http://localhost:8080/getRating/indianajones
 {"id":"indianajones","getRating":5}
 ```
 
-Finally you can rateMovie a movie
+Finally you can rate a movie
 
 ```
 > curl -X POST http://localhost:8080/rateMovie/starwars?getRating=4
