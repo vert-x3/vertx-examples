@@ -5,8 +5,9 @@ import io.vertx.core.Vertx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class Application {
@@ -21,7 +22,7 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
-  @PostConstruct
+  @EventListener(ApplicationReadyEvent.class)
   public void deployVerticle() {
     Vertx.vertx().deployVerticle(staticServer);
   }
