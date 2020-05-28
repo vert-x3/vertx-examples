@@ -47,8 +47,11 @@ public class VertxProducer {
 
   @PostConstruct
   void init() throws ExecutionException, InterruptedException {
-    VertxOptions options = new VertxOptions()
-      .setClusterManager(new HazelcastClusterManager(hazelcastInstance));
+    		VertxOptions options = new VertxOptions()
+			      .setClusterManager(new HazelcastClusterManager(hazelcastInstance))
+			      .setClustered(true)
+			      .setHAEnabled(true)
+			      .setClusterHost("192.168.0.67");// Write your ip address numeric form
     CompletableFuture<Vertx> future = new CompletableFuture<>();
     Vertx.clusteredVertx(options, ar -> {
       if (ar.succeeded()) {
