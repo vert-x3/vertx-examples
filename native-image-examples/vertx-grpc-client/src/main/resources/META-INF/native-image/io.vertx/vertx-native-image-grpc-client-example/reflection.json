@@ -1,0 +1,32 @@
+[
+  {
+    "name": "io.netty.channel.socket.nio.NioServerSocketChannel",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "io.vertx.core.impl.launcher.commands.RunCommand",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "java.lang.Long",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "java.lang.Integer",
+    "allDeclaredConstructors": true
+  },
+
+  {
+    "name": "io.vertx.example.MainVerticle",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  }
+]
