@@ -13,6 +13,8 @@ The pom.xml uses the Maven shade plugin to assemble the application and all it's
 To run with maven
 
     mvn compile exec:java
+    
+Now point your browser at http://localhost:8080
 
 To build a "fat jar"
 
@@ -28,5 +30,3 @@ don't need to install Vert.x on the target machine).
 You can also run the fat jar with maven:
 
     mvn package exec:exec@run-app
-
-Now point your browser at http://localhost:8080
