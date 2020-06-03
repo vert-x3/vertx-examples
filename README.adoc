@@ -252,7 +252,7 @@ the event bus.
 
 === JCA example
 
-The link:jca-examples/README.adoc[Vert.x JCA Examples] provide a JEE compliant application that enables to you deploy the application into a
+The link:jca-examples/README.md[Vert.x JCA Examples] provide a JEE compliant application that enables to you deploy the application into a
  link:http://wildfly.org[Wildfly] application server. While simple in implementation, the JCA examples
  provides a good point of departure for your own development.
 
