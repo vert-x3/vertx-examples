@@ -44,7 +44,6 @@
     <module>fatjar-examples/http2-fatjar</module>
     <module>fatjar-examples/ruby-fatjar</module>
     <module>camel-bridge-examples</module>
-    <module>osgi-examples</module>
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>
