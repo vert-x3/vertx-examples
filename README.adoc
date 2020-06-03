@@ -193,11 +193,6 @@ It depicts how a service provider can be implemented and how the published servi
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
 It also contains an example of the application that can be deployed on Fabric8.
 
-=== Openshift & Kubernetes examples
-
-The link:openshift3-examples/README.adoc[Vert.x OpenShift 3 examples] shows how to deploy Vert.x applications on
-Openshift 3 and Kubernetes. It also demonstrates clustering and service discovery.
-
 === Spring Examples
 
 The link:spring-examples/README.adoc[Vert.x Spring Examples] shows how vert.x application can be integrated inside a Spring
