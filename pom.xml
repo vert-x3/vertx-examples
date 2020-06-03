@@ -36,7 +36,6 @@
     <module>jca-examples</module>
     <module>sync-examples</module>
     <module>shell-examples</module>
-    <module>heroku-example</module>
     <module>ignite-examples</module>
     <module>infinispan-examples</module>
     <module>amqp-bridge-examples</module>
