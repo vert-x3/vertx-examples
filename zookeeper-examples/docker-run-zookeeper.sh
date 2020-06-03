@@ -1,1 +1,0 @@
-sudo docker run --name zookeeper-vertx-example -p 2181:2181 zookeeper

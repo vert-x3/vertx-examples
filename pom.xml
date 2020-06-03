@@ -36,8 +36,6 @@
     <module>jca-examples</module>
     <module>sync-examples</module>
     <module>shell-examples</module>
-    <module>ignite-examples</module>
-    <module>infinispan-examples</module>
     <module>amqp-bridge-examples</module>
     <module>amqp-proton-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
@@ -51,7 +49,6 @@
     <module>kafka-examples</module>
     <module>kotlin-examples/coroutines</module>
     <module>junit5-examples</module>
-    <module>zookeeper-examples</module>
     <module>web-api-service-example</module>
     <module>cassandra-examples</module>
     <module>web-graphql-examples</module>
