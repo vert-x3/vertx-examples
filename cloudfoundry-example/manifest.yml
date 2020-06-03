@@ -1,7 +1,0 @@
-applications:
-- path: ./build/libs/vertx-cf-0.1.0-all.jar
-  memory: 768M
-  instances: 1
-  name: my-vertx-app
-  buildpack: https://github.com/cloudfoundry/java-buildpack.git
-    

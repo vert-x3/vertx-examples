@@ -188,10 +188,6 @@ or the api.
 The link:service-proxy-examples/README.adoc[Vert.x Service Proxy examples] contains an example of service proxy usage.
 It depicts how a service provider can be implemented and how the published service can be consumed.
 
-=== Cloud Foundry examples
-
-The link:cloudfoundry-example/README.adoc[Vert.x Cloud Foundry example] shows how to deploy Vert.x application to a Cloud Foundry service or platform of your choice.
-
 === Docker examples
 
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
