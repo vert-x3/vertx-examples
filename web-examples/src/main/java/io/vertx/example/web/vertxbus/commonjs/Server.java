@@ -4,10 +4,10 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
+import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 import java.text.DateFormat;
@@ -33,13 +33,12 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Allow events for the designated addresses in/out of the event bus bridge
-    BridgeOptions opts = new BridgeOptions()
-        .addOutboundPermitted(new PermittedOptions().setAddress("feed"));
+    SockJSBridgeOptions opts = new SockJSBridgeOptions()
+      .addOutboundPermitted(new PermittedOptions().setAddress("feed"));
 
     // Create the event bus bridge and add it to the router.
     SockJSHandler ebHandler = SockJSHandler.create(vertx);
-    ebHandler.bridge(opts);
-    router.route("/eventbus/*").handler(ebHandler);
+    router.mountSubRouter("/eventbus", ebHandler.bridge(opts));
 
     // Create a router endpoint for the static content.
     router.route().handler(StaticHandler.create());
@@ -49,7 +48,7 @@ public class Server extends AbstractVerticle {
 
     EventBus eb = vertx.eventBus();
 
-    vertx.setPeriodic(1000l, t -> {
+    vertx.setPeriodic(1000, t -> {
       // Create a timestamp string
       String timestamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(Date.from(Instant.now()));
 

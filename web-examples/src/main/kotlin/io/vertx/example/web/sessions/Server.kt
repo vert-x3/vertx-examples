@@ -1,7 +1,6 @@
 package io.vertx.example.web.sessions
 
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.handler.CookieHandler
 import io.vertx.ext.web.handler.SessionHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
 
@@ -10,7 +9,6 @@ class Server : io.vertx.core.AbstractVerticle()  {
 
     var router = Router.router(vertx)
 
-    router.route().handler(CookieHandler.create())
     router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)))
 
     router.route().handler({ routingContext ->

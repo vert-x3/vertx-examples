@@ -6,14 +6,15 @@ import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.auth.AuthProvider;
-import io.vertx.ext.auth.shiro.ShiroAuth;
-import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
+import io.vertx.ext.auth.properties.PropertyFileAuthentication;
+import io.vertx.ext.auth.properties.PropertyFileAuthorization;
+import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.*;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.SessionHandler;
+import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 
@@ -48,15 +49,11 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // We need cookies and sessions
-    router.route().handler(CookieHandler.create());
     router.route().handler(BodyHandler.create());
     router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
     // Simple auth service which uses a properties file for user/role info
-    AuthProvider authProvider = ShiroAuth.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
-
-    // We need a user session handler too to make sure the user is stored in the session between requests
-    router.route().handler(UserSessionHandler.create(authProvider));
+    PropertyFileAuthentication authProvider = PropertyFileAuthentication.create(vertx, "vertx-users.properties");
 
     router.post("/login").handler(ctx -> {
       JsonObject credentials = ctx.getBodyAsJson();
@@ -90,24 +87,24 @@ public class Server extends AbstractVerticle {
     });
 
     // Allow outbound traffic to the vtoons addresses
-    BridgeOptions options = new BridgeOptions()
+    SockJSBridgeOptions options = new SockJSBridgeOptions()
       // this is the public store allowed inbound
       .addInboundPermitted(new PermittedOptions()
         .setAddress("vtoons.listAlbums"))
-        // this is the login inbound message
+      // this is the login inbound message
       .addInboundPermitted(new PermittedOptions()
         .setAddress("vtoons.login"))
-        // this is the authenticated place orders inbound
+      // this is the authenticated place orders inbound
       .addInboundPermitted(new PermittedOptions()
         .setAddress("vtoons.placeOrder")
         .setRequiredAuthority("place_order"))
 
-        // all outbound messages are permitted
+      // all outbound messages are permitted
       .addOutboundPermitted(new PermittedOptions());
 
     SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
-    sockJSHandler.bridge(options);
-    router.route("/eventbus/*").handler(sockJSHandler);
+    PropertyFileAuthorization authorizationProvider = PropertyFileAuthorization.create(vertx, "vertx-users.properties");
+    router.mountSubRouter("/eventbus", sockJSHandler.bridge(authorizationProvider, options, null));
 
 
     // Serve the static resources

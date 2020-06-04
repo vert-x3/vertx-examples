@@ -4,7 +4,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.Session;
-import io.vertx.ext.web.handler.CookieHandler;
 import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 
@@ -23,7 +22,6 @@ public class Server extends AbstractVerticle {
 
     Router router = Router.router(vertx);
 
-    router.route().handler(CookieHandler.create());
     router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
     router.route().handler(routingContext -> {

@@ -1,11 +1,8 @@
 package io.vertx.example.web.auth;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.auth.AuthProvider;
-import io.vertx.ext.auth.shiro.ShiroAuth;
-import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
+import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
@@ -25,25 +22,21 @@ public class Server extends AbstractVerticle {
 
     Router router = Router.router(vertx);
 
-    // We need cookies, sessions and request bodies
-    router.route().handler(CookieHandler.create());
+    // We need sessions and request bodies
     router.route().handler(BodyHandler.create());
     router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
     // Simple auth service which uses a properties file for user/role info
-    AuthProvider authProvider = ShiroAuth.create(vertx, ShiroAuthRealmType.PROPERTIES, new JsonObject());
-
-    // We need a user session handler too to make sure the user is stored in the session between requests
-    router.route().handler(UserSessionHandler.create(authProvider));
+    PropertyFileAuthentication authn = PropertyFileAuthentication.create(vertx, "vertx-users.properties");
 
     // Any requests to URI starting '/private/' require login
-    router.route("/private/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
+    router.route("/private/*").handler(RedirectAuthHandler.create(authn, "/loginpage.html"));
 
     // Serve the static private pages from directory 'private'
     router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"));
 
     // Handles the actual login
-    router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
+    router.route("/loginhandler").handler(FormLoginHandler.create(authn));
 
     // Implement logout
     router.route("/logout").handler(context -> {

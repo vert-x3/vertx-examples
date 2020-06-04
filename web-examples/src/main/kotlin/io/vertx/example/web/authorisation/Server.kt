@@ -1,12 +1,18 @@
 package io.vertx.example.web.authorisation
 
+import io.vertx.ext.auth.JWTOptions
+import io.vertx.ext.auth.KeyStoreOptions
+import io.vertx.ext.auth.authorization.PermissionBasedAuthorization
 import io.vertx.ext.auth.jwt.JWTAuth
-import io.vertx.ext.jwt.JWTOptions
+import io.vertx.ext.auth.jwt.JWTAuthOptions
+import io.vertx.ext.auth.jwt.authorization.JWTAuthorization
 import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.AuthorizationHandler
 import io.vertx.ext.web.handler.JWTAuthHandler
 import io.vertx.ext.web.handler.StaticHandler
 import io.vertx.kotlin.core.json.*
-import io.vertx.kotlin.ext.jwt.*
+import io.vertx.kotlin.ext.auth.*
+import io.vertx.kotlin.ext.auth.jwt.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -14,13 +20,11 @@ class Server : io.vertx.core.AbstractVerticle()  {
     var router = Router.router(vertx)
 
     // Create a JWT Auth Provider
-    var jwt = JWTAuth.create(vertx, json {
-      obj("keyStore" to obj(
-          "type" to "jceks",
-          "path" to "keystore.jceks",
-          "password" to "secret"
-        ))
-    })
+    var jwt = JWTAuth.create(vertx, JWTAuthOptions(
+      keyStore = KeyStoreOptions(
+        type = "jceks",
+        path = "keystore.jceks",
+        password = "secret")))
 
     // this route is excluded from the auth handler (it represents your login endpoint)
     router.get("/api/newToken").handler({ ctx ->
@@ -39,8 +43,11 @@ class Server : io.vertx.core.AbstractVerticle()  {
         permissions = authorities)))
     })
 
+    var authnHandler = JWTAuthHandler.create(jwt)
+    var authzProvider = JWTAuthorization.create("permissions")
+
     // protect the API (any authority is allowed)
-    router.route("/api/protected").handler(JWTAuthHandler.create(jwt))
+    router.route("/api/*").handler(authnHandler)
 
     router.get("/api/protected").handler({ ctx ->
       ctx.response().putHeader("Content-Type", "text/plain")
@@ -48,7 +55,8 @@ class Server : io.vertx.core.AbstractVerticle()  {
     })
 
     // protect the API (defcon1 authority is required)
-    router.route("/api/protected/defcon1").handler(JWTAuthHandler.create(jwt).addAuthority("defcon1"))
+    var defcon1Handler = AuthorizationHandler.create(PermissionBasedAuthorization.create("defcon1")).addAuthorizationProvider(authzProvider)
+    router.route("/api/protected/defcon1").handler(defcon1Handler)
 
     router.get("/api/protected/defcon1").handler({ ctx ->
       ctx.response().putHeader("Content-Type", "text/plain")
@@ -56,7 +64,8 @@ class Server : io.vertx.core.AbstractVerticle()  {
     })
 
     // protect the API (defcon2 authority is required)
-    router.route("/api/protected/defcon2").handler(JWTAuthHandler.create(jwt).addAuthority("defcon2"))
+    var defcon2Handler = AuthorizationHandler.create(PermissionBasedAuthorization.create("defcon2")).addAuthorizationProvider(authzProvider)
+    router.route("/api/protected/defcon2").handler(defcon2Handler)
 
     router.get("/api/protected/defcon2").handler({ ctx ->
       ctx.response().putHeader("Content-Type", "text/plain")
@@ -64,7 +73,8 @@ class Server : io.vertx.core.AbstractVerticle()  {
     })
 
     // protect the API (defcon3 authority is required)
-    router.route("/api/protected/defcon3").handler(JWTAuthHandler.create(jwt).addAuthority("defcon3"))
+    var defcon3Handler = AuthorizationHandler.create(PermissionBasedAuthorization.create("defcon3")).addAuthorizationProvider(authzProvider)
+    router.route("/api/protected/defcon3").handler(defcon3Handler)
 
     router.get("/api/protected/defcon3").handler({ ctx ->
       ctx.response().putHeader("Content-Type", "text/plain")

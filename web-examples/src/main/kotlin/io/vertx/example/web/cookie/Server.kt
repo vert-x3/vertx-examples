@@ -1,17 +1,13 @@
 package io.vertx.example.web.cookie
 
-import io.vertx.ext.web.Cookie
+import io.vertx.core.http.Cookie
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.handler.CookieHandler
 import io.vertx.ext.web.handler.StaticHandler
 
 class Server : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var router = Router.router(vertx)
-
-    // This cookie handler will be called for all routes
-    router.route().handler(CookieHandler.create())
 
     // on every path increment the counter
     router.route().handler({ ctx ->
@@ -23,7 +19,7 @@ class Server : io.vertx.core.AbstractVerticle()  {
         try {
           visits = Long.parseLong(cookieValue)
         } catch(e: Exception) {
-          visits = 0L
+          visits = 0
         }
 
       }

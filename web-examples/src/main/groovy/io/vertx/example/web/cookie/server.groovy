@@ -1,12 +1,8 @@
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.handler.CookieHandler
-import io.vertx.ext.web.Cookie
+import io.vertx.core.http.Cookie
 import io.vertx.ext.web.handler.StaticHandler
 
 def router = Router.router(vertx)
-
-// This cookie handler will be called for all routes
-router.route().handler(CookieHandler.create())
 
 // on every path increment the counter
 router.route().handler({ ctx ->
@@ -18,7 +14,7 @@ router.route().handler({ ctx ->
     try {
       visits = java.lang.Long.parseLong(cookieValue)
     } catch(Exception e) {
-      visits = 0L
+      visits = 0
     }
 
   }

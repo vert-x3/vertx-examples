@@ -1,10 +1,11 @@
 package io.vertx.example.web.chat
 
+import io.vertx.ext.bridge.PermittedOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.StaticHandler
-import io.vertx.ext.web.handler.sockjs.BridgeOptions
-import io.vertx.ext.web.handler.sockjs.PermittedOptions
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions
 import io.vertx.ext.web.handler.sockjs.SockJSHandler
+import io.vertx.kotlin.ext.bridge.*
 import io.vertx.kotlin.ext.web.handler.sockjs.*
 
 class Server : io.vertx.core.AbstractVerticle()  {
@@ -13,15 +14,15 @@ class Server : io.vertx.core.AbstractVerticle()  {
     var router = Router.router(vertx)
 
     // Allow events for the designated addresses in/out of the event bus bridge
-    var opts = BridgeOptions(
+    var opts = SockJSBridgeOptions(
       inboundPermitteds = listOf(PermittedOptions(
         address = "chat.to.server")),
       outboundPermitteds = listOf(PermittedOptions(
         address = "chat.to.client")))
 
     // Create the event bus bridge and add it to the router.
-    var ebHandler = SockJSHandler.create(vertx).bridge(opts)
-    router.route("/eventbus/*").handler(ebHandler)
+    var ebHandler = SockJSHandler.create(vertx)
+    router.mountSubRouter("/eventbus", ebHandler.bridge(opts))
 
     // Create a router endpoint for the static content.
     router.route().handler(StaticHandler.create())

@@ -3,11 +3,10 @@ package io.vertx.example.web.realtime;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.bridge.BridgeEventType;
-import io.vertx.ext.web.Route;
+import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 /*
@@ -27,9 +26,10 @@ public class Server extends AbstractVerticle {
 
     // Allow outbound traffic to the news-feed address
 
-    BridgeOptions options = new BridgeOptions().addOutboundPermitted(new PermittedOptions().setAddress("news-feed"));
+    SockJSBridgeOptions options = new SockJSBridgeOptions()
+      .addOutboundPermitted(new PermittedOptions().setAddress("news-feed"));
     SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
-    sockJSHandler.bridge(options, event -> {
+    Router subRouter = sockJSHandler.bridge(options, event -> {
 
       // You can also optionally provide a handler like this which will be passed any events that occur on the bridge
       // You can use this for monitoring or logging, or to change the raw messages in-flight.
@@ -43,7 +43,7 @@ public class Server extends AbstractVerticle {
       event.complete(true);
 
     });
-    Route handler = router.route("/eventbus/*").handler(sockJSHandler);
+    router.mountSubRouter("/eventbus", subRouter);
 
 
     // Serve the static resources

@@ -1,6 +1,9 @@
 import io.vertx.ext.web.Router
 import io.vertx.ext.auth.jwt.JWTAuth
 import io.vertx.ext.web.handler.JWTAuthHandler
+import io.vertx.ext.auth.jwt.authorization.JWTAuthorization
+import io.vertx.ext.auth.authorization.PermissionBasedAuthorization
+import io.vertx.ext.web.handler.AuthorizationHandler
 import io.vertx.ext.web.handler.StaticHandler
 
 def router = Router.router(vertx)
@@ -30,8 +33,11 @@ router.get("/api/newToken").handler({ ctx ->
   ]))
 })
 
+def authnHandler = JWTAuthHandler.create(jwt)
+def authzProvider = JWTAuthorization.create("permissions")
+
 // protect the API (any authority is allowed)
-router.route("/api/protected").handler(JWTAuthHandler.create(jwt))
+router.route("/api/*").handler(authnHandler)
 
 router.get("/api/protected").handler({ ctx ->
   ctx.response().putHeader("Content-Type", "text/plain")
@@ -39,7 +45,8 @@ router.get("/api/protected").handler({ ctx ->
 })
 
 // protect the API (defcon1 authority is required)
-router.route("/api/protected/defcon1").handler(JWTAuthHandler.create(jwt).addAuthority("defcon1"))
+def defcon1Handler = AuthorizationHandler.create(PermissionBasedAuthorization.create("defcon1")).addAuthorizationProvider(authzProvider)
+router.route("/api/protected/defcon1").handler(defcon1Handler)
 
 router.get("/api/protected/defcon1").handler({ ctx ->
   ctx.response().putHeader("Content-Type", "text/plain")
@@ -47,7 +54,8 @@ router.get("/api/protected/defcon1").handler({ ctx ->
 })
 
 // protect the API (defcon2 authority is required)
-router.route("/api/protected/defcon2").handler(JWTAuthHandler.create(jwt).addAuthority("defcon2"))
+def defcon2Handler = AuthorizationHandler.create(PermissionBasedAuthorization.create("defcon2")).addAuthorizationProvider(authzProvider)
+router.route("/api/protected/defcon2").handler(defcon2Handler)
 
 router.get("/api/protected/defcon2").handler({ ctx ->
   ctx.response().putHeader("Content-Type", "text/plain")
@@ -55,7 +63,8 @@ router.get("/api/protected/defcon2").handler({ ctx ->
 })
 
 // protect the API (defcon3 authority is required)
-router.route("/api/protected/defcon3").handler(JWTAuthHandler.create(jwt).addAuthority("defcon3"))
+def defcon3Handler = AuthorizationHandler.create(PermissionBasedAuthorization.create("defcon3")).addAuthorizationProvider(authzProvider)
+router.route("/api/protected/defcon3").handler(defcon3Handler)
 
 router.get("/api/protected/defcon3").handler({ ctx ->
   ctx.response().putHeader("Content-Type", "text/plain")

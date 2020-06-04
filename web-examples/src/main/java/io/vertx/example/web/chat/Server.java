@@ -3,10 +3,10 @@ package io.vertx.example.web.chat;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.example.util.Runner;
+import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 import java.text.DateFormat;
@@ -34,14 +34,13 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Allow events for the designated addresses in/out of the event bus bridge
-    BridgeOptions opts = new BridgeOptions()
+    SockJSBridgeOptions opts = new SockJSBridgeOptions()
       .addInboundPermitted(new PermittedOptions().setAddress("chat.to.server"))
       .addOutboundPermitted(new PermittedOptions().setAddress("chat.to.client"));
 
     // Create the event bus bridge and add it to the router.
     SockJSHandler ebHandler = SockJSHandler.create(vertx);
-    ebHandler.bridge(opts);
-    router.route("/eventbus/*").handler(ebHandler);
+    router.mountSubRouter("/eventbus", ebHandler.bridge(opts));
 
     // Create a router endpoint for the static content.
     router.route().handler(StaticHandler.create());

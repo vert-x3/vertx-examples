@@ -19,8 +19,8 @@ def opts = [
 ]
 
 // Create the event bus bridge and add it to the router.
-def ebHandler = SockJSHandler.create(vertx).bridge(opts)
-router.route("/eventbus/*").handler(ebHandler)
+def ebHandler = SockJSHandler.create(vertx)
+router.mountSubRouter("/eventbus", ebHandler.bridge(opts))
 
 // Create a router endpoint for the static content.
 router.route().handler(StaticHandler.create())
