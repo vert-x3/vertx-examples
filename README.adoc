@@ -1,6 +1,8 @@
-= Vert.x examples
+= Vert.x 4 examples
 
-This repository contains a range of examples so you can get up and running easily with Vert.x.
+This repository contains a range of examples so you can get up and running easily with Vert.x. 4
+
+Vert.x 3 examples can be found here https://github.com/vert-x3/vertx-examples/tree/3.x
 
 == Maven users
 
