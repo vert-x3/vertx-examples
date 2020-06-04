@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.vertx.codegen.Case;
+import io.vertx.codegen.format.CamelCase;
+import io.vertx.codegen.format.SnakeCase;
 import io.vertx.codetrans.CodeTranslator;
 import io.vertx.codetrans.Lang;
 import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.codetrans.lang.groovy.GroovyLang;
-import io.vertx.codetrans.lang.js.JavaScriptLang;
-import io.vertx.codetrans.lang.ruby.RubyLang;
 import io.vertx.core.Verticle;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -87,7 +86,7 @@ public class CodeTransProcessor extends AbstractProcessor {
       outputDir = new File(outputOption);
     }
     translator = new CodeTranslator(processingEnv);
-    langs = Arrays.asList(new JavaScriptLang(), new GroovyLang(), new RubyLang());
+    langs = Arrays.asList(new GroovyLang());
 
     String configFile = processingEnv.getOptions().get("codetrans.config");
     if (configFile != null) {
@@ -184,7 +183,7 @@ public class CodeTransProcessor extends AbstractProcessor {
           TypeElement typeElt = (TypeElement) methodElt.getEnclosingElement();
           FileObject obj = processingEnv.getFiler().getResource(StandardLocation.SOURCE_PATH, "", typeElt.getQualifiedName().toString().replace('.', '/') + ".java");
           File srcFolder = new File(obj.toUri()).getParentFile();
-          String filename = Case.SNAKE.format(Case.CAMEL.parse(typeElt.getSimpleName().toString()));
+          String filename = SnakeCase.INSTANCE.format(CamelCase.INSTANCE.parse(typeElt.getSimpleName().toString()));
           for (Lang lang : langs) {
             if (isSkipped(typeElt, lang)) {
               log.write("Skipping " + lang.getExtension() + " translation for " + typeElt.getQualifiedName() + "#" +

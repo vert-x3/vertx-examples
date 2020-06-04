@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>examples-utils</artifactId>
-  <version>3.9.0</version>
+  <version>4.0.0-milestone5</version>
 
   <properties>
     <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
@@ -33,27 +33,12 @@
     <!-- For running examples -->
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-js</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-groovy</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-ruby</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-kotlin</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-kotlin-compiler</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

@@ -6,16 +6,14 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticles-examples</artifactId>
-  <version>3.9.0</version>
+  <version>4.0.0-milestone5</version>
 
   <packaging>pom</packaging>
 
   <modules>
     <module>maven-verticle</module>
-    <module>maven-verticle-rb</module>
     <module>maven-verticle-groovy</module>
     <module>maven-verticle-groovy-compiled</module>
-    <module>maven-verticle-js</module>
   </modules>
 
 </project>
