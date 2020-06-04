@@ -1,7 +1,8 @@
 def client = vertx.createHttpClient([:])
 vertx.createHttpServer().requestHandler({ req ->
   println("Proxying request: ${req.uri()}")
-  def c_req = client.request(req.method(), 8282, "localhost", req.uri(), { c_res ->
+  def c_req = client.request(req.method(), 8282, "localhost", req.uri())
+  c_req.onSuccess({ c_res ->
     println("Proxying response: ${c_res.statusCode()}")
     req.response().setChunked(true)
     req.response().setStatusCode(c_res.statusCode())

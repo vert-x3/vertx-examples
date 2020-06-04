@@ -4,8 +4,8 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpVersion;
-import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.example.util.Runner;
 
 /*
@@ -29,10 +29,9 @@ public class Client extends AbstractVerticle {
         setProtocolVersion(HttpVersion.HTTP_2).
         setTrustAll(true);
 
-    HttpClientRequest request = vertx.createHttpClient(options
-    ).get(8443, "localhost", "/");
+    HttpClientRequest request = vertx.createHttpClient(options).request(HttpMethod.GET, 8443, "localhost", "/");
 
-    request.handler(resp -> {
+    request.onSuccess(resp -> {
 
       // Print custom frames received from server
 

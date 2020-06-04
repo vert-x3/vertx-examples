@@ -21,7 +21,8 @@ public class Proxy extends AbstractVerticle {
     HttpClient client = vertx.createHttpClient(new HttpClientOptions());
     vertx.createHttpServer().requestHandler(req -> {
       System.out.println("Proxying request: " + req.uri());
-      HttpClientRequest c_req = client.request(req.method(), 8282, "localhost", req.uri(), c_res -> {
+      HttpClientRequest c_req = client.request(req.method(), 8282, "localhost", req.uri());
+      c_req.onSuccess(c_res -> {
         System.out.println("Proxying response: " + c_res.statusCode());
         req.response().setChunked(true);
         req.response().setStatusCode(c_res.statusCode());

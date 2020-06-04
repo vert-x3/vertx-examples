@@ -4,9 +4,9 @@ def eb = vertx.eventBus()
 
 vertx.setPeriodic(1000, { v ->
 
-  eb.send("ping-address", "ping!", { reply ->
-    if (reply.succeeded()) {
-      println("Received reply ${reply.result().body()}")
+  eb.request("ping-address", "ping!", { ar ->
+    if (ar.succeeded()) {
+      println("Received reply ${ar.result().body()}")
     } else {
       println("No reply")
     }

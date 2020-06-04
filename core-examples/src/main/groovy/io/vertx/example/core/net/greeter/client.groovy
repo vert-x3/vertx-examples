@@ -17,7 +17,8 @@ vertx.createNetClient().connect(1234, "localhost", { res ->
     // Now send some data
     java.util.stream.Stream.of("John", "Joe", "Lisa", "Bill").forEach({ name ->
       println("Net client sending: ${name}")
-      socket.write(name).write("\n")
+      socket.write(name)
+      socket.write("\n")
     })
 
   } else {

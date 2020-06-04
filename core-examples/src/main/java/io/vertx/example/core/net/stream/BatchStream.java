@@ -46,24 +46,20 @@ public class BatchStream implements ReadStream<Batch>, WriteStream<Batch> {
   }
 
   @Override
-  public BatchStream write(Batch batch) {
+  public Future<Void> write(Batch batch) {
     if (batch == null) {
-      if (exceptionHandler != null) {
-        exceptionHandler.handle(new NullPointerException());
-      }
-    } else {
-      Buffer protocol = Buffer.buffer();
-      protocol.appendInt(0);
-      protocol.appendByte((byte) batch.getType());
-      protocol.appendBuffer(batch.getRaw());
-      protocol.setInt(0, protocol.length() - 4);
-      writeStream.write(protocol);
+      return Future.failedFuture(new NullPointerException());
     }
-    return this;
+    Buffer protocol = Buffer.buffer();
+    protocol.appendInt(0);
+    protocol.appendByte((byte) batch.getType());
+    protocol.appendBuffer(batch.getRaw());
+    protocol.setInt(0, protocol.length() - 4);
+    return writeStream.write(protocol);
   }
 
   @Override
-  public WriteStream<Batch> write(Batch batch, Handler<AsyncResult<Void>> handler) {
+  public void write(Batch batch, Handler<AsyncResult<Void>> handler) {
     if (batch == null) {
       NullPointerException err = new NullPointerException();
       if (exceptionHandler != null) {
@@ -80,12 +76,11 @@ public class BatchStream implements ReadStream<Batch>, WriteStream<Batch> {
       protocol.setInt(0, protocol.length() - 4);
       writeStream.write(protocol, handler);
     }
-    return this;
   }
 
   @Override
-  public void end() {
-    writeStream.end();
+  public Future<Void> end() {
+    return writeStream.end();
   }
 
   @Override

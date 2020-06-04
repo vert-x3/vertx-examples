@@ -3,11 +3,11 @@ package io.vertx.example.core.http.simple
 
 class Client : io.vertx.core.AbstractVerticle()  {
   override fun start() {
-    vertx.createHttpClient().getNow(8080, "localhost", "/", { resp ->
+    vertx.createHttpClient().get(8080, "localhost", "/").compose<Any>({ resp ->
       println("Got response ${resp.statusCode()}")
-      resp.bodyHandler({ body ->
-        println("Got data ${body.toString("ISO-8859-1")}")
-      })
+      return resp.body()
+    }).onSuccess({ body ->
+      println("Got data ${body.toString("ISO-8859-1")}")
     })
   }
 }

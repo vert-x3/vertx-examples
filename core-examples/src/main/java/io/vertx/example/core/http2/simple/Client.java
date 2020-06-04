@@ -3,7 +3,6 @@ package io.vertx.example.core.http2.simple;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpVersion;
-import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.example.util.Runner;
 
 /*
@@ -22,15 +21,16 @@ public class Client extends AbstractVerticle {
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
     HttpClientOptions options = new HttpClientOptions().
-        setSsl(true).
-        setUseAlpn(true).
-        setProtocolVersion(HttpVersion.HTTP_2).
-        setTrustAll(true);
+      setSsl(true).
+      setUseAlpn(true).
+      setProtocolVersion(HttpVersion.HTTP_2).
+      setTrustAll(true);
 
-    vertx.createHttpClient(options
-    ).getNow(8443, "localhost", "/", resp -> {
+    vertx.createHttpClient(options).get(8080, "localhost", "/").compose(resp -> {
       System.out.println("Got response " + resp.statusCode() + " with protocol " + resp.version());
-      resp.bodyHandler(body -> System.out.println("Got data " + body.toString("ISO-8859-1")));
+      return resp.body();
+    }).onSuccess(body -> {
+      System.out.println("Got data " + body.toString("ISO-8859-1"));
     });
   }
 }

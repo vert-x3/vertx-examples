@@ -1,7 +1,6 @@
+import io.vertx.core.http.HttpClientResponse
 vertx.setPeriodic(1000, { l ->
-  vertx.createHttpClient().getNow(8080, "localhost", "/", { resp ->
-    resp.bodyHandler({ body ->
-      println(body.toString("ISO-8859-1"))
-    })
+  vertx.createHttpClient().get(8080, "localhost", "/").compose(HttpClientResponse.&body).onSuccess({ body ->
+    println(body.toString("ISO-8859-1"))
   })
 })

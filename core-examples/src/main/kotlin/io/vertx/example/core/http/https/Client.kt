@@ -8,13 +8,14 @@ class Client : io.vertx.core.AbstractVerticle()  {
 
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
-    vertx.createHttpClient(HttpClientOptions(
+    var options = HttpClientOptions(
       ssl = true,
-      trustAll = true)).getNow(4443, "localhost", "/", { resp ->
+      trustAll = true)
+    vertx.createHttpClient(options).get(4443, "localhost", "/").compose<Any>({ resp ->
       println("Got response ${resp.statusCode()}")
-      resp.bodyHandler({ body ->
-        println("Got data ${body.toString("ISO-8859-1")}")
-      })
+      return resp.body()
+    }).onSuccess({ body ->
+      println("Got data ${body.toString("ISO-8859-1")}")
     })
   }
 }

@@ -7,6 +7,7 @@ import io.vertx.core.file.FileSystem;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.streams.Pump;
 import io.vertx.example.util.Runner;
 
@@ -22,7 +23,8 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    HttpClientRequest req = vertx.createHttpClient(new HttpClientOptions()).put(8080, "localhost", "/someurl", resp -> {
+    HttpClientRequest req = vertx.createHttpClient(new HttpClientOptions()).request(HttpMethod.PUT, 8080, "localhost", "/someurl");
+    req.onSuccess(resp -> {
       System.out.println("Response " + resp.statusCode());
     });
     String filename = "upload.txt";

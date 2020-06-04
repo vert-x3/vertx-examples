@@ -22,7 +22,8 @@ class Client : io.vertx.core.AbstractVerticle()  {
         // Now send some data
         java.util.stream.Stream.of<Any>("John", "Joe", "Lisa", "Bill").forEach({ name ->
           println("Net client sending: ${name}")
-          socket.write(name).write("\n")
+          socket.write(name)
+          socket.write("\n")
         })
 
       } else {

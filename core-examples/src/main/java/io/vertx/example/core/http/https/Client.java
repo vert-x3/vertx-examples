@@ -19,9 +19,12 @@ public class Client extends AbstractVerticle {
 
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
-    vertx.createHttpClient(new HttpClientOptions().setSsl(true).setTrustAll(true)).getNow(4443, "localhost", "/", resp -> {
+    HttpClientOptions options = new HttpClientOptions().setSsl(true).setTrustAll(true);
+    vertx.createHttpClient(options).get(4443, "localhost", "/").compose(resp -> {
       System.out.println("Got response " + resp.statusCode());
-      resp.bodyHandler(body -> System.out.println("Got data " + body.toString("ISO-8859-1")));
+      return resp.body();
+    }).onSuccess(body -> {
+      System.out.println("Got data " + body.toString("ISO-8859-1"));
     });
   }
 }

@@ -1,7 +1,7 @@
 package io.vertx.example.core.verticle.asyncstart;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -9,7 +9,7 @@ import io.vertx.core.Future;
 public class OtherVerticle extends AbstractVerticle {
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startPromise) throws Exception {
 
     System.out.println("In OtherVerticle.start (async)");
 
@@ -25,14 +25,14 @@ public class OtherVerticle extends AbstractVerticle {
 
       System.out.println("Startup tasks are now complete, OtherVerticle is now started!");
 
-      startFuture.complete();
+      startPromise.complete();
 
     });
 
   }
 
   @Override
-  public void stop(Future<Void> stopFuture) throws Exception {
+  public void stop(Promise<Void> stopPromise) throws Exception {
 
     // If you have slow cleanup tasks to perform, you can similarly override the async stop method
 
@@ -40,7 +40,7 @@ public class OtherVerticle extends AbstractVerticle {
 
       System.out.println("Cleanup tasks are now complete, OtherVerticle is now stopped!");
 
-      stopFuture.complete();
+      stopPromise.complete();
 
     });
 

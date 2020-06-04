@@ -9,7 +9,7 @@ class Sender : io.vertx.core.AbstractVerticle()  {
 
     vertx.setPeriodic(1000, { v ->
 
-      eb.send<Any>("ping-address", "ping!", { reply ->
+      eb.request<Any>("ping-address", "ping!", { reply ->
         if (reply.succeeded()) {
           println("Received reply ${reply.result().body()}")
         } else {

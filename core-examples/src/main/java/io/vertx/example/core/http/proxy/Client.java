@@ -1,8 +1,8 @@
 package io.vertx.example.core.http.proxy;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 
 /*
@@ -17,9 +17,12 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    HttpClientRequest request = vertx.createHttpClient(new HttpClientOptions()).put(8080, "localhost", "/", resp -> {
+    HttpClientRequest request = vertx.createHttpClient().request(HttpMethod.PUT, 8080, "localhost", "/");
+    request.compose(resp -> {
       System.out.println("Got response " + resp.statusCode());
-      resp.bodyHandler(body -> System.out.println("Got data " + body.toString("ISO-8859-1")));
+      return resp.body();
+    }).onSuccess(body -> {
+      System.out.println("Got data " + body.toString("ISO-8859-1"));
     });
 
     request.setChunked(true);

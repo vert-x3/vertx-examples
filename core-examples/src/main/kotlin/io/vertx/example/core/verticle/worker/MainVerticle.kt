@@ -9,7 +9,7 @@ class MainVerticle : io.vertx.core.AbstractVerticle()  {
     vertx.deployVerticle("io.vertx.example.core.verticle.worker.WorkerVerticle", DeploymentOptions(
       worker = true))
 
-    vertx.eventBus().send<Any>("sample.data", "hello vert.x", { r ->
+    vertx.eventBus().request<Any>("sample.data", "hello vert.x", { r ->
       println("[Main] Receiving reply ' ${r.result().body()}' in ${java.lang.Thread.currentThread().getName()}")
     })
   }

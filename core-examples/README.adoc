@@ -10,13 +10,13 @@ documentation on Vert.x core.
 Examples can be run directly from the IDE by executing the `main` method. Alternatively, you can run them using the
 `vertx` command line tool (that need to be installed beforehand):
 
-```
+[source,shell]
+----
 mvn clean compile
 vertx run fully-qualified-name-of-the-example -cp target/classes
-```
+----
 
 Adapt the `-cp` option value for your current working directory and operating system.
-
 
 == Dependencies required
 
@@ -52,18 +52,12 @@ back. You can use that as an alternative to connecting via telnet.
 link:src/main/java/io/vertx/example/core/net/echo/Server.java[Java echo server]
 link:src/main/java/io/vertx/example/core/net/echo/Client.java[Java echo client]
 
-link:src/main/js/io/vertx/example/core/net/echo/server.js[JavaScript echo server]
-link:src/main/js/io/vertx/example/core/net/echo/client.js[JavaScript echo client]
-
 === Echo SSL
 
 This is the same as the Echo example but using SSL to encrypt connections
 
 link:src/main/java/io/vertx/example/core/net/echossl/Server.java[Java echo ssl server]
 link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl client]
-
-link:src/main/js/io/vertx/example/core/net/echossl/server.js[JavaScript echo ssl server]
-link:src/main/js/io/vertx/example/core/net/echossl/client.js[JavaScript echo ssl client]
 
 == HTTP examples
 
@@ -177,9 +171,10 @@ link:src/main/java/io/vertx/example/core/http/sharing/Client.java[Java simple HT
 
 You can directly launch the `HTTPServerVerticle` using the `vertx run` command. Then you can set the number of instance you want:
 
-```
+[source,shell]
+----
 vertx run io.vertx.example.core.http.sharing.HttpServerVerticle -instances 4
-```
+----
 
 === WebSockets echo example
 
@@ -412,8 +407,8 @@ Run the example then open a browser and point it at link:http://localhost:8080[]
 This example demonstrates the high availability feature of vert.x. When enabled, vert.x redeploys verticles to another
  node when the original node dies abruptly.
 
-link:src/main/java/io/vertx/example/core/verticle/ha/Server.java[The server]
-link:src/main/java/io/vertx/example/core/verticle/ha/BareInstance.java[The bare instance]
+link:src/main/java/io/vertx/example/core/ha/Server.java[The server]
+link:src/main/java/io/vertx/example/core/ha/BareInstance.java[The bare instance]
 
 To run this example, you need to have a working cluster. Configure Hazelcast and append the required `cluster-host`
 to the commands if needed.
@@ -434,6 +429,7 @@ To see the HA (high-availability) behavior you need three terminals.
 First compile the project with `mvn clean package`
 
 In the first terminal, go the the _core-examples` directory and launch:
+
 ----
 vertx run io.vertx.example.core.ha.Server -ha -cp target/classes
 ----
@@ -468,23 +464,6 @@ Happily served by 97297@Macintosh.local
 
 The verticle has been migrated.
 
-== JavaScript Verticle and NPM
-
-Verticles implemented in JavaScript can use the http://wiki.commonjs.org/wiki/Modules/1.1[CommonJS module format] or
-the https://www.npmjs.com/[NPM module format]. They can also _require_ NPM and CommonsJS modules.
-
-This link:src/main/js/npm/[example] shows how verticles can use the NPM module format, deploy verticles using this
-format and require other NPMs.
-
-NPMs are resolved from the directory pointed by the `NODE_PATH` environment variable. For this reason, we set
-`NODE_PATH` to the current directory before launching the verticle:
-
-----
-cd src/main/js/npm/
-export NODE_PATH=$PWD
-vertx run my_npm_verticle.js
-----
-
 == Groovy verticles
 
 Vert.x supports several _formats_ to develop verticles in Groovy. This link:src/main/groovy/verticles[directory]
@@ -500,9 +479,10 @@ verticle developed as a class extending `GroovyVerticle`
 
 You can run these examples using the `vertx` command line. For example:
 
-```
+[source,shell]
+----
 vertx run script.groovy
-```
+----
 
 == JSON streaming parser
 
@@ -520,11 +500,11 @@ link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[WriteStream
 The protocol structure for link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object is simple as
 illustrated below:
 
-```
+----
 Length  : uInt32
 Type    : byte ['O' for JsonObject | 'A' for JsonArray | 'B' for Buffer]
 Payload : Buffer
-```
+----
 
 The link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer] will receive the objects and write them
 back to the

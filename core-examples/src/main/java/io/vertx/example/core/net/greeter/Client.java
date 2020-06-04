@@ -54,7 +54,8 @@ public class Client extends AbstractVerticle {
         // Now send some data
         Stream.of("John", "Joe", "Lisa", "Bill").forEach(name -> {
           System.out.println("Net client sending: " + name);
-          socket.write(name).write("\n");
+          socket.write(name);
+          socket.write("\n");
         });
 
       } else {

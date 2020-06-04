@@ -8,7 +8,8 @@ class Proxy : io.vertx.core.AbstractVerticle()  {
     var client = vertx.createHttpClient(HttpClientOptions())
     vertx.createHttpServer().requestHandler({ req ->
       println("Proxying request: ${req.uri()}")
-      var c_req = client.request(req.method(), 8282, "localhost", req.uri(), { c_res ->
+      var c_req = client.request(req.method(), 8282, "localhost", req.uri())
+      c_req.onSuccess({ c_res ->
         println("Proxying response: ${c_res.statusCode()}")
         req.response().setChunked(true)
         req.response().setStatusCode(c_res.statusCode())
