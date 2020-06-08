@@ -20,6 +20,8 @@ class Client : io.vertx.core.AbstractVerticle()  {
       return resp.body()
     }).onSuccess({ body ->
       println("Got data ${body.toString("ISO-8859-1")}")
+    }).onFailure({ err ->
+      err.printStackTrace()
     })
   }
 }

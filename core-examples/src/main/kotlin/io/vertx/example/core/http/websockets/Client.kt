@@ -12,6 +12,8 @@ class Client : io.vertx.core.AbstractVerticle()  {
         client.close()
       })
       webSocket.writeBinaryMessage(Buffer.buffer("Hello world"))
+    }).onFailure({ err ->
+      err.printStackTrace()
     })
   }
 }

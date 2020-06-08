@@ -7,4 +7,6 @@ client.webSocket(8080, "localhost", "/some-uri").onSuccess({ webSocket ->
     client.close()
   })
   webSocket.writeBinaryMessage(Buffer.buffer("Hello world"))
+}).onFailure({ err ->
+  err.printStackTrace()
 })
