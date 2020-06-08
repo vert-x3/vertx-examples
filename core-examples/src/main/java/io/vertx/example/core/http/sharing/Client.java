@@ -20,6 +20,8 @@ public class Client extends AbstractVerticle {
     vertx.setPeriodic(1000, l -> {
       vertx.createHttpClient().get(8080, "localhost", "/").compose(HttpClientResponse::body).onSuccess(body -> {
         System.out.println(body.toString("ISO-8859-1"));
+      }).onFailure(err -> {
+        err.printStackTrace();
       });
     });
   }

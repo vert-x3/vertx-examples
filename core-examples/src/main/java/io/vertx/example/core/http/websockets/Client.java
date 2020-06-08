@@ -25,6 +25,8 @@ public class Client extends AbstractVerticle {
         client.close();
       });
       webSocket.writeBinaryMessage(Buffer.buffer("Hello world"));
+    }).onFailure(err -> {
+      err.printStackTrace();
     });
   }
 }

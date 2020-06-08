@@ -32,6 +32,8 @@ public class Proxy extends AbstractVerticle {
           req.response().write(data);
         });
         c_res.endHandler((v) -> req.response().end());
+      }).onFailure(err -> {
+        err.printStackTrace();
       });
       c_req.setChunked(true);
       c_req.headers().setAll(req.headers());

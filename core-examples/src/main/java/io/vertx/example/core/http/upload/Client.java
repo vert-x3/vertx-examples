@@ -26,6 +26,8 @@ public class Client extends AbstractVerticle {
     HttpClientRequest req = vertx.createHttpClient(new HttpClientOptions()).request(HttpMethod.PUT, 8080, "localhost", "/someurl");
     req.onSuccess(resp -> {
       System.out.println("Response " + resp.statusCode());
+    }).onFailure(err -> {
+      err.printStackTrace();
     });
     String filename = "upload.txt";
     FileSystem fs = vertx.fileSystem();
