@@ -1,10 +1,8 @@
 import groovy.transform.Field
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.handler.CookieHandler
 import io.vertx.ext.web.sstore.LocalSessionStore
 import io.vertx.ext.web.handler.SessionHandler
 import io.vertx.ext.auth.oauth2.providers.GithubAuth
-import io.vertx.ext.web.handler.UserSessionHandler
 import io.vertx.ext.web.handler.OAuth2AuthHandler
 import io.vertx.ext.auth.oauth2.AccessToken
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine
@@ -15,14 +13,11 @@ import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine
 // to organize our code in a reusable way.
 def router = Router.router(vertx)
 // We need cookies and sessions
-router.route().handler(CookieHandler.create())
 router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)))
 // Simple auth service which uses a GitHub to authenticate the user
 def authProvider = GithubAuth.create(vertx, CLIENT_ID, CLIENT_SECRET)
-// We need a user session handler too to make sure the user is stored in the session between requests
-router.route().handler(UserSessionHandler.create(authProvider))
 // we now protect the resource under the path "/protected"
-router.route("/protected").handler(OAuth2AuthHandler.create(authProvider).setupCallback(router.route("/callback")).addAuthority("user:email"))
+router.route("/protected").handler(OAuth2AuthHandler.create(vertx, authProvider).setupCallback(router.route("/callback")).withScope("user:email"))
 // Entry point to the application, this will render a custom template.
 router.get("/").handler({ ctx ->
   // we pass the client id to the template

@@ -7,10 +7,8 @@ import io.vertx.ext.auth.oauth2.AccessToken;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import io.vertx.ext.auth.oauth2.providers.GithubAuth;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.CookieHandler;
 import io.vertx.ext.web.handler.OAuth2AuthHandler;
 import io.vertx.ext.web.handler.SessionHandler;
-import io.vertx.ext.web.handler.UserSessionHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
@@ -38,20 +36,16 @@ public class Server extends AbstractVerticle {
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
     // We need cookies and sessions
-    router.route().handler(CookieHandler.create());
     router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
     // Simple auth service which uses a GitHub to authenticate the user
     OAuth2Auth authProvider = GithubAuth.create(vertx, CLIENT_ID, CLIENT_SECRET);
-    // We need a user session handler too to make sure the user is stored in the session between requests
-    router.route().handler(UserSessionHandler.create(authProvider));
     // we now protect the resource under the path "/protected"
-    router.route("/protected").handler(
-      OAuth2AuthHandler.create(authProvider)
-        // we now configure the oauth2 handler, it will setup the callback handler
-        // as expected by your oauth2 provider.
-        .setupCallback(router.route("/callback"))
-        // for this resource we require that users have the authority to retrieve the user emails
-        .addAuthority("user:email")
+    router.route("/protected").handler(OAuth2AuthHandler.create(vertx, authProvider)
+      // we now configure the oauth2 handler, it will setup the callback handler
+      // as expected by your oauth2 provider.
+      .setupCallback(router.route("/callback"))
+      // for this resource we require that users have the authority to retrieve the user emails
+      .withScope("user:email")
     );
     // Entry point to the application, this will render a custom template.
     router.get("/").handler(ctx -> {
