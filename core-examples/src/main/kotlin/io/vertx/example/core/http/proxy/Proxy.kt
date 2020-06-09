@@ -21,6 +21,8 @@ class Proxy : io.vertx.core.AbstractVerticle()  {
         c_res.endHandler({ v ->
           req.response().end()
         })
+      }).onFailure({ err ->
+        err.printStackTrace()
       })
       c_req.setChunked(true)
       c_req.headers().setAll(req.headers())
