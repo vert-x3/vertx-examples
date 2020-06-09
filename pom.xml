@@ -33,7 +33,6 @@
     <module>jdbc-examples</module>
     <module>reactive-sql-client-examples</module>
     <module>jca-examples</module>
-    <module>sync-examples</module>
     <module>shell-examples</module>
     <module>amqp-bridge-examples</module>
     <module>amqp-proton-examples</module>
