@@ -16,18 +16,35 @@
 
 package io.vertx.example.reactivex.services.serviceproxy.reactivex;
 
-import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
-import io.vertx.core.json.JsonObject;
-import io.vertx.core.AsyncResult;
+import io.vertx.reactivex.RxHelper;
+import io.vertx.reactivex.ObservableHelper;
+import io.vertx.reactivex.FlowableHelper;
+import io.vertx.reactivex.impl.AsyncResultMaybe;
+import io.vertx.reactivex.impl.AsyncResultSingle;
+import io.vertx.reactivex.impl.AsyncResultCompletable;
+import io.vertx.reactivex.WriteStreamObserver;
+import io.vertx.reactivex.WriteStreamSubscriber;
+import java.util.Map;
+import java.util.Set;
+import java.util.List;
+import java.util.Iterator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import io.vertx.core.Handler;
+import io.vertx.core.AsyncResult;
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.json.JsonArray;
+import io.vertx.lang.rx.RxGen;
+import io.vertx.lang.rx.TypeArg;
+import io.vertx.lang.rx.MappingIterator;
 
 
-@io.vertx.lang.rx.RxGen(io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService.class)
+@RxGen(io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService.class)
 public class SomeDatabaseService {
 
   @Override
@@ -48,7 +65,7 @@ public class SomeDatabaseService {
     return delegate.hashCode();
   }
 
-  public static final io.vertx.lang.rx.TypeArg<SomeDatabaseService> __TYPE_ARG = new io.vertx.lang.rx.TypeArg<>(    obj -> new SomeDatabaseService((io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService) obj),
+  public static final TypeArg<SomeDatabaseService> __TYPE_ARG = new TypeArg<>(    obj -> new SomeDatabaseService((io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService) obj),
     SomeDatabaseService::getDelegate
   );
 
@@ -71,9 +88,14 @@ public class SomeDatabaseService {
     return this;
   }
 
+  public io.vertx.example.reactivex.services.serviceproxy.reactivex.SomeDatabaseService getDataById(int id) {
+    return 
+getDataById(id, ar -> { });
+  }
+
   public Single<JsonObject> rxGetDataById(int id) { 
-    return io.vertx.reactivex.impl.AsyncResultSingle.toSingle(handler -> {
-      getDataById(id, handler);
+    return AsyncResultSingle.toSingle($handler -> {
+      getDataById(id, $handler);
     });
   }
 

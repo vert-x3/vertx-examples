@@ -1,8 +1,8 @@
 package io.vertx.example.reactivex.eventbus.pingpong;
 
+import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.eventbus.EventBus;
-import io.vertx.example.util.Runner;
 
 public class PingPong extends AbstractVerticle {
 
@@ -27,7 +27,7 @@ public class PingPong extends AbstractVerticle {
 
         // Send a message every second
         vertx.setPeriodic(1000, v -> {
-            eb.rxSend(ADDRESS, "PING")
+          eb.rxRequest(ADDRESS, "PING")
                     .subscribe(reply -> {
                         System.out.println("Received reply " + reply.body());
                     });

@@ -35,14 +35,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import io.vertx.serviceproxy.ServiceBinder;
 import io.vertx.serviceproxy.ProxyHandler;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
 import io.vertx.serviceproxy.HelperUtils;
+import io.vertx.serviceproxy.ServiceBinder;
 
 import io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService;
-import io.vertx.core.json.JsonObject;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 /*
@@ -59,6 +58,7 @@ public class SomeDatabaseServiceVertxProxyHandler extends ProxyHandler {
   private final long timerID;
   private long lastAccessed;
   private final long timeoutSeconds;
+  private final boolean includeDebugInfo;
 
   public SomeDatabaseServiceVertxProxyHandler(Vertx vertx, SomeDatabaseService service){
     this(vertx, service, DEFAULT_CONNECTION_TIMEOUT);
@@ -68,9 +68,14 @@ public class SomeDatabaseServiceVertxProxyHandler extends ProxyHandler {
     this(vertx, service, true, timeoutInSecond);
   }
 
-  public SomeDatabaseServiceVertxProxyHandler(Vertx vertx, SomeDatabaseService service, boolean topLevel, long timeoutSeconds) {
+  public SomeDatabaseServiceVertxProxyHandler(Vertx vertx, SomeDatabaseService service, boolean topLevel, long timeoutInSecond){
+    this(vertx, service, true, timeoutInSecond, false);
+  }
+
+  public SomeDatabaseServiceVertxProxyHandler(Vertx vertx, SomeDatabaseService service, boolean topLevel, long timeoutSeconds, boolean includeDebugInfo) {
       this.vertx = vertx;
       this.service = service;
+      this.includeDebugInfo = includeDebugInfo;
       this.timeoutSeconds = timeoutSeconds;
       try {
         this.vertx.eventBus().registerDefaultCodec(ServiceException.class,
@@ -117,13 +122,14 @@ public class SomeDatabaseServiceVertxProxyHandler extends ProxyHandler {
       switch (action) {
         case "getDataById": {
           service.getDataById(json.getValue("id") == null ? null : (json.getLong("id").intValue()),
-                        HelperUtils.createHandler(msg));
+                        HelperUtils.createHandler(msg, includeDebugInfo));
           break;
         }
         default: throw new IllegalStateException("Invalid action: " + action);
       }
     } catch (Throwable t) {
-      msg.reply(new ServiceException(500, t.getMessage()));
+      if (includeDebugInfo) msg.reply(new ServiceException(500, t.getMessage(), HelperUtils.generateDebugInfo(t)));
+      else msg.reply(new ServiceException(500, t.getMessage()));
       throw t;
     }
   }

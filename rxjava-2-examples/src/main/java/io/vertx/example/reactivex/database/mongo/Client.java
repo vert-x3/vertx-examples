@@ -25,20 +25,10 @@ public class Client extends AbstractVerticle {
       .put("connection_string", "mongodb://localhost:27018")
       .put("db_name", "my_DB");
 
-    // Deploy an embedded mongo database so we can test against that
-    vertx.deployVerticle("service:io.vertx.vertx-mongo-embedded-db", db -> {
-      if (db.succeeded()) {
+    // Create the client
+    mongo = MongoClient.createShared(vertx, config);
 
-        // Create the client
-        mongo = MongoClient.createShared(vertx, config);
-
-        insertAndFind();
-
-      } else {
-        System.out.println("Could not start mongo embedded");
-        db.cause().printStackTrace();
-      }
-    });
+    insertAndFind();
   }
 
   private void insertAndFind() {

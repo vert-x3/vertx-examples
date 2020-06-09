@@ -3,15 +3,13 @@ package io.vertx.example.reactivex.web.backpressure;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.RxHelper;
 import io.vertx.reactivex.core.AbstractVerticle;
-import io.vertx.reactivex.core.http.HttpClient;
 import io.vertx.reactivex.core.http.HttpClientResponse;
 import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.core.http.HttpServerRequest;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.handler.BodyHandler;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Callable;
+
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,19 +47,26 @@ public class Server extends AbstractVerticle {
       .observeOn(RxHelper.scheduler(vertx.getDelegate()))
       .subscribe(req -> {
         req.resume();
-        router.accept(req);
+        router.handle(req);
       });
 
     server.rxListen(PORT).subscribe(res -> generateRequests());
   }
 
-  private void generateRequests() throws InterruptedException {
-    List<Callable<HttpClient>> tasks = Collections.nCopies(NUMBER_OF_REQUESTS,
-      () -> vertx.createHttpClient()
-        .getNow(PORT, "localhost", "/", resp ->
-          log(resp, successCounter(resp), failureCounter(resp))
-        ));
-    Executors.newFixedThreadPool(N_THREADS).invokeAll(tasks);
+  private void generateRequests() {
+    ExecutorService executorService = Executors.newFixedThreadPool(N_THREADS);
+    for (int i = 0; i < NUMBER_OF_REQUESTS; i++) {
+      executorService.execute(() -> {
+        vertx.createHttpClient().get(PORT, "localhost", "/", ar -> {
+          if (ar.succeeded()) {
+            HttpClientResponse resp = ar.result();
+            log(resp, successCounter(resp), failureCounter(resp));
+          } else {
+            ar.cause().printStackTrace();
+          }
+        });
+      });
+    }
   }
 
   private int failureCounter(HttpClientResponse resp) {
