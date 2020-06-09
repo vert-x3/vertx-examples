@@ -1,11 +1,9 @@
 package io.vertx.example.rxjava.http.client.reduce;
 
-import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.buffer.Buffer;
 import io.vertx.rxjava.core.http.HttpClient;
-import io.vertx.rxjava.core.http.HttpClientRequest;
 import rx.Observable;
 
 /*
@@ -21,27 +19,24 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
-    HttpClientRequest req = client.request(HttpMethod.GET, 8080, "localhost", "/");
-    req.toObservable().
 
-        // Status code check and -> Observable<Buffer>
-        flatMap(resp -> {
-          if (resp.statusCode() != 200) {
-            throw new RuntimeException("Wrong status code " + resp.statusCode());
-          }
-          return Observable.just(Buffer.buffer()).mergeWith(resp.toObservable());
-        }).
+    client.rxGet(8080, "localhost", "/")
 
-        // Reduce all buffers in a single buffer
-        reduce(Buffer::appendBuffer).
+      // Status code check and -> Observable<Buffer>
+      .flatMapObservable(resp -> {
+        if (resp.statusCode() != 200) {
+          return Observable.error(new RuntimeException("Wrong status code " + resp.statusCode()));
+        }
+        return Observable.just(Buffer.buffer()).mergeWith(resp.toObservable());
+      })
 
-        // Turn in to a string
-        map(buffer -> buffer.toString("UTF-8")).
+      // Reduce all buffers in a single buffer
+      .reduce(Buffer::appendBuffer)
 
-        // Get a single buffer
-        subscribe(data -> System.out.println("Server content " + data));
+      // Turn in to a string
+      .map(buffer -> buffer.toString("UTF-8"))
 
-    // End request
-    req.end();
+      // Get a single buffer
+      .subscribe(data -> System.out.println("Server content " + data), Throwable::printStackTrace);
   }
 }
