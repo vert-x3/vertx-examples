@@ -3,19 +3,19 @@ package io.vertx.example.unit.test;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.unit.HelloVerticle;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
-
-import java.io.IOException;
-import java.net.ServerSocket;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.IOException;
+import java.net.ServerSocket;
 
 /*
  * Example of an asynchronous JUnit test for a Verticle.
@@ -48,12 +48,12 @@ public class JUnitVerticleTest {
   public void canGetHello(TestContext context) {
     Async async = context.async();
     HttpClient client = vertx.createHttpClient();
-    client.getNow(port, "localhost", "/", response -> {
-      response.bodyHandler(body -> {
+    client.get(port, "localhost", "/")
+      .flatMap(HttpClientResponse::body)
+      .onSuccess(body -> {
         context.assertEquals("Hello!", body.toString());
         client.close();
         async.complete();
-      });
-    });
+      }).onFailure(context::fail);
   }
 }

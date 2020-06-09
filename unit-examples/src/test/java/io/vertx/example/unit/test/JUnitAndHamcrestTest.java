@@ -3,6 +3,7 @@ package io.vertx.example.unit.test;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
@@ -64,14 +65,13 @@ public class JUnitAndHamcrestTest {
     // Send a request and get a response
     HttpClient client = vertx.createHttpClient();
     Async async = context.async();
-    client.getNow(8080, "localhost", "/", resp -> {
-      resp.exceptionHandler(context.exceptionHandler());
-      resp.bodyHandler(body -> {
+    client.get(8080, "localhost", "/")
+      .flatMap(HttpClientResponse::body)
+      .onSuccess(body -> {
         assertThat(body.toString(), is("foo"));
         client.close();
         async.complete();
-      });
-    });
+      }).onFailure(context::fail);
   }
 
   private void getSomeItems(Handler<List<String>> handler) {

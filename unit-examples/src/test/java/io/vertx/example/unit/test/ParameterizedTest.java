@@ -2,7 +2,6 @@ package io.vertx.example.unit.test;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
@@ -54,12 +53,12 @@ public class ParameterizedTest {
     server.listen(port, "localhost", context.asyncAssertSuccess(s -> {
       HttpClient client = vertx.createHttpClient();
       Async async = context.async();
-      HttpClientRequest req = client.get(port, "localhost", "/", resp -> {
-        context.assertEquals(200, resp.statusCode());
-        async.complete();
-      });
-      req.exceptionHandler(context::fail);
-      req.end();
+      client.get(port, "localhost", "/")
+        .onSuccess(resp -> {
+          context.assertEquals(200, resp.statusCode());
+          async.complete();
+        })
+        .onFailure(context::fail);
     }));
   }
 

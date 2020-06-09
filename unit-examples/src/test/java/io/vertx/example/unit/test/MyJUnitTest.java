@@ -2,6 +2,7 @@ package io.vertx.example.unit.test;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpServer;
 import io.vertx.example.unit.SomeVerticle;
 import io.vertx.ext.unit.Async;
@@ -41,13 +42,13 @@ public class MyJUnitTest {
     // Send a request and get a response
     HttpClient client = vertx.createHttpClient();
     Async async = context.async();
-    client.getNow(8080, "localhost", "/", resp -> {
-      resp.bodyHandler(body -> {
+    client.get(8080, "localhost", "/")
+      .flatMap(HttpClientResponse::body)
+      .onSuccess(body -> {
         context.assertEquals("foo", body.toString());
         client.close();
         async.complete();
-      });
-    });
+      }).onFailure(context::fail);
   }
 
   @Test

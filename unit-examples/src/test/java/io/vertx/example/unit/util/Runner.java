@@ -15,41 +15,24 @@ public class Runner {
 
   private static final String UNIT_EXAMPLES_DIR = "unit-examples";
   private static final String UNIT_EXAMPLES_JAVA_DIR = UNIT_EXAMPLES_DIR + "/src/main/java/";
-  private static final String UNIT_EXAMPLES_JS_DIR = UNIT_EXAMPLES_DIR + "/src/main/js/";
   private static final String UNIT_EXAMPLES_GROOVY_DIR = UNIT_EXAMPLES_DIR + "/src/main/groovy/";
 
   public static void runClusteredExample(Class clazz) {
-    runExample(UNIT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
+    runExample(UNIT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
   }
 
   public static void runExample(Class clazz) {
-    runExample(UNIT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
-  }
-
-  // JavaScript examples
-
-  public static void runJSExample(String scriptName) {
-    runScriptExample(UNIT_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(false));
-  }
-
-  public static void runJSExampleClustered(String scriptName) {
-    runScriptExample(UNIT_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(true));
-  }
-
-  static class JSVertxUnitTest {
-    public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/unit/test/vertx_unit_test.js");
-    }
+    runExample(UNIT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, false);
   }
 
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    runScriptExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(false));
+    runScriptExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions(), false);
   }
 
   public static void runGroovyExampleClustered(String scriptName) {
-    runScriptExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
+    runScriptExample(UNIT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions(), true);
   }
 
   static class GroovyVertxUnitTest {
@@ -58,20 +41,19 @@ public class Runner {
     }
   }
 
-  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
+  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
   }
 
 
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -102,7 +84,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();

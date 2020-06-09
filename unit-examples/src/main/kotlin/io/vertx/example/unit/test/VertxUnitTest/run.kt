@@ -1,6 +1,7 @@
 package io.vertx.example.unit.test.VertxUnitTest
 
 import io.vertx.core.Vertx
+import io.vertx.core.http.HttpClientResponse
 import io.vertx.ext.unit.TestOptions
 import io.vertx.ext.unit.TestSuite
 import io.vertx.ext.unit.report.ReportOptions
@@ -32,13 +33,11 @@ class run : io.vertx.core.AbstractVerticle()  {
       // Send a request and get a response
       var client = vertx.createHttpClient()
       var async = context.async()
-      client.getNow(8080, "localhost", "/", { resp ->
-        resp.bodyHandler({ body ->
-          context.assertEquals("foo", body.toString("UTF-8"))
-        })
+      client.get(8080, "localhost", "/").flatMap<Any>({ HttpClientResponse.body() }).onSuccess({ body ->
+        context.assertEquals("foo", body.toString("UTF-8"))
         client.close()
         async.complete()
-      })
+      }).onFailure({ context.fail(it) })
     })
     suite.test("some_test2", { context ->
       // Deploy and undeploy a verticle
