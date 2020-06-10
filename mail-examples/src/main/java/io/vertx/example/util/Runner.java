@@ -16,64 +16,28 @@ public class Runner {
 
   private static final String WEB_EXAMPLES_DIR = "mail-examples";
   private static final String WEB_EXAMPLES_JAVA_DIR = WEB_EXAMPLES_DIR + "/src/main/java/";
-  private static final String WEB_EXAMPLES_JS_DIR = WEB_EXAMPLES_DIR + "/src/main/js/";
   private static final String WEB_EXAMPLES_GROOVY_DIR = WEB_EXAMPLES_DIR + "/src/main/groovy/";
-  private static final String WEB_EXAMPLES_RUBY_DIR = WEB_EXAMPLES_DIR + "/src/main/ruby/";
 
   public static void runClusteredExample(Class clazz) {
-    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
+    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
   }
 
   public static void runExample(Class clazz) {
-    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
+    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, false);
   }
 
   public static void runExample(Class clazz, DeploymentOptions options) {
-    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), options);
-  }
-
-  // JavaScript examples
-
-  public static void runJSExample(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(false));
-  }
-
-  public static void runJSExampleClustered(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_JS_DIR, scriptName, new VertxOptions().setClustered(true));
-  }
-
-  static class JSMailEB {
-    public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/mail/mail_eb.js");
-    }
-  }
-
-  static class JSMailHeaders {
-    public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/mail/mail_headers.js");
-    }
-  }
-
-  static class JSMailLocalhost {
-    public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/mail/mail_localhost.js");
-    }
-  }
-
-  static class JSMailLogin {
-    public static void main(String[] args) {
-      Runner.runJSExample("io/vertx/example/mail/mail_login.js");
-    }
+    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), options, false);
   }
 
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(false));
+    runScriptExample(WEB_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions(), false);
   }
 
   public static void runGroovyExampleClustered(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions().setClustered(true));
+    runScriptExample(WEB_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions(), true);
   }
 
   static class GroovyMailEB {
@@ -100,54 +64,19 @@ public class Runner {
     }
   }
 
-  // Ruby examples
-
-  public static void runRubyExample(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_RUBY_DIR, scriptName, new VertxOptions().setClustered(false));
-  }
-
-  public static void runRubyExampleClustered(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_RUBY_DIR, scriptName, new VertxOptions().setClustered(true));
-  }
-
-  static class RubyMailEB {
-    public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/mail/mail_eb.rb");
-    }
-  }
-
-  static class RubyMailHeaders {
-    public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/mail/mail_headers.rb");
-    }
-  }
-
-  static class RubyMailLocalhost {
-    public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/mail/mail_localhost.rb");
-    }
-  }
-
-  static class RubyMailLogin {
-    public static void main(String[] args) {
-      Runner.runRubyExample("io/vertx/example/mail/mail_login.rb");
-    }
-  }
-
-  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
+  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
   }
 
 
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -178,7 +107,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();

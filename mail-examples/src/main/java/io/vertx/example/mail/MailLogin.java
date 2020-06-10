@@ -3,12 +3,7 @@ package io.vertx.example.mail;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.mail.LoginOption;
-import io.vertx.ext.mail.MailAttachment;
-import io.vertx.ext.mail.MailConfig;
-import io.vertx.ext.mail.MailMessage;
-import io.vertx.ext.mail.MailClient;
-import io.vertx.ext.mail.StartTLSOptions;
+import io.vertx.ext.mail.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +51,9 @@ public class MailLogin extends AbstractVerticle {
       .setText("this is a message")
       .setHtml("<a href=\"http://vertx.io\">vertx.io</a>");
 
-    List<MailAttachment> list = new ArrayList<MailAttachment>();
+    List<MailAttachment> list = new ArrayList<>();
 
-    list.add(new MailAttachment()
+    list.add(MailAttachment.create()
       .setData(image)
       .setName("logo-white-big.png")
       .setContentType("image/png")

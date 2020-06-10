@@ -31,24 +31,6 @@ authenticated by a local ip address) turn login off with `LoginOption.DISABLE`.
 To specifically select an AUTH method or define the order of preference, you
 can do `setAuthMethods("METHOD1 METHOD2")`.
 
-== link:src/main/java/io/vertx/example/mail/MailServiceExample.java[MailServiceExample]
-
-Send a mail via the event bus to another vert.x instance registered as
-`vertx.mail`. This will use the config set by the service and doesn't use a local
-config object.
-
-This example shows how to leave out the From address in a mail but setting
-the bounceAddress property instead.
-
-the example deploys the mail service, however you can refactor the example to
-skip this step and start the service as follows:
-
-----
-vertx run service:io.vertx.mail-service
-----
-
-and vertx will pick up the package from maven and start it with default config.
-
 == link:src/main/java/io/vertx/example/mail/MailHeaders.java[MailHeaders]
 
 Send a mail with supplied headers (e.g. Received, Message-ID, Reply-To)

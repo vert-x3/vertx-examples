@@ -22,12 +22,7 @@ class MailImages : io.vertx.core.AbstractVerticle()  {
       text = "full message is readable as html only",
       html = "visit vert.x <a href=\"http://vertx.io/\"><img src=\"cid:image1@example.com\"></a>")
 
-    var attachment = MailAttachment(
-      data = vertx.fileSystem().readFileBlocking("logo-white-big.png"),
-      contentType = "image/png",
-      name = "logo-white-big.png",
-      disposition = "inline",
-      headers = mapOf("Content-ID" to "<image1@example.com>"))
+    var attachment = MailAttachment.create().setData(vertx.fileSystem().readFileBlocking("logo-white-big.png")).setContentType("image/png").setName("logo-white-big.png").setDisposition("inline").addHeader("Content-ID", "<image1@example.com>")
 
     var list = mutableListOf<Any?>()
     list.add(attachment)

@@ -38,12 +38,7 @@ class MailLogin : io.vertx.core.AbstractVerticle()  {
 
     var list = mutableListOf<Any?>()
 
-    list.add(MailAttachment(
-      data = image,
-      name = "logo-white-big.png",
-      contentType = "image/png",
-      disposition = "inline",
-      description = "logo of vert.x web page"))
+    list.add(MailAttachment.create().setData(image).setName("logo-white-big.png").setContentType("image/png").setDisposition("inline").setDescription("logo of vert.x web page"))
 
     email.attachment = list
 

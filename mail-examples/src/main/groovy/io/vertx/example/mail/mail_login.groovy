@@ -1,5 +1,6 @@
 import io.vertx.ext.mail.LoginOption
 import io.vertx.ext.mail.MailClient
+import io.vertx.ext.mail.MailAttachment
 // Start a local STMP server, remove this line if you want to use your own server.
 // It just prints the sent message to the console
 io.vertx.example.mail.LocalSmtpServer.startWithAuth(5870)
@@ -31,13 +32,7 @@ def email = [
 
 def list = []
 
-list.add([
-  data:image,
-  name:"logo-white-big.png",
-  contentType:"image/png",
-  disposition:"inline",
-  description:"logo of vert.x web page"
-])
+list.add(MailAttachment.create().setData(image).setName("logo-white-big.png").setContentType("image/png").setDisposition("inline").setDescription("logo of vert.x web page"))
 
 email.attachment = list
 

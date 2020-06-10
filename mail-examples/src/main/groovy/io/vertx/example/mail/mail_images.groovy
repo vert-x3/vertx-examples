@@ -1,4 +1,5 @@
 import io.vertx.ext.mail.MailClient
+import io.vertx.ext.mail.MailAttachment
 // Start a local STMP server, remove this line if you want to use your own server.
 // It just prints the sent message to the console
 io.vertx.example.mail.LocalSmtpServer.start(2526)
@@ -15,15 +16,7 @@ def email = [
   html:"visit vert.x <a href=\"http://vertx.io/\"><img src=\"cid:image1@example.com\"></a>"
 ]
 
-def attachment = [
-  data:vertx.fileSystem().readFileBlocking("logo-white-big.png"),
-  contentType:"image/png",
-  name:"logo-white-big.png",
-  disposition:"inline",
-  headers:[
-    'Content-ID':"<image1@example.com>"
-  ]
-]
+def attachment = MailAttachment.create().setData(vertx.fileSystem().readFileBlocking("logo-white-big.png")).setContentType("image/png").setName("logo-white-big.png").setDisposition("inline").addHeader("Content-ID", "<image1@example.com>")
 
 def list = []
 list.add(attachment)
