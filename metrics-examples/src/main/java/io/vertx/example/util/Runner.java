@@ -19,34 +19,20 @@ public class Runner {
 
   private static final String METRICS_EXAMPLES_DIR = "metrics-examples";
   private static final String METRICS_EXAMPLES_JAVA_DIR = METRICS_EXAMPLES_DIR + "/src/main/java/";
-  private static final String METRICS_EXAMPLES_JS_DIR = METRICS_EXAMPLES_DIR + "/src/main/js/";
   private static final String METRICS_EXAMPLES_GROOVY_DIR = METRICS_EXAMPLES_DIR + "/src/main/groovy/";
-  private static final String METRICS_EXAMPLES_RUBY_DIR = METRICS_EXAMPLES_DIR + "/src/main/ruby/";
 
   public static void runClusteredExample(Class clazz) {
-    runExample(METRICS_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(DROPWIZARD_OPTIONS).setClustered(true), null);
+    runExample(METRICS_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(DROPWIZARD_OPTIONS), null, true);
   }
 
   public static void runExample(Class clazz) {
-    runExample(METRICS_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(DROPWIZARD_OPTIONS).setClustered(false), null);
-  }
-
-  // JavaScript examples
-
-  public static void runJSExample(String scriptName) {
-    runScriptExample(METRICS_EXAMPLES_JS_DIR, scriptName, DROPWIZARD_OPTIONS);
-  }
-
-  static class JSMetricsDashboardRunner {
-    public static void main(String[] args) {
-      runJSExample("io/vertx/example/metrics/dashboard/dashboard.js");
-    }
+    runExample(METRICS_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(DROPWIZARD_OPTIONS), null, false);
   }
 
   // Groovy examples
 
   public static void runGroovyExample(String scriptName) {
-    runScriptExample(METRICS_EXAMPLES_GROOVY_DIR, scriptName, DROPWIZARD_OPTIONS);
+    runScriptExample(METRICS_EXAMPLES_GROOVY_DIR, scriptName, DROPWIZARD_OPTIONS, false);
   }
 
   static class GroovyMetricsDashboardRunner {
@@ -55,32 +41,19 @@ public class Runner {
     }
   }
 
-  // Ruby examples
-
-  public static void runRubyExample(String scriptName) {
-    runScriptExample(METRICS_EXAMPLES_RUBY_DIR, scriptName, DROPWIZARD_OPTIONS);
-  }
-
-  static class RubyMetricsDashboardRunner {
-    public static void main(String[] args) {
-      runRubyExample("io/vertx/example/metrics/dashboard/dashboard.rb");
-    }
-  }
-
-  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
+  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
   }
 
 
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -111,7 +84,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();

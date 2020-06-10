@@ -20,11 +20,11 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
+import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.dropwizard.MetricsService;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 import java.util.Random;
@@ -47,11 +47,8 @@ public class Dashboard extends AbstractVerticle {
 
     // Allow outbound traffic to the news-feed address
 
-    BridgeOptions options = new BridgeOptions().
-        addOutboundPermitted(
-            new PermittedOptions().
-                setAddress("metrics")
-        );
+    SockJSBridgeOptions options = new SockJSBridgeOptions()
+      .addOutboundPermitted(new PermittedOptions().setAddress("metrics"));
 
     router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
 
