@@ -1,13 +1,13 @@
 package io.vertx.examples.service.consumer.utils;
 
+import io.vertx.core.DeploymentOptions;
+import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 import java.util.function.Consumer;
-
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Vertx;
-import io.vertx.core.VertxOptions;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -19,23 +19,22 @@ public class Runner {
   private static final String EXAMPLES_JAVA_DIR = EXAMPLES_DIR + "/src/main/java/";
 
   public static void runExample(Class clazz) {
-    runExample(EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
+    runExample(EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
   }
 
-  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
+  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
   }
 
 
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -67,7 +66,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();
@@ -81,7 +80,7 @@ public class Runner {
       runner.accept(vertx);
     }
   }
-  
+
   private static void addShutDownhook(final Vertx vertx) {
 	Runtime.getRuntime().addShutdownHook(new Thread() {
 	  public void run() {

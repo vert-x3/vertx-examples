@@ -5,7 +5,7 @@ import io.vertx.example.util.Runner;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.serviceproxy.ServiceBinder;
 
@@ -20,19 +20,20 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     // Create the client object
     MyService service = new MyServiceImpl();
 
     // Register the handler
     new ServiceBinder(vertx)
-        .setAddress("proxy.example")
-        .register(MyService.class, service);
+      .setAddress("proxy.example")
+      .register(MyService.class, service);
 
     Router router = Router.router(vertx);
 
-    BridgeOptions options = new BridgeOptions().addInboundPermitted(new PermittedOptions().setAddress("proxy.example"));
+    SockJSBridgeOptions options = new SockJSBridgeOptions()
+      .addInboundPermitted(new PermittedOptions().setAddress("proxy.example"));
 
     router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
 

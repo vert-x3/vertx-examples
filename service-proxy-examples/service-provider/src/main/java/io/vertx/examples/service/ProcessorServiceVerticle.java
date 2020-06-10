@@ -9,27 +9,27 @@ import io.vertx.examples.service.utils.Runner;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.serviceproxy.ServiceBinder;
 
 /**
  * The verticle publishing the service.
- * 
+ *
  * @author Lalit Rao
  */
 public class ProcessorServiceVerticle extends AbstractVerticle {
-  
+
   MessageConsumer<JsonObject> messageConsumer;
   HttpServer httpServer;
-  
+
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
     Runner.runExample(ProcessorServiceVerticle.class);
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     // Create the client object
     ProcessorService service = new ProcessorServiceImpl();
     // Register the handler
@@ -40,9 +40,9 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Allow events for the designated addresses in/out of the event bus bridge
-    BridgeOptions opts = new BridgeOptions()
-        .addInboundPermitted(new PermittedOptions().setAddress("vertx.processor"))
-        .addOutboundPermitted(new PermittedOptions().setAddress("vertx.processor"));
+    SockJSBridgeOptions opts = new SockJSBridgeOptions()
+      .addInboundPermitted(new PermittedOptions().setAddress("vertx.processor"))
+      .addOutboundPermitted(new PermittedOptions().setAddress("vertx.processor"));
 
     // Create the event bus bridge and add it to the router.
     router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(opts));

@@ -119,17 +119,10 @@ Once launched you should see:
 {"name":"vertx","approved":true}
 ----
 
-The service can be consumed from Java, as presented above, but also from JavaScript and Ruby.
+The service can be consumed from Java, as presented above, but also from Groovy.
 
-In JavaScript, the consuming verticle is link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js[here]. To launch it, just run:
-
-----
-vertx run src/main/js/io/vertx/examples/service/consumer/consumer_verticle.js  -cp ../service-provider/target/service-provider-4.0.0-milestone5.jar -cluster
-----
-
-You can also consume the service in ruby as shown link:service-consumer/src/main/js/io/vertx/examples/service/consumer/consumer_verticle.rb[here]. To launch it, just run:
+In JavaScript, the consuming verticle is link:service-consumer/src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy[here]. To launch it, just run:
 
 ----
-vertx run src/main/ruby/io/vertx/examples/service/consumer/consumer_verticle.rb   -cp ../service-provider/target/service-provider-4.0.0-milestone5.jar -cluster
+vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-4.0.0-milestone5.jar -cluster
 ----
-
