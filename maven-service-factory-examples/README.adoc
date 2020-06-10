@@ -30,7 +30,7 @@ NOTE: The name of the verticle is the name of the json (descriptor) file.
 
 You can also deploy the verticle using the `vertx.deployVerticle` method. An example is given in the
 link:maven-service-factory-api[Maven service factory api project]. In
-link:maven-service-factory-api/src/main/java/io/vertx/examples/MyDeployingVerticle[this verticle], the previous
+link:maven-service-factory-api/src/main/java/io/vertx/examples/MyDeployingVerticle.java[this verticle], the previous
 verticle is deployed using:
 
 ----
