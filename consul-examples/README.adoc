@@ -15,7 +15,5 @@ The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/examples/consul/ConsulClientVerticle.java[ConsulClientVerticle.java]
 * Kotlin: link:src/main/kotlin/io/vertx/examples/consul/ConsulClientVerticle.kt[ConsulClientVerticle.kt]
-* JavaScript: link:src/main/js/io/vertx/examples/consul/consul_client_verticle.js[consul_client_verticle.js]
 * Groovy: link:src/main/groovy/io/vertx/examples/consul/consul_client_verticle.groovy[consul_client_verticle.groovy]
-* Ruby: link:src/main/ruby/io/vertx/examples/consul/consul_client_verticle.rb[consul_client_verticle.rb]
 

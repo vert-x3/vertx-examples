@@ -18,21 +18,18 @@ public class ConsulClientVerticle extends AbstractVerticle {
 
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     ConsulClient consulClient = ConsulClient.create(vertx);
-    consulClient.putValue("key11", "value11", putResult -> {
-      if (putResult.succeeded()) {
+    consulClient.putValue("key11", "value11")
+      .compose(v -> {
         System.out.println("KV pair saved");
-        consulClient.getValue("key11", getResult -> {
-          if (getResult.succeeded()) {
-            System.out.println("KV pair retrieved");
-            System.out.println(getResult.result().getValue());
-          } else {
-            getResult.cause().printStackTrace();
-          }
-        });
+        return consulClient.getValue("key11");
+      }).onComplete(ar -> {
+      if (ar.succeeded()) {
+        System.out.println("KV pair retrieved");
+        System.out.println(ar.result().getValue());
       } else {
-        putResult.cause().printStackTrace();
+        ar.cause().printStackTrace();
       }
     });
   }
