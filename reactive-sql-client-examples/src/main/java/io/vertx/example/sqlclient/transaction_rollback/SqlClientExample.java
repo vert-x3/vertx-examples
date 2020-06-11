@@ -56,13 +56,10 @@ public class SqlClientExample extends AbstractVerticle {
               // query some data
               return connection.query("select * from test").execute();
             })
-            .map(rows -> {
-              // convert rows to strings
-              List<String> res = new ArrayList<>(rows.size());
+            .onSuccess(rows -> {
               for (Row row : rows) {
-                res.add(row.toString());
+                System.out.println("row = " + row.toString());
               }
-              return res;
             });
         })
         .onComplete(v -> {
@@ -71,8 +68,7 @@ public class SqlClientExample extends AbstractVerticle {
         });
     }).onComplete(ar -> {
       if (ar.succeeded()) {
-        List<String> rows = ar.result();
-        System.out.println("rows = " + rows);
+        System.out.println("done");
       } else {
         ar.cause().printStackTrace();
       }

@@ -9,9 +9,6 @@ import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.Tuple;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
  */
@@ -51,13 +48,10 @@ public class SqlClientExample extends AbstractVerticle {
           // query some data with arguments
           return connection.preparedQuery("select * from test where id = ?").execute(Tuple.of(2));
         })
-        .map(rows -> {
-          // convert rows to strings
-          List<String> res = new ArrayList<>(rows.size());
+        .onSuccess(rows -> {
           for (Row row : rows) {
-            res.add(row.toString());
+            System.out.println("row = " + row.toString());
           }
-          return res;
         })
         .onComplete(v -> {
           // and close the connection
@@ -65,8 +59,7 @@ public class SqlClientExample extends AbstractVerticle {
         });
     }).onComplete(ar -> {
       if (ar.succeeded()) {
-        List<String> rows = ar.result();
-        System.out.println("rows = " + rows);
+        System.out.println("done");
       } else {
         ar.cause().printStackTrace();
       }
