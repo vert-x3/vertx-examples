@@ -17,6 +17,7 @@ import io.vertx.reactivex.RxHelper;
 import org.reactivestreams.Publisher;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -38,7 +39,7 @@ public class SubscriptionServer extends AbstractVerticle {
     router.route("/graphql").handler(ApolloWSHandler.create(createGraphQL()));
 
     HttpServerOptions httpServerOptions = new HttpServerOptions()
-      .setWebsocketSubProtocols("graphql-ws");
+      .setWebSocketSubProtocols(Collections.singletonList("graphql-ws"));
     vertx.createHttpServer(httpServerOptions)
       .requestHandler(router)
       .listen(8080);
