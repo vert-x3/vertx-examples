@@ -2,8 +2,11 @@ package io.vertx.examples.redis;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
-import io.vertx.redis.RedisClient;
-import io.vertx.redis.RedisOptions;
+import io.vertx.redis.client.Redis;
+import io.vertx.redis.client.RedisAPI;
+import io.vertx.redis.client.RedisOptions;
+
+import java.util.Arrays;
 
 /**
  * A verticle setting and reading a value in Redis.
@@ -11,7 +14,7 @@ import io.vertx.redis.RedisOptions;
 public class RedisClientVerticle extends AbstractVerticle {
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     // If a config file is set, read the host and port.
     String host = Vertx.currentContext().config().getString("host");
     if (host == null) {
@@ -19,17 +22,21 @@ public class RedisClientVerticle extends AbstractVerticle {
     }
 
     // Create the redis client
-    final RedisClient client = RedisClient.create(vertx,
-        new RedisOptions().setHost(host));
+    Redis client = Redis.createClient(vertx, new RedisOptions().addConnectionString(host));
+    RedisAPI redis = RedisAPI.api(client);
 
-    client.set("key", "value", r -> {
-      if (r.succeeded()) {
-        System.out.println("key stored");
-        client.get("key", s -> {
-          System.out.println("Retrieved value: " + s.result());
-        });
+    client.connect()
+      .compose(conn -> {
+        return redis.set(Arrays.asList("key", "value"))
+          .compose(v -> {
+            System.out.println("key stored");
+            return redis.get("key");
+          });
+      }).onComplete(ar -> {
+      if (ar.succeeded()) {
+        System.out.println("Retrieved value: " + ar.result());
       } else {
-        System.out.println("Connection or Operation Failed " + r.cause());
+        System.out.println("Connection or Operation Failed " + ar.cause());
       }
     });
   }

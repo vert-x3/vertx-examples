@@ -1,5 +1,6 @@
 import io.vertx.core.Vertx
-import io.vertx.redis.RedisClient
+import io.vertx.redis.client.Redis
+import io.vertx.redis.client.RedisAPI
 // If a config file is set, read the host and port.
 def host = Vertx.currentContext().config().host
 if (host == null) {
@@ -7,17 +8,22 @@ if (host == null) {
 }
 
 // Create the redis client
-def client = RedisClient.create(vertx, [
-  host:host
+def client = Redis.createClient(vertx, [
+  connectionStrings:[
+    host
+  ]
 ])
+def redis = RedisAPI.api(client)
 
-client.set("key", "value", { r ->
-  if (r.succeeded()) {
+client.connect().compose({ conn ->
+  return redis.set(["key", "value"]).compose({ v ->
     println("key stored")
-    client.get("key", { s ->
-      println("Retrieved value: ${s.result()}")
-    })
+    return redis.get("key")
+  })
+}).onComplete({ ar ->
+  if (ar.succeeded()) {
+    println("Retrieved value: ${ar.result()}")
   } else {
-    println("Connection or Operation Failed ${r.cause()}")
+    println("Connection or Operation Failed ${ar.cause()}")
   }
 })

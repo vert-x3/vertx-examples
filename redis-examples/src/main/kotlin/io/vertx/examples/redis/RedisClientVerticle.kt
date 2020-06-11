@@ -1,9 +1,10 @@
 package io.vertx.examples.redis
 
 import io.vertx.core.Vertx
-import io.vertx.kotlin.redis.*
-import io.vertx.redis.RedisClient
-import io.vertx.redis.RedisOptions
+import io.vertx.kotlin.redis.client.*
+import io.vertx.redis.client.Redis
+import io.vertx.redis.client.RedisAPI
+import io.vertx.redis.client.RedisOptions
 
 class RedisClientVerticle : io.vertx.core.AbstractVerticle()  {
   override fun start() {
@@ -14,17 +15,20 @@ class RedisClientVerticle : io.vertx.core.AbstractVerticle()  {
     }
 
     // Create the redis client
-    var client = RedisClient.create(vertx, RedisOptions(
-      host = host))
+    var client = Redis.createClient(vertx, RedisOptions(
+      connectionStrings = listOf(host)))
+    var redis = RedisAPI.api(client)
 
-    client.set("key", "value", { r ->
-      if (r.succeeded()) {
+    client.connect().compose<Any>({ conn ->
+      return redis.set(listOf("key", "value")).compose<Any>({ v ->
         println("key stored")
-        client.get("key", { s ->
-          println("Retrieved value: ${s.result()}")
-        })
+        return redis.get("key")
+      })
+    }).onComplete({ ar ->
+      if (ar.succeeded()) {
+        println("Retrieved value: ${ar.result()}")
       } else {
-        println("Connection or Operation Failed ${r.cause()}")
+        println("Connection or Operation Failed ${ar.cause()}")
       }
     })
   }
