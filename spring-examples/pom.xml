@@ -11,11 +11,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>springboot-example</module>
-    <module>spring-example</module>
-    <module>springboot-clustering</module>
     <module>spring-verticle-factory</module>
-    <module>spring-worker-example</module>
   </modules>
 
 </project>

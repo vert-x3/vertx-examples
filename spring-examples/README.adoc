@@ -2,22 +2,6 @@
 
 These projects present how Vert.x and Spring can interact.
 
-== Spring Boot Example
-
-The link:springboot-example/README.adoc[Vert.x Spring Boot Example] shows how you can embed Vert.x in a Spring Boot application.
-
-== Spring Example
-
-The link:spring-example/README.adoc[Vert.x Spring Example] shows how you can access Spring beans as services in a Vert.x application
-
-== Spring Boot Clustering
-
-The link:springboot-clustering/README.adoc[Spring Boot Clustering Examples] show how you can setup a clustered Vert.x embedded in Spring Boot.
-
 == Spring Verticle Factory
 
 The link:spring-verticle-factory/README.adoc[Spring Verticle Factory Example] shows how you can build a Verticle factory based on the Spring container.
-
-== Spring Worker Example
-
-The link:spring-worker-example/README.adoc[Vert.x Spring Worker Example] shows how you how to expose Spring services over the event bus with worker verticles.
