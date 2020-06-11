@@ -36,7 +36,6 @@
     <module>amqp-bridge-examples</module>
     <module>amqp-proton-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
-    <module>fatjar-examples/ruby-fatjar</module>
     <module>camel-bridge-examples</module>
     <module>resteasy-examples</module>
     <module>circuit-breaker-examples</module>
