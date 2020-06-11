@@ -253,12 +253,6 @@ This link:http2-showcase/README.md[HTTP/2 Showcase] application highlights the b
 The link:camel-bridge-examples/README.adoc[Vert.x Camel Bridge Examples] show how you can use Apache Camel routes from
 the event bus.
 
-=== JCA example
-
-The link:jca-examples/README.md[Vert.x JCA Examples] provide a JEE compliant application that enables to you deploy the application into a
- link:http://wildfly.org[Wildfly] application server. While simple in implementation, the JCA examples
- provides a good point of departure for your own development.
-
 === Micrometer metrics examples
 
 The link:micrometer-metrics-examples/README.adoc[Vert.x Micrometer metrics examples] show how to collect Vert.x metrics
