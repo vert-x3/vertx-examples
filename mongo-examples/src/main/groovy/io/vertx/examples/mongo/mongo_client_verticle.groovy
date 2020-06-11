@@ -25,23 +25,20 @@ def product1 = [
   price:"100.0"
 ]
 
-mongoClient.save("products", product1, { id ->
-  println("Inserted id: ${id.result()}")
-
-  mongoClient.find("products", [
+mongoClient.save("products", product1).compose({ id ->
+  println("Inserted id: ${id}")
+  return mongoClient.find("products", [
     itemId:"12345"
-  ], { res ->
-    println("Name is ${res.result()[0].name}")
-
-    mongoClient.remove("products", [
-      itemId:"12345"
-    ], { rs ->
-      if (rs.succeeded()) {
-        println("Product removed ")
-      }
-    })
-
-  })
-
+  ])
+}).compose({ res ->
+  println("Name is ${res[0].name}")
+  return mongoClient.removeDocument("products", [
+    itemId:"12345"
+  ])
+}).onComplete({ ar ->
+  if (ar.succeeded()) {
+    println("Product removed ")
+  } else {
+    ar.cause().printStackTrace()
+  }
 })
-

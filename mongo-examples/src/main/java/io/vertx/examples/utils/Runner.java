@@ -15,29 +15,24 @@ public class Runner {
 
   private static final String MONGO_EXAMPLES_DIR = "mongo-examples";
   private static final String MONGO_EXAMPLES_JAVA_DIR = MONGO_EXAMPLES_DIR + "/src/main/java/";
-  private static final String MONGO_EXAMPLES_JS_DIR = MONGO_EXAMPLES_DIR + "/src/main/js/";
 
   public static void runExample(Class clazz) {
-    runExample(MONGO_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null);
-  }
-
-  public static void runJSExample(String scriptName) {
-    runScriptExample(MONGO_EXAMPLES_JS_DIR, "io/vertx/examples/mongo/mongo_client_verticle.js", new VertxOptions());
+    runExample(MONGO_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, false);
   }
 
   public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
+    deploymentOptions, boolean clustered) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
   }
 
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -68,7 +63,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();

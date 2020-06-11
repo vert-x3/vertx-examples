@@ -35,25 +35,22 @@ class MongoClientVerticle : io.vertx.core.AbstractVerticle()  {
       )
     }
 
-    mongoClient.save("products", product1, { id ->
-      println("Inserted id: ${id.result()}")
-
-      mongoClient.find("products", json {
+    mongoClient.save("products", product1).compose<Any>({ id ->
+      println("Inserted id: ${id}")
+      return mongoClient.find("products", json {
         obj("itemId" to "12345")
-      }, { res ->
-        println("Name is ${res.result()[0].getString("name")}")
-
-        mongoClient.remove("products", json {
-          obj("itemId" to "12345")
-        }, { rs ->
-          if (rs.succeeded()) {
-            println("Product removed ")
-          }
-        })
-
       })
-
+    }).compose<Any>({ res ->
+      println("Name is ${res[0].getString("name")}")
+      return mongoClient.removeDocument("products", json {
+        obj("itemId" to "12345")
+      })
+    }).onComplete({ ar ->
+      if (ar.succeeded()) {
+        println("Product removed ")
+      } else {
+        ar.cause().printStackTrace()
+      }
     })
-
   }
 }
