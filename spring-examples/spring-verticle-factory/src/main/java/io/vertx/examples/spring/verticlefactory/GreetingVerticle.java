@@ -17,14 +17,14 @@
 package io.vertx.examples.spring.verticlefactory;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*;
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 /**
  * @author Thomas Segismont
@@ -39,7 +39,7 @@ public class GreetingVerticle extends AbstractVerticle {
   Greeter greeter;
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startPromise) {
     vertx.createHttpServer().requestHandler(request -> {
       String name = request.getParam("name");
       LOG.info("Got request for name: " + name);
@@ -52,9 +52,9 @@ public class GreetingVerticle extends AbstractVerticle {
     }).listen(8080, ar -> {
       if (ar.succeeded()) {
         LOG.info("GreetingVerticle started: @" + this.hashCode());
-        startFuture.complete();
+        startPromise.complete();
       } else {
-        startFuture.fail(ar.cause());
+        startPromise.fail(ar.cause());
       }
     });
   }
