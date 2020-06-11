@@ -7,7 +7,9 @@ import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.Transaction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -37,45 +39,32 @@ public class SqlClientExample extends AbstractVerticle {
 //      .setUser("user")
 //      .setPassword("secret"), new PoolOptions().setMaxSize(4));
 
-    pool.begin(res1 -> {
-      if (res1.failed()) {
-        System.err.println(res1.cause().getMessage());
-        return;
-      }
-      Transaction tx = res1.result();
-
+    pool.withTransaction(sqlClient -> {
       // create a test table
-      tx.query("create table test(id int primary key, name varchar(255))")
-        .execute(res2 -> {
-        if (res2.failed()) {
-          tx.close();
-          System.err.println("Cannot create the table");
-          res2.cause().printStackTrace();
-          return;
-        }
-
-        // insert some test data
-        tx.query("insert into test values (1, 'Hello'), (2, 'World')")
-          .execute(res3 -> {
-
-          // query some data with arguments
-          tx.query("select * from test")
-            .execute(rs -> {
-            if (rs.failed()) {
-              System.err.println("Cannot retrieve the data from the database");
-              rs.cause().printStackTrace();
-              return;
-            }
-
-            for (Row line : rs.result()) {
-              System.out.println("" + line);
-            }
-
-            // and close the connection
-            tx.commit();
-          });
+      return sqlClient.query("create table test(id int primary key, name varchar(255))").execute()
+        .compose(v -> {
+          // insert some test data
+          return sqlClient.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
+        })
+        .compose(v -> {
+          // query some data
+          return sqlClient.query("select * from test").execute();
+        })
+        .map(rows -> {
+          // convert rows to strings
+          List<String> res = new ArrayList<>(rows.size());
+          for (Row row : rows) {
+            res.add(row.toString());
+          }
+          return res;
         });
-      });
+    }).onComplete(ar -> {
+      if (ar.succeeded()) {
+        List<String> rows = ar.result();
+        System.out.println("rows = " + rows);
+      } else {
+        ar.cause().printStackTrace();
+      }
     });
   }
 }

@@ -12,9 +12,7 @@ The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/example/sqlclient/simple/SqlClientExample.java[SqlClientExample.java]
 * Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/simple/SqlClientExample.kt[SqlClientExample.kt]
-* JavaScript: link:src/main/js/io/vertx/example/sqlclient/simple/sql_client_example.js[sql_client_example.js]
 * Groovy: link:src/main/groovy/io/vertx/example/sqlclient/simple/sql_client_example.groovy[sql_client_example.groovy]
-* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/simple/sql_client_example.rb[sql_client_example.rb]
 
 == Query Params
 
@@ -26,32 +24,26 @@ The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/example/sqlclient/query_params/SqlClientExample.java[SqlClientExample.java]
 * Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/query_params/SqlClientExample.kt[SqlClientExample.kt]
-* JavaScript: link:src/main/js/io/vertx/example/sqlclient/query_params/sql_client_example.js[sql_client_example.js]
 * Groovy: link:src/main/groovy/io/vertx/example/sqlclient/query_params/sql_client_example.groovy[sql_client_example.groovy]
-* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/query_params/sql_client_example.rb[sql_client_example.rb]
 
 == Transaction
 
-The Transaction example show how to start and finish a transaction using the asynchronous jdbc client. Note that the
-expected result is `1` since the example is counting the number of inserted rows after a the end of the transaction.
+The Transaction example show how to execute queries with a transaction using the asynchronous SQL client.
 
-The example is only available in Java:
+The example is available in several languages:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction/SqlClientExample.java[SqlClientExample.java]
 * Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction/SqlClientExample.kt[SqlClientExample.kt]
-* JavaScript: link:src/main/js/io/vertx/example/sqlclient/transaction/sql_client_example.js[sql_client_example.js]
 * Groovy: link:src/main/groovy/io/vertx/example/sqlclient/transaction/sql_client_example.groovy[sql_client_example.groovy]
-* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/transaction/sql_client_example.rb[sql_client_example.rb]
 
 == Transaction Rollback
 
-The Transaction rollback example is a modified version of the simple Transaction example. In this example after
-inserting data we rollback the transaction and the final count show that we have `0` rows in our table.
+The Transaction rollback example is a modified version of the simple Transaction example.
+In this example, we manage the transaction manually and, after inserting data, we rollback the changes.
+The result should be an empty list.
 
-The example is only available in Java:
+The example is available in several languages:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.java[SqlClientExample.java]
 * Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.kt[SqlClientExample.kt]
-* JavaScript: link:src/main/js/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.js[sql_client_example.js]
 * Groovy: link:src/main/groovy/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.groovy[sql_client_example.groovy]
-* Ruby: link:src/main/ruby/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.rb[sql_client_example.rb]

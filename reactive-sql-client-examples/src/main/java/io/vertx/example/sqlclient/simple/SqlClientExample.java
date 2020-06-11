@@ -7,7 +7,9 @@ import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.SqlConnection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -20,7 +22,7 @@ public class SqlClientExample extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     Pool pool = PgPool.pool(vertx, new PgConnectOptions()
       .setPort(5432)
@@ -37,45 +39,36 @@ public class SqlClientExample extends AbstractVerticle {
 //      .setUser("user")
 //      .setPassword("secret"), new PoolOptions().setMaxSize(4));
 
-    pool.getConnection(res1 -> {
-      if (res1.failed()) {
-        System.err.println(res1.cause().getMessage());
-        return;
-      }
-      SqlConnection connection = res1.result();
-
+    pool.getConnection().compose(connection -> {
       // create a test table
-      connection.query("create table test(id int primary key, name varchar(255))")
-        .execute(res2 -> {
-          if (res2.failed()) {
-            connection.close();
-            System.err.println("Cannot create the table");
-            res2.cause().printStackTrace();
-            return;
-          }
-
+      return connection.query("create table test(id int primary key, name varchar(255))").execute()
+        .compose(v -> {
           // insert some test data
-          connection.query("insert into test values (1, 'Hello'), (2, 'World')")
-            .execute(res3 -> {
-
-              // query some data with arguments
-              connection.query("select * from test")
-                .execute(rs -> {
-                  if (rs.failed()) {
-                    System.err.println("Cannot retrieve the data from the database");
-                    rs.cause().printStackTrace();
-                    return;
-                  }
-
-                  for (Row line : rs.result()) {
-                    System.out.println("" + line);
-                  }
-
-                  // and close the connection
-                  connection.close();
-                });
-            });
+          return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
+        })
+        .compose(v -> {
+          // query some data
+          return connection.query("select * from test").execute();
+        })
+        .map(rows -> {
+          // convert rows to strings
+          List<String> res = new ArrayList<>(rows.size());
+          for (Row row : rows) {
+            res.add(row.toString());
+          }
+          return res;
+        })
+        .onComplete(v -> {
+          // and close the connection
+          connection.close();
         });
+    }).onComplete(ar -> {
+      if (ar.succeeded()) {
+        List<String> rows = ar.result();
+        System.out.println("rows = " + rows);
+      } else {
+        ar.cause().printStackTrace();
+      }
     });
   }
 }

@@ -33,12 +33,6 @@
       <optional>true</optional>
     </dependency>
 
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>2.3.4</version>
-    </dependency>
-
   </dependencies>
 
   <build>
