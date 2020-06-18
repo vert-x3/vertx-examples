@@ -19,19 +19,7 @@
     <!-- language bindings -->
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-js</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-groovy</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-ruby</artifactId>
       <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
