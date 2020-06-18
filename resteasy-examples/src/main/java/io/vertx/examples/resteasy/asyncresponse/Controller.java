@@ -34,9 +34,9 @@ public class Controller {
     }
 
     // Send a get message to the backend
-    vertx.eventBus().<JsonObject>send("backend", new JsonObject()
-        .put("op", "get")
-        .put("id", productID), msg -> {
+    vertx.eventBus().<JsonObject>request("backend", new JsonObject()
+      .put("op", "get")
+      .put("id", productID), msg -> {
 
       // When we get the response we resume the Jax-RS async response
       if (msg.succeeded()) {
@@ -80,10 +80,10 @@ public class Controller {
     }
 
     // Send an add message to the backend
-    vertx.eventBus().<Boolean>send("backend", new JsonObject()
-        .put("op", "add")
-        .put("id", productID)
-        .put("product", productJson), msg -> {
+    vertx.eventBus().<Boolean>request("backend", new JsonObject()
+      .put("op", "add")
+      .put("id", productID)
+      .put("product", productJson), msg -> {
 
       // When we get the response we resume the Jax-RS async response
       if (msg.succeeded()) {
@@ -110,7 +110,7 @@ public class Controller {
       @Context Vertx vertx) {
 
     // Send a list message to the backend
-    vertx.eventBus().<JsonArray>send("backend", new JsonObject().put("op", "list"), msg -> {
+    vertx.eventBus().<JsonArray>request("backend", new JsonObject().put("op", "list"), msg -> {
 
       // When we get the response we resume the Jax-RS async response
       if (msg.succeeded()) {
