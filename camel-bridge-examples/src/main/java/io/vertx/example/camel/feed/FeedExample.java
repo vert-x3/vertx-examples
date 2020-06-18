@@ -7,7 +7,9 @@ import io.vertx.core.Vertx;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.SimpleRegistry;
+import org.apache.camel.support.SimpleRegistry;
+
+import java.util.Collections;
 
 import static io.vertx.camel.InboundMapping.fromCamel;
 
@@ -36,7 +38,7 @@ public class FeedExample extends AbstractVerticle {
 
 
     SimpleRegistry registry = new SimpleRegistry();
-    registry.put("filterService", new ReleasePostFilter());
+    registry.put("filterService", Collections.singletonMap(ReleasePostFilter.class, new ReleasePostFilter()));
 
     CamelContext camelContext = new DefaultCamelContext(registry);
 

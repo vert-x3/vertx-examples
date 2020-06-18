@@ -6,8 +6,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerRequest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
-import org.apache.camel.builder.RouteBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -25,17 +23,17 @@ public class RMIExample extends AbstractVerticle {
 
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     ApplicationContext app = new ClassPathXmlApplicationContext("META-INF/spring/camelContext.xml");
     CamelContext camel = app.getBean("camel", CamelContext.class);
 
     CamelBridge.create(vertx, new CamelBridgeOptions(camel)
-        .addOutboundMapping(fromVertx("invocation").toCamel("rmiService")))
-        .start();
+      .addOutboundMapping(fromVertx("invocation").toCamel("rmiService")))
+      .start();
 
     vertx.createHttpServer()
-        .requestHandler(this::invoke)
-        .listen(8080);
+      .requestHandler(this::invoke)
+      .listen(8080);
 
   }
 
@@ -44,7 +42,7 @@ public class RMIExample extends AbstractVerticle {
     if (param == null) {
       param = "vert.x";
     }
-    vertx.eventBus().<String>send("invocation", param, reply -> {
+    vertx.eventBus().<String>request("invocation", param, reply -> {
       if (reply.failed()) {
         request.response().setStatusCode(400).end(reply.cause().getMessage());
       } else {
