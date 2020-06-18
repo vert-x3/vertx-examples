@@ -11,7 +11,7 @@ After `ccm` installation you can run a single node Cassandra cluster:
 
 [source,bash]
 ----
-ccm create test_node -v 3.11.2 -n 1 -s
+ccm create test_node -v 3.11.6 -n 1 -s
 ccm start test_node
 ----
 
