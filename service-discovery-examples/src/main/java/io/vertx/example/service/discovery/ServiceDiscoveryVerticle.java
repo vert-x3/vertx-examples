@@ -73,10 +73,9 @@ public class ServiceDiscoveryVerticle extends AbstractVerticle {
           HttpClient client = reference.get();
           System.out.println("Consuming \"" + record2.getName() + "\"");
 
-          client.getNow("/api", response -> {
+          client.get("/api", ar2 -> {
             //release the service
             reference.release();
-
           });
         }
       }
