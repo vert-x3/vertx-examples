@@ -3,10 +3,10 @@ package io.vertx.example.kafka.dashboard;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.kafka.client.consumer.KafkaReadStream;
 
@@ -15,13 +15,13 @@ import java.util.Collections;
 public class DashboardVerticle extends AbstractVerticle {
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     Router router = Router.router(vertx);
 
     // The event bus bridge handler
-    BridgeOptions options = new BridgeOptions();
-    options.setOutboundPermitted(Collections.singletonList(new PermittedOptions().setAddress("dashboard")));
+    SockJSBridgeOptions options = new SockJSBridgeOptions();
+    options.addOutboundPermitted(new PermittedOptions().setAddress("dashboard"));
     router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
 
     // The web server handler
