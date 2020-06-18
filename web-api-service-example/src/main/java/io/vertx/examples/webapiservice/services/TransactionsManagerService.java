@@ -5,9 +5,9 @@ import io.vertx.core.Handler;
 import io.vertx.examples.webapiservice.models.Transaction;
 import io.vertx.examples.webapiservice.persistence.TransactionPersistence;
 import io.vertx.examples.webapiservice.services.impl.TransactionsManagerServiceImpl;
-import io.vertx.ext.web.api.OperationRequest;
-import io.vertx.ext.web.api.OperationResponse;
-import io.vertx.ext.web.api.generator.WebApiServiceGen;
+import io.vertx.ext.web.api.service.ServiceRequest;
+import io.vertx.ext.web.api.service.ServiceResponse;
+import io.vertx.ext.web.api.service.WebApiServiceGen;
 
 import java.util.List;
 
@@ -26,23 +26,23 @@ public interface TransactionsManagerService {
     List<String> from,
     List<String> to,
     List<String> message,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler);
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
 
   void createTransaction(
     Transaction body,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler);
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
 
   void getTransaction(
     String transactionId,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler);
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
 
   void updateTransaction(
     String transactionId,
     Transaction body,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler);
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
 
   void deleteTransaction(
     String transactionId,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler);
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
 
 }

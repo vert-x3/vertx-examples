@@ -7,8 +7,8 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.examples.webapiservice.models.Transaction;
 import io.vertx.examples.webapiservice.persistence.TransactionPersistence;
 import io.vertx.examples.webapiservice.services.TransactionsManagerService;
-import io.vertx.ext.web.api.OperationRequest;
-import io.vertx.ext.web.api.OperationResponse;
+import io.vertx.ext.web.api.service.ServiceRequest;
+import io.vertx.ext.web.api.service.ServiceResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class TransactionsManagerServiceImpl implements TransactionsManagerService {
 
-  private TransactionPersistence persistence;
+  private final TransactionPersistence persistence;
 
   public TransactionsManagerServiceImpl(TransactionPersistence persistence) {
     this.persistence = persistence;
@@ -29,10 +29,10 @@ public class TransactionsManagerServiceImpl implements TransactionsManagerServic
     List<String> from,
     List<String> to,
     List<String> message,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler){
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler) {
     List<Transaction> results = persistence.getFilteredTransactions(this.constructFilterPredicate(from, to, message));
     resultHandler.handle(Future.succeededFuture(
-      OperationResponse.completedWithJson(
+      ServiceResponse.completedWithJson(
         new JsonArray(results.stream().map(Transaction::toJson).collect(Collectors.toList()))
       )
     ));
@@ -41,41 +41,41 @@ public class TransactionsManagerServiceImpl implements TransactionsManagerServic
   @Override
   public void createTransaction(
     Transaction body,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler){
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler) {
     Transaction transactionAdded = persistence.addTransaction(body);
-    resultHandler.handle(Future.succeededFuture(OperationResponse.completedWithJson(transactionAdded.toJson())));
+    resultHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(transactionAdded.toJson())));
   }
 
   @Override
   public void getTransaction(
     String transactionId,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler){
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler) {
     Optional<Transaction> t = persistence.getTransaction(transactionId);
     if (t.isPresent())
-      resultHandler.handle(Future.succeededFuture(OperationResponse.completedWithJson(t.get().toJson())));
+      resultHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(t.get().toJson())));
     else
-      resultHandler.handle(Future.succeededFuture(new OperationResponse().setStatusCode(404).setStatusMessage("Not Found")));
+      resultHandler.handle(Future.succeededFuture(new ServiceResponse().setStatusCode(404).setStatusMessage("Not Found")));
   }
 
   @Override
   public void updateTransaction(
     String transactionId,
     Transaction body,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler){
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler) {
     if (persistence.updateTransaction(transactionId, body))
-      resultHandler.handle(Future.succeededFuture(OperationResponse.completedWithJson(body.toJson())));
+      resultHandler.handle(Future.succeededFuture(ServiceResponse.completedWithJson(body.toJson())));
     else
-      resultHandler.handle(Future.succeededFuture(new OperationResponse().setStatusCode(404).setStatusMessage("Not Found")));
+      resultHandler.handle(Future.succeededFuture(new ServiceResponse().setStatusCode(404).setStatusMessage("Not Found")));
   }
 
   @Override
   public void deleteTransaction(
     String transactionId,
-    OperationRequest context, Handler<AsyncResult<OperationResponse>> resultHandler){
+    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler) {
     if (persistence.removeTransaction(transactionId))
-      resultHandler.handle(Future.succeededFuture(new OperationResponse().setStatusCode(404).setStatusMessage("OK")));
+      resultHandler.handle(Future.succeededFuture(new ServiceResponse().setStatusCode(404).setStatusMessage("OK")));
     else
-      resultHandler.handle(Future.succeededFuture(new OperationResponse().setStatusCode(404).setStatusMessage("Not Found")));
+      resultHandler.handle(Future.succeededFuture(new ServiceResponse().setStatusCode(404).setStatusMessage("Not Found")));
   }
 
   private Predicate<Transaction> constructFilterPredicate(List<String> from, List<String> to, List<String> message) {
@@ -87,7 +87,7 @@ public class TransactionsManagerServiceImpl implements TransactionsManagerServic
       predicates.add(transaction -> to.contains(transaction.getTo()));
     }
     if (message != null) {
-      predicates.add(transaction -> message.stream().filter(o -> ((String)o).contains(transaction.getMessage())).count() > 0);
+      predicates.add(transaction -> message.stream().anyMatch(s -> s.contains(transaction.getMessage())));
     }
     // Elegant predicates combination
     return predicates.stream().reduce(transaction -> true, Predicate::and);
