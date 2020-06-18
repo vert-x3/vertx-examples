@@ -18,12 +18,12 @@ package hello;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.file.FileSystemOptions;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -91,7 +91,7 @@ class SampleVerticleTest {
       vertx = Vertx.vertx(new VertxOptions()
         .setMaxEventLoopExecuteTime(1000)
         .setPreferNativeTransport(true)
-        .setFileResolverCachingEnabled(true));
+        .setFileSystemOptions(new FileSystemOptions().setFileCachingEnabled(true)));
     }
 
     @Test

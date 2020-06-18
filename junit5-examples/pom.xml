@@ -25,8 +25,8 @@
   <version>4.0.0-milestone5</version>
 
   <properties>
-    <junit-jupiter.version>5.1.0</junit-jupiter.version>
-    <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
+    <junit-jupiter.version>5.6.2</junit-jupiter.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <junit-platform-surefire-provider.version>1.0.1</junit-platform-surefire-provider.version>
     <assertj-core.version>3.8.0</assertj-core.version>
   </properties>
@@ -68,13 +68,7 @@
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
+      <artifactId>junit-jupiter</artifactId>
       <version>${junit-jupiter.version}</version>
       <scope>test</scope>
     </dependency>
@@ -83,12 +77,6 @@
       <artifactId>assertj-core</artifactId>
       <version>${assertj-core.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter.version}</version>
-        <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -105,18 +93,6 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>${junit-platform-surefire-provider.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
