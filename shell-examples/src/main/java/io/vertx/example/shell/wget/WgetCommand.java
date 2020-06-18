@@ -4,7 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.cli.Argument;
 import io.vertx.core.cli.CLI;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientRequest;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
@@ -27,34 +27,31 @@ public class WgetCommand extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     // Create the wget CLI
     CLI cli = CLI.create("wget").setSummary("Wget implemented with Vert.x HTTP client").
-        addArgument(new Argument().setIndex(0).setArgName("http-url").setDescription("the HTTP uri to get"));
+      addArgument(new Argument().setIndex(0).setArgName("http-url").setDescription("the HTTP uri to get"));
 
     // Create the command
     Command helloWorld = CommandBuilder.command(cli).
-        processHandler(process -> {
-          URL url;
-          try {
-            url = new URL(process.commandLine().getArgumentValue(0));
-          } catch (MalformedURLException e) {
-            process.write("Bad url\n").end();
-            return;
-          }
-          HttpClient client = process.vertx().createHttpClient();
-          process.write("Connecting to " + url + "\n");
-          int port = url.getPort();
-          if (port == -1) {
-            port = 80;
-          }
-          HttpClientRequest req = client.get(port, url.getHost(), url.getPath());
-          req.exceptionHandler(err -> {
-            process.write("wget: error " + err.getMessage() + "\n");
-            process.end();
-          });
-          req.handler(resp -> {
+      processHandler(process -> {
+        URL url;
+        try {
+          url = new URL(process.commandLine().getArgumentValue(0));
+        } catch (MalformedURLException e) {
+          process.write("Bad url\n").end();
+          return;
+        }
+        HttpClient client = process.vertx().createHttpClient();
+        process.write("Connecting to " + url + "\n");
+        int port = url.getPort();
+        if (port == -1) {
+          port = 80;
+        }
+        client.get(port, url.getHost(), url.getPath(), ar -> {
+          if (ar.succeeded()) {
+            HttpClientResponse resp = ar.result();
             process.write(resp.statusCode() + " " + resp.statusMessage() + "\n");
             String contentType = resp.getHeader("Content-Type");
             String contentLength = resp.getHeader("Content-Length");
@@ -64,10 +61,13 @@ public class WgetCommand extends AbstractVerticle {
             }
             process.write("\n");
             process.end();
-          });
-          req.end();
+          } else {
+            process.write("wget: error " + ar.cause().getMessage() + "\n");
+            process.end();
+          }
+        });
 
-        }).build(vertx);
+      }).build(vertx);
 
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
         new TelnetTermOptions().setHost("localhost").setPort(3000)

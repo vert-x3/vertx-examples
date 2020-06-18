@@ -1,7 +1,7 @@
 package io.vertx.example.shell.termcast;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.term.TelnetTermOptions;
 import io.vertx.ext.shell.term.TermServer;
@@ -21,7 +21,7 @@ public class TermCast extends AbstractVerticle {
   private TermServer termServer;
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startPromise) throws Exception {
     termServer = TermServer.createTelnetTermServer(vertx, new TelnetTermOptions().setHost("localhost").setPort(3000).setInBinary(false));
     Robot robot = new Robot();
     termServer.termHandler(term -> {
@@ -29,15 +29,15 @@ public class TermCast extends AbstractVerticle {
     });
     termServer.listen(ar -> {
       if (ar.succeeded()) {
-        startFuture.complete();
+        startPromise.complete();
       } else {
-        startFuture.fail(ar.cause());
+        startPromise.fail(ar.cause());
       }
     });
   }
 
   @Override
-  public void stop() throws Exception {
+  public void stop() {
     termServer.close();
   }
 }

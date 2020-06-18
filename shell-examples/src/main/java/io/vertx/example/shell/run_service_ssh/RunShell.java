@@ -5,7 +5,6 @@ import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.auth.shiro.ShiroAuthOptions;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.term.SSHTermOptions;
@@ -21,17 +20,16 @@ public class RunShell extends AbstractVerticle {
   }
 
   @Override
-  public void start(Promise<Void> startPromise) throws Exception {
+  public void start(Promise<Void> startPromise) {
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().
-        setSSHOptions(
-            new SSHTermOptions().
-                setHost("localhost").
-                setPort(3000).
-                setKeyPairOptions(new JksOptions().
-                    setPath("keystore.jks").
-                    setPassword("wibble")).
-                setAuthOptions(new ShiroAuthOptions().
-                    setConfig(new JsonObject().put("properties_path", "auth.properties")))));
+      setSSHOptions(
+        new SSHTermOptions().
+          setHost("localhost").
+          setPort(3000).
+          setKeyPairOptions(new JksOptions().
+            setPath("keystore.jks").
+            setPassword("wibble")).
+          setAuthOptions(new JsonObject().put("properties_path", "auth.properties"))));
     service.start(startPromise);
   }
 }

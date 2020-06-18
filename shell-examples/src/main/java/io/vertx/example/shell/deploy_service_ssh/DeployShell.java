@@ -2,7 +2,7 @@ package io.vertx.example.shell.deploy_service_ssh;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 
@@ -17,24 +17,24 @@ public class DeployShell extends AbstractVerticle {
   }
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startPromise) {
     JsonObject options = new JsonObject().put("sshOptions",
-        new JsonObject().
-            put("host", "localhost").
-            put("port", 3000).
-            put("keyPairOptions", new JsonObject().
-                put("path", "keystore.jks").
-                put("password", "wibble")).
-            put("authOptions", new JsonObject().put("provider", "shiro").put("config",
-                    new JsonObject().put("properties_path", "auth.properties"))
+      new JsonObject().
+        put("host", "localhost").
+        put("port", 3000).
+        put("keyPairOptions", new JsonObject().
+          put("path", "keystore.jks").
+          put("password", "wibble")).
+        put("authOptions", new JsonObject().put("provider", "shiro").put("config",
+          new JsonObject().put("properties_path", "auth.properties"))
 
-            )
+        )
     );
     vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options), ar -> {
       if (ar.succeeded()) {
-        startFuture.succeeded();
+        startPromise.complete();
       } else {
-        startFuture.fail(ar.cause());
+        startPromise.fail(ar.cause());
       }
     });
   }

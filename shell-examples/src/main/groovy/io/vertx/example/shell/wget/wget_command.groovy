@@ -26,23 +26,23 @@ def helloWorld = CommandBuilder.command(cli).processHandler({ process ->
   if (port == -1) {
     port = 80
   }
-  def req = client.get(port, url.getHost(), url.getPath())
-  req.exceptionHandler({ err ->
-    process.write("wget: error ${err.getMessage()}\n")
-    process.end()
-  })
-  req.handler({ resp ->
-    process.write("${resp.statusCode()} ${resp.statusMessage()}\n")
-    def contentType = resp.getHeader("Content-Type")
-    def contentLength = resp.getHeader("Content-Length")
-    process.write("Length: ${(contentLength != null ? contentLength : "unspecified")}")
-    if (contentType != null) {
-      process.write("[${contentType}]")
+  client.get(port, url.getHost(), url.getPath(), { ar ->
+    if (ar.succeeded()) {
+      def resp = ar.result()
+      process.write("${resp.statusCode()} ${resp.statusMessage()}\n")
+      def contentType = resp.getHeader("Content-Type")
+      def contentLength = resp.getHeader("Content-Length")
+      process.write("Length: ${(contentLength != null ? contentLength : "unspecified")}")
+      if (contentType != null) {
+        process.write("[${contentType}]")
+      }
+      process.write("\n")
+      process.end()
+    } else {
+      process.write("wget: error ${ar.cause().getMessage()}\n")
+      process.end()
     }
-    process.write("\n")
-    process.end()
   })
-  req.end()
 
 }).build(vertx)
 
