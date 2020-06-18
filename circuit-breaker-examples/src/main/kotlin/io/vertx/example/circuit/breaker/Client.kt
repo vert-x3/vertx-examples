@@ -2,6 +2,8 @@ package io.vertx.example.circuit.breaker
 
 import io.vertx.circuitbreaker.CircuitBreaker
 import io.vertx.circuitbreaker.CircuitBreakerOptions
+import io.vertx.core.Future
+import io.vertx.core.buffer.Buffer
 import io.vertx.kotlin.circuitbreaker.*
 
 class Client : io.vertx.core.AbstractVerticle()  {
@@ -18,15 +20,13 @@ class Client : io.vertx.core.AbstractVerticle()  {
     })
 
     breaker.executeWithFallback({ promise ->
-      vertx.createHttpClient().getNow(8080, "localhost", "/", { response ->
-        if (response.statusCode() != 200) {
-          promise.fail("HTTP error")
+      vertx.createHttpClient().get(8080, "localhost", "/").compose<Any>({ resp ->
+        if (resp.statusCode() != 200) {
+          return Future.failedFuture<Any>("HTTP error")
         } else {
-          response.exceptionHandler({ promise.fail(it) }).bodyHandler({ buffer ->
-            promise.complete(buffer.toString())
-          })
+          return resp.body()
         }
-      })
+      }).map({ Buffer.toString() }).onComplete(promise)
     }, { v ->
       // Executed when the circuit is opened
       return "Hello (fallback)"

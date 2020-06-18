@@ -1,4 +1,6 @@
 import io.vertx.circuitbreaker.CircuitBreaker
+import io.vertx.core.buffer.Buffer
+import io.vertx.core.Future
 def options = [
   maxFailures:5,
   timeout:5000,
@@ -12,15 +14,13 @@ def breaker = CircuitBreaker.create("my-circuit-breaker", vertx, options).openHa
 })
 
 breaker.executeWithFallback({ promise ->
-  vertx.createHttpClient().getNow(8080, "localhost", "/", { response ->
-    if (response.statusCode() != 200) {
-      promise.fail("HTTP error")
+  vertx.createHttpClient().get(8080, "localhost", "/").compose({ resp ->
+    if (resp.statusCode() != 200) {
+      return Future.failedFuture("HTTP error")
     } else {
-      response.exceptionHandler(promise.&fail).bodyHandler({ buffer ->
-        promise.complete(buffer.toString())
-      })
+      return resp.body()
     }
-  })
+  }).map(Buffer.&toString).onComplete(promise)
 }, { v ->
   // Executed when the circuit is opened
   return "Hello (fallback)"
