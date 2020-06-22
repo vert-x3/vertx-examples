@@ -2,8 +2,8 @@ package io.vertx.example.grpc.conversation;
 
 import io.grpc.ManagedChannel;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.grpc.ConversationalServiceGrpc;
 import io.vertx.example.grpc.Messages;
+import io.vertx.example.grpc.VertxConversationalServiceGrpc;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.VertxChannelBuilder;
 
@@ -18,7 +18,7 @@ public class Client extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     // Create the channel
     ManagedChannel channel = VertxChannelBuilder
@@ -27,23 +27,20 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    ConversationalServiceGrpc.ConversationalServiceVertxStub stub = ConversationalServiceGrpc.newVertxStub(channel);
+    VertxConversationalServiceGrpc.VertxConversationalServiceStub stub = VertxConversationalServiceGrpc.newVertxStub(channel);
 
     // Make a request
     Messages.StreamingOutputCallRequest request = Messages.StreamingOutputCallRequest.newBuilder().build();
 
     // Call the remote service
-    stub.fullDuplexCall(exchange -> {
-      exchange
-        .handler(req -> {
-          System.out.println("Client: received response");
-          vertx.setTimer(500L, t -> {
-            exchange.write(Messages.StreamingOutputCallRequest.newBuilder().build());
-          });
-        });
-
+    stub.fullDuplexCall(writeStream -> {
       // start the conversation
-      exchange.write(Messages.StreamingOutputCallRequest.newBuilder().build());
+      writeStream.write(Messages.StreamingOutputCallRequest.newBuilder().build());
+      vertx.setTimer(500L, t -> {
+        writeStream.write(Messages.StreamingOutputCallRequest.newBuilder().build());
+      });
+    }).handler(req -> {
+      System.out.println("Client: received response");
     });
   }
 }

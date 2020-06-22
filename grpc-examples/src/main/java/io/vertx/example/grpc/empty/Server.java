@@ -1,8 +1,7 @@
 package io.vertx.example.grpc.empty;
 
+import io.grpc.stub.StreamObserver;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
-import io.vertx.core.Promise;
 import io.vertx.example.grpc.EmptyPingPongServiceGrpc;
 import io.vertx.example.grpc.EmptyProtos;
 import io.vertx.example.util.Runner;
@@ -20,13 +19,14 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
-    // The rcp service
-    EmptyPingPongServiceGrpc.EmptyPingPongServiceVertxImplBase service = new EmptyPingPongServiceGrpc.EmptyPingPongServiceVertxImplBase() {
+    // The rpc service
+    EmptyPingPongServiceGrpc.EmptyPingPongServiceImplBase service = new EmptyPingPongServiceGrpc.EmptyPingPongServiceImplBase() {
       @Override
-      public void emptyCall(EmptyProtos.Empty request, Promise<EmptyProtos.Empty> future) {
-        future.complete(EmptyProtos.Empty.newBuilder().build());
+      public void emptyCall(EmptyProtos.Empty request, StreamObserver<EmptyProtos.Empty> responseObserver) {
+        responseObserver.onNext(EmptyProtos.Empty.newBuilder().build());
+        responseObserver.onCompleted();
       }
     };
 

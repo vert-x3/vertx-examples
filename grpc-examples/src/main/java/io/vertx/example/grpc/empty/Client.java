@@ -2,8 +2,8 @@ package io.vertx.example.grpc.empty;
 
 import io.grpc.ManagedChannel;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.grpc.EmptyPingPongServiceGrpc;
 import io.vertx.example.grpc.EmptyProtos;
+import io.vertx.example.grpc.VertxEmptyPingPongServiceGrpc;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.VertxChannelBuilder;
 
@@ -18,7 +18,7 @@ public class Client extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     // Create the channel
     ManagedChannel channel = VertxChannelBuilder
@@ -27,13 +27,13 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    EmptyPingPongServiceGrpc.EmptyPingPongServiceVertxStub stub = EmptyPingPongServiceGrpc.newVertxStub(channel);
+    VertxEmptyPingPongServiceGrpc.VertxEmptyPingPongServiceStub stub = VertxEmptyPingPongServiceGrpc.newVertxStub(channel);
 
     // Make a request
     EmptyProtos.Empty request = EmptyProtos.Empty.newBuilder().build();
 
     // Call the remote service
-    stub.emptyCall(request, ar -> {
+    stub.emptyCall(request).onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("Got the server response.");
       } else {

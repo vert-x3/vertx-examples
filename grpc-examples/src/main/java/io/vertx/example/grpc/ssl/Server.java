@@ -1,10 +1,10 @@
 package io.vertx.example.grpc.ssl;
 
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
+import io.grpc.examples.helloworld.VertxGreeterGrpc;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Promise;
+import io.vertx.core.Future;
 import io.vertx.core.net.JksOptions;
 import io.vertx.example.grpc.util.Runner;
 import io.vertx.grpc.VertxServer;
@@ -20,15 +20,15 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     VertxServer server = VertxServerBuilder.forPort(vertx, 8080)
-      .addService(new GreeterGrpc.GreeterVertxImplBase() {
-      @Override
-      public void sayHello(HelloRequest request, Promise<HelloReply> future) {
-        System.out.println("Hello " + request.getName());
-        future.complete(HelloReply.newBuilder().setMessage(request.getName()).build());
-      }
-    })
+      .addService(new VertxGreeterGrpc.GreeterImplBase() {
+        @Override
+        public Future<HelloReply> sayHello(HelloRequest request) {
+          System.out.println("Hello " + request.getName());
+          return Future.succeededFuture(HelloReply.newBuilder().setMessage(request.getName()).build());
+        }
+      })
       .useSsl(options -> options
         .setSsl(true)
         .setUseAlpn(true)

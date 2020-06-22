@@ -3,14 +3,13 @@ package io.vertx.example.grpc.producer;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
+import io.vertx.core.streams.ReadStream;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.ProducerServiceGrpc;
+import io.vertx.example.grpc.VertxProducerServiceGrpc;
 import io.vertx.example.util.Runner;
-import io.vertx.grpc.GrpcReadStream;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -23,18 +22,20 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
-    // The rcp service
-    ProducerServiceGrpc.ProducerServiceVertxImplBase service = new ProducerServiceGrpc.ProducerServiceVertxImplBase() {
+    // The rpc service
+    VertxProducerServiceGrpc.ProducerServiceImplBase service = new VertxProducerServiceGrpc.ProducerServiceImplBase() {
       @Override
-      public void streamingInputCall(GrpcReadStream<Messages.StreamingInputCallRequest> request, Future<Messages.StreamingInputCallResponse> future) {
+      public Future<Messages.StreamingInputCallResponse> streamingInputCall(ReadStream<Messages.StreamingInputCallRequest> request) {
+        Promise<Messages.StreamingInputCallResponse> promise = Promise.promise();
         request.handler(payload -> {
           System.out.println(payload.getPayload().getType().getNumber());
         }).endHandler(v -> {
           System.out.println("Request has ended.");
-          future.complete(Messages.StreamingInputCallResponse.newBuilder().build());
+          promise.complete(Messages.StreamingInputCallResponse.newBuilder().build());
         });
+        return promise.future();
       }
     };
 

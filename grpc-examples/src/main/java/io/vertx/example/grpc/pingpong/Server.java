@@ -1,9 +1,9 @@
 package io.vertx.example.grpc.pingpong;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Promise;
+import io.vertx.core.Future;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.PingPongServiceGrpc;
+import io.vertx.example.grpc.VertxPingPongServiceGrpc;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
@@ -19,13 +19,13 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
-    // The rcp service
-    PingPongServiceGrpc.PingPongServiceVertxImplBase service = new PingPongServiceGrpc.PingPongServiceVertxImplBase() {
+    // The rpc service
+    VertxPingPongServiceGrpc.PingPongServiceImplBase service = new VertxPingPongServiceGrpc.PingPongServiceImplBase() {
       @Override
-      public void unaryCall(Messages.SimpleRequest request, Promise<Messages.SimpleResponse> future) {
-        future.complete(Messages.SimpleResponse.newBuilder().setUsername("Paulo").build());
+      public Future<Messages.SimpleResponse> unaryCall(Messages.SimpleRequest request) {
+        return Future.succeededFuture(Messages.SimpleResponse.newBuilder().setUsername("Paulo").build());
       }
     };
 

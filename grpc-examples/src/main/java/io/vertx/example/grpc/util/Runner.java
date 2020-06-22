@@ -17,35 +17,34 @@ public class Runner {
   private static final String GRPC_EXAMPLES_JAVA_DIR = GRPC_EXAMPLES_DIR + "/src/main/java/";
 
   public static void runClusteredExample(Class clazz) {
-    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(true), null);
+    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
   }
 
   public static void runClusteredExample(Class clazz, VertxOptions options) {
-    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, options.setClustered(true), null);
+    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, options, null, true);
   }
 
   public static void runExample(Class clazz) {
-    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), null);
+    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, false);
   }
 
   public static void runExample(Class clazz, DeploymentOptions options) {
-    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, new VertxOptions().setClustered(false), options);
+    runExample(GRPC_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), options, false);
   }
 
-  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
-      deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
+  public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
   }
 
 
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
+  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
     File file = new File(scriptName);
     String dirPart = file.getParent();
     String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
+    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
-  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {
+  public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -76,7 +75,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();

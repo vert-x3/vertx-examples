@@ -3,7 +3,7 @@ package io.vertx.example.grpc.pingpong;
 import io.grpc.ManagedChannel;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.PingPongServiceGrpc;
+import io.vertx.example.grpc.VertxPingPongServiceGrpc;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.VertxChannelBuilder;
 
@@ -18,7 +18,7 @@ public class Client extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     // Create the channel
     ManagedChannel channel = VertxChannelBuilder
@@ -27,13 +27,13 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    PingPongServiceGrpc.PingPongServiceVertxStub stub = PingPongServiceGrpc.newVertxStub(channel);
+    VertxPingPongServiceGrpc.VertxPingPongServiceStub stub = VertxPingPongServiceGrpc.newVertxStub(channel);
 
     // Make a request
     Messages.SimpleRequest request = Messages.SimpleRequest.newBuilder().setFillUsername(true).build();
 
     // Call the remote service
-    stub.unaryCall(request, ar -> {
+    stub.unaryCall(request).onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("My username is: " + ar.result().getUsername());
       } else {

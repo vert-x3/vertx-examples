@@ -12,9 +12,8 @@ Artifact ID: vertx-grpc
 ----
 
 You will need to use the `com.google.protobuf` plugin to compile the `.proto` files.
-These examples use the `io.vertx:protoc-gen-grpc-java` plugin that creates
-server and stub classes for Vert.x, this plugin is an extension of the
- `io.grpc:protoc-gen-grpc-java` plugin.
+These examples use the `io.vertx:vertx-grpc-protoc-plugin` plugin that creates
+server and stub classes for Vert.x.
 
 The protobuf compiler is available for Maven or Gradle and is OS dependant.
 
@@ -62,12 +61,12 @@ takes takes an `HelloRequest` string wrapper and returns an `HelloReply` string 
 
 link:src/main/java/io/vertx/example/grpc/helloworld/Server.java[gRPC server example]
 
-The gRPC service extends the `GreeterGrpc.GreeterVertxImplBase` generated class and
+The gRPC service extends the `VertxGreeterGrpc.GreeterImplBase` generated class and
 implements the service logic.
 
 link:src/main/java/io/vertx/example/grpc/helloworld/Client.java[gRPC client example]
 
-The gRPC client creates an instance of the `GreeterGrpc.newVertxStub` generated class and
+The gRPC client creates an instance of the `VertxGreeterGrpc.newVertxStub` generated class and
 then use it to invoke the service.
 
 You can run the server and then run the client.
@@ -83,12 +82,12 @@ takes takes an `HelloRequest` string wrapper and returns an `HelloReply` string 
 
 link:src/main/java/io/vertx/example/grpc/ssl/Server.java[gRPC server example]
 
-The gRPC service extends the `GreeterGrpc.GreeterVertxImplBase` generated class and
+The gRPC service extends the `VertxGreeterGrpc.GreeterImplBase` generated class and
 implements the service logic.
 
 link:src/main/java/io/vertx/example/grpc/ssl/Client.java[gRPC client example]
 
-The gRPC client creates an instance of the `GreeterGrpc.newVertxStub` generated class and
+The gRPC client creates an instance of the `VertxGreeterGrpc.newVertxStub` generated class and
 then use it to invoke the service.
 
 You can run the server and then run the client.

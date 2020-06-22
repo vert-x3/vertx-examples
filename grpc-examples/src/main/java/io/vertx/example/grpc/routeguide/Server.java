@@ -1,27 +1,17 @@
 package io.vertx.example.grpc.routeguide;
 
-import io.grpc.examples.routeguide.Feature;
-import io.grpc.examples.routeguide.Point;
-import io.grpc.examples.routeguide.Rectangle;
-import io.grpc.examples.routeguide.RouteGuideGrpc;
-import io.grpc.examples.routeguide.RouteNote;
-import io.grpc.examples.routeguide.RouteSummary;
+import io.grpc.examples.routeguide.*;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.core.streams.ReadStream;
+import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.util.Runner;
-import io.vertx.grpc.GrpcBidiExchange;
-import io.vertx.grpc.GrpcReadStream;
-import io.vertx.grpc.GrpcWriteStream;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
@@ -43,15 +33,15 @@ public class Server extends AbstractVerticle {
     URL featureFile = Util.getDefaultFeaturesFile();
     features = Util.parseFeatures(featureFile);
 
-    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new RouteGuideGrpc.RouteGuideVertxImplBase() {
+    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxRouteGuideGrpc.RouteGuideImplBase() {
 
       @Override
-      public void getFeature(Point request, Promise<Feature> response) {
-        response.complete(checkFeature(request));
+      public Future<Feature> getFeature(Point request) {
+        return Future.succeededFuture(checkFeature(request));
       }
 
       @Override
-      public void listFeatures(Rectangle request, GrpcWriteStream<Feature> response) {
+      public void listFeatures(Rectangle request, WriteStream<Feature> response) {
         int left = Math.min(request.getLo().getLongitude(), request.getHi().getLongitude());
         int right = Math.max(request.getLo().getLongitude(), request.getHi().getLongitude());
         int top = Math.max(request.getLo().getLatitude(), request.getHi().getLatitude());
@@ -72,10 +62,12 @@ public class Server extends AbstractVerticle {
       }
 
       @Override
-      public void recordRoute(GrpcReadStream<Point> request, Future<RouteSummary> response) {
+      public Future<RouteSummary> recordRoute(ReadStream<Point> request) {
+        Promise<RouteSummary> response = Promise.promise();
 
         request.exceptionHandler(err -> {
           System.out.println("recordRoute cancelled");
+          response.fail(err);
         });
 
         RouteRecorder recorder = new RouteRecorder();
@@ -85,28 +77,30 @@ public class Server extends AbstractVerticle {
         request.endHandler(v -> {
           response.complete(recorder.build());
         });
+
+        return response.future();
       }
 
       @Override
-      public void routeChat(GrpcBidiExchange<RouteNote, RouteNote> exchange) {
-
-        exchange.handler(note -> {
+      public void routeChat(ReadStream<RouteNote> request, WriteStream<RouteNote> response) {
+        request.handler(note -> {
           List<RouteNote> notes = getOrCreateNotes(note.getLocation());
 
           // Respond with all previous notes at this location.
           for (RouteNote prevNote : notes.toArray(new RouteNote[0])) {
-            exchange.write(prevNote);
+            response.write(prevNote);
           }
 
           // Now add the new note to the list
           notes.add(note);
         });
 
-        exchange.exceptionHandler(err -> {
+        request.exceptionHandler(err -> {
           System.out.println("routeChat cancelled");
+          response.end();
         });
 
-        exchange.endHandler(v -> exchange.end());
+        request.endHandler(v -> response.end());
       }
     }).build();
     server.start(ar -> {
@@ -151,7 +145,7 @@ public class Server extends AbstractVerticle {
    * Get the notes list for the given location. If missing, create it.
    */
   private List<RouteNote> getOrCreateNotes(Point location) {
-    List<RouteNote> notes = Collections.synchronizedList(new ArrayList<RouteNote>());
+    List<RouteNote> notes = Collections.synchronizedList(new ArrayList<>());
     List<RouteNote> prevNotes = routeNotes.putIfAbsent(location, notes);
     return prevNotes != null ? prevNotes : notes;
   }

@@ -1,10 +1,10 @@
 package io.vertx.example.grpc.helloworld;
 
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
+import io.grpc.examples.helloworld.VertxGreeterGrpc;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Promise;
+import io.vertx.core.Future;
 import io.vertx.example.grpc.util.Runner;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
@@ -19,12 +19,12 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
-    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new GreeterGrpc.GreeterVertxImplBase() {
+  public void start() {
+    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxGreeterGrpc.GreeterImplBase() {
       @Override
-      public void sayHello(HelloRequest request, Promise<HelloReply> future) {
+      public Future<HelloReply> sayHello(HelloRequest request) {
         System.out.println("Hello " + request.getName());
-        future.complete(HelloReply.newBuilder().setMessage(request.getName()).build());
+        return Future.succeededFuture(HelloReply.newBuilder().setMessage(request.getName()).build());
       }
     }).build();
     server.start(ar -> {

@@ -2,10 +2,11 @@ package io.vertx.example.grpc.conversation;
 
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.grpc.ConversationalServiceGrpc;
+import io.vertx.core.streams.ReadStream;
+import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.Messages;
+import io.vertx.example.grpc.VertxConversationalServiceGrpc;
 import io.vertx.example.util.Runner;
-import io.vertx.grpc.GrpcBidiExchange;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
 
@@ -20,17 +21,17 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
-    // The rcp service
-    ConversationalServiceGrpc.ConversationalServiceVertxImplBase service = new ConversationalServiceGrpc.ConversationalServiceVertxImplBase() {
+    // The rpc service
+    VertxConversationalServiceGrpc.ConversationalServiceImplBase service = new VertxConversationalServiceGrpc.ConversationalServiceImplBase() {
       @Override
-      public void fullDuplexCall(GrpcBidiExchange<Messages.StreamingOutputCallRequest, Messages.StreamingOutputCallResponse> exchange) {
-        exchange
+      public void fullDuplexCall(ReadStream<Messages.StreamingOutputCallRequest> request, WriteStream<Messages.StreamingOutputCallResponse> response) {
+        request
           .handler(req -> {
             System.out.println("Server: received request");
             vertx.setTimer(500L, t -> {
-              exchange.write(Messages.StreamingOutputCallResponse.newBuilder().build());
+              response.write(Messages.StreamingOutputCallResponse.newBuilder().build());
             });
           });
       }

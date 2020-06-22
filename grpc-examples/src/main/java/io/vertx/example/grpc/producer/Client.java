@@ -3,7 +3,7 @@ package io.vertx.example.grpc.producer;
 import io.grpc.ManagedChannel;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.ProducerServiceGrpc;
+import io.vertx.example.grpc.VertxProducerServiceGrpc;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.VertxChannelBuilder;
 
@@ -18,7 +18,7 @@ public class Client extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
 
     // Create the channel
     ManagedChannel channel = VertxChannelBuilder
@@ -27,24 +27,20 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    ProducerServiceGrpc.ProducerServiceVertxStub stub = ProducerServiceGrpc.newVertxStub(channel);
+    VertxProducerServiceGrpc.VertxProducerServiceStub stub = VertxProducerServiceGrpc.newVertxStub(channel);
 
     // Call the remote service
-    stub.streamingInputCall(exchange -> {
-      exchange
-        .handler(ar -> {
-          if (ar.succeeded()) {
-            System.out.println("Server replied OK");
-          } else {
-            ar.cause().printStackTrace();
-          }
-        });
-
+    stub.streamingInputCall(writeStream -> {
       for (int i = 0; i < 10; i++) {
-        exchange.write(Messages.StreamingInputCallRequest.newBuilder().build());
+        writeStream.write(Messages.StreamingInputCallRequest.newBuilder().build());
       }
-
-      exchange.end();
+      writeStream.end();
+    }).onComplete(ar -> {
+      if (ar.succeeded()) {
+        System.out.println("Server replied OK");
+      } else {
+        ar.cause().printStackTrace();
+      }
     });
   }
 }
