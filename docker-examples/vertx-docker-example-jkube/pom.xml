@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.vertx</groupId>
+  <artifactId>vertx-docker-example-jkube</artifactId>
+  <version>3.9.0</version>
+
+  <name>Sample Docker Image and Deployment using JKube</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <vertx-maven-plugin.version>1.0.18</vertx-maven-plugin.version>
+    <jkube.version>1.0.0-rc-1</jkube.version>
+    <vertx.verticle>io.vertx.example.HelloWorldVerticle</vertx.verticle>
+    <jkube.enricher.jkube-service.type>NodePort</jkube.enricher.jkube-service.type>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.reactiverse</groupId>
+        <artifactId>vertx-maven-plugin</artifactId>
+        <version>${vertx-maven-plugin.version}</version>
+        <configuration>
+          <redeploy>true</redeploy>
+        </configuration>
+        <executions>
+          <execution>
+            <id>vmp</id>
+            <phase>package</phase>
+            <goals>
+              <goal>initialize</goal>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>kubernetes-maven-plugin</artifactId>
+        <version>${jkube.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3868/</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+
+</project>
