@@ -194,7 +194,6 @@ It depicts how a service provider can be implemented and how the published servi
 === Docker examples
 
 The link:docker-examples/README.adoc[Vert.x Docker examples] shows how to deploy Vert.x application in Docker containers.
-It also contains an example of the application that can be deployed on Fabric8.
 
 === Spring Examples
 

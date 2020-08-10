@@ -71,7 +71,6 @@
       <modules>
         <module>docker-examples/vertx-docker-java</module>
         <module>docker-examples/vertx-docker-example</module>
-        <module>docker-examples/vertx-docker-example-fabric8</module>
         <module>docker-examples/vertx-docker-java-fatjar</module>
       </modules>
     </profile>
