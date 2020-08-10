@@ -14,18 +14,6 @@ docker build -t sample/vertx-java .
 docker run -t -i -p 8080:8080 sample/vertx-java
 ----
 
-== vertx-docker-javascript
-
-This example deploys a JavaScript verticle inside Docker.
-
-The link:vertx-docker-javascript
-
-To build and run it:
-----
-docker build -t sample/vertx-javascript .
-docker run -t -i -p 8080:8080 sample/vertx-javascript
-----
-
 == vertx-docker-groovy
 
 This example deploys a Groovy verticle inside Docker.
@@ -36,40 +24,6 @@ To build and run it:
 ----
 docker build -t sample/vertx-groovy .
 docker run -t -i -p 8080:8080 sample/vertx-groovy
-----
-
-== vertx-docker-ruby
-
-This example deploys a Ruby verticle inside Docker.
-
-The link:vertx-docker-ruby
-
-To build and run it:
-----
-docker build -t sample/vertx-ruby .
-docker run -t -i -p 8080:8080 sample/vertx-ruby
-----
-
-== vertx-docker-ruby-gemfile
-
-This example downloads Ruby http://bundler.io/gemfile.html[Gemfile] dependencies from https://rubygems.org[RubyGems] using the http://bundler.io[Bundler] gem and then deploys a Ruby verticle inside Docker.
-The deployed verticle is configured to use a GEM_PATH pointed to where the bundler downloaded the dependencies in the Gemfile.
-
-Initial Startup time of jRuby on slower machines can cause the event loop to be blocked and throw thread blocking warnings.
-
-The verticle will print three dates using the working_hours ruby dependency, such as:
-----
-2018-03-03 13:58:46 -0500
-2018-03-02 15:58:46 -0500
-2018-03-02 14:13:46 -0500
-----
-
-The link:vertx-docker-ruby-gemfile
-
-To build and run it:
-----
-docker build -t sample/vertx-ruby-gemfile .
-docker run -t -i sample/vertx-ruby-gemfile
 ----
 
 == vertx-docker-example
