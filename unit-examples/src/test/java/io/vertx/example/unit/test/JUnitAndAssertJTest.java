@@ -4,6 +4,7 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
@@ -61,14 +62,16 @@ public class JUnitAndAssertJTest {
   public void testHttpCall(TestContext context) {
     // Send a request and get a response
     HttpClient client = vertx.createHttpClient();
-    Async async = context.async();
-    client.get(8080, "localhost", "/")
-      .flatMap(HttpClientResponse::body)
-      .onSuccess(body -> {
+    client.request(HttpMethod.GET, 8080, "localhost", "/")
+      .compose(req -> req
+        .send()
+        .compose(HttpClientResponse::body))
+
+      // No need for an async creation as asyncAssertSuccess does it for you
+      .onComplete(context.asyncAssertSuccess(body -> {
         assertThat(body.toString()).isEqualTo("foo");
         client.close();
-        async.complete();
-      }).onFailure(context::fail);
+      }));
   }
 
   private void getSomeItems(Handler<List<String>> handler) {

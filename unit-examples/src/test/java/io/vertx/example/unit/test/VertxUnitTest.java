@@ -4,7 +4,7 @@ import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
-import io.vertx.ext.unit.Async;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.unit.TestOptions;
 import io.vertx.ext.unit.TestSuite;
 import io.vertx.ext.unit.report.ReportOptions;
@@ -42,14 +42,14 @@ public class VertxUnitTest {
     suite.test("some_test1", context -> {
       // Send a request and get a response
       HttpClient client = vertx.createHttpClient();
-      Async async = context.async();
-      client.get(8080, "localhost", "/")
-        .flatMap(HttpClientResponse::body)
-        .onSuccess(body -> {
+      client.request(HttpMethod.GET, 8080, "localhost", "/")
+        .compose(req -> req
+          .send()
+          .compose(HttpClientResponse::body))
+        .onComplete(context.asyncAssertSuccess(body -> {
           context.assertEquals("foo", body.toString("UTF-8"));
           client.close();
-          async.complete();
-        }).onFailure(context::fail);
+        }));
     });
     suite.test("some_test2", context -> {
       // Deploy and undeploy a verticle

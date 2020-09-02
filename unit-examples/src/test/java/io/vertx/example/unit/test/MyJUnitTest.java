@@ -3,9 +3,9 @@ package io.vertx.example.unit.test;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.example.unit.SomeVerticle;
-import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
 import org.junit.After;
@@ -41,14 +41,12 @@ public class MyJUnitTest {
   public void test1(TestContext context) {
     // Send a request and get a response
     HttpClient client = vertx.createHttpClient();
-    Async async = context.async();
-    client.get(8080, "localhost", "/")
-      .flatMap(HttpClientResponse::body)
-      .onSuccess(body -> {
+    client.request(HttpMethod.GET, 8080, "localhost", "/")
+      .compose(req -> req.send().compose(HttpClientResponse::body))
+      .onComplete(context.asyncAssertSuccess(body -> {
         context.assertEquals("foo", body.toString());
         client.close();
-        async.complete();
-      }).onFailure(context::fail);
+      }));
   }
 
   @Test

@@ -4,9 +4,9 @@ import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.unit.HelloVerticle;
-import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
 import org.junit.After;
@@ -46,14 +46,14 @@ public class JUnitVerticleTest {
 
   @Test
   public void canGetHello(TestContext context) {
-    Async async = context.async();
     HttpClient client = vertx.createHttpClient();
-    client.get(port, "localhost", "/")
-      .flatMap(HttpClientResponse::body)
-      .onSuccess(body -> {
+    client.request(HttpMethod.GET, port, "localhost", "/")
+      .compose(req -> req
+        .send()
+        .compose(HttpClientResponse::body))
+      .onComplete(context.asyncAssertSuccess(body -> {
         context.assertEquals("Hello!", body.toString());
         client.close();
-        async.complete();
-      }).onFailure(context::fail);
+    }));
   }
 }
