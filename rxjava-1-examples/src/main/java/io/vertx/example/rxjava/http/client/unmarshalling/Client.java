@@ -1,9 +1,12 @@
 package io.vertx.example.rxjava.http.client.unmarshalling;
 
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.rxjava.core.AbstractVerticle;
+import io.vertx.rxjava.core.RxHelper;
 import io.vertx.rxjava.core.http.HttpClient;
 import io.vertx.rxjava.core.http.HttpClientResponse;
+import rx.Observable;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -26,13 +29,14 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
 
-    client.rxGet(8080, "localhost", "/")
+    Observable<Data> observable = client
+      .rxRequest(HttpMethod.GET, 8080, "localhost", "/")
+      .flatMapObservable(req -> req
+        .rxSend()
+        .flatMapObservable(HttpClientResponse::toObservable)
+        .lift(RxHelper.unmarshaller(Data.class))
+      );
 
-      .flatMapObservable(HttpClientResponse::toObservable)
-
-      // Unmarshall the response to the Data object via Jackon
-      .lift(io.vertx.rxjava.core.RxHelper.unmarshaller(Data.class))
-
-      .subscribe(data -> System.out.println("Got response " + data.message), Throwable::printStackTrace);
+    observable.subscribe(data -> System.out.println("Got response " + data.message), Throwable::printStackTrace);
   }
 }

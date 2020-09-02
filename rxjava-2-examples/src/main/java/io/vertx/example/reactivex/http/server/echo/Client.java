@@ -1,6 +1,7 @@
 package io.vertx.example.reactivex.http.server.echo;
 
 import io.reactivex.Flowable;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.MultiMap;
@@ -25,10 +26,12 @@ public class Client extends AbstractVerticle {
 
     MultiMap headers = MultiMap.caseInsensitiveMultiMap().add("Content-Type", "text/plain");
 
-    client.rxPut(8080, "localhost", "/", headers, payload)
-      .flatMap(resp -> {
-        System.out.println("Got response " + resp.statusCode());
-        return resp.rxBody();
+    client.rxRequest(HttpMethod.PUT, 8080, "localhost", "/")
+      .flatMap(req -> {
+        req.headers().addAll(headers);
+        return req
+          .rxSend(payload)
+          .flatMap(resp -> resp.rxBody());
       })
       .subscribe(buf -> System.out.println(buf.toString("UTF-8")), Throwable::printStackTrace);
   }

@@ -1,8 +1,11 @@
 package io.vertx.example.reactivex.web.backpressure;
 
+import io.reactivex.Single;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.RxHelper;
 import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.core.http.HttpClient;
 import io.vertx.reactivex.core.http.HttpClientResponse;
 import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.core.http.HttpServerRequest;
@@ -57,14 +60,12 @@ public class Server extends AbstractVerticle {
     ExecutorService executorService = Executors.newFixedThreadPool(N_THREADS);
     for (int i = 0; i < NUMBER_OF_REQUESTS; i++) {
       executorService.execute(() -> {
-        vertx.createHttpClient().get(PORT, "localhost", "/", ar -> {
-          if (ar.succeeded()) {
-            HttpClientResponse resp = ar.result();
-            log(resp, successCounter(resp), failureCounter(resp));
-          } else {
-            ar.cause().printStackTrace();
-          }
-        });
+        HttpClient client = vertx.createHttpClient();
+        client.rxRequest(HttpMethod.GET, PORT, "localhost", "/")
+          .flatMap(req -> req.rxSend())
+          .subscribe(
+            resp -> log(resp, successCounter(resp), failureCounter(resp)),
+            err -> err.printStackTrace());
       });
     }
   }

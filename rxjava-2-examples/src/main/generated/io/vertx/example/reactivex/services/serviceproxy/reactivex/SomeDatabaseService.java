@@ -16,11 +16,6 @@
 
 package io.vertx.example.reactivex.services.serviceproxy.reactivex;
 
-import io.reactivex.Observable;
-import io.reactivex.Flowable;
-import io.reactivex.Single;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
 import io.vertx.reactivex.RxHelper;
 import io.vertx.reactivex.ObservableHelper;
 import io.vertx.reactivex.FlowableHelper;
@@ -93,7 +88,7 @@ public class SomeDatabaseService {
 getDataById(id, ar -> { });
   }
 
-  public Single<JsonObject> rxGetDataById(int id) { 
+  public io.reactivex.Single<JsonObject> rxGetDataById(int id) { 
     return AsyncResultSingle.toSingle($handler -> {
       getDataById(id, $handler);
     });

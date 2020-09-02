@@ -1,6 +1,8 @@
 package io.vertx.example.reactivex.http.client.reduce;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.buffer.Buffer;
@@ -20,23 +22,29 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
 
-    client.rxGet(8080, "localhost", "/")
+    Maybe<String> maybe = client.rxRequest(HttpMethod.GET, 8080, "localhost", "/")
 
-      // Status code check and -> Flowable<Buffer>
-      .flatMapPublisher(resp -> {
-        if (resp.statusCode() != 200) {
-          return Flowable.error(new RuntimeException("Wrong status code " + resp.statusCode()));
-        }
-        return Flowable.just(Buffer.buffer()).mergeWith(resp.toFlowable());
-      })
+      // Connect
+      .flatMapMaybe(req -> req
 
-      // Reduce all buffers in a single buffer
-      .reduce(Buffer::appendBuffer)
+        // Send request
+        .rxSend()
 
-      // Turn in to a string
-      .map(buffer -> buffer.toString("UTF-8"))
+        // Status code check and -> Observable<Buffer>
+        .flatMapPublisher(resp -> {
+          if (resp.statusCode() != 200) {
+            return Flowable.error(new RuntimeException("Wrong status code " + resp.statusCode()));
+          }
+          return Flowable.just(Buffer.buffer()).mergeWith(resp.toFlowable());
+        })
 
-      // Get a single buffer
-      .subscribe(data -> System.out.println("Server content " + data), Throwable::printStackTrace);
+        // Reduce all buffers in a single buffer
+        .reduce(Buffer::appendBuffer)
+
+        // Turn in to a string
+        .map(buffer -> buffer.toString("UTF-8"))
+      );
+
+    maybe.subscribe(data -> System.out.println("Server content " + data), Throwable::printStackTrace);
   }
 }

@@ -1,8 +1,10 @@
 package io.vertx.example.reactivex.http.client.simple;
 
 import io.reactivex.Single;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.core.buffer.Buffer;
 import io.vertx.reactivex.core.http.HttpClient;
 
 /*
@@ -18,12 +20,17 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
-    client.rxGet(8080, "localhost", "/").flatMap(resp -> {
-      // Status code check and -> Single<Buffer>
-      if (resp.statusCode() != 200) {
-        return Single.error(new RuntimeException("Wrong status code " + resp.statusCode()));
-      }
-      return resp.rxBody();
-    }).subscribe(data -> System.out.println("Server content " + data.toString("UTF-8")), Throwable::printStackTrace);
+    Single<Buffer> single = client
+      .rxRequest(HttpMethod.GET, 8080, "localhost", "/")
+      .flatMap(req -> req
+        .rxSend()
+        .flatMap(resp -> {
+          // Status code check and -> Single<Buffer>
+          if (resp.statusCode() != 200) {
+            return Single.error(new RuntimeException("Wrong status code " + resp.statusCode()));
+          }
+          return resp.rxBody();
+        }));
+    single.subscribe(data -> System.out.println("Server content " + data.toString("UTF-8")), Throwable::printStackTrace);
   }
 }

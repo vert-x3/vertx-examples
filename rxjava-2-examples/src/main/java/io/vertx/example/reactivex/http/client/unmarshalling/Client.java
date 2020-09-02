@@ -1,5 +1,7 @@
 package io.vertx.example.reactivex.http.client.unmarshalling;
 
+import io.reactivex.Flowable;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
@@ -27,13 +29,15 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient();
 
-    client.rxGet(8080, "localhost", "/")
+    Flowable<Data> flowable = client
+      .rxRequest(HttpMethod.GET, 8080, "localhost", "/")
+      .flatMapPublisher(req -> req
+        .rxSend()
+        .flatMapPublisher(HttpClientResponse::toFlowable)
+        // Unmarshall the response to the Data object via Jackon
+        .map(buffer -> Json.decodeValue(buffer.getDelegate(), Data.class))
+      );
 
-      .flatMapPublisher(HttpClientResponse::toFlowable)
-
-      // Unmarshall the response to the Data object via Jackon
-      .map(buffer -> Json.decodeValue(buffer.getDelegate(), Data.class))
-
-      .subscribe(data -> System.out.println("Got response " + data.message), Throwable::printStackTrace);
+    flowable.subscribe(data -> System.out.println("Got response " + data.message), Throwable::printStackTrace);
   }
 }
