@@ -1,10 +1,11 @@
 package io.vertx.example.shell.wget;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.cli.Argument;
 import io.vertx.core.cli.CLI;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientResponse;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
@@ -49,24 +50,24 @@ public class WgetCommand extends AbstractVerticle {
         if (port == -1) {
           port = 80;
         }
-        client.get(port, url.getHost(), url.getPath(), ar -> {
-          if (ar.succeeded()) {
-            HttpClientResponse resp = ar.result();
-            process.write(resp.statusCode() + " " + resp.statusMessage() + "\n");
-            String contentType = resp.getHeader("Content-Type");
-            String contentLength = resp.getHeader("Content-Length");
-            process.write("Length: " + (contentLength != null ? contentLength : "unspecified"));
-            if (contentType != null) {
-              process.write("[" + contentType + "]");
-            }
-            process.write("\n");
-            process.end();
-          } else {
-            process.write("wget: error " + ar.cause().getMessage() + "\n");
-            process.end();
-          }
+        client.request(HttpMethod.GET, port, url.getHost(), url.getPath())
+          .compose(req -> {
+            return req.send().compose(resp -> {
+              process.write(resp.statusCode() + " " + resp.statusMessage() + "\n");
+              String contentType = resp.getHeader("Content-Type");
+              String contentLength = resp.getHeader("Content-Length");
+              process.write("Length: " + (contentLength != null ? contentLength : "unspecified"));
+              if (contentType != null) {
+                process.write("[" + contentType + "]");
+              }
+              process.write("\n");
+              process.end();
+              return Future.succeededFuture();
+            });
+          }).onFailure(err -> {
+          process.write("wget: error " + err.getMessage() + "\n");
+          process.end();
         });
-
       }).build(vertx);
 
     ShellService service = ShellService.create(vertx, new ShellServiceOptions().setTelnetOptions(
