@@ -23,8 +23,8 @@ Once the mongo instance is running, you can launch it using:
 
 ----
 # java
-vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-4.0.0-milestone5.jar -conf my-mongo-config.json
+vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-4.0.0.Beta2.jar -conf my-mongo-config.json
 
 # groovy
-vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-4.0.0-milestone5.jar -conf my-mongo-config.json
+vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-4.0.0.Beta2.jar -conf my-mongo-config.json
 ----

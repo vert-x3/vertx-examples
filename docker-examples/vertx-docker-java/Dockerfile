@@ -10,7 +10,7 @@
 FROM vertx/vertx3
 
 ENV VERTICLE_NAME io.vertx.sample.hello.HelloVerticle
-ENV VERTICLE_FILE target/hello-verticle-4.0.0-milestone5.jar
+ENV VERTICLE_FILE target/hello-verticle-4.0.0.Beta2.jar
 
 # Set the location of the verticles
 ENV VERTICLE_HOME /usr/verticles

@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>cassandra-examples</artifactId>
-  <version>4.0.0-milestone5</version>
+  <version>4.0.0.Beta2</version>
 
   <build>
     <plugins>

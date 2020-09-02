@@ -11,7 +11,7 @@ repositories {
   }
 }
 
-version = '4.0.0-milestone5'
+version = '4.0.0.Beta2'
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
 
