@@ -28,17 +28,17 @@ public class Runner {
   private static final String AMQP_PROTON_EXAMPLES_DIR = "amqp-proton-examples/src/main/java/";
 
   public static void runExample(Class<?> clazz) {
-    runExample(AMQP_PROTON_EXAMPLES_DIR, clazz, new VertxOptions().setClustered(false), null);
+    runExample(AMQP_PROTON_EXAMPLES_DIR, clazz, new VertxOptions(), false, null);
   }
 
-  public static void runExample(String exampleDir, Class<?> clazz, VertxOptions options,
+  public static void runExample(String exampleDir, Class<?> clazz, VertxOptions options, boolean clustered,
                                 DeploymentOptions deploymentOptions) {
-    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options,
-        deploymentOptions);
+    runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, clustered,
+      deploymentOptions);
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options,
-                                DeploymentOptions deploymentOptions) {
+                                boolean clustered, DeploymentOptions deploymentOptions) {
     if (options == null) {
       // Default parameter
       options = new VertxOptions();
@@ -69,7 +69,7 @@ public class Runner {
         t.printStackTrace();
       }
     };
-    if (options.isClustered()) {
+    if (clustered) {
       Vertx.clusteredVertx(options, res -> {
         if (res.succeeded()) {
           Vertx vertx = res.result();

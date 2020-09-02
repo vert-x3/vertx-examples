@@ -8,7 +8,7 @@ import io.vertx.pgclient.PgPool
 import io.vertx.sqlclient.PoolOptions
 import io.vertx.sqlclient.Tuple
 
-class SqlClientExample : io.vertx.core.AbstractVerticle() {
+class SqlClientExample : io.vertx.core.AbstractVerticle()  {
   override fun start() {
 
     var pool = PgPool.pool(vertx, PgConnectOptions(

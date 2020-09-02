@@ -1,15 +1,15 @@
-import io.vertx.core.Promise
 import io.vertx.pgclient.PgPool
+import io.vertx.core.Promise
 import io.vertx.sqlclient.Tuple
 
 def pool = PgPool.pool(vertx, [
-  port    : 5432,
-  host    : "the-host",
-  database: "the-db",
-  user    : "user",
-  password: "secret"
+  port:5432,
+  host:"the-host",
+  database:"the-db",
+  user:"user",
+  password:"secret"
 ], [
-  maxSize: 4
+  maxSize:4
 ])
 
 // Uncomment for MySQL
