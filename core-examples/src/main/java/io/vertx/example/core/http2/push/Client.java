@@ -27,24 +27,24 @@ public class Client extends AbstractVerticle {
 
     HttpClient client = vertx.createHttpClient(options);
 
-    HttpClientRequest request = vertx.createHttpClient().request(HttpMethod.GET, 8080, "localhost", "/");
-    request.compose(resp -> {
-      System.out.println("Got response " + resp.statusCode() + " with protocol " + resp.version());
-      return resp.body();
+    client.request(HttpMethod.GET, 8080, "localhost", "/").compose(request -> {
+
+      // Set handler for server side push
+      request.pushHandler(pushedReq -> {
+        System.out.println("Receiving pushed content");
+        pushedReq.compose(HttpClientResponse::body).onSuccess(body -> {
+          System.out.println("Got pushed data " + body.toString("ISO-8859-1"));
+        });
+      });
+
+      return request.send().compose(resp -> {
+        System.out.println("Got response " + resp.statusCode() + " with protocol " + resp.version());
+        return resp.body();
+      });
     }).onSuccess(body -> {
       System.out.println("Got data " + body.toString("ISO-8859-1"));
     }).onFailure(err -> {
       err.printStackTrace();
     });
-
-    // Set handler for server side push
-    request.pushHandler(pushedReq -> {
-      System.out.println("Receiving pushed content");
-      pushedReq.compose(HttpClientResponse::body).onSuccess(body -> {
-        System.out.println("Got pushed data " + body.toString("ISO-8859-1"));
-      });
-    });
-
-    request.end();
   }
 }

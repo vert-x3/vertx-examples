@@ -2,6 +2,7 @@ package io.vertx.example.core.http2.customframes;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpMethod;
@@ -29,26 +30,27 @@ public class Client extends AbstractVerticle {
         setProtocolVersion(HttpVersion.HTTP_2).
         setTrustAll(true);
 
-    HttpClientRequest request = vertx.createHttpClient(options).request(HttpMethod.GET, 8443, "localhost", "/");
+    HttpClient client = vertx.createHttpClient(options);
 
-    request.onSuccess(resp -> {
+    client.request(HttpMethod.GET, 8443, "localhost", "/")
+      .onSuccess(request -> {
+        request
+          .onSuccess(resp -> {
 
-      // Print custom frames received from server
+            // Print custom frames received from server
+            resp.customFrameHandler(frame -> {
+              System.out.println("Got frame from server " + frame.payload().toString("UTF-8"));
+            });
+          })
+          .sendHead().onSuccess(v -> {
 
-      resp.customFrameHandler(frame -> {
-        System.out.println("Got frame from server " + frame.payload().toString("UTF-8"));
-      });
-    });
+          // Once head has been sent we can send custom frames
+          vertx.setPeriodic(1000, timerID -> {
 
-    request.sendHead(version -> {
-
-      // Once head has been sent we can send custom frames
-
-      vertx.setPeriodic(1000, timerID -> {
-
-        System.out.println("Sending ping frame to server");
-        request.writeCustomFrame(10, 0, Buffer.buffer("ping"));
-      });
+            System.out.println("Sending ping frame to server");
+            request.writeCustomFrame(10, 0, Buffer.buffer("ping"));
+          });
+        });
     });
   }
 }

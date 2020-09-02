@@ -1,6 +1,7 @@
 package io.vertx.example.core.http.proxyconnect;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpMethod;
@@ -28,22 +29,21 @@ public class Client extends AbstractVerticle {
         .setType(ProxyType.HTTP)
         .setHost("localhost")
         .setPort(8080));
-    HttpClientRequest request = vertx.createHttpClient(options).request(HttpMethod.PUT, 8282, "localhost", "/");
-    request.compose(resp -> {
-      System.out.println("Got response " + resp.statusCode());
-      return resp.body();
-    }).onSuccess(body -> {
-      System.out.println("Got data " + body.toString("ISO-8859-1"));
-    }).onFailure(err -> {
-      err.printStackTrace();
-    });
-
-    request.setChunked(true);
-
-    for (int i = 0; i < 10; i++) {
-      request.write("client-chunk-" + i);
-    }
-
-    request.end();
+    HttpClient client = vertx.createHttpClient(options);
+    client.request(HttpMethod.GET, 8080, "localhost", "/")
+      .compose(request -> {
+          request.setChunked(true);
+          for (int i = 0; i < 10; i++) {
+            request.write("client-chunk-" + i);
+          }
+          request.end();
+          return request.compose(resp -> {
+            System.out.println("Got response " + resp.statusCode());
+            return resp.body();
+          });
+        }
+      )
+      .onSuccess(body -> System.out.println("Got data " + body.toString("ISO-8859-1")))
+      .onFailure(err -> err.printStackTrace());
   }
 }

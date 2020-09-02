@@ -1,7 +1,9 @@
 package io.vertx.example.core.http.sharing;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.example.util.Runner;
 
 /**
@@ -18,11 +20,12 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     vertx.setPeriodic(1000, l -> {
-      vertx.createHttpClient().get(8080, "localhost", "/").compose(HttpClientResponse::body).onSuccess(body -> {
-        System.out.println(body.toString("ISO-8859-1"));
-      }).onFailure(err -> {
-        err.printStackTrace();
-      });
+      HttpClient client = vertx.createHttpClient();
+      client.request(HttpMethod.GET, 8080, "localhost", "/")
+        .compose(req -> req.send()
+          .compose(HttpClientResponse::body))
+        .onSuccess(body -> System.out.println(body.toString("ISO-8859-1")))
+        .onFailure(err -> err.printStackTrace());
     });
   }
 }

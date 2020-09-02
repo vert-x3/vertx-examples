@@ -5,6 +5,7 @@ import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.FileProps;
 import io.vertx.core.file.FileSystem;
 import io.vertx.core.file.OpenOptions;
+import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpMethod;
@@ -23,30 +24,22 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    HttpClientRequest req = vertx.createHttpClient(new HttpClientOptions()).request(HttpMethod.PUT, 8080, "localhost", "/someurl");
-    req.onSuccess(resp -> {
-      System.out.println("Response " + resp.statusCode());
+    HttpClient client = vertx.createHttpClient(new HttpClientOptions());
+    client.request(HttpMethod.PUT, 8080, "localhost", "/someurl")
+      .compose(req -> {
+        String filename = "upload.txt";
+        FileSystem fs = vertx.fileSystem();
+        return fs.props(filename).compose(props -> {
+          System.out.println("props is " + props);
+          long size = props.size();
+          req.headers().set("content-length", "" + size);
+          return fs.open(filename, new OpenOptions());
+        }).compose(file -> req.send(file)
+          .map(resp -> resp.statusCode()));
+      }).onSuccess(statusCode -> {
+      System.out.println("Response " + statusCode);
     }).onFailure(err -> {
       err.printStackTrace();
     });
-    String filename = "upload.txt";
-    FileSystem fs = vertx.fileSystem();
-
-    fs.props(filename, ares -> {
-      FileProps props = ares.result();
-      System.out.println("props is " + props);
-      long size = props.size();
-      req.headers().set("content-length", "" + size);
-      fs.open(filename, new OpenOptions(), ares2 -> {
-        AsyncFile file = ares2.result();
-        Pump pump = Pump.pump(file, req);
-        file.endHandler(v -> {
-          req.end();
-        });
-        pump.start();
-      });
-    });
-
-
   }
 }
