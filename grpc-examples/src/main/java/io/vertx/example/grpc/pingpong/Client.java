@@ -27,7 +27,7 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    VertxPingPongServiceGrpc.VertxPingPongServiceStub stub = VertxPingPongServiceGrpc.newVertxStub(channel);
+    VertxPingPongServiceGrpc.PingPongServiceVertxStub stub = VertxPingPongServiceGrpc.newVertxStub(channel);
 
     // Make a request
     Messages.SimpleRequest request = Messages.SimpleRequest.newBuilder().setFillUsername(true).build();

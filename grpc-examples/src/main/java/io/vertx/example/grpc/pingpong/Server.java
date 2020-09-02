@@ -22,7 +22,7 @@ public class Server extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxPingPongServiceGrpc.PingPongServiceImplBase service = new VertxPingPongServiceGrpc.PingPongServiceImplBase() {
+    VertxPingPongServiceGrpc.PingPongServiceVertxImplBase service = new VertxPingPongServiceGrpc.PingPongServiceVertxImplBase() {
       @Override
       public Future<Messages.SimpleResponse> unaryCall(Messages.SimpleRequest request) {
         return Future.succeededFuture(Messages.SimpleResponse.newBuilder().setUsername("Paulo").build());

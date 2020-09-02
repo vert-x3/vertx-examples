@@ -20,7 +20,7 @@ public class Server extends AbstractVerticle {
 
   @Override
   public void start() {
-    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxGreeterGrpc.GreeterImplBase() {
+    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxGreeterGrpc.GreeterVertxImplBase() {
       @Override
       public Future<HelloReply> sayHello(HelloRequest request) {
         System.out.println("Hello " + request.getName());

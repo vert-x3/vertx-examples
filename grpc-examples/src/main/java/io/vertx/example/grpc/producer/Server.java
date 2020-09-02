@@ -25,7 +25,7 @@ public class Server extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxProducerServiceGrpc.ProducerServiceImplBase service = new VertxProducerServiceGrpc.ProducerServiceImplBase() {
+    VertxProducerServiceGrpc.ProducerServiceVertxImplBase service = new VertxProducerServiceGrpc.ProducerServiceVertxImplBase() {
       @Override
       public Future<Messages.StreamingInputCallResponse> streamingInputCall(ReadStream<Messages.StreamingInputCallRequest> request) {
         Promise<Messages.StreamingInputCallResponse> promise = Promise.promise();

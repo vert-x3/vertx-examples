@@ -27,7 +27,7 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    VertxProducerServiceGrpc.VertxProducerServiceStub stub = VertxProducerServiceGrpc.newVertxStub(channel);
+    VertxProducerServiceGrpc.ProducerServiceVertxStub stub = VertxProducerServiceGrpc.newVertxStub(channel);
 
     // Call the remote service
     stub.streamingInputCall(writeStream -> {

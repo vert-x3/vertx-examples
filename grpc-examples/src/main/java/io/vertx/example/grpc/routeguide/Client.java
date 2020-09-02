@@ -24,7 +24,7 @@ public class Client extends AbstractVerticle {
   }
 
   private Random random = new Random();
-  private VertxRouteGuideGrpc.VertxRouteGuideStub stub;
+  private VertxRouteGuideGrpc.RouteGuideVertxStub stub;
 
   @Override
   public void start() throws Exception {

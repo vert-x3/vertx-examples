@@ -33,7 +33,7 @@ public class Server extends AbstractVerticle {
     URL featureFile = Util.getDefaultFeaturesFile();
     features = Util.parseFeatures(featureFile);
 
-    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxRouteGuideGrpc.RouteGuideImplBase() {
+    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxRouteGuideGrpc.RouteGuideVertxImplBase() {
 
       @Override
       public Future<Feature> getFeature(Point request) {

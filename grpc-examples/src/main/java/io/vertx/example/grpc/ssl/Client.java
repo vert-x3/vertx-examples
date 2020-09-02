@@ -27,7 +27,7 @@ public class Client extends AbstractVerticle {
           .setPath("tls/client-truststore.jks")
           .setPassword("wibble")))
       .build();
-    VertxGreeterGrpc.VertxGreeterStub stub = VertxGreeterGrpc.newVertxStub(channel);
+    VertxGreeterGrpc.GreeterVertxStub stub = VertxGreeterGrpc.newVertxStub(channel);
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
     stub.sayHello(request).onComplete(asyncResponse -> {
       if (asyncResponse.succeeded()) {

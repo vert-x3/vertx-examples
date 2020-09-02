@@ -22,7 +22,7 @@ public class Client extends AbstractVerticle {
       .forAddress(vertx, "localhost", 8080)
       .usePlaintext(true)
       .build();
-    VertxGreeterGrpc.VertxGreeterStub stub = VertxGreeterGrpc.newVertxStub(channel);
+    VertxGreeterGrpc.GreeterVertxStub stub = VertxGreeterGrpc.newVertxStub(channel);
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
     stub.sayHello(request).onComplete(asyncResponse -> {
       if (asyncResponse.succeeded()) {

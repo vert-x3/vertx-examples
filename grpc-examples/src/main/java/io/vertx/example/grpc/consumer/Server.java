@@ -27,7 +27,7 @@ public class Server extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxConsumerServiceGrpc.ConsumerServiceImplBase service = new VertxConsumerServiceGrpc.ConsumerServiceImplBase() {
+    VertxConsumerServiceGrpc.ConsumerServiceVertxImplBase service = new VertxConsumerServiceGrpc.ConsumerServiceVertxImplBase() {
       @Override
       public void streamingOutputCall(Messages.StreamingOutputCallRequest request, WriteStream<Messages.StreamingOutputCallResponse> response) {
         final AtomicInteger counter = new AtomicInteger();

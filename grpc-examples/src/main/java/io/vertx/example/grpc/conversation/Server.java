@@ -24,7 +24,7 @@ public class Server extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxConversationalServiceGrpc.ConversationalServiceImplBase service = new VertxConversationalServiceGrpc.ConversationalServiceImplBase() {
+    VertxConversationalServiceGrpc.ConversationalServiceVertxImplBase service = new VertxConversationalServiceGrpc.ConversationalServiceVertxImplBase() {
       @Override
       public void fullDuplexCall(ReadStream<Messages.StreamingOutputCallRequest> request, WriteStream<Messages.StreamingOutputCallResponse> response) {
         request

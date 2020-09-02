@@ -27,7 +27,7 @@ public class Client extends AbstractVerticle {
       .build();
 
     // Get a stub to use for interacting with the remote service
-    VertxConversationalServiceGrpc.VertxConversationalServiceStub stub = VertxConversationalServiceGrpc.newVertxStub(channel);
+    VertxConversationalServiceGrpc.ConversationalServiceVertxStub stub = VertxConversationalServiceGrpc.newVertxStub(channel);
 
     // Make a request
     Messages.StreamingOutputCallRequest request = Messages.StreamingOutputCallRequest.newBuilder().build();
