@@ -6,6 +6,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpMethod;
 
 /**
  * @author <a href="pahan.224@gmail.com">Pahan</a>
@@ -33,13 +34,15 @@ public class Client extends AbstractVerticle {
       });
 
     breaker.executeWithFallback(promise -> {
-      vertx.createHttpClient().get(8080, "localhost", "/").compose(resp -> {
-        if (resp.statusCode() != 200) {
-          return Future.failedFuture("HTTP error");
-        } else {
-          return resp.body();
-        }
-      }).map(Buffer::toString).onComplete(promise);
+      vertx.createHttpClient().request(HttpMethod.GET, 8080, "localhost", "/").compose(req -> {
+        return req.send().compose(resp -> {
+          if (resp.statusCode() != 200) {
+            return Future.failedFuture("HTTP error");
+          } else {
+            return resp.body().map(Buffer::toString);
+          }
+        });
+      }).onComplete(promise);
     }, v -> {
       // Executed when the circuit is opened
       return "Hello (fallback)";
