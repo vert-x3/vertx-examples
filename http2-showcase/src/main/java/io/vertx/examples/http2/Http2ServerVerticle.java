@@ -9,7 +9,7 @@ import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.TemplateHandler;
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine;
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +75,7 @@ public class Http2ServerVerticle extends AbstractVerticle {
 
     private Router createRouter(String redirectURL) {
         Router router = Router.router(vertx);
-        HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create();
+        HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
         engine.setMaxCacheSize(0);
         router.get("/*").handler(rc -> {
           int queryLatency = DEFAULT_LATENCY;
