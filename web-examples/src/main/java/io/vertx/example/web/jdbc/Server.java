@@ -17,16 +17,19 @@
 package io.vertx.example.web.jdbc;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
+import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.jdbc.JDBCClient;
-import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.sqlclient.SqlConnection;
+import io.vertx.sqlclient.Tuple;
 
 /**
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -38,19 +41,21 @@ public class Server extends AbstractVerticle {
     Runner.runExample(Server.class);
   }
 
-  private JDBCClient client;
+  private JDBCPool client;
 
   @Override
-  public void start() {
-
-    Server that = this;
+  public void start(Promise<Void> startPromise) throws Exception {
 
     // Create a JDBC client with a test database
-    client = JDBCClient.createShared(vertx, new JsonObject()
+    client = JDBCPool.pool(vertx, new JsonObject()
       .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
       .put("driver_class", "org.hsqldb.jdbcDriver"));
 
-    setUpInitialData(ready -> {
+    Handler<RoutingContext> getProductRoute = Server.this::handleGetProduct;
+    Handler<RoutingContext> addProductRoute = Server.this::handleAddProduct;
+    Handler<RoutingContext> listProductsRoute = Server.this::handleListProducts;
+
+    setUpInitialData().flatMap(v -> {
       Router router = Router.router(vertx);
 
       router.route().handler(BodyHandler.create());
@@ -62,31 +67,30 @@ public class Server extends AbstractVerticle {
         if (res.failed()) {
           routingContext.fail(res.cause());
         } else {
-          SQLConnection conn = res.result();
+          SqlConnection conn = res.result();
 
           // save the connection on the context
           routingContext.put("conn", conn);
 
           // we need to return the connection back to the jdbc pool. In order to do that we need to close it, to keep
           // the remaining code readable one can add a headers end handler to close the connection.
-          routingContext.addHeadersEndHandler(done -> conn.close(v -> { }));
+          routingContext.addHeadersEndHandler(done -> conn.close());
 
           routingContext.next();
         }
-      })).failureHandler(routingContext -> {
-        SQLConnection conn = routingContext.get("conn");
-        if (conn != null) {
-          conn.close(v -> {
-          });
-        }
-      });
+      }));
 
-      router.get("/products/:productID").handler(that::handleGetProduct);
-      router.post("/products").handler(that::handleAddProduct);
-      router.get("/products").handler(that::handleListProducts);
+      router.get("/products/:productID").handler(getProductRoute);
+      router.post("/products").handler(addProductRoute);
+      router.get("/products").handler(listProductsRoute);
 
-      vertx.createHttpServer().requestHandler(router).listen(8080);
-    });
+      return vertx
+        .createHttpServer()
+        .requestHandler(router)
+        .listen(8080);
+    })
+      .<Void>mapEmpty()
+      .onComplete(startPromise);
   }
 
   private void handleGetProduct(RoutingContext routingContext) {
@@ -95,18 +99,18 @@ public class Server extends AbstractVerticle {
     if (productID == null) {
       sendError(400, response);
     } else {
-      SQLConnection conn = routingContext.get("conn");
-
-      conn.queryWithParams("SELECT id, name, price, weight FROM products where id = ?", new JsonArray().add(Integer.parseInt(productID)), query -> {
-        if (query.failed()) {
-          sendError(500, response);
-        } else {
-          if (query.result().getNumRows() == 0) {
+      client.preparedQuery("SELECT id, name, price, weight FROM products where id = ?")
+        .execute(Tuple.of(Integer.parseInt(productID)))
+        .onSuccess(result -> {
+          if (result.size() == 0) {
             sendError(404, response);
           } else {
-            response.putHeader("content-type", "application/json").end(query.result().getRows().get(0).encode());
+            response
+              .putHeader("content-type", "application/json")
+              .end(result.iterator().next().toJson().encode());
           }
-        }
+      }).onFailure(err -> {
+        sendError(500, response);
       });
     }
   }
@@ -114,29 +118,25 @@ public class Server extends AbstractVerticle {
   private void handleAddProduct(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
 
-    SQLConnection conn = routingContext.get("conn");
     JsonObject product = routingContext.getBodyAsJson();
 
-    conn.updateWithParams("INSERT INTO products (name, price, weight) VALUES (?, ?, ?)",
-      new JsonArray().add(product.getString("name")).add(product.getFloat("price")).add(product.getInteger("weight")), query -> {
-        if (query.failed()) {
-          sendError(500, response);
-        } else {
-          response.end();
-        }
-      });
+    client
+      .preparedQuery("INSERT INTO products (name, price, weight) VALUES (?, ?, ?)")
+      .execute(Tuple.of(product.getString("name"), product.getFloat("price"), product.getInteger("weight")))
+      .onSuccess(res -> response.end())
+      .onFailure(err -> sendError(500, response));
   }
 
   private void handleListProducts(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
-    SQLConnection conn = routingContext.get("conn");
-
-    conn.query("SELECT id, name, price, weight FROM products", query -> {
+    client.query("SELECT id, name, price, weight FROM products").execute(query -> {
       if (query.failed()) {
         sendError(500, response);
       } else {
         JsonArray arr = new JsonArray();
-        query.result().getRows().forEach(arr::add);
+        query.result().forEach(row -> {
+          arr.add(row.toJson());
+        });
         routingContext.response().putHeader("content-type", "application/json").end(arr.encode());
       }
     });
@@ -146,27 +146,14 @@ public class Server extends AbstractVerticle {
     response.setStatusCode(statusCode).end();
   }
 
-  private void setUpInitialData(Handler<Void> done) {
-    client.getConnection(res -> {
-      if (res.failed()) {
-        throw new RuntimeException(res.cause());
-      }
-
-      final SQLConnection conn = res.result();
-
-      conn.execute("CREATE TABLE IF NOT EXISTS products(id INT IDENTITY, name VARCHAR(255), price FLOAT, weight INT)", ddl -> {
-        if (ddl.failed()) {
-          throw new RuntimeException(ddl.cause());
-        }
-
-        conn.execute("INSERT INTO products (name, price, weight) VALUES ('Egg Whisk', 3.99, 150), ('Tea Cosy', 5.99, 100), ('Spatula', 1.00, 80)", fixtures -> {
-          if (fixtures.failed()) {
-            throw new RuntimeException(fixtures.cause());
-          }
-
-          done.handle(null);
-        });
-      });
-    });
+  private Future<Void> setUpInitialData() {
+    return client.getConnection()
+      .flatMap(conn -> conn
+        .query("CREATE TABLE IF NOT EXISTS products(id INT IDENTITY, name VARCHAR(255), price FLOAT, weight INT)")
+        .execute()
+        .flatMap(res -> conn
+          .query("INSERT INTO products (name, price, weight) VALUES ('Egg Whisk', 3.99, 150), ('Tea Cosy', 5.99, 100), ('Spatula', 1.00, 80)")
+          .execute())
+      ).mapEmpty();
   }
 }
