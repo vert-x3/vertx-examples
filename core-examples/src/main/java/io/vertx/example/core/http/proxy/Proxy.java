@@ -25,11 +25,9 @@ public class Proxy extends AbstractVerticle {
       HttpServerResponse serverResponse = serverRequest.response();
       client.request(serverRequest.method(), 8282, "localhost", serverRequest.uri())
         .onSuccess(clientRequest -> {
-          clientRequest.setChunked(true);
           clientRequest.headers().setAll(serverRequest.headers());
           clientRequest.send(serverRequest).onSuccess(clientResponse -> {
             System.out.println("Proxying response: " + clientResponse.statusCode());
-            serverResponse.setChunked(true);
             serverResponse.setStatusCode(clientResponse.statusCode());
             serverResponse.headers().setAll(clientResponse.headers());
             serverResponse.send(clientResponse);
