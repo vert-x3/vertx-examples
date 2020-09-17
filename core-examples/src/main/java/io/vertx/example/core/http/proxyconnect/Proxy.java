@@ -36,26 +36,33 @@ public class Proxy extends AbstractVerticle {
 
           if (ar.succeeded()) {
             System.out.println("Connected to proxy");
-            NetSocket clientSocket = req.netSocket();
-            clientSocket.write("HTTP/1.0 200 Connection established\n\n");
+
             NetSocket serverSocket = ar.result();
+            serverSocket.pause();
 
-            serverSocket.handler(buff -> {
-              System.out.println("Forwarding server packet to the client");
-              clientSocket.write(buff);
-            });
-            serverSocket.closeHandler(v -> {
-              System.out.println("Server socket closed");
-              clientSocket.close();
-            });
-
-            clientSocket.handler(buff -> {
-              System.out.println("Forwarding client packet to the server");
-              serverSocket.write(buff);
-            });
-            clientSocket.closeHandler(v -> {
-              System.out.println("Client socket closed");
-              serverSocket.close();
+            req.toNetSocket().onComplete(ar2 -> {
+              if (ar2.succeeded()) {
+                NetSocket clientSocket = ar2.result();
+                serverSocket.handler(buff -> {
+                  System.out.println("Forwarding server packet to the client");
+                  clientSocket.write(buff);
+                });
+                serverSocket.closeHandler(v -> {
+                  System.out.println("Server socket closed");
+                  clientSocket.close();
+                });
+                clientSocket.handler(buff -> {
+                  System.out.println("Forwarding client packet to the server");
+                  serverSocket.write(buff);
+                });
+                clientSocket.closeHandler(v -> {
+                  System.out.println("Client socket closed");
+                  serverSocket.close();
+                });
+                serverSocket.resume();
+              } else {
+                serverSocket.close();
+              }
             });
           } else {
 

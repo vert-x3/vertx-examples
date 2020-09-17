@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>service-proxy-examples</artifactId>
-  <version>4.0.0.Beta2</version>
+  <version>4.0.0.Beta3</version>
 
   <packaging>pom</packaging>
 

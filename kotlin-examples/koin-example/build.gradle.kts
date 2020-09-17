@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  kotlin("jvm") version "1.3.11"
+  kotlin("jvm") version "1.4.10"
   id("io.vertx.vertx-plugin") version "0.3.1"
 }
 

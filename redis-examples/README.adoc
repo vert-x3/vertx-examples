@@ -25,9 +25,9 @@ Once the redis instance is running, you can launch it using:
 mvn clean package
 
 # java
-vertx run io.vertx.examples.redis.RedisClientVerticle -cp target/redis-examples-4.0.0.Beta2.jar -conf my-redis-config.json
+vertx run io.vertx.examples.redis.RedisClientVerticle -cp target/redis-examples-4.0.0.Beta3.jar -conf my-redis-config.json
 
 # groovy
-vertx run src/main/groovy/io/vertx/examples/redis/redis_client_verticle.groovy   -cp target/redis-examples-4.0.0.Beta2.jar -conf my-redis-config.json
+vertx run src/main/groovy/io/vertx/examples/redis/redis_client_verticle.groovy   -cp target/redis-examples-4.0.0.Beta3.jar -conf my-redis-config.json
 ----
 

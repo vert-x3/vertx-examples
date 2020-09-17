@@ -4,7 +4,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.net.URI
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val VERTX_VER = "4.0.0.Beta2"
+val VERTX_VER = "4.0.0.Beta3"
 val KOTLIN_TEST_VER = "2.0.6"
 
 
@@ -28,7 +28,7 @@ buildscript {
 val KOTLIN_VER = "${extra["kotlin-ver"]}"
 
 plugins {
-    kotlin(module = "jvm", version = "1.1.51")
+    kotlin(module = "jvm", version = "1.4.10")
     application
 }
 
