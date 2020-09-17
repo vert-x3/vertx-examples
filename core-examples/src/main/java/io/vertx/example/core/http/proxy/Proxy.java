@@ -3,6 +3,7 @@ package io.vertx.example.core.http.proxy;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
+import io.vertx.core.http.HttpServerResponse;
 import io.vertx.example.util.Runner;
 
 /*
@@ -18,29 +19,27 @@ public class Proxy extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     HttpClient client = vertx.createHttpClient(new HttpClientOptions());
-    vertx.createHttpServer().requestHandler(req -> {
-      System.out.println("Proxying request: " + req.uri());
-      client.request(req.method(), 8282, "localhost", req.uri())
-        .onSuccess(c_req -> {
-          c_req.setChunked(true);
-          c_req.headers().setAll(req.headers());
-          c_req.send(req).onSuccess(c_res -> {
-            System.out.println("Proxying response: " + c_res.statusCode());
-            req.response().setChunked(true);
-            req.response().setStatusCode(c_res.statusCode());
-            req.response().headers().setAll(c_res.headers());
-            c_res.handler(data -> {
-              System.out.println("Proxying response body: " + data.toString("ISO-8859-1"));
-              req.response().write(data);
-            });
-            c_res.endHandler((v) -> req.response().end());
+    vertx.createHttpServer().requestHandler(serverRequest -> {
+      System.out.println("Proxying request: " + serverRequest.uri());
+      serverRequest.pause();
+      HttpServerResponse serverResponse = serverRequest.response();
+      client.request(serverRequest.method(), 8282, "localhost", serverRequest.uri())
+        .onSuccess(clientRequest -> {
+          clientRequest.setChunked(true);
+          clientRequest.headers().setAll(serverRequest.headers());
+          clientRequest.send(serverRequest).onSuccess(clientResponse -> {
+            System.out.println("Proxying response: " + clientResponse.statusCode());
+            serverResponse.setChunked(true);
+            serverResponse.setStatusCode(clientResponse.statusCode());
+            serverResponse.headers().setAll(clientResponse.headers());
+            serverResponse.send(clientResponse);
           }).onFailure(err -> {
             System.out.println("Back end failure");
-            req.response().setStatusCode(500).end();
+            serverResponse.setStatusCode(500).end();
           });
       }).onFailure(err -> {
         System.out.println("Could not connect to localhost");
-        req.response().setStatusCode(500).end();
+        serverResponse.setStatusCode(500).end();
       });
     }).listen(8080);
   }
