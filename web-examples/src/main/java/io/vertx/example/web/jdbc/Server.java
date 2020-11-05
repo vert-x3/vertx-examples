@@ -28,8 +28,16 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlConnection;
+import io.vertx.sqlclient.SqlResult;
 import io.vertx.sqlclient.Tuple;
+import io.vertx.sqlclient.templates.SqlTemplate;
+import io.vertx.sqlclient.templates.TupleMapper;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -42,6 +50,8 @@ public class Server extends AbstractVerticle {
   }
 
   private JDBCPool client;
+  private SqlTemplate<Map<String, Object>, RowSet<JsonObject>> getProductTmpl;
+  private SqlTemplate<JsonObject, SqlResult<Void>> addProductTmpl;
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
@@ -50,6 +60,12 @@ public class Server extends AbstractVerticle {
     client = JDBCPool.pool(vertx, new JsonObject()
       .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
       .put("driver_class", "org.hsqldb.jdbcDriver"));
+    getProductTmpl = SqlTemplate
+      .forQuery(client, "SELECT id, name, price, weight FROM products where id = #{id}")
+      .mapTo(Row::toJson);
+    addProductTmpl = SqlTemplate
+      .forUpdate(client, "INSERT INTO products (name, price, weight) VALUES (#{name}, #{price}, #{weight})")
+      .mapFrom(TupleMapper.jsonObject());
 
     Handler<RoutingContext> getProductRoute = Server.this::handleGetProduct;
     Handler<RoutingContext> addProductRoute = Server.this::handleAddProduct;
@@ -99,15 +115,15 @@ public class Server extends AbstractVerticle {
     if (productID == null) {
       sendError(400, response);
     } else {
-      client.preparedQuery("SELECT id, name, price, weight FROM products where id = ?")
-        .execute(Tuple.of(Integer.parseInt(productID)))
+      getProductTmpl
+        .execute(Collections.singletonMap("id", productID))
         .onSuccess(result -> {
           if (result.size() == 0) {
             sendError(404, response);
           } else {
             response
               .putHeader("content-type", "application/json")
-              .end(result.iterator().next().toJson().encode());
+              .end(result.iterator().next().encode());
           }
       }).onFailure(err -> {
         sendError(500, response);
@@ -116,13 +132,12 @@ public class Server extends AbstractVerticle {
   }
 
   private void handleAddProduct(RoutingContext routingContext) {
+
     HttpServerResponse response = routingContext.response();
 
     JsonObject product = routingContext.getBodyAsJson();
 
-    client
-      .preparedQuery("INSERT INTO products (name, price, weight) VALUES (?, ?, ?)")
-      .execute(Tuple.of(product.getString("name"), product.getFloat("price"), product.getInteger("weight")))
+    addProductTmpl.execute(product)
       .onSuccess(res -> response.end())
       .onFailure(err -> sendError(500, response));
   }
