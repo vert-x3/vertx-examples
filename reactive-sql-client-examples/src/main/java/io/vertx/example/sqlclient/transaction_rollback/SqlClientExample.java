@@ -1,15 +1,13 @@
 package io.vertx.example.sqlclient.transaction_rollback;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.example.util.Runner;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -39,32 +37,25 @@ public class SqlClientExample extends AbstractVerticle {
 //      .setUser("user")
 //      .setPassword("secret"), new PoolOptions().setMaxSize(4));
 
-    pool.getConnection().compose(connection -> {
-      return connection.begin()
-        .compose(tx -> {
-          // create a test table
-          return connection.query("create table test(id int primary key, name varchar(255))").execute()
-            .compose(v -> {
-              // insert some test data
-              return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
-            })
-            .compose(v -> {
-              // rollback transaction
-              return tx.rollback();
-            })
-            .compose(v -> {
-              // query some data
-              return connection.query("select * from test").execute();
-            })
-            .onSuccess(rows -> {
-              for (Row row : rows) {
-                System.out.println("row = " + row.toString());
-              }
-            });
+    pool.withTransaction(connection -> {
+      // create a test table
+      return connection.query("create table test(id int primary key, name varchar(255))").execute()
+        .compose(v -> {
+          // insert some test data
+          return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
         })
-        .onComplete(v -> {
-          // and close the connection
-          connection.close();
+        .compose(v -> {
+          // Triggers transaction roll back
+          return Future.failedFuture("Failed");
+        })
+        .compose(v -> {
+          // query some data
+          return connection.query("select * from test").execute();
+        })
+        .onSuccess(rows -> {
+          for (Row row : rows) {
+            System.out.println("row = " + row.toString());
+          }
         });
     }).onComplete(ar -> {
       if (ar.succeeded()) {
