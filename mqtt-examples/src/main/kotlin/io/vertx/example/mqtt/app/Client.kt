@@ -14,7 +14,7 @@ class Client : io.vertx.core.AbstractVerticle()  {
   var BROKER_PORT = 1883
   override fun start() {
     var options = MqttClientOptions(
-      keepAliveTimeSeconds = 2)
+      keepAliveInterval = 2)
 
     var client = MqttClient.create(Vertx.vertx(), options)
 

@@ -13,7 +13,7 @@ public class MyDeployingVerticle extends AbstractVerticle {
   public void start(Promise<Void> promise) {
     // The `my-verticle` is deployed using the following convention:
     // `maven:` + groupId + `:` + artifactId + `:` + version + `::` + verticle name
-    vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:4.0.0.Beta3::my-verticle", ar -> {
+    vertx.deployVerticle("maven:io.vertx:maven-service-factory-verticle:4.0.0.CR1::my-verticle", ar -> {
       if (ar.succeeded()) {
         promise.complete();
       } else {

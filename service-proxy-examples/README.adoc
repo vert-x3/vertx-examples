@@ -77,7 +77,7 @@ Once done, run the verticle using:
 [source]
 ----
 vertx run io.vertx.examples.service.ProcessorServiceVerticle \
-    -cp target/service-provider-4.0.0.Beta3.jar -cluster
+    -cp target/service-provider-4.0.0.CR1.jar -cluster
 ----
 
 Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
@@ -105,7 +105,7 @@ To run this verticle, package it using: `mvn clean package`, and run it with:
 
 ----
 vertx run io.vertx.examples.service.consumer.ConsumerVerticle \
-    -cp ../service-provider/target/service-provider-4.0.0.Beta3.jar:target/service-consumer-4.0.0.Beta3.jar \
+    -cp ../service-provider/target/service-provider-4.0.0.CR1.jar:target/service-consumer-4.0.0.CR1.jar \
     -cluster
 ----
 
@@ -124,5 +124,5 @@ The service can be consumed from Java, as presented above, but also from Groovy.
 In JavaScript, the consuming verticle is link:service-consumer/src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy[here]. To launch it, just run:
 
 ----
-vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-4.0.0.Beta3.jar -cluster
+vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-4.0.0.CR1.jar -cluster
 ----

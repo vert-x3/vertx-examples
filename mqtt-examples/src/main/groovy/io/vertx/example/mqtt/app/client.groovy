@@ -8,7 +8,7 @@ import io.netty.handler.codec.mqtt.MqttQoS
 @Field def MQTT_TOPIC = "/my_topic"
 @Field def BROKER_PORT = 1883
 def options = [
-  keepAliveTimeSeconds:2
+  keepAliveInterval:2
 ]
 
 def client = MqttClient.create(Vertx.vertx(), options)

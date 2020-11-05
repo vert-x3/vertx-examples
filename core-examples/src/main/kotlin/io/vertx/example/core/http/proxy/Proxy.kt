@@ -6,30 +6,24 @@ import io.vertx.kotlin.core.http.*
 class Proxy : io.vertx.core.AbstractVerticle()  {
   override fun start() {
     var client = vertx.createHttpClient(HttpClientOptions())
-    vertx.createHttpServer().requestHandler({ req ->
-      println("Proxying request: ${req.uri()}")
-      client.request(req.method(), 8282, "localhost", req.uri()).onSuccess({ c_req ->
-        c_req.setChunked(true)
-        c_req.headers().setAll(req.headers())
-        c_req.send(req).onSuccess({ c_res ->
-          println("Proxying response: ${c_res.statusCode()}")
-          req.response().setChunked(true)
-          req.response().setStatusCode(c_res.statusCode())
-          req.response().headers().setAll(c_res.headers())
-          c_res.handler({ data ->
-            println("Proxying response body: ${data.toString("ISO-8859-1")}")
-            req.response().write(data)
-          })
-          c_res.endHandler({ v ->
-            req.response().end()
-          })
+    vertx.createHttpServer().requestHandler({ serverRequest ->
+      println("Proxying request: ${serverRequest.uri()}")
+      serverRequest.pause()
+      var serverResponse = serverRequest.response()
+      client.request(serverRequest.method(), 8282, "localhost", serverRequest.uri()).onSuccess({ clientRequest ->
+        clientRequest.headers().setAll(serverRequest.headers())
+        clientRequest.send(serverRequest).onSuccess({ clientResponse ->
+          println("Proxying response: ${clientResponse.statusCode()}")
+          serverResponse.setStatusCode(clientResponse.statusCode())
+          serverResponse.headers().setAll(clientResponse.headers())
+          serverResponse.send(clientResponse)
         }).onFailure({ err ->
           println("Back end failure")
-          req.response().setStatusCode(500).end()
+          serverResponse.setStatusCode(500).end()
         })
       }).onFailure({ err ->
         println("Could not connect to localhost")
-        req.response().setStatusCode(500).end()
+        serverResponse.setStatusCode(500).end()
       })
     }).listen(8080)
   }

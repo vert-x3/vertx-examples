@@ -43,7 +43,7 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    MqttClientOptions options = new MqttClientOptions().setKeepAliveTimeSeconds(2);
+    MqttClientOptions options = new MqttClientOptions().setKeepAliveInterval(2);
 
     MqttClient client = MqttClient.create(Vertx.vertx(), options);
 

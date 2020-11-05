@@ -13,7 +13,7 @@ mqttServer.endpointHandler({ endpoint ->
     println("[username = ${endpoint.auth().username}, password = ${endpoint.auth().password}]")
   }
   if (endpoint.will() != null) {
-    println("[will flag = ${endpoint.will().isWillFlag} topic = ${endpoint.will().willTopic} msg = ${endpoint.will().willMessage} QoS = ${endpoint.will().willQos} isRetain = ${endpoint.will().isWillRetain}]")
+    println("[will flag = ${endpoint.will().illFlag} topic = ${endpoint.will().willTopic} msg = ${endpoint.will().willMessage} QoS = ${endpoint.will().willQos} isRetain = ${endpoint.will().illRetain}]")
   }
 
   println("[keep alive timeout = ${endpoint.keepAliveTimeSeconds()}]")

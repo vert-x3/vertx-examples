@@ -1,11 +1,17 @@
 package io.vertx.example.reactivex.database.jdbc;
 
-import io.vertx.core.json.JsonArray;
+import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
-import io.vertx.reactivex.ext.jdbc.JDBCClient;
-import io.vertx.reactivex.ext.sql.SQLClientHelper;
+import io.vertx.reactivex.jdbcclient.JDBCPool;
+import io.vertx.reactivex.sqlclient.Row;
+import io.vertx.reactivex.sqlclient.RowSet;
+import io.vertx.reactivex.sqlclient.SqlConnection;
+import io.vertx.reactivex.sqlclient.Tuple;
+
+import java.util.Arrays;
 
 /*
  * @author <a href="mailto:emad.albloushi@gmail.com">Emad Alblueshi</a>
@@ -28,29 +34,22 @@ public class Transaction extends AbstractVerticle {
       "name VARCHAR(255), " +
       "datetime TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL)";
 
-    JDBCClient client = JDBCClient.createShared(vertx, config);
+    JDBCPool pool = JDBCPool.pool(vertx, config);
 
     // Connect to the database
-    client
-      .rxGetConnection()
-      .flatMap(conn ->
-        conn
-          // Create table
-          .rxExecute(sql)
-          .andThen( // Insert colors
-            conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("BLACK"))
-              .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("WHITE")))
-              .flatMap(updateResult -> conn.rxUpdateWithParams("INSERT INTO colors (name) VALUES (?)", new JsonArray().add("PURPLE")))
-              // Add transaction management to upstream Single
-              .compose(SQLClientHelper.txSingleTransformer(conn))
-          )
-          // Get colors if all succeeded
-          .flatMap(updateResult -> conn.rxQuery("SELECT * FROM colors"))
-          // Close the connection regardless succeeded or failed
-          .doFinally(conn::close)
-      ).subscribe(resultSet -> {
-      // Subscribe to get the final result
-      System.out.println("Results : " + resultSet.getRows());
-    }, Throwable::printStackTrace);
+    pool.rxWithTransaction((Function<SqlConnection, Single<RowSet<Row>>>) client -> client
+      // Create table
+      .query(sql).rxExecute()
+      // Insert colors
+      .flatMap(r -> client
+        .preparedQuery("INSERT INTO colors (name) VALUES (?)")
+        .rxExecuteBatch(Arrays.asList(Tuple.of("BLACK"), Tuple.of("PURPLE"))))
+      // Get colors if all succeeded
+      .flatMap(r -> client.query("SELECT * FROM colors").rxExecute()))// Subscribe to get the final result
+      .subscribe(rowSet -> {
+        rowSet.forEach(row -> {
+          System.out.println("row = " + row);
+        });
+      }, Throwable::printStackTrace);
   }
 }
