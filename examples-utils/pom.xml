@@ -8,27 +8,7 @@
   <artifactId>examples-utils</artifactId>
   <version>4.0.0.CR1</version>
 
-  <properties>
-    <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
-  </properties>
-
   <dependencies>
-
-    <dependency>
-      <groupId>com.sun</groupId>
-      <artifactId>tools</artifactId>
-      <version>1.8</version>
-      <scope>system</scope>
-      <systemPath>${tools.jar}</systemPath>
-      <optional>true</optional>
-    </dependency>
-
-    <!-- For generating examples -->
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codetrans</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <!-- For running examples -->
     <dependency>

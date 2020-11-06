@@ -57,9 +57,6 @@
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
-            <compilerArgs>
-              <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
-            </compilerArgs>
           </configuration>
         </plugin>
       </plugins>

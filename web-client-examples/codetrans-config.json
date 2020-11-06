@@ -1,6 +1,0 @@
-{
-  "excludes": [
-    { "package" : "io.vertx.example.webclient.send.jsonpojo" },
-    { "package" : "io.vertx.example.webclient.response.jsonpojo" }
-  ]
-}

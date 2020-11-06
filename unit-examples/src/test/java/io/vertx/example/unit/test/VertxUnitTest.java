@@ -1,6 +1,5 @@
 package io.vertx.example.unit.test;
 
-import io.vertx.codetrans.annotations.CodeTranslate;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
@@ -23,7 +22,6 @@ public class VertxUnitTest {
 
   Vertx vertx;
 
-  @CodeTranslate // Not yet detected
   public void run() {
 
     TestOptions options = new TestOptions().addReporter(new ReportOptions().setTo("console"));

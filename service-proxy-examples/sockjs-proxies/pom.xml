@@ -12,6 +12,12 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
+      <artifactId>vertx-codegen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -47,10 +53,6 @@
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
-            <compilerArgs>
-              <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
-              <arg>-Acodetrans.config=${basedir}/codetrans-config.json</arg>
-            </compilerArgs>
             <annotationProcessors>
               <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
             </annotationProcessors>

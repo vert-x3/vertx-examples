@@ -12,7 +12,7 @@ installation.
 
 Use that as a template for setting up a Maven project with Vert.x.
 
-Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy, Ruby, and JavaScript verticles.
+Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy verticle.
 
 Want to start right away, open the first example in Eclipse Che:
 
@@ -55,18 +55,6 @@ Most of the examples have been written as verticles. For more information on ver
 
 Using verticles allows you to scale and run your code from the command line more easily, but if you prefer the same code in the verticles can also be run embedded. It's really up to you. Verticles are
 entirely optional in Vert.x.
-
-== Different languages
-
-Most of the examples are available in all the languages that Vert.x supports.
-
-You'll find the examples for the relevant language in a directory `src/main/${lang}` where `lang` is an identifier for the
- language, e.g. `java`, `js`, `ruby` etc.
-
-For example you'll find the Vert.x core Java examples in link:core-examples/src/main/java[] and you'll find the Vert.x core
-JavaScript examples in link:core-examples/src/main/js[]
-
-NOTE: All the non-Java examples are automatically generated from the Java examples using our magic code translator.
 
 === Running the examples
 
