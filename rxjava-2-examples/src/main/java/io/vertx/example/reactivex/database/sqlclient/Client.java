@@ -1,4 +1,4 @@
-package io.vertx.example.reactivex.database.jdbc;
+package io.vertx.example.reactivex.database.sqlclient;
 
 import io.reactivex.functions.Function;
 import io.vertx.core.json.JsonObject;
@@ -9,7 +9,6 @@ import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.RowSet;
 import io.vertx.reactivex.sqlclient.SqlConnection;
-import org.jetbrains.annotations.NotNull;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>

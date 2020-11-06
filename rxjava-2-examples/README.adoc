@@ -141,19 +141,19 @@ link:src/main/java/io/vertx/example/reactivex/eventbus/zipreplies/Sender.java[Rx
 
 == RxJava 2 Database examples
 
-=== Jdbc example
+=== SQL client example
 
-An example showing the Jdbc Service Rxified api, after the client connected to the database, it chains
+An example showing the SQL client Rxified api, after the client connected to the database, it chains
 operations via the `flatMap` operation and then subscribes to the result.
 
-link:src/main/java/io/vertx/example/reactivex/database/jdbc/Client.java[RxJava 2 JDBC client]
+link:src/main/java/io/vertx/example/reactivex/database/sqlclient/Client.java[RxJava 2 SQL client]
 
-=== Jdbc Manual Transaction Handling
+=== SQL client Transaction Handling
 
-An example showing an Rxified Jdbc api to handle transactions manually then commit if all succeeded or rollback with
+An example showing an Rxified SQL client api to handle simplified transaction that commits if all succeeded or rollback with
 exception propagation to the caller in case of anyone failed.
 
-link:src/main/java/io/vertx/example/reactivex/database/jdbc/Transaction.java[RxJava Jdbc Transaction]
+link:src/main/java/io/vertx/example/reactivex/database/sqlclient/Transaction.java[RxJava SQL transaction]
 
 === Mongo example
 

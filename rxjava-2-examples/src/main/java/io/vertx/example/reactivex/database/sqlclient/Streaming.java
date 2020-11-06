@@ -1,4 +1,4 @@
-package io.vertx.example.reactivex.database.jdbc;
+package io.vertx.example.reactivex.database.sqlclient;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;

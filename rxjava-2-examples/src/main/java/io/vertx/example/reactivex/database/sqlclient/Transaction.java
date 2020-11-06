@@ -1,4 +1,4 @@
-package io.vertx.example.reactivex.database.jdbc;
+package io.vertx.example.reactivex.database.sqlclient;
 
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
