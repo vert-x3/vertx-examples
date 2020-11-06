@@ -24,7 +24,6 @@
     <module>unit-examples</module>
     <module>metrics-examples</module>
     <module>mail-examples</module>
-    <module>maven-service-factory-examples</module>
     <module>service-proxy-examples</module>
     <module>spring-examples</module>
     <module>redis-examples</module>
