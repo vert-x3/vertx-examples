@@ -80,9 +80,7 @@
                     <Main-Verticle>io.vertx.example.fatjar.http2.Server</Main-Verticle>
                   </manifestEntries>
                 </transformer>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/services/io.vertx.core.spi.VerticleFactory</resource>
-                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
               </transformers>
             </configuration>
           </execution>
