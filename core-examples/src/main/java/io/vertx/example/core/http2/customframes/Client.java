@@ -25,24 +25,23 @@ public class Client extends AbstractVerticle {
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
     HttpClientOptions options = new HttpClientOptions().
-        setSsl(true).
-        setUseAlpn(true).
-        setProtocolVersion(HttpVersion.HTTP_2).
-        setTrustAll(true);
+      setSsl(true).
+      setUseAlpn(true).
+      setProtocolVersion(HttpVersion.HTTP_2).
+      setTrustAll(true);
 
     HttpClient client = vertx.createHttpClient(options);
 
     client.request(HttpMethod.GET, 8443, "localhost", "/")
       .onSuccess(request -> {
-        request
-          .onSuccess(resp -> {
+        request.response().onSuccess(resp -> {
 
-            // Print custom frames received from server
-            resp.customFrameHandler(frame -> {
-              System.out.println("Got frame from server " + frame.payload().toString("UTF-8"));
-            });
-          })
-          .sendHead().onSuccess(v -> {
+          // Print custom frames received from server
+          resp.customFrameHandler(frame -> {
+            System.out.println("Got frame from server " + frame.payload().toString("UTF-8"));
+          });
+        });
+        request.sendHead().onSuccess(v -> {
 
           // Once head has been sent we can send custom frames
           vertx.setPeriodic(1000, timerID -> {
@@ -51,6 +50,6 @@ public class Client extends AbstractVerticle {
             request.writeCustomFrame(10, 0, Buffer.buffer("ping"));
           });
         });
-    });
+      });
   }
 }

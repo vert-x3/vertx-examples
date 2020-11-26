@@ -25,7 +25,7 @@ public class Client extends AbstractVerticle {
     // Create the channel
     ManagedChannel channel = VertxChannelBuilder
       .forAddress(vertx, "localhost", 8080)
-      .usePlaintext(true)
+      .usePlaintext()
       .build();
 
     // Get a stub to use for interacting with the remote service

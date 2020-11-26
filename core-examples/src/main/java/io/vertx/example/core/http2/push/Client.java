@@ -32,7 +32,7 @@ public class Client extends AbstractVerticle {
       // Set handler for server side push
       request.pushHandler(pushedReq -> {
         System.out.println("Receiving pushed content");
-        pushedReq.compose(HttpClientResponse::body).onSuccess(body -> {
+        pushedReq.response().compose(HttpClientResponse::body).onSuccess(body -> {
           System.out.println("Got pushed data " + body.toString("ISO-8859-1"));
         });
       });

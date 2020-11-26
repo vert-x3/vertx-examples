@@ -37,7 +37,7 @@ public class Client extends AbstractVerticle {
             request.write("client-chunk-" + i);
           }
           request.end();
-          return request.compose(resp -> {
+          return request.response().compose(resp -> {
             System.out.println("Got response " + resp.statusCode());
             return resp.body();
           });

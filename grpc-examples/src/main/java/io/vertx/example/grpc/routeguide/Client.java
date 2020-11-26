@@ -30,7 +30,7 @@ public class Client extends AbstractVerticle {
   public void start() throws Exception {
     ManagedChannel channel = VertxChannelBuilder
       .forAddress(vertx, "localhost", 8080)
-      .usePlaintext(true)
+      .usePlaintext()
       .build();
 
     stub = VertxRouteGuideGrpc.newVertxStub(channel);

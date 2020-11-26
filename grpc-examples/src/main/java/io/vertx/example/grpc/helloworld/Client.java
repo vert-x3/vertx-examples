@@ -20,7 +20,7 @@ public class Client extends AbstractVerticle {
   public void start() {
     ManagedChannel channel = VertxChannelBuilder
       .forAddress(vertx, "localhost", 8080)
-      .usePlaintext(true)
+      .usePlaintext()
       .build();
     VertxGreeterGrpc.GreeterVertxStub stub = VertxGreeterGrpc.newVertxStub(channel);
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
