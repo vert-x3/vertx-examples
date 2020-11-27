@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches:
+      - '[0-9]+.x'
+  pull_request:
+    branches:
+      - '[0-9]+.x'
+  schedule:
+    - cron:  '0 4 * * *'
+jobs:
+  Test:
+    name: Build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        profile: [""]
+        jdk: [8]
+        include:
+          - os: ubuntu-latest
+            jdk: 11
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-java-${{ matrix.jdk }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install JDK
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: ${{ matrix.jdk }}
+      - name: Run tests
+        run: mvn -q clean verify -B ${{ matrix.profile }}
