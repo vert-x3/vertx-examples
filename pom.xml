@@ -50,12 +50,12 @@
   <profiles>
 
     <profile>
-      <id>java9</id>
+      <id>jpms</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[11,)</jdk>
       </activation>
       <modules>
-        <module>java9-examples</module>
+        <module>jpms-examples</module>
       </modules>
     </profile>
 

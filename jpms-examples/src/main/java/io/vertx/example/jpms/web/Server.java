@@ -1,26 +1,20 @@
-package io.vertx.example.java9.web;
+package io.vertx.example.jpms.web;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.net.JksOptions;
 import io.vertx.ext.web.Router;
 
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(new Server(), ar -> {
-      if (ar.failed()) {
-        ar.cause().printStackTrace();
-      }
-    });
+    vertx.deployVerticle(new Server())
+      .onFailure(Throwable::printStackTrace);
   }
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startPromise) throws Exception {
 
     Router router = Router.router(vertx);
 
@@ -30,6 +24,8 @@ public class Server extends AbstractVerticle {
 
     vertx.createHttpServer()
       .requestHandler(router)
-      .listen(8080, ar -> startFuture.handle(ar.mapEmpty()));
+      .listen(8080)
+      .<Void>mapEmpty()
+      .onComplete(startPromise);
   }
 }
