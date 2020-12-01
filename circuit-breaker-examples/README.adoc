@@ -52,9 +52,6 @@ To start the client, run the `Client.java` class from your IDE or call:
 ----
 # java version
 vertx run src/main/java/io/vertx/example/circuit/breaker/Client.java
-
-# groovy version
-vertx run src/main/groovy/io/vertx/example/circuit/breaker/client.groovy
 ----
 
 

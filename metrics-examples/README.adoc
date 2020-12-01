@@ -9,7 +9,6 @@ be queried via the Dropwizard MetricsService.
 This example is a UI monitoring dashboard built on top of the Dropwizard metrics implementation.
 
 The link:src/main/java/io/vertx/example/metrics/dashboard/[Java monitoring dashboard example]
-The link:src/main/groovy/io/vertx/example/metrics/dashboard/[Groovy monitoring dashboard example]
 
 The dashboard uses the vertx-web eventbus bridge to push metrics periodically on the event bus. The metrics
 are retrieved from the MetricsService in Json format.
@@ -25,10 +24,6 @@ mvn clean package
 
 # java
 vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-4.0.0.CR2.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
-
-# groovy
-cd src/main/groovy/io/vertx/example/metrics/dashboard
-vertx run dashboard.groovy -cp ./../../../../../../../../target/metrics-examples-4.0.0.CR2.jar:. -Dvertx.metrics.options.enabled=true
 ----
 
 To enable JMX append the following options: `-Dvertx.metrics.options.jmxEnabled=true -Dvertx.metrics.options.jmxDomain=vertx`. Then, if you open a JMX explorer (such the JConsole), in the list of beans you will find the Vert.x metrics under the

@@ -33,19 +33,6 @@ That's fine too :)
 
 You can run most of the examples at the command line using `vertx run` if you have Vert.x installed (see below).
 
-
-== Some examples need examples-utils
-
-You may find examples that need examples-utils. You need to build it from link:examples-utils:
-
-[source,shell]
-----
-git clone https://github.com/vert-x3/vertx-examples.git
-cd vertx-examples
-cd examples-utils
-mvn clean install
-----
-
 == The examples
 
 The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other

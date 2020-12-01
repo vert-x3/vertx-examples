@@ -19,7 +19,6 @@ public class Runner {
 
   private static final String METRICS_EXAMPLES_DIR = "metrics-examples";
   private static final String METRICS_EXAMPLES_JAVA_DIR = METRICS_EXAMPLES_DIR + "/src/main/java/";
-  private static final String METRICS_EXAMPLES_GROOVY_DIR = METRICS_EXAMPLES_DIR + "/src/main/groovy/";
 
   public static void runClusteredExample(Class clazz) {
     runExample(METRICS_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(DROPWIZARD_OPTIONS), null, true);
@@ -29,28 +28,8 @@ public class Runner {
     runExample(METRICS_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(DROPWIZARD_OPTIONS), null, false);
   }
 
-  // Groovy examples
-
-  public static void runGroovyExample(String scriptName) {
-    runScriptExample(METRICS_EXAMPLES_GROOVY_DIR, scriptName, DROPWIZARD_OPTIONS, false);
-  }
-
-  static class GroovyMetricsDashboardRunner {
-    public static void main(String[] args) {
-      runGroovyExample("io/vertx/example/metrics/dashboard/dashboard.groovy");
-    }
-  }
-
   public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {
     runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
-  }
-
-
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
-    File file = new File(scriptName);
-    String dirPart = file.getParent();
-    String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {

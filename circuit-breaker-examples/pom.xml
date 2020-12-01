@@ -1,57 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.vertx</groupId>
-	<artifactId>circuit-breaker-examples</artifactId>
+  <groupId>io.vertx</groupId>
+  <artifactId>circuit-breaker-examples</artifactId>
   <version>4.0.0.CR2</version>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-	<dependencies>
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+  <dependencies>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-circuit-breaker</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-circuit-breaker</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>examples-utils</artifactId>
-			<version>${project.version}</version>
-			<optional>true</optional>
-		</dependency>
-	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>staging</id>
-			<repositories>
-				<repository>
-					<id>staging</id>
-					<url>https://oss.sonatype.org/content/repositories/iovertx-3868/</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <repositories>
+        <repository>
+          <id>staging</id>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3868/</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
 </project>

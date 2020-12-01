@@ -5,7 +5,6 @@ Here you will find examples demonstrating the usage of the Vert.x Mongo Client.
 The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/examples/mongo/MongoClientVerticle.java[MongoClientVerticle.java]
-* Groovy: link:src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy[mongo_client_verticle.groovy]
 
 To run this example, you need a running Mongo instance. Once running, you can configure the
 verticles with the mongo host:
@@ -24,7 +23,4 @@ Once the mongo instance is running, you can launch it using:
 ----
 # java
 vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-4.0.0.CR2.jar -conf my-mongo-config.json
-
-# groovy
-vertx run src/main/groovy/io/vertx/examples/mongo/mongo_client_verticle.groovy   -cp target/mongo-examples-4.0.0.CR2.jar -conf my-mongo-config.json
 ----

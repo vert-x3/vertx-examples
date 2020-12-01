@@ -15,21 +15,6 @@
       <artifactId>vertx-mqtt</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <!-- language bindings -->
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-groovy</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>examples-utils</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
   </dependencies>
 
   <build>

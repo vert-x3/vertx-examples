@@ -11,7 +11,9 @@
   <properties>
     <vertx.grpc.version>1.16.1</vertx.grpc.version>
     <jetty.alpnAgent.version>2.0.7</jetty.alpnAgent.version>
-    <jetty.alpnAgent.path>${settings.localRepository}/org/mortbay/jetty/alpn/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar</jetty.alpnAgent.path>
+    <jetty.alpnAgent.path>
+      ${settings.localRepository}/org/mortbay/jetty/alpn/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar
+    </jetty.alpnAgent.path>
   </properties>
 
   <dependencies>
@@ -25,13 +27,6 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-grpc</artifactId>
       <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>examples-utils</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
     </dependency>
 
     <dependency>
@@ -83,7 +78,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <configuration>
-            <argLine> -javaagent:${jetty.alpnAgent.path}</argLine>
+            <argLine>-javaagent:${jetty.alpnAgent.path}</argLine>
           </configuration>
         </plugin>
       </plugins>

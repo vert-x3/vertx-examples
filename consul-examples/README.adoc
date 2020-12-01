@@ -14,6 +14,4 @@ consul agent -data-dir=/tmp/kekeke -server -ui -bootstrap=1
 The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/examples/consul/ConsulClientVerticle.java[ConsulClientVerticle.java]
-* Kotlin: link:src/main/kotlin/io/vertx/examples/consul/ConsulClientVerticle.kt[ConsulClientVerticle.kt]
-* Groovy: link:src/main/groovy/io/vertx/examples/consul/consul_client_verticle.groovy[consul_client_verticle.groovy]
 

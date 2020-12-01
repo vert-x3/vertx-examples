@@ -11,8 +11,6 @@ without parameters and shows how to close the connection.
 The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/example/sqlclient/simple/SqlClientExample.java[SqlClientExample.java]
-* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/simple/SqlClientExample.kt[SqlClientExample.kt]
-* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/simple/sql_client_example.groovy[sql_client_example.groovy]
 
 == Query Params
 
@@ -23,8 +21,6 @@ advantage of doing so is to avoid common SQL injection security issues since all
 The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/example/sqlclient/query_params/SqlClientExample.java[SqlClientExample.java]
-* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/query_params/SqlClientExample.kt[SqlClientExample.kt]
-* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/query_params/sql_client_example.groovy[sql_client_example.groovy]
 
 == Streaming
 
@@ -35,8 +31,6 @@ This is particularly useful when you expect large results.
 The example is available in several languages:
 
 * Java: link:src/main/java/io/vertx/example/sqlclient/streaming/SqlClientExample.java[SqlClientExample.java]
-* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/streaming/SqlClientExample.kt[SqlClientExample.kt]
-* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/streaming/sql_client_example.groovy[sql_client_example.groovy]
 
 == Transaction
 
@@ -45,8 +39,6 @@ The Transaction example show how to execute queries with a transaction using the
 The example is available in several languages:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction/SqlClientExample.java[SqlClientExample.java]
-* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction/SqlClientExample.kt[SqlClientExample.kt]
-* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/transaction/sql_client_example.groovy[sql_client_example.groovy]
 
 == Transaction Rollback
 
@@ -57,5 +49,3 @@ The result should be an empty list.
 The example is available in several languages:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.java[SqlClientExample.java]
-* Kotlin: link:src/main/kotlin/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.kt[SqlClientExample.kt]
-* Groovy: link:src/main/groovy/io/vertx/example/sqlclient/transaction_rollback/sql_client_example.groovy[sql_client_example.groovy]

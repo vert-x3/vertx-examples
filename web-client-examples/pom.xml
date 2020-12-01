@@ -28,13 +28,6 @@
       <version>2.0.29.Final</version>
     </dependency>
 
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>examples-utils</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
-
   </dependencies>
 
   <build>

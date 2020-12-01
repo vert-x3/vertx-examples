@@ -15,7 +15,6 @@ public class Runner {
 
   private static final String WEB_EXAMPLES_DIR = "web-examples";
   private static final String WEB_EXAMPLES_JAVA_DIR = WEB_EXAMPLES_DIR + "/src/main/java/";
-  private static final String WEB_EXAMPLES_GROOVY_DIR = WEB_EXAMPLES_DIR + "/src/main/groovy/";
 
   public static void runClusteredExample(Class clazz) {
     runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
@@ -29,73 +28,9 @@ public class Runner {
     runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), options, false);
   }
 
-  // Groovy examples
-
-  public static void runGroovyExample(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions(), false);
-  }
-
-  public static void runGroovyExampleClustered(String scriptName) {
-    runScriptExample(WEB_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions(), true);
-  }
-
-  static class GroovyAuthRunner {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/auth/server.groovy");
-    }
-  }
-
-  static class GroovyAuthJDBC {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/authjdbc/server.groovy");
-    }
-  }
-
-  static class GroovyHelloWorldRunner {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/helloworld/server.groovy");
-    }
-  }
-
-  static class GroovyChatRunner {
-    public static void main(String[] args) { Runner.runGroovyExample("io/vertx/example/web/chat/server.groovy"); }
-  }
-
-  static class GroovyRealtimeRunner {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/realtime/server.groovy");
-    }
-  }
-
-  static class GroovySessionsRunner {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/sessions/server.groovy");
-    }
-  }
-
-  static class GroovyTemplatingRunner {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/templating/mvel/server.groovy");
-    }
-  }
-
-  static class GroovyRestRunner {
-    public static void main(String[] args) {
-      Runner.runGroovyExample("io/vertx/example/web/rest/simple_rest.groovy");
-    }
-  }
-
   public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
     deploymentOptions, boolean clustered) {
     runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions, clustered);
-  }
-
-
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options, boolean clustered) {
-    File file = new File(scriptName);
-    String dirPart = file.getParent();
-    String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null, clustered);
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {

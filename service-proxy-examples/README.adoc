@@ -119,10 +119,4 @@ Once launched you should see:
 {"name":"vertx","approved":true}
 ----
 
-The service can be consumed from Java, as presented above, but also from Groovy.
-
-In JavaScript, the consuming verticle is link:service-consumer/src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy[here]. To launch it, just run:
-
-----
-vertx run src/main/groovy/io/vertx/examples/service/consumer/consumer_verticle.groovy  -cp ../service-provider/target/service-provider-4.0.0.CR2.jar -cluster
-----
+The service can be consumed from Java.

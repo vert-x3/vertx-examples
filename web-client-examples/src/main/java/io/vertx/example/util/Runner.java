@@ -15,7 +15,6 @@ public class Runner {
 
   private static final String WEB_CLIENT_EXAMPLES_DIR = "web-client-examples";
   private static final String WEB_CLIENT_EXAMPLES_JAVA_DIR = WEB_CLIENT_EXAMPLES_DIR + "/src/main/java/";
-  private static final String WEB_CLIENT_EXAMPLES_GROOVY_DIR = WEB_CLIENT_EXAMPLES_DIR + "/src/main/groovy/";
 
   public static void runExample(Class clazz) {
     runExample(WEB_CLIENT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null);
@@ -25,23 +24,9 @@ public class Runner {
     runExample(WEB_CLIENT_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), options);
   }
 
-  // Groovy examples
-
-  public static void runGroovyExample(String scriptName) {
-    runScriptExample(WEB_CLIENT_EXAMPLES_GROOVY_DIR, scriptName, new VertxOptions());
-  }
-
   public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions
     deploymentOptions) {
     runExample(exampleDir + clazz.getPackage().getName().replace(".", "/"), clazz.getName(), options, deploymentOptions);
-  }
-
-
-  public static void runScriptExample(String prefix, String scriptName, VertxOptions options) {
-    File file = new File(scriptName);
-    String dirPart = file.getParent();
-    String scriptDir = prefix + dirPart;
-    runExample(scriptDir, scriptDir + "/" + file.getName(), options, null);
   }
 
   public static void runExample(String exampleDir, String verticleID, VertxOptions options, DeploymentOptions deploymentOptions) {

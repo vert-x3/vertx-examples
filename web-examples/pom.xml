@@ -75,13 +75,6 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>examples-utils</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
       <artifactId>vertx-dropwizard-metrics</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -182,7 +175,8 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <templateDirectory>${project.basedir}/src/main/java/io/vertx/example/web/templating/rocker</templateDirectory>
+              <templateDirectory>${project.basedir}/src/main/java/io/vertx/example/web/templating/rocker
+              </templateDirectory>
             </configuration>
           </execution>
         </executions>
