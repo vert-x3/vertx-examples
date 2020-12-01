@@ -28,7 +28,7 @@
     <module>redis-examples</module>
     <module>consul-examples</module>
     <module>mongo-examples</module>
-    <module>reactive-sql-client-examples</module>
+    <module>sql-client-examples</module>
     <module>shell-examples</module>
     <module>amqp-proton-examples</module>
     <module>fatjar-examples/http2-fatjar</module>
