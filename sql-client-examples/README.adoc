@@ -1,6 +1,6 @@
 = Vert.x SQL Client examples
 
-Here you will find examples demonstrating the usage of the Vert.x SQL Client.
+Here you will find examples demonstrating the usage of the Vert.x SQL Client (aka Reactive SQL Client).
 
 == Simple
 
@@ -8,9 +8,7 @@ This example shows the basic functionality of the SQL client, it demonstrates ho
 basic data definition queries by creating a test table plus test data, after it shows how to perform simple queries
 without parameters and shows how to close the connection.
 
-The example is available in several languages:
-
-* Java: link:src/main/java/io/vertx/example/sqlclient/simple/SqlClientExample.java[SqlClientExample.java]
+* link:src/main/java/io/vertx/example/sqlclient/simple/SqlClientExample.java[SqlClientExample.java]
 
 == Query Params
 
@@ -18,9 +16,7 @@ This is a follow up to the `Simple` example. In this example you will see how to
 advantage of doing so is to avoid common SQL injection security issues since all parameters are used in a
 `PreparedStatement` before being sent to the database engine.
 
-The example is available in several languages:
-
-* Java: link:src/main/java/io/vertx/example/sqlclient/query_params/SqlClientExample.java[SqlClientExample.java]
+* link:src/main/java/io/vertx/example/sqlclient/query_params/SqlClientExample.java[SqlClientExample.java]
 
 == Streaming
 
@@ -28,15 +24,11 @@ This is a follow up to the `Simple` example.
 In this example you will see how to read results as a stream instead of fetching them all in memory.
 This is particularly useful when you expect large results.
 
-The example is available in several languages:
-
-* Java: link:src/main/java/io/vertx/example/sqlclient/streaming/SqlClientExample.java[SqlClientExample.java]
+* link:src/main/java/io/vertx/example/sqlclient/streaming/SqlClientExample.java[SqlClientExample.java]
 
 == Transaction
 
 The Transaction example show how to execute queries with a transaction using the asynchronous SQL client.
-
-The example is available in several languages:
 
 * link:src/main/java/io/vertx/example/sqlclient/transaction/SqlClientExample.java[SqlClientExample.java]
 
@@ -46,6 +38,16 @@ The Transaction rollback example is a modified version of the simple Transaction
 In this example, we manage the transaction manually and, after inserting data, we rollback the changes.
 The result should be an empty list.
 
-The example is available in several languages:
-
 * link:src/main/java/io/vertx/example/sqlclient/transaction_rollback/SqlClientExample.java[SqlClientExample.java]
+
+== Template
+
+The Template example show how to execute SQL templates.
+
+* link:src/main/java/io/vertx/example/sqlclient/template/SqlClientExample.java[SqlClientExample.java]
+
+== Template mapping
+
+The Template mapping example show how to execute SQL templates mapped to query params or database rows
+
+* link:src/main/java/io/vertx/example/sqlclient/template_mapping/SqlClientExample.java[SqlClientExample.java]
