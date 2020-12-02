@@ -36,7 +36,7 @@ public class SqlClientExample extends AbstractVerticle {
 //      .setUser(mysql.getUsername())
 //      .setPassword(mysql.getPassword());
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(new io.vertx.example.sqlclient.transaction.SqlClientExample(options));  }
+    vertx.deployVerticle(new SqlClientExample(options));  }
 
   private final SqlConnectOptions options;
 
@@ -49,32 +49,23 @@ public class SqlClientExample extends AbstractVerticle {
 
     Pool pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
 
-    pool.getConnection().compose(connection -> {
-      // create a test table
-      return connection.query("create table test(id int primary key, name varchar(255))").execute()
-        .compose(v -> {
-          // insert some test data
-          return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
-        })
-        .compose(v -> {
-          // query some data
-          return connection.query("select * from test").execute();
-        })
-        .onSuccess(rows -> {
-          for (Row row : rows) {
-            System.out.println("row = " + row.toJson());
-          }
-        })
-        .onComplete(v -> {
-          // and close the connection
-          connection.close();
-        });
-    }).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("done");
-      } else {
-        ar.cause().printStackTrace();
+    // create a test table
+    pool.query("create table test(id int primary key, name varchar(255))")
+      .execute()
+      .compose(r ->
+        // insert some test data
+        pool
+          .query("insert into test values (1, 'Hello'), (2, 'World')")
+          .execute()
+      ).compose(r ->
+      // query some data
+      pool
+        .query("select * from test")
+        .execute()
+    ).onSuccess(rows -> {
+      for (Row row : rows) {
+        System.out.println("row = " + row.toJson());
       }
-    });
+    }).onFailure(Throwable::printStackTrace);
   }
 }

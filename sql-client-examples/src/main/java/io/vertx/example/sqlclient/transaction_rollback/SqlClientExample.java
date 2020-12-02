@@ -37,7 +37,7 @@ public class SqlClientExample extends AbstractVerticle {
 //      .setUser(mysql.getUsername())
 //      .setPassword(mysql.getPassword());
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(new io.vertx.example.sqlclient.transaction.SqlClientExample(options));  }
+    vertx.deployVerticle(new SqlClientExample(options));  }
 
   private final SqlConnectOptions options;
 
@@ -58,24 +58,21 @@ public class SqlClientExample extends AbstractVerticle {
           return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
         })
         .compose(v -> {
-          // Triggers transaction roll back
+          // triggers transaction roll back
           return Future.failedFuture("Failed");
         })
         .compose(v -> {
           // query some data
           return connection.query("select * from test").execute();
-        })
-        .onSuccess(rows -> {
-          for (Row row : rows) {
-            System.out.println("row = " + row.toJson());
-          }
         });
-    }).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("done");
-      } else {
-        ar.cause().printStackTrace();
+    }).onSuccess(rows -> {
+      // should not be called because of rollback
+      for (Row row : rows) {
+        System.out.println("row = " + row.toJson());
       }
+    }).onFailure(err -> {
+      // expected
+      err.printStackTrace();
     });
   }
 }

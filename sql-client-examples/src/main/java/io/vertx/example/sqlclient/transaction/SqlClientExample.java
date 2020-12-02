@@ -59,18 +59,11 @@ public class SqlClientExample extends AbstractVerticle {
         .compose(v -> {
           // query some data
           return sqlClient.query("select * from test").execute();
-        })
-        .onSuccess(rows -> {
-          for (Row row : rows) {
-            System.out.println("row = " + row.toJson());
-          }
         });
-    }).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("done");
-      } else {
-        ar.cause().printStackTrace();
+    }) .onSuccess(rows -> {
+      for (Row row : rows) {
+        System.out.println("row = " + row.toJson());
       }
-    });
+    }).onFailure(Throwable::printStackTrace);;
   }
 }

@@ -34,7 +34,7 @@ public class SqlClientExample extends AbstractVerticle {
 //      .setUser(mysql.getUsername())
 //      .setPassword(mysql.getPassword());
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(new io.vertx.example.sqlclient.transaction.SqlClientExample(options));  }
+    vertx.deployVerticle(new SqlClientExample(options));  }
 
   private final SqlConnectOptions options;
 
