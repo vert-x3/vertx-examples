@@ -2,9 +2,7 @@
 
 Here you will find examples demonstrating the usage of the Vert.x Redis Client.
 
-The example is available in several languages:
-
-* Java: link:src/main/java/io/vertx/examples/redis/RedisClientVerticle.java[RedisClientVerticle.java]
+* link:src/main/java/io/vertx/examples/redis/RedisClientVerticle.java[RedisClientVerticle.java]
 
 To run this example, you need a running Redis instance. Once running, you can configure the
 verticles with the redis host:

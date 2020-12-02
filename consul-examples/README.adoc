@@ -11,7 +11,5 @@ consul agent -data-dir=/tmp/kekeke -server -ui -bootstrap=1
 
 == Languages
 
-The example is available in several languages:
-
-* Java: link:src/main/java/io/vertx/examples/consul/ConsulClientVerticle.java[ConsulClientVerticle.java]
+* link:src/main/java/io/vertx/examples/consul/ConsulClientVerticle.java[ConsulClientVerticle.java]
 

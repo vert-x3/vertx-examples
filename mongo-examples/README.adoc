@@ -2,9 +2,7 @@
 
 Here you will find examples demonstrating the usage of the Vert.x Mongo Client.
 
-The example is available in several languages:
-
-* Java: link:src/main/java/io/vertx/examples/mongo/MongoClientVerticle.java[MongoClientVerticle.java]
+* link:src/main/java/io/vertx/examples/mongo/MongoClientVerticle.java[MongoClientVerticle.java]
 
 To run this example, you need a running Mongo instance. Once running, you can configure the
 verticles with the mongo host:
