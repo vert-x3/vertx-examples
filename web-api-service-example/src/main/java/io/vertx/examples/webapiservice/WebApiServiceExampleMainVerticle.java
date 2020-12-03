@@ -11,7 +11,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.examples.webapiservice.persistence.TransactionPersistence;
 import io.vertx.examples.webapiservice.services.TransactionsManagerService;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.api.contract.openapi3.OpenAPI3RouterFactory;
+import io.vertx.ext.web.openapi.RouterBuilder;
 import io.vertx.serviceproxy.ServiceBinder;
 
 public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
@@ -41,28 +41,17 @@ public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
    * @return
    */
   private Future<Void> startHttpServer() {
-    Promise<Void> promise = Promise.promise();
-    OpenAPI3RouterFactory.create(this.vertx, "/openapi.json", openAPI3RouterFactoryAsyncResult -> {
-      if (openAPI3RouterFactoryAsyncResult.succeeded()) {
-        OpenAPI3RouterFactory routerFactory = openAPI3RouterFactoryAsyncResult.result();
-
+    return RouterBuilder.create(this.vertx, "openapi.json")
+      .onFailure(Throwable::printStackTrace) // In case the contract loading failed print the stacktrace
+      .compose(routerBuilder -> {
         // Mount services on event bus based on extensions
-        routerFactory.mountServicesFromExtensions();
+        routerBuilder.mountServicesFromExtensions();
 
         // Generate the router
-        Router router = routerFactory.getRouter();
-        server = vertx.createHttpServer(new HttpServerOptions().setPort(8080).setHost("localhost"));
-        server.requestHandler(router).listen(ar -> {
-          // Error starting the HttpServer
-          if (ar.succeeded()) promise.complete();
-          else promise.fail(ar.cause());
-        });
-      } else {
-        // Something went wrong during router factory initialization
-        promise.fail(openAPI3RouterFactoryAsyncResult.cause());
-      }
-    });
-    return promise.future();
+        Router router = routerBuilder.createRouter();
+        server = vertx.createHttpServer(new HttpServerOptions().setPort(8080).setHost("localhost")).requestHandler(router);
+        return server.listen().mapEmpty();
+      });
   }
 
   @Override
