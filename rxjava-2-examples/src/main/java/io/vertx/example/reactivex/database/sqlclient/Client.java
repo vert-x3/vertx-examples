@@ -1,5 +1,6 @@
 package io.vertx.example.reactivex.database.sqlclient;
 
+import io.reactivex.Maybe;
 import io.reactivex.functions.Function;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
@@ -28,17 +29,21 @@ public class Client extends AbstractVerticle {
 
     JDBCPool pool = JDBCPool.pool(vertx, config);
 
-    Single<RowSet<Row>> resa = pool.rxWithConnection((Function<SqlConnection, Single<RowSet<Row>>>) conn -> conn
+    Maybe<RowSet<Row>> resa = pool.rxWithConnection((Function<SqlConnection, Maybe<RowSet<Row>>>) conn -> conn
       .query("CREATE TABLE test(col VARCHAR(20))")
       .rxExecute()
       .flatMap(res -> conn.query("INSERT INTO test (col) VALUES ('val1')").rxExecute())
       .flatMap(res -> conn.query("INSERT INTO test (col) VALUES ('val2')").rxExecute())
-      .flatMap(res -> conn.query("SELECT * FROM test").rxExecute()));
+      .flatMap(res -> conn.query("SELECT * FROM test").rxExecute())
+      .toMaybe());
 
     // Connect to the database
-    resa.subscribe(resultSet -> {
+    resa.subscribe(rowSet -> {
       // Subscribe to the final result
-      System.out.println("Results : " + resultSet);
+      System.out.println("Results:");
+      rowSet.forEach(row -> {
+        System.out.println(row.toJson());
+      });
     }, err -> {
       System.out.println("Database problem");
       err.printStackTrace();

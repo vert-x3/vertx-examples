@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-graphql-examples</artifactId>
-  <version>4.0.0.CR2</version>
+  <version>4.0.0</version>
 
   <dependencies>
 
@@ -56,7 +56,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3868/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3898/</url>
         </repository>
       </repositories>
     </profile>

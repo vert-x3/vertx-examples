@@ -7,7 +7,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>maven-verticle-compiled-groovy</artifactId>
-  <version>4.0.0.CR2</version>
+  <version>4.0.0</version>
 
   <properties>
     <!-- the Groovy class, must be prefixed by `groovy:` to use the Groovy Vert.x support -->
@@ -124,7 +124,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3868/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3898/</url>
         </repository>
       </repositories>
     </profile>

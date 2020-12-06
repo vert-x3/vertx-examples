@@ -1,5 +1,6 @@
 package io.vertx.example.reactivex.database.sqlclient;
 
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
 import io.vertx.core.json.JsonObject;
@@ -37,7 +38,7 @@ public class Transaction extends AbstractVerticle {
     JDBCPool pool = JDBCPool.pool(vertx, config);
 
     // Connect to the database
-    pool.rxWithTransaction((Function<SqlConnection, Single<RowSet<Row>>>) client -> client
+    pool.rxWithTransaction((Function<SqlConnection, Maybe<RowSet<Row>>>) client -> client
       // Create table
       .query(sql).rxExecute()
       // Insert colors
@@ -45,10 +46,12 @@ public class Transaction extends AbstractVerticle {
         .preparedQuery("INSERT INTO colors (name) VALUES (?)")
         .rxExecuteBatch(Arrays.asList(Tuple.of("BLACK"), Tuple.of("PURPLE"))))
       // Get colors if all succeeded
-      .flatMap(r -> client.query("SELECT * FROM colors").rxExecute()))// Subscribe to get the final result
+      .flatMap(r -> client.query("SELECT * FROM colors").rxExecute())
+      .toMaybe())// Subscribe to get the final result
       .subscribe(rowSet -> {
+        System.out.println("Results:");
         rowSet.forEach(row -> {
-          System.out.println("row = " + row);
+          System.out.println(row.toJson());
         });
       }, Throwable::printStackTrace);
   }
