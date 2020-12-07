@@ -1,0 +1,69 @@
+= Vert.x Opentracing example
+
+Here you will find examples demonstrating Vert.x Opentracing in action.
+
+Please consult the Vert.x Opentracing or Vert.x Zipkin manual for detailed documentation.
+
+== Microservices
+
+This example shows a couple of simple microservices monitored with Vert.x Opentracing
+
+=== Joke service
+
+The Joke service provides an HTTP microservice for jokes stored in a PostgreSQL.
+
+The HTTP server and the database client contributes traces.
+
+You can query this service with curl:
+
+[source]
+----
+> curl http://localhost:8082
+----
+
+=== Hello service
+
+The Hello service provides an HTTP microservice for saying hello. This service uses the Joke
+service to tell the user a joke.
+
+The HTTP server and the HTTP client contributes traces.
+
+You can query this service with curl:
+
+[source]
+----
+> curl http://localhost:8081
+----
+
+=== Gateway
+
+The Gateway is a simple HTTP gateway that exposes both Joke and Hello services.
+
+The HTTP server and the HTTP client contributes traces.
+
+You can query this service with curl:
+
+[source]
+----
+> curl http://localhost:8080/hello
+> curl http://localhost:8080/joke
+----
+
+== Opentracing
+
+You need to start an https://opentracing.io[Opentracing] server, such as Jaeger
+
+[source]
+----
+> docker run -d -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp -p5778:5778 -p16686:16686 -p14268:14268 -p9411:9411 jaegertracing/all-in-one:0.8.0
+----
+
+Jaeger provides a visual http://localhost:16686/[console]
+
+You can run the _Hello_, _Joke_ and _Gateway_ services in your IDE with link:src/main/java/io/vertx/example/opentracing/OpentracingExample.java[Opentracing Example]
+
+Or you can start them separately:
+
+- link:src/main/java/io/vertx/example/opentracing/Gateway.java[Gateway]
+- link:src/main/java/io/vertx/example/opentracing/HelloService.java[Hello service]
+- link:src/main/java/io/vertx/example/opentracing/JokeService.java[Joke service]

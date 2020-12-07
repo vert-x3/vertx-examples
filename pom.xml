@@ -16,6 +16,7 @@
     <module>maven-simplest</module>
     <module>maven-verticles</module>
     <module>core-examples</module>
+    <module>opentracing-examples</module>
     <module>web-examples</module>
     <module>web-client-examples</module>
     <module>rxjava-1-examples</module>

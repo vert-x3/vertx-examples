@@ -161,7 +161,7 @@ link:src/main/java/io/vertx/example/core/http/sharing/Server.java[Server Launche
 
 link:src/main/java/io/vertx/example/core/http/sharing/HttpServerVerticle.java[HTTP Server Verticle]
 
-The `Server` deploys two instances of the `HttpServerVerticle` verticle.
+The `GatewayVerticle` deploys two instances of the `HttpServerVerticle` verticle.
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]. Requests will be handled by an instance after the other.
 
@@ -415,11 +415,11 @@ to the commands if needed.
 
 **In your IDE:**
 
-* Start the server by executing the `main` method of the `Server` class
+* Start the server by executing the `main` method of the `GatewayVerticle` class
 * Check that the http://localhost:8080 is served correctly
 * Start the _bare_ instance by executing the `main` method of the `BareInstance` class
 
-In a terminal, find the process related to the `Server` class execution and kill it using `kill -9`. The verticle is
+In a terminal, find the process related to the `GatewayVerticle` class execution and kill it using `kill -9`. The verticle is
 deployed on the _bare_ instance. If you refresh the page, the message should be slightly different.
 
 **In command line:**
