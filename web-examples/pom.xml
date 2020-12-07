@@ -200,7 +200,7 @@
       <repositories>
         <repository>
           <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3900/</url>
+          <url>https://oss.sonatype.org/content/repositories/iovertx-3905/</url>
         </repository>
       </repositories>
     </profile>
