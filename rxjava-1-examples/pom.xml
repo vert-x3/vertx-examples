@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.vertx</groupId>
-  <artifactId>rx-java1-examples</artifactId>
+  <artifactId>rxjava1-examples</artifactId>
   <version>4.0.0</version>
 
   <dependencies>
