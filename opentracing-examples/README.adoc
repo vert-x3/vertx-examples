@@ -12,7 +12,7 @@ This example shows a couple of simple microservices monitored with Vert.x Opentr
 
 The Joke service provides an HTTP microservice for jokes stored in a PostgreSQL.
 
-The HTTP server and the database client contributes traces.
+The HTTP server and the database client contribute traces.
 
 You can query this service with curl:
 
@@ -26,7 +26,7 @@ You can query this service with curl:
 The Hello service provides an HTTP microservice for saying hello. This service uses the Joke
 service to tell the user a joke.
 
-The HTTP server and the HTTP client contributes traces.
+The HTTP server and the HTTP client contribute traces.
 
 You can query this service with curl:
 
@@ -39,7 +39,7 @@ You can query this service with curl:
 
 The Gateway is a simple HTTP gateway that exposes both Joke and Hello services.
 
-The HTTP server and the HTTP client contributes traces.
+The HTTP server and the HTTP client contribute traces.
 
 You can query this service with curl:
 
@@ -59,6 +59,8 @@ You need to start an https://opentracing.io[Opentracing] server, such as Jaeger
 ----
 
 Jaeger provides a visual http://localhost:16686/[console]
+
+image::jaeger.png[]
 
 You can run the _Hello_, _Joke_ and _Gateway_ services in your IDE with link:src/main/java/io/vertx/example/opentracing/OpentracingExample.java[Opentracing Example]
 
