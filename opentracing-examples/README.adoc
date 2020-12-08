@@ -2,7 +2,7 @@
 
 Here you will find examples demonstrating Vert.x Opentracing in action.
 
-Please consult the Vert.x Opentracing or Vert.x Zipkin manual for detailed documentation.
+Please consult the Vert.x Opentracing for the detailed documentation.
 
 == Microservices
 
