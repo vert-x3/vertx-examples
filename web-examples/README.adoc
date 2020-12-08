@@ -299,6 +299,7 @@ link:http://localhost:8080/products to get the list of products, or link:http://
 a product with id 0. In order to create new products use the POST method to link:http://localhost:8080/products
 
 - curl http://localhost:8080/products
+- curl http://localhost:8080/products/Spatula
 - curl -X POST -H "Content-Type: application/json" -d '{"name":"Spoon","price":1.0,"weight":1.0}' http://localhost:8080/products
 
 == Auth JDBC example
