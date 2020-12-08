@@ -1,6 +1,6 @@
-package io.vertx.example.opentracing;
+package io.vertx.example.zipkin;
 
-public class OpentracingExample {
+public class ZipkinExample {
 
   public static void main(String[] args) throws Exception {
     JokeService.main(args);

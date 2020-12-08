@@ -132,6 +132,10 @@ See link:junit5-examples/README.adoc[Vert.x JUnit 5 examples].
 
 link:opentracing-examples/README.adoc[Vert.x Opentracing examples] contains a wide range of examples using Vert.x Opentracing.
 
+=== Vert.x Zipkin examples
+
+link:zipkin-examples/README.adoc[Vert.x Zipkin examples] contains a wide range of examples using Vert.x Zipkin.
+
 === RxJava examples
 
 Vert.x for RxJava provides most of its APIs as RxJava so you can use those if you prefer.

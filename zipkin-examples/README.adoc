@@ -1,12 +1,12 @@
-= Vert.x Opentracing example
+= Vert.x Zipkin example
 
-Here you will find examples demonstrating Vert.x Opentracing in action.
+Here you will find examples demonstrating Vert.x Zipkin in action.
 
-Please consult the Vert.x Opentracing or Vert.x Zipkin manual for detailed documentation.
+Please consult the Vert.x Zipkin manual for the detailed documentation.
 
 == Microservices
 
-This example shows a couple of simple microservices monitored with Vert.x Opentracing
+This example shows a couple of simple microservices monitored with Vert.x Zipkin
 
 === Joke service
 
@@ -49,23 +49,23 @@ You can query this service with curl:
 > curl http://localhost:8080/joke
 ----
 
-== Opentracing
+== Zipkin
 
-You need to start an https://opentracing.io[Opentracing] server, such as Jaeger
+You need to start an https://zipkin.io[Zipkin] server
 
 [source]
 ----
-> docker run -d -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp -p5778:5778 -p16686:16686 -p14268:14268 -p9411:9411 jaegertracing/all-in-one:0.8.0
+> docker run -d -p 9411:9411 openzipkin/zipkin
 ----
 
-Jaeger provides a visual http://localhost:16686/[console]
+Jaeger provides a visual http://localhost:9411/[console]
 
-image::jaeger.png[]
+image::zipkin.png[]
 
-You can run the _Hello_, _Joke_ and _Gateway_ services in your IDE with link:src/main/java/io/vertx/example/opentracing/OpentracingExample.java[Opentracing Example]
+You can run the _Hello_, _Joke_ and _Gateway_ services in your IDE with link:src/main/java/io/vertx/example/zipkin/ZipkinExample.java[Zipkin Example]
 
 Or you can start them separately:
 
-- link:src/main/java/io/vertx/example/opentracing/Gateway.java[Gateway]
-- link:src/main/java/io/vertx/example/opentracing/HelloService.java[Hello service]
-- link:src/main/java/io/vertx/example/opentracing/JokeService.java[Joke service]
+- link:src/main/java/io/vertx/example/zipkin/Gateway.java[Gateway]
+- link:src/main/java/io/vertx/example/zipkin/HelloService.java[Hello service]
+- link:src/main/java/io/vertx/example/zipkin/JokeService.java[Joke service]
