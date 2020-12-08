@@ -1,10 +1,9 @@
 # Vert.x Kotlin Coroutines Example
 
-A movie getRating REST application written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can Kotlin
-coroutines can be used with Vert.x.  
+A movie rating REST application written in [Kotlin](https://kotlinlang.org/) to demonstrate how it can Kotlin
+coroutines can be used with Vert.x.
 
-Coroutines enables to write asynchronous code with sequential statements, the function `rateMovie` is the best example
-showing two SQL client operations wrapped in a `use` block managing the SQL connection.
+Coroutines enables to write asynchronous code with sequential statements.
 
 ## Running from the IDE
 
@@ -37,15 +36,15 @@ You can know more about a movie
 {"id":"starwars","title":"Star Wars"}
 ```
 
-You can get the current getRating of a movie:
+You can get the current rating of a movie:
 
 ```
 > curl http://localhost:8080/getRating/indianajones
-{"id":"indianajones","getRating":5}
+{"id":"indianajones","rating":5}
 ```
 
-Finally you can rateMovie a movie
+Finally you can rate a movie
 
 ```
-> curl -X POST http://localhost:8080/rateMovie/starwars?getRating=4
+> curl -X POST http://localhost:8080/rateMovie/starwars?rating=4
 ```

@@ -1,30 +1,25 @@
 package movierating
 
-import io.vertx.ext.jdbc.JDBCClient
 import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
-import io.vertx.kotlin.core.http.listenAwait
-import io.vertx.kotlin.core.json.array
-import io.vertx.kotlin.core.json.get
+import io.vertx.jdbcclient.JDBCPool
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
+import io.vertx.kotlin.coroutines.await
 import io.vertx.kotlin.coroutines.dispatcher
-import io.vertx.kotlin.ext.sql.executeAwait
-import io.vertx.kotlin.ext.sql.getConnectionAwait
-import io.vertx.kotlin.ext.sql.queryWithParamsAwait
-import io.vertx.kotlin.ext.sql.updateWithParamsAwait
+import io.vertx.sqlclient.Tuple
 import kotlinx.coroutines.launch
 
 
 class App : CoroutineVerticle() {
 
-  private lateinit var client: JDBCClient
+  private lateinit var client: JDBCPool
 
   override suspend fun start() {
 
-    client = JDBCClient.createShared(vertx, json {
+    client = JDBCPool.pool(vertx, json {
       obj(
         "url" to "jdbc:hsqldb:mem:test?shutdown=true",
         "driver_class" to "org.hsqldb.jdbcDriver",
@@ -47,8 +42,9 @@ class App : CoroutineVerticle() {
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 3, 'indianajones'",
       "INSERT INTO RATING (VALUE, MOVIE_ID) VALUES 9, 'indianajones'"
     )
-    client.getConnectionAwait()
-      .use { connection -> statements.forEach { connection.executeAwait(it) } }
+    statements.forEach {
+      client.query(it).execute().await();
+    }
 
     // Build Vert.x Web router
     val router = Router.router(vertx)
@@ -58,17 +54,19 @@ class App : CoroutineVerticle() {
 
     // Start the server
     vertx.createHttpServer()
-        .requestHandler(router)
-        .listenAwait(config.getInteger("http.port", 8080))
+      .requestHandler(router)
+      .listen(config.getInteger("http.port", 8080))
+      .await()
   }
 
   // Send info about a movie
   suspend fun getMovie(ctx: RoutingContext) {
     val id = ctx.pathParam("id")
-    val result = client.queryWithParamsAwait("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(id) })
-    if (result.rows.size == 1) {
+
+    val rows = client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(id)).await();
+    if (rows.size() == 1) {
       ctx.response().end(json {
-        obj("id" to id, "title" to result.rows[0]["TITLE"]).encode()
+        obj("id" to id, "title" to rows.iterator().next().getString("TITLE")).encode()
       })
     } else {
       ctx.response().setStatusCode(404).end()
@@ -78,24 +76,22 @@ class App : CoroutineVerticle() {
   // Rate a movie
   suspend fun rateMovie(ctx: RoutingContext) {
     val movie = ctx.pathParam("id")
-    val rating = Integer.parseInt(ctx.queryParam("getRating")[0])
-    client.getConnectionAwait().use { connection ->
-      val result = connection.queryWithParamsAwait("SELECT TITLE FROM MOVIE WHERE ID=?", json { array(movie) })
-      if (result.rows.size == 1) {
-        connection.updateWithParamsAwait("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?", json { array(rating, movie) })
-        ctx.response().setStatusCode(200).end()
-      } else {
-        ctx.response().setStatusCode(404).end()
-      }
+    val rating = Integer.parseInt(ctx.queryParam("rating")[0])
+    val rows = client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(movie)).await()
+    if (rows.size() == 1) {
+      client.preparedQuery("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?").execute(Tuple.of(rating, movie)).await()
+      ctx.response().setStatusCode(200).end()
+    } else {
+      ctx.response().setStatusCode(404).end()
     }
   }
 
   // Get the current rating of a movie
   suspend fun getRating(ctx: RoutingContext) {
     val id = ctx.pathParam("id")
-    val result = client.queryWithParamsAwait("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?", json { array(id) })
+    val rows = client.preparedQuery("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?").execute(Tuple.of(id)).await()
     ctx.response().end(json {
-      obj("id" to id, "getRating" to result.rows[0]["VALUE"]).encode()
+      obj("id" to id, "rating" to rows.iterator().next().getDouble("VALUE")).encode()
     })
   }
 
