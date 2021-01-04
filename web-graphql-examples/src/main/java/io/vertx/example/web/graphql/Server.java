@@ -11,6 +11,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.graphql.GraphQLHandler;
 import io.vertx.ext.web.handler.graphql.schema.VertxDataFetcher;
 
@@ -33,6 +34,7 @@ public class Server extends AbstractVerticle {
     prepareData();
 
     Router router = Router.router(vertx);
+    router.route().handler(BodyHandler.create());
     router.route("/graphql").handler(GraphQLHandler.create(createGraphQL()));
 
     vertx.createHttpServer()
