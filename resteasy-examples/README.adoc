@@ -47,3 +47,19 @@ Add a product:: PUT /products/<product_id>
 
 Run the server either in your IDE or on the command line, then open your browser and hit
 link:http://localhost:8080/
+
+=== OpenAPI Schema Generation
+
+Generate and get the openapi specification at:
+
+  * link:http://localhost:8080/openapi.json
+  * link:http://localhost:8080/openapi.yaml
+
+Create the https://github.com/swagger-api/swagger-ui[Swagger console (UI)]:
+
+[source,bash]
+----
+docker run -itd --name console --rm -e URL="http://localhost:8080/openapi.json" -p 8888:8080 swaggerapi/swagger-ui
+----
+
+and navigate to http://localhost:8888 to open the swagger console

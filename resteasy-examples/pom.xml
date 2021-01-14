@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>resteasy-examples</artifactId>
-  <version>4.0.0</version>
+  <version>3.8.4</version>
   <name>resteasy-example</name>
 
   <properties>
@@ -23,9 +23,38 @@
     </dependency>
 
     <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-vertx</artifactId>
       <version>${resteasy.version}</version>
+    </dependency>
+
+    <!-- Swagger Code -->
+    <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-jaxrs2</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-jaxrs2-servlet-initializer-v2</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <!-- Swagger needs it to create the Yaml open Api Json -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.12.1</version>
     </dependency>
 
   </dependencies>
