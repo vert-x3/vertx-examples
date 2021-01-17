@@ -6,13 +6,14 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>resteasy-examples</artifactId>
-  <version>3.8.4</version>
+  <version>3.9.5</version>
   <name>resteasy-example</name>
 
   <properties>
     <!-- the main verticle class name -->
     <main.class>io.vertx.examples.spring.SpringExampleRunner</main.class>
     <resteasy.version>3.1.0.Final</resteasy.version>
+    <junit.version>4.13.1</junit.version>
   </properties>
 
   <dependencies>
@@ -32,6 +33,26 @@
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-vertx</artifactId>
       <version>${resteasy.version}</version>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-unit</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- Swagger Code -->
