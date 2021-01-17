@@ -47,7 +47,7 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Serve the static pages
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create().setCachingEnabled(false));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
 

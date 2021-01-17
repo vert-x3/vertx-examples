@@ -27,11 +27,12 @@ public class Server extends AbstractVerticle {
   private static final String CLIENT_ID = "57cdaa1952a3f4ee3df8";
   private static final String CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704";
 
-  // In order to use a template we first need to create an engine
-  private final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
-
   @Override
   public void start() throws Exception {
+
+    // In order to use a template we first need to create an engine
+    final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
+
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
