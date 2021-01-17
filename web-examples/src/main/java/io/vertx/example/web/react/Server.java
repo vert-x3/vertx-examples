@@ -33,7 +33,7 @@ public class Server extends AbstractVerticle {
     router.mountSubRouter("/eventbus", ebHandler.bridge(opts));
 
     // Create a router endpoint for the static content.
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create().setCachingEnabled(false));
 
     // Start the web server and tell it to use the router to handle requests.
     vertx.createHttpServer().requestHandler(router).listen(8080);
