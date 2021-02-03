@@ -22,7 +22,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>http2-fatjar</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1</version>
 
   <name>HTTP/2 fatjar</name>
 
@@ -37,7 +37,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>2.0.30.Final</version>
+      <version>2.0.34.Final</version>
     </dependency>
 
   </dependencies>
