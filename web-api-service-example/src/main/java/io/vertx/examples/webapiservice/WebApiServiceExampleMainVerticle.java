@@ -13,6 +13,8 @@ import io.vertx.examples.webapiservice.services.TransactionsManagerService;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.openapi.RouterBuilder;
 import io.vertx.serviceproxy.ServiceBinder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
 
@@ -20,6 +22,7 @@ public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
   ServiceBinder serviceBinder;
 
   MessageConsumer<JsonObject> consumer;
+  Logger LOG = LoggerFactory.getLogger(this.getClass());
 
   /**
    * Start transaction service
@@ -49,6 +52,9 @@ public class WebApiServiceExampleMainVerticle extends AbstractVerticle {
 
         // Generate the router
         Router router = routerBuilder.createRouter();
+        router.errorHandler(400, ctx -> {
+          LOG.debug("Bad Request", ctx.failure());
+        });
         server = vertx.createHttpServer(new HttpServerOptions().setPort(8080).setHost("localhost")).requestHandler(router);
         return server.listen().mapEmpty();
       });
