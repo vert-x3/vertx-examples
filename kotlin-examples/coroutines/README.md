@@ -13,7 +13,7 @@ Run the main function from the IDE
 
 ```
 > mvn package
-> java -jar target/kotlin-coroutines-examples.jar
+> java -jar target/service.jar
 ```
 
 ## Running from the CLI
