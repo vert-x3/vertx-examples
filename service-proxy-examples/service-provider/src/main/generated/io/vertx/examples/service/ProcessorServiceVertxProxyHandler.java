@@ -42,8 +42,7 @@ import io.vertx.serviceproxy.HelperUtils;
 import io.vertx.serviceproxy.ServiceBinder;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 import io.vertx.examples.service.ProcessorService;
 /*
   Generated Proxy code - DO NOT EDIT
@@ -122,8 +121,7 @@ public class ProcessorServiceVertxProxyHandler extends ProxyHandler {
       accessed();
       switch (action) {
         case "process": {
-          service.process((io.vertx.core.json.JsonObject)json.getValue("document"),
-                        HelperUtils.createHandler(msg, includeDebugInfo));
+          service.process((io.vertx.core.json.JsonObject)json.getValue("document")).onComplete(HelperUtils.createHandler(msg, includeDebugInfo));
           break;
         }
         default: throw new IllegalStateException("Invalid action: " + action);

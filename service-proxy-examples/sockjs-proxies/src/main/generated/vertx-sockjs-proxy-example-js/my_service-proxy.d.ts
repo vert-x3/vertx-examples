@@ -22,5 +22,5 @@ export default class MyService {
 
   constructor (eb: any, address: string);
 
-  sayHello(name: string, handler: (err: any, result: string) => any) : MyService;
+  sayHello(name: string) : void;
 }

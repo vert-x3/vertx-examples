@@ -39,12 +39,12 @@
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-java-gen</artifactId>
+      <artifactId>vertx-rx-java3-gen</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-java</artifactId>
+      <artifactId>vertx-rx-java3</artifactId>
       <version>${project.version}</version>
     </dependency>
 

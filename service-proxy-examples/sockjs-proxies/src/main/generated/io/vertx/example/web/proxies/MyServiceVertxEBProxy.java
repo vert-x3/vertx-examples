@@ -32,9 +32,7 @@ import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
 import io.vertx.serviceproxy.ProxyUtils;
 
-import io.vertx.example.web.proxies.MyService;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
@@ -62,23 +60,15 @@ public class MyServiceVertxEBProxy implements MyService {
   }
 
   @Override
-  public MyService sayHello(String name, Handler<AsyncResult<String>> handler){
-    if (closed) {
-      handler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
-      return this;
-    }
+  public Future<String> sayHello(String name){
+    if (closed) return io.vertx.core.Future.failedFuture("Proxy is closed");
     JsonObject _json = new JsonObject();
     _json.put("name", name);
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "sayHello");
-    _vertx.eventBus().<String>request(_address, _json, _deliveryOptions, res -> {
-      if (res.failed()) {
-        handler.handle(Future.failedFuture(res.cause()));
-      } else {
-        handler.handle(Future.succeededFuture(res.result().body()));
-      }
+    return _vertx.eventBus().<String>request(_address, _json, _deliveryOptions).map(msg -> {
+      return msg.body();
     });
-    return this;
   }
 }

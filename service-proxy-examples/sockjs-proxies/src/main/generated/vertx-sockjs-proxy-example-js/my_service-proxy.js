@@ -49,17 +49,16 @@
 
      @public
      @param name {string} 
-     @param handler {function} 
-     @return {MyService}
+     @return {todo}
      */
-    this.sayHello =  function(name, handler) {
+    this.sayHello =  function(name) {
       var __args = arguments;
-      if (__args.length === 2 && typeof __args[0] === 'string' && typeof __args[1] === 'function') {
+      if (__args.length === 1 && typeof __args[0] === 'string') {
         if (closed) {
           throw new Error('Proxy is closed');
         }
-        j_eb.send(j_address, {"name":__args[0]}, {"action":"sayHello"}, function(err, result) { __args[1](err, result && result.body); });
-        return that;
+        j_eb.send(j_address, {"name":__args[0]}, {"action":"sayHello"});
+        return;
       } else throw new TypeError('function invoked with invalid arguments');
     };
 

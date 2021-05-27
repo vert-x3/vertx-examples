@@ -13,19 +13,19 @@ import java.util.function.Consumer;
  */
 public class Runner {
 
-  private static final String WEB_EXAMPLES_DIR = "web-examples";
-  private static final String WEB_EXAMPLES_JAVA_DIR = WEB_EXAMPLES_DIR + "/src/main/java/";
+  private static final String EXAMPLES_DIR = "service-proxy-examples/sockjs-proxies";
+  private static final String EXAMPLES_JAVA_DIR = EXAMPLES_DIR + "/src/main/java/";
 
   public static void runClusteredExample(Class clazz) {
-    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
+    runExample(EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, true);
   }
 
   public static void runExample(Class clazz) {
-    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, false);
+    runExample(EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), null, false);
   }
 
   public static void runExample(Class clazz, DeploymentOptions options) {
-    runExample(WEB_EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), options, false);
+    runExample(EXAMPLES_JAVA_DIR, clazz, new VertxOptions(), options, false);
   }
 
   public static void runExample(String exampleDir, Class clazz, VertxOptions options, DeploymentOptions deploymentOptions, boolean clustered) {

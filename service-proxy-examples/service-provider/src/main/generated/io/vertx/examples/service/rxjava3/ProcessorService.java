@@ -14,13 +14,16 @@
  * under the License.
  */
 
-package io.vertx.examples.service.rxjava;
+package io.vertx.examples.service.rxjava3;
 
-import rx.Observable;
-import rx.Single;
-import io.vertx.rx.java.RxHelper;
-import io.vertx.rx.java.WriteStreamSubscriber;
-import io.vertx.rx.java.SingleOnSubscribeAdapter;
+import io.vertx.rxjava3.RxHelper;
+import io.vertx.rxjava3.ObservableHelper;
+import io.vertx.rxjava3.FlowableHelper;
+import io.vertx.rxjava3.impl.AsyncResultMaybe;
+import io.vertx.rxjava3.impl.AsyncResultSingle;
+import io.vertx.rxjava3.impl.AsyncResultCompletable;
+import io.vertx.rxjava3.WriteStreamObserver;
+import io.vertx.rxjava3.WriteStreamSubscriber;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
@@ -81,28 +84,26 @@ public class ProcessorService {
     return delegate;
   }
 
-  public static io.vertx.examples.service.rxjava.ProcessorService create(io.vertx.rxjava.core.Vertx vertx) { 
-    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
+
+  public static io.vertx.examples.service.rxjava3.ProcessorService create(io.vertx.rxjava3.core.Vertx vertx) { 
+    io.vertx.examples.service.rxjava3.ProcessorService ret = io.vertx.examples.service.rxjava3.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.create(vertx.getDelegate()));
     return ret;
   }
 
-  public static io.vertx.examples.service.rxjava.ProcessorService createProxy(io.vertx.rxjava.core.Vertx vertx, java.lang.String address) { 
-    io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
+  public static io.vertx.examples.service.rxjava3.ProcessorService createProxy(io.vertx.rxjava3.core.Vertx vertx, java.lang.String address) { 
+    io.vertx.examples.service.rxjava3.ProcessorService ret = io.vertx.examples.service.rxjava3.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
     return ret;
   }
 
-  public void process(io.vertx.core.json.JsonObject document, io.vertx.core.Handler<io.vertx.core.AsyncResult<io.vertx.core.json.JsonObject>> resultHandler) { 
-    delegate.process(document, resultHandler);
+  public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> process(io.vertx.core.json.JsonObject document) { 
+    io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> ret = rxProcess(document);
+    ret = ret.cache();
+    ret.subscribe();
+    return ret;
   }
 
-  public void process(io.vertx.core.json.JsonObject document) {
-    process(document, ar -> { });
-  }
-
-    public rx.Single<io.vertx.core.json.JsonObject> rxProcess(io.vertx.core.json.JsonObject document) { 
-    return Single.create(new SingleOnSubscribeAdapter<>(fut -> {
-      process(document, fut);
-    }));
+  public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> rxProcess(io.vertx.core.json.JsonObject document) { 
+    return AsyncResultSingle.toSingle(delegate.process(document), __value -> __value);
   }
 
   public static final int NO_NAME_ERROR = io.vertx.examples.service.ProcessorService.NO_NAME_ERROR;

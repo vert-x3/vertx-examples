@@ -33,8 +33,7 @@ import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
 import io.vertx.serviceproxy.ProxyUtils;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 import io.vertx.examples.service.ProcessorService;
 /*
   Generated Proxy code - DO NOT EDIT
@@ -63,22 +62,15 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
   }
 
   @Override
-  public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler){
-    if (closed) {
-      resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
-      return;
-    }
+  public Future<JsonObject> process(JsonObject document){
+    if (closed) return io.vertx.core.Future.failedFuture("Proxy is closed");
     JsonObject _json = new JsonObject();
     _json.put("document", document);
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "process");
-    _vertx.eventBus().<JsonObject>request(_address, _json, _deliveryOptions, res -> {
-      if (res.failed()) {
-        resultHandler.handle(Future.failedFuture(res.cause()));
-      } else {
-        resultHandler.handle(Future.succeededFuture(res.result().body()));
-      }
+    return _vertx.eventBus().<JsonObject>request(_address, _json, _deliveryOptions).map(msg -> {
+      return msg.body();
     });
   }
 }

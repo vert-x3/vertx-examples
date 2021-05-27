@@ -3,6 +3,7 @@ package io.vertx.examples.service;
 import io.vertx.codegen.annotations.ProxyGen;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -11,7 +12,7 @@ import io.vertx.serviceproxy.ServiceProxyBuilder;
 
 /**
  * The service interface.
- * 
+ *
  * @author Lalit Rao
  */
 @ProxyGen // Generate the proxy and handler
@@ -37,6 +38,6 @@ public interface ProcessorService {
   }
 
   // The service methods
-  void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler);
+  Future<JsonObject> process(JsonObject document);
 
 }

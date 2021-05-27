@@ -41,9 +41,7 @@ import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
 import io.vertx.serviceproxy.HelperUtils;
 import io.vertx.serviceproxy.ServiceBinder;
 
-import io.vertx.example.web.proxies.MyService;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
@@ -121,8 +119,7 @@ public class MyServiceVertxProxyHandler extends ProxyHandler {
       accessed();
       switch (action) {
         case "sayHello": {
-          service.sayHello((java.lang.String)json.getValue("name"),
-                        HelperUtils.createHandler(msg, includeDebugInfo));
+          service.sayHello((java.lang.String)json.getValue("name")).onComplete(HelperUtils.createHandler(msg, includeDebugInfo));
           break;
         }
         default: throw new IllegalStateException("Invalid action: " + action);

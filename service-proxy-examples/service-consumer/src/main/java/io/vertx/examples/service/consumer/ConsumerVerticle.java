@@ -17,18 +17,17 @@ public class ConsumerVerticle extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     ProcessorService service = ProcessorService.createProxy(vertx, "vertx.processor");
 
     JsonObject document = new JsonObject().put("name", "vertx");
 
-    service.process(document, (r) -> {
-      if (r.succeeded()) {
-        System.out.println(r.result().encodePrettily());
-      } else {
-        System.out.println(r.cause());
-        Failures.dealWithFailure(r.cause());
-      }
+    service.process(document)
+      .onSuccess(json -> {
+      System.out.println(json.encodePrettily());
+    }).onFailure(failure -> {
+      System.out.println(failure);
+      Failures.dealWithFailure(failure.getCause());
     });
   }
 }
