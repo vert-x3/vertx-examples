@@ -23,7 +23,7 @@ You can also launch the example using the `vertx` cli as follows:
 mvn clean package
 
 # java
-vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-4.0.2.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
+vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-4.1.0.CR2.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
 ----
 
 To enable JMX append the following options: `-Dvertx.metrics.options.jmxEnabled=true -Dvertx.metrics.options.jmxDomain=vertx`. Then, if you open a JMX explorer (such the JConsole), in the list of beans you will find the Vert.x metrics under the

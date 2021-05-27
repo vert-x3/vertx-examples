@@ -86,20 +86,20 @@ public class ProcessorService {
     return ret;
   }
 
-  public static io.vertx.examples.service.rxjava.ProcessorService createProxy(io.vertx.rxjava.core.Vertx vertx, String address) { 
+  public static io.vertx.examples.service.rxjava.ProcessorService createProxy(io.vertx.rxjava.core.Vertx vertx, java.lang.String address) { 
     io.vertx.examples.service.rxjava.ProcessorService ret = io.vertx.examples.service.rxjava.ProcessorService.newInstance((io.vertx.examples.service.ProcessorService)io.vertx.examples.service.ProcessorService.createProxy(vertx.getDelegate(), address));
     return ret;
   }
 
-  public void process(JsonObject document, Handler<AsyncResult<JsonObject>> resultHandler) { 
+  public void process(io.vertx.core.json.JsonObject document, io.vertx.core.Handler<io.vertx.core.AsyncResult<io.vertx.core.json.JsonObject>> resultHandler) { 
     delegate.process(document, resultHandler);
   }
 
-  public void process(JsonObject document) {
+  public void process(io.vertx.core.json.JsonObject document) {
     process(document, ar -> { });
   }
 
-    public Single<JsonObject> rxProcess(JsonObject document) { 
+    public rx.Single<io.vertx.core.json.JsonObject> rxProcess(io.vertx.core.json.JsonObject document) { 
     return Single.create(new SingleOnSubscribeAdapter<>(fut -> {
       process(document, fut);
     }));

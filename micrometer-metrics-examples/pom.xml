@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>micrometer-metrics-examples</artifactId>
-  <version>4.0.2</version>
+  <version>4.1.0.CR2</version>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>

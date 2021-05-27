@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>sql-client-examples</artifactId>
-  <version>4.0.2</version>
+  <version>4.1.0.CR2</version>
 
   <dependencies>
     <dependency>
