@@ -13,3 +13,6 @@ gradle-app.setting
 # IDE
 .idea/
 *.iml
+
+# Ignore Gradle build output directory
+build
