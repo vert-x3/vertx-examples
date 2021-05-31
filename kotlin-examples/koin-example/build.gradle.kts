@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  kotlin("jvm") version "1.4.10"
-  id("io.vertx.vertx-plugin") version "0.3.1"
+  kotlin("jvm") version "1.5.10"
+  id("io.vertx.vertx-plugin") version "1.2.0"
 }
 
 repositories {
@@ -21,6 +21,7 @@ dependencies {
 
 vertx {
   mainVerticle = "io.vertx.koin.example.BootstrapVerticle"
+  vertxVersion = "4.1.0.CR2"
 }
 
 tasks {
@@ -29,4 +30,9 @@ tasks {
       jvmTarget = "1.8"
     }
   }
+}
+
+tasks.wrapper {
+  distributionType = Wrapper.DistributionType.ALL
+  gradleVersion = "6.8.3"
 }
