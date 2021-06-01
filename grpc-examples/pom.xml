@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>grpc-examples</artifactId>
-  <version>4.1.0.CR2</version>
+  <version>4.1.0</version>
 
   <properties>
     <vertx.grpc.version>1.16.1</vertx.grpc.version>

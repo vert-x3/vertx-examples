@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>vertx-docker-example</artifactId>
-  <version>4.1.0.CR2</version>
+  <version>4.1.0</version>
 
   <name>Sample Docker Image with Maven</name>
 

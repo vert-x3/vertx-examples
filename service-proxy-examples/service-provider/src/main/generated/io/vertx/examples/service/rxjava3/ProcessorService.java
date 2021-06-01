@@ -98,7 +98,7 @@ public class ProcessorService {
   public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> process(io.vertx.core.json.JsonObject document) { 
     io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> ret = rxProcess(document);
     ret = ret.cache();
-    ret.subscribe();
+    ret.subscribe(io.vertx.rxjava3.SingleHelper.nullObserver());
     return ret;
   }
 
