@@ -1,7 +1,7 @@
 package io.vertx.koin.example
 
 import io.vertx.core.AbstractVerticle
-import io.vertx.kotlin.core.DeploymentOptions
+import io.vertx.kotlin.core.deploymentOptionsOf
 import org.koin.dsl.module.module
 import org.koin.standalone.StandAloneContext.startKoin
 
@@ -11,7 +11,7 @@ class BootstrapVerticle : AbstractVerticle() {
     vertx.registerVerticleFactory(KoinVerticleFactory)
     vertx.deployVerticle(
       "${KoinVerticleFactory.prefix()}:${GreeterVerticle::class.java.canonicalName}",
-      DeploymentOptions(instances = 4)
+      deploymentOptionsOf(instances = 4)
     )
   }
 }

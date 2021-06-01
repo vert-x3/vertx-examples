@@ -1,12 +1,12 @@
 package io.vertx.koin.example
 
 import io.vertx.core.AbstractVerticle
-import io.vertx.core.Future
+import io.vertx.core.Promise
 import org.slf4j.LoggerFactory
 
 class GreeterVerticle(private val greeter: Greeter): AbstractVerticle() {
 
-  override fun start(startFuture: Future<Void>) {
+  override fun start(promise: Promise<Void>) {
     vertx.createHttpServer().requestHandler { request ->
       val name = request.getParam("name")
       logger.info("Got request for name: $name")
@@ -15,9 +15,9 @@ class GreeterVerticle(private val greeter: Greeter): AbstractVerticle() {
     }.listen(8080) { ar ->
       if (ar.succeeded()) {
         logger.info("GreetingVerticle started: @${this.hashCode()}")
-        startFuture.complete()
+        promise.complete()
       } else {
-        startFuture.fail(ar.cause())
+        promise.fail(ar.cause())
       }
     }
   }
