@@ -398,3 +398,17 @@ link:http://vertx.io/docs/#web[Vert.x Web API Contract package]
 
 The link:src/main/java/io/vertx/example/web/openapi3/OpenAPI3Server.java[OpenAPI3Server] is an example of
 OpenAPI3RouterFactory, the interface to build your design driven router based on your OpenAPI specification.
+
+== Web Proxy example
+
+This example shows how to proxy requests to a external backend with Vert.x-Web. The backend is just a external server
+that is not required to be hosted on the same computer. .
+
+The link:src/main/java/io/vertx/example/web/proxy/[Java web proxy example]
+
+The example redirects all plain requests to `/foo` on local port 8080 to port 7070.
+
+A second example redirects after `HTTP Basic Authentication` all requests to `/private` on local port 8080 to port 7070.
+
+NOTE: The backend for the second example is totally unprotected. The examples is showing that you can mix other handlers
+with the `ProxyHandler` like you would on a typical vertx-web application.
