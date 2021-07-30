@@ -1,0 +1,11 @@
+= Vert.x Jbpm examples
+
+This project will demonstrate the usage of jbpm to create business processes inside vertx.
+
+The link:src/main/java/io/vertx/example/jbpm/JbpmVerticle.java[JbpmVerticle.java] shows the Verticle with embedded Jbpm.
+
+Process Definition can be found in  :src/main/resources/io/vertx/example/jbpm/sample.bpmn[sample.bpmn]
+
+The link:src/main/java/io/vertx/example/jbpm/JbpmVerticleTest.java[JbpmVerticleTest.java] shows the
+junit test for running the verticle.
+
