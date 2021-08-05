@@ -13,12 +13,6 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-camel-bridge</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>spi-annotations</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
