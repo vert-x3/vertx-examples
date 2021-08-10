@@ -1,6 +1,6 @@
 = Vert.x Jbpm examples
 
-This project will demonstrate the usage of jbpm to create business processes inside vertx.
+This project will demonstrate the usage of jbpm to create business processes inside vertx. This example makes use of vertx event bus. A sender verticle will send a message, which will be received by a jbpm verticle. This verticle will start a jbpm process and pass  this message as a parameter to the process. Process will print this message in one of it's steps(script task).
 
 The link:src/main/java/io/vertx/example/jbpm/JbpmVerticle.java[JbpmVerticle.java] shows the Verticle with embedded Jbpm.
 
@@ -8,4 +8,13 @@ Process Definition can be found in  :src/main/resources/io/vertx/example/jbpm/sa
 
 The link:src/main/java/io/vertx/example/jbpm/JbpmVerticleTest.java[JbpmVerticleTest.java] shows the
 junit test for running the verticle.
+
+To run verticles
+
+Create a uber jar with all dependencies. pom has a maven-shade-plugin for this.
+run in command line -  mvn package.
+
+vertx run io.vertx.example.jbpm.MsgSenderVerticle -cp <uber-jar-name.jar> -cluster
+
+vertx run io.vertx.example.jbpm.JbpmVerticle -cp <uber-jar-name.jar> -cluster
 
