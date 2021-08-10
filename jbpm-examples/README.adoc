@@ -4,9 +4,9 @@ This project will demonstrate the usage of jbpm to create business processes(usi
 
 The link:src/main/java/io/vertx/example/jbpm/JbpmVerticle.java[JbpmVerticle.java] shows the Verticle with embedded Jbpm.
 
-Process Definition can be found in  :src/main/resources/io/vertx/example/jbpm/sample.bpmn[sample.bpmn]
+Process Definition can be found in  :src/main/resources/io.vertx.example.jbpm/sample.bpmn[sample.bpmn]
 
-The link:src/main/java/io/vertx/example/jbpm/JbpmVerticleTest.java[JbpmVerticleTest.java] shows the
+The link:src/test/java/io/vertx/example/jbpm/JbpmVerticleTest.java[JbpmVerticleTest.java] shows the
 junit test for running the verticle.
 
 *Additional Info*
@@ -24,11 +24,14 @@ mvn package
 ----
 
 Once the jar is created, run the following vertx commands for deploying verticles.
+
+Run the message sender verticle
 [source,java]
 ----
 vertx run io.vertx.example.jbpm.MsgSenderVerticle -cp <uber-jar-name.jar> -cluster
 ----
 
+Run the jbpm verticle
 [source,java]
 ----
 vertx run io.vertx.example.jbpm.JbpmVerticle -cp <uber-jar-name.jar> -cluster
