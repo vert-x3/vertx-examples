@@ -24,9 +24,10 @@ public class JbpmVerticleTest {
   }
 
   @Test
-  @DisplayName("Deploy JbpmVerticle")
+  @DisplayName("Deploy JbpmVerticles")
   void deployJbpmVerticle(VertxTestContext testContext) {
     vertx.deployVerticle(new JbpmVerticle(), testContext.succeeding(id -> testContext.completeNow()));
+    vertx.deployVerticle(new MsgSenderVerticle(), testContext.succeeding(id -> testContext.completeNow()));
   }
 
 }
