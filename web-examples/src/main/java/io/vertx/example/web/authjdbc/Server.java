@@ -3,8 +3,9 @@ package io.vertx.example.web.authjdbc;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.auth.AuthProvider;
-import io.vertx.ext.auth.jdbc.JDBCAuth;
+import io.vertx.ext.auth.authentication.AuthenticationProvider;
+import io.vertx.ext.auth.jdbc.JDBCAuthentication;
+import io.vertx.ext.auth.jdbc.JDBCAuthenticationOptions;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -53,7 +54,7 @@ public class Server extends AbstractVerticle {
     router.route().handler(BodyHandler.create());
 
     // Simple auth service which uses a JDBC data source
-    AuthProvider authProvider = JDBCAuth.create(vertx, client);
+    AuthenticationProvider authProvider = JDBCAuthentication.create(client, new JDBCAuthenticationOptions());
 
     // Any requests to URI starting '/private/' require login
     router.route("/private/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));

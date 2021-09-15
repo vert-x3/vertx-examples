@@ -1,6 +1,7 @@
 package io.vertx.example.web.authorisation;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.JWTOptions;
@@ -13,9 +14,6 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.AuthorizationHandler;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 import io.vertx.ext.web.handler.StaticHandler;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -42,15 +40,17 @@ public class Server extends AbstractVerticle {
     // this route is excluded from the auth handler (it represents your login endpoint)
     router.get("/api/newToken").handler(ctx -> {
 
-      List<String> authorities = new ArrayList<>();
+      JsonArray authorities = new JsonArray();
 
       for (String authority : ctx.request().params().getAll("authority")) {
         authorities.add(authority);
       }
 
       ctx.response().putHeader("Content-Type", "text/plain");
-      ctx.response().end(jwt.generateToken(new JsonObject(), new JWTOptions().setExpiresInSeconds(60).setPermissions
-        (authorities)));
+      ctx.response().end(jwt.generateToken(
+        new JsonObject()
+          .put("permissions", authorities),
+        new JWTOptions().setExpiresInSeconds(60)));
     });
 
     JWTAuthHandler authnHandler = JWTAuthHandler.create(jwt);

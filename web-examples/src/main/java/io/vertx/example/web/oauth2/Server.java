@@ -3,10 +3,13 @@ package io.vertx.example.web.oauth2;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.auth.oauth2.AccessToken;
+import io.vertx.ext.auth.User;
+import io.vertx.ext.auth.authentication.TokenCredentials;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import io.vertx.ext.auth.oauth2.providers.GithubAuth;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.codec.BodyCodec;
 import io.vertx.ext.web.handler.OAuth2AuthHandler;
 import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
@@ -40,7 +43,7 @@ public class Server extends AbstractVerticle {
     // Simple auth service which uses a GitHub to authenticate the user
     OAuth2Auth authProvider = GithubAuth.create(vertx, CLIENT_ID, CLIENT_SECRET);
     // we now protect the resource under the path "/protected"
-    router.route("/protected").handler(OAuth2AuthHandler.create(vertx, authProvider)
+    router.route("/protected").handler(OAuth2AuthHandler.create(vertx, authProvider, "http://localhost:8080/callback")
       // we now configure the oauth2 handler, it will setup the callback handler
       // as expected by your oauth2 provider.
       .setupCallback(router.route("/callback"))
@@ -65,9 +68,9 @@ public class Server extends AbstractVerticle {
     });
     // The protected resource
     router.get("/protected").handler(ctx -> {
-      AccessToken user = (AccessToken) ctx.user();
+      User user = ctx.user();
       // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
-      user.userInfo(res -> {
+      authProvider.userInfo(user, res -> {
         if (res.failed()) {
           // request didn't succeed because the token was revoked so we
           // invalidate the token stored in the session and render the
@@ -80,32 +83,36 @@ public class Server extends AbstractVerticle {
 
           // fetch the user emails from the github API
 
-          // the fetch method will retrieve any resource and ensure the right
+          // the web client will retrieve any resource and ensure the right
           // secure headers are passed.
-          user.fetch("https://api.github.com/user/emails", res2 -> {
-            if (res2.failed()) {
-              // request didn't succeed because the token was revoked so we
-              // invalidate the token stored in the session and render the
-              // index page so that the user can start the OAuth flow again
-              ctx.session().destroy();
-              ctx.fail(res2.cause());
-            } else {
-              userInfo.put("private_emails", res2.result().jsonArray());
-              // we pass the client info to the template
-              JsonObject data = new JsonObject()
-                .put("userInfo", userInfo);
-              // and now delegate to the engine to render it.
-              engine.render(data, "views/advanced.hbs", res3 -> {
-                if (res3.succeeded()) {
-                  ctx.response()
-                    .putHeader("Content-Type", "text/html")
-                    .end(res3.result());
-                } else {
-                  ctx.fail(res3.cause());
-                }
-              });
-            }
-          });
+          WebClient.create(vertx)
+            .getAbs("https://api.github.com/user/emails")
+            .authentication(new TokenCredentials(user.<String>get("access_token")))
+            .as(BodyCodec.jsonArray())
+            .send(res2 -> {
+              if (res2.failed()) {
+                // request didn't succeed because the token was revoked so we
+                // invalidate the token stored in the session and render the
+                // index page so that the user can start the OAuth flow again
+                ctx.session().destroy();
+                ctx.fail(res2.cause());
+              } else {
+                userInfo.put("private_emails", res2.result());
+                // we pass the client info to the template
+                JsonObject data = new JsonObject()
+                  .put("userInfo", userInfo);
+                // and now delegate to the engine to render it.
+                engine.render(data, "views/advanced.hbs", res3 -> {
+                  if (res3.succeeded()) {
+                    ctx.response()
+                      .putHeader("Content-Type", "text/html")
+                      .end(res3.result());
+                  } else {
+                    ctx.fail(res3.cause());
+                  }
+                });
+              }
+            });
         }
       });
     });

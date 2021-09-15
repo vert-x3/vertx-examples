@@ -28,6 +28,12 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
       <artifactId>vertx-web-proxy</artifactId>
       <version>${project.version}</version>
     </dependency>
