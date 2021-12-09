@@ -2,14 +2,10 @@ package io.vertx.example.shell.prompt;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.util.Runner;
-import io.vertx.ext.shell.Shell;
 import io.vertx.ext.shell.ShellServer;
-import io.vertx.ext.shell.ShellService;
-import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.CommandResolver;
 import io.vertx.ext.shell.term.TelnetTermOptions;
 import io.vertx.ext.shell.term.TermServer;
-import io.vertx.ext.shell.term.impl.TelnetTermServer;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

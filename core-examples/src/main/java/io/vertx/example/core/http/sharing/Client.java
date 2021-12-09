@@ -25,7 +25,7 @@ public class Client extends AbstractVerticle {
         .compose(req -> req.send()
           .compose(HttpClientResponse::body))
         .onSuccess(body -> System.out.println(body.toString("ISO-8859-1")))
-        .onFailure(err -> err.printStackTrace());
+        .onFailure(Throwable::printStackTrace);
     });
   }
 }

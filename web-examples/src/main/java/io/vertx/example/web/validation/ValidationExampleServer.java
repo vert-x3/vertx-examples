@@ -8,7 +8,6 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.validation.BadRequestException;
 import io.vertx.ext.web.validation.RequestParameters;
 import io.vertx.ext.web.validation.ValidationHandler;
-import io.vertx.ext.web.validation.builder.ParameterProcessorFactory;
 import io.vertx.json.schema.SchemaParser;
 import io.vertx.json.schema.SchemaRouter;
 import io.vertx.json.schema.SchemaRouterOptions;

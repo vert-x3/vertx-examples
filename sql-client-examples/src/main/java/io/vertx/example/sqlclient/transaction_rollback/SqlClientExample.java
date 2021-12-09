@@ -3,13 +3,11 @@ package io.vertx.example.sqlclient.transaction_rollback;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
-import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.SqlConnectOptions;
-import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 /*
@@ -50,6 +48,7 @@ public class SqlClientExample extends AbstractVerticle {
 
     Pool pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
 
+    // expected
     pool.withTransaction(connection -> {
       // create a test table
       return connection.query("create table test(id int primary key, name varchar(255))").execute()
@@ -70,9 +69,6 @@ public class SqlClientExample extends AbstractVerticle {
       for (Row row : rows) {
         System.out.println("row = " + row.toJson());
       }
-    }).onFailure(err -> {
-      // expected
-      err.printStackTrace();
-    });
+    }).onFailure(Throwable::printStackTrace);
   }
 }

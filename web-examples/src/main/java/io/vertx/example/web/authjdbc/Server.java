@@ -40,14 +40,6 @@ public class Server extends AbstractVerticle {
       .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
       .put("driver_class", "org.hsqldb.jdbcDriver"));
 
-//     If you are planning NOT to build a fat jar, then use the BoneCP pool since it
-//     can handle loading the jdbc driver classes from outside vert.x lib directory
-//    JDBCClient client = JDBCClient.createShared(vertx, new JsonObject()
-//        .put("provider_class", "io.vertx.ext.jdbc.spi.impl.BoneCPDataSourceProvider")
-//        .put("jdbcUrl", "jdbc:hsqldb:mem:test?shutdown=true")
-//        .put("username", "sa")
-//        .put("password", ""));
-
     Router router = Router.router(vertx);
 
     // We need cookies, sessions and request bodies

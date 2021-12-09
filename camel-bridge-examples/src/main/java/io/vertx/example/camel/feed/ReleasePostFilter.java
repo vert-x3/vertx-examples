@@ -3,7 +3,6 @@ package io.vertx.example.camel.feed;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
 
 /**
  * @author <a href="http://escoffier.me">Clement Escoffier</a>

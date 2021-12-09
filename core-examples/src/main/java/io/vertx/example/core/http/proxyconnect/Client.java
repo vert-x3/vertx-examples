@@ -3,7 +3,6 @@ package io.vertx.example.core.http.proxyconnect;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
-import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.net.ProxyOptions;
 import io.vertx.core.net.ProxyType;
@@ -44,6 +43,6 @@ public class Client extends AbstractVerticle {
         }
       )
       .onSuccess(body -> System.out.println("Got data " + body.toString("ISO-8859-1")))
-      .onFailure(err -> err.printStackTrace());
+      .onFailure(Throwable::printStackTrace);
   }
 }

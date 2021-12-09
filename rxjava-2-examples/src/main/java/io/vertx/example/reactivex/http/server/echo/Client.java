@@ -7,6 +7,7 @@ import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.MultiMap;
 import io.vertx.reactivex.core.buffer.Buffer;
 import io.vertx.reactivex.core.http.HttpClient;
+import io.vertx.reactivex.core.http.HttpClientResponse;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -31,7 +32,7 @@ public class Client extends AbstractVerticle {
         req.headers().addAll(headers);
         return req
           .rxSend(payload)
-          .flatMap(resp -> resp.rxBody());
+          .flatMap(HttpClientResponse::rxBody);
       })
       .subscribe(buf -> System.out.println(buf.toString("UTF-8")), Throwable::printStackTrace);
   }

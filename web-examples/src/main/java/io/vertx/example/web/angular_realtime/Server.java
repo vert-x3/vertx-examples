@@ -2,7 +2,6 @@ package io.vertx.example.web.angular_realtime;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.Message;
-import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
@@ -73,7 +72,7 @@ public class Server extends AbstractVerticle {
         }
 
         ctx.setUser(login.result());
-        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, "application/json").end("{}");
+        ctx.json(new JsonObject());
       });
     });
 

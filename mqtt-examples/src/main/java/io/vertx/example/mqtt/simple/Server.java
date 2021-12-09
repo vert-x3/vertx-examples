@@ -18,7 +18,6 @@ package io.vertx.example.mqtt.simple;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.mqtt.util.Runner;
-import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
 

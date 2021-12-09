@@ -43,18 +43,12 @@ public class Util {
    * Parses the JSON input file containing the list of features.
    */
   public static List<Feature> parseFeatures(URL file) throws IOException {
-    InputStream input = file.openStream();
-    try {
-      Reader reader = new InputStreamReader(input);
-      try {
+    try (InputStream input = file.openStream()) {
+      try (Reader reader = new InputStreamReader(input)) {
         FeatureDatabase.Builder database = FeatureDatabase.newBuilder();
         JsonFormat.parser().merge(reader, database);
         return database.getFeatureList();
-      } finally {
-        reader.close();
       }
-    } finally {
-      input.close();
     }
   }
 

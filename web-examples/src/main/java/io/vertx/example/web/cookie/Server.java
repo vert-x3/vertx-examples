@@ -23,7 +23,7 @@ public class Server extends AbstractVerticle {
 
     // on every path increment the counter
     router.route().handler(ctx -> {
-      Cookie someCookie = ctx.getCookie("visits");
+      Cookie someCookie = ctx.request().getCookie("visits");
 
       long visits = 0;
       if (someCookie != null) {
@@ -39,7 +39,7 @@ public class Server extends AbstractVerticle {
       visits++;
 
       // Add a cookie - this will get written back in the response automatically
-      ctx.addCookie(Cookie.cookie("visits", "" + visits));
+      ctx.response().addCookie(Cookie.cookie("visits", "" + visits));
 
       ctx.next();
     });

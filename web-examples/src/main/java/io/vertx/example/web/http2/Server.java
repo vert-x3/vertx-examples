@@ -2,7 +2,6 @@ package io.vertx.example.web.http2;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.net.OpenSSLEngineOptions;
 import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;

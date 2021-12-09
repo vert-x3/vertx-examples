@@ -6,7 +6,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 import io.vertx.reactivex.jdbcclient.JDBCPool;
 import io.vertx.reactivex.core.AbstractVerticle;
-import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.RowSet;
 import io.vertx.reactivex.sqlclient.SqlConnection;

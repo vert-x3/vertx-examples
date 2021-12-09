@@ -3,6 +3,7 @@ package io.vertx.example.service.discovery;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.servicediscovery.Record;
@@ -77,7 +78,7 @@ public class ServiceDiscoveryVerticle extends AbstractVerticle {
           client.request(HttpMethod.GET, "/api")
             .compose(req -> req
               .send()
-              .compose(resp -> resp.body())
+              .compose(HttpClientResponse::body)
             ).onComplete(ar2 -> {
             //release the service
             reference.release();

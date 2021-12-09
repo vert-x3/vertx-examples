@@ -32,6 +32,6 @@ public class Client extends AbstractVerticle {
         }
       )
       .onSuccess(body -> System.out.println("Got data " + body.toString("ISO-8859-1")))
-      .onFailure(err -> err.printStackTrace());
+      .onFailure(Throwable::printStackTrace);
   }
 }

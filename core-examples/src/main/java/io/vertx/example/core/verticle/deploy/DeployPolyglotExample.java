@@ -1,8 +1,6 @@
 package io.vertx.example.core.verticle.deploy;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;
 
 /*

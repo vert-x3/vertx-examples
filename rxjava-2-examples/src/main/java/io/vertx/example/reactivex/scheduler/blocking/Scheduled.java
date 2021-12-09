@@ -39,15 +39,12 @@ public class Scheduled extends AbstractVerticle {
     o = o.observeOn(scheduler);
 
     // Load from a blocking api
-    o = o.map(id ->
-            blockingLoad(id)
+    o = o.map(this::blockingLoad
     );
 
     o.subscribe(item -> {
       System.out.println("Got item " + item);
-    }, err -> {
-      err.printStackTrace();
-    }, () -> {
+    }, Throwable::printStackTrace, () -> {
       System.out.println("Done");
     });
   }

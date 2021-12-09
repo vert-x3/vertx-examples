@@ -2,6 +2,7 @@ package io.vertx.example.unit.test;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.unit.TestContext;
@@ -56,7 +57,7 @@ public class ParameterizedTest {
         .request(HttpMethod.GET, port, "localhost", "/")
         .compose(req -> req
           .send()
-          .map(resp -> resp.statusCode()))
+          .map(HttpClientResponse::statusCode))
         .onComplete(context.asyncAssertSuccess(statusCode -> {
           context.assertEquals(200, statusCode);
       }));

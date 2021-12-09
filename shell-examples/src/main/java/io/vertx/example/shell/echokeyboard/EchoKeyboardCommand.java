@@ -9,11 +9,6 @@ import io.vertx.ext.shell.command.CommandBuilder;
 import io.vertx.ext.shell.command.CommandRegistry;
 import io.vertx.ext.shell.term.TelnetTermOptions;
 
-
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.List;
-
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */

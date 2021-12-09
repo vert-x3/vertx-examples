@@ -3,10 +3,8 @@ package io.vertx.example.sqlclient.streaming;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
-import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.*;
-import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 /*

@@ -9,7 +9,6 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 
-import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +41,7 @@ public class Server extends AbstractVerticle {
     allowedMethods.add(HttpMethod.POST);
     allowedMethods.add(HttpMethod.OPTIONS);
     /*
-     * these methods aren't necessary for this sample, 
+     * these methods aren't necessary for this sample,
      * but you may need them for your projects
      */
     allowedMethods.add(HttpMethod.DELETE);

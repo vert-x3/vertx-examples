@@ -26,18 +26,17 @@ public class RedisClientVerticle extends AbstractVerticle {
     RedisAPI redis = RedisAPI.api(client);
 
     client.connect()
-      .compose(conn -> {
-        return redis.set(Arrays.asList("key", "value"))
+      .compose(conn ->
+        redis.set(Arrays.asList("key", "value"))
           .compose(v -> {
             System.out.println("key stored");
             return redis.get("key");
-          });
-      }).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("Retrieved value: " + ar.result());
-      } else {
-        System.out.println("Connection or Operation Failed " + ar.cause());
-      }
-    });
+          }))
+      .onSuccess(result -> {
+        System.out.println("Retrieved value: " + result);
+      })
+      .onFailure(err -> {
+        System.out.println("Connection or Operation Failed " + err);
+      });
   }
 }

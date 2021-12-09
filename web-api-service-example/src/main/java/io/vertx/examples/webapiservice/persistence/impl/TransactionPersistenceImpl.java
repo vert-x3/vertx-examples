@@ -42,14 +42,12 @@ public class TransactionPersistenceImpl implements TransactionPersistence {
     @Override
     public boolean removeTransaction(String transactionId) {
       Transaction t = transactions.remove(transactionId);
-      if (t != null) return true;
-      else return false;
+      return t != null;
     }
 
     @Override
     public boolean updateTransaction(String transactionId, Transaction transaction) {
       Transaction t = transactions.replace(transactionId, transaction);
-      if (t != null) return true;
-      else return false;
+      return t != null;
     }
 }

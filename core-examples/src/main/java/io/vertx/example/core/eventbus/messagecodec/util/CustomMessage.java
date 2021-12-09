@@ -17,12 +17,10 @@ public class CustomMessage {
 
   @Override
   public String toString() {
-    final StringBuilder sb = new StringBuilder("CustomMessage{");
-    sb.append("statusCode=").append(statusCode);
-    sb.append(", resultCode='").append(resultCode).append('\'');
-    sb.append(", summary='").append(summary).append('\'');
-    sb.append('}');
-    return sb.toString();
+    return "CustomMessage{" + "statusCode=" + statusCode +
+      ", resultCode='" + resultCode + '\'' +
+      ", summary='" + summary + '\'' +
+      '}';
   }
 
   public int getStatusCode() {

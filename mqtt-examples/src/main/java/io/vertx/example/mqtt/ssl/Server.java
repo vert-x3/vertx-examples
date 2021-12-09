@@ -19,7 +19,6 @@ package io.vertx.example.mqtt.ssl;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.example.mqtt.util.Runner;
-import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
 

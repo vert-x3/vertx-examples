@@ -24,8 +24,8 @@ public class Sender extends AbstractVerticle {
     vertx.setPeriodic(1000, v -> {
 
       // Send two messages expecting replies
-      Single<Message<Integer>> reply1 = eb.<Integer>rxRequest("heatsensor1", "ping");
-      Single<Message<Integer>> reply2 = eb.<Integer>rxRequest("heatsensor2", "ping");
+      Single<Message<Integer>> reply1 = eb.rxRequest("heatsensor1", "ping");
+      Single<Message<Integer>> reply2 = eb.rxRequest("heatsensor2", "ping");
 
       // Zip responses to receive both at the same time
       Single<int[]> reply = reply1.zipWith(reply2, (msg1, msg2) -> new int[]{msg1.body(), msg2.body()});

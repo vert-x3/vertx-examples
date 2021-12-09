@@ -1,7 +1,6 @@
 package io.vertx.example.reactivex.database.sqlclient;
 
 import io.reactivex.Maybe;
-import io.reactivex.Single;
 import io.reactivex.functions.Function;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.util.Runner;

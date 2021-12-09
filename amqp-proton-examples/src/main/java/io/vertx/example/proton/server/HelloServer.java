@@ -99,9 +99,7 @@ public class HelloServer extends AbstractVerticle {
       initSender(vertx, connection, sender);
     });
 
-    connection.receiverOpenHandler(receiver -> {
-      initReceiver(receiver);
-    });
+    connection.receiverOpenHandler(HelloServer::initReceiver);
   }
 
   // Initialise then open new sender (when a client receiver/consumer attaches)

@@ -82,12 +82,10 @@ public class Runner {
   }
 
   private static void addShutDownhook(final Vertx vertx) {
-	Runtime.getRuntime().addShutdownHook(new Thread() {
-	  public void run() {
-	    Set<String> deployedVerticleIds = vertx.deploymentIDs();
-	    deployedVerticleIds.forEach(vertx::undeploy);
-	    vertx.close();
-	  }
-	});
+	Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+    Set<String> deployedVerticleIds = vertx.deploymentIDs();
+    deployedVerticleIds.forEach(vertx::undeploy);
+    vertx.close();
+  }));
   }
 }

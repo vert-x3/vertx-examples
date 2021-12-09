@@ -83,11 +83,7 @@ public class Server extends AbstractVerticle {
 
             System.out.println("Received ack for message = " + messageId);
 
-          }).publishReceivedHandler(messageId -> {
-
-            endpoint.publishRelease(messageId);
-
-          }).publishCompletionHandler(messageId -> {
+          }).publishReceivedHandler(endpoint::publishRelease).publishCompletionHandler(messageId -> {
 
             System.out.println("Received ack for message = " + messageId);
           });
@@ -132,9 +128,7 @@ public class Server extends AbstractVerticle {
             endpoint.publishReceived(message.messageId());
           }
 
-        }).publishReleaseHandler(messageId -> {
-          endpoint.publishComplete(messageId);
-        });
+        }).publishReleaseHandler(endpoint::publishComplete);
       })
       .listen(1883, "0.0.0.0", ar -> {
 

@@ -1,9 +1,7 @@
 package io.vertx.examples.service.impl;
 
 
-import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
-import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.ProcessorService;
 import io.vertx.serviceproxy.ServiceException;

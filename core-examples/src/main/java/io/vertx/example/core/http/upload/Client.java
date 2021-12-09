@@ -1,15 +1,12 @@
 package io.vertx.example.core.http.upload;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.file.AsyncFile;
-import io.vertx.core.file.FileProps;
 import io.vertx.core.file.FileSystem;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
-import io.vertx.core.http.HttpClientRequest;
+import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.streams.Pump;
 import io.vertx.example.util.Runner;
 
 /*
@@ -35,11 +32,9 @@ public class Client extends AbstractVerticle {
           req.headers().set("content-length", "" + size);
           return fs.open(filename, new OpenOptions());
         }).compose(file -> req.send(file)
-          .map(resp -> resp.statusCode()));
+          .map(HttpClientResponse::statusCode));
       }).onSuccess(statusCode -> {
       System.out.println("Response " + statusCode);
-    }).onFailure(err -> {
-      err.printStackTrace();
-    });
+    }).onFailure(Throwable::printStackTrace);
   }
 }

@@ -10,7 +10,6 @@ import org.apache.kafka.clients.consumer.OffsetResetStrategy;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
