@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>opentracing-examples</artifactId>
-  <version>4.2.0</version>
+  <version>4.2.5</version>
 
   <dependencies>
 

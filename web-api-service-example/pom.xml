@@ -7,7 +7,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>web-api-service-example</artifactId>
-  <version>4.2.0</version>
+  <version>4.2.5</version>
 
   <name>Web Api Service example</name>
 

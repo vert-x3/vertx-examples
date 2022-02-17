@@ -11,7 +11,7 @@ repositories {
 //  }
 }
 
-version = '4.2.0'
+version = '4.2.5'
 sourceCompatibility = '1.8'
 
 dependencies {

@@ -20,5 +20,5 @@ Once the mongo instance is running, you can launch it using:
 
 ----
 # java
-vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-4.2.0.jar -conf my-mongo-config.json
+vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-4.2.5.jar -conf my-mongo-config.json
 ----
