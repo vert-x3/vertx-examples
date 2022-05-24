@@ -1,6 +1,5 @@
 package io.vertx.example.grpc.ssl;
 
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.examples.helloworld.VertxGreeterGrpc;
@@ -15,26 +14,27 @@ import io.vertx.grpc.server.GrpcServiceBridge;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class Server extends AbstractVerticle {
+public class ServerWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Runner.runExample(ServerWithStub.class);
   }
 
   @Override
   public void start() {
+    VertxGreeterGrpc.GreeterVertxImplBase service = new VertxGreeterGrpc.GreeterVertxImplBase() {
+      @Override
+      public Future<HelloReply> sayHello(HelloRequest request) {
+        System.out.println("Hello " + request.getName());
+        return Future.succeededFuture(HelloReply.newBuilder().setMessage(request.getName()).build());
+      }
+    };
+
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
-
-    // The rpc service
-    rpcServer.callHandler(GreeterGrpc.getSayHelloMethod(), request -> {
-      request
-        .last()
-        .onSuccess(msg -> {
-          System.out.println("Hello " + msg.getName());
-          request.response().end(HelloReply.newBuilder().setMessage(msg.getName()).build());
-        });
-    });
+    GrpcServiceBridge
+      .bridge(service)
+      .bind(rpcServer);
 
     // start the server
     HttpServerOptions options = new HttpServerOptions()

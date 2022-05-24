@@ -1,35 +1,44 @@
 package io.vertx.example.grpc.routeguide;
 
 import io.grpc.Status;
-import io.grpc.examples.routeguide.*;
+import io.grpc.examples.routeguide.Feature;
+import io.grpc.examples.routeguide.Point;
+import io.grpc.examples.routeguide.Rectangle;
+import io.grpc.examples.routeguide.RouteNote;
+import io.grpc.examples.routeguide.RouteSummary;
+import io.grpc.examples.routeguide.VertxRouteGuideGrpc;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
 import io.vertx.core.net.SocketAddress;
+import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.client.GrpcClient;
-import io.vertx.grpc.common.GrpcReadStream;
+import io.vertx.grpc.client.GrpcClientChannel;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class Client extends AbstractVerticle {
+public class ClientWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Runner.runExample(ClientWithStub.class);
   }
 
   private Random random = new Random();
-  private GrpcClient client;
+  private VertxRouteGuideGrpc.RouteGuideVertxStub stub;
 
   @Override
   public void start() throws Exception {
     // Create the channel
-    client = GrpcClient.client(vertx);
+    GrpcClient client = GrpcClient.client(vertx);
+    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
+
+    stub = VertxRouteGuideGrpc.newVertxStub(channel);
 
     List<Feature> features = Util.parseFeatures(Util.getDefaultFeaturesFile());
 
@@ -54,15 +63,11 @@ public class Client extends AbstractVerticle {
   public void getFeature(int lat, int lon) {
     System.out.println("*** GetFeature: lat=" + lat + " lon=" + lon);
 
-    Point msg = Point.newBuilder().setLatitude(lat).setLongitude(lon).build();
+    Point request = Point.newBuilder().setLatitude(lat).setLongitude(lon).build();
 
-    Future<Feature> fut = client.request(SocketAddress.inetSocketAddress(8080, "localhost"), RouteGuideGrpc.getGetFeatureMethod())
-      .compose(request -> {
-        request.write(msg);
-        return request.response().compose(GrpcReadStream::last);
-      });
-
-    fut.onSuccess(feature -> {
+    stub.getFeature(request).onComplete(ar -> {
+      if (ar.succeeded()) {
+        Feature feature = ar.result();
         if (Util.exists(feature)) {
           System.out.println("Found feature called " + feature.getName() +
             " at " + Util.getLatitude(feature.getLocation()) + ", " + Util.getLongitude(feature.getLocation()));
@@ -70,7 +75,8 @@ public class Client extends AbstractVerticle {
           System.out.println("Found no feature at " + Util.getLatitude(feature.getLocation()) + ", " +
             Util.getLongitude(feature.getLocation()));
         }
-      });
+      }
+    });
   }
 
   /**
@@ -80,23 +86,28 @@ public class Client extends AbstractVerticle {
   public void listFeatures(int lowLat, int lowLon, int hiLat, int hiLon) {
     System.out.println("*** ListFeatures: lowLat=" + lowLat + " lowLon=" + lowLon + " hiLat=" + hiLat + " hiLon=" + hiLon);
 
-    Rectangle msg =
+    Rectangle request =
       Rectangle.newBuilder()
         .setLo(Point.newBuilder().setLatitude(lowLat).setLongitude(lowLon).build())
         .setHi(Point.newBuilder().setLatitude(hiLat).setLongitude(hiLon).build()).build();
 
-    // We can buffer all features as the list is small
-    Future<List<Feature>> fut = client.request(SocketAddress.inetSocketAddress(8080, "localhost"), RouteGuideGrpc.getListFeaturesMethod())
-      .compose(request -> {
-        request.write(msg);
-        return request.response()
-          .compose(response -> response.collecting(Collectors.toList()));
-      });
+    ReadStream<Feature> response = stub.listFeatures(request);
+    List<Feature> features = Collections.synchronizedList(new ArrayList<>());
+    response.handler(feature -> {
+      System.out.println("Result #" + features.size() + ": " + feature);
+      features.add(feature);
+    });
 
-    fut.onSuccess(features -> {
-      features.forEach(feature -> {
-        System.out.println("Result #" + features.size() + ": " + feature);
-      });
+    // Neede for now as it triggers an NPE if not set
+    response.endHandler(v -> {
+/*
+Feb 14, 2017 11:08:53 PM io.grpc.internal.SerializingExecutor$TaskRunner run
+SEVERE: Exception while executing runnable io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed@6668e779
+java.lang.NullPointerException
+	at io.vertx.grpc.impl.GrpcReadStreamImpl$1.onCompleted(GrpcReadStreamImpl.java:69)
+	at io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:390)
+	at io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:422)
+	*/
     });
   }
 
@@ -133,21 +144,22 @@ public class Client extends AbstractVerticle {
   public void recordRoute(List<Feature> features, int numPoints) {
     System.out.println("*** RecordRoute");
 
-    Future<RouteSummary> fut = client.request(SocketAddress.inetSocketAddress(8080, "localhost"), RouteGuideGrpc.getRecordRouteMethod())
-      .compose(request -> {
-        RouteSender sender = new RouteSender(features, request);
-        sender.send(numPoints);
-        return request.response()
-          .compose(GrpcReadStream::last);
-      });
+    stub.recordRoute(writeStream -> {
 
-    fut
-      .onSuccess(summary -> {
-      System.out.println("Finished trip with " + summary.getPointCount() + " points. Passed " + summary.getFeatureCount()
-        + " features.Travelled " + summary.getDistance() + " meters. It took " + summary.getElapsedTime() + " seconds.");
-      System.out.println("Finished RecordRoute");
-    })
-      .onFailure(cause -> System.out.println("RecordRoute Failed: " + Status.fromThrowable(cause)));
+      RouteSender sender = new RouteSender(features, writeStream);
+
+      // Send numPoints points randomly selected from the features list.
+      sender.send(numPoints);
+    }).onComplete(ar -> {
+      if (ar.succeeded()) {
+        RouteSummary summary = ar.result();
+        System.out.println("Finished trip with " + summary.getPointCount() + " points. Passed " + summary.getFeatureCount()
+          + " features.Travelled " + summary.getDistance() + " meters. It took " + summary.getElapsedTime() + " seconds.");
+        System.out.println("Finished RecordRoute");
+      } else {
+        System.out.println("RecordRoute Failed: " + Status.fromThrowable(ar.cause()));
+      }
+    });
   }
 
   /**
@@ -157,30 +169,31 @@ public class Client extends AbstractVerticle {
   public void routeChat() {
     System.out.println("*** RouteChat");
 
-    Future<Void> fut = client.request(SocketAddress.inetSocketAddress(8080, "localhost"), RouteGuideGrpc.getRouteChatMethod())
-      .compose(request -> {
-        RouteNote[] msgs =
-          {newNote("First message", 0, 0), newNote("Second message", 0, 1),
-            newNote("Third message", 1, 0), newNote("Fourth message", 1, 1)};
+    ReadStream<RouteNote> readStream = stub.routeChat(writeStream -> {
+      RouteNote[] requests =
+        {newNote("First message", 0, 0), newNote("Second message", 0, 1),
+          newNote("Third message", 1, 0), newNote("Fourth message", 1, 1)};
 
-        for (RouteNote msg : msgs) {
-          System.out.println("Sending message \"" + msg.getMessage() + "\" at " + msg.getLocation()
-            .getLatitude() + ", " + msg.getLocation().getLongitude());
-          request.write(msg);
-        }
-        request.end();
-        return request.response().compose(response -> {
-          response.handler(note -> {
-            System.out.println("Got message \"" + note.getMessage() + "\" at " + note.getLocation().getLatitude() +
-              ", " + note.getLocation().getLongitude());
-          });
-          return response.end();
-        });
-      });
+      for (RouteNote request : requests) {
+        System.out.println("Sending message \"" + request.getMessage() + "\" at " + request.getLocation()
+          .getLatitude() + ", " + request.getLocation().getLongitude());
+        writeStream.write(request);
+      }
+      writeStream.end();
+    });
 
-    fut
-      .onSuccess(v -> System.out.println("Finished RouteChat"))
-      .onFailure(cause -> System.out.println("RouteChat Failed: " + Status.fromThrowable(cause)));
+    readStream.handler(note -> {
+      System.out.println("Got message \"" + note.getMessage() + "\" at " + note.getLocation().getLatitude() +
+        ", " + note.getLocation().getLongitude());
+    });
+
+    readStream.exceptionHandler(err -> {
+      System.out.println("RouteChat Failed: " + Status.fromThrowable(err));
+    });
+
+    readStream.endHandler(v -> {
+      System.out.println("Finished RouteChat");
+    });
   }
 
   private RouteNote newNote(String message, int lat, int lon) {

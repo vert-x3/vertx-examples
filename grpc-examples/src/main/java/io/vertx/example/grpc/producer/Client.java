@@ -3,10 +3,9 @@ package io.vertx.example.grpc.producer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxProducerServiceGrpc;
+import io.vertx.example.grpc.ProducerServiceGrpc;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.client.GrpcClient;
-import io.vertx.grpc.client.GrpcClientChannel;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -21,25 +20,19 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() {
 
-    // Create the channel
+    // Create the client
     GrpcClient client = GrpcClient.client(vertx);
-    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
-
-    // Get a stub to use for interacting with the remote service
-    VertxProducerServiceGrpc.ProducerServiceVertxStub stub = VertxProducerServiceGrpc.newVertxStub(channel);
 
     // Call the remote service
-    stub.streamingInputCall(writeStream -> {
-      for (int i = 0; i < 10; i++) {
-        writeStream.write(Messages.StreamingInputCallRequest.newBuilder().build());
-      }
-      writeStream.end();
-    }).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("Server replied OK");
-      } else {
-        ar.cause().printStackTrace();
-      }
-    });
+    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), ProducerServiceGrpc.getStreamingInputCallMethod())
+      .compose(request -> {
+        for (int i = 0; i < 10; i++) {
+          request.write(Messages.StreamingInputCallRequest.newBuilder().build());
+        }
+        request.end();
+        return request.response();
+      })
+      .onSuccess(response -> System.out.println("Server replied OK"))
+      .onFailure(Throwable::printStackTrace);
   }
 }

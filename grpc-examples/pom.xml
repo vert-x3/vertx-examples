@@ -45,6 +45,12 @@
       </exclusions>
     </dependency>
 
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <!-- Temporary for generated stubs -->
     <dependency>
       <groupId>io.vertx</groupId>

@@ -1,6 +1,11 @@
 package io.vertx.example.grpc.routeguide;
 
-import io.grpc.examples.routeguide.*;
+import io.grpc.examples.routeguide.Feature;
+import io.grpc.examples.routeguide.Point;
+import io.grpc.examples.routeguide.Rectangle;
+import io.grpc.examples.routeguide.RouteNote;
+import io.grpc.examples.routeguide.RouteSummary;
+import io.grpc.examples.routeguide.VertxRouteGuideGrpc;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -8,19 +13,24 @@ import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.util.Runner;
 import io.vertx.grpc.server.GrpcServer;
+import io.vertx.grpc.server.GrpcServiceBridge;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class Server extends AbstractVerticle {
+public class ServerWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Runner.runExample(ServerWithStub.class);
   }
 
   private List<Feature> features;
@@ -105,66 +115,9 @@ public class Server extends AbstractVerticle {
 
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
-
-    rpcServer.callHandler(RouteGuideGrpc.getGetFeatureMethod(), request -> {
-      request.last().onSuccess(point -> {
-        request.response().end(checkFeature(point));
-      });
-    });
-
-    rpcServer.callHandler(RouteGuideGrpc.getListFeaturesMethod(), request -> {
-      request.last().onSuccess(rectangle -> {
-        int left = Math.min(rectangle.getLo().getLongitude(), rectangle.getHi().getLongitude());
-        int right = Math.max(rectangle.getLo().getLongitude(), rectangle.getHi().getLongitude());
-        int top = Math.max(rectangle.getLo().getLatitude(), rectangle.getHi().getLatitude());
-        int bottom = Math.min(rectangle.getLo().getLatitude(), rectangle.getHi().getLatitude());
-
-        for (Feature feature : features) {
-          if (!Util.exists(feature)) {
-            continue;
-          }
-
-          int lat = feature.getLocation().getLatitude();
-          int lon = feature.getLocation().getLongitude();
-          if (lon >= left && lon <= right && lat >= bottom && lat <= top) {
-            request.response().write(feature);
-          }
-        }
-        request.response().end();
-      });
-    });
-
-    rpcServer.callHandler(RouteGuideGrpc.getRecordRouteMethod(), request -> {
-
-      RouteRecorder recorder = new RouteRecorder();
-
-      request.handler(recorder::append);
-
-      request.end().map(v -> recorder.build())
-        .onSuccess(summary -> {
-          request.response().end(summary);
-        }).onFailure(err -> {
-          System.out.println("recordRoute cancelled");
-        });
-    });
-
-    rpcServer.callHandler(RouteGuideGrpc.getRouteChatMethod(), request -> {
-      request.handler(note -> {
-        List<RouteNote> notes = getOrCreateNotes(note.getLocation());
-
-        // Respond with all previous notes at this location.
-        for (RouteNote prevNote : notes.toArray(new RouteNote[0])) {
-          request.response().write(prevNote);
-        }
-
-        // Now add the new note to the list
-        notes.add(note);
-      });
-
-      request.response().end().onSuccess(ar -> {
-        request.response().end();
-      });
-    });
+    GrpcServiceBridge
+      .bridge(service)
+      .bind(rpcServer);
 
     // start the server
     vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
