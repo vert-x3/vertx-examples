@@ -22,7 +22,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>http2-fatjar</artifactId>
-  <version>4.2.5</version>
+  <version>4.3.1</version>
 
   <name>HTTP/2 fatjar</name>
 

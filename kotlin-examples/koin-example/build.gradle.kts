@@ -21,7 +21,7 @@ dependencies {
 
 vertx {
   mainVerticle = "io.vertx.koin.example.BootstrapVerticle"
-  vertxVersion = "4.2.5"
+  vertxVersion = "4.3.1"
 }
 
 tasks {
