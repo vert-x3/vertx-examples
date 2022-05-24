@@ -7,8 +7,8 @@ import io.vertx.core.Promise;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.util.Runner;
-import io.vertx.grpc.VertxServer;
-import io.vertx.grpc.VertxServerBuilder;
+import io.vertx.grpc.server.GrpcServer;
+import io.vertx.grpc.server.GrpcServiceBridge;
 
 import java.net.URL;
 import java.util.*;
@@ -33,7 +33,7 @@ public class Server extends AbstractVerticle {
     URL featureFile = Util.getDefaultFeaturesFile();
     features = Util.parseFeatures(featureFile);
 
-    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxRouteGuideGrpc.RouteGuideVertxImplBase() {
+    VertxRouteGuideGrpc.RouteGuideVertxImplBase service = new VertxRouteGuideGrpc.RouteGuideVertxImplBase() {
 
       @Override
       public Future<Feature> getFeature(Point request) {
@@ -102,14 +102,19 @@ public class Server extends AbstractVerticle {
 
         request.endHandler(v -> response.end());
       }
-    }).build();
-    server.start(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("gRPC service started");
-      } else {
-        System.out.println("Could not start server " + ar.cause().getMessage());
-      }
-    });
+    };
+
+    // Create the server
+    GrpcServer rpcServer = GrpcServer.server(vertx);
+    GrpcServiceBridge
+      .bridge(service)
+      .bind(rpcServer);
+
+    // start the server
+    vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
+      .onFailure(cause -> {
+        cause.printStackTrace();
+      });
   }
 
   class RouteRecorder {

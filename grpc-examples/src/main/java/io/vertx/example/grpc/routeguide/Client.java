@@ -1,13 +1,14 @@
 package io.vertx.example.grpc.routeguide;
 
-import io.grpc.ManagedChannel;
 import io.grpc.Status;
 import io.grpc.examples.routeguide.*;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.net.SocketAddress;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.util.Runner;
-import io.vertx.grpc.VertxChannelBuilder;
+import io.vertx.grpc.client.GrpcClient;
+import io.vertx.grpc.client.GrpcClientChannel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,10 +29,9 @@ public class Client extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    ManagedChannel channel = VertxChannelBuilder
-      .forAddress(vertx, "localhost", 8080)
-      .usePlaintext()
-      .build();
+    // Create the channel
+    GrpcClient client = GrpcClient.client(vertx);
+    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     stub = VertxRouteGuideGrpc.newVertxStub(channel);
 

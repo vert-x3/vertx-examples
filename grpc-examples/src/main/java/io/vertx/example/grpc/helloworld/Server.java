@@ -6,8 +6,8 @@ import io.grpc.examples.helloworld.VertxGreeterGrpc;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.example.grpc.util.Runner;
-import io.vertx.grpc.VertxServer;
-import io.vertx.grpc.VertxServerBuilder;
+import io.vertx.grpc.server.GrpcServer;
+import io.vertx.grpc.server.GrpcServiceBridge;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -20,19 +20,24 @@ public class Server extends AbstractVerticle {
 
   @Override
   public void start() {
-    VertxServer server = VertxServerBuilder.forAddress(vertx, "localhost", 8080).addService(new VertxGreeterGrpc.GreeterVertxImplBase() {
+    VertxGreeterGrpc.GreeterVertxImplBase service = new VertxGreeterGrpc.GreeterVertxImplBase() {
       @Override
       public Future<HelloReply> sayHello(HelloRequest request) {
         System.out.println("Hello " + request.getName());
         return Future.succeededFuture(HelloReply.newBuilder().setMessage(request.getName()).build());
       }
-    }).build();
-    server.start(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("gRPC service started");
-      } else {
-        System.out.println("Could not start server " + ar.cause().getMessage());
-      }
-    });
+    };
+
+    // Create the server
+    GrpcServer rpcServer = GrpcServer.server(vertx);
+    GrpcServiceBridge
+      .bridge(service)
+      .bind(rpcServer);
+
+    // start the server
+    vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
+      .onFailure(cause -> {
+        cause.printStackTrace();
+      });
   }
 }

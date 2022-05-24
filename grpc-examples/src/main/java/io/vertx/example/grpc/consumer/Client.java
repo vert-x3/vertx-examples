@@ -1,11 +1,12 @@
 package io.vertx.example.grpc.consumer;
 
-import io.grpc.ManagedChannel;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.VertxConsumerServiceGrpc;
 import io.vertx.example.util.Runner;
-import io.vertx.grpc.VertxChannelBuilder;
+import io.vertx.grpc.client.GrpcClient;
+import io.vertx.grpc.client.GrpcClientChannel;
 
 import java.nio.charset.StandardCharsets;
 
@@ -23,10 +24,8 @@ public class Client extends AbstractVerticle {
   public void start() {
 
     // Create the channel
-    ManagedChannel channel = VertxChannelBuilder
-      .forAddress(vertx, "localhost", 8080)
-      .usePlaintext()
-      .build();
+    GrpcClient client = GrpcClient.client(vertx);
+    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Get a stub to use for interacting with the remote service
     VertxConsumerServiceGrpc.ConsumerServiceVertxStub stub = VertxConsumerServiceGrpc.newVertxStub(channel);

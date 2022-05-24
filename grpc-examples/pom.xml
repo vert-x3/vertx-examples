@@ -9,11 +9,8 @@
   <version>4.3.1</version>
 
   <properties>
-    <vertx.grpc.version>1.16.1</vertx.grpc.version>
-    <jetty.alpnAgent.version>2.0.7</jetty.alpnAgent.version>
-    <jetty.alpnAgent.path>
-      ${settings.localRepository}/org/mortbay/jetty/alpn/jetty-alpn-agent/${jetty.alpnAgent.version}/jetty-alpn-agent-${jetty.alpnAgent.version}.jar
-    </jetty.alpnAgent.path>
+    <grpc.version>1.44.0</grpc.version>
+    <protoc.version>3.19.2</protoc.version>
   </properties>
 
   <dependencies>
@@ -25,7 +22,13 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-grpc</artifactId>
+      <artifactId>vertx-grpc-server</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-grpc-client</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -42,17 +45,13 @@
       </exclusions>
     </dependency>
 
+    <!-- Temporary for generated stubs -->
     <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>2.0.34.Final</version>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-grpc</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.mortbay.jetty.alpn</groupId>
-      <artifactId>jetty-alpn-agent</artifactId>
-      <version>${jetty.alpnAgent.version}</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -74,20 +73,13 @@
             <target>1.8</target>
           </configuration>
         </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <configuration>
-            <argLine>-javaagent:${jetty.alpnAgent.path}</argLine>
-          </configuration>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.xolstice.maven.plugins</groupId>
         <artifactId>protobuf-maven-plugin</artifactId>
-        <version>0.5.0</version>
+        <version>0.6.1</version>
         <configuration>
           <!--
             The version of protoc must match protobuf-java. If you don't depend on

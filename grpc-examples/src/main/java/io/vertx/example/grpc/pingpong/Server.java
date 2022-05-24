@@ -5,8 +5,8 @@ import io.vertx.core.Future;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.VertxPingPongServiceGrpc;
 import io.vertx.example.util.Runner;
-import io.vertx.grpc.VertxServer;
-import io.vertx.grpc.VertxServerBuilder;
+import io.vertx.grpc.server.GrpcServer;
+import io.vertx.grpc.server.GrpcServiceBridge;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -30,16 +30,15 @@ public class Server extends AbstractVerticle {
     };
 
     // Create the server
-    VertxServer rpcServer = VertxServerBuilder
-      .forPort(vertx, 8080)
-      .addService(service)
-      .build();
+    GrpcServer rpcServer = GrpcServer.server(vertx);
+    GrpcServiceBridge
+      .bridge(service)
+      .bind(rpcServer);
 
     // start the server
-    rpcServer.start(ar -> {
-      if (ar.failed()) {
-        ar.cause().printStackTrace();
-      }
-    });
+    vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
+      .onFailure(cause -> {
+        cause.printStackTrace();
+      });
   }
 }
