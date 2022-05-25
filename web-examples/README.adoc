@@ -412,3 +412,8 @@ A second example redirects after `HTTP Basic Authentication` all requests to `/p
 
 NOTE: The backend for the second example is totally unprotected. The examples is showing that you can mix other handlers
 with the `ProxyHandler` like you would on a typical vertx-web application.
+
+== gRPC example
+
+The link:src/main/java/io/vertx/example/web/grpc/helloworld/Server.java[Server] is an
+example of integrating a routing gRPC traffic to a gRPC server.
