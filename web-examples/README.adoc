@@ -76,8 +76,8 @@ The link:src/main/java/io/vertx/example/web/sessions/[Java sessions example]
 
 The example increments a counter in the session every time a request hits the server.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 then refresh the page a few times - you should see the hit count increase.
+Run the server either in your IDE or on the command line, then open your browser and hit 
+link:http://localhost:8080/[localhost:8080] then refresh the page a few times - you should see the hit count increase.
 
 NOTE: Depending on your browser you may see it increase by two each time you refresh! Why is that? Some browsers will
 actually send two HTTP requests every time you refresh - one to request the favicon for the site and one to request the
