@@ -1,6 +1,6 @@
 package movierating
 
-import io.vertx.ext.web.Route
+import coroutineHandler
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.jdbcclient.JDBCPool
@@ -8,9 +8,7 @@ import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.kotlin.coroutines.await
-import io.vertx.kotlin.coroutines.dispatcher
 import io.vertx.sqlclient.Tuple
-import kotlinx.coroutines.launch
 
 
 class App : CoroutineVerticle() {
@@ -62,8 +60,7 @@ class App : CoroutineVerticle() {
   // Send info about a movie
   suspend fun getMovie(ctx: RoutingContext) {
     val id = ctx.pathParam("id")
-
-    val rows = client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(id)).await();
+    val rows = client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(id)).await()
     if (rows.size() == 1) {
       ctx.response().end(json {
         obj("id" to id, "title" to rows.iterator().next().getString("TITLE")).encode()
@@ -93,20 +90,5 @@ class App : CoroutineVerticle() {
     ctx.response().end(json {
       obj("id" to id, "rating" to rows.iterator().next().getDouble("VALUE")).encode()
     })
-  }
-
-  /**
-   * An extension method for simplifying coroutines usage with Vert.x Web routers
-   */
-  fun Route.coroutineHandler(fn: suspend (RoutingContext) -> Unit) {
-    handler { ctx ->
-      launch(ctx.vertx().dispatcher()) {
-        try {
-          fn(ctx)
-        } catch (e: Exception) {
-          ctx.fail(e)
-        }
-      }
-    }
   }
 }
