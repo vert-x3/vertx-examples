@@ -43,7 +43,7 @@ public class Server extends AbstractVerticle {
       event.complete(true);
 
     });
-    router.mountSubRouter("/eventbus", subRouter);
+    router.route("/eventbus/*").subRouter(subRouter);
 
 
     // Serve the static resources
