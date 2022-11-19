@@ -1,6 +1,7 @@
 package io.vertx.example.core.net.echossl;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
 import io.vertx.example.util.Runner;
@@ -18,7 +19,9 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    NetClientOptions options = new NetClientOptions().setSsl(true).setTrustAll(true);
+    NetClientOptions options = new NetClientOptions().setSsl(true).setTrustAll(true)
+      .setKeyStoreOptions(new JksOptions().setPath("server-keystore.jks")
+        .setPassword("wibble"));
 
     vertx.createNetClient(options).connect(1234, "localhost", res -> {
       if (res.succeeded()) {

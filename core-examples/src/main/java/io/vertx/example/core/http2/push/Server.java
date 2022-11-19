@@ -10,6 +10,7 @@ import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author linghengqian
  */
 public class Server extends AbstractVerticle {
 
@@ -37,8 +38,6 @@ public class Server extends AbstractVerticle {
             System.out.println("sending push");
             HttpServerResponse pushedResp = ar.result();
             pushedResp.sendFile("script.js");
-          } else {
-            // Sometimes Safari forbids push : "Server push not allowed to opposite endpoint."
           }
         });
 

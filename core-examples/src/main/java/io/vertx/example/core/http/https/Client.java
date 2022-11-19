@@ -4,10 +4,12 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.core.net.JksOptions;
 import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author linghengqian
  */
 public class Client extends AbstractVerticle {
 
@@ -21,7 +23,9 @@ public class Client extends AbstractVerticle {
 
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
-    HttpClientOptions options = new HttpClientOptions().setSsl(true).setTrustAll(true);
+    HttpClientOptions options = new HttpClientOptions().setSsl(true).setTrustAll(true).setKeyStoreOptions(
+      new JksOptions().setPath("server-keystore.jks").setPassword("wibble")
+    );
     HttpClient client = vertx.createHttpClient(options);
     client.request(HttpMethod.GET, 4443, "localhost", "/")
       .compose(req -> req.send()

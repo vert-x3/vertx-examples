@@ -6,10 +6,12 @@ import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpVersion;
+import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author linghengqian
  */
 public class Client extends AbstractVerticle {
 
@@ -27,7 +29,8 @@ public class Client extends AbstractVerticle {
       setSsl(true).
       setUseAlpn(true).
       setProtocolVersion(HttpVersion.HTTP_2).
-      setTrustAll(true);
+      setTrustAll(true).
+      setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("server-key.pem").setCertPath("server-cert.pem"));
 
     HttpClient client = vertx.createHttpClient(options);
 
@@ -49,6 +52,6 @@ public class Client extends AbstractVerticle {
             request.writeCustomFrame(10, 0, Buffer.buffer("ping"));
           });
         });
-      });
+      }).onFailure(Throwable::printStackTrace);
   }
 }

@@ -464,26 +464,6 @@ Happily served by 97297@Macintosh.local
 
 The verticle has been migrated.
 
-== Groovy verticles
-
-Vert.x supports several _formats_ to develop verticles in Groovy. This link:src/main/groovy/verticles[directory]
-illustrates the different formats:
-
-* link:src/main/groovy/verticles/script.groovy[plain script] - a verticle developed as a plain Groovy script
-* link:src/main/groovy/verticles/script-with-hooks.groovy[plain script with hooks] - a verticle developed as a script
- with hooks called by vert.x when the verticle is deployed and un-deployed
-* link:src/main/groovy/verticles/verticle-extending-abstract-verticle.groovy[class extending AbstractVerticle] - a
-verticle developed as a class extending `AbstractVerticle`
-* link:src/main/groovy/verticles/verticle-extending-groovy-verticle.groovy[class extending GroovyVerticle] - a
-verticle developed as a class extending `GroovyVerticle`
-
-You can run these examples using the `vertx` command line. For example:
-
-[source,shell]
-----
-vertx run script.groovy
-----
-
 == JSON streaming parser
 
 A simple example illustrating how to use the streaming `JsonParser` to parse a giant array of small objects.
