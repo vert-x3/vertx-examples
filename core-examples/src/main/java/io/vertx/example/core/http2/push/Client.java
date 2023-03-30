@@ -2,10 +2,12 @@ package io.vertx.example.core.http2.push;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.*;
+import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
+ * @author linghengqian
  */
 public class Client extends AbstractVerticle {
 
@@ -23,11 +25,12 @@ public class Client extends AbstractVerticle {
       setSsl(true).
       setUseAlpn(true).
       setProtocolVersion(HttpVersion.HTTP_2).
-      setTrustAll(true);
+      setTrustAll(true).
+      setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("server-key.pem").setCertPath("server-cert.pem"));
 
     HttpClient client = vertx.createHttpClient(options);
 
-    client.request(HttpMethod.GET, 8080, "localhost", "/").compose(request -> {
+    client.request(HttpMethod.GET, 8443, "localhost", "/").compose(request -> {
 
       // Set handler for server side push
       request.pushHandler(pushedReq -> {
