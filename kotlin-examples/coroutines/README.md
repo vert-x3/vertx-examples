@@ -16,15 +16,6 @@ Run the main function from the IDE
 > java -jar target/service.jar
 ```
 
-## Running from the CLI
-
-Copy hsqldb jar to $VERTX_HOME/lib
-
-```
-> cp $HOME/.m2/repository/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar $VERTX_HOME/lib/
-> vertx run src/main/kotlin/movierating/App.kt
-```
-
 ## API
 
 The application exposes a REST API for getRating movies:
