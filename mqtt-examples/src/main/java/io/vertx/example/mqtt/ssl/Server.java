@@ -17,8 +17,8 @@
 package io.vertx.example.mqtt.ssl;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.net.PemKeyCertOptions;
-import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
 
@@ -27,9 +27,8 @@ import io.vertx.mqtt.MqttServerOptions;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -38,8 +37,8 @@ public class Server extends AbstractVerticle {
     MqttServerOptions options = new MqttServerOptions()
       .setPort(8883)
       .setPemKeyCertOptions(new PemKeyCertOptions()
-        .setKeyPath("server-key.pem")
-        .setCertPath("server-cert.pem"))
+        .setKeyPath("io/vertx/example/mqtt/ssl/server-key.pem")
+        .setCertPath("io/vertx/example/mqtt/ssl/server-cert.pem"))
       .setSsl(true);
 
     MqttServer mqttServer = MqttServer.create(vertx, options);

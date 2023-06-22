@@ -18,8 +18,8 @@ package io.vertx.example.mqtt.simple;
 
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.example.mqtt.util.Runner;
 import io.vertx.mqtt.MqttClient;
 
 /**
@@ -32,9 +32,8 @@ public class Client extends AbstractVerticle {
   private static final String BROKER_HOST = "localhost";
   private static final int BROKER_PORT = 1883;
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override

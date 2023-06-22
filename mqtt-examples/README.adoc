@@ -9,17 +9,7 @@ Vert.x MQTT provides also a client.
 
 Please consult the Vert.x MQTT documentation for more information.
 
-Examples can be run directly from the IDE by executing the `main` method. Alternatively, you can run them using the
-`vertx` command line tool (that need to be installed beforehand):
-
-[source]
-----
-mvn clean compile
-vertx run fully-qualified-name-of-the-example -cp target/classes
-----
-
-Adapt the `-cp` option value for your current working directory and operating system.
-
+Examples can be run directly from the IDE by executing the `main` method.
 
 == Dependencies required
 
@@ -42,6 +32,7 @@ link:src/main/java/io/vertx/example/mqtt/simple/Server.java[Java echo mqtt serve
 link:src/main/java/io/vertx/example/mqtt/simple/Client.java[Java echo mqtt client]
 
 === App
+
 In this example you can find a usage of significant part of both of Client and Server API
 
 link:src/main/java/io/vertx/example/mqtt/app/Server.java[Java mqtt server app] /
