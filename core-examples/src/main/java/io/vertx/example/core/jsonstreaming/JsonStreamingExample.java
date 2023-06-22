@@ -17,23 +17,22 @@
 package io.vertx.example.core.jsonstreaming;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.parsetools.JsonParser;
-import io.vertx.example.util.Runner;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static io.vertx.core.parsetools.JsonEventType.*;
+import static io.vertx.core.parsetools.JsonEventType.VALUE;
 
 /**
  * @author Thomas Segismont
  */
 public class JsonStreamingExample extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(JsonStreamingExample.class);
+    Launcher.executeCommand("run", JsonStreamingExample.class.getName());
   }
 
   @Override

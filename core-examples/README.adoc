@@ -7,16 +7,7 @@ WebSockets, file system access, timers, verticles and more. Please consult the V
 documentation on Vert.x core.
 
 
-Examples can be run directly from the IDE by executing the `main` method. Alternatively, you can run them using the
-`vertx` command line tool (that need to be installed beforehand):
-
-[source,shell]
-----
-mvn clean compile
-vertx run fully-qualified-name-of-the-example -cp target/classes
-----
-
-Adapt the `-cp` option value for your current working directory and operating system.
+Examples can be run directly from the IDE by executing the `main` method.
 
 == Dependencies required
 
@@ -32,7 +23,7 @@ Artifact ID: vertx-core
 Vert.x core can be embedded in any Java class and run that way if you like.
 
 The link:src/main/java/io/vertx/example/core/embed/EmbeddedServer.java[Java embedded example] shows an example of that.
-Just right click the class in your IDE to run it directly.
+Just right-click the class in your IDE to run it directly.
 
 == Net examples
 
@@ -89,7 +80,7 @@ link:src/main/java/io/vertx/example/core/http/https/Client.java[Java simple HTTP
 
 === Proxy connect
 
-Connecting to a web server using an proxy. The proxy receives requests and connects to the endpoint server using a socket, then pass
+Connecting to a web server using a proxy. The proxy receives requests and connects to the endpoint server using a socket, then pass
 all the events between the client and the proxied server.
 
 link:src/main/java/io/vertx/example/core/http/proxyconnect/Server.java[The Java endpoint server]
@@ -113,9 +104,9 @@ link:src/main/java/io/vertx/example/core/http/sendfile/SendFile.java[Java static
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: In practice you would probably actually use Vert.x-Web for this rather than writing a web server at this low level. Serving
+NOTE: in practice, you would probably actually use Vert.x-Web for this rather than writing a web server at this low level. Serving
 files manually like this can leave you open to security exploits, e.g. by clients crafting URI paths which try to access
-resources outside of the permitted area. Vert.x-Web provides URI path normalisation to avoid these kinds of exploits and comes
+resources outside the permitted area. Vert.x-Web provides URI path normalisation to avoid these kinds of exploits and comes
 with a static file handler which also handles caching headers and other features that you would probably want when serving
 static files in a web application.
 
@@ -127,8 +118,8 @@ link:src/main/java/io/vertx/example/core/http/simpleform/SimpleFormServer.java[J
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: In practice you would probably also use Vert.x-Web for this rather than writing a server at this low level. Vert.x-Web
-provides built in support for HTML forms, and avoids some of the security issues due to maliciously crafted URI paths.
+NOTE: In practice, you would probably also use Vert.x-Web for this rather than writing a server at this low level. Vert.x-Web
+provides built in support for HTML forms, and avoids some security issues due to maliciously crafted URI paths.
 
 === Simple form file upload
 
@@ -138,8 +129,8 @@ link:src/main/java/io/vertx/example/core/http/simpleformupload/SimpleFormUploadS
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: In practice you would probably also use Vert.x-Web for this rather than writing a server at this low level. Vert.x-Web
-provides built in support for HTML forms and file uploads, and avoids some of the security issues due to maliciously
+NOTE: In practice, you would probably also use Vert.x-Web for this rather than writing a server at this low level. Vert.x-Web
+provides built in support for HTML forms and file uploads, and avoids some security issues due to maliciously
 crafted URI paths.
 
 === Http request body upload
@@ -155,26 +146,19 @@ link:src/main/java/io/vertx/example/core/http/upload/Client.java[Java upload cli
 
 === HTTP Server Sharing
 
-A server that illustrates the round robin orchestrated by vert.x when several verticles are opening HTTP servers on the same port:
+A server that illustrates the round-robin orchestrated by vert.x when several verticles are opening HTTP servers on the same port:
 
 link:src/main/java/io/vertx/example/core/http/sharing/Server.java[Server Launcher]
 
 link:src/main/java/io/vertx/example/core/http/sharing/HttpServerVerticle.java[HTTP Server Verticle]
 
-The `GatewayVerticle` deploys two instances of the `HttpServerVerticle` verticle.
+The `Server` deploys two instances of the `HttpServerVerticle` verticle.
 
-You can run the server then open a browser and point it at link:http://localhost:8080[]. Requests will be handled by an instance after the other.
+You can run the server then open a browser and point it at link:http://localhost:8080. Requests will be handled by an instance after the other.
 
-The `Client` illustrates the round robin by periodically requesting the server and displays the response content.
+The `Client` illustrates the round-robin by periodically requesting the server and displays the response content.
 
 link:src/main/java/io/vertx/example/core/http/sharing/Client.java[Java simple HTTP client]
-
-You can directly launch the `HTTPServerVerticle` using the `vertx run` command. Then you can set the number of instance you want:
-
-[source,shell]
-----
-vertx run io.vertx.example.core.http.sharing.HttpServerVerticle -instances 4
-----
 
 === WebSockets echo example
 
@@ -190,7 +174,7 @@ link:src/main/java/io/vertx/example/core/http/websockets/ws.html[Javascript WebS
 
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
-NOTE: in practice you would probably use Vert.x-Web to build a web application that uses WebSockets
+NOTE: in practice, you would probably use Vert.x-Web to build a web application that uses WebSockets
 
 == HTTP/2 examples
 
@@ -253,19 +237,6 @@ The sender sends a message to that address every second, when it receives a repl
 link:src/main/java/io/vertx/example/core/eventbus/pointtopoint/Receiver.java[Java event bus receiver]
 link:src/main/java/io/vertx/example/core/eventbus/pointtopoint/Sender.java[Java event bus sender]
 
-You can run the Java sender and receiver in your IDE or at the command line.
-
-At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
-
-----
-vertx run Receiver.java -cluster
-
-vertx run Sender.java -cluster
-----
-
-The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
-event bus.
-
 === Publish / Subscribe
 
 This example demonstrates publish / subscribe messaging between a receivers and a sender. With pub/sub messaging
@@ -278,18 +249,7 @@ The sender sends a message to that address every second, when it receives a repl
 link:src/main/java/io/vertx/example/core/eventbus/pubsub/Receiver.java[Java event bus pubsub receiver]
 link:src/main/java/io/vertx/example/core/eventbus/pubsub/Sender.java[Java event bus pubsub sender]
 
-You can start as many senders or receivers as you like in your IDE or at the command line.
-
-At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
-
-----
-vertx run Receiver.java -cluster
-
-vertx run Sender.java -cluster
-----
-
-The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
-event bus.
+You can start as many senders or receivers as you like.
 
 === MessageCodec
 
@@ -305,18 +265,7 @@ link:src/main/java/io/vertx/example/core/eventbus/messagecodec/LocalReceiver.jav
 link:src/main/java/io/vertx/example/core/eventbus/messagecodec/ClusterReceiver.java[Java event bus cluster-wide receiver]
 link:src/main/java/io/vertx/example/core/eventbus/messagecodec/util/CustomMessageCodec.java[Java event bus custom message codec]
 
-You can start as many senders or receivers as you like in your IDE or at the command line.
-
-At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
-
-----
-vertx run ClusterReceiver.java -cluster
-
-vertx run Sender.java -cluster
-----
-
-The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
-event bus.
+You can start as many senders or receivers as you like.
 
 === SSL
 
@@ -329,19 +278,6 @@ The sender sends a message to that address every second, when it receives a repl
 link:src/main/java/io/vertx/example/core/eventbus/ssl/Receiver.java[Java event bus receiver]
 link:src/main/java/io/vertx/example/core/eventbus/ssl/Sender.java[Java event bus sender]
 
-You can run the Java sender and receiver in your IDE or at the command line.
-
-At the command line you should run Sender and Receiver in different consoles using the `-cluster` flag:
-
-----
-vertx run Receiver.java -cluster
-
-vertx run Sender.java -cluster
-----
-
-The `-cluster` flag allows different Vert.x instances on the network to cluster the event bus together into a single
-event bus. Depending of your configuration you may need to append to both command: ` -cp ../../../../../../../resources` in order to configure the cluster.
-
 == Future
 
 Examples using Vert.x Futures are available in the link:src/main/java/io/vertx/example/core/future[Future] directory.
@@ -352,7 +288,7 @@ These examples show verticles being deployed and undeployed.
 
 === Deploy example
 
-This example shows a verticle deploying another verticle in several different ways including:
+This example shows a verticle deploying another verticle in several ways including:
 
 * Deploying without waiting for it to deploy
 * Deploying and waiting for it to deploy
@@ -364,19 +300,10 @@ This example shows a verticle deploying another verticle in several different wa
 link:src/main/java/io/vertx/example/core/verticle/deploy/DeployExample.java[Java verticle deployment example]
 link:src/main/java/io/vertx/example/core/verticle/deploy/OtherVerticle.java[The verticle that will be deployed]
 
-=== Polyglot Deploy example
-
-This example shows a verticle deploying another language verticle that depends on a NPM module:
-
-link:src/main/java/io/vertx/example/core/verticle/deploy/DeployPolyglotExample.java[Java verticle deployment example]
-link:src/main/resources/jsverticle.js[The verticle that will be deployed]
-link:src/main/resources/package.json
-
 === Asynchronous deployment example
 
 This is similar to the deployment example, but it shows how the start and stop of a verticle can be asynchronous. This
-is useful if the verticle has some startup or cleanup to do that takes some time, and we wish to avoid blocking the
-an event loop.
+is useful if the verticle has some startup or cleanup to do that takes some time, and we wish to avoid blocking the event loop.
 
 link:src/main/java/io/vertx/example/core/verticle/asyncstart/DeployExample.java[Java verticle deployment example]
 link:src/main/java/io/vertx/example/core/verticle/asyncstart/OtherVerticle.java[The verticle that will be deployed]
@@ -391,7 +318,7 @@ link:src/main/java/io/vertx/example/core/verticle/worker/WorkerVerticle.java[Jav
 
 == Execute blocking example
 
-This example demonstrates how you can include blocking code in with your non blocking code in a way that doesn't
+This example demonstrates how you can include blocking code in with your non-blocking code in a way that doesn't
 block an event loop:
 
 link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[Java execute blocking code example]
@@ -402,93 +329,11 @@ link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingDedicatedPoolE
 
 Run the example then open a browser and point it at link:http://localhost:8080[]
 
-== High Availability
-
-This example demonstrates the high availability feature of vert.x. When enabled, vert.x redeploys verticles to another
- node when the original node dies abruptly.
-
-link:src/main/java/io/vertx/example/core/ha/Server.java[The server]
-link:src/main/java/io/vertx/example/core/ha/BareInstance.java[The bare instance]
-
-To run this example, you need to have a working cluster. Configure Hazelcast and append the required `cluster-host`
-to the commands if needed.
-
-**In your IDE:**
-
-* Start the server by executing the `main` method of the `GatewayVerticle` class
-* Check that the http://localhost:8080 is served correctly
-* Start the _bare_ instance by executing the `main` method of the `BareInstance` class
-
-In a terminal, find the process related to the `GatewayVerticle` class execution and kill it using `kill -9`. The verticle is
-deployed on the _bare_ instance. If you refresh the page, the message should be slightly different.
-
-**In command line:**
-
-To see the HA (high-availability) behavior you need three terminals.
-
-First compile the project with `mvn clean package`
-
-In the first terminal, go the the _core-examples` directory and launch:
-
-----
-vertx run io.vertx.example.core.ha.Server -ha -cp target/classes
-----
-
-Open a browser to http://localhost:8080. You should see something like:
-
-----
-Happily served by 97284@Macintosh.local
-----
-
-Be displayed id is OS and JVM specific, so you may have something completely different.
-
-In the second terminal, go the the _core-examples` directory and launch:
-----
-vertx bare -cp target/classes/
-----
-
-In the third terminal, display the list of the Java process and kill the first one (smaller pid):
-
-----
-> jps | grep Launcher
-97297 Launcher
-97284 Launcher
-> kill -9 97284
-----
-
-In your browser, refresh the page, you should see a different id such as:
-
-----
-Happily served by 97297@Macintosh.local
-----
-
-The verticle has been migrated.
-
-== Groovy verticles
-
-Vert.x supports several _formats_ to develop verticles in Groovy. This link:src/main/groovy/verticles[directory]
-illustrates the different formats:
-
-* link:src/main/groovy/verticles/script.groovy[plain script] - a verticle developed as a plain Groovy script
-* link:src/main/groovy/verticles/script-with-hooks.groovy[plain script with hooks] - a verticle developed as a script
- with hooks called by vert.x when the verticle is deployed and un-deployed
-* link:src/main/groovy/verticles/verticle-extending-abstract-verticle.groovy[class extending AbstractVerticle] - a
-verticle developed as a class extending `AbstractVerticle`
-* link:src/main/groovy/verticles/verticle-extending-groovy-verticle.groovy[class extending GroovyVerticle] - a
-verticle developed as a class extending `GroovyVerticle`
-
-You can run these examples using the `vertx` command line. For example:
-
-[source,shell]
-----
-vertx run script.groovy
-----
-
 == JSON streaming parser
 
 A simple example illustrating how to use the streaming `JsonParser` to parse a giant array of small objects.
 
-link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java[Java verticle parsing a giant JSON array in a non blocking way]
+link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java[Java verticle parsing a giant JSON array in a non-blocking way]
 
 == Custom ReadStream and WriteStream implementation
 

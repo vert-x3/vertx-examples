@@ -1,6 +1,7 @@
 package io.vertx.example.core.http2.simple;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpMethod;
@@ -10,6 +11,10 @@ import io.vertx.core.http.HttpVersion;
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Client extends AbstractVerticle {
+
+  public static void main(String[] args) {
+    Launcher.executeCommand("run", Client.class.getName());
+  }
 
   @Override
   public void start() throws Exception {
@@ -23,7 +28,7 @@ public class Client extends AbstractVerticle {
       setTrustAll(true);
 
     HttpClient client = vertx.createHttpClient(options);
-    client.request(HttpMethod.GET, 8080, "localhost", "/")
+    client.request(HttpMethod.GET, 8443, "localhost", "/")
       .compose(req -> req.send()
         .compose(resp -> {
           System.out.println("Got response " + resp.statusCode());

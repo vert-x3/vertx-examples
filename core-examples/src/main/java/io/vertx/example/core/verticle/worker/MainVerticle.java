@@ -2,7 +2,7 @@ package io.vertx.example.core.verticle.worker;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /**
  * An example illustrating how worker verticles can be deployed and how to interact with them.
@@ -12,9 +12,8 @@ import io.vertx.example.util.Runner;
  */
 public class MainVerticle extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(MainVerticle.class);
+    Launcher.executeCommand("run", MainVerticle.class.getName());
   }
 
   @Override

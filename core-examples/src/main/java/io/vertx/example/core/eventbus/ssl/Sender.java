@@ -1,26 +1,28 @@
 package io.vertx.example.core.eventbus.ssl;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.EventBusOptions;
 import io.vertx.core.net.JksOptions;
-import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Sender extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(Sender.class,
-        new VertxOptions().setEventBusOptions(new EventBusOptions()
-            .setSsl(true)
-            .setKeyStoreOptions(new JksOptions().setPath("keystore.jks").setPassword("wibble"))
-            .setTrustStoreOptions(new JksOptions().setPath("keystore.jks").setPassword("wibble"))
-        )
-    );
+    Launcher launcher = new Launcher() {
+      @Override
+      public void beforeStartingVertx(VertxOptions options) {
+        options.setEventBusOptions(new EventBusOptions()
+          .setSsl(true)
+          .setKeyStoreOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble"))
+          .setTrustStoreOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble")));
+      }
+    };
+    launcher.dispatch(new String[]{"run", Sender.class.getName(), "-cluster"});
   }
 
   @Override
