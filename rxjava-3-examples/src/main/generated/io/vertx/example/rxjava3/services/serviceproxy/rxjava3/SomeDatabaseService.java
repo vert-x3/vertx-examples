@@ -82,7 +82,7 @@ public class SomeDatabaseService {
   public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> getDataById(int id) { 
     io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> ret = rxGetDataById(id);
     ret = ret.cache();
-    ret.subscribe();
+    ret.subscribe(io.vertx.rxjava3.SingleHelper.nullObserver());
     return ret;
   }
 

@@ -72,6 +72,7 @@ public class SomeDatabaseServiceVertxEBProxy implements SomeDatabaseService {
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "getDataById");
+    _deliveryOptions.getHeaders().set("action", "getDataById");
     _vertx.eventBus().<JsonObject>request(_address, _json, _deliveryOptions, res -> {
       if (res.failed()) {
         resultHandler.handle(Future.failedFuture(res.cause()));

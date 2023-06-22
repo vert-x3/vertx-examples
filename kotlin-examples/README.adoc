@@ -5,16 +5,3 @@ Here you can find the Vert.x https://kotlinlang.org/[Kotlin] examples
 == Coroutines examples
 
 The link:coroutines/README.md[Kotlin coroutines example] is a sample JDBC application demontrating Kotlin coroutines.
-
-== Web
-
-The link:web/README.md[Kotlin web example] is a basic JSON API written in Kotlin to
-demonstrate how it can be used with Vert.x.
-
-== kotlintest
-
-The link:kotlintest/README.md[Kotlintest example] shows how to test Vert.x code using https://github.com/kotlintest/kotlintest[KotlinTest].
-
-== Koin
-
-The link:koin-example/README.adoc[Koin example] shows how to use a Kotlin based DI framework.

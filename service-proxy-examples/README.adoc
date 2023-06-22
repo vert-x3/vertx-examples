@@ -77,7 +77,7 @@ Once done, run the verticle using:
 [source]
 ----
 vertx run io.vertx.examples.service.ProcessorServiceVerticle \
-    -cp target/service-provider-4.3.1.jar -cluster
+    -cp target/service-provider-4.4.4.jar -cluster
 ----
 
 Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
@@ -105,7 +105,7 @@ To run this verticle, package it using: `mvn clean package`, and run it with:
 
 ----
 vertx run io.vertx.examples.service.consumer.ConsumerVerticle \
-    -cp ../service-provider/target/service-provider-4.3.1.jar:target/service-consumer-4.3.1.jar \
+    -cp ../service-provider/target/service-provider-4.4.4.jar:target/service-consumer-4.4.4.jar \
     -cluster
 ----
 

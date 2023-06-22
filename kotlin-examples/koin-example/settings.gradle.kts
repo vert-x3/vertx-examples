@@ -1,1 +1,0 @@
-rootProject.name = "koin-example"
