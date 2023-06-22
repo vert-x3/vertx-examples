@@ -17,10 +17,12 @@
 package io.vertx.example.metrics.dashboard;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
+import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.bridge.PermittedOptions;
+import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
 import io.vertx.ext.dropwizard.MetricsService;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -33,9 +35,15 @@ import java.util.Random;
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Dashboard extends AbstractVerticle {
-  // Convenience method so you can run it in your IDE
+
   public static void main(String[] args) {
-    Runner.runExample(Dashboard.class);
+    Launcher launcher = new Launcher() {
+      @Override
+      public void beforeStartingVertx(VertxOptions options) {
+        options.setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true));
+      }
+    };
+    launcher.dispatch(new String[]{"run", Dashboard.class.getName()});
   }
 
   @Override

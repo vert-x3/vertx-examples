@@ -10,24 +10,14 @@ This example is a UI monitoring dashboard built on top of the Dropwizard metrics
 
 The link:src/main/java/io/vertx/example/metrics/dashboard/[Java monitoring dashboard example]
 
-The dashboard uses the vertx-web eventbus bridge to push metrics periodically on the event bus. The metrics
-are retrieved from the MetricsService in Json format.
+The dashboard uses the vertx-web eventbus bridge to push metrics periodically on the event bus.
+The metrics are retrieved from the MetricsService in Json format.
 
-Run the dashboard either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 to see the dashboard
+Run the dashboard in your IDE, then open your browser and hit link:http://localhost:8080 to see the dashboard
 
-You can also launch the example using the `vertx` cli as follows:
-
-----
-# compile the example, you need to have built example-utils before.
-mvn clean package
-
-# java
-vertx run io.vertx.example.metrics.dashboard.Dashboard -cp target/metrics-examples-4.4.4.jar:src/main/java/io/vertx/example/metrics/dashboard -Dvertx.metrics.options.enabled=true
-----
-
-To enable JMX append the following options: `-Dvertx.metrics.options.jmxEnabled=true -Dvertx.metrics.options.jmxDomain=vertx`. Then, if you open a JMX explorer (such the JConsole), in the list of beans you will find the Vert.x metrics under the
- `vertx` domain.
+To enable JMX append the following options: `-Dvertx.metrics.options.jmxEnabled=true -Dvertx.metrics.options.jmxDomain=vertx`.
+Then, if you open a JMX explorer (such the JConsole), in the list of beans you will find the Vert.x metrics under the
+`vertx` domain.
 
 If you want to use Jolokia to expose the JMX metrics as a REST interface, download the Jolokia JVM agent from https://jolokia.org/download.html and create a `JAVA_OPTS` env variable as follow:
 
@@ -36,16 +26,3 @@ export JAVA_OPTS="-javaagent:path/to/jolokia-jvm-x.x.x-agent.jar=port=7777,host=
 ----
 
 Once defined, relaunch the application with the JMX metrics enabled.
-
-== Monitoring for prometheus
-
-This example is a monitoring setup for Prometheus via Dropwizard metrics.
-
-The link:src/main/java/io/vertx/example/metrics/prometheus/[Java monitoring example]
-
-The verticle uses Dropwizard metrics to register a Prometheus CollectorRegistry (in this
-case the defaultRegistry) which is bound to a router via MetricsHandler. To create some metrics
-data a counter "testCounter" is periodically incremented.
-
-Run the verticle either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080/metrics to see if the counter is increased.
