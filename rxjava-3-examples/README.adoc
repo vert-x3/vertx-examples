@@ -47,7 +47,7 @@ SocksJS gives a WebSocket-like API in client side JavaScript even if the browser
 
 This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server and client and you're probably rendering the user interface on the client side.
 
-Run the server either in your IDE or on the command line, then open your browser and hit link:http://localhost:8080
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080
 
 This serves the link:src/main/java/io/vertx/example/rxjava3/web/realtime/webroot/index.html[index page] which contains some JavaScript which opens an event bus connection to the server.
 

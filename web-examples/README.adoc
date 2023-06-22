@@ -52,7 +52,7 @@ List all products:: GET /products
 Get a product:: GET /products/<product_id>
 Add a product:: PUT /products/<product_id>
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/products[list products] to start playing with the API.
 
 == Site with templating
@@ -64,7 +64,7 @@ The link:src/main/java/io/vertx/example/web/templating/[templating example]
 Multiple examples with different templating engines, including FreeMarker, Handlebars, Jade, MVEL, Pebble, Rocker,
 and Thymeleaf are available.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/[localhost:8080] and click on the links
 
 == Sessions example
@@ -76,7 +76,7 @@ The link:src/main/java/io/vertx/example/web/sessions/[Java sessions example]
 
 The example increments a counter in the session every time a request hits the server.
 
-Run the server either in your IDE or on the command line, then open your browser and hit 
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/[localhost:8080] then refresh the page a few times - you should see the hit count increase.
 
 NOTE: Depending on your browser you may see it increase by two each time you refresh! Why is that? Some browsers will
@@ -96,7 +96,7 @@ time every second.
 
 Before running the example you need to download the dependencies, the easiest form of doing this is using `npm install`.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080
 
 == EventBus Bridge - Client AMD loader
@@ -113,7 +113,7 @@ time every second.
 
 Before running the example you need to download the dependencies, the easiest form of doing this is using `bower install`.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080
 
 == EventBus Bridge - Node.JS loader
@@ -132,7 +132,7 @@ client is created to the running Server.
 
 Before running the example you need to download the dependencies, the easiest form of doing this is using `npm install`.
 
-Run the server either in your IDE or on the command line, then run the node client `npm start`.
+Run the server in your IDE, then run the node client `npm start`.
 
 == Real-time - client side event bus
 
@@ -150,7 +150,7 @@ JavaScript even if the browser or network doesn't support WebSockets.
 This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server
 and client and you're probably rendering the user interface on the client side.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080
 
 This serves the link:src/main/java/io/vertx/example/web/realtime/webroot/index.html[index page] which contains
@@ -203,7 +203,7 @@ logged in a redirect will be sent to the browser causing it to load the login pa
 is handled by the form login handler which then redirects the browser back to the originally requested resource if login
 was successful.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == Cookie example
@@ -232,7 +232,7 @@ older browsers.
 If the CORS Handler is not present, then only the no preflight check call will work, since the browser will disallow the
 POST.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == Upload example
@@ -252,7 +252,7 @@ message.
 
 The link:src/main/java/io/vertx/example/web/form/[Java form example]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == JWT example
@@ -268,7 +268,7 @@ return a new token for any request.
 The application contains a simple form where you can request some data from the API if there is no token loaded then the
 response is an `HTTP error 401`. When a token is loaded, then a successful response if received from the API.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == Blocking handler example
@@ -278,7 +278,7 @@ to serve the page.
 
 Blocking handlers are run on a worker thread and don't block an event loop.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 - after 5 seconds the response should arrive.
 
 == Static web server example
@@ -294,7 +294,7 @@ data is persisted in a relational database using the asynchronous SQL client.
 
 The link:src/main/java/io/vertx/example/web/sqlclient/[SQL client example]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/products to get the list of products, or link:http://localhost:8080/products/0 for accessing
 a product with id 0. In order to create new products use the POST method to link:http://localhost:8080/products
 
@@ -314,7 +314,7 @@ Requests to paths starting with `/private/` will require login.
 
 The username/password are loaded from the `setUpInitialData` method.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == Angular realtime example
@@ -329,7 +329,7 @@ The link:src/main/java/io/vertx/example/web/angular_realtime/[Java angular_realt
 The example uses a simple auth service which gets user/password/role information from a properties file
 `src/main/resources/vertx-users.properties`.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == Programmatic Authentication examples
@@ -353,7 +353,7 @@ The example shows 4 resource that require different authorities:
 You can generate different tokens with different authorities and test it. The example html does not generate defcon3
 tokens, in order to show that you cannot access the last resource.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and click around the links
 
 == HTTP2
@@ -376,7 +376,7 @@ Important files to note:
 * link:src/main/java/io/vertx/example/web/react/app-client.js[React app example]
 * link:src/main/java/io/vertx/example/web/react/Server.java[Java Vert.x server]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and chat with a couple of browser windows!
 
 == OAuth2
