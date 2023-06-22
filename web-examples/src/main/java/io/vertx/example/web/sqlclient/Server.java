@@ -122,7 +122,7 @@ public class Server extends AbstractVerticle {
 
     HttpServerResponse response = routingContext.response();
 
-    JsonObject product = routingContext.getBodyAsJson();
+    JsonObject product = routingContext.body().asJsonObject();
 
     addProductTmpl.execute(product)
       .onSuccess(res -> response.end())

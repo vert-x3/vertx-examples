@@ -55,7 +55,7 @@ public class Server extends AbstractVerticle {
     PropertyFileAuthentication authProvider = PropertyFileAuthentication.create(vertx, "vertx-users.properties");
 
     router.post("/login").handler(ctx -> {
-      JsonObject credentials = ctx.getBodyAsJson();
+      JsonObject credentials = ctx.body().asJsonObject();
       if (credentials == null) {
         // bad request
         ctx.fail(400);
@@ -103,7 +103,7 @@ public class Server extends AbstractVerticle {
 
     SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
     PropertyFileAuthorization authorizationProvider = PropertyFileAuthorization.create(vertx, "vertx-users.properties");
-    router.mountSubRouter("/eventbus", sockJSHandler.bridge(authorizationProvider, options, null));
+    router.route("/eventbus*").subRouter(sockJSHandler.bridge(authorizationProvider, options, null));
 
 
     // Serve the static resources

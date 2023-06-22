@@ -35,7 +35,7 @@ public class Server extends AbstractVerticle {
     SockJSBridgeOptions options = new SockJSBridgeOptions()
       .addInboundPermitted(new PermittedOptions().setAddress("proxy.example"));
 
-    router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
+    router.route("/eventbus*").subRouter(SockJSHandler.create(vertx).bridge(options));
 
     // Serve the static resources
     router.route().handler(StaticHandler.create());

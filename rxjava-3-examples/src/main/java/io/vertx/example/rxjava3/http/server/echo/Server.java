@@ -18,7 +18,7 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     HttpServer server = vertx.createHttpServer();
-    server.requestStream().toFlowable().subscribe(req -> {
+    server.requestHandler(req -> {
       HttpServerResponse resp = req.response();
       String contentType = req.getHeader("Content-Type");
       if (contentType != null) {
@@ -26,9 +26,10 @@ public class Server extends AbstractVerticle {
       }
       resp.setChunked(true);
       req.toFlowable().subscribe(
-          resp::write,
-          err -> {},
-          resp::end
+        resp::write,
+        err -> {
+        },
+        resp::end
       );
     });
     server.listen(8080);

@@ -108,12 +108,6 @@ The http client json response is unmarshalled to a Java object: the `RxHelper.un
 
 link:src/main/java/io/vertx/example/reactivex/http/client/unmarshalling/Client.java[RxJava 2 unmarshalling HTTP client]
 
-=== Backpressure
-
-The http server which uses Vert.x-Web router and defines a "drop" strategy when the server is overloaded (backpressure).
-
-link:src/main/java/io/vertx/example/reactivex/web/backpressure/Server.java[RxJava 2 backpressure HTTP server]
-
 == RxJava event bus examples
 
 The event bus provides a natural fit with the Rx api.
@@ -169,10 +163,9 @@ Vertx for RxJava provides schedulers for performing delayed, periodic actions.
 
 === Periodic events
 
-RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second
-periodic flowable scheduled on Vertx event loop.
+RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second periodic flowable scheduled on Vertx event loop.
 
-link:src/main/java/io/vertx/example/reactivex/scheduler/timer/Periodic.java[Periodic scheduled action]
+link:src/main/java/io/vertx/example/reactivex/scheduler/interval/Periodic.java[Periodic scheduled action]
 
 === Blocking action example
 

@@ -52,7 +52,7 @@ public class Server extends AbstractVerticle {
     router.route("/private/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
 
     // Serve the static private pages from directory 'private'
-    router.route("/private/*").handler(StaticHandler.create().setCachingEnabled(false).setWebRoot("private"));
+    router.route("/private/*").handler(StaticHandler.create("private").setCachingEnabled(false));
 
     // Handles the actual login
     router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
