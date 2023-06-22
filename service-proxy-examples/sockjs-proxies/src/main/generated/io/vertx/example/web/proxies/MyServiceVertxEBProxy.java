@@ -67,6 +67,7 @@ public class MyServiceVertxEBProxy implements MyService {
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "sayHello");
+    _deliveryOptions.getHeaders().set("action", "sayHello");
     return _vertx.eventBus().<String>request(_address, _json, _deliveryOptions).map(msg -> {
       return msg.body();
     });

@@ -18,14 +18,3 @@ First you need to run the server then you can run the client.
 
 * link:src/main/java/io/vertx/example/web/graphql/Server.java[Simple Java GraphQL server]
 * link:src/main/java/io/vertx/example/web/graphql/Client.java[Simple Java GraphQL client]
-
-== Apollo Subscriptions server and client
-
-The client of this example starts an Apollo subscription on the server and log each message received. The connection is done through a Websocket.
-
-The server responses with the link list of the simple exmple, but with each item in a separated websocket message.
-
-First you need to run the server then you can run the client.
-
-* link:src/main/java/io/vertx/example/web/graphql/SubscriptionServer.java[Apollo Subscription Java GraphQL server]
-* link:src/main/java/io/vertx/example/web/graphql/SubscriptionClient.java[Apollo Subscription Java GraphQL client]

@@ -48,7 +48,7 @@ public class Server extends AbstractVerticle {
     allowedMethods.add(HttpMethod.PATCH);
     allowedMethods.add(HttpMethod.PUT);
 
-    router.route().handler(CorsHandler.create("*").allowedHeaders(allowedHeaders).allowedMethods(allowedMethods));
+    router.route().handler(CorsHandler.create().addRelativeOrigin(".*").allowedHeaders(allowedHeaders).allowedMethods(allowedMethods));
 
     router.get("/access-control-with-get").handler(ctx -> {
       HttpServerResponse httpServerResponse = ctx.response();

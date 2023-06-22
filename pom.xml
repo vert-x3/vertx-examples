@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>4.3.1</version>
+  <version>4.4.4</version>
 
   <modules>
     <module>core-examples</module>
@@ -19,8 +19,10 @@
     <module>web-examples</module>
     <module>web-client-examples</module>
     <module>rxjava-2-examples</module>
+    <module>rxjava-3-examples</module>
     <module>unit-examples</module>
     <module>metrics-examples</module>
+    <module>micrometer-metrics-examples</module>
     <module>mail-examples</module>
     <module>service-proxy-examples</module>
     <module>spring-examples</module>

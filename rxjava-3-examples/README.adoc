@@ -18,49 +18,43 @@ A simple web client.
 
 The client creates an `Single<HttpRequest<String>>` and then subscribe multiple times to the single to send the request.
 
-link:src/main/java/io/vertx/example/reactivex/web/client/simple/Client.java[RxJava 3 simple web client]
+link:src/main/java/io/vertx/example/rxjava3/web/client/simple/Client.java[RxJava 3 simple web client]
 
 === Zip
 
 A variation of the _simple_ example with two client requests mapped to an `Single<JsonObject>`
- and then _zipped_ in a single json object.
+and then _zipped_ in a single json object.
 
 The main interest is to get the final result when the two responses are delivered.
 
-link:src/main/java/io/vertx/example/reactivex/web/client/zip/Client.java[RxJava 3 zip web client]
+link:src/main/java/io/vertx/example/rxjava3/web/client/zip/Client.java[RxJava 3 zip web client]
 
 === Unmarshalling
 
 The web client json response is unmarshalled to a Java object using the web client unmarshalling features.
 
-link:src/main/java/io/vertx/example/reactivex/web/client/unmarshalling/Client.java[RxJava 3 unmarshalling web client]
+link:src/main/java/io/vertx/example/rxjava3/web/client/unmarshalling/Client.java[RxJava 3 unmarshalling web client]
 
 == RxJava Web examples
 
 === Real-time
 
-This example demonstrates how an RxJava `Flowable` source can be sent _real-time_ to the browser
-via a `SockJSSocket`.
+This example demonstrates how an RxJava `Flowable` source can be sent _real-time_ to the browser via a `SockJSSocket`.
 
-link:src/main/java/io/vertx/example/reactivex/web/realtime/Server.java[RxJava 3 real-time web]
+link:src/main/java/io/vertx/example/rxjava3/web/realtime/Server.java[RxJava 3 real-time web]
 
 SocksJS gives a WebSocket-like API in client side JavaScript even if the browser or network doesn't support WebSockets.
 
-This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server
-and client and you're probably rendering the user interface on the client side.
+This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server and client and you're probably rendering the user interface on the client side.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080
+Run the server either in your IDE or on the command line, then open your browser and hit link:http://localhost:8080
 
-This serves the link:src/main/java/io/vertx/example/reactivex/web/realtime/webroot/index.html[index page] which contains
-some JavaScript which opens an event bus connection to the server.
+This serves the link:src/main/java/io/vertx/example/rxjava3/web/realtime/webroot/index.html[index page] which contains some JavaScript which opens an event bus connection to the server.
 
-When the connection is open, a SockJS connection is opened on the `/news-feed` uri. When data
-arrives in the handler the script just uses some simple JQuery to write the message to the page.
+When the connection is open, a SockJS connection is opened on the `/news-feed` uri.
+When data arrives in the handler the script just uses some simple JQuery to write the message to the page.
 
-On the server side, in the link:src/main/java/io/vertx/example/reactivex/web/realtime/Server.java[server] when a SockJS
-connection arrives, we subscribe to an `Flowable<String>` (that is created from the EventBus, but it would be
-another source of data) and send to the browser the observed items.
+On the server side, in the link:src/main/java/io/vertx/example/rxjava3/web/realtime/Server.java[server] when a SockJS connection arrives, we subscribe to an `Flowable<String>` (that is created from the EventBus, but it would be another source of data) and send to the browser the observed items.
 
 When you get the index page in your browser you should see it update every second as it receives a message.
 
@@ -74,11 +68,11 @@ A simple http server and client.
 
 The server uses an `Flowable<HttpServerRequest>` to serve request:
 
-link:src/main/java/io/vertx/example/reactivex/http/client/simple/Server.java[RxJava 3 simple HTTP server]
+link:src/main/java/io/vertx/example/rxjava3/http/client/simple/Server.java[RxJava 3 simple HTTP server]
 
 The client uses an `Flowable<HttpClientRequest` and applies `flatMap` to get a `Flowable<Buffer>`
 
-link:src/main/java/io/vertx/example/reactivex/http/client/simple/Client.java[RxJava 3 simple HTTP client]
+link:src/main/java/io/vertx/example/rxjava3/http/client/simple/Client.java[RxJava 3 simple HTTP client]
 
 === Reduce
 
@@ -90,29 +84,22 @@ with the http client response:
 * `map` transform the buffer to a string
 * `subscribe` delivers the response content
 
-link:src/main/java/io/vertx/example/reactivex/http/client/reduce/Client.java[RxJava 3 reduce HTTP client]
+link:src/main/java/io/vertx/example/rxjava3/http/client/reduce/Client.java[RxJava 3 reduce HTTP client]
 
 === Zip
 
 A variation of the _simple_ example with two client requests mapped to an `Flowable<JsonObject>`
- and then _zipped_ in a single json object.
+and then _zipped_ in a single json object.
 
 The main interest is to get the final result when the two responses are delivered.
 
-link:src/main/java/io/vertx/example/reactivex/http/client/zip/Client.java[RxJava 3 zip HTTP client]
+link:src/main/java/io/vertx/example/rxjava3/http/client/zip/Client.java[RxJava 3 zip HTTP client]
 
 === Unmarshalling
 
-The http client json response is unmarshalled to a Java object: the `RxHelper.unmarshaller` static method
- creates an Rx operator applied to the response via the `lift`.
+The http client json response is unmarshalled to a Java object: the `RxHelper.unmarshaller` static method creates an Rx operator applied to the response via the `lift`.
 
-link:src/main/java/io/vertx/example/reactivex/http/client/unmarshalling/Client.java[RxJava 3 unmarshalling HTTP client]
-
-=== Backpressure
-
-The http server which uses Vert.x-Web router and defines a "drop" strategy when the server is overloaded (backpressure).
-
-link:src/main/java/io/vertx/example/reactivex/web/backpressure/Server.java[RxJava 3 backpressure HTTP server]
+link:src/main/java/io/vertx/example/rxjava3/http/client/unmarshalling/Client.java[RxJava 3 unmarshalling HTTP client]
 
 == RxJava event bus examples
 
@@ -122,46 +109,43 @@ The event bus provides a natural fit with the Rx api.
 
 A reinterpreation of the core publish / subscribe example with the subscriber using the Rx api.
 
-link:src/main/java/io/vertx/example/reactivex/eventbus/pubsub/Receiver.java[RxJava 3 event bus pubsub receiver]
-link:src/main/java/io/vertx/example/reactivex/eventbus/pubsub/Sender.java[RxJava 3 event bus pubsub sender]
+link:src/main/java/io/vertx/example/rxjava3/eventbus/pubsub/Receiver.java[RxJava 3 event bus pubsub receiver]
+link:src/main/java/io/vertx/example/rxjava3/eventbus/pubsub/Sender.java[RxJava 3 event bus pubsub sender]
 
 === Ping / Pong
 
 An example of sending, receiving and replying to messages using the Rx api.
 
-link:src/main/java/io/vertx/example/reactivex/eventbus/pingpong/PingPong.java[RxJava 3 simple ping-pong ]
+link:src/main/java/io/vertx/example/rxjava3/eventbus/pingpong/PingPong.java[RxJava 3 simple ping-pong ]
 
 === Zip replies
 
 The example Sender sends two messages over the event bus and wait for replies, the
 _zip_ operation is applied to deliver a single reply when the two replies are received.
 
-link:src/main/java/io/vertx/example/reactivex/eventbus/zipreplies/Receiver.java[RxJava 3 zipreplies eventbus receiver]
-link:src/main/java/io/vertx/example/reactivex/eventbus/zipreplies/Sender.java[RxJava 3 zipreplies eventbus sender]
+link:src/main/java/io/vertx/example/rxjava3/eventbus/zipreplies/Receiver.java[RxJava 3 zipreplies eventbus receiver]
+link:src/main/java/io/vertx/example/rxjava3/eventbus/zipreplies/Sender.java[RxJava 3 zipreplies eventbus sender]
 
 == RxJava 3 Database examples
 
 === SQL client example
 
-An example showing the SQL client Rxified api, after the client connected to the database, it chains
-operations via the `flatMap` operation and then subscribes to the result.
+An example showing the SQL client Rxified api, after the client connected to the database, it chains operations via the `flatMap` operation and then subscribes to the result.
 
-link:src/main/java/io/vertx/example/reactivex/database/sqlclient/Client.java[RxJava 3 SQL client]
+link:src/main/java/io/vertx/example/rxjava3/database/sqlclient/Client.java[RxJava 3 SQL client]
 
 === SQL client Transaction Handling
 
-An example showing an Rxified SQL client api to handle simplified transaction that commits if all succeeded or rollback with
-exception propagation to the caller in case of anyone failed.
+An example showing an Rxified SQL client api to handle simplified transaction that commits if all succeeded or rollback with exception propagation to the caller in case of anyone failed.
 
-link:src/main/java/io/vertx/example/reactivex/database/sqlclient/Transaction.java[RxJava SQL transaction]
+link:src/main/java/io/vertx/example/rxjava3/database/sqlclient/Transaction.java[RxJava SQL transaction]
 
 === Mongo example
 
 An example showing the Mongo Service Rxified api, after the client connected to Mongo, it chains
-`createCollection` and `insert` via _flatMap_ and then subscribes to the result to do a query
-in the _onComplete_.
+`createCollection` and `insert` via _flatMap_ and then subscribes to the result to do a query in the _onComplete_.
 
-link:src/main/java/io/vertx/example/reactivex/database/mongo/Client.java[RxJava 3 Mongo client]
+link:src/main/java/io/vertx/example/rxjava3/database/mongo/Client.java[RxJava 3 Mongo client]
 
 == Scheduler examples
 
@@ -169,18 +153,16 @@ Vertx for RxJava provides schedulers for performing delayed, periodic actions.
 
 === Periodic events
 
-RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second
-periodic flowable scheduled on Vertx event loop.
+RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second periodic flowable scheduled on Vertx event loop.
 
-link:src/main/java/io/vertx/example/reactivex/scheduler/timer/Periodic.java[Periodic scheduled action]
+link:src/main/java/io/vertx/example/rxjava3/scheduler/interval/Periodic.java[Periodic scheduled action]
 
 === Blocking action example
 
-When an Flowable operation is blocking, a blocking Vertx scheduler can be used to perform the action, this
-examples shows how blocking operation can be scheduled on Vert.x
+When an Flowable operation is blocking, a blocking Vertx scheduler can be used to perform the action, this examples shows how blocking operation can be scheduled on Vert.x
 
-link:src/main/java/io/vertx/example/reactivex/scheduler/blocking/Scheduled.java[Blocking scheduled action]
-link:src/main/java/io/vertx/example/reactivex/scheduler/blocking/Scheduled.java[Blocking scheduled action]
+link:src/main/java/io/vertx/example/rxjava3/scheduler/blocking/Scheduled.java[Blocking scheduled action]
+link:src/main/java/io/vertx/example/rxjava3/scheduler/blocking/Scheduled.java[Blocking scheduled action]
 
 == Scheduler examples
 
@@ -192,8 +174,8 @@ This example combines `RecordParser` and RxJava 3 for a TCP client/server exchan
 When the client sends a name to the server, it replies with a greeting.
 Names and greetings are line-separated.
 
-link:src/main/java/io/vertx/example/reactivex/net/greeter/Client.java[Greeting client]
-link:src/main/java/io/vertx/example/reactivex/net/greeter/Server.java[Greeting Server]
+link:src/main/java/io/vertx/example/rxjava3/net/greeter/Client.java[Greeting client]
+link:src/main/java/io/vertx/example/rxjava3/net/greeter/Server.java[Greeting Server]
 
 == Services examples
 
@@ -203,6 +185,6 @@ Rxified Vert.x Services examples
 
 This example shows you how to make your service proxy Rxified with RxJava 3.
 
-link:src/main/java/io/vertx/example/reactivex/services/serviceproxy/SomeDatabaseService.java[Service Proxy interface]
-link:src/main/java/io/vertx/example/reactivex/services/serviceproxy/SomeDatabaseServiceVerticle.java[Service Provider Verticle]
-link:src/main/java/io/vertx/example/reactivex/services/serviceproxy/ServiceConsumerVerticle.java[Service Consumer Verticle]
+link:src/main/java/io/vertx/example/rxjava3/services/serviceproxy/SomeDatabaseService.java[Service Proxy interface]
+link:src/main/java/io/vertx/example/rxjava3/services/serviceproxy/SomeDatabaseServiceVerticle.java[Service Provider Verticle]
+link:src/main/java/io/vertx/example/rxjava3/services/serviceproxy/ServiceConsumerVerticle.java[Service Consumer Verticle]

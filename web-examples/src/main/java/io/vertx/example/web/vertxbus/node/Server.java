@@ -36,7 +36,7 @@ public class Server extends AbstractVerticle {
 
     // Create the event bus bridge and add it to the router.
     SockJSHandler ebHandler = SockJSHandler.create(vertx);
-    router.mountSubRouter("/eventbus", ebHandler.bridge(opts));
+    router.route("/eventbus*").subRouter(ebHandler.bridge(opts));
 
     // Start the web server and tell it to use the router to handle requests.
     vertx.createHttpServer().requestHandler(router).listen(8080);

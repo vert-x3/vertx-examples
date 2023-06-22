@@ -45,7 +45,7 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
       .addOutboundPermitted(new PermittedOptions().setAddress("vertx.processor"));
 
     // Create the event bus bridge and add it to the router.
-    router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(opts));
+    router.route("/eventbus*").subRouter(SockJSHandler.create(vertx).bridge(opts));
     router.route().handler(StaticHandler.create());
 
     //

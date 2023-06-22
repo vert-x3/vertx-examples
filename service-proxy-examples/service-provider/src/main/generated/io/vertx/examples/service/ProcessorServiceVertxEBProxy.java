@@ -69,6 +69,7 @@ public class ProcessorServiceVertxEBProxy implements ProcessorService {
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "process");
+    _deliveryOptions.getHeaders().set("action", "process");
     return _vertx.eventBus().<JsonObject>request(_address, _json, _deliveryOptions).map(msg -> {
       return msg.body();
     });

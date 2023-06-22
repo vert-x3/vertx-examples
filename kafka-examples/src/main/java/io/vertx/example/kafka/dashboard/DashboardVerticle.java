@@ -22,7 +22,7 @@ public class DashboardVerticle extends AbstractVerticle {
     // The event bus bridge handler
     SockJSBridgeOptions options = new SockJSBridgeOptions();
     options.addOutboundPermitted(new PermittedOptions().setAddress("dashboard"));
-    router.mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
+    router.route("/eventbus*").subRouter(SockJSHandler.create(vertx).bridge(options));
 
     // The web server handler
     router.route().handler(StaticHandler.create().setCachingEnabled(false));

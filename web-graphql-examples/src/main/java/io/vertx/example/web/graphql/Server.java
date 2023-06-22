@@ -13,7 +13,7 @@ import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.graphql.GraphQLHandler;
-import io.vertx.ext.web.handler.graphql.schema.VertxDataFetcher;
+import io.vertx.ext.web.handler.graphql.instrumentation.VertxFutureAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +62,7 @@ public class Server extends AbstractVerticle {
 
     RuntimeWiring runtimeWiring = newRuntimeWiring()
       .type("Query", builder -> {
-        VertxDataFetcher<List<Link>> getAllLinks = VertxDataFetcher.create(this::getAllLinks);
-        return builder.dataFetcher("allLinks", getAllLinks);
+        return builder.dataFetcher("allLinks", this::getAllLinks);
       })
       .build();
 
@@ -71,6 +70,7 @@ public class Server extends AbstractVerticle {
     GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
 
     return GraphQL.newGraphQL(graphQLSchema)
+      .instrumentation(VertxFutureAdapter.create())
       .build();
   }
 

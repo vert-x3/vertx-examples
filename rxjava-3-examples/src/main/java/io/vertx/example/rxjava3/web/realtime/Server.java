@@ -23,7 +23,7 @@ public class Server extends AbstractVerticle {
 
     Router router = Router.router(vertx);
 
-    router.mountSubRouter("/news-feed/*", SockJSHandler.create(vertx).socketHandler(sockJSSocket -> {
+    router.route("/news-feed*").subRouter(SockJSHandler.create(vertx).socketHandler(sockJSSocket -> {
 
       // Consumer the event bus address as an Flowable
       Flowable<String> msg = vertx.eventBus().<String>consumer("news-feed")

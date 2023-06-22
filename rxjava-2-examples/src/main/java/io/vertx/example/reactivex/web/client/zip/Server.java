@@ -18,7 +18,7 @@ public class Server extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     HttpServer server = vertx.createHttpServer();
-    server.requestStream().toFlowable().subscribe(req -> {
+    server.requestHandler(req -> {
       req.response().putHeader("content-type", "application/json").end(new JsonObject().put("time", System.currentTimeMillis()).toString());
     });
     server.listen(8080);

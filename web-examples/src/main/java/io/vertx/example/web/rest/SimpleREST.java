@@ -76,7 +76,7 @@ public class SimpleREST extends AbstractVerticle {
     if (productID == null) {
       sendError(400, response);
     } else {
-      JsonObject product = routingContext.getBodyAsJson();
+      JsonObject product = routingContext.body().asJsonObject();
       if (product == null) {
         sendError(400, response);
       } else {
