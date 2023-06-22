@@ -13,8 +13,6 @@
   <version>4.3.1</version>
 
   <modules>
-    <module>maven-simplest</module>
-    <module>maven-verticles</module>
     <module>core-examples</module>
     <module>opentracing-examples</module>
     <module>zipkin-examples</module>
@@ -32,7 +30,6 @@
     <module>sql-client-examples</module>
     <module>shell-examples</module>
     <module>amqp-proton-examples</module>
-    <module>fatjar-examples/http2-fatjar</module>
     <module>camel-bridge-examples</module>
     <module>circuit-breaker-examples</module>
     <module>service-discovery-examples</module>

@@ -4,35 +4,6 @@ This repository contains a range of examples so you can get up and running easil
 
 Vert.x 3 examples can be found here https://github.com/vert-x3/vertx-examples/tree/3.x
 
-== Maven users
-
-Start with the link:maven-simplest[simplest Maven example] to show you how to setup a simple Vert.x project that uses
-Maven. You need to have Java 8 installed and set the `JAVA_HOME` environment variable to point to your Java 8
-installation.
-
-Use that as a template for setting up a Maven project with Vert.x.
-
-Progress to the link:maven-verticles/maven-verticle[simple Maven verticle example] to show you how to deploy your code as verticles in a Maven project. Also check link:maven-verticles[Maven verticles examples] to show how you can use Maven with Groovy verticle.
-
-Want to start right away, open the first example in Eclipse Che:
-
-image:http://beta.codenvy.com/factory/resources/codenvy-contribute.svg["Open workspace in Eclipse Che", link="http://beta.codenvy.com/f?id=9skz1321dxbqpj5j"]
-
-== Gradle users
-
-Start with the link:gradle-simplest[simplest Gradle example] to show you how to setup a simple Vert.x project that uses Gradle.
-
-Use that as a template for setting up a Gradle project with Vert.x.
-
-Progress to the link:gradle-verticles[simple Gradle verticle example] to show you how to deploy your code as verticles in
-a Gradle project
-
-== Neither Maven nor Gradle users
-
-That's fine too :)
-
-You can run most of the examples at the command line using `vertx run` if you have Vert.x installed (see below).
-
 == The examples
 
 The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other
@@ -195,7 +166,7 @@ client.
 
 The link:mqtt-examples/README.adoc[Vert.x MQTT Examples] shows how you can write MQTT servers and clients using Vert.x MQTT.
 
-==== Service Proxy Examples
+=== Service Proxy Examples
 
 The link:service-proxy-examples/README.adoc[Vert.x Service Proxy examples] contains an example of service proxy usage.
 It depicts how a service provider can be implemented and how the published service can be consumed.
@@ -203,10 +174,6 @@ It depicts how a service provider can be implemented and how the published servi
 === JPMS examples
 
 This link:jpms-examples/README.adoc[JPMS examples] shows how a simple Java (11) modular application using Vert.x as automatic modules.
-
-=== Vert.x fatjar examples
-
-The link:fatjar-examples/README.adoc[Vert.x fatjar Examples] show how you can build fatjar with Maven or Gradle.
 
 === HTTP/2 Showcase
 
