@@ -1,6 +1,6 @@
 package io.vertx.example.reactivex.eventbus.pubsub;
 
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.eventbus.EventBus;
 
@@ -9,9 +9,8 @@ import io.vertx.reactivex.core.eventbus.EventBus;
  */
 public class Receiver extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(Receiver.class);
+    Launcher.executeCommand("run", Receiver.class.getName(), "-cluster");
   }
 
 

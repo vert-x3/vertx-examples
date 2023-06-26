@@ -17,9 +17,9 @@
 package io.vertx.example.reactivex.net.greeter;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.net.NetSocket;
 import io.vertx.core.parsetools.RecordParser;
-import io.vertx.example.util.Runner;
 import io.vertx.reactivex.FlowableHelper;
 
 import java.util.stream.Stream;
@@ -29,9 +29,8 @@ import java.util.stream.Stream;
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override

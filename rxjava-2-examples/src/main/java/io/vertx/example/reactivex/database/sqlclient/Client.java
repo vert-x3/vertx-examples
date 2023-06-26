@@ -2,10 +2,10 @@ package io.vertx.example.reactivex.database.sqlclient;
 
 import io.reactivex.Maybe;
 import io.reactivex.functions.Function;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
-import io.vertx.reactivex.jdbcclient.JDBCPool;
 import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.jdbcclient.JDBCPool;
 import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.RowSet;
 import io.vertx.reactivex.sqlclient.SqlConnection;
@@ -15,9 +15,8 @@ import io.vertx.reactivex.sqlclient.SqlConnection;
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override

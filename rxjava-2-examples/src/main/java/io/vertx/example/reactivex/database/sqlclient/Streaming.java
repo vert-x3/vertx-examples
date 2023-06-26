@@ -1,7 +1,7 @@
 package io.vertx.example.reactivex.database.sqlclient;
 
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.ext.jdbc.JDBCClient;
 
@@ -10,9 +10,8 @@ import io.vertx.reactivex.ext.jdbc.JDBCClient;
  */
 public class Streaming extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Streaming.class);
+    Launcher.executeCommand("run", Streaming.class.getName());
   }
 
   @Override
