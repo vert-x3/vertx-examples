@@ -1,7 +1,7 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.ext.mail.MailAttachment;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
@@ -17,14 +17,13 @@ import java.util.List;
  */
 public class MailImages extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(MailImages.class);
+    Launcher.executeCommand("run", MailImages.class.getName());
   }
 
   @Override
   public void start() {
-    // Start a local STMP server, remove this line if you want to use your own server.
+    // Start a local SMTP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     LocalSmtpServer.start(2526);
 
@@ -38,7 +37,7 @@ public class MailImages extends AbstractVerticle {
       .setHtml("visit vert.x <a href=\"http://vertx.io/\"><img src=\"cid:image1@example.com\"></a>");
 
     MailAttachment attachment = MailAttachment.create()
-      .setData(vertx.fileSystem().readFileBlocking("logo-white-big.png"))
+      .setData(vertx.fileSystem().readFileBlocking("io/vertx/example/mail/logo-white-big.png"))
       .setContentType("image/png")
       .setName("logo-white-big.png")
       .setDisposition("inline")
