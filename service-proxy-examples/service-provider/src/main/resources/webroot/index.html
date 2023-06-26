@@ -1,9 +1,9 @@
 <html>
 <head>
   <title>JSProxy example</title>
+  <script src="https://unpkg.io/sockjs-client@1.5.0/dist/sockjs.min.js"></script>
+  <script src='https://unpkg.io/@vertx/eventbus-bridge-client.js@1.0.0-1/vertx-eventbus.js'></script>
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
-  <script src="vertx-eventbus.js"></script>
   <script src="processor_service-proxy.js"></script>
 </head>
 <body>
@@ -11,7 +11,7 @@
 <div id="result"></div>
 
 <script>
- 
+
   var eb = new EventBus("http://localhost:8080/eventbus");
 
   eb.onopen = function() {
