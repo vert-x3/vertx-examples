@@ -1,17 +1,16 @@
 package io.vertx.example.rxjava3.eventbus.pubsub;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Sender extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(Sender.class);
+    Launcher.executeCommand("run", Sender.class.getName(), "-cluster");
   }
 
   @Override
