@@ -3,10 +3,10 @@ package io.vertx.example.grpc.routeguide;
 import io.grpc.examples.routeguide.*;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.server.GrpcServer;
 
 import java.net.URL;
@@ -20,7 +20,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   private List<Feature> features;

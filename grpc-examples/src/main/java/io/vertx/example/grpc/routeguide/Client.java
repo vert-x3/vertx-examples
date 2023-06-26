@@ -4,9 +4,9 @@ import io.grpc.Status;
 import io.grpc.examples.routeguide.*;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.core.streams.WriteStream;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.common.GrpcReadStream;
 
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   private Random random = new Random();

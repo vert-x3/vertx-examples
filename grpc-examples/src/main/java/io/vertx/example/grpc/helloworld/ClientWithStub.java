@@ -3,8 +3,8 @@ package io.vertx.example.grpc.helloworld;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.examples.helloworld.VertxGreeterGrpc;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.net.SocketAddress;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.client.GrpcClientChannel;
 
@@ -14,7 +14,7 @@ import io.vertx.grpc.client.GrpcClientChannel;
 public class ClientWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(ClientWithStub.class);
+    Launcher.executeCommand("run", ClientWithStub.class.getName());
   }
 
   @Override

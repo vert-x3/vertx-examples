@@ -1,26 +1,17 @@
 package io.vertx.example.grpc.routeguide;
 
-import io.grpc.examples.routeguide.Feature;
-import io.grpc.examples.routeguide.Point;
-import io.grpc.examples.routeguide.Rectangle;
-import io.grpc.examples.routeguide.RouteNote;
-import io.grpc.examples.routeguide.RouteSummary;
-import io.grpc.examples.routeguide.VertxRouteGuideGrpc;
+import io.grpc.examples.routeguide.*;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServiceBridge;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
@@ -30,7 +21,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 public class ServerWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(ServerWithStub.class);
+    Launcher.executeCommand("run", ServerWithStub.class.getName());
   }
 
   private List<Feature> features;

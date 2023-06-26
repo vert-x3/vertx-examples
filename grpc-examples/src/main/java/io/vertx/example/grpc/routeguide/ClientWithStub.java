@@ -1,17 +1,12 @@
 package io.vertx.example.grpc.routeguide;
 
 import io.grpc.Status;
-import io.grpc.examples.routeguide.Feature;
-import io.grpc.examples.routeguide.Point;
-import io.grpc.examples.routeguide.Rectangle;
-import io.grpc.examples.routeguide.RouteNote;
-import io.grpc.examples.routeguide.RouteSummary;
-import io.grpc.examples.routeguide.VertxRouteGuideGrpc;
+import io.grpc.examples.routeguide.*;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.client.GrpcClientChannel;
 
@@ -26,7 +21,7 @@ import java.util.Random;
 public class ClientWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(ClientWithStub.class);
+    Launcher.executeCommand("run", ClientWithStub.class.getName());
   }
 
   private Random random = new Random();

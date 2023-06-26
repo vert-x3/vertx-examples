@@ -68,8 +68,7 @@ This example shows how to handle arbitrary streams of request and response objec
 
 This example is adapted from the https://github.com/grpc/grpc-java/tree/master/examples[gRPC examples].
 
-It shows a simple gRPC service that invokes a service that
-takes takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper.
+It shows a simple gRPC service that invokes a service that takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper.
 
 link:src/main/java/io/vertx/example/grpc/helloworld/Server.java[gRPC server example]
 link:src/main/java/io/vertx/example/grpc/helloworld/ServerWithStub.java[gRPC server stub example]
@@ -91,8 +90,8 @@ You can read more about it on the http://www.grpc.io/docs/quickstart/java.html[g
 
 This example is the _Hello World example_ with SSL configuration.
 
-It shows a simple gRPC service that invokes a service that
-takes takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper. The communication uses SSL.
+It shows a simple gRPC service that invokes a service that takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper.
+The communication uses SSL.
 
 link:src/main/java/io/vertx/example/grpc/ssl/Server.java[gRPC server example]
 link:src/main/java/io/vertx/example/grpc/ssl/ServerWithStub.java[gRPC server stub example]

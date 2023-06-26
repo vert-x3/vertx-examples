@@ -2,15 +2,11 @@ package io.vertx.example.grpc.ssl;
 
 import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
-import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpc;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.net.JksOptions;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.server.GrpcServer;
-import io.vertx.grpc.server.GrpcServiceBridge;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -18,7 +14,7 @@ import io.vertx.grpc.server.GrpcServiceBridge;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
