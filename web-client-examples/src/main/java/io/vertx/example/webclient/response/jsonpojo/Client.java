@@ -1,7 +1,7 @@
 package io.vertx.example.webclient.response.jsonpojo;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
@@ -11,9 +11,8 @@ import io.vertx.ext.web.codec.BodyCodec;
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   public static class User {

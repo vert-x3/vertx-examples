@@ -1,18 +1,17 @@
 package io.vertx.example.webclient.https;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.net.JksOptions;
-import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -20,7 +19,7 @@ public class Server extends AbstractVerticle {
 
     // Start an SSL/TLS http server
     vertx.createHttpServer(new HttpServerOptions().setKeyStoreOptions(new JksOptions()
-      .setPath("server-keystore.jks")
+        .setPath("io/vertx/example/webclient/https/server-keystore.jks")
       .setPassword("wibble"))
       .setSsl(true)
     ).requestHandler(req -> {

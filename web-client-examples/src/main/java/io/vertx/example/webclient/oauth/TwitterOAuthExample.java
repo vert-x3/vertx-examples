@@ -1,8 +1,8 @@
 package io.vertx.example.webclient.oauth;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 
@@ -16,9 +16,8 @@ public class TwitterOAuthExample extends AbstractVerticle {
   private static final String AUTH_URL = "https://api.twitter.com/oauth2/token";
   private static final String TWEET_SEARCH_URL = "https://api.twitter.com/1.1/search/tweets.json";
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(TwitterOAuthExample.class);
+    Launcher.executeCommand("run", TwitterOAuthExample.class.getName());
   }
 
   @Override
