@@ -15,27 +15,24 @@
 */
 package io.vertx.example.proton.client;
 
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
 import io.vertx.proton.ProtonSender;
-
-import static io.vertx.proton.ProtonHelper.message;
+import org.apache.qpid.proton.message.Message;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.qpid.proton.message.Message;
-
-import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import static io.vertx.proton.ProtonHelper.message;
 
 public class Sender extends AbstractVerticle {
 
   private String address = "examples";
   private AtomicInteger sent = new AtomicInteger();
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Sender.class);
+    Launcher.executeCommand("run", Sender.class.getName());
   }
 
   @Override

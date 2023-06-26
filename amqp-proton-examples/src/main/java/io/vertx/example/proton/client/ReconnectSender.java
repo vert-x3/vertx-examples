@@ -15,18 +15,17 @@
 */
 package io.vertx.example.proton.client;
 
-import static io.vertx.proton.ProtonHelper.message;
-
-import java.time.Instant;
-
-import org.apache.qpid.proton.message.Message;
-
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
-import io.vertx.example.util.Runner;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
 import io.vertx.proton.ProtonSender;
+import org.apache.qpid.proton.message.Message;
+
+import java.time.Instant;
+
+import static io.vertx.proton.ProtonHelper.message;
 
 public class ReconnectSender extends AbstractVerticle {
 
@@ -39,9 +38,8 @@ public class ReconnectSender extends AbstractVerticle {
   private int confirmed;
   private ProtonConnection conn;
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ReconnectSender.class);
+    Launcher.executeCommand("run", ReconnectSender.class.getName());
   }
 
   @Override
