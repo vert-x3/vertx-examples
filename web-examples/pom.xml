@@ -58,7 +58,7 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-auth-jdbc</artifactId>
+      <artifactId>vertx-auth-sql-client</artifactId>
       <version>${project.version}</version>
     </dependency>
 
