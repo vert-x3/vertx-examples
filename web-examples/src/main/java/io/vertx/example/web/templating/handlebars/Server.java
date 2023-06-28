@@ -1,9 +1,9 @@
 package io.vertx.example.web.templating.handlebars;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
@@ -19,9 +19,8 @@ import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -49,7 +48,7 @@ public class Server extends AbstractVerticle {
       data.put("seasons", seasons);
 
       // and now delegate to the engine to render it.
-      engine.render(data, "templates/index.hbs", res -> {
+      engine.render(data, "io/vertx/example/web/templating/handlebars/templates/index.hbs", res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {
@@ -58,7 +57,7 @@ public class Server extends AbstractVerticle {
       });
     });
 
-   // start a HTTP web server on port 8080
+    // start an HTTP web server on port 8080
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }

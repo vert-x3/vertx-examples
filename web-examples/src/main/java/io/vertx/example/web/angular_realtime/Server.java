@@ -1,10 +1,10 @@
 package io.vertx.example.web.angular_realtime;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.auth.properties.PropertyFileAuthorization;
 import io.vertx.ext.bridge.PermittedOptions;
@@ -25,9 +25,8 @@ import java.util.List;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   private MongoClient mongo;
@@ -107,7 +106,7 @@ public class Server extends AbstractVerticle {
 
 
     // Serve the static resources
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create("io/vertx/example/web/angular_realtime/webroot"));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

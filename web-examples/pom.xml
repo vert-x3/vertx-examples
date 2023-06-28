@@ -213,8 +213,7 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <templateDirectory>${project.basedir}/src/main/java/io/vertx/example/web/templating/rocker
-              </templateDirectory>
+              <templateDirectory>${project.basedir}/src/main/resources/io/vertx/example/web/templating/rocker</templateDirectory>
             </configuration>
           </execution>
         </executions>

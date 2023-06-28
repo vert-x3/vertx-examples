@@ -1,9 +1,9 @@
 package io.vertx.example.web.http2;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.net.PemKeyCertOptions;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 
 /*
@@ -11,9 +11,8 @@ import io.vertx.ext.web.Router;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -36,10 +35,11 @@ public class Server extends AbstractVerticle {
     });
 
     vertx.createHttpServer(
-            new HttpServerOptions()
-                    .setSsl(true)
-                    .setUseAlpn(true)
-                    .setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("tls/server-key.pem").setCertPath("tls/server-cert.pem"))).requestHandler(router)
-            .listen(8443);
+        new HttpServerOptions()
+          .setSsl(true)
+          .setUseAlpn(true)
+          .setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("tls/server-key.pem").setCertPath("tls/server-cert.pem")))
+      .requestHandler(router)
+      .listen(8443);
   }
 }

@@ -1,0 +1,9 @@
+@import io.vertx.ext.web.RoutingContext
+
+@args (String title, String name, String path)
+
+@templates.main.template(title) -> {
+<p>Hello @name!</p>
+
+<p>Request path is @path</p>
+}

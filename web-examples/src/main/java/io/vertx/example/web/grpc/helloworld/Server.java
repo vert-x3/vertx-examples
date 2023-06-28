@@ -3,7 +3,7 @@ package io.vertx.example.web.grpc.helloworld;
 import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
 import io.vertx.grpc.server.GrpcServer;
 
@@ -13,7 +13,7 @@ import io.vertx.grpc.server.GrpcServer;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override

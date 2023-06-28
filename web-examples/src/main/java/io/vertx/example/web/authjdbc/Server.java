@@ -1,8 +1,8 @@
 package io.vertx.example.web.authjdbc;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.authentication.AuthenticationProvider;
 import io.vertx.ext.auth.jdbc.JDBCAuthentication;
 import io.vertx.ext.auth.jdbc.JDBCAuthenticationOptions;
@@ -23,9 +23,8 @@ import java.sql.SQLException;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -52,7 +51,7 @@ public class Server extends AbstractVerticle {
     router.route("/private/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
 
     // Serve the static private pages from directory 'private'
-    router.route("/private/*").handler(StaticHandler.create("private").setCachingEnabled(false));
+    router.route("/private/*").handler(StaticHandler.create("io/vertx/example/web/authjdbc/private").setCachingEnabled(false));
 
     // Handles the actual login
     router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
@@ -65,7 +64,7 @@ public class Server extends AbstractVerticle {
     });
 
     // Serve the non private static pages
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create("io/vertx/example/web/authjdbc/webroot"));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

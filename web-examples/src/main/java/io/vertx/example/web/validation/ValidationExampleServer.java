@@ -1,8 +1,8 @@
 package io.vertx.example.web.validation;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.validation.BadRequestException;
@@ -12,8 +12,9 @@ import io.vertx.json.schema.SchemaParser;
 import io.vertx.json.schema.SchemaRouter;
 import io.vertx.json.schema.SchemaRouterOptions;
 
-import static io.vertx.ext.web.validation.builder.Parameters.*;
-import static io.vertx.ext.web.validation.builder.Bodies.*;
+import static io.vertx.ext.web.validation.builder.Bodies.formUrlEncoded;
+import static io.vertx.ext.web.validation.builder.Bodies.json;
+import static io.vertx.ext.web.validation.builder.Parameters.param;
 import static io.vertx.json.schema.draft7.dsl.Schemas.*;
 
 /**
@@ -94,8 +95,7 @@ public class ValidationExampleServer extends AbstractVerticle {
     vertx.createHttpServer().requestHandler(router).listen();
   }
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ValidationExampleServer.class);
+    Launcher.executeCommand("run", ValidationExampleServer.class.getName());
   }
 }

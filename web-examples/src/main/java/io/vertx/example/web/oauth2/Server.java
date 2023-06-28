@@ -1,8 +1,8 @@
 package io.vertx.example.web.oauth2;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.TokenCredentials;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
@@ -20,21 +20,20 @@ import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   // you should never store these in code,
-  // these are your github application credentials
+  // these are your GitHub application credentials
   private static final String CLIENT_ID = "57cdaa1952a3f4ee3df8";
   private static final String CLIENT_SECRET = "3155eafd33fc947e0fe9f44127055ce1fe876704";
 
-  // In order to use a template we first need to create an engine
-  private final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
-
   @Override
   public void start() throws Exception {
+    // In order to use a template we first need to create an engine
+    final HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
+
     // To simplify the development of the web components we use a Router to route all HTTP requests
     // to organize our code in a reusable way.
     final Router router = Router.router(vertx);
@@ -56,7 +55,7 @@ public class Server extends AbstractVerticle {
       JsonObject data = new JsonObject()
         .put("client_id", CLIENT_ID);
       // and now delegate to the engine to render it.
-      engine.render(data, "views/index.hbs", res -> {
+      engine.render(data, "io/vertx/example/web/oauth2/views/index.hbs", res -> {
         if (res.succeeded()) {
           ctx.response()
             .putHeader("Content-Type", "text/html")
@@ -97,12 +96,12 @@ public class Server extends AbstractVerticle {
                 ctx.session().destroy();
                 ctx.fail(res2.cause());
               } else {
-                userInfo.put("private_emails", res2.result());
+                userInfo.put("private_emails", res2.result().body());
                 // we pass the client info to the template
                 JsonObject data = new JsonObject()
                   .put("userInfo", userInfo);
                 // and now delegate to the engine to render it.
-                engine.render(data, "views/advanced.hbs", res3 -> {
+                engine.render(data, "io/vertx/example/web/oauth2/views/advanced.hbs", res3 -> {
                   if (res3.succeeded()) {
                     ctx.response()
                       .putHeader("Content-Type", "text/html")
