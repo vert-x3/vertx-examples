@@ -2,14 +2,13 @@
 
 Here you will find examples demonstrating Vert.x-Web in action.
 
-Vert.x-Web is a tool-kit for writing web applications with Vert.x. Please consult the Vert.x-Web manual for detailed
-documentation on Vert.x-Web.
+Vert.x-Web is a tool-kit for writing web applications with Vert.x.
+Please consult the Vert.x-Web manual for detailed documentation on Vert.x-Web.
 
 == Logging
 
 When running in an IDE you can edit `src/main/resources/vertx-default-jul-logging.properties` to configure logging.
-Trace logging is enabled for Vert.x-Web classes so you can easily trace requests as they are routed through different
-handlers.
+Trace logging is enabled for Vert.x-Web classes, so you can easily trace requests as they are routed through different handlers.
 
 == Dependencies required
 
@@ -27,20 +26,19 @@ Group ID: io.vertx
 Artifact ID: vertx-web
 ----
 
-If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine
-you are using.
+If you're using a template engine you will also need to add the engine dependency explicitly, depending on the engine you are using.
 
 == Hello World
 
-The traditional hello world example. This one creates a server which just responds with "Hello World! to each request.
+The traditional hello world example.This one creates a server which just responds with "Hello World! to each request.
 
 The link:src/main/java/io/vertx/example/web/helloworld/Server.java[Java Hello world example]
 
-== Simple REST Micro-service
+== Simple REST Microservice
 
 Vert.x-Web is a great fit for HTTP/REST microservices.
 
-Here's a simple micro-service example which implements an API for a product catalogue.
+Here's a simple microservice example which implements an API for a product catalogue.
 
 The link:src/main/java/io/vertx/example/web/rest/SimpleREST.java[Java REST Microservice example]
 
@@ -52,7 +50,7 @@ List all products:: GET /products
 Get a product:: GET /products/<product_id>
 Add a product:: PUT /products/<product_id>
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/products[list products] to start playing with the API.
 
 == Site with templating
@@ -61,78 +59,24 @@ This example shows a simple web-site containing some static pages and also a pag
 
 The link:src/main/java/io/vertx/example/web/templating/[templating example]
 
-Multiple examples with different templating engines, including FreeMarker, Handlebars, Jade, MVEL, Pebble, Rocker,
-and Thymeleaf are available.
+Multiple examples with different templating engines, including FreeMarker, Handlebars, MVEL, Pebble, Rocker, and Thymeleaf are available.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/[localhost:8080] and click on the links
 
 == Sessions example
 
-This example shows how to use sessions with Vert.x-Web. Sessions are available between requests and last the length of the
-browser session.
+This example shows how to use sessions with Vert.x-Web.
+Sessions are available between requests and last the length of the browser session.
 
 The link:src/main/java/io/vertx/example/web/sessions/[Java sessions example]
 
 The example increments a counter in the session every time a request hits the server.
 
-Run the server either in your IDE or on the command line, then open your browser and hit 
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080/[localhost:8080] then refresh the page a few times - you should see the hit count increase.
 
-NOTE: Depending on your browser you may see it increase by two each time you refresh! Why is that? Some browsers will
-actually send two HTTP requests every time you refresh - one to request the favicon for the site and one to request the
-actual page.
-
-== EventBus Bridge - Client CommonJS loader
-
-This example demonstrates how to use commonjs to load the eventbus client bridge using link:http://npmjs.com[npm].
-
-The link:src/main/java/io/vertx/example/web/vertxbus/commonjs[Java CommonJS loader example]
-
-In order to use the javascript client one needs to define a link:src/main/java/io/vertx/example/web/vertxbus/commonjs/webroot/package.json[package.json]
-where a dependency to `vertx3-eventbus-client` is added. Of course this is a minimal example so no other dependencies
-are added. The Vert.x code will then serve the static resources and setup a event bus bridge that broadcasts the current
-time every second.
-
-Before running the example you need to download the dependencies, the easiest form of doing this is using `npm install`.
-
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080
-
-== EventBus Bridge - Client AMD loader
-
-This example demonstrates how to use AMD to load the eventbus client bridge using link:http://bower.io[bower.io] to download the dependencies
-and link:http://dojotoolkit.org[Dojo Toolkit] to load the packages at runtime.
-
-The link:src/main/java/io/vertx/example/web/vertxbus/amd[Java AMD loader example]
-
-In order to use the javascript client one needs to define a link:src/main/java/io/vertx/example/web/vertxbus/amd/webroot/bower.json[bower.json]
-where a dependency to `vertx3-eventbus-client` is added. Of course this is a minimal example so no other dependencies
-are added. The Vert.x code will then serve the static resources and setup a event bus bridge that broadcasts the current
-time every second.
-
-Before running the example you need to download the dependencies, the easiest form of doing this is using `bower install`.
-
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080
-
-== EventBus Bridge - Node.JS loader
-
-This example demonstrates how to use NodeJS to load the eventbus client bridge using link:http://npmjs.com[npm] to download
-the dependencies.
-
-The link:src/main/java/io/vertx/example/web/vertxbus/node[Java NodeJS loader example]
-
-In order to use the javascript client one needs to define a link:src/main/java/io/vertx/example/web/vertxbus/node/package.json[package.json]
-where a dependency to `vertx3-eventbus-client` is added. Of course this is a minimal example so no other dependencies
-are added. The Vert.x code will setup a event bus bridge that broadcasts the current time every second.
-
-The second part of the code is the NodeJS link:src/main/java/io/vertx/example/web/vertxbus/node/index.js[app] where a SockJS
-client is created to the running Server.
-
-Before running the example you need to download the dependencies, the easiest form of doing this is using `npm install`.
-
-Run the server either in your IDE or on the command line, then run the node client `npm start`.
+NOTE: Depending on your browser you may see it increase by two each time you refresh!Why is that?Some browsers will actually send two HTTP requests every time you refresh - one to request the favicon for the site and one to request the actual page.
 
 == Real-time - client side event bus
 
@@ -140,56 +84,41 @@ This example demonstrates a full duplex connection between the browser and the s
 
 The link:src/main/java/io/vertx/example/web/realtime/[Java real-time example]
 
-The connection remains open so you can communicate easily between server and browser or server and browser by just sending
-messages over the event bus, like you would on the server side.
+The connection remains open, so you can communicate easily between server and browser or server and browser by just sending messages over the event bus, like you would on the server side.
 
-It uses the SockJS event bus bridge to effectively extend the Vert.x event bus to the client side so you can
-interact with server side event bus services from client side JavaScript. SocksJS gives a WebSocket-like API in client side
-JavaScript even if the browser or network doesn't support WebSockets.
+It uses the SockJS event bus bridge to effectively extend the Vert.x event bus to the client side, so you can interact with server side event bus services from client side JavaScript.
+SocksJS gives a WebSocket-like API in client side JavaScript even if the browser or network doesn't support WebSockets.
 
-This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server
-and client and you're probably rendering the user interface on the client side.
+This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server and client, and you're probably rendering the user interface on the client side.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080
 
-This serves the link:src/main/java/io/vertx/example/web/realtime/webroot/index.html[index page] which contains
-some JavaScript which opens an event bus connection to the server.
+This serves the link:src/main/java/io/vertx/example/web/realtime/webroot/index.html[index page] which contains some JavaScript which opens an event bus connection to the server.
 
-When the connection is open, a handler is registered on the event bus against the address `news-feed`. When data
-arrives in the handler the script just uses some simple JQuery to write the message to the page.
+When the connection is open, a handler is registered on the event bus against the address `news-feed`.When data arrives in the handler the script just uses some simple JQuery to write the message to the page.
 
-On the server side, in the link:src/main/java/io/vertx/example/web/realtime/Server.java[server] we set a periodic
-timer that fires every second and sends a message to the `news-feed` address.
+On the server side, in the link:src/main/java/io/vertx/example/web/realtime/Server.java[server] we set a periodic timer that fires every second and sends a message to the `news-feed` address.
 
 When you get the index page in your browser you should see it update every second as it receives a message.
 
 == Real-time - chat service
 
-This example demonstrates 2-way communication between the client and the server using the event bus bridge
-and web sockets.
+This example demonstrates 2-way communication between the client and the server using the event bus bridge and web sockets.
 
 The link:src/main/java/io/vertx/example/web/chat/Server.java[Java real-time chat example]
 
-The link:src/main/java/io/vertx/example/web/chat/webroot/index.html[index.html] file
-bootstraps the vertxbus.js bridge from the client and uses jQuery to handle manipulating
-the DOM and registering event handlers.
+The link:src/main/resources/io/vertx/example/web/chat/webroot/index.html[index.html] file bootstraps the vertxbus.js bridge from the client and uses jQuery to handle manipulating the DOM and registering event handlers.
 
-When you load the index page in a browser, you should see a div for chat messages and
-an input field where you can enter your own messages. Typing in the input field and
-pressing ENTER will cause the input to be sent via the event bus to the server. The server
-will accept the message, prepend it with a timestamp and publish back to all registered
-listeners (e.g. All connected clients). Take note of the addInboundPermitted and addOutboundPermitted
-settings on the BridgeOptions object to be sure that you authorize the correct messages
-to traverse the event bus bridge in the appropriate direction.
+When you load the index page in a browser, you should see a div for chat messages and an input field where you can enter your own messages.
+Typing in the input field and pressing ENTER will cause the input to be sent via the event bus to the server.
+The server will accept the message, prepend it with a timestamp and publish back to all registered listeners (e.g. All connected clients).
+Take note of the addInboundPermitted and addOutboundPermitted settings on the BridgeOptions object to be sure that you authorize the correct messages to traverse the event bus bridge in the appropriate direction.
 
-To run the example, run `Server.java` in your IDE by right clicking, or at the command line, and point your browser
-at link:http://localhost:8080
+To run the example, run `Server.java` in your IDE by right-clicking, or at the command line, and point your browser at link:http://localhost:8080
 
 == Auth example
 
-This example shows a basic static web-site that contains both public pages and pages that are only accessible to
-a logged in user.
+This example shows a basic static web-site that contains both public pages and pages that are only accessible to a logged-in user.
 
 The link:src/main/java/io/vertx/example/web/auth/[Java auth example]
 
@@ -198,42 +127,30 @@ Requests to paths starting with `/private/` will require login.
 The example uses a simple auth service which gets user/password/role information from a properties file
 `src/main/resources/vertx-users.properties`.
 
-The type of login used here is redirect login. If a request is made to a private resource and the session isn't already
-logged in a redirect will be sent to the browser causing it to load the login page. When the login form is submitted it
-is handled by the form login handler which then redirects the browser back to the originally requested resource if login
-was successful.
+The type of login used here is redirect login.If a request is made to a private resource and the session isn't already logged in a redirect will be sent to the browser causing it to load the login page.When the login form is submitted it is handled by the form login handler which then redirects the browser back to the originally requested resource if login was successful.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == Cookie example
 
-This example shows a basic user Tracking system based on Cookies. On each page refresh a cookie is incremented with the
-number of visits.
+This example shows a basic user Tracking system based on Cookies.On each page refresh a cookie is incremented with the number of visits.
 
 The link:src/main/java/io/vertx/example/web/cookie/[Java cookie example]
 
 == CORS example
 
-This example shows how to setup the CORS Handler. Cross-origin resource sharing (CORS) is a mechanism that allows
-restricted resources (e.g. fonts, JavaScript, etc.) on a web page to be requested from another domain outside the domain
-from which the resource originated.
+This example shows how to set up the CORS Handler.
+Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources (e.g. fonts, JavaScript, etc.) on a web page to be requested from another domain outside the domain from which the resource originated.
 
 The link:src/main/java/io/vertx/example/web/cors/[Java cors example]
 
-CORS requests fall in two types, request that require a pre-flight check and requests that do not require it. HTTP GET
-does not require such a check while other HTTP verbs do. When the CORS handler is active the `Origin` header is checked
-to allow, disallow the request.
+CORS requests fall in two types, request that require a pre-flight check and requests that do not require it.HTTP GET does not require such a check while other HTTP verbs do.When the CORS handler is active the `Origin` header is checked to allow, disallow the request.
 
-In order to run the example, you need to download the 2 example HTML pages and run them from your hard disk. If you are
-using a modern browser when clicking on the links they will pop up the download pop-up, however this might not work for
-older browsers.
+In order to run the example, you need to download the 2 example HTML pages and run them from your hard disk.If you are using a modern browser when clicking on the links they will pop up the download pop-up, however this might not work for older browsers.
 
-If the CORS Handler is not present, then only the no preflight check call will work, since the browser will disallow the
-POST.
+If the CORS Handler is not present, then only the no preflight check call will work, since the browser will disallow the POST.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == Upload example
 
@@ -241,19 +158,17 @@ This example shows a basic HTML form file upload and returns the upload metadata
 
 The link:src/main/java/io/vertx/example/web/upload/[Java upload example]
 
-The home request will return a HTML form with a simple input type file and will upload the file in multipart encoding.
+The home request will return an HTML form with a simple input type file and will upload the file in multipart encoding.
 On submit the file will be handled by the `BodyHandler` and be available in the `RoutingContext` using the getter
 `fileUploads`.
 
 == HTML Form example
 
-This example shows a basic HTML form web-site and a backend end point that just returns an customizable hello world
-message.
+This example shows a basic HTML form web-site and a backend end point that just returns a customizable hello world message.
 
 The link:src/main/java/io/vertx/example/web/form/[Java form example]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == JWT example
 
@@ -261,25 +176,21 @@ This example shows a basic single page application that contains an API that is 
 
 The link:src/main/java/io/vertx/example/web/jwt/[Java jwt example]
 
-Requests to paths starting with `/api/` will require a JWT token, except the excluded `/api/newToken`. This exclusion is
-normally used as the login end point, however in this example we are not focusing on secure login end points and we just
-return a new token for any request.
+Requests to paths starting with `/api/` will require a JWT token, except the excluded `/api/newToken`.
+This exclusion is normally used as the login end point, however in this example we are not focusing on secure login end points, and we just return a new token for any request.
 
-The application contains a simple form where you can request some data from the API if there is no token loaded then the
-response is an `HTTP error 401`. When a token is loaded, then a successful response if received from the API.
+The application contains a simple form where you can request some data from the API if there is no token loaded then the response is an `HTTP error 401`.
+When a token is loaded, then a successful response if received from the API.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == Blocking handler example
 
-This example shows a blocking handler which blocks the calling thread for 5 seconds before calling the next handler
-to serve the page.
+This example shows a blocking handler which blocks the calling thread for 5 seconds before calling the next handler to serve the page.
 
 Blocking handlers are run on a worker thread and don't block an event loop.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 - after 5 seconds the response should arrive.
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 - after 5 seconds the response should arrive.
 
 == Static web server example
 
@@ -289,38 +200,34 @@ The server can be run either in your IDE with the main class or at the command l
 
 == SQL Client example
 
-This example shows a basic REST server backed by a SQL client. It is exactly the same as the REST client however its
-data is persisted in a relational database using the asynchronous SQL client.
+This example shows a basic REST server backed by a SQL client.
+It is exactly the same as the REST client however its data is persisted in a relational database using the asynchronous SQL client.
 
 The link:src/main/java/io/vertx/example/web/sqlclient/[SQL client example]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080/products to get the list of products, or link:http://localhost:8080/products/0 for accessing
-a product with id 0. In order to create new products use the POST method to link:http://localhost:8080/products
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080/products to get the list of products, or link:http://localhost:8080/products/0 for accessing a product with id 0. In order to create new products use the POST method to link:http://localhost:8080/products
 
 - curl http://localhost:8080/products
 - curl http://localhost:8080/products/Spatula
 - curl -X POST -H "Content-Type: application/json" -d '{"name":"Spoon","price":1.0,"weight":1.0}' http://localhost:8080/products
 
-== Auth JDBC example
+== Auth SQL example
 
-This example shows a basic static web-site that contains both public pages and pages that are only accessible to
-a logged in user. This is a remake of the auth example, however using a different auth provider. In this case it
-uses the JDBC Auth Provider.
+This example shows a basic static web-site that contains both public pages and pages that are only accessible to a logged-in user.
+This is a remake of the auth example, however using a different auth provider.
+In this case it uses the SQL Client Auth Provider.
 
-The link:src/main/java/io/vertx/example/web/authjdbc/[Java authjdbc example]
+The link:src/main/java/io/vertx/example/web/authsql/[Java authsql example]
 
 Requests to paths starting with `/private/` will require login.
 
-The username/password are loaded from the `setUpInitialData` method.
+The username/password are loaded from the `set upInitialData` method.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == Angular realtime example
 
-This example shows a music store implemented with angular js, where all album data and orders are taken in realtime. The
-example expects that there is a local instance of mongo db running.
+This example shows a music store implemented with angular js, where all album data and orders are taken in realtime.The example expects that there is a local instance of mongo db running.
 
 It also demonstrates how to protect the even bus when used with a bridge using one `Auth Provider`.
 
@@ -329,16 +236,13 @@ The link:src/main/java/io/vertx/example/web/angular_realtime/[Java angular_realt
 The example uses a simple auth service which gets user/password/role information from a properties file
 `src/main/resources/vertx-users.properties`.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == Programmatic Authentication examples
 
-This examples shows how to use the Auth Handlers to protect resources by asserting if the user has the right authorities
-to access the resource.
+This examples shows how to use the Auth Handlers to protect resources by asserting if the user has the right authorities to access the resource.
 
-There are 2 implementations, one using the API to verify assertions, and a second where assertions are implemented in
-code:
+There are 2 implementations, one using the API to verify assertions, and a second where assertions are implemented in code:
 
 * link:src/main/java/io/vertx/example/web/authorisation/[Java authorisation example]
 * link:src/main/java/io/vertx/example/web/custom_authorisation/[Java custom_authorisation example]
@@ -350,39 +254,32 @@ The example shows 4 resource that require different authorities:
 * defcon2 link:http://localhost:8080/api/protected/defcon2
 * defcon3 link:http://localhost:8080/api/protected/defcon3
 
-You can generate different tokens with different authorities and test it. The example html does not generate defcon3
-tokens, in order to show that you cannot access the last resource.
+You can generate different tokens with different authorities and test it.
+The example html does not generate defcon3 tokens, in order to show that you cannot access the last resource.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and click around the links
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and click around the links
 
 == HTTP2
 
-The HTTP2 example is a simplified http://http-test-2.frb.io/chuck-norris.html[Chuck Norris] test. The important thing to
-note is that there is no API differences between HTTP1.1 and HTTP2 regarding web. The only change is the bootstrap of
-the server.
+The HTTP2 example is a simplified http://http-test-2.frb.io/chuck-norris.html[Chuck Norris] test.The important thing to note is that there is no API differences between HTTP1.1 and HTTP2 regarding web.The only change is the bootstrap of the server.
 
 The link:src/main/java/io/vertx/example/web/http2/Server.java[HTTP2 example]
 
 == React.js Realtime chat
 
-This example shows how you can integrate Vert.x EventBus SockJS bridge in a simple React.JS application. Since react is
-written in ES6 + JSX you will need to use webpack to bundle you client application, for this run `npm install` to
-install all the dependencies locally and later you can compile your client application with: `./node_modules/
-.bin/webpack -p`
+This example shows how you can integrate Vert.x EventBus SockJS bridge in a simple React.JS application.
+Since React is written in ES6 + JSX you will need to use webpack to bundle you client application, for this run `npm install` to install all the dependencies locally, and later you can compile your client application with: `./node_modules/.bin/webpack -p`
 
 Important files to note:
 
 * link:src/main/java/io/vertx/example/web/react/app-client.js[React app example]
 * link:src/main/java/io/vertx/example/web/react/Server.java[Java Vert.x server]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080 and chat with a couple of browser windows!
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080 and chat with a couple of browser windows!
 
 == OAuth2
 
-The OAuth2 example is a simplified interaction with GitHub OAuth2 server. It will
-show how to secure and authenticate users, plus requesting specific authorities:
+The OAuth2 example is a simplified interaction with GitHub OAuth2 server.It will show how to secure and authenticate users, plus requesting specific authorities:
 
 * `user:email`
 
@@ -392,17 +289,15 @@ The link:src/main/java/io/vertx/example/web/oauth2/Server.java[OAuth2 example]
 
 == HTTP Request Validation and OpenAPI 3 Router Factory
 
-The link:src/main/java/io/vertx/example/web/validation/ValidationExampleServer.java[ValidationExampleServer] is an
-example of various usages of validation capabilities included in
+The link:src/main/java/io/vertx/example/web/validation/ValidationExampleServer.java[ValidationExampleServer] is an example of various usages of validation capabilities included in
 link:http://vertx.io/docs/#web[Vert.x Web API Contract package]
 
-The link:src/main/java/io/vertx/example/web/openapi3/OpenAPI3Server.java[OpenAPI3Server] is an example of
-OpenAPI3RouterFactory, the interface to build your design driven router based on your OpenAPI specification.
+The link:src/main/java/io/vertx/example/web/openapi3/OpenAPI3Server.java[OpenAPI3Server] is an example of OpenAPI3RouterFactory, the interface to build your design driven router based on your OpenAPI specification.
 
 == Web Proxy example
 
-This example shows how to proxy requests to a external backend with Vert.x-Web. The backend is just a external server
-that is not required to be hosted on the same computer. .
+This example shows how to proxy requests to an external backend with Vert.x-Web.
+The backend is just an external server that is not required to be hosted on the same computer. .
 
 The link:src/main/java/io/vertx/example/web/proxy/[Java web proxy example]
 
@@ -410,10 +305,9 @@ The example redirects all plain requests to `/foo` on local port 8080 to port 70
 
 A second example redirects after `HTTP Basic Authentication` all requests to `/private` on local port 8080 to port 7070.
 
-NOTE: The backend for the second example is totally unprotected. The examples is showing that you can mix other handlers
-with the `ProxyHandler` like you would on a typical vertx-web application.
+NOTE: The backend for the second example is totally unprotected.
+The example is showing that you can mix other handlers with the `ProxyHandler` like you would on a typical vertx-web application.
 
 == gRPC example
 
-The link:src/main/java/io/vertx/example/web/grpc/helloworld/Server.java[Server] is an
-example of integrating a routing gRPC traffic to a gRPC server.
+The link:src/main/java/io/vertx/example/web/grpc/helloworld/Server.java[Server] is an example of integrating a routing gRPC traffic to a gRPC server.

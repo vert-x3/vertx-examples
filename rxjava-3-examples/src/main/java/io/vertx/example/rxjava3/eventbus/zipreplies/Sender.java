@@ -1,7 +1,7 @@
 package io.vertx.example.rxjava3.eventbus.zipreplies;
 
 import io.reactivex.rxjava3.core.Single;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.core.eventbus.EventBus;
 import io.vertx.rxjava3.core.eventbus.Message;
@@ -11,9 +11,8 @@ import io.vertx.rxjava3.core.eventbus.Message;
  */
 public class Sender extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(Sender.class);
+    Launcher.executeCommand("run", Sender.class.getName(), "-cluster");
   }
 
   @Override

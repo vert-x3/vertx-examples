@@ -1,19 +1,22 @@
 package io.vertx.example.core.execblocking;
 
 import io.vertx.core.DeploymentOptions;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
-public class ExecBlockingDedicatedPoolExample {
+public class ExecBlockingDedicatedPoolExample extends Launcher {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ExecBlockingExample.class, new DeploymentOptions()
-        .setWorkerPoolName("dedicated-pool")
-        .setMaxWorkerExecuteTime(120000)
-        .setWorkerPoolSize(5));
+    new ExecBlockingDedicatedPoolExample().dispatch(new String[]{"run", ExecBlockingExample.class.getName()});
   }
 
+  @Override
+  public void beforeDeployingVerticle(DeploymentOptions deploymentOptions) {
+    deploymentOptions
+      .setWorkerPoolName("dedicated-pool")
+      .setMaxWorkerExecuteTime(120000)
+      .setWorkerPoolSize(5);
+  }
 }

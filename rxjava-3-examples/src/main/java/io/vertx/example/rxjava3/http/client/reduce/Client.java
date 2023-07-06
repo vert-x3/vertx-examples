@@ -2,8 +2,8 @@ package io.vertx.example.rxjava3.http.client.reduce;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.example.util.Runner;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.core.buffer.Buffer;
 import io.vertx.rxjava3.core.http.HttpClient;
@@ -13,9 +13,8 @@ import io.vertx.rxjava3.core.http.HttpClient;
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override

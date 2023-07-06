@@ -1,16 +1,15 @@
 package io.vertx.example.core.execblocking;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class ExecBlockingExample extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ExecBlockingExample.class);
+    Launcher.executeCommand("run", ExecBlockingExample.class.getName());
   }
 
   @Override

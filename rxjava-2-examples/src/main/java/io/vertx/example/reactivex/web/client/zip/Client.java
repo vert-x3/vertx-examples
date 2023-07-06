@@ -1,21 +1,20 @@
 package io.vertx.example.reactivex.web.client.zip;
 
+import io.reactivex.Single;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.ext.web.client.HttpResponse;
 import io.vertx.reactivex.ext.web.client.WebClient;
 import io.vertx.reactivex.ext.web.codec.BodyCodec;
-import io.reactivex.Single;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override

@@ -1,8 +1,8 @@
 package io.vertx.example.web.openapi_router;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.openapi.router.RouterBuilder;
 import io.vertx.openapi.contract.OpenAPIContract;
@@ -16,7 +16,7 @@ import static io.vertx.ext.web.openapi.router.RouterBuilder.KEY_META_DATA_VALIDA
 public class RequestValidationExample extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(ResponseValidationExample.class);
+    Launcher.executeCommand("run", ResponseValidationExample.class.getName());
   }
 
   private String getContractFilePath() {

@@ -13,15 +13,4 @@ verticles with the redis host:
 }
 ----
 
-By default it uses `127.0.0.1` as host. The post is set to `6379`.
-
-Once the redis instance is running, you can launch it using:
-
-----
-# mandatory, it copies the vertx-redis-client
-mvn clean package
-
-# java
-vertx run io.vertx.examples.redis.RedisClientVerticle -cp target/redis-examples-4.4.4.jar -conf my-redis-config.json
-----
-
+By default, it uses `127.0.0.1` as host. The post is set to `6379`.

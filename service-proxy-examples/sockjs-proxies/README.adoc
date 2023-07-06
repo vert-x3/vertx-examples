@@ -21,5 +21,5 @@ Minimal webpack config:
 * link:src/main/java/io/vertx/example/web/proxies/webpack.config.js[Webpack config]
 * link:src/main/java/io/vertx/example/web/proxies/tsconfig.json[Typescript compiler config]
 
-Run the server either in your IDE or on the command line, then open your browser and hit
+Run the server in your IDE, then open your browser and hit
 link:http://localhost:8080 and chat with a couple of browser windows!

@@ -1,8 +1,8 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.mail.*;
 
 import java.util.ArrayList;
@@ -17,13 +17,12 @@ import java.util.List;
  */
 public class MailLogin extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(MailLogin.class);
+    Launcher.executeCommand("run", MailLogin.class.getName());
   }
 
   public void start() {
-    // Start a local STMP server, remove this line if you want to use your own server.
+    // Start a local SMTP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     LocalSmtpServer.startWithAuth(5870);
 
@@ -39,7 +38,7 @@ public class MailLogin extends AbstractVerticle {
 
     MailClient mailClient = MailClient.createShared(vertx, mailConfig);
 
-    Buffer image = vertx.fileSystem().readFileBlocking("logo-white-big.png");
+    Buffer image = vertx.fileSystem().readFileBlocking("io/vertx/example/mail/logo-white-big.png");
 
     MailMessage email = new MailMessage()
       .setFrom("user1@example.com")

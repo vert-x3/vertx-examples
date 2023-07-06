@@ -53,7 +53,7 @@ new ServiceBinder(vertx)
 `service` is the service object we register (so an instance of the `ProcessorServiceImpl`. The last parameter is the address on which the service can be invoked.
 
 Alternatively, you can instantiate the generated handler:
-[source, java]
+[source,java]
 ----
 new ProcessorServiceVertxProxyHandler(vertx, service).registerHandler("vertx.processor");
 ----
@@ -63,22 +63,7 @@ In this case, classes need to be generated beforehand, and so, requires a manual
 
 === Running the service provider
 
-To run the service provider, you first need to package it with:
-
-[source]
-----
-cd service-provider
-# Install is important here as the service consumer needs the service interface class
-mvn clean install
-----
-
-Once done, run the verticle using:
-
-[source]
-----
-vertx run io.vertx.examples.service.ProcessorServiceVerticle \
-    -cp target/service-provider-4.4.4.jar -cluster
-----
+To run the service provider, execute the `ProcessorServiceVerticle` in your IDE.
 
 Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
 
@@ -94,24 +79,19 @@ link:service-consumer/src/main/java/io/vertx/examples/service/consumer/ConsumerV
 
 The service is retrieved using:
 
-[code]
+[source,java]
 ----
 ProcessorService service = ProcessorService.createProxy(vertx, "vertx.processor");
 ----
 
 The second argument is the service address.
 
-To run this verticle, package it using: `mvn clean package`, and run it with:
-
-----
-vertx run io.vertx.examples.service.consumer.ConsumerVerticle \
-    -cp ../service-provider/target/service-provider-4.4.4.jar:target/service-consumer-4.4.4.jar \
-    -cluster
-----
+To run the service provider, execute the `ConsumerVerticle` in your IDE.
 
 Depending on your cluster configuration you may have to specify the `cluster-host` and configure Hazelcast.
 
-Notice that the verticle has in its classpath the service provider verticle to access the service interface. We could have packaged the service interface in its owned packaged (alongside the generated handler and proxy).
+Notice that the verticle has in its classpath the service provider verticle to access the service interface.
+We could have packaged the service interface in its owned packaged (alongside the generated handler and proxy).
 
 Once launched you should see:
 

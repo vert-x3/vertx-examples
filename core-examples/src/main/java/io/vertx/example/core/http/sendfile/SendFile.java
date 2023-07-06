@@ -1,22 +1,21 @@
 package io.vertx.example.core.http.sendfile;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class SendFile extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(SendFile.class);
+    Launcher.executeCommand("run", SendFile.class.getName());
   }
 
   @Override
   public void start() throws Exception {
 
-    // In reality it's highly recommend you use Vert.x-Web for applications like this.
+    // In reality, it's highly recommend you use Vert.x-Web for applications like this.
 
     vertx.createHttpServer().requestHandler(req -> {
       String filename = null;
@@ -30,7 +29,7 @@ public class SendFile extends AbstractVerticle {
         req.response().setStatusCode(404).end();
       }
       if (filename != null) {
-        req.response().sendFile(filename);
+        req.response().sendFile("io/vertx/example/core/http/sendfile/" + filename);
       }
     }).listen(8080);
   }

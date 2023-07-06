@@ -1,16 +1,15 @@
 package io.vertx.example.reactivex.services.serviceproxy;
 
 
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.serviceproxy.ServiceBinder;
 
 public class SomeDatabaseServiceVerticle extends AbstractVerticle {
   SomeDatabaseService someDatabaseService;
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(SomeDatabaseServiceVerticle.class);
+    Launcher.executeCommand("run", SomeDatabaseServiceVerticle.class.getName(), "-cluster");
   }
 
   @Override

@@ -1,7 +1,7 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.mail.MailMessage;
@@ -21,12 +21,11 @@ public class MailHeaders extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(MailHeaders.class);
+    Launcher.executeCommand("run", MailHeaders.class.getName());
   }
 
-
   public void start() {
-    // Start a local STMP server, remove this line if you want to use your own server.
+    // Start a local SMTP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     LocalSmtpServer.start(2528);
     MailConfig mailConfig = new MailConfig().setHostname("localhost").setPort(2528);

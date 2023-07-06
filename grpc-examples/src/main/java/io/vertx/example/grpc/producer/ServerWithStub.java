@@ -2,11 +2,11 @@ package io.vertx.example.grpc.producer;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.VertxProducerServiceGrpc;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServiceBridge;
 
@@ -15,9 +15,8 @@ import io.vertx.grpc.server.GrpcServiceBridge;
  */
 public class ServerWithStub extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ServerWithStub.class);
+    Launcher.executeCommand("run", ServerWithStub.class.getName());
   }
 
   @Override

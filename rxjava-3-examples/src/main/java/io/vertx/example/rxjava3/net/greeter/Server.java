@@ -17,8 +17,8 @@
 package io.vertx.example.rxjava3.net.greeter;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.parsetools.RecordParser;
-import io.vertx.example.util.Runner;
 import io.vertx.rxjava3.FlowableHelper;
 
 /*
@@ -26,9 +26,8 @@ import io.vertx.rxjava3.FlowableHelper;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override

@@ -12,12 +12,11 @@ This example shows how to deploy the Vert.x Shell service available via SSH as a
 The link:src/main/java/io/vertx/example/shell/deploy_service_ssh[deploy Shell service accessible via SSH example]
 
 The SSH connector is configured to use the _keystore.jks_ as SSH key pair store and the _auth.properties_
- for user authentication.
+for user authentication.
 
-The service is deployed using the _service:io.vertx.ext.shell_ deployment name that starts the Shell Service
-as a verticle.
+The service is deployed using the _service:io.vertx.ext.shell_ deployment name that starts the Shell Service as a verticle.
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `ssh -p 3000 admin@localhost` (password is _password_) and type `help` to show the available commands
 
 This example can also be started from the command line
@@ -28,7 +27,7 @@ This example shows how to deploy the Vert.x Shell service available via Telnet a
 
 The link:src/main/java/io/vertx/example/shell/deploy_service_telnet[deploy Shell service accessible via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `telnet localhost 3000` and type `help` to show the available commands
 
 == Deploy Shell service accessible via Http example
@@ -37,7 +36,7 @@ This example shows how to deploy the Vert.x Shell service available via Http as 
 
 The link:src/main/java/io/vertx/example/shell/deploy_service_http[deploy Shell service accessible via Http example]
 
-Run the shell either in your IDE or on the command line, then point your browser to `http://localhost:8080/shell.html`
+Run the shell in your IDE, then point your browser to `http://localhost:8080/shell.html`
 and type `help` to show the available commands
 
 == Run Shell service accessible via SSH example
@@ -46,7 +45,7 @@ This example shows how to run the Vert.x Shell service available via SSH as a pa
 
 The link:src/main/java/io/vertx/example/shell/run_service_ssh[run Shell service accessible via SSH example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `ssh -p 3000 admin@localhost` (password is _password_) and type `help` to show the available commands
 
 == Run Shell service accessible via Telnet example
@@ -55,7 +54,7 @@ This example shows how to deploy the Vert.x Shell service available via Telnet a
 
 The link:src/main/java/io/vertx/example/shell/run_service_telnet[run Shell service accessible via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `telnet localhost 3000` and type `help` to show the available commands
 
 == Run Shell service accessible via Http example
@@ -64,7 +63,7 @@ This example shows how to deploy the Vert.x Shell service available via Http as 
 
 The link:src/main/java/io/vertx/example/shell/run_service_http[run Shell service accessible via Http example]
 
-Run the shell either in your IDE or on the command line, then point your browser to
+Run the shell in your IDE, then point your browser to
 `http://localhost:8080/shell.html` and type `help` to show the available commands
 
 == Hello World command
@@ -73,37 +72,37 @@ This example shows a simple hello world command extending Vert.x Shell.
 
 The link:src/main/java/io/vertx/example/shell/helloworld[Hello World command via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `telnet localhost 3000` and type `helloworld` to run the command.
 
 == Wget command
 
-This example uses the Vert.x HTTP client to create a simple version of the `wget` command. It shows how
+This example uses the Vert.x HTTP client to create a simple version of the `wget` command.It shows how
 a command can interract with other Vert.x APIs, in this case the `HttpClient`.
 
 The link:src/main/java/io/vertx/example/shell/wget[Wget command via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `telnet localhost 3000` and type `wget <url>` to run the command on the URL you like.
 
 == Top command
 
-This example displays a list of the current JVM threads and mimics the OS _top_ command. It shows
+This example displays a list of the current JVM threads and mimics the OS _top_ command.It shows
 how to push periodically data to the Shell.
 
 The link:src/main/java/io/vertx/example/shell/top[Top command via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `telnet localhost 3000` and type `top` to run the top command, hit Ctrl-C when you want to quit.
 
 == Echo keyboard command
 
-This example prints on the screen, what the user types on his keyboard. It shows the usage of a command
+This example prints on the screen, what the user types on his keyboard.It shows the usage of a command
 can capture keyboard events.
 
 The link:src/main/java/io/vertx/example/shell/echokeyboard[Echo keyboard command via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
+Run the shell in your IDE, then connect to the shell using
 `telnet localhost 3000` and type `echokeyboard` to run the command, then type some text, hit Ctrl-C when you are bored.
 
 == Starwars command
@@ -112,7 +111,7 @@ This example uses the Vert.x `NetClient` to stream the the content a Starwars As
 Shell until Ctrl-C is pressed.
 
 When the command is executes, it connects to a remote Telnet server that broadcasts an Ascii Starwars movie,
-the data sent by the server is just forwarded in the Shell screen. When the sockets closes, the command
+the data sent by the server is just forwarded in the Shell screen.When the sockets closes, the command
 ends and the Shell takes the control again.
 
 The commands sets an event handler on `EventType.SIGINT` that reacts to Ctr-C key, this events just closes
@@ -120,14 +119,15 @@ the socket and terminates the commands.
 
 The link:src/main/java/io/vertx/example/shell/starwars[Starwars command via Telnet example]
 
-Run the shell either in your IDE or on the command line, then connect to the shell using
-`telnet localhost 3000` and type `starwars`. Hit Ctrl-C when you are done.
+Run the shell in your IDE, then connect to the shell using
+`telnet localhost 3000` and type `starwars`.
+Hit Ctrl-C when you are done.
 
 == Term caster
 
 This examples uses the Vert.x Shell term server to broadcast the current host screen to the client until Ctrl-C is hit.
 
 The TermServer provides only terminal simple terminal capabilities and the handler has total control of the user
- terminal, unlike the ShellServer that provides shell like features.
+terminal, unlike the ShellServer that provides shell like features.
 
 The link:src/main/java/io/vertx/example/shell/termcast[Term caster via Telnet example]

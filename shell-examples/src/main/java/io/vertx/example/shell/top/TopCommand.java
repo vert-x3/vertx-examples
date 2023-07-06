@@ -1,7 +1,9 @@
 package io.vertx.example.shell.top;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
+import io.vertx.core.VertxOptions;
+import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
 import io.vertx.ext.shell.ShellService;
 import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.command.Command;
@@ -18,9 +20,14 @@ import java.util.List;
  */
 public class TopCommand extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(TopCommand.class);
+    Launcher launcher = new Launcher() {
+      @Override
+      public void beforeStartingVertx(VertxOptions options) {
+        options.setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true));
+      }
+    };
+    launcher.dispatch(new String[]{"run", TopCommand.class.getName()});
   }
 
   @Override

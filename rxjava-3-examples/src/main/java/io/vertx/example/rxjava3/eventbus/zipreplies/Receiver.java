@@ -1,6 +1,6 @@
 package io.vertx.example.rxjava3.eventbus.zipreplies;
 
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.core.eventbus.EventBus;
 
@@ -11,9 +11,8 @@ import java.util.Random;
  */
 public class Receiver extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(Receiver.class);
+    Launcher.executeCommand("run", Receiver.class.getName(), "-cluster");
   }
 
 

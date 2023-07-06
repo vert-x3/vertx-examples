@@ -1,7 +1,7 @@
 package io.vertx.example.core.http.simpleformupload;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /*
  * NOTE! It's recommended to use Vert.x-Web for handling file uploads otherwise it's easy to get caught
@@ -11,9 +11,8 @@ import io.vertx.example.util.Runner;
  */
 public class SimpleFormUploadServer extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(SimpleFormUploadServer.class);
+    Launcher.executeCommand("run", SimpleFormUploadServer.class.getName());
   }
 
   @Override
@@ -21,7 +20,7 @@ public class SimpleFormUploadServer extends AbstractVerticle {
     vertx.createHttpServer().requestHandler(req -> {
       if (req.uri().equals("/")) {
         // Serve the index page
-        req.response().sendFile("index.html");
+        req.response().sendFile("io/vertx/example/core/http/simpleformupload/index.html");
       } else if (req.uri().startsWith("/form")) {
         req.setExpectMultipart(true);
         req.uploadHandler(upload -> {

@@ -1,20 +1,19 @@
 package io.vertx.example.core.http.proxyconnect;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
-import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Proxy extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Proxy.class);
+    Launcher.executeCommand("run", Proxy.class.getName());
   }
 
   @Override

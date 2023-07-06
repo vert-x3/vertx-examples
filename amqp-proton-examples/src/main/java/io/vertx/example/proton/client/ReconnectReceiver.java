@@ -16,16 +16,15 @@
 package io.vertx.example.proton.client;
 
 
-import java.time.Instant;
-
-import org.apache.qpid.proton.amqp.messaging.AmqpValue;
-
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
-import io.vertx.example.util.Runner;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
 import io.vertx.proton.ProtonReceiver;
+import org.apache.qpid.proton.amqp.messaging.AmqpValue;
+
+import java.time.Instant;
 
 public class ReconnectReceiver extends AbstractVerticle {
 
@@ -33,9 +32,8 @@ public class ReconnectReceiver extends AbstractVerticle {
 
   private ConnectionControl connectionControl = new ConnectionControl("localhost:5672", "localhost:15672");
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ReconnectReceiver.class);
+    Launcher.executeCommand("run", ReconnectReceiver.class.getName());
   }
 
   @Override

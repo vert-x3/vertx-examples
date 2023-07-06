@@ -2,7 +2,7 @@ package io.vertx.example.reactivex.scheduler.interval;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.reactivex.core.AbstractVerticle;
 
 import java.util.concurrent.TimeUnit;
@@ -12,9 +12,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Periodic extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Periodic.class);
+    Launcher.executeCommand("run", Periodic.class.getName());
   }
 
   @Override

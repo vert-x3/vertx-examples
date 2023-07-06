@@ -17,10 +17,10 @@
 package io.vertx.example.web.rest;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -33,9 +33,8 @@ import java.util.Map;
  */
 public class SimpleREST extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(SimpleREST.class);
+    Launcher.executeCommand("run", SimpleREST.class.getName());
   }
 
   private Map<String, JsonObject> products = new HashMap<>();

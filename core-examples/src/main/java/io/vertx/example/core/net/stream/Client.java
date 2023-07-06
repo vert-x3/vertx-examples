@@ -1,11 +1,11 @@
 package io.vertx.example.core.net.stream;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.NetSocket;
-import io.vertx.example.util.Runner;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -15,9 +15,8 @@ import java.util.UUID;
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override

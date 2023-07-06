@@ -1,7 +1,7 @@
 package io.vertx.example.web.auth;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
@@ -12,9 +12,8 @@ import io.vertx.ext.web.sstore.LocalSessionStore;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -33,7 +32,7 @@ public class Server extends AbstractVerticle {
     router.route("/private/*").handler(RedirectAuthHandler.create(authn, "/loginpage.html"));
 
     // Serve the static private pages from directory 'private'
-    router.route("/private/*").handler(StaticHandler.create("private").setCachingEnabled(false));
+    router.route("/private/*").handler(StaticHandler.create("io/vertx/example/web/auth/private").setCachingEnabled(false));
 
     // Handles the actual login
     router.route("/loginhandler").handler(FormLoginHandler.create(authn));
@@ -46,7 +45,7 @@ public class Server extends AbstractVerticle {
     });
 
     // Serve the non private static pages
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create("io/vertx/example/web/auth/webroot"));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

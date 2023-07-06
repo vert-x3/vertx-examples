@@ -1,8 +1,8 @@
 package io.vertx.example.web.chat;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -23,9 +23,8 @@ import java.util.Date;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -43,7 +42,7 @@ public class Server extends AbstractVerticle {
     router.route("/eventbus*").subRouter(ebHandler.bridge(opts));
 
     // Create a router endpoint for the static content.
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create("io/vertx/example/web/chat/webroot"));
 
     // Start the web server and tell it to use the router to handle requests.
     vertx.createHttpServer().requestHandler(router).listen(8080);

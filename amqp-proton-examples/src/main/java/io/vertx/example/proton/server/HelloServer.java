@@ -15,24 +15,23 @@
 */
 package io.vertx.example.proton.server;
 
-import static io.vertx.proton.ProtonHelper.message;
-
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
+import io.vertx.core.Vertx;
+import io.vertx.proton.ProtonConnection;
+import io.vertx.proton.ProtonReceiver;
+import io.vertx.proton.ProtonSender;
+import io.vertx.proton.ProtonServer;
 import org.apache.qpid.proton.amqp.messaging.AmqpValue;
 import org.apache.qpid.proton.amqp.messaging.Section;
 import org.apache.qpid.proton.amqp.transport.AmqpError;
 import org.apache.qpid.proton.amqp.transport.ErrorCondition;
 import org.apache.qpid.proton.message.Message;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Vertx;
-import io.vertx.example.util.Runner;
-import io.vertx.proton.ProtonConnection;
-import io.vertx.proton.ProtonReceiver;
-import io.vertx.proton.ProtonSender;
-import io.vertx.proton.ProtonServer;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static io.vertx.proton.ProtonHelper.message;
 
 /**
  * HelloServer
@@ -45,9 +44,8 @@ public class HelloServer extends AbstractVerticle {
 
   private static final int PORT = 5672;
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(HelloServer.class);
+    Launcher.executeCommand("run", HelloServer.class.getName());
   }
 
   @Override

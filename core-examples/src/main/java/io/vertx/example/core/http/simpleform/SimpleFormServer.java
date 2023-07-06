@@ -1,7 +1,7 @@
 package io.vertx.example.core.http.simpleform;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /*
  * NOTE! It's recommended to use Vert.x-Web for examples like this
@@ -10,9 +10,8 @@ import io.vertx.example.util.Runner;
  */
 public class SimpleFormServer extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(SimpleFormServer.class);
+    Launcher.executeCommand("run", SimpleFormServer.class.getName());
   }
 
   @Override
@@ -20,7 +19,7 @@ public class SimpleFormServer extends AbstractVerticle {
     vertx.createHttpServer().requestHandler(req -> {
       if (req.uri().equals("/")) {
         // Serve the index page
-        req.response().sendFile("index.html");
+        req.response().sendFile("io/vertx/example/core/http/simpleform/index.html");
       } else if (req.uri().startsWith("/form")) {
         req.response().setChunked(true);
         req.setExpectMultipart(true);

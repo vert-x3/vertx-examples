@@ -1,8 +1,8 @@
 package io.vertx.example.web.jwt;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.KeyStoreOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
@@ -16,9 +16,8 @@ import io.vertx.ext.web.handler.StaticHandler;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -30,7 +29,7 @@ public class Server extends AbstractVerticle {
     JWTAuth jwt = JWTAuth.create(vertx, new JWTAuthOptions()
       .setKeyStore(new KeyStoreOptions()
         .setType("jceks")
-        .setPath("keystore.jceks")
+        .setPath("io/vertx/example/web/jwt/keystore.jceks")
         .setPassword("secret")));
 
     router.get("/api/newToken").handler(ctx -> {
@@ -47,8 +46,8 @@ public class Server extends AbstractVerticle {
       ctx.response().end("a secret you should keep for yourself...");
     });
 
-    // Serve the non private static pages
-    router.route().handler(StaticHandler.create());
+    // Serve the non-private static pages
+    router.route().handler(StaticHandler.create("io/vertx/example/web/jwt/webroot"));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

@@ -15,21 +15,18 @@
 */
 package io.vertx.example.proton.client;
 
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
-
 import org.apache.qpid.proton.amqp.messaging.AmqpValue;
-
-import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
 
 public class Receiver extends AbstractVerticle {
 
   private String address = "examples";
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Receiver.class);
+    Launcher.executeCommand("run", Receiver.class.getName());
   }
 
   @Override

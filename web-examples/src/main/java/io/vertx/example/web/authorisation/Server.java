@@ -1,9 +1,9 @@
 package io.vertx.example.web.authorisation;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.KeyStoreOptions;
 import io.vertx.ext.auth.authorization.PermissionBasedAuthorization;
@@ -20,9 +20,8 @@ import io.vertx.ext.web.handler.StaticHandler;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -34,7 +33,7 @@ public class Server extends AbstractVerticle {
     JWTAuth jwt = JWTAuth.create(vertx, new JWTAuthOptions()
       .setKeyStore(new KeyStoreOptions()
         .setType("jceks")
-        .setPath("keystore.jceks")
+        .setPath("io/vertx/example/web/authorisation/keystore.jceks")
         .setPassword("secret")));
 
     // this route is excluded from the auth handler (it represents your login endpoint)
@@ -91,8 +90,8 @@ public class Server extends AbstractVerticle {
       ctx.response().end("this secret is defcon3!");
     });
 
-    // Serve the non private static pages
-    router.route().handler(StaticHandler.create());
+    // Serve the non-private static pages
+    router.route().handler(StaticHandler.create("io/vertx/example/web/authorisation/webroot"));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

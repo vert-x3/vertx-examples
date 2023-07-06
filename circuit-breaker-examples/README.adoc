@@ -39,20 +39,3 @@ To run this example you need to:
 
 1. start or not the server (if not started, the circuit breaker will invoke the fallback)
 2. start the client
-
-
-To start the server, run the `Server.java` class from your IDE or call:
-
-----
-vertx run src/main/java/io/vertx/example/circuit/breaker/Server.java
-----
-
-To start the client, run the `Client.java` class from your IDE or call:
-
-----
-# java version
-vertx run src/main/java/io/vertx/example/circuit/breaker/Client.java
-----
-
-
-

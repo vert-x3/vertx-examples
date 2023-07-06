@@ -1,11 +1,11 @@
 package io.vertx.example.webclient.send.stream;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.file.FileProps;
 import io.vertx.core.file.FileSystem;
 import io.vertx.core.file.OpenOptions;
-import io.vertx.example.util.Runner;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
@@ -15,15 +15,14 @@ import io.vertx.ext.web.client.WebClient;
  */
 public class Client extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Client.class);
+    Launcher.executeCommand("run", Client.class.getName());
   }
 
   @Override
   public void start() throws Exception {
 
-    String filename = "upload.txt";
+    String filename = "io/vertx/example/webclient/send/stream/upload.txt";
     FileSystem fs = vertx.fileSystem();
 
     WebClient client = WebClient.create(vertx);

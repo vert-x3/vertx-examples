@@ -1,16 +1,15 @@
 package io.vertx.example.core.net.stream;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 
 /*
  *  @author <a href="mailto:emad.albloushi@gmail.com">Emad Alblueshi</a>
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override

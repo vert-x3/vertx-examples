@@ -1,74 +1,28 @@
 = Vert.x 4 examples
 
-This repository contains a range of examples so you can get up and running easily with Vert.x. 4
+This repository contains a range of examples, so you can get up and running easily with Vert.x. 4
 
 Vert.x 3 examples can be found here https://github.com/vert-x3/vertx-examples/tree/3.x
 
 == The examples
 
-The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other
-services and features.
+The examples demonstrate how to use all different bits of Vert.x including Vert.x core, Vert.x-Web and various other services and features.
 
 Most of the examples have been written as verticles. For more information on verticles please consult the Vert.x core manual.
 
-Using verticles allows you to scale and run your code from the command line more easily, but if you prefer the same code in the verticles can also be run embedded. It's really up to you. Verticles are
-entirely optional in Vert.x.
+Using verticles allows you to scale and run your code from the command line more easily, but if you prefer the same code in the verticles can also be run embedded.
+It's really up to you.
+Verticles are entirely optional in Vert.x.
 
 === Running the examples
 
 ==== Running in your IDE
 
-Most of the Java examples can be run directly in your IDE (if you have one!).
+Most of the Java examples can be run directly in your IDE.
 
 We provide a `main()` method in most of the example classes which allows you to conveniently run them directly in your IDE.
 
-Just right click the main method or class in your IDE and run as... application (supported by all major IDEs).
-
-==== Running at the command line
-
-If `vertx` is installed you can also run any verticle directly on the command line. This way of working may be of interest
-to you, if you don't want to use Maven or Gradle or perhaps you don't use an IDE.
-
-Or perhaps you're just a command line kind of person.
-
-If you're coming from using other platforms such as Node.js you might want to work this way. You can think of the
-`vertx` command as a bit like the `node` command in Node.js.
-
-Instructions for installing Vert.x are in the next section.
-
-Once Vert.x is installed, to run an example, just cd to the example directory and type `vertx run` followed by the filename
-of the verticle. For example
-
-----
-cd core-examples/src/main/java/io/vertx/example/core
-vertx run EchoServer.java
-
-cd core-examples/src/main/js/echo
-vertx run echo_server.js
-----
-
-Yes! You can run *Java source files* directly using Vert.x (no compilation required).
-
-==== Installing Vert.x
-
-NOTE: This is only necessary if you want to run Vert.x at the command line. If you'd prefer to work with Maven or
-Gradle projects then you don't need to pre-install Vert.x - you just let Maven/Gradle pull in the Vert.x dependencies
-into your project as you would with any dependency.
-
-Pre-requisites: You will need to have Java 8 JDK installed.
-
-1. Download a link:https://bintray.com/vertx/downloads/distribution/view[Vert.x 3 distribution]
-2. Unzip it somewhere on your disk (e.g. in your home directory)
-3. Set your `PATH` environment variable to include the installation directory
-4. Test the install by typing `vertx -version`.
-
-On the download page, you will find several _distributions_. Each distribution has a different set
- of components:
-
-* **Min**: The _min_ distribution contains only Vert.x Core, the support of the different
- languages, and the Hazelcast clustering.
-* **Full**: The _full_ distribution contains all the components of the Vert.x stack. It includes
- Vert.x web and the different data access technologies.
+Just right-click the main method or class in your IDE and run as... application (supported by all major IDEs).
 
 === Vert.x core examples
 
@@ -82,7 +36,7 @@ The link:web-examples/README.adoc[Vert.x-Web examples] contains a wide range of 
 
 === Vert.x Web Client examples
 
-Vert.x Web Client that provides an easy to use web client for Vert.x.
+Vert.x Web Client that provides an easy-to-use web client for Vert.x.
 
 The link:web-client-examples/README.adoc[Vert.x Web Client examples] contains a wide range of examples using the Vert.x Web Client
 
@@ -109,7 +63,7 @@ link:zipkin-examples/README.adoc[Vert.x Zipkin examples] contains a wide range o
 
 === RxJava examples
 
-Vert.x for RxJava provides most of its APIs as RxJava so you can use those if you prefer.
+Vert.x for RxJava provides most of its APIs as RxJava, so you can use those if you prefer.
 
 RxJava is a great choice when you want to perform complex operations on multiple asynchronous streams of data.
 

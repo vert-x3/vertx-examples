@@ -1,11 +1,11 @@
 package io.vertx.examples.service;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.impl.ProcessorServiceImpl;
-import io.vertx.examples.service.utils.Runner;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -23,9 +23,8 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
   MessageConsumer<JsonObject> messageConsumer;
   HttpServer httpServer;
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ProcessorServiceVerticle.class);
+    Launcher.executeCommand("run", ProcessorServiceVerticle.class.getName(), "-cluster");
   }
 
   @Override

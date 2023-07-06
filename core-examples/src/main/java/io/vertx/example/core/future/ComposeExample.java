@@ -2,8 +2,8 @@ package io.vertx.example.core.future;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
-import io.vertx.example.util.Runner;
 
 import java.util.function.Function;
 
@@ -13,7 +13,7 @@ import java.util.function.Function;
 public class ComposeExample extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Runner.runExample(ComposeExample.class);
+    Launcher.executeCommand("run", ComposeExample.class.getName());
   }
 
 

@@ -1,7 +1,9 @@
 package io.vertx.example.shell.prompt;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
+import io.vertx.core.VertxOptions;
+import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
 import io.vertx.ext.shell.ShellServer;
 import io.vertx.ext.shell.command.CommandResolver;
 import io.vertx.ext.shell.term.TelnetTermOptions;
@@ -10,9 +12,14 @@ import io.vertx.ext.shell.term.TermServer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PromptCommand  extends AbstractVerticle {
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(PromptCommand.class);
+    Launcher launcher = new Launcher() {
+      @Override
+      public void beforeStartingVertx(VertxOptions options) {
+        options.setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true));
+      }
+    };
+    launcher.dispatch(new String[]{"run", PromptCommand.class.getName()});
   }
 
   @Override

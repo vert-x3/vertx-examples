@@ -1,6 +1,7 @@
 package io.vertx.examples.redis;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
 import io.vertx.redis.client.Redis;
 import io.vertx.redis.client.RedisAPI;
@@ -12,6 +13,11 @@ import java.util.Arrays;
  * A verticle setting and reading a value in Redis.
  */
 public class RedisClientVerticle extends AbstractVerticle {
+
+
+  public static void main(String[] args) {
+    Launcher.executeCommand("run", RedisClientVerticle.class.getName());
+  }
 
   @Override
   public void start() {

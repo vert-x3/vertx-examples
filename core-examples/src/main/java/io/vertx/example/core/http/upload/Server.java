@@ -1,10 +1,10 @@
 package io.vertx.example.core.http.upload;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.streams.Pump;
-import io.vertx.example.util.Runner;
 
 import java.util.UUID;
 
@@ -13,9 +13,8 @@ import java.util.UUID;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override

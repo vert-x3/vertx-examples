@@ -5,7 +5,7 @@ to a SMTP server either from the local machine or via the event bus on another
 machine.
 
 
-By default these example starts a "fake" mails server (just logging on the console):
+By default, these example starts a "fake" mails server (just logging on the console):
 
 [source]
 ----

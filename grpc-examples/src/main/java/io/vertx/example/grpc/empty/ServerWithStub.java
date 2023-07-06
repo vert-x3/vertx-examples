@@ -2,9 +2,9 @@ package io.vertx.example.grpc.empty;
 
 import io.grpc.stub.StreamObserver;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.example.grpc.EmptyPingPongServiceGrpc;
 import io.vertx.example.grpc.EmptyProtos;
-import io.vertx.example.util.Runner;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServiceBridge;
 
@@ -13,9 +13,8 @@ import io.vertx.grpc.server.GrpcServiceBridge;
  */
 public class ServerWithStub extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(ServerWithStub.class);
+    Launcher.executeCommand("run", ServerWithStub.class.getName());
   }
 
   @Override

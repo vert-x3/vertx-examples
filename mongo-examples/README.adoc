@@ -14,11 +14,5 @@ verticles with the mongo host:
 }
 ----
 
-By default it uses `localhost` as host. The port is set to `27017`.
-
-Once the mongo instance is running, you can launch it using:
-
-----
-# java
-vertx run io.vertx.examples.mongo.MongoClientVerticle -cp target/mongo-examples-4.4.4.jar -conf my-mongo-config.json
-----
+By default, it uses `localhost` as host.
+The port is set to `27017`.

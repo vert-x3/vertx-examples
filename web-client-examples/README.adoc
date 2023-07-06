@@ -8,8 +8,7 @@ documentation on Vert.x Web Client.
 == Logging
 
 When running in an IDE you can edit `src/main/resources/vertx-default-jul-logging.properties` to configure logging.
-Trace logging is enabled for Vert.x Web Client classes so you can easily trace requests as they are routed through different
-handlers.
+Trace logging is enabled for Vert.x Web Client classes, so you can easily trace requests as they are routed through different handlers.
 
 == Dependencies required
 
@@ -146,7 +145,7 @@ link:src/main/java/io/vertx/example/webclient/response/jsonpojo/Client.java[Java
 
 === Receiving a OAUTH2 protected resource
 
-This examples shows how to download a oauth2 protected resource, the example makes use of 2 requests:
+This examples shows how to download an oauth2 protected resource, the example makes use of 2 requests:
 
 * first acquire a OAUTH2 access token
 * get the resource using the token

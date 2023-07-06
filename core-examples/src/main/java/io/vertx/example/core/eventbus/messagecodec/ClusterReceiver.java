@@ -1,10 +1,10 @@
 package io.vertx.example.core.eventbus.messagecodec;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.example.core.eventbus.messagecodec.util.CustomMessage;
 import io.vertx.example.core.eventbus.messagecodec.util.CustomMessageCodec;
-import io.vertx.example.util.Runner;
 
 /**
  * Cluster receiver
@@ -12,7 +12,7 @@ import io.vertx.example.util.Runner;
  */
 public class ClusterReceiver extends AbstractVerticle {
   public static void main(String[] args) {
-    Runner.runClusteredExample(ClusterReceiver.class);
+    Launcher.executeCommand("run", ClusterReceiver.class.getName(), "-cluster");
   }
 
   @Override

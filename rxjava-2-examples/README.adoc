@@ -1,16 +1,16 @@
 = Vert.x RxJava2 extension examples
 
-**IMPORTANT**: These examples use the RX Java 2 API. If you are interested by RX Java 1, check the `rxjava-1-examples`
+**IMPORTANT**: These examples use the RX Java 2 API.
+If you are interested in RX Java 1, check the `rxjava-1-examples`
 module.
 
 Here you will find examples demonstrating Vert.x RxJava2 extension in action.
 
-Vert.x RxJava 2 extension provides Rxified version of the Vert.x APIs. Please consult the Vert.x RxJava manual
-for detailed documentation on Vert.x core.
+Vert.x RxJava 2 extension provides Rxified version of the Vert.x APIs.Please consult the Vert.x RxJava manual for detailed documentation on Vert.x core.
 
 == RxJava Web client examples
 
-These examples shows the Rxified HTTP api.
+These examples show the Rxified HTTP api.
 
 === Simple
 
@@ -46,27 +46,22 @@ link:src/main/java/io/vertx/example/reactivex/web/realtime/Server.java[RxJava 2 
 
 SocksJS gives a WebSocket-like API in client side JavaScript even if the browser or network doesn't support WebSockets.
 
-This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server
-and client and you're probably rendering the user interface on the client side.
+This is ideal for so-called _real-time_ web applications where you want quick, responsive communication between server and client, and you're probably rendering the user interface on the client side.
 
-Run the server either in your IDE or on the command line, then open your browser and hit
-link:http://localhost:8080
+Run the server in your IDE, then open your browser and hit link:http://localhost:8080
 
-This serves the link:src/main/java/io/vertx/example/reactivex/web/realtime/webroot/index.html[index page] which contains
-some JavaScript which opens an event bus connection to the server.
+This serves the link:src/main/resources/webroot/index.html[index page] which contains some JavaScript which opens an event bus connection to the server.
 
-When the connection is open, a SockJS connection is opened on the `/news-feed` uri. When data
-arrives in the handler the script just uses some simple JQuery to write the message to the page.
+When the connection is open, a SockJS connection is opened on the `/news-feed` uri.
+When data arrives in the handler the script just uses some simple JQuery to write the message to the page.
 
-On the server side, in the link:src/main/java/io/vertx/example/reactivex/web/realtime/Server.java[server] when a SockJS
-connection arrives, we subscribe to an `Flowable<String>` (that is created from the EventBus, but it would be
-another source of data) and send to the browser the observed items.
+On the server side, in the link:src/main/java/io/vertx/example/reactivex/web/realtime/Server.java[server] when a SockJS connection arrives, we subscribe to an `Flowable<String>` (that is created from the EventBus, but it would be another source of data) and send to the browser the observed items.
 
 When you get the index page in your browser you should see it update every second as it receives a message.
 
 == RxJava 2 Http examples
 
-These examples shows the Rxified HTTP api.
+These examples show the Rxified HTTP api.
 
 === Simple
 
@@ -95,7 +90,7 @@ link:src/main/java/io/vertx/example/reactivex/http/client/reduce/Client.java[RxJ
 === Zip
 
 A variation of the _simple_ example with two client requests mapped to an `Flowable<JsonObject>`
- and then _zipped_ in a single json object.
+and then _zipped_ in a single json object.
 
 The main interest is to get the final result when the two responses are delivered.
 
@@ -103,8 +98,7 @@ link:src/main/java/io/vertx/example/reactivex/http/client/zip/Client.java[RxJava
 
 === Unmarshalling
 
-The http client json response is unmarshalled to a Java object: the `RxHelper.unmarshaller` static method
- creates an Rx operator applied to the response via the `lift`.
+The http client json response is unmarshalled to a Java object: the `RxHelper.unmarshaller` static method creates a Rx operator applied to the response via the `lift`.
 
 link:src/main/java/io/vertx/example/reactivex/http/client/unmarshalling/Client.java[RxJava 2 unmarshalling HTTP client]
 
@@ -114,7 +108,7 @@ The event bus provides a natural fit with the Rx api.
 
 === Publish / Subscribe
 
-A reinterpreation of the core publish / subscribe example with the subscriber using the Rx api.
+A reinterpretation of the core publish / subscribe example with the subscriber using the Rx api.
 
 link:src/main/java/io/vertx/example/reactivex/eventbus/pubsub/Receiver.java[RxJava 2 event bus pubsub receiver]
 link:src/main/java/io/vertx/example/reactivex/eventbus/pubsub/Sender.java[RxJava 2 event bus pubsub sender]
@@ -144,8 +138,7 @@ link:src/main/java/io/vertx/example/reactivex/database/sqlclient/Client.java[RxJ
 
 === SQL client Transaction Handling
 
-An example showing an Rxified SQL client api to handle simplified transaction that commits if all succeeded or rollback with
-exception propagation to the caller in case of anyone failed.
+An example showing a Rxified SQL client api to handle simplified transaction that commits if all succeeded or rollback with exception propagation to the caller in case of anyone failed.
 
 link:src/main/java/io/vertx/example/reactivex/database/sqlclient/Transaction.java[RxJava SQL transaction]
 
@@ -163,14 +156,13 @@ Vertx for RxJava provides schedulers for performing delayed, periodic actions.
 
 === Periodic events
 
-RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1 second periodic flowable scheduled on Vertx event loop.
+RxJava timer can use Vertx scheduler for scheduling actions on the event loop, this example shows a 1-second periodic flowable scheduled on Vertx event loop.
 
 link:src/main/java/io/vertx/example/reactivex/scheduler/interval/Periodic.java[Periodic scheduled action]
 
 === Blocking action example
 
-When an Flowable operation is blocking, a blocking Vertx scheduler can be used to perform the action, this
-examples shows how blocking operation can be scheduled on Vert.x
+When a Flowable operation is blocking, a blocking Vertx scheduler can be used to perform the action, this examples shows how blocking operation can be scheduled on Vert.x
 
 link:src/main/java/io/vertx/example/reactivex/scheduler/blocking/Scheduled.java[Blocking scheduled action]
 link:src/main/java/io/vertx/example/reactivex/scheduler/blocking/Scheduled.java[Blocking scheduled action]

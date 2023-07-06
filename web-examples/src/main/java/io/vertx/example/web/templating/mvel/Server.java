@@ -17,20 +17,21 @@
 package io.vertx.example.web.templating.mvel;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.util.Runner;
+import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.TemplateHandler;
 import io.vertx.ext.web.templ.mvel.MVELTemplateEngine;
+
+import static io.vertx.ext.web.handler.TemplateHandler.DEFAULT_CONTENT_TYPE;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
@@ -39,16 +40,19 @@ public class Server extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     // Serve the dynamic pages
+    MVELTemplateEngine templateEngine = MVELTemplateEngine.create(vertx);
+    TemplateHandler templateHandler = TemplateHandler.create(templateEngine, "io/vertx/example/web/templating/mvel/templates", DEFAULT_CONTENT_TYPE);
+
     router.route("/dynamic/*")
       .handler(ctx -> {
         // put the context into the template render context
         ctx.put("context", ctx);
         ctx.next();
       })
-      .handler(TemplateHandler.create(MVELTemplateEngine.create(vertx)));
+      .handler(templateHandler);
 
     // Serve the static pages
-    router.route().handler(StaticHandler.create());
+    router.route().handler(StaticHandler.create("io/vertx/example/web/templating/mvel/webroot"));
 
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

@@ -1,32 +1,33 @@
 package io.vertx.example.core.http2.push;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.net.PemKeyCertOptions;
-import io.vertx.example.util.Runner;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runExample(Server.class);
+    Launcher.executeCommand("run", Server.class.getName());
   }
 
   @Override
   public void start() throws Exception {
 
     HttpServer server =
-      vertx.createHttpServer(new HttpServerOptions().
-          setUseAlpn(true).
-          setSsl(true).
-          setPemKeyCertOptions(new PemKeyCertOptions().setKeyPath("server-key.pem").setCertPath("server-cert.pem")
-      ));
+      vertx.createHttpServer(new HttpServerOptions()
+        .setUseAlpn(true)
+        .setSsl(true)
+        .setPemKeyCertOptions(new PemKeyCertOptions()
+          .setKeyPath("io/vertx/example/core/http2/push/server-key.pem")
+          .setCertPath("io/vertx/example/core/http2/push/server-cert.pem")
+        ));
 
     server.requestHandler(req -> {
       String path = req.path();
@@ -36,15 +37,15 @@ public class Server extends AbstractVerticle {
           if (ar.succeeded()) {
             System.out.println("sending push");
             HttpServerResponse pushedResp = ar.result();
-            pushedResp.sendFile("script.js");
+            pushedResp.sendFile("io/vertx/example/core/http2/push/script.js");
           } else {
             // Sometimes Safari forbids push : "Server push not allowed to opposite endpoint."
           }
         });
 
-        resp.sendFile("index.html");
+        resp.sendFile("io/vertx/example/core/http2/push/index.html");
       } else if ("/script.js".equals(path)) {
-        resp.sendFile("script.js");
+        resp.sendFile("io/vertx/example/core/http2/push/script.js");
       } else {
         System.out.println("Not found " + path);
         resp.setStatusCode(404).end();

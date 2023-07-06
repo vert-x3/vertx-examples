@@ -1,17 +1,16 @@
 package io.vertx.example.rxjava3.services.serviceproxy;
 
 import io.reactivex.rxjava3.core.Single;
+import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
-import io.vertx.example.util.Runner;
 import io.vertx.rxjava3.core.AbstractVerticle;
 
 public class ServiceConsumerVerticle extends AbstractVerticle {
   // In order to use Rx-ified methods, you need to declare the service in Rx-style.
   io.vertx.example.rxjava3.services.serviceproxy.rxjava3.SomeDatabaseService someDatabaseService;
 
-  // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Runner.runClusteredExample(ServiceConsumerVerticle.class);
+    Launcher.executeCommand("run", ServiceConsumerVerticle.class.getName(), "-cluster");
   }
 
   @Override
