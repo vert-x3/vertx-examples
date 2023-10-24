@@ -3,6 +3,7 @@ package io.vertx.example.core.verticle.deploy;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Launcher;
+import io.vertx.core.ThreadingModel;
 import io.vertx.core.json.JsonObject;
 
 /*
@@ -57,7 +58,7 @@ public class DeployExample extends AbstractVerticle {
     vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", new DeploymentOptions().setInstances(10));
 
     // Deploy it as a worker verticle
-    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", new DeploymentOptions().setWorker(true));
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", new DeploymentOptions().setThreadingModel(ThreadingModel.WORKER));
 
 
   }
