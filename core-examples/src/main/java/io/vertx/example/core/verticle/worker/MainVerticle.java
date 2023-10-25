@@ -3,6 +3,7 @@ package io.vertx.example.core.verticle.worker;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Launcher;
+import io.vertx.core.ThreadingModel;
 
 /**
  * An example illustrating how worker verticles can be deployed and how to interact with them.
@@ -21,7 +22,7 @@ public class MainVerticle extends AbstractVerticle {
     System.out.println("[Main] Running in " + Thread.currentThread().getName());
     vertx
       .deployVerticle("io.vertx.example.core.verticle.worker.WorkerVerticle",
-        new DeploymentOptions().setWorker(true));
+        new DeploymentOptions().setThreadingModel(ThreadingModel.WORKER));
 
     vertx.eventBus().request(
       "sample.data",

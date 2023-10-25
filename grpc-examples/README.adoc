@@ -106,24 +106,3 @@ The gRPC client creates an instance of the `VertxGreeterGrpc.newVertxStub` gener
 then use it to invoke the service.
 
 You can run the server and then run the client.
-
-== Route Guide example
-
-This example is adapted from the https://github.com/grpc/grpc-java/tree/master/examples[gRPC examples].
-
-This example shows the various kind of gRPC service calls:
-
-- simple RPC
-- server-side streaming RPC
-- client-side streaming RPC
-- bidirectional streaming RPC
-
-link:src/main/java/io/vertx/example/grpc/routeguide/Server.java[gRPC server example]
-link:src/main/java/io/vertx/example/grpc/routeguide/ServerWithStub.java[gRPC server stub example]
-link:src/main/java/io/vertx/example/grpc/routeguide/Client.java[gRPC client example]
-link:src/main/java/io/vertx/example/grpc/routeguide/ClientWithStub.java[gRPC client stub example]
-
-You can run the server and then run the client.
-
-You can read more about it on the http://www.grpc.io/docs/tutorials/basic/java.html[gRPC website]
-

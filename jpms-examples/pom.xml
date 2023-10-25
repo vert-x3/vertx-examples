@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>jpms-examples</artifactId>
-  <version>4.4.4</version>
+  <version>4.5.0-SNAPSHOT</version>
 
   <dependencies>
 
