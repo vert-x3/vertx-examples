@@ -1,14 +1,11 @@
 package io.vertx.example.virtualthreads.core;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Vertx;
+import io.vertx.core.*;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.*;
-import io.vertx.virtualthreads.await.VirtualThreadOptions;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import static io.vertx.virtualthreads.await.Async.await;
+import static io.vertx.core.Future.await;
 
 public class SqlClientExample extends AbstractVerticle {
 
@@ -25,8 +22,7 @@ public class SqlClientExample extends AbstractVerticle {
             .setPassword(container.getPassword());
           return new SqlClientExample(Pool.pool(vertx, connectOptions, new PoolOptions().setMaxSize(4)));
         }, new DeploymentOptions()
-          .setWorker(true)
-          .setWorkerOptions(new VirtualThreadOptions()))
+          .setThreadingModel(ThreadingModel.VIRTUAL_THREAD))
         .toCompletionStage()
         .toCompletableFuture()
         .get();

@@ -2,23 +2,22 @@ package io.vertx.example.virtualthreads.core;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
+import io.vertx.core.ThreadingModel;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.*;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
-import io.vertx.virtualthreads.await.VirtualThreadOptions;
 
-import static io.vertx.virtualthreads.await.Async.await;
+import static io.vertx.core.Future.await;
 
 public class WebClientExample extends AbstractVerticle {
 
   public static void main(String[] args) throws Exception {
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(WebClientExample.class, new DeploymentOptions()
-        .setWorker(true)
-        .setWorkerOptions(new VirtualThreadOptions()))
+        .setThreadingModel(ThreadingModel.VIRTUAL_THREAD))
       .toCompletionStage()
       .toCompletableFuture()
       .get();

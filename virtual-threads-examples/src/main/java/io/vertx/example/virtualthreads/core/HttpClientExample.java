@@ -1,22 +1,16 @@
 package io.vertx.example.virtualthreads.core;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Launcher;
-import io.vertx.core.Vertx;
+import io.vertx.core.*;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.*;
-import io.vertx.virtualthreads.await.VirtualThreadOptions;
 
-import static io.vertx.virtualthreads.await.Async.await;
+import static io.vertx.core.Future.await;
 
 public class HttpClientExample extends AbstractVerticle {
 
   public static void main(String[] args) throws Exception {
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(HttpClientExample.class, new DeploymentOptions()
-        .setWorker(true)
-        .setWorkerOptions(new VirtualThreadOptions()))
+    vertx.deployVerticle(HttpClientExample.class, new DeploymentOptions().setThreadingModel(ThreadingModel.VIRTUAL_THREAD))
       .toCompletionStage()
       .toCompletableFuture()
       .get();
