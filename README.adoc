@@ -47,6 +47,12 @@ your Vert.x (or other asynchronous) applications.
 
 The link:unit-examples/README.adoc[Vert.x Unit examples] shows how to use Vert.x Unit.
 
+=== Virtual Threads
+
+The `virtual-threads-examples` module shows how to use Vert.x with virtual threads.
+
+See link:virtual-threads-examples/README.adoc[Vert.x Virtual Threads 5 examples].
+
 === Vert.x JUnit 5 examples
 
 The `vertx-junit5` modules allow testing Vert.x asynchronous operations with JUnit 5.
