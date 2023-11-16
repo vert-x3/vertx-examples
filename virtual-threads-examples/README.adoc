@@ -1,0 +1,55 @@
+= Vert.x virtual threads examples
+
+Here you will find examples demonstrating the usage of the virtual threads with Vert.x.
+
+This requires to use Java 21.
+
+== HTTP client
+
+This example shows the how to use the Vert.x HTTP client with Vert.x virtual threads
+
+* link:src/main/java/io/vertx/example/virtualthreads/HttpClientExample.java[HttpClientExample.java]
+
+== Web client
+
+This example shows the how to use the Vert.x Web client with Vert.x virtual threads
+
+* link:src/main/java/io/vertx/example/virtualthreads/WebClientExample.java[WebClientExample.java]
+
+== SQL client
+
+This example shows the how to use the Vert.x SQL client with Vert.x virtual threads
+
+* link:src/main/java/io/vertx/example/virtualthreads/SqlClientExample.java[SqlClientExample.java]
+
+== Movie rating application
+
+A movie rating REST application demonstrating the use of Vert.x virtual threads.
+
+* link:src/main/java/io/vertx/example/virtualthreads/MovieRatingService.java[MovieRatingService.java]
+
+
+The application exposes a REST API for rating your favorite movies:
+
+You can know more about a movie
+
+[source]
+----
+> curl http://localhost:8080/movie/starwars
+{"id":"starwars","title":"Star Wars"}
+----
+
+You can get the current rating of a movie:
+
+[source]
+----
+> curl http://localhost:8080/getRating/indianajones
+{"id":"indianajones","rating":5}
+----
+
+Finally, you can rate a movie
+
+[source]
+----
+> curl -X POST http://localhost:8080/rateMovie/starwars?rating=4
+----

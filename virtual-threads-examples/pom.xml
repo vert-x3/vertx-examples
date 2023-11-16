@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.vertx</groupId>
-  <artifactId>rxjava-3-examples</artifactId>
+  <artifactId>virtual-threads-examples</artifactId>
   <version>4.5.0</version>
 
   <dependencies>
@@ -14,7 +14,11 @@
       <artifactId>vertx-core</artifactId>
       <version>${project.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
@@ -22,32 +26,9 @@
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-client</artifactId>
+      <artifactId>vertx-pg-client</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-hazelcast</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-gen</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-java3-gen</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-java3</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-jdbc-client</artifactId>
@@ -58,34 +39,10 @@
       <artifactId>hsqldb</artifactId>
       <version>2.3.4</version>
     </dependency>
-
     <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-mongo-client</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-service-factory</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-service-proxy</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codegen</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>1.19.1</version>
     </dependency>
 
   </dependencies>
@@ -98,17 +55,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.1</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            <annotationProcessors>
-              <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
-            </annotationProcessors>
-            <generatedSourcesDirectory>
-              ${project.basedir}/src/main/generated
-            </generatedSourcesDirectory>
-            <compilerArgs>
-              <arg>-AoutputDirectory=${project.basedir}/src/main</arg>
-            </compilerArgs>
+            <source>21</source>
+            <target>21</target>
           </configuration>
         </plugin>
       </plugins>

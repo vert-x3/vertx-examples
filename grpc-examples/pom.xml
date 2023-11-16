@@ -6,11 +6,11 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>grpc-examples</artifactId>
-  <version>4.4.4</version>
+  <version>4.5.0</version>
 
   <properties>
-    <grpc.version>1.44.0</grpc.version>
-    <protoc.version>3.19.2</protoc.version>
+    <protoc.version>3.21.12</protoc.version>
+    <grpc.version>1.50.2</grpc.version>
   </properties>
 
   <dependencies>
@@ -33,14 +33,21 @@
     </dependency>
 
     <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java-util</artifactId>
-      <version>3.5.1</version>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-protobuf</artifactId>
+      <version>${grpc.version}</version>
       <exclusions>
         <exclusion>
-          <!-- 19.0 ??? 20.0 is required -->
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.errorprone</groupId>
+          <artifactId>error_prone_annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>animal-sniffer-annotations</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -92,9 +99,9 @@
             protobuf-java directly, you will be transitively depending on the
             protobuf-java version that grpc depends on.
           -->
-          <protocArtifact>com.google.protobuf:protoc:3.2.0:exe:${os.detected.classifier}</protocArtifact>
+          <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
           <pluginId>grpc-java</pluginId>
-          <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.25.0:exe:${os.detected.classifier}</pluginArtifact>
+          <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
           <protocPlugins>
             <protocPlugin>
               <id>vertx-grpc-protoc-plugin</id>

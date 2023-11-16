@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>opentracing-examples</artifactId>
-  <version>4.4.4</version>
+  <version>4.5.0</version>
 
   <dependencies>
 
@@ -44,7 +44,7 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>postgresql</artifactId>
-      <version>1.12.4</version>
+      <version>1.19.1</version>
     </dependency>
 
   </dependencies>

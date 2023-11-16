@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>4.4.4</version>
+  <version>4.5.0</version>
 
   <modules>
     <module>core-examples</module>
@@ -54,6 +54,16 @@
       </activation>
       <modules>
         <module>jpms-examples</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>virtual-threads</id>
+      <activation>
+        <jdk>[21,)</jdk>
+      </activation>
+      <modules>
+        <module>virtual-threads-examples</module>
       </modules>
     </profile>
 
