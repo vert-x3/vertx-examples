@@ -43,7 +43,6 @@
     <module>web-api-service-example</module>
     <module>cassandra-examples</module>
     <module>web-graphql-examples</module>
-    <module>virtual-threads-examples</module>
   </modules>
 
   <profiles>
@@ -55,6 +54,16 @@
       </activation>
       <modules>
         <module>jpms-examples</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>virtual-threads</id>
+      <activation>
+        <jdk>[21,)</jdk>
+      </activation>
+      <modules>
+        <module>virtual-threads-examples</module>
       </modules>
     </profile>
 
