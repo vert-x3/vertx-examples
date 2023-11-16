@@ -18,18 +18,18 @@ public class HttpClientExample extends AbstractVerticle {
 
   @Override
   public void start() {
-    HttpServer server = vertx.createHttpServer();
+    var server = vertx.createHttpServer();
     server.requestHandler(request -> {
       request.response().end("Hello World");
     });
     await(server.listen(8080, "localhost"));
 
     // Make a simple HTTP request
-    HttpClient client = vertx.createHttpClient();
-    HttpClientRequest req = await(client.request(HttpMethod.GET, 8080, "localhost", "/"));
-    HttpClientResponse resp = await(req.send());
-    int status = resp.statusCode();
-    Buffer body = await(resp.body());
+    var client = vertx.createHttpClient();
+    var req = await(client.request(HttpMethod.GET, 8080, "localhost", "/"));
+    var resp = await(req.send());
+    var status = resp.statusCode();
+    var body = await(resp.body());
     System.out.println("Got response status=" + status + " body='" + body + "'");
   }
 }

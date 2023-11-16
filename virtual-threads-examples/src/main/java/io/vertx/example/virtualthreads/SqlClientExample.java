@@ -10,8 +10,8 @@ import static io.vertx.core.Future.await;
 public class SqlClientExample extends AbstractVerticle {
 
   public static void main(String[] args) throws Exception {
-    Vertx vertx = Vertx.vertx();
-    try (PostgreSQLContainer<?> container = new PostgreSQLContainer<>()) {
+    var vertx = Vertx.vertx();
+    try (var container = new PostgreSQLContainer<>()) {
       container.start();
       vertx.deployVerticle(() -> {
           PgConnectOptions connectOptions = new PgConnectOptions()
@@ -42,7 +42,7 @@ public class SqlClientExample extends AbstractVerticle {
     // insert some test data
     await(pool.query("insert into test values (1, 'Hello'), (2, 'World')").execute());
     // query some data
-    RowSet<Row> rows = await(pool.query("select * from test").execute());
+    var rows = await(pool.query("select * from test").execute());
     for (Row row : rows) {
       System.out.println("row = " + row.toJson());
     }
