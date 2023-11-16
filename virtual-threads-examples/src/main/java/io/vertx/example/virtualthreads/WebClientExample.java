@@ -1,4 +1,4 @@
-package io.vertx.example.virtualthreads.core;
+package io.vertx.example.virtualthreads;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;

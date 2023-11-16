@@ -2,3 +2,21 @@
 
 Here you will find examples demonstrating the usage of the virtual threads with Vert.x.
 
+== HTTP client
+
+This example shows the how to use the Vert.x HTTP client with Vert.x virtual threads
+
+* link:src/main/java/io/vertx/example/virtualthreads/HttpClientExample.java[HttpClientExample.java]
+
+== Web client
+
+This example shows the how to use the Vert.x Web client with Vert.x virtual threads
+
+* link:src/main/java/io/vertx/example/virtualthreads/WebClientExample.java[WebClientExample.java]
+
+== SQL client
+
+This example shows the how to use the Vert.x SQL client with Vert.x virtual threads
+
+* link:src/main/java/io/vertx/example/virtualthreads/SqlClientExample.java[SqlClientExample.java]
+
