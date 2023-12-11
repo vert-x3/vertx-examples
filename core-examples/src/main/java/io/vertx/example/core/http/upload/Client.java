@@ -26,7 +26,6 @@ public class Client extends AbstractVerticle {
         String filename = "io/vertx/example/core/http/upload/upload.txt";
         FileSystem fs = vertx.fileSystem();
         return fs.props(filename).compose(props -> {
-          System.out.println("props is " + props);
           long size = props.size();
           req.headers().set("content-length", "" + size);
           return fs.open(filename, new OpenOptions());

@@ -135,10 +135,10 @@ crafted URI paths.
 
 === Http request body upload
 
-This examples demonstrates an HTTP server receiving a request and pumping the request body to a file on disk without
+This examples demonstrates an HTTP server receiving a request and piping the request body to a file on disk without
 ever storing the entire request body fully in memory.
 
-There's also a client which sends a request to the server and pumps a file from disk to the HTTP request body. The file
+There's also a client which sends a request to the server and pipes a file from disk to the HTTP request body. The file
 is uploaded successfully even if the file is very large (GigaBytes).
 
 link:src/main/java/io/vertx/example/core/http/upload/Server.java[Java upload server example]

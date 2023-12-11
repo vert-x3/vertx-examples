@@ -4,7 +4,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.NetServerOptions;
-import io.vertx.core.streams.Pump;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -26,8 +25,8 @@ public class Server extends AbstractVerticle {
 
     vertx.createNetServer(options).connectHandler(sock -> {
 
-      // Create a pump
-      Pump.pump(sock, sock).start();
+      // Create a pipe
+      sock.pipeTo(sock);
 
     }).listen(1234);
 

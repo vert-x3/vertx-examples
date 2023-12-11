@@ -114,7 +114,7 @@ link:src/main/java/io/vertx/example/webclient/send/multipartform/Client.java[Jav
 
 This examples shows how to send a vertx read stream with the web client.
 
-The web client takes care of setting up the pump between the read stream and the http client request.
+The web client takes care of setting up the pipe between the read stream and the http client request.
 
 First you need to run the server then you can run the client.
 
