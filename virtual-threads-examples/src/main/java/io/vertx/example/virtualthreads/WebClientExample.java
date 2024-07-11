@@ -4,11 +4,8 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.ThreadingModel;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.*;
-import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 
 import static io.vertx.core.Future.await;
 
@@ -35,8 +32,8 @@ public class WebClientExample extends AbstractVerticle {
     var client = WebClient.create(vertx);
     var resp = await(client
       .get(8080, "localhost", "/")
-      .expect(ResponsePredicate.SC_OK)
-      .send());
+      .send()
+      .expecting(HttpResponseExpectation.SC_OK));
     var status = resp.statusCode();
     var body = resp.body();
     System.out.println("Got response status=" + status + " body='" + body + "'");

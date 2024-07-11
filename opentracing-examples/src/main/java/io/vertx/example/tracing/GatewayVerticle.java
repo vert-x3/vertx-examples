@@ -1,8 +1,11 @@
 package io.vertx.example.tracing;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
+
+import static io.vertx.core.http.HttpResponseExpectation.*;
 
 public class GatewayVerticle extends AbstractVerticle {
 
@@ -13,7 +16,8 @@ public class GatewayVerticle extends AbstractVerticle {
       switch (req.path()) {
         case "/hello":
           client.get(8081, "localhost", "/")
-            .expect(ResponsePredicate.SC_OK).send()
+            .send()
+            .expecting(SC_OK)
             .onSuccess(resp -> req.response().end(resp.body()))
             .onFailure(failure -> {
               failure.printStackTrace();
@@ -22,7 +26,8 @@ public class GatewayVerticle extends AbstractVerticle {
           break;
         case "/joke":
           client.get(8082, "localhost", "/")
-            .expect(ResponsePredicate.SC_OK).send()
+            .send()
+            .expecting(SC_OK)
             .onSuccess(resp -> req.response().end(resp.body()))
             .onFailure(failure -> {
               failure.printStackTrace();

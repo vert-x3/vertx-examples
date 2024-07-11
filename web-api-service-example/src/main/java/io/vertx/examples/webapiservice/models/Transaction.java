@@ -2,6 +2,7 @@ package io.vertx.examples.webapiservice.models;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.annotations.Fluent;
+import io.vertx.codegen.json.annotations.JsonGen;
 import io.vertx.core.json.JsonObject;
 
 /**
@@ -9,7 +10,8 @@ import io.vertx.core.json.JsonObject;
  *
  * @author slinkydeveloper
  */
-@DataObject(generateConverter = true, publicConverter = false)
+@DataObject
+@JsonGen
 public class Transaction {
 
   private String id;

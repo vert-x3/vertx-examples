@@ -1,8 +1,10 @@
 package io.vertx.example.tracing;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.ext.web.client.WebClient;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
+
+import static io.vertx.core.http.HttpResponseExpectation.*;
 
 public class HelloVerticle extends AbstractVerticle {
 
@@ -14,9 +16,8 @@ public class HelloVerticle extends AbstractVerticle {
     vertx.createHttpServer().requestHandler(req -> {
       client
         .get(8082, "localhost", "/")
-        .expect(ResponsePredicate.SC_OK)
-        .expect(ResponsePredicate.contentType("text/plain"))
         .send()
+        .expecting(SC_OK.and(contentType("text/plain")))
         .onSuccess(resp -> {
           req.response().end("Hello, here is a joke for you \"" + resp.bodyAsString() + "\"");
         })

@@ -25,7 +25,7 @@ public class ClientWithStub extends AbstractVerticle {
     HttpClientOptions options = new HttpClientOptions()
       .setSsl(true)
       .setUseAlpn(true)
-      .setTrustStoreOptions(new JksOptions()
+      .setTrustOptions(new JksOptions()
         .setPath("tls/client-truststore.jks")
         .setPassword("wibble"));
     GrpcClient client = GrpcClient.client(vertx, options);

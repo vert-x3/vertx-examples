@@ -2,6 +2,7 @@ package io.vertx.example.sqlclient.template_mapping;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.format.SnakeCase;
+import io.vertx.codegen.json.annotations.JsonGen;
 import io.vertx.core.json.JsonObject;
 import io.vertx.sqlclient.templates.annotations.ParametersMapped;
 import io.vertx.sqlclient.templates.annotations.RowMapped;
@@ -9,7 +10,8 @@ import io.vertx.sqlclient.templates.annotations.RowMapped;
 /**
  * Vert.x data object generating a SQL templates mapper
  */
-@DataObject(generateConverter = true)
+@DataObject
+@JsonGen
 @RowMapped(formatter = SnakeCase.class)
 @ParametersMapped(formatter = SnakeCase.class)
 public class User {

@@ -21,7 +21,7 @@ public class ExecBlockingExample extends AbstractVerticle {
       // request. We can't do this directly or it will block the event loop
       // But you can do this using executeBlocking:
 
-      vertx.<String>executeBlocking(promise -> {
+      vertx.<String>executeBlocking(() -> {
 
         // Do the blocking operation in here
 
@@ -30,20 +30,14 @@ public class ExecBlockingExample extends AbstractVerticle {
           Thread.sleep(500);
         } catch (Exception ignore) {
         }
-        String result = "armadillos!";
 
-        promise.complete(result);
-
-      }, res -> {
-
-        if (res.succeeded()) {
-
-          request.response().putHeader("content-type", "text/plain").end(res.result());
-
-        } else {
-          res.cause().printStackTrace();
-        }
-      });
+        return "armadillos!";
+      })
+        .onSuccess(res -> request
+          .response()
+          .putHeader("content-type", "text/plain")
+          .end(res))
+        .onFailure(Throwable::printStackTrace);
 
     }).listen(8080);
 

@@ -19,7 +19,7 @@ public class Server extends AbstractVerticle {
   public void start() throws Exception {
 
     HttpServer server =
-      vertx.createHttpServer(new HttpServerOptions().setSsl(true).setKeyStoreOptions(
+      vertx.createHttpServer(new HttpServerOptions().setSsl(true).setKeyCertOptions(
         new JksOptions().setPath("io/vertx/example/core/http/https/server-keystore.jks").setPassword("wibble")
       ));
 

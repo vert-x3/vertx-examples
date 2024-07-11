@@ -19,7 +19,7 @@ public class Server extends AbstractVerticle {
 
     NetServerOptions options = new NetServerOptions()
       .setSsl(true)
-      .setKeyStoreOptions(new JksOptions()
+      .setKeyCertOptions(new JksOptions()
         .setPath("io/vertx/example/core/net/echossl/server-keystore.jks")
         .setPassword("wibble"));
 

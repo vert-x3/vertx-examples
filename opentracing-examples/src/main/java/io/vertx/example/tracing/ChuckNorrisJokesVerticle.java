@@ -3,8 +3,9 @@ package io.vertx.example.tracing;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
+import io.vertx.pgclient.PgBuilder;
 import io.vertx.pgclient.PgConnectOptions;
-import io.vertx.pgclient.PgPool;
+import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.Tuple;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class ChuckNorrisJokesVerticle extends AbstractVerticle {
 
-  private PgConnectOptions options;
-  private PgPool pool;
+  private final PgConnectOptions options;
+  private Pool pool;
 
   public ChuckNorrisJokesVerticle(PgConnectOptions options) {
     this.options = options;
@@ -24,7 +25,11 @@ public class ChuckNorrisJokesVerticle extends AbstractVerticle {
   @Override
   public void start(Promise<Void> startPromise) {
 
-    pool = PgPool.pool(vertx, options, new PoolOptions().setMaxSize(5));
+    pool = PgBuilder.pool()
+      .with(new PoolOptions().setMaxSize(5))
+      .connectingTo(options)
+      .using(vertx)
+      .build();
 
     pool.query("create table jokes(joke varchar(255))").execute()
       .compose(v -> vertx.fileSystem().readFile("jokes.json"))

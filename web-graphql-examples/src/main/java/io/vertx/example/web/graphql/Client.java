@@ -5,8 +5,10 @@ import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.WebClientOptions;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.codec.BodyCodec;
+
+import static io.vertx.core.http.HttpResponseExpectation.JSON;
+import static io.vertx.core.http.HttpResponseExpectation.SC_OK;
 
 public class Client extends AbstractVerticle {
 
@@ -23,10 +25,10 @@ public class Client extends AbstractVerticle {
       .put("variables", new JsonObject().put("secure", true));
 
     webClient.post("/graphql")
-      .expect(ResponsePredicate.SC_OK)
-      .expect(ResponsePredicate.JSON)
       .as(BodyCodec.jsonObject())
-      .sendJsonObject(request, ar -> {
+      .sendJsonObject(request)
+      .expecting(SC_OK.and(JSON))
+      .onComplete(ar -> {
 
         if (ar.succeeded()) {
           JsonObject response = ar.result().body();

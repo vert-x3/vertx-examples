@@ -18,8 +18,8 @@ public class Sender extends AbstractVerticle {
       public void beforeStartingVertx(VertxOptions options) {
         options.setEventBusOptions(new EventBusOptions()
           .setSsl(true)
-          .setKeyStoreOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble"))
-          .setTrustStoreOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble")));
+          .setKeyCertOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble"))
+          .setTrustOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble")));
       }
     };
     launcher.dispatch(new String[]{"run", Sender.class.getName(), "-cluster"});

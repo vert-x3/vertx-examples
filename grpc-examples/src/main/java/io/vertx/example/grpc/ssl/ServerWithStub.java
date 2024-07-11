@@ -40,7 +40,7 @@ public class ServerWithStub extends AbstractVerticle {
     HttpServerOptions options = new HttpServerOptions()
       .setSsl(true)
       .setUseAlpn(true)
-      .setKeyStoreOptions(new JksOptions()
+      .setKeyCertOptions(new JksOptions()
         .setPath("tls/server-keystore.jks")
         .setPassword("wibble"));
     vertx.createHttpServer(options).requestHandler(rpcServer).listen(8080)

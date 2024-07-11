@@ -5,6 +5,7 @@ import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
 import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.auth.properties.PropertyFileAuthorization;
 import io.vertx.ext.bridge.PermittedOptions;
@@ -62,7 +63,8 @@ public class Server extends AbstractVerticle {
       }
 
       // use the auth handler to perform the authentication for us
-      authProvider.authenticate(credentials, login -> {
+      authProvider.authenticate(new UsernamePasswordCredentials(credentials))
+        .onComplete(login -> {
         // error handling
         if (login.failed()) {
           // forbidden
