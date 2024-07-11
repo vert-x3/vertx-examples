@@ -44,7 +44,7 @@ public class PromptCommand  extends AbstractVerticle {
 
     server.registerCommandResolver(CommandResolver.baseCommands(vertx));
 
-    server.listen(ar -> {
+    server.listen().onComplete(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();
       }

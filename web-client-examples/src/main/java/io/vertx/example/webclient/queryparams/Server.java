@@ -18,7 +18,8 @@ public class Server extends AbstractVerticle {
     vertx.createHttpServer().requestHandler(req -> {
       System.out.println("Got request with query params: " + req.query());
       req.response().end();
-    }).listen(8080, listenResult -> {
+    }).listen(8080)
+      .onComplete(listenResult -> {
       if (listenResult.failed()) {
         System.out.println("Could not start HTTP server");
         listenResult.cause().printStackTrace();

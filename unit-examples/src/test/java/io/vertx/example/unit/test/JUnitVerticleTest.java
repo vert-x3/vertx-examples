@@ -36,12 +36,16 @@ public class JUnitVerticleTest {
         .setConfig(new JsonObject().put("http.port", port));
 
     vertx = Vertx.vertx();
-    vertx.deployVerticle(HelloVerticle.class.getName(), options, context.asyncAssertSuccess());
+    vertx
+      .deployVerticle(HelloVerticle.class.getName(), options)
+      .onComplete(context.asyncAssertSuccess());
   }
 
   @After
   public void after(TestContext context) {
-    vertx.close(context.asyncAssertSuccess());
+    vertx
+      .close()
+      .onComplete(context.asyncAssertSuccess());
   }
 
   @Test

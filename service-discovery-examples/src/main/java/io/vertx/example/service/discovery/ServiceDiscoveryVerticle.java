@@ -34,7 +34,7 @@ public class ServiceDiscoveryVerticle extends AbstractVerticle {
       .setMetadata(new JsonObject().put("some-label", "some-value"));
 
     //publish "my-service" service
-    discovery.publish(record1, ar -> {
+    discovery.publish(record1).onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("\"" + record1.getName() + "\" successfully published!");
         Record publishedRecord = ar.result();
@@ -47,7 +47,7 @@ public class ServiceDiscoveryVerticle extends AbstractVerticle {
     Record record2 = HttpEndpoint.createRecord("some-rest-api", "localhost", 8080, "/api");
 
     //publish the service
-    discovery.publish(record2, ar -> {
+    discovery.publish(record2).onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("\"" + record2.getName() + "\" successfully published!");
         Record publishedRecord = ar.result();
@@ -57,7 +57,7 @@ public class ServiceDiscoveryVerticle extends AbstractVerticle {
     });
 
     //unpublish "my-service"
-    discovery.unpublish(record1.getRegistration(), ar -> {
+    discovery.unpublish(record1.getRegistration()).onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("\"" + record1.getName() + "\" successfully unpublished");
       } else {
@@ -66,7 +66,7 @@ public class ServiceDiscoveryVerticle extends AbstractVerticle {
     });
 
     //consuming a service
-    discovery.getRecord(r -> r.getName().equals(record2.getName()), ar -> {
+    discovery.getRecord(r -> r.getName().equals(record2.getName())).onComplete(ar -> {
       if (ar.succeeded()) {
         if (ar.result() != null) {
           // Retrieve the service reference

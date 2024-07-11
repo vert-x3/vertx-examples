@@ -129,7 +129,7 @@ public class Server extends AbstractVerticle {
 
         }).publishReleaseHandler(endpoint::publishComplete);
       })
-      .listen(1883, "0.0.0.0", ar -> {
+      .listen(1883, "0.0.0.0").onComplete(ar -> {
 
         if (ar.succeeded()) {
           System.out.println("MQTT server is listening on port " + mqttServer.actualPort());

@@ -22,7 +22,10 @@ public class Client extends AbstractVerticle {
 
     Buffer body = Buffer.buffer("Hello World");
 
-    client.put(8080, "localhost", "/").sendBuffer(body, ar -> {
+    client
+      .put(8080, "localhost", "/")
+      .sendBuffer(body)
+      .onComplete(ar -> {
       if (ar.succeeded()) {
         HttpResponse<Buffer> response = ar.result();
         System.out.println("Got HTTP response with status " + response.statusCode());

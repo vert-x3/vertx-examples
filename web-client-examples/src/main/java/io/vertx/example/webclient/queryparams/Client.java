@@ -24,7 +24,8 @@ public class Client extends AbstractVerticle {
       .addQueryParam("firstName", "Dale")
       .addQueryParam("lastName", "Cooper")
       .addQueryParam("male", "true")
-      .send(ar -> {
+      .send()
+      .onComplete(ar -> {
         if (ar.succeeded()) {
           HttpResponse<Buffer> response = ar.result();
           System.out.println("Got HTTP response with status " + response.statusCode());

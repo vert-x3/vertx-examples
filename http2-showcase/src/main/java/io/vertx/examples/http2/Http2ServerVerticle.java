@@ -38,7 +38,8 @@ public class Http2ServerVerticle extends AbstractVerticle {
   public void start(Promise<Void> promise) {
     http1 = vertx.createHttpServer(createOptions(false));
     http1.requestHandler(createRouter("http://localhost:8080/image.hbs"));
-    http1.listen(res -> {
+    http1.listen()
+      .onComplete(res -> {
       if (res.failed()) {
         promise.fail(res.cause());
         return;
@@ -57,7 +58,7 @@ public class Http2ServerVerticle extends AbstractVerticle {
 
   @Override
   public void stop(Promise<Void> promise) {
-    http1.close(res -> http2.close(promise));
+    http1.close().onComplete(res -> http2.close(promise));
   }
 
 

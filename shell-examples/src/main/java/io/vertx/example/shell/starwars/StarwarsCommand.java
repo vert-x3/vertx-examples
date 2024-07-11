@@ -36,7 +36,7 @@ public class StarwarsCommand extends AbstractVerticle {
 
           // Connect the client
           NetClient client = process.vertx().createNetClient();
-          client.connect(23, "towel.blinkenlights.nl", ar -> {
+          client.connect(23, "towel.blinkenlights.nl").onComplete( ar -> {
             if (ar.succeeded()) {
               NetSocket socket = ar.result();
 
@@ -68,7 +68,7 @@ public class StarwarsCommand extends AbstractVerticle {
         new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
     CommandRegistry.getShared(vertx).registerCommand(starwars);
-    service.start(ar -> {
+    service.start().onComplete(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();
       }

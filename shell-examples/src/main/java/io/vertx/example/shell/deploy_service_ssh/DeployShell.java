@@ -35,7 +35,7 @@ public class DeployShell extends AbstractVerticle {
 
         )
     );
-    vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options), ar -> {
+    vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options)).onComplete(ar -> {
       if (ar.succeeded()) {
         startPromise.complete();
       } else {

@@ -19,7 +19,9 @@ public class Client extends AbstractVerticle {
 
     NetClientOptions options = new NetClientOptions().setSsl(true).setTrustAll(true);
 
-    vertx.createNetClient(options).connect(1234, "localhost", res -> {
+    vertx
+      .createNetClient(options).connect(1234, "localhost")
+      .onComplete(res -> {
       if (res.succeeded()) {
         NetSocket sock = res.result();
         sock.handler(buff -> {

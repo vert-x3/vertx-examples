@@ -28,13 +28,17 @@ public class MyJUnitTest {
   public void before(TestContext context) {
     vertx = Vertx.vertx();
     server =
-      vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).
-          listen(8080, context.asyncAssertSuccess());
+      vertx.createHttpServer().requestHandler(req -> req.response().end("foo"));
+    server.
+      listen(8080).
+      onComplete(context.asyncAssertSuccess());
   }
 
   @After
   public void after(TestContext context) {
-    vertx.close(context.asyncAssertSuccess());
+    vertx
+      .close()
+      .onComplete(context.asyncAssertSuccess());
   }
 
   @Test
@@ -52,8 +56,8 @@ public class MyJUnitTest {
   @Test
   public void test2(TestContext context) {
     // Deploy and undeploy a verticle
-    vertx.deployVerticle(SomeVerticle.class.getName(), context.asyncAssertSuccess(deploymentID -> {
-      vertx.undeploy(deploymentID, context.asyncAssertSuccess());
-    }));
+    vertx.deployVerticle(SomeVerticle.class.getName())
+      .compose(deploymentID -> vertx.deployVerticle(deploymentID))
+      .onComplete(context.asyncAssertSuccess());
   }
 }

@@ -42,7 +42,8 @@ public class RMIExample extends AbstractVerticle {
     if (param == null) {
       param = "vert.x";
     }
-    vertx.eventBus().<String>request("invocation", param, reply -> {
+    vertx.eventBus().<String>request("invocation", param)
+      .onComplete(reply -> {
       if (reply.failed()) {
         request.response().setStatusCode(400).end(reply.cause().getMessage());
       } else {

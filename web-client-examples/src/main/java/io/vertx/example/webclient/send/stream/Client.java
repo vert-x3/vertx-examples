@@ -27,7 +27,8 @@ public class Client extends AbstractVerticle {
 
     WebClient client = WebClient.create(vertx);
 
-    fs.props(filename, ares -> {
+    fs.props(filename)
+      .onComplete(ares -> {
       FileProps props = ares.result();
       System.out.println("props is " + props);
       long size = props.size();
@@ -35,8 +36,9 @@ public class Client extends AbstractVerticle {
       HttpRequest<Buffer> req = client.put(8080, "localhost", "/");
       req.putHeader("content-length", "" + size);
 
-      fs.open(filename, new OpenOptions(), ares2 -> {
-        req.sendStream(ares2.result(), ar -> {
+      fs.open(filename, new OpenOptions())
+        .compose(ares2 -> req.sendStream(ares2))
+        .onComplete(ar -> {
           if (ar.succeeded()) {
             HttpResponse<Buffer> response = ar.result();
             System.out.println("Got HTTP response with status " + response.statusCode());
@@ -44,7 +46,6 @@ public class Client extends AbstractVerticle {
             ar.cause().printStackTrace();
           }
         });
-      });
     });
   }
 }

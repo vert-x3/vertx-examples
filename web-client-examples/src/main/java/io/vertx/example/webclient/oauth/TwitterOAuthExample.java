@@ -2,6 +2,7 @@ package io.vertx.example.webclient.oauth;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
+import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
@@ -35,9 +36,11 @@ public class TwitterOAuthExample extends AbstractVerticle {
       .addQueryParam("grant_type", "client_credentials")
       .putHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
       .putHeader("Authorization", authHeader)
-      .send(authHandler -> {
+      .send()
+      .expecting(HttpResponseExpectation.SC_OK)
+      .onComplete(authHandler -> {
         // Authentication successful.
-        if (authHandler.succeeded() && 200 == authHandler.result().statusCode()) {
+        if (authHandler.succeeded()) {
           JsonObject authJson = authHandler.result().body();
           String accessToken = authJson.getString("access_token");
           String header = "Bearer " + accessToken;
@@ -46,11 +49,13 @@ public class TwitterOAuthExample extends AbstractVerticle {
             .as(BodyCodec.jsonObject())
             .addQueryParam("q", queryToSearch)
             .putHeader("Authorization", header)
-            .send(handler -> {
-              if (handler.succeeded() && 200 == handler.result().statusCode()) {
-                System.out.println(handler.result().body());
+            .send()
+            .expecting(HttpResponseExpectation.SC_OK)
+            .onComplete(ar -> {
+              if (ar.succeeded()) {
+                System.out.println(ar.result().body());
               } else {
-                System.out.println(handler.cause().getMessage());
+                System.out.println(ar.cause().getMessage());
               }
             });
         } else { // Authentication failed

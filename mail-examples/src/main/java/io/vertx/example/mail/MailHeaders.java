@@ -42,7 +42,9 @@ public class MailHeaders extends AbstractVerticle {
       .addHeader("Received", "from [192.168.1.1] by localhost")
       .setText("This message should have a custom Message-ID");
 
-    mailClient.sendMail(email, result -> {
+    mailClient
+      .sendMail(email)
+      .onComplete(result -> {
       if (result.succeeded()) {
         System.out.println(result.result());
         System.out.println("Mail sent");

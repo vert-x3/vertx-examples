@@ -1,9 +1,15 @@
 package io.vertx.example.reactivex.database.sqlclient;
 
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.core.AbstractVerticle;
-import io.vertx.reactivex.ext.jdbc.JDBCClient;
+import io.vertx.reactivex.jdbcclient.JDBCPool;
+import io.vertx.reactivex.sqlclient.Row;
+import io.vertx.reactivex.sqlclient.RowSet;
+import io.vertx.reactivex.sqlclient.SqlConnection;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -20,24 +26,27 @@ public class Streaming extends AbstractVerticle {
     JsonObject config = new JsonObject().put("url", "jdbc:hsqldb:mem:test?shutdown=true")
       .put("driver_class", "org.hsqldb.jdbcDriver");
 
-    JDBCClient jdbc = JDBCClient.createShared(vertx, config);
+    JDBCPool jdbc = JDBCPool.pool(vertx, config);
 
-    jdbc
-      .rxGetConnection() // Connect to the database
-      .flatMapPublisher(conn -> { // With the connection...
-        return conn.rxUpdate("CREATE TABLE test(col VARCHAR(20))") // ...create test table
-          .flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val1')")) // ...insert a row
-          .flatMap(result -> conn.rxUpdate("INSERT INTO test (col) VALUES ('val2')")) // ...another one
-          .flatMap(result -> conn.rxQueryStream("SELECT * FROM test")) // ...get values stream
-          .flatMapPublisher(sqlRowStream -> {
-            return sqlRowStream.toFlowable() // Transform the stream into a Flowable...
-              .doOnTerminate(() -> {
-                // ...and close the connection when the stream is fully read or an
-                // error occurs
-                conn.close();
-                System.out.println("Connection closed");
-              });
-          });
-      }).subscribe(row -> System.out.println("Row : " + row.encode()));
+    // Connect to the database
+    Maybe<RowSet<Row>> maybe = jdbc.rxWithConnection((Function<SqlConnection, Maybe<RowSet<Row>>>) conn -> {
+      // With the connection...
+      Single<RowSet<Row>> single = conn
+        // ...create test table
+        .query("CREATE TABLE test(col VARCHAR(20))").rxExecute()
+        // ...insert a row
+        .flatMap(result -> conn.query("INSERT INTO test (col) VALUES ('val1')").rxExecute())
+        // ...another one
+        .flatMap(result -> conn.query("INSERT INTO test (col) VALUES ('val2')").rxExecute())
+        // ...get values
+        .flatMap(result -> conn.query("SELECT * FROM test").rxExecute());
+      return Maybe.fromSingle(single);
+    });
+
+    maybe.subscribe(rows -> {
+      for (Row row : rows) {
+        System.out.println("Row : " + row.toJson().encode());
+      }
+    });
   }
 }

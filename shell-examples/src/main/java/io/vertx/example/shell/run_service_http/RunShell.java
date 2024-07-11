@@ -36,6 +36,6 @@ public class RunShell extends AbstractVerticle {
             .put("provider", "properties")
             .put("config", new JsonObject()
               .put("file", "io/vertx/example/shell/run_service_http/auth.properties")))));
-    service.start(startPromise);
+    service.start().onComplete(startPromise);
   }
 }

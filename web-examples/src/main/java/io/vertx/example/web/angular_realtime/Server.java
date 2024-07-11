@@ -1,6 +1,7 @@
 package io.vertx.example.web.angular_realtime;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
@@ -11,9 +12,7 @@ import io.vertx.ext.auth.properties.PropertyFileAuthorization;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.BodyHandler;
-import io.vertx.ext.web.handler.SessionHandler;
-import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
@@ -54,27 +53,15 @@ public class Server extends AbstractVerticle {
     // Simple auth service which uses a properties file for user/role info
     PropertyFileAuthentication authProvider = PropertyFileAuthentication.create(vertx, "vertx-users.properties");
 
-    router.post("/login").handler(ctx -> {
+    // Use the auth handler to perform the authentication for us
+    router.post("/login").handler(SimpleAuthenticationHandler.create().authenticate(ctx -> {
       JsonObject credentials = ctx.body().asJsonObject();
       if (credentials == null) {
-        // bad request
-        ctx.fail(400);
-        return;
+        return Future.failedFuture("No credentials");
       }
-
-      // use the auth handler to perform the authentication for us
-      authProvider.authenticate(new UsernamePasswordCredentials(credentials))
-        .onComplete(login -> {
-        // error handling
-        if (login.failed()) {
-          // forbidden
-          ctx.fail(403);
-          return;
-        }
-
-        ctx.setUser(login.result());
-        ctx.json(new JsonObject());
-      });
+      return authProvider.authenticate(new UsernamePasswordCredentials(credentials));
+    })).handler(ctx -> {
+      ctx.json(new JsonObject());
     });
 
     router.route("/eventbus/*").handler(ctx -> {
@@ -115,7 +102,7 @@ public class Server extends AbstractVerticle {
 
   private void listAlbums(Message<JsonObject> msg) {
     // issue a find command to mongo to fetch all documents from the "albums" collection.
-    mongo.find("albums", new JsonObject(), lookup -> {
+    mongo.find("albums", new JsonObject()).onComplete(lookup -> {
       // error handling
       if (lookup.failed()) {
         msg.fail(500, lookup.cause().getMessage());
@@ -135,7 +122,7 @@ public class Server extends AbstractVerticle {
   }
 
   private void placeOrder(Message<JsonObject> msg) {
-    mongo.save("orders", msg.body(), save -> {
+    mongo.save("orders", msg.body()).onComplete(save -> {
       // error handling
       if (save.failed()) {
         msg.fail(500, save.cause().getMessage());
@@ -147,7 +134,7 @@ public class Server extends AbstractVerticle {
   }
 
   private void loadData(MongoClient db) {
-    db.dropCollection("albums", drop -> {
+    db.dropCollection("albums").onComplete(drop -> {
       if (drop.failed()) {
         throw new RuntimeException(drop.cause());
       }
@@ -180,7 +167,8 @@ public class Server extends AbstractVerticle {
         .put("price", 1.20));
 
       for (JsonObject album : albums) {
-        db.insert("albums", album, res -> {
+        db.insert("albums", album)
+          .onComplete(res -> {
           System.out.println("inserted " + album.encode());
         });
       }

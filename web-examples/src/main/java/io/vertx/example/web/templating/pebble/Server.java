@@ -40,7 +40,7 @@ public class Server extends AbstractVerticle {
         .put("path", ctx.request().path());
 
       // and now delegate to the engine to render it.
-      engine.render(data, "io/vertx/example/web/templating/pebble/templates/index.peb", res -> {
+      engine.render(data, "io/vertx/example/web/templating/pebble/templates/index.peb").onComplete(res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {

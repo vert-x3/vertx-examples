@@ -39,7 +39,7 @@ public class Server extends AbstractVerticle {
         .put("welcome", "Hi there!");
 
       // and now delegate to the engine to render it.
-      engine.render(data, "io/vertx/example/web/templating/thymeleaf/templates/index.html", res -> {
+      engine.render(data, "io/vertx/example/web/templating/thymeleaf/templates/index.html").onComplete(res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {

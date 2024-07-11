@@ -33,7 +33,7 @@ public class Server extends AbstractVerticle {
       String path = req.path();
       HttpServerResponse resp = req.response();
       if ("/".equals(path)) {
-        resp.push(HttpMethod.GET, "/script.js", ar -> {
+        resp.push(HttpMethod.GET, "/script.js").onComplete(ar -> {
           if (ar.succeeded()) {
             System.out.println("sending push");
             HttpServerResponse pushedResp = ar.result();
@@ -52,7 +52,7 @@ public class Server extends AbstractVerticle {
       }
     });
 
-    server.listen(8443, "localhost", ar -> {
+    server.listen(8443, "localhost").onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("Server started");
       } else {

@@ -3,7 +3,10 @@ package io.vertx.example.jpms.sqlclient;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.sqlclient.Pool;
+import io.vertx.sqlclient.PoolOptions;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -19,10 +22,9 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() {
 
-    final JDBCPool client = JDBCPool.pool(vertx, new JsonObject()
-        .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-        .put("driver_class", "org.hsqldb.jdbcDriver")
-        .put("max_pool_size", 30));
+    final Pool client = JDBCPool.pool(vertx,
+      new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"),
+      new PoolOptions().setMaxSize(30));
 
 
     client.withConnection(conn -> conn

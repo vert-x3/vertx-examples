@@ -55,7 +55,9 @@ public class Server extends AbstractVerticle {
       JsonObject data = new JsonObject()
         .put("client_id", CLIENT_ID);
       // and now delegate to the engine to render it.
-      engine.render(data, "io/vertx/example/web/oauth2/views/index.hbs", res -> {
+      engine
+        .render(data, "io/vertx/example/web/oauth2/views/index.hbs")
+        .onComplete(res -> {
         if (res.succeeded()) {
           ctx.response()
             .putHeader("Content-Type", "text/html")
@@ -69,7 +71,9 @@ public class Server extends AbstractVerticle {
     router.get("/protected").handler(ctx -> {
       User user = ctx.user();
       // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
-      authProvider.userInfo(user, res -> {
+      authProvider
+        .userInfo(user)
+        .onComplete(res -> {
         if (res.failed()) {
           // request didn't succeed because the token was revoked so we
           // invalidate the token stored in the session and render the
@@ -88,7 +92,8 @@ public class Server extends AbstractVerticle {
             .getAbs("https://api.github.com/user/emails")
             .authentication(new TokenCredentials(user.<String>get("access_token")))
             .as(BodyCodec.jsonArray())
-            .send(res2 -> {
+            .send()
+            .onComplete(res2 -> {
               if (res2.failed()) {
                 // request didn't succeed because the token was revoked so we
                 // invalidate the token stored in the session and render the
@@ -101,7 +106,7 @@ public class Server extends AbstractVerticle {
                 JsonObject data = new JsonObject()
                   .put("userInfo", userInfo);
                 // and now delegate to the engine to render it.
-                engine.render(data, "io/vertx/example/web/oauth2/views/advanced.hbs", res3 -> {
+                engine.render(data, "io/vertx/example/web/oauth2/views/advanced.hbs").onComplete(res3 -> {
                   if (res3.succeeded()) {
                     ctx.response()
                       .putHeader("Content-Type", "text/html")

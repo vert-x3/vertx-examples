@@ -6,11 +6,12 @@ import io.vertx.core.Promise;
 public class HelloVerticle extends AbstractVerticle {
 
   @Override
-  public void start(Promise<Void> startPromise) throws Exception {
+  public void start(Promise<Void> startPromise) {
     int port = config().getInteger("http.port", 8080);
     vertx
       .createHttpServer()
       .requestHandler(request -> request.response().end("Hello!"))
-      .listen(port, result -> startPromise.complete());
+      .listen(port)
+      .onComplete(result -> startPromise.complete());
   }
 }

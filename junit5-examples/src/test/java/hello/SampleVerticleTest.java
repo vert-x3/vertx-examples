@@ -63,13 +63,14 @@ class SampleVerticleTest {
     Checkpoint deploymentCheckpoint = testContext.checkpoint();
     Checkpoint requestCheckpoint = testContext.checkpoint(10);
 
-    vertx.deployVerticle(new SampleVerticle(), testContext.succeeding(id -> {
+    vertx.deployVerticle(new SampleVerticle()).onComplete(testContext.succeeding(id -> {
       deploymentCheckpoint.flag();
 
       for (int i = 0; i < 10; i++) {
         webClient.get(11981, "localhost", "/")
           .as(BodyCodec.string())
-          .send(testContext.succeeding(resp -> {
+          .send()
+          .onComplete(testContext.succeeding(resp -> {
             testContext.verify(() -> {
               assertThat(resp.statusCode()).isEqualTo(200);
               assertThat(resp.body()).contains("Yo!");
@@ -97,17 +98,19 @@ class SampleVerticleTest {
     @Test
     @DisplayName("⬆️ Deploy SampleVerticle")
     void deploySampleVerticle(VertxTestContext testContext) {
-      vertx.deployVerticle(new SampleVerticle(), testContext.succeeding(id -> testContext.completeNow()));
+      vertx.deployVerticle(new SampleVerticle())
+        .onComplete(testContext.succeeding(id -> testContext.completeNow()));
     }
 
     @Test
     @DisplayName("🛂 Make a HTTP client request to SampleVerticle")
     void httpRequest(VertxTestContext testContext) {
       WebClient webClient = WebClient.create(vertx);
-      vertx.deployVerticle(new SampleVerticle(), testContext.succeeding(id -> {
+      vertx.deployVerticle(new SampleVerticle()).onComplete(testContext.succeeding(id -> {
         webClient.get(11981, "localhost", "/yo")
           .as(BodyCodec.string())
-          .send(testContext.succeeding(resp -> {
+          .send()
+          .onComplete(testContext.succeeding(resp -> {
             testContext.verify(() -> {
               assertThat(resp.statusCode()).isEqualTo(200);
               assertThat(resp.body()).contains("Yo!");

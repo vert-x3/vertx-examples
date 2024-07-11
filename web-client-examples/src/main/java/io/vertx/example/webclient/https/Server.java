@@ -26,7 +26,8 @@ public class Server extends AbstractVerticle {
 
       req.response().end();
 
-    }).listen(8443, listenResult -> {
+    }).listen(8443)
+      .onComplete(listenResult -> {
       if (listenResult.failed()) {
         System.out.println("Could not start HTTP server");
         listenResult.cause().printStackTrace();

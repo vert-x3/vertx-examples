@@ -28,7 +28,8 @@ public class Client extends AbstractVerticle {
 
     client.get(8080, "localhost", "/")
       .as(BodyCodec.json(User.class))
-      .send(ar -> {
+      .send()
+      .onComplete(ar -> {
         if (ar.succeeded()) {
           HttpResponse<User> response = ar.result();
           System.out.println("Got HTTP response body");

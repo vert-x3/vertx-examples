@@ -28,7 +28,8 @@ public class Client extends AbstractVerticle {
     client
       .post(8080, "localhost", "/")
       .putHeader("content-type", "multipart/form-data")
-      .sendForm(form, ar -> {
+      .sendForm(form)
+      .onComplete(ar -> {
         if (ar.succeeded()) {
           HttpResponse<Buffer> response = ar.result();
           System.out.println("Got HTTP response with status " + response.statusCode());

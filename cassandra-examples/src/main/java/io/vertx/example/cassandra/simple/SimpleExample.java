@@ -17,7 +17,7 @@ public class SimpleExample extends AbstractVerticle {
   @Override
   public void start() {
     CassandraClient client = CassandraClient.createShared(vertx);
-    client.execute("select release_version from system.local", ar -> {
+    client.execute("select release_version from system.local").onComplete(ar -> {
       if (ar.succeeded()) {
         Row row = ar.result().one();
         String releaseVersion = row.getString("release_version");

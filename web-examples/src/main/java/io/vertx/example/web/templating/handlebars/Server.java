@@ -48,7 +48,7 @@ public class Server extends AbstractVerticle {
       data.put("seasons", seasons);
 
       // and now delegate to the engine to render it.
-      engine.render(data, "io/vertx/example/web/templating/handlebars/templates/index.hbs", res -> {
+      engine.render(data, "io/vertx/example/web/templating/handlebars/templates/index.hbs").onComplete(res -> {
         if (res.succeeded()) {
           ctx.response().end(res.result());
         } else {

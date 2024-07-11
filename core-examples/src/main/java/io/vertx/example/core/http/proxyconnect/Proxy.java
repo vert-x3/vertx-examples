@@ -31,7 +31,7 @@ public class Proxy extends AbstractVerticle {
         int port = Integer.parseInt(proxyAddress.substring(idx + 1));
 
         System.out.println("Connecting to proxy " + proxyAddress);
-        client.connect(port, host, ar -> {
+        client.connect(port, host).onComplete(ar -> {
 
           if (ar.succeeded()) {
             System.out.println("Connected to proxy");

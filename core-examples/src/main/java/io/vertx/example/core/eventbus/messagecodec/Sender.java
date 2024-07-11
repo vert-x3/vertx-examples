@@ -28,7 +28,9 @@ public class Sender extends AbstractVerticle {
 
     // Send a message to [cluster receiver] every second
     getVertx().setPeriodic(1000, _id -> {
-      eventBus.request("cluster-message-receiver", clusterWideMessage, reply -> {
+      eventBus
+        .request("cluster-message-receiver", clusterWideMessage)
+        .onComplete(reply -> {
         if (reply.succeeded()) {
           CustomMessage replyMessage = (CustomMessage) reply.result().body();
           System.out.println("Received reply: " + replyMessage.getSummary());
@@ -40,12 +42,12 @@ public class Sender extends AbstractVerticle {
 
 
     // Deploy local receiver
-    getVertx().deployVerticle(LocalReceiver.class.getName(), deployResult -> {
+    getVertx().deployVerticle(LocalReceiver.class.getName()).onComplete(deployResult -> {
       // Deploy succeed
       if (deployResult.succeeded()) {
         // Send a message to [local receiver] every 2 second
         getVertx().setPeriodic(2000, _id -> {
-          eventBus.request("local-message-receiver", localMessage, reply -> {
+          eventBus.request("local-message-receiver", localMessage).onComplete( reply -> {
             if (reply.succeeded()) {
               CustomMessage replyMessage = (CustomMessage) reply.result().body();
               System.out.println("Received local reply: " + replyMessage.getSummary());

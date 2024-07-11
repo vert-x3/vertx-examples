@@ -49,7 +49,7 @@ public class GreetingVerticle extends AbstractVerticle {
         // It's fine to call the greeter from the event loop as it's not blocking
         request.response().end(greeter.sayHello(name));
       }
-    }).listen(8080, ar -> {
+    }).listen(8080).onComplete(ar -> {
       if (ar.succeeded()) {
         LOG.info("GreetingVerticle started: @" + this.hashCode());
         startPromise.complete();

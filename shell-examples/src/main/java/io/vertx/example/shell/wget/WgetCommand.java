@@ -81,7 +81,7 @@ public class WgetCommand extends AbstractVerticle {
         new TelnetTermOptions().setHost("localhost").setPort(3000)
     ));
     CommandRegistry.getShared(vertx).registerCommand(helloWorld);
-    service.start(ar -> {
+    service.start().onComplete(ar -> {
       if (!ar.succeeded()) {
         ar.cause().printStackTrace();
       }

@@ -40,15 +40,16 @@ public class JUnitAndHamcrestTest {
     vertx.exceptionHandler(context.exceptionHandler());
 
     server =
-        vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).
-            listen(8080, context.asyncAssertSuccess());
+        vertx.createHttpServer().requestHandler(req -> req.response().end("foo"));
+    server
+      .listen(8080)
+      .onComplete(context.asyncAssertSuccess());
   }
 
   @After
   public void after(TestContext context) {
-    vertx.close(context.asyncAssertSuccess());
+    vertx.close().onComplete(context.asyncAssertSuccess());
   }
-
 
   @Test
   public void testAsyncOperation(TestContext context) {

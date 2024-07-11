@@ -37,7 +37,7 @@ public class SampleVerticle extends AbstractVerticle {
           .end("Yo!");
         logger.info("Handled a request on path {} from {}", req.path(), req.remoteAddress().host());
       })
-      .listen(11981, ar -> {
+      .listen(11981).onComplete(ar -> {
         if (ar.succeeded()) {
           startPromise.complete();
         } else {

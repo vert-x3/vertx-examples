@@ -21,13 +21,14 @@ public class Sender extends AbstractVerticle {
 
     vertx.setPeriodic(1000, v -> {
 
-      eb.request("ping-address", "ping!", reply -> {
-        if (reply.succeeded()) {
-          System.out.println("Received reply " + reply.result().body());
-        } else {
-          System.out.println("No reply");
-        }
-      });
+      eb.request("ping-address", "ping!")
+        .onComplete(reply -> {
+          if (reply.succeeded()) {
+            System.out.println("Received reply " + reply.result().body());
+          } else {
+            System.out.println("No reply");
+          }
+        });
 
     });
   }

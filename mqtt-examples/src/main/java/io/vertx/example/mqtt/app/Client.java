@@ -62,8 +62,8 @@ public class Client extends AbstractVerticle {
         Buffer.buffer(MQTT_MESSAGE),
         MqttQoS.AT_MOST_ONCE,
         false,
-        false,
-        s -> System.out.println("Publish sent to a server"));
+        false)
+        .onComplete(s -> System.out.println("Publish sent to a server"));
 
       // unsubscribe from receiving messages for earlier subscribed topic
       vertx.setTimer(5000, l -> client.unsubscribe(MQTT_TOPIC));
@@ -74,12 +74,12 @@ public class Client extends AbstractVerticle {
       System.out.println("Receive UNSUBACK from server");
       vertx.setTimer(5000, l ->
         // disconnect for server
-        client.disconnect(d -> System.out.println("Disconnected form server"))
+        client.disconnect().onComplete(d -> System.out.println("Disconnected form server"))
       );
     });
 
     // connect to a server
-    client.connect(BROKER_PORT, BROKER_HOST, ch -> {
+    client.connect(BROKER_PORT, BROKER_HOST).onComplete(ch -> {
       if (ch.succeeded()) {
         System.out.println("Connected to a server");
         client.subscribe(MQTT_TOPIC, 0);

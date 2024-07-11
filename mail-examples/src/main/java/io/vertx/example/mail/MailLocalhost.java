@@ -36,7 +36,7 @@ public class MailLocalhost extends AbstractVerticle {
         .setSubject("Test email")
         .setText("this is a test email");
 
-    mailClient.sendMail(email, result -> {
+    mailClient.sendMail(email).onComplete(result -> {
       if (result.succeeded()) {
         System.out.println(result.result());
         System.out.println("Mail sent");

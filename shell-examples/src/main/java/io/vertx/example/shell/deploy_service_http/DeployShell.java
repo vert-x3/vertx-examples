@@ -30,7 +30,7 @@ public class DeployShell extends AbstractVerticle {
           .put("config", new JsonObject()
             .put("file", "io/vertx/example/shell/deploy_service_http/auth.properties"))));
 
-    vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options), ar -> {
+    vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options)).onComplete(ar -> {
       if (ar.succeeded()) {
         startPromise.complete();
       } else {

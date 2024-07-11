@@ -130,7 +130,10 @@ public class Server extends AbstractVerticle {
 
   private void handleListProducts(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
-    client.query("SELECT id, name, price, weight FROM products").execute(query -> {
+    client
+      .query("SELECT id, name, price, weight FROM products")
+      .execute()
+      .onComplete(query -> {
       if (query.failed()) {
         routingContext.fail(500);
       } else {

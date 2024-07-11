@@ -24,14 +24,15 @@ public class Client extends AbstractVerticle {
     WebClient client = WebClient.create(vertx,
       new WebClientOptions()
         .setSsl(true)
-        .setTrustStoreOptions(new JksOptions()
+        .setTrustOptions(new JksOptions()
           .setPath("io/vertx/example/webclient/https/client-truststore.jks")
           .setPassword("wibble")
         )
     );
 
     client.get(8443, "localhost", "/")
-      .send(ar -> {
+      .send()
+      .onComplete(ar -> {
         if (ar.succeeded()) {
           HttpResponse<Buffer> response = ar.result();
           System.out.println("Got HTTP response with status " + response.statusCode());

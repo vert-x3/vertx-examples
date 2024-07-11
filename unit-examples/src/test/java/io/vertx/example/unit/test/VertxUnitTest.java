@@ -29,11 +29,15 @@ public class VertxUnitTest {
 
     suite.before(context -> {
       vertx = Vertx.vertx();
-      vertx.createHttpServer().requestHandler(req -> req.response().end("foo")).listen(8080, context.asyncAssertSuccess());
+      vertx.createHttpServer().requestHandler(req -> req.response().end("foo"))
+        .listen(8080)
+        .onComplete(context.asyncAssertSuccess());
     });
 
     suite.after(context -> {
-      vertx.close(context.asyncAssertSuccess());
+      vertx
+        .close()
+        .onComplete(context.asyncAssertSuccess());
     });
 
     // Specifying the test names seems ugly...
@@ -51,9 +55,9 @@ public class VertxUnitTest {
     });
     suite.test("some_test2", context -> {
       // Deploy and undeploy a verticle
-      vertx.deployVerticle("io.vertx.example.unit.SomeVerticle", context.asyncAssertSuccess(deploymentID -> {
-        vertx.undeploy(deploymentID, context.asyncAssertSuccess());
-      }));
+      vertx.deployVerticle("io.vertx.example.unit.SomeVerticle")
+        .compose(deploymentID -> vertx.undeploy(deploymentID))
+        .onComplete(context.asyncAssertSuccess());
     });
 
     suite.run(options);

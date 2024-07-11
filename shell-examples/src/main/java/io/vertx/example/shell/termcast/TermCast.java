@@ -34,7 +34,7 @@ public class TermCast extends AbstractVerticle {
     termServer.termHandler(term -> {
       new ScreenCaster(vertx, robot, term).handle();
     });
-    termServer.listen(ar -> {
+    termServer.listen().onComplete(ar -> {
       if (ar.succeeded()) {
         startPromise.complete();
       } else {

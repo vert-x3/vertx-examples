@@ -26,7 +26,10 @@ public class Client extends AbstractVerticle {
       .put("lastName", "Cooper")
       .put("male", true);
 
-    client.put(8080, "localhost", "/").sendJson(user, ar -> {
+    client
+      .put(8080, "localhost", "/")
+      .sendJson(user)
+      .onComplete(ar -> {
       if (ar.succeeded()) {
         HttpResponse<Buffer> response = ar.result();
         System.out.println("Got HTTP response with status " + response.statusCode());

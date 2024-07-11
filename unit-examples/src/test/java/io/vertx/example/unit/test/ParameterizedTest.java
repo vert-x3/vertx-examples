@@ -51,7 +51,8 @@ public class ParameterizedTest {
       context.assertEquals(port, req.localAddress().port());
       req.response().end();
     });
-    server.listen(port, "localhost", context.asyncAssertSuccess(s -> {
+    server.listen(port, "localhost")
+      .onComplete(context.asyncAssertSuccess(s -> {
       HttpClient client = vertx.createHttpClient();
       client
         .request(HttpMethod.GET, port, "localhost", "/")
@@ -66,6 +67,6 @@ public class ParameterizedTest {
 
   @After
   public void after(TestContext context) {
-    vertx.close(context.asyncAssertSuccess());
+    vertx.close().onComplete(context.asyncAssertSuccess());
   }
 }

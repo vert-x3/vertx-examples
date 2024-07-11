@@ -53,7 +53,8 @@ public class Server extends AbstractVerticle {
       endpoint.accept(false);
     });
 
-    server.listen(ar -> {
+    server.listen()
+      .onComplete(ar -> {
       if (ar.succeeded()) {
         System.out.println("MQTT server started and listening on port " + server.actualPort());
       } else {

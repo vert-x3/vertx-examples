@@ -36,7 +36,7 @@ public class Server extends AbstractVerticle {
 
     MqttServerOptions options = new MqttServerOptions()
       .setPort(8883)
-      .setPemKeyCertOptions(new PemKeyCertOptions()
+      .setKeyCertOptions(new PemKeyCertOptions()
         .setKeyPath("io/vertx/example/mqtt/ssl/server-key.pem")
         .setCertPath("io/vertx/example/mqtt/ssl/server-cert.pem"))
       .setSsl(true);
@@ -54,7 +54,7 @@ public class Server extends AbstractVerticle {
         endpoint.accept(false);
 
       })
-      .listen(ar -> {
+      .listen().onComplete(ar -> {
 
         if (ar.succeeded()) {
           System.out.println("MQTT server is listening on port " + mqttServer.actualPort());

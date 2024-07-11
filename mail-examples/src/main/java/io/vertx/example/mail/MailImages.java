@@ -47,7 +47,7 @@ public class MailImages extends AbstractVerticle {
     list.add(attachment);
     email.setInlineAttachment(list);
 
-    mailClient.sendMail(email, result -> {
+    mailClient.sendMail(email).onComplete(result -> {
       if (result.succeeded()) {
         System.out.println(result.result());
         System.out.println("Mail sent");

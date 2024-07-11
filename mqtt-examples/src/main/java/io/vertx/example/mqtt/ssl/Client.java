@@ -26,17 +26,18 @@ public class Client extends AbstractVerticle {
 
     MqttClient mqttClient = MqttClient.create(vertx, options);
 
-    mqttClient.connect(BROKER_PORT, BROKER_HOST, ch -> {
+    mqttClient.connect(BROKER_PORT, BROKER_HOST).onComplete(ch -> {
       if (ch.succeeded()) {
         System.out.println("Connected to a server");
 
         mqttClient.publish(
-          MQTT_TOPIC,
-          Buffer.buffer(MQTT_MESSAGE),
-          MqttQoS.AT_MOST_ONCE,
-          false,
-          false,
-          s -> mqttClient.disconnect(d -> System.out.println("Disconnected from server")));
+            MQTT_TOPIC,
+            Buffer.buffer(MQTT_MESSAGE),
+            MqttQoS.AT_MOST_ONCE,
+            false,
+            false)
+          .compose(s -> mqttClient.disconnect())
+          .onComplete(d -> System.out.println("Disconnected from server"));
       } else {
         System.out.println("Failed to connect to a server");
         System.out.println(ch.cause());

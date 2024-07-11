@@ -46,7 +46,7 @@ public class Client extends AbstractVerticle {
     }, v -> {
       // Executed when the circuit is opened
       return "Hello (fallback)";
-    }, ar -> {
+    }).onComplete(ar -> {
       // Do something with the result
       System.out.println("Result: " + ar.result());
     });

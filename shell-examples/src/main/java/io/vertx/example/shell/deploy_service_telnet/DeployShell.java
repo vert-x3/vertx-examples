@@ -26,7 +26,7 @@ public class DeployShell extends AbstractVerticle {
         put("host", "localhost").
         put("port", 3000)
     );
-    vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options), ar -> {
+    vertx.deployVerticle("service:io.vertx.ext.shell", new DeploymentOptions().setConfig(options)).onComplete(ar -> {
       if (ar.succeeded()) {
         startPromise.complete();
       } else {

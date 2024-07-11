@@ -26,7 +26,7 @@ public class DeployExample extends AbstractVerticle {
     vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle");
 
     // Deploy another instance and  want for it to start
-    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle", res -> {
+    vertx.deployVerticle("io.vertx.example.core.verticle.deploy.OtherVerticle").onComplete(res -> {
       if (res.succeeded()) {
 
         String deploymentID = res.result();
@@ -37,7 +37,9 @@ public class DeployExample extends AbstractVerticle {
         // Note that this is usually unnecessary as any verticles deployed by a verticle will be automatically
         // undeployed when the parent verticle is undeployed
 
-        vertx.undeploy(deploymentID, res2 -> {
+        vertx
+          .undeploy(deploymentID)
+          .onComplete(res2 -> {
           if (res2.succeeded()) {
             System.out.println("Undeployed ok!");
           } else {
