@@ -1,6 +1,7 @@
 package io.vertx.example.micrometer.verticles;
 
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 
@@ -21,8 +22,8 @@ public final class Greetings {
   private Greetings() {
   }
 
-  static void get(Vertx vertx, Handler<AsyncResult<String>> responseHandler) {
-    vertx.executeBlocking(() -> {
+  static Future<String> get(Vertx vertx) {
+    return vertx.executeBlocking(() -> {
       // Simulate worker pool processing time between 200ms and 2s
       int processingTime = RND.nextInt(1800) + 200;
       try {
@@ -31,6 +32,6 @@ public final class Greetings {
         e.printStackTrace();
       }
       return GREETINGS[RND.nextInt(4)];
-    }).onComplete(responseHandler);
+    });
   }
 }

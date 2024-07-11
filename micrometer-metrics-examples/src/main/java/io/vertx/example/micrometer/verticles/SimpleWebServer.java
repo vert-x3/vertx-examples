@@ -11,7 +11,7 @@ public class SimpleWebServer extends AbstractVerticle {
   public void start() throws Exception {
     Router router = Router.router(vertx);
     router.get("/").handler(ctx -> {
-      Greetings.get(vertx, greetingResult -> ctx.response().end(greetingResult.result()));
+      Greetings.get(vertx).onComplete(greetingResult -> ctx.response().end(greetingResult.result()));
     });
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }

@@ -10,7 +10,8 @@ public class EventbusProducer extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     vertx.setPeriodic(1000, x -> {
-      Greetings.get(vertx, greetingResult -> vertx.eventBus().send("greeting", greetingResult.result()));
+      Greetings.get(vertx)
+        .onComplete(greetingResult -> vertx.eventBus().send("greeting", greetingResult.result()));
     });
   }
 }

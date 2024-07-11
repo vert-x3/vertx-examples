@@ -11,7 +11,8 @@ public class EventbusConsumer extends AbstractVerticle {
     vertx.eventBus().<String>consumer("greeting", message -> {
       String greeting = message.body();
       System.out.println("Received: " + greeting);
-      Greetings.get(vertx, greetingResult -> message.reply(greetingResult.result()));
+      Greetings.get(vertx)
+        .onComplete(greetingResult -> message.reply(greetingResult.result()));
     });
   }
 }

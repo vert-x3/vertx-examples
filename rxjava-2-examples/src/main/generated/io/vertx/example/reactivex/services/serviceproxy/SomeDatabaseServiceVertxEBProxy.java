@@ -32,9 +32,7 @@ import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
 import io.vertx.serviceproxy.ProxyUtils;
 
-import io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
@@ -62,24 +60,16 @@ public class SomeDatabaseServiceVertxEBProxy implements SomeDatabaseService {
   }
 
   @Override
-  public SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler){
-    if (closed) {
-      resultHandler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
-      return this;
-    }
+  public Future<JsonObject> getDataById(int id){
+    if (closed) return io.vertx.core.Future.failedFuture("Proxy is closed");
     JsonObject _json = new JsonObject();
     _json.put("id", id);
 
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
     _deliveryOptions.addHeader("action", "getDataById");
     _deliveryOptions.getHeaders().set("action", "getDataById");
-    _vertx.eventBus().<JsonObject>request(_address, _json, _deliveryOptions, res -> {
-      if (res.failed()) {
-        resultHandler.handle(Future.failedFuture(res.cause()));
-      } else {
-        resultHandler.handle(Future.succeededFuture(res.result().body()));
-      }
+    return _vertx.eventBus().<JsonObject>request(_address, _json, _deliveryOptions).map(msg -> {
+      return msg.body();
     });
-    return this;
   }
 }

@@ -78,19 +78,15 @@ public class SomeDatabaseService {
     return delegate;
   }
 
-  public io.vertx.example.reactivex.services.serviceproxy.reactivex.SomeDatabaseService getDataById(int id, io.vertx.core.Handler<io.vertx.core.AsyncResult<io.vertx.core.json.JsonObject>> resultHandler) { 
-    delegate.getDataById(id, resultHandler);
-    return this;
-  }
 
-  public io.vertx.example.reactivex.services.serviceproxy.reactivex.SomeDatabaseService getDataById(int id) {
-    return 
-getDataById(id, ar -> { });
+  public io.vertx.core.Future<io.vertx.core.json.JsonObject> getDataById(int id) { 
+    io.vertx.core.Future<io.vertx.core.json.JsonObject> ret = delegate.getDataById(id).map(val -> val);
+    return ret;
   }
 
   public io.reactivex.Single<io.vertx.core.json.JsonObject> rxGetDataById(int id) { 
     return AsyncResultSingle.toSingle($handler -> {
-      getDataById(id, $handler);
+      getDataById(id).onComplete($handler);
     });
   }
 

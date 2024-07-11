@@ -5,6 +5,7 @@ import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.ProxyGen;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -25,6 +26,5 @@ public interface SomeDatabaseService {
 
   // To use Rx-ified method, just declare your methods in a call-back style here.
   // The Rx-ified methods will be automatically generated.
-  @Fluent
-  SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler);
+  Future<JsonObject> getDataById(int id);
 }

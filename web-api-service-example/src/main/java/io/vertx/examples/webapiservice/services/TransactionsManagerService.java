@@ -1,6 +1,7 @@
 package io.vertx.examples.webapiservice.services;
 
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.examples.webapiservice.models.Transaction;
 import io.vertx.examples.webapiservice.persistence.TransactionPersistence;
@@ -22,27 +23,27 @@ public interface TransactionsManagerService {
     return new TransactionsManagerServiceImpl(persistence);
   }
 
-  void getTransactionsList(
+  Future<ServiceResponse> getTransactionsList(
     List<String> from,
     List<String> to,
     List<String> message,
-    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
+    ServiceRequest request);
 
-  void createTransaction(
+  Future<ServiceResponse> createTransaction(
     Transaction body,
-    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
+    ServiceRequest request);
 
-  void getTransaction(
+  Future<ServiceResponse> getTransaction(
     String transactionId,
-    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
+    ServiceRequest request);
 
-  void updateTransaction(
+  Future<ServiceResponse> updateTransaction(
     String transactionId,
     Transaction body,
-    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
+    ServiceRequest request);
 
-  void deleteTransaction(
+  Future<ServiceResponse> deleteTransaction(
     String transactionId,
-    ServiceRequest request, Handler<AsyncResult<ServiceResponse>> resultHandler);
+    ServiceRequest request);
 
 }

@@ -41,9 +41,7 @@ import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
 import io.vertx.serviceproxy.HelperUtils;
 import io.vertx.serviceproxy.ServiceBinder;
 
-import io.vertx.example.reactivex.services.serviceproxy.SomeDatabaseService;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
@@ -121,8 +119,7 @@ public class SomeDatabaseServiceVertxProxyHandler extends ProxyHandler {
       accessed();
       switch (action) {
         case "getDataById": {
-          service.getDataById(json.getValue("id") == null ? null : (json.getLong("id").intValue()),
-                        HelperUtils.createHandler(msg, includeDebugInfo));
+          service.getDataById(json.getValue("id") == null ? null : (json.getLong("id").intValue())).onComplete(HelperUtils.createHandler(msg, includeDebugInfo));
           break;
         }
         default: throw new IllegalStateException("Invalid action: " + action);

@@ -13,14 +13,13 @@ public class SomeDatabaseServiceImpl implements SomeDatabaseService {
   }
 
   @Override
-  public SomeDatabaseService getDataById(int id, Handler<AsyncResult<JsonObject>> resultHandler) {
+  public Future<JsonObject> getDataById(int id) {
     if (id > 0) {
-      resultHandler.handle(Future.succeededFuture(new JsonObject()
+      return Future.succeededFuture(new JsonObject()
         .put("id", id)
-        .put("name", "vertx")));
+        .put("name", "vertx"));
     } else {
-      resultHandler.handle(Future.failedFuture("Invalid id"));
+      return Future.failedFuture("Invalid id");
     }
-    return this;
   }
 }

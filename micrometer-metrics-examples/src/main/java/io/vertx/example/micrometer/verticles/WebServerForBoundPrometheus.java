@@ -22,7 +22,7 @@ public class WebServerForBoundPrometheus extends AbstractVerticle {
       ctx.response().end(response);
     });
     router.get("/").handler(ctx -> {
-      Greetings.get(vertx, greetingResult -> ctx.response().end(greetingResult.result()));
+      Greetings.get(vertx).onComplete(greetingResult -> ctx.response().end(greetingResult.result()));
     });
     vertx.createHttpServer().requestHandler(router).listen(8080);
   }
