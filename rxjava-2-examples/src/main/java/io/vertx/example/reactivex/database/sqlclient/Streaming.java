@@ -5,11 +5,14 @@ import io.reactivex.Single;
 import io.reactivex.functions.Function;
 import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.jdbcclient.JDBCPool;
+import io.vertx.reactivex.sqlclient.Pool;
 import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.RowSet;
 import io.vertx.reactivex.sqlclient.SqlConnection;
+import io.vertx.sqlclient.PoolOptions;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -23,10 +26,7 @@ public class Streaming extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    JsonObject config = new JsonObject().put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-      .put("driver_class", "org.hsqldb.jdbcDriver");
-
-    JDBCPool jdbc = JDBCPool.pool(vertx, config);
+    Pool jdbc = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"), new PoolOptions());
 
     // Connect to the database
     Maybe<RowSet<Row>> maybe = jdbc.rxWithConnection((Function<SqlConnection, Maybe<RowSet<Row>>>) conn -> {

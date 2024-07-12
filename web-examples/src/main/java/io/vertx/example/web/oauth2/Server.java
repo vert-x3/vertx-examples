@@ -69,7 +69,7 @@ public class Server extends AbstractVerticle {
     });
     // The protected resource
     router.get("/protected").handler(ctx -> {
-      User user = ctx.user();
+      User user = ctx.user().get();
       // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
       authProvider
         .userInfo(user)

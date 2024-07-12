@@ -5,9 +5,10 @@ import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.core.AbstractVerticle;
-import io.vertx.reactivex.core.buffer.Buffer;
 import io.vertx.reactivex.core.http.HttpClient;
 import io.vertx.reactivex.core.http.HttpClientResponse;
+
+import static io.vertx.sqlclient.data.NullValue.Buffer;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -28,13 +29,13 @@ public class Client extends AbstractVerticle {
       .flatMap(req -> req
         .rxSend()
         .flatMap(HttpClientResponse::rxBody)
-        .map(Buffer::toJsonObject));
+        .map(io.vertx.core.buffer.Buffer::toJsonObject));
     Single<JsonObject> req2 = client
       .rxRequest(HttpMethod.GET, 8080, "localhost", "/")
       .flatMap(req -> req
         .rxSend()
         .flatMap(HttpClientResponse::rxBody)
-        .map(Buffer::toJsonObject));
+        .map(io.vertx.core.buffer.Buffer::toJsonObject));
 
     // Combine the responses with the zip into a single response
     req1.zipWith(req2, (b1, b2) -> new JsonObject().put("req1", b1).put("req2", b2)).subscribe(json -> {

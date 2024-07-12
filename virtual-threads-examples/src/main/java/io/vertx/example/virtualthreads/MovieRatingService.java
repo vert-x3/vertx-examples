@@ -7,6 +7,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.sqlclient.*;
 
@@ -44,11 +45,9 @@ public class MovieRatingService extends AbstractVerticle {
 
   @Override
   public void start() {
-    client = JDBCPool.pool(vertx, new JsonObject()
-      .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-      .put("driver_class", "org.hsqldb.jdbcDriver")
-      .put("max_pool_size-loop", 30)
-    );
+    client = JDBCPool.pool(vertx,
+      new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"),
+      new PoolOptions().setMaxSize(30));
 
     DB_STATEMENTS.forEach(statement -> {
       await(client.query(statement).execute());

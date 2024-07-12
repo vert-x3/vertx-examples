@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import io.vertx.core.Handler;
 import io.vertx.core.AsyncResult;
@@ -41,7 +42,7 @@ import io.vertx.lang.rx.MappingIterator;
 /**
  * The service interface.
  *
- * <p/>
+ * <p>
  * NOTE: This class has been automatically generated from the {@link io.vertx.examples.service.ProcessorService original} non RX-ified interface using Vert.x codegen.
  */
 
@@ -102,8 +103,8 @@ public class ProcessorService {
     return ret;
   }
 
-  public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> rxProcess(io.vertx.core.json.JsonObject document) { 
-    return AsyncResultSingle.toSingle(delegate.process(document), __value -> __value);
+  public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> rxProcess(io.vertx.core.json.JsonObject document) {
+    return AsyncResultSingle.toSingle(() -> delegate.process(document), __value -> __value);
   }
 
   public static final int NO_NAME_ERROR = io.vertx.examples.service.ProcessorService.NO_NAME_ERROR;

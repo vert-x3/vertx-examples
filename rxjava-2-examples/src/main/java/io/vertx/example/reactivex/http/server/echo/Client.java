@@ -2,10 +2,10 @@ package io.vertx.example.reactivex.http.server.echo;
 
 import io.reactivex.Flowable;
 import io.vertx.core.Launcher;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.MultiMap;
-import io.vertx.reactivex.core.buffer.Buffer;
 import io.vertx.reactivex.core.http.HttpClient;
 import io.vertx.reactivex.core.http.HttpClientResponse;
 

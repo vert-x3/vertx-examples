@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import io.vertx.core.Handler;
 import io.vertx.core.AsyncResult;
@@ -79,14 +80,16 @@ public class SomeDatabaseService {
   }
 
 
+// SIMPLE FUTURE
   public io.vertx.core.Future<io.vertx.core.json.JsonObject> getDataById(int id) { 
     io.vertx.core.Future<io.vertx.core.json.JsonObject> ret = delegate.getDataById(id).map(val -> val);
     return ret;
   }
 
+// RX
   public io.reactivex.Single<io.vertx.core.json.JsonObject> rxGetDataById(int id) { 
     return AsyncResultSingle.toSingle($handler -> {
-      getDataById(id).onComplete($handler);
+      this.getDataById(id).onComplete($handler);
     });
   }
 

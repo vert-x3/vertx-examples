@@ -3,10 +3,13 @@ package io.vertx.example.rxjava3.database.sqlclient;
 import io.reactivex.rxjava3.core.Maybe;
 import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.jdbcclient.JDBCPool;
+import io.vertx.rxjava3.sqlclient.Pool;
 import io.vertx.rxjava3.sqlclient.Row;
 import io.vertx.rxjava3.sqlclient.RowSet;
+import io.vertx.sqlclient.PoolOptions;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -20,10 +23,7 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    JsonObject config = new JsonObject().put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-      .put("driver_class", "org.hsqldb.jdbcDriver");
-
-    JDBCPool pool = JDBCPool.pool(vertx, config);
+    Pool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"), new PoolOptions());
 
     Maybe<RowSet<Row>> resa = pool.rxWithConnection(conn -> conn
       .query("CREATE TABLE test(col VARCHAR(20))")

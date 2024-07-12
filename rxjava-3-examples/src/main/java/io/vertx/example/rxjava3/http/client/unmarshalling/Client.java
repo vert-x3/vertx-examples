@@ -34,7 +34,7 @@ public class Client extends AbstractVerticle {
         .rxSend()
         .flatMapPublisher(HttpClientResponse::toFlowable)
         // Unmarshall the response to the Data object via Jackon
-        .map(buffer -> Json.decodeValue(buffer.getDelegate(), Data.class))
+        .map(buffer -> Json.decodeValue(buffer, Data.class))
       );
 
     flowable.subscribe(data -> System.out.println("Got response " + data.message), Throwable::printStackTrace);

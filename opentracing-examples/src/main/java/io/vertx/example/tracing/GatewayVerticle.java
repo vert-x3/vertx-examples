@@ -1,9 +1,7 @@
 package io.vertx.example.tracing;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.ext.web.client.WebClient;
-import io.vertx.ext.web.client.predicate.ResponsePredicate;
 
 import static io.vertx.core.http.HttpResponseExpectation.*;
 

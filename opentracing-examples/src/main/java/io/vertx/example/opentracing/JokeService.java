@@ -7,6 +7,7 @@ import io.vertx.core.VertxOptions;
 import io.vertx.example.tracing.ChuckNorrisJokesVerticle;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.tracing.opentracing.OpenTracingOptions;
+import io.vertx.tracing.opentracing.OpenTracingTracerFactory;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.concurrent.ExecutionException;
@@ -37,9 +38,9 @@ public class JokeService {
       .withSampler(samplerConfig)
       .withReporter(reporterConfig);
 
-    Vertx vertx = Vertx.vertx(new VertxOptions()
-      .setTracingOptions(new OpenTracingOptions(config.getTracer())
-      ));
+    Vertx vertx = Vertx.builder()
+      .withTracer(new OpenTracingTracerFactory(config.getTracer()))
+      .build();
 
     vertx.deployVerticle(new ChuckNorrisJokesVerticle(options))
       .toCompletionStage()

@@ -4,11 +4,14 @@ import io.reactivex.Maybe;
 import io.reactivex.functions.Function;
 import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.jdbcclient.JDBCPool;
+import io.vertx.reactivex.sqlclient.Pool;
 import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.RowSet;
 import io.vertx.reactivex.sqlclient.SqlConnection;
+import io.vertx.sqlclient.PoolOptions;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -22,10 +25,7 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 
-    JsonObject config = new JsonObject().put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-      .put("driver_class", "org.hsqldb.jdbcDriver");
-
-    JDBCPool pool = JDBCPool.pool(vertx, config);
+    Pool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"), new PoolOptions());
 
     Maybe<RowSet<Row>> resa = pool.rxWithConnection((Function<SqlConnection, Maybe<RowSet<Row>>>) conn -> conn
       .query("CREATE TABLE test(col VARCHAR(20))")

@@ -3,27 +3,27 @@ package movierating
 import coroutineHandler
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
+import io.vertx.jdbcclient.JDBCConnectOptions
 import io.vertx.jdbcclient.JDBCPool
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.kotlin.coroutines.await
+import io.vertx.sqlclient.Pool
+import io.vertx.sqlclient.PoolOptions
 import io.vertx.sqlclient.Tuple
 
 
 class App : CoroutineVerticle() {
 
-  private lateinit var client: JDBCPool
+  private lateinit var client: Pool
 
   override suspend fun start() {
 
-    client = JDBCPool.pool(vertx, json {
-      obj(
-        "url" to "jdbc:hsqldb:mem:test?shutdown=true",
-        "driver_class" to "org.hsqldb.jdbcDriver",
-        "max_pool_size-loop" to 30
-      )
-    })
+    client = JDBCPool.pool(
+      vertx,
+      JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"),
+      PoolOptions().setMaxSize(30))
 
     // Populate database
     val statements = listOf(

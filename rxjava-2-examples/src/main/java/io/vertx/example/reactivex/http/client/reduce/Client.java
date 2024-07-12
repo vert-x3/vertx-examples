@@ -3,9 +3,9 @@ package io.vertx.example.reactivex.http.client.reduce;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.vertx.core.Launcher;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.reactivex.core.AbstractVerticle;
-import io.vertx.reactivex.core.buffer.Buffer;
 import io.vertx.reactivex.core.http.HttpClient;
 
 /*

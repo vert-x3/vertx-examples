@@ -39,7 +39,7 @@ public class Server extends AbstractVerticle {
 
     // Implement logout
     router.route("/logout").handler(context -> {
-      context.clearUser();
+      context.user().clear();
       // Redirect back to the index page
       context.response().putHeader("location", "/").setStatusCode(302).end();
     });
