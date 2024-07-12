@@ -57,7 +57,7 @@ public class MyJUnitTest {
   public void test2(TestContext context) {
     // Deploy and undeploy a verticle
     vertx.deployVerticle(SomeVerticle.class.getName())
-      .compose(deploymentID -> vertx.deployVerticle(deploymentID))
+      .compose(deploymentID -> vertx.undeploy(deploymentID))
       .onComplete(context.asyncAssertSuccess());
   }
 }
