@@ -26,10 +26,9 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
-import io.vertx.sqlclient.SqlResult;
+import io.vertx.sqlclient.*;
 import io.vertx.sqlclient.templates.SqlTemplate;
 import io.vertx.sqlclient.templates.TupleMapper;
 
@@ -46,7 +45,7 @@ public class Server extends AbstractVerticle {
     Launcher.executeCommand("run", Server.class.getName());
   }
 
-  private JDBCPool client;
+  private Pool client;
   private SqlTemplate<Map<String, Object>, RowSet<JsonObject>> getProductTmpl;
   private SqlTemplate<JsonObject, SqlResult<Void>> addProductTmpl;
 
@@ -54,9 +53,7 @@ public class Server extends AbstractVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
 
     // Create a JDBC client with a test database
-    client = JDBCPool.pool(vertx, new JsonObject()
-      .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-      .put("driver_class", "org.hsqldb.jdbcDriver"));
+    client = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"), new PoolOptions().setMaxSize(10));
     getProductTmpl = SqlTemplate
       .forQuery(client, "SELECT id, name, price, weight FROM products where id = #{id}")
       .mapTo(Row::toJson);

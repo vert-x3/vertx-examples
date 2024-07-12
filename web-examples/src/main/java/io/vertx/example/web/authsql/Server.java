@@ -2,15 +2,16 @@ package io.vertx.example.web.authsql;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.VertxContextPRNG;
-import io.vertx.ext.auth.authentication.AuthenticationProvider;
 import io.vertx.ext.auth.sqlclient.SqlAuthentication;
 import io.vertx.ext.auth.sqlclient.SqlAuthenticationOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
+import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.sqlclient.Pool;
+import io.vertx.sqlclient.PoolOptions;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,9 +31,7 @@ public class Server extends AbstractVerticle {
   public void start() throws Exception {
 
     // Create a JDBC client with a test database
-    JDBCPool client = JDBCPool.pool(vertx, new JsonObject()
-      .put("url", "jdbc:hsqldb:mem:test?shutdown=true")
-      .put("driver_class", "org.hsqldb.jdbcDriver"));
+    Pool client = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"), new PoolOptions().setMaxSize(10));
 
     // Simple auth service which uses a JDBC data source
     SqlAuthentication authProvider = SqlAuthentication.create(client, new SqlAuthenticationOptions());
