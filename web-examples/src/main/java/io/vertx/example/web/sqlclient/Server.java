@@ -18,7 +18,6 @@ package io.vertx.example.web.sqlclient;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
-import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
@@ -28,6 +27,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.sqlclient.*;
 import io.vertx.sqlclient.templates.SqlTemplate;
 import io.vertx.sqlclient.templates.TupleMapper;
@@ -42,7 +42,7 @@ import java.util.Map;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   private JDBCPool client;

@@ -1,11 +1,10 @@
 package io.vertx.example.core.http.upload;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.streams.Pipe;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.util.UUID;
 
@@ -15,7 +14,7 @@ import java.util.UUID;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

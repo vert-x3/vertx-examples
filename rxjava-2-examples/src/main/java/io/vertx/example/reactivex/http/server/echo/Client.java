@@ -1,9 +1,9 @@
 package io.vertx.example.reactivex.http.server.echo;
 
 import io.reactivex.Flowable;
-import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.MultiMap;
 import io.vertx.reactivex.core.http.HttpClient;
@@ -15,7 +15,7 @@ import io.vertx.reactivex.core.http.HttpClientResponse;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

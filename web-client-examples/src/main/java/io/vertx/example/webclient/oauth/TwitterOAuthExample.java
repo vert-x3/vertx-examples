@@ -1,11 +1,11 @@
 package io.vertx.example.webclient.oauth;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:akshay0007k@gmail.com">Akshay Kumar</a>
@@ -18,7 +18,7 @@ public class TwitterOAuthExample extends AbstractVerticle {
   private static final String TWEET_SEARCH_URL = "https://api.twitter.com/1.1/search/tweets.json";
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", TwitterOAuthExample.class.getName());
+    VertxApplication.main(new String[]{TwitterOAuthExample.class.getName()});
   }
 
   @Override

@@ -1,8 +1,8 @@
 package io.vertx.example.reactivex.eventbus.pubsub;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -10,7 +10,7 @@ import io.vertx.core.eventbus.EventBus;
 public class Sender extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Sender.class.getName(), "-cluster");
+    VertxApplication.main(new String[]{Sender.class.getName(), "-cluster"});
   }
 
   @Override

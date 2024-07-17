@@ -80,13 +80,11 @@ public class SomeDatabaseService {
   }
 
 
-// SIMPLE FUTURE
   public io.vertx.core.Future<io.vertx.core.json.JsonObject> getDataById(int id) { 
     io.vertx.core.Future<io.vertx.core.json.JsonObject> ret = delegate.getDataById(id).map(val -> val);
     return ret;
   }
 
-// RX
   public io.reactivex.Single<io.vertx.core.json.JsonObject> rxGetDataById(int id) { 
     return AsyncResultSingle.toSingle($handler -> {
       this.getDataById(id).onComplete($handler);

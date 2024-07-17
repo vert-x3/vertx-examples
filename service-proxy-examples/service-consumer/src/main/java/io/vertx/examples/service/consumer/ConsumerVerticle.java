@@ -1,9 +1,9 @@
 package io.vertx.examples.service.consumer;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.examples.service.ProcessorService;
+import io.vertx.launcher.application.VertxApplication;
 
 
 /**
@@ -12,7 +12,7 @@ import io.vertx.examples.service.ProcessorService;
 public class ConsumerVerticle extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ConsumerVerticle.class.getName(), "-cluster");
+    VertxApplication.main(new String[]{ConsumerVerticle.class.getName(), "-cluster"});
   }
 
   @Override

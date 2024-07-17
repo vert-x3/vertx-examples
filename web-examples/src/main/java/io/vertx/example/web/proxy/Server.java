@@ -2,7 +2,6 @@ package io.vertx.example.web.proxy;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.web.Router;
@@ -10,6 +9,7 @@ import io.vertx.ext.web.handler.AuthenticationHandler;
 import io.vertx.ext.web.handler.BasicAuthHandler;
 import io.vertx.ext.web.proxy.handler.ProxyHandler;
 import io.vertx.httpproxy.HttpProxy;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -17,7 +17,7 @@ import io.vertx.httpproxy.HttpProxy;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

@@ -1,10 +1,10 @@
 package io.vertx.example.core.http.sharing;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * A client illustrating the round robin made by vert.x. The client send a request to the server periodically and
@@ -13,7 +13,7 @@ import io.vertx.core.http.HttpMethod;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

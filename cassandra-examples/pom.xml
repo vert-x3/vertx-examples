@@ -29,7 +29,7 @@
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-launcher-legacy-cli</artifactId>
+      <artifactId>vertx-launcher-application</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

@@ -1,6 +1,6 @@
 package io.vertx.example.rxjava3.web.helloworld;
 
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.ext.web.Router;
 
@@ -10,7 +10,7 @@ import io.vertx.rxjava3.ext.web.Router;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

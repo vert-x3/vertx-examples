@@ -1,8 +1,8 @@
 package io.vertx.example.webclient.response.jsonobject;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -10,7 +10,7 @@ import io.vertx.core.json.JsonObject;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

@@ -1,8 +1,8 @@
 package io.vertx.examples.redis;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.redis.client.Redis;
 import io.vertx.redis.client.RedisAPI;
 import io.vertx.redis.client.RedisOptions;
@@ -16,7 +16,7 @@ public class RedisClientVerticle extends AbstractVerticle {
 
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", RedisClientVerticle.class.getName());
+    VertxApplication.main(new String[]{RedisClientVerticle.class.getName()});
   }
 
   @Override

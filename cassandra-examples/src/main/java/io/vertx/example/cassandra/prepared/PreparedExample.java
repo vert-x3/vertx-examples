@@ -2,7 +2,7 @@ package io.vertx.example.cassandra.prepared;
 
 import io.vertx.cassandra.CassandraClient;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 public class PreparedExample extends AbstractVerticle {
 
@@ -10,7 +10,7 @@ public class PreparedExample extends AbstractVerticle {
    * Convenience method so you can run it in your IDE
    */
   public static void main(String[] args) {
-    Launcher.main(new String[]{"run", PreparedExample.class.getName()});
+    VertxApplication.main(new String[]{PreparedExample.class.getName()});
   }
 
   @Override

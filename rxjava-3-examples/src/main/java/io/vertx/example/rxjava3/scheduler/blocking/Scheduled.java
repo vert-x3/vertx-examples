@@ -2,7 +2,7 @@ package io.vertx.example.rxjava3.scheduler.blocking;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Scheduler;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
 
 /*
@@ -11,7 +11,7 @@ import io.vertx.rxjava3.core.AbstractVerticle;
 public class Scheduled extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Scheduled.class.getName());
+    VertxApplication.main(new String[]{Scheduled.class.getName()});
   }
 
   private String blockingLoad(String id) {

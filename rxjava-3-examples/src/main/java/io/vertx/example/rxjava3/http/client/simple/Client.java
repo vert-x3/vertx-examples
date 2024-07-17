@@ -1,10 +1,10 @@
 package io.vertx.example.rxjava3.http.client.simple;
 
 import io.reactivex.rxjava3.core.Single;
-import io.vertx.core.Launcher;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.launcher.application.VertxApplication;
+import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.core.http.HttpClient;
 
 /*
@@ -13,7 +13,7 @@ import io.vertx.rxjava3.core.http.HttpClient;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

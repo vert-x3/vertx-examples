@@ -17,9 +17,9 @@
 package io.vertx.example.core.net.greeter;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.net.NetSocket;
 import io.vertx.core.parsetools.RecordParser;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.util.stream.Stream;
 
@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

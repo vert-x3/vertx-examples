@@ -1,8 +1,6 @@
 package io.vertx.example.web.authsql;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.prng.VertxContextPRNG;
 import io.vertx.ext.auth.sqlclient.SqlAuthentication;
 import io.vertx.ext.auth.sqlclient.SqlAuthenticationOptions;
@@ -11,6 +9,7 @@ import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 
@@ -25,7 +24,7 @@ import java.sql.SQLException;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

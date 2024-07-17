@@ -1,9 +1,8 @@
 package io.vertx.example.rxjava3.database.sqlclient;
 
 import io.reactivex.rxjava3.core.Maybe;
-import io.vertx.core.Launcher;
-import io.vertx.core.json.JsonObject;
 import io.vertx.jdbcclient.JDBCConnectOptions;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.jdbcclient.JDBCPool;
 import io.vertx.rxjava3.sqlclient.*;
@@ -18,7 +17,7 @@ import java.util.function.Function;
 public class Transaction extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Transaction.class.getName());
+    VertxApplication.main(new String[]{Transaction.class.getName()});
   }
 
   @Override

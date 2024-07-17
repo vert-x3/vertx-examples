@@ -2,11 +2,11 @@ package io.vertx.example.grpc.consumer;
 
 import com.google.protobuf.ByteString;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.example.grpc.ConsumerServiceGrpc;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.Messages.PayloadType;
 import io.vertx.grpc.server.GrpcServer;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

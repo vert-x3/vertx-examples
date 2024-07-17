@@ -1,14 +1,12 @@
 package io.vertx.example.reactivex.http.client.zip;
 
 import io.reactivex.Single;
-import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.http.HttpClient;
 import io.vertx.reactivex.core.http.HttpClientResponse;
-
-import static io.vertx.sqlclient.data.NullValue.Buffer;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -16,7 +14,7 @@ import static io.vertx.sqlclient.data.NullValue.Buffer;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

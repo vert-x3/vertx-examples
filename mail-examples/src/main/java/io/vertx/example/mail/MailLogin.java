@@ -1,9 +1,9 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.mail.*;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class MailLogin extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", MailLogin.class.getName());
+    VertxApplication.main(new String[]{MailLogin.class.getName()});
   }
 
   public void start() {

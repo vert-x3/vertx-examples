@@ -1,6 +1,6 @@
 package io.vertx.example.reactivex.eventbus.pingpong;
 
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.eventbus.EventBus;
 
@@ -9,7 +9,7 @@ public class PingPong extends AbstractVerticle {
   private static final String ADDRESS = "ping-address";
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", PingPong.class.getName(), "-cluster");
+    VertxApplication.main(new String[]{PingPong.class.getName(), "-cluster"});
   }
 
   @Override

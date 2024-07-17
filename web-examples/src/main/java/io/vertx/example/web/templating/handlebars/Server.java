@@ -1,11 +1,11 @@
 package io.vertx.example.web.templating.handlebars;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * This is an example application to showcase the usage of Vert.x Web.
@@ -20,7 +20,7 @@ import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

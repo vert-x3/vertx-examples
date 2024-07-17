@@ -1,8 +1,8 @@
 package io.vertx.examples.consul;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.consul.ConsulClient;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * @author <a href="mailto:ruslan.sennov@gmail.com">Ruslan Sennov</a>
@@ -13,7 +13,7 @@ public class ConsulClientVerticle extends AbstractVerticle {
    * Convenience method so you can run it in your IDE
    */
   public static void main(String[] args) {
-    Launcher.main(new String[]{"run", ConsulClientVerticle.class.getName()});
+    VertxApplication.main(new String[]{ConsulClientVerticle.class.getName()});
   }
 
 

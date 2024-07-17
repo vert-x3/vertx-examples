@@ -1,11 +1,11 @@
 package io.vertx.example.web.auth;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -13,7 +13,7 @@ import io.vertx.ext.web.sstore.LocalSessionStore;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

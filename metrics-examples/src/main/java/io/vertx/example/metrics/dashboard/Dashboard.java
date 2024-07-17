@@ -17,8 +17,6 @@
 package io.vertx.example.metrics.dashboard;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
-import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.bridge.PermittedOptions;
@@ -28,6 +26,9 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+import io.vertx.launcher.application.HookContext;
+import io.vertx.launcher.application.VertxApplication;
+import io.vertx.launcher.application.VertxApplicationHooks;
 
 import java.util.Random;
 
@@ -37,13 +38,13 @@ import java.util.Random;
 public class Dashboard extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher launcher = new Launcher() {
+    VertxApplication application = new VertxApplication(new String[]{Dashboard.class.getName()}, new VertxApplicationHooks() {
       @Override
-      public void beforeStartingVertx(VertxOptions options) {
-        options.setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true));
+      public void beforeStartingVertx(HookContext context) {
+        context.vertxOptions().setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true));
       }
-    };
-    launcher.dispatch(new String[]{"run", Dashboard.class.getName()});
+    });
+    application.launch();
   }
 
   @Override

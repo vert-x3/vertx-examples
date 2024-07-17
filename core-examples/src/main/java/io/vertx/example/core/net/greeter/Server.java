@@ -17,8 +17,8 @@
 package io.vertx.example.core.net.greeter;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.parsetools.RecordParser;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author Thomas Segismont
@@ -26,7 +26,7 @@ import io.vertx.core.parsetools.RecordParser;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

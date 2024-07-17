@@ -1,7 +1,6 @@
 package io.vertx.example.web.openapi3;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.ext.web.Router;
@@ -10,11 +9,12 @@ import io.vertx.ext.web.openapi.RouterBuilderOptions;
 import io.vertx.ext.web.validation.RequestParameter;
 import io.vertx.ext.web.validation.RequestParameters;
 import io.vertx.ext.web.validation.ValidationHandler;
+import io.vertx.launcher.application.VertxApplication;
 
 public class OpenAPI3Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", OpenAPI3Server.class.getName());
+    VertxApplication.main(new String[]{OpenAPI3Server.class.getName()});
   }
 
   private HttpServer server;

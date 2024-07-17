@@ -1,7 +1,7 @@
 package io.vertx.example.core.http.sendfile;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -9,7 +9,7 @@ import io.vertx.core.Launcher;
 public class SendFile extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", SendFile.class.getName());
+    VertxApplication.main(new String[]{SendFile.class.getName()});
   }
 
   @Override

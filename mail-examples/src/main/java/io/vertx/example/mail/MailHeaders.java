@@ -1,10 +1,10 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.mail.MailMessage;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.util.Arrays;
 
@@ -21,7 +21,7 @@ public class MailHeaders extends AbstractVerticle {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    Launcher.executeCommand("run", MailHeaders.class.getName());
+    VertxApplication.main(new String[]{MailHeaders.class.getName()});
   }
 
   public void start() {

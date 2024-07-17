@@ -3,7 +3,7 @@ package io.vertx.example.cassandra.simple;
 import com.datastax.oss.driver.api.core.cql.Row;
 import io.vertx.cassandra.CassandraClient;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 public class SimpleExample extends AbstractVerticle {
 
@@ -11,7 +11,7 @@ public class SimpleExample extends AbstractVerticle {
    * Convenience method so you can run it in your IDE
    */
   public static void main(String[] args) {
-    Launcher.main(new String[]{"run", SimpleExample.class.getName()});
+    VertxApplication.main(new String[]{SimpleExample.class.getName()});
   }
 
   @Override

@@ -17,7 +17,7 @@
 package io.vertx.example.mqtt.simple;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
 
@@ -27,7 +27,7 @@ import io.vertx.mqtt.MqttServerOptions;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

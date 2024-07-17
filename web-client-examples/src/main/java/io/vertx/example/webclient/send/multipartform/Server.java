@@ -1,7 +1,7 @@
 package io.vertx.example.webclient.send.multipartform;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -9,7 +9,7 @@ import io.vertx.core.Launcher;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

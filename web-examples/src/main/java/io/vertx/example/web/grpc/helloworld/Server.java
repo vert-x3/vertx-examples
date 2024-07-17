@@ -3,9 +3,9 @@ package io.vertx.example.web.grpc.helloworld;
 import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
 import io.vertx.grpc.server.GrpcServer;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -13,7 +13,7 @@ import io.vertx.grpc.server.GrpcServer;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

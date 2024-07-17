@@ -1,11 +1,11 @@
 package io.vertx.example.grpc.consumer;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.ConsumerServiceGrpc;
 import io.vertx.example.grpc.Messages;
 import io.vertx.grpc.client.GrpcClient;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.nio.charset.StandardCharsets;
 
@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

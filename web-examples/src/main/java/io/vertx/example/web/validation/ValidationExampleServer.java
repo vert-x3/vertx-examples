@@ -1,7 +1,6 @@
 package io.vertx.example.web.validation;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -12,6 +11,7 @@ import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder;
 import io.vertx.json.schema.Draft;
 import io.vertx.json.schema.JsonSchemaOptions;
 import io.vertx.json.schema.SchemaRepository;
+import io.vertx.launcher.application.VertxApplication;
 
 import static io.vertx.ext.web.validation.builder.Bodies.formUrlEncoded;
 import static io.vertx.ext.web.validation.builder.Bodies.json;
@@ -95,6 +95,6 @@ public class ValidationExampleServer extends AbstractVerticle {
   }
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ValidationExampleServer.class.getName());
+    VertxApplication.main(new String[]{ValidationExampleServer.class.getName()});
   }
 }

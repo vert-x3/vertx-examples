@@ -3,9 +3,8 @@ package io.vertx.example.reactivex.database.sqlclient;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
-import io.vertx.core.Launcher;
-import io.vertx.core.json.JsonObject;
 import io.vertx.jdbcclient.JDBCConnectOptions;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.jdbcclient.JDBCPool;
 import io.vertx.reactivex.sqlclient.Pool;
@@ -20,7 +19,7 @@ import io.vertx.sqlclient.PoolOptions;
 public class Streaming extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Streaming.class.getName());
+    VertxApplication.main(new String[]{Streaming.class.getName()});
   }
 
   @Override

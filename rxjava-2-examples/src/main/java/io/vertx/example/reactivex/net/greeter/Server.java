@@ -17,8 +17,8 @@
 package io.vertx.example.reactivex.net.greeter;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.parsetools.RecordParser;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.FlowableHelper;
 
 /*
@@ -27,7 +27,7 @@ import io.vertx.reactivex.FlowableHelper;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

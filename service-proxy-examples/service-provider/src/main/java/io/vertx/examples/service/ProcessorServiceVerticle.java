@@ -1,7 +1,6 @@
 package io.vertx.examples.service;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
@@ -11,6 +10,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.serviceproxy.ServiceBinder;
 
 /**
@@ -24,7 +24,7 @@ public class ProcessorServiceVerticle extends AbstractVerticle {
   HttpServer httpServer;
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ProcessorServiceVerticle.class.getName(), "-cluster");
+    VertxApplication.main(new String[]{ProcessorServiceVerticle.class.getName(), "-cluster"});
   }
 
   @Override

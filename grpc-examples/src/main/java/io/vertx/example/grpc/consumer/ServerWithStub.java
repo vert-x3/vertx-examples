@@ -2,13 +2,13 @@ package io.vertx.example.grpc.consumer;
 
 import com.google.protobuf.ByteString;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.Messages.PayloadType;
 import io.vertx.example.grpc.VertxConsumerServiceGrpc;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServiceBridge;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ServerWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ServerWithStub.class.getName());
+    VertxApplication.main(new String[]{ServerWithStub.class.getName()});
   }
 
   @Override

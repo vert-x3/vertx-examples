@@ -1,11 +1,12 @@
 package io.vertx.example.core.eventbus.ssl;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
-import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.EventBusOptions;
 import io.vertx.core.net.JksOptions;
+import io.vertx.launcher.application.HookContext;
+import io.vertx.launcher.application.VertxApplication;
+import io.vertx.launcher.application.VertxApplicationHooks;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -13,16 +14,16 @@ import io.vertx.core.net.JksOptions;
 public class Receiver extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher launcher = new Launcher() {
+    VertxApplication application = new VertxApplication(new String[]{Receiver.class.getName(), "-cluster"}, new VertxApplicationHooks() {
       @Override
-      public void beforeStartingVertx(VertxOptions options) {
-        options.setEventBusOptions(new EventBusOptions()
+      public void beforeStartingVertx(HookContext context) {
+        context.vertxOptions().setEventBusOptions(new EventBusOptions()
           .setSsl(true)
           .setKeyCertOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble"))
           .setTrustOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble")));
       }
-    };
-    launcher.dispatch(new String[]{"run", Receiver.class.getName(), "-cluster"});
+    });
+    application.launch();
   }
 
   @Override
