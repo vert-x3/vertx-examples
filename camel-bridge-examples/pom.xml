@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>camel-bridge-examples</artifactId>
-  <version>4.5.8</version>
+  <version>4.5.9</version>
 
   <dependencies>
     <dependency>
