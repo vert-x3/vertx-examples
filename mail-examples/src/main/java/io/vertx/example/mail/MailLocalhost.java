@@ -1,10 +1,10 @@
 package io.vertx.example.mail;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.mail.MailMessage;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class MailLocalhost extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", MailLocalhost.class.getName());
+    VertxApplication.main(new String[]{MailLocalhost.class.getName()});
   }
 
   @Override

@@ -2,7 +2,7 @@ package io.vertx.example.reactivex.web.realtime;
 
 import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.handler.StaticHandler;
@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.handler.sockjs.SockJSHandler;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

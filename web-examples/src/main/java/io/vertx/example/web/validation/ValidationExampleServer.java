@@ -1,21 +1,22 @@
 package io.vertx.example.web.validation;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.validation.BadRequestException;
 import io.vertx.ext.web.validation.RequestParameters;
 import io.vertx.ext.web.validation.ValidationHandler;
-import io.vertx.json.schema.SchemaParser;
-import io.vertx.json.schema.SchemaRouter;
-import io.vertx.json.schema.SchemaRouterOptions;
+import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder;
+import io.vertx.json.schema.Draft;
+import io.vertx.json.schema.JsonSchemaOptions;
+import io.vertx.json.schema.SchemaRepository;
+import io.vertx.launcher.application.VertxApplication;
 
 import static io.vertx.ext.web.validation.builder.Bodies.formUrlEncoded;
 import static io.vertx.ext.web.validation.builder.Bodies.json;
 import static io.vertx.ext.web.validation.builder.Parameters.param;
-import static io.vertx.json.schema.draft7.dsl.Schemas.*;
+import static io.vertx.json.schema.common.dsl.Schemas.*;
 
 /**
  * @author <a href="https://slinkydeveloper.com">Francesco Guardiani</a>
@@ -25,9 +26,7 @@ public class ValidationExampleServer extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     // The schema parser is required to create new schemas
-    SchemaParser parser = SchemaParser.createDraft7SchemaParser(
-      SchemaRouter.create(vertx, new SchemaRouterOptions())
-    );
+    SchemaRepository repo = SchemaRepository.create(new JsonSchemaOptions().setDraft(Draft.DRAFT7));
 
     Router router = Router.router(vertx);
 
@@ -35,7 +34,7 @@ public class ValidationExampleServer extends AbstractVerticle {
     router.route().handler(BodyHandler.create());
 
     // Create Validation Handler with some stuff
-    ValidationHandler validationHandler = ValidationHandler.builder(parser)
+    ValidationHandler validationHandler = ValidationHandlerBuilder.create(repo)
       .queryParameter(param("parameterName", intSchema()))
       .pathParameter(param("pathParam", numberSchema()))
       .body(
@@ -70,7 +69,7 @@ public class ValidationExampleServer extends AbstractVerticle {
 
     // A very basic example of JSON body validation
     router.post("/jsonUploader")
-      .handler(ValidationHandler.builder(parser)
+      .handler(ValidationHandlerBuilder.create(repo)
         .body(json(
           objectSchema()
             .additionalProperties(stringSchema())
@@ -96,6 +95,6 @@ public class ValidationExampleServer extends AbstractVerticle {
   }
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ValidationExampleServer.class.getName());
+    VertxApplication.main(new String[]{ValidationExampleServer.class.getName()});
   }
 }

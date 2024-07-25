@@ -1,10 +1,10 @@
 package io.vertx.example.core.eventbus.messagecodec;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.example.core.eventbus.messagecodec.util.CustomMessage;
 import io.vertx.example.core.eventbus.messagecodec.util.CustomMessageCodec;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * Publisher
@@ -12,7 +12,7 @@ import io.vertx.example.core.eventbus.messagecodec.util.CustomMessageCodec;
  */
 public class Sender extends AbstractVerticle {
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Sender.class.getName(), "-cluster");
+    VertxApplication.main(new String[]{Sender.class.getName(), "-cluster"});
   }
 
   @Override

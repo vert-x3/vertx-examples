@@ -1,7 +1,7 @@
 package io.vertx.example.core.verticle.asyncstart;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -9,7 +9,7 @@ import io.vertx.core.Launcher;
 public class DeployExample extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", DeployExample.class.getName());
+    VertxApplication.main(new String[]{DeployExample.class.getName()});
   }
 
   @Override

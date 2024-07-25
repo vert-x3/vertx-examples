@@ -1,7 +1,6 @@
 package io.vertx.example.web.custom_authorisation;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.JWTOptions;
@@ -14,6 +13,7 @@ import io.vertx.ext.auth.jwt.authorization.JWTAuthorization;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -21,7 +21,7 @@ import io.vertx.ext.web.handler.StaticHandler;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override
@@ -61,7 +61,7 @@ public class Server extends AbstractVerticle {
 
     PermissionBasedAuthorization defcon1 = PermissionBasedAuthorization.create("defcon1");
     router.get("/api/protected/defcon1").handler(ctx -> {
-      User user = ctx.user();
+      User user = ctx.user().get();
       authzProvider.getAuthorizations(user).onComplete(ar -> {
         if (ar.succeeded()) {
           // protect the API (defcon1 authority is required)
@@ -79,7 +79,7 @@ public class Server extends AbstractVerticle {
 
     PermissionBasedAuthorization defcon2 = PermissionBasedAuthorization.create("defcon2");
     router.get("/api/protected/defcon2").handler(ctx -> {
-      User user = ctx.user();
+      User user = ctx.user().get();
       authzProvider.getAuthorizations(user).onComplete(ar -> {
         if (ar.succeeded()) {
           // protect the API (defcon2 authority is required)
@@ -97,7 +97,7 @@ public class Server extends AbstractVerticle {
 
     PermissionBasedAuthorization defcon3 = PermissionBasedAuthorization.create("defcon3");
     router.get("/api/protected/defcon3").handler(ctx -> {
-      User user = ctx.user();
+      User user = ctx.user().get();
       authzProvider.getAuthorizations(user).onComplete(ar -> {
         if (ar.succeeded()) {
           // protect the API (defcon3 authority is required)

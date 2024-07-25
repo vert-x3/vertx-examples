@@ -2,7 +2,7 @@ package io.vertx.example.core.http.sharing;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * An example illustrating the server sharing and round robin. The servers are identified using an id.
@@ -11,7 +11,7 @@ import io.vertx.core.Launcher;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

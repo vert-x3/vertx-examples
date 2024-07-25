@@ -1,10 +1,10 @@
 package io.vertx.example.core.http.proxy;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -12,7 +12,7 @@ import io.vertx.core.http.HttpServerResponse;
 public class Proxy extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Proxy.class.getName());
+    VertxApplication.main(new String[]{Proxy.class.getName()});
   }
 
   @Override

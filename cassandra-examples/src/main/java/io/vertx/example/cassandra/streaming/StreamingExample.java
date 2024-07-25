@@ -4,7 +4,7 @@ import io.vertx.cassandra.CassandraClient;
 import io.vertx.cassandra.CassandraClientOptions;
 import io.vertx.cassandra.CassandraRowStream;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 public class StreamingExample extends AbstractVerticle {
 
@@ -13,7 +13,7 @@ public class StreamingExample extends AbstractVerticle {
    * Convenience method so you can run it in your IDE
    */
   public static void main(String[] args) {
-    Launcher.main(new String[]{"run", StreamingExample.class.getName()});
+    VertxApplication.main(new String[]{StreamingExample.class.getName()});
   }
 
   @Override

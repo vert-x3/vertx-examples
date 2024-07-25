@@ -16,7 +16,7 @@
 package io.vertx.example.proton.client;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
 import org.apache.qpid.proton.amqp.messaging.AmqpValue;
@@ -26,7 +26,7 @@ public class Receiver extends AbstractVerticle {
   private String address = "examples";
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Receiver.class.getName());
+    VertxApplication.main(new String[]{Receiver.class.getName()});
   }
 
   @Override

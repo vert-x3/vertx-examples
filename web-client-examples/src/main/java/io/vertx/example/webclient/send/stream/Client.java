@@ -1,7 +1,6 @@
 package io.vertx.example.webclient.send.stream;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.file.FileProps;
 import io.vertx.core.file.FileSystem;
@@ -9,6 +8,7 @@ import io.vertx.core.file.OpenOptions;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -16,7 +16,7 @@ import io.vertx.ext.web.client.WebClient;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

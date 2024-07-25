@@ -1,10 +1,10 @@
 package io.vertx.example.web.templating.rocker;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.TemplateHandler;
 import io.vertx.ext.web.templ.rocker.RockerTemplateEngine;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * @author <a href="mailto:danielrauf@gmail.com>Daniel Rauf</a>
@@ -12,7 +12,7 @@ import io.vertx.ext.web.templ.rocker.RockerTemplateEngine;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

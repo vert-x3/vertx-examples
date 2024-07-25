@@ -6,6 +6,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.example.tracing.HelloVerticle;
 import io.vertx.tracing.opentracing.OpenTracingOptions;
+import io.vertx.tracing.opentracing.OpenTracingTracerFactory;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -26,9 +27,9 @@ public class HelloService {
       .withSampler(samplerConfig)
       .withReporter(reporterConfig);
 
-    Vertx vertx = Vertx.vertx(new VertxOptions()
-      .setTracingOptions(new OpenTracingOptions(config.getTracer())
-      ));
+    Vertx vertx = Vertx.builder()
+      .withTracer(new OpenTracingTracerFactory(config.getTracer()))
+      .build();
 
     vertx.deployVerticle(new HelloVerticle())
       .toCompletionStage()

@@ -17,8 +17,8 @@ package io.vertx.example.proton.client;
 
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
 import io.vertx.proton.ProtonReceiver;
@@ -33,7 +33,7 @@ public class ReconnectReceiver extends AbstractVerticle {
   private ConnectionControl connectionControl = new ConnectionControl("localhost:5672", "localhost:15672");
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ReconnectReceiver.class.getName());
+    VertxApplication.main(new String[]{ReconnectReceiver.class.getName()});
   }
 
   @Override

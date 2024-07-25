@@ -1,8 +1,8 @@
 package io.vertx.example.reactivex.services.serviceproxy;
 
 import io.reactivex.Single;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 
 public class ServiceConsumerVerticle extends AbstractVerticle {
@@ -10,7 +10,7 @@ public class ServiceConsumerVerticle extends AbstractVerticle {
   io.vertx.example.reactivex.services.serviceproxy.reactivex.SomeDatabaseService someDatabaseService;
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ServiceConsumerVerticle.class.getName(), "-cluster");
+    VertxApplication.main(new String[]{ServiceConsumerVerticle.class.getName(), "-cluster"});
   }
 
   @Override

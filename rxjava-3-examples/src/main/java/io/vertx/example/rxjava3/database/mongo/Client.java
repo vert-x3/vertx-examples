@@ -1,8 +1,8 @@
 package io.vertx.example.rxjava3.database.mongo;
 
 import io.reactivex.rxjava3.core.Flowable;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.ext.mongo.MongoClient;
 
@@ -14,7 +14,7 @@ public class Client extends AbstractVerticle {
   private MongoClient mongo;
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

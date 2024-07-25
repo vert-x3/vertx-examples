@@ -1,7 +1,6 @@
 package io.vertx.example.web.oauth2;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.TokenCredentials;
@@ -14,6 +13,7 @@ import io.vertx.ext.web.handler.OAuth2AuthHandler;
 import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -21,7 +21,7 @@ import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   // you should never store these in code,
@@ -69,7 +69,7 @@ public class Server extends AbstractVerticle {
     });
     // The protected resource
     router.get("/protected").handler(ctx -> {
-      User user = ctx.user();
+      User user = ctx.user().get();
       // retrieve the user profile, this is a common feature but not from the official OAuth2 spec
       authProvider
         .userInfo(user)

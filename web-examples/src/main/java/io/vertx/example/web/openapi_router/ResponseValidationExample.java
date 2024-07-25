@@ -1,12 +1,12 @@
 package io.vertx.example.web.openapi_router;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.openapi.router.OpenAPIRoute;
 import io.vertx.ext.web.openapi.router.RouterBuilder;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.openapi.contract.OpenAPIContract;
 import io.vertx.openapi.validation.ResponseValidator;
 import io.vertx.openapi.validation.ValidatableResponse;
@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 public class ResponseValidationExample extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ResponseValidationExample.class.getName());
+    VertxApplication.main(new String[]{ResponseValidationExample.class.getName()});
   }
 
   private String getContractFilePath() {

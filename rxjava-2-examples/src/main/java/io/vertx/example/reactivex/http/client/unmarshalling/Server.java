@@ -1,6 +1,6 @@
 package io.vertx.example.reactivex.http.client.unmarshalling;
 
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.http.HttpServer;
 
@@ -10,7 +10,7 @@ import io.vertx.reactivex.core.http.HttpServer;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

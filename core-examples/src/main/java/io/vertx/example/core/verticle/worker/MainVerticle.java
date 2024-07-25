@@ -2,8 +2,8 @@ package io.vertx.example.core.verticle.worker;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Launcher;
 import io.vertx.core.ThreadingModel;
+import io.vertx.launcher.application.VertxApplication;
 
 /**
  * An example illustrating how worker verticles can be deployed and how to interact with them.
@@ -14,7 +14,7 @@ import io.vertx.core.ThreadingModel;
 public class MainVerticle extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", MainVerticle.class.getName());
+    VertxApplication.main(new String[]{MainVerticle.class.getName()});
   }
 
   @Override

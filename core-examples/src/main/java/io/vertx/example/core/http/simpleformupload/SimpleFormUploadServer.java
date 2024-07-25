@@ -1,7 +1,7 @@
 package io.vertx.example.core.http.simpleformupload;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * NOTE! It's recommended to use Vert.x-Web for handling file uploads otherwise it's easy to get caught
@@ -12,7 +12,7 @@ import io.vertx.core.Launcher;
 public class SimpleFormUploadServer extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", SimpleFormUploadServer.class.getName());
+    VertxApplication.main(new String[]{SimpleFormUploadServer.class.getName()});
   }
 
   @Override

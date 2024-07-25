@@ -2,10 +2,10 @@ package io.vertx.example.grpc.conversation;
 
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.example.grpc.ConversationalServiceGrpc;
 import io.vertx.example.grpc.Messages;
 import io.vertx.grpc.server.GrpcServer;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -13,7 +13,7 @@ import io.vertx.grpc.server.GrpcServer;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

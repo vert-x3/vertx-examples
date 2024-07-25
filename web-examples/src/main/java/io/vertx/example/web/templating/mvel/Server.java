@@ -17,11 +17,11 @@
 package io.vertx.example.web.templating.mvel;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.TemplateHandler;
 import io.vertx.ext.web.templ.mvel.MVELTemplateEngine;
+import io.vertx.launcher.application.VertxApplication;
 
 import static io.vertx.ext.web.handler.TemplateHandler.DEFAULT_CONTENT_TYPE;
 
@@ -31,7 +31,7 @@ import static io.vertx.ext.web.handler.TemplateHandler.DEFAULT_CONTENT_TYPE;
 public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Server.class.getName());
+    VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override

@@ -17,10 +17,10 @@
 package io.vertx.example.core.jsonstreaming;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.file.AsyncFile;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.parsetools.JsonParser;
+import io.vertx.launcher.application.VertxApplication;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -32,7 +32,7 @@ import static io.vertx.core.parsetools.JsonEventType.VALUE;
 public class JsonStreamingExample extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", JsonStreamingExample.class.getName());
+    VertxApplication.main(new String[]{JsonStreamingExample.class.getName()});
   }
 
   @Override

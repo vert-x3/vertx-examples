@@ -2,8 +2,8 @@ package io.vertx.example.mqtt.ssl;
 
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.mqtt.MqttClient;
 import io.vertx.mqtt.MqttClientOptions;
 
@@ -15,7 +15,7 @@ public class Client extends AbstractVerticle {
   private static final int BROKER_PORT = 8883;
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

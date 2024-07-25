@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import io.vertx.core.Handler;
 import io.vertx.core.AsyncResult;
@@ -86,8 +87,8 @@ public class SomeDatabaseService {
     return ret;
   }
 
-  public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> rxGetDataById(int id) { 
-    return AsyncResultSingle.toSingle(delegate.getDataById(id), __value -> __value);
+  public io.reactivex.rxjava3.core.Single<io.vertx.core.json.JsonObject> rxGetDataById(int id) {
+    return AsyncResultSingle.toSingle(() -> delegate.getDataById(id), __value -> __value);
   }
 
   public static SomeDatabaseService newInstance(io.vertx.example.rxjava3.services.serviceproxy.SomeDatabaseService arg) {

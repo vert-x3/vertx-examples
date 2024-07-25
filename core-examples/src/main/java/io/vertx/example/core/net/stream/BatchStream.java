@@ -59,33 +59,8 @@ public class BatchStream implements ReadStream<Batch>, WriteStream<Batch> {
   }
 
   @Override
-  public void write(Batch batch, Handler<AsyncResult<Void>> handler) {
-    if (batch == null) {
-      NullPointerException err = new NullPointerException();
-      if (exceptionHandler != null) {
-        exceptionHandler.handle(err);
-      }
-      if (handler != null) {
-        handler.handle(Future.failedFuture(err));
-      }
-    } else {
-      Buffer protocol = Buffer.buffer();
-      protocol.appendInt(0);
-      protocol.appendByte((byte) batch.getType());
-      protocol.appendBuffer(batch.getRaw());
-      protocol.setInt(0, protocol.length() - 4);
-      writeStream.write(protocol, handler);
-    }
-  }
-
-  @Override
   public Future<Void> end() {
     return writeStream.end();
-  }
-
-  @Override
-  public void end(Handler<AsyncResult<Void>> handler) {
-    writeStream.end(handler);
   }
 
   @Override

@@ -16,7 +16,7 @@
 package io.vertx.example.proton.client;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.proton.ProtonClient;
 import io.vertx.proton.ProtonConnection;
 import io.vertx.proton.ProtonSender;
@@ -32,7 +32,7 @@ public class Sender extends AbstractVerticle {
   private AtomicInteger sent = new AtomicInteger();
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Sender.class.getName());
+    VertxApplication.main(new String[]{Sender.class.getName()});
   }
 
   @Override

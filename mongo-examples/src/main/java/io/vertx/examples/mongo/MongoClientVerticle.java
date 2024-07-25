@@ -1,15 +1,15 @@
 package io.vertx.examples.mongo;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
+import io.vertx.launcher.application.VertxApplication;
 
 public class MongoClientVerticle extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", MongoClientVerticle.class.getName());
+    VertxApplication.main(new String[]{MongoClientVerticle.class.getName()});
   }
 
   @Override

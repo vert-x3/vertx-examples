@@ -1,11 +1,11 @@
 package io.vertx.example.web.graphql;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.ext.web.codec.BodyCodec;
+import io.vertx.launcher.application.VertxApplication;
 
 import static io.vertx.core.http.HttpResponseExpectation.JSON;
 import static io.vertx.core.http.HttpResponseExpectation.SC_OK;
@@ -13,7 +13,7 @@ import static io.vertx.core.http.HttpResponseExpectation.SC_OK;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override

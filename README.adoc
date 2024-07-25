@@ -1,8 +1,8 @@
-= Vert.x 4 examples
+= Vert.x 5 examples
 
-This repository contains a range of examples, so you can get up and running easily with Vert.x. 4
+This repository contains a range of examples, so you can get up and running easily with Vert.x. 5
 
-Vert.x 3 examples can be found here https://github.com/vert-x3/vertx-examples/tree/3.x
+Vert.x 4 examples can be found here https://github.com/vert-x3/vertx-examples/tree/4.x
 
 == The examples
 

@@ -2,11 +2,11 @@ package io.vertx.example.grpc.pingpong;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-import io.vertx.core.Launcher;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.PingPongServiceGrpc;
 import io.vertx.example.grpc.VertxPingPongServiceGrpc;
 import io.vertx.grpc.server.GrpcServer;
+import io.vertx.launcher.application.VertxApplication;
 
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
@@ -14,7 +14,7 @@ import io.vertx.grpc.server.GrpcServer;
 public class ServerWithStub extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", ServerWithStub.class.getName());
+    VertxApplication.main(new String[]{ServerWithStub.class.getName()});
   }
 
   @Override

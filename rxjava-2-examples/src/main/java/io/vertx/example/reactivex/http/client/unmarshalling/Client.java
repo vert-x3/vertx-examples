@@ -1,9 +1,9 @@
 package io.vertx.example.reactivex.http.client.unmarshalling;
 
 import io.reactivex.Flowable;
-import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.http.HttpClient;
 import io.vertx.reactivex.core.http.HttpClientResponse;
@@ -14,7 +14,7 @@ import io.vertx.reactivex.core.http.HttpClientResponse;
 public class Client extends AbstractVerticle {
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", Client.class.getName());
+    VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   // Unmarshalled response from server
@@ -34,7 +34,7 @@ public class Client extends AbstractVerticle {
         .rxSend()
         .flatMapPublisher(HttpClientResponse::toFlowable)
         // Unmarshall the response to the Data object via Jackon
-        .map(buffer -> Json.decodeValue(buffer.getDelegate(), Data.class))
+        .map(buffer -> Json.decodeValue(buffer, Data.class))
       );
 
     flowable.subscribe(data -> System.out.println("Got response " + data.message), Throwable::printStackTrace);

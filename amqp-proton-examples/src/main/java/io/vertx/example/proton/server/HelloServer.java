@@ -16,8 +16,8 @@
 package io.vertx.example.proton.server;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Launcher;
 import io.vertx.core.Vertx;
+import io.vertx.launcher.application.VertxApplication;
 import io.vertx.proton.ProtonConnection;
 import io.vertx.proton.ProtonReceiver;
 import io.vertx.proton.ProtonSender;
@@ -45,7 +45,7 @@ public class HelloServer extends AbstractVerticle {
   private static final int PORT = 5672;
 
   public static void main(String[] args) {
-    Launcher.executeCommand("run", HelloServer.class.getName());
+    VertxApplication.main(new String[]{HelloServer.class.getName()});
   }
 
   @Override

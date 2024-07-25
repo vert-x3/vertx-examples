@@ -6,7 +6,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>sockjs-proxies-examples</artifactId>
-  <version>4.5.8</version>
+  <version>5.0.0-SNAPSHOT</version>
 
   <dependencies>
 
@@ -19,6 +19,11 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-launcher-application</artifactId>
       <version>${project.version}</version>
     </dependency>
 
