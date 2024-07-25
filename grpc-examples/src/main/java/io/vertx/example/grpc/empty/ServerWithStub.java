@@ -1,11 +1,10 @@
 package io.vertx.example.grpc.empty;
 
-import io.grpc.stub.StreamObserver;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.example.grpc.EmptyPingPongServiceGrpc;
+import io.vertx.core.Future;
 import io.vertx.example.grpc.EmptyProtos;
+import io.vertx.example.grpc.VertxEmptyPingPongServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
-import io.vertx.grpc.server.GrpcServiceBridge;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -21,19 +20,18 @@ public class ServerWithStub extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    EmptyPingPongServiceGrpc.EmptyPingPongServiceImplBase service = new EmptyPingPongServiceGrpc.EmptyPingPongServiceImplBase() {
+    VertxEmptyPingPongServiceGrpcServer.EmptyPingPongServiceApi service = new VertxEmptyPingPongServiceGrpcServer.EmptyPingPongServiceApi() {
       @Override
-      public void emptyCall(EmptyProtos.Empty request, StreamObserver<EmptyProtos.Empty> responseObserver) {
-        responseObserver.onNext(EmptyProtos.Empty.newBuilder().build());
-        responseObserver.onCompleted();
+      public Future<EmptyProtos.Empty> emptyCall(EmptyProtos.Empty request) {
+        return Future.succeededFuture(EmptyProtos.Empty.newBuilder().build());
       }
     };
 
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
-    GrpcServiceBridge
-      .bridge(service)
-      .bind(rpcServer);
+
+    //
+
 
     // start the server
     vertx.createHttpServer().requestHandler(rpcServer).listen(8080)

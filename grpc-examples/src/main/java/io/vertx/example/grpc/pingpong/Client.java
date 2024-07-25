@@ -3,7 +3,7 @@ package io.vertx.example.grpc.pingpong;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.PingPongServiceGrpc;
+import io.vertx.example.grpc.VertxPingPongServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.common.GrpcReadStream;
 import io.vertx.launcher.application.VertxApplication;
@@ -24,7 +24,7 @@ public class Client extends AbstractVerticle {
     GrpcClient client = GrpcClient.client(vertx);
 
     // Call the remote service
-    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), PingPongServiceGrpc.getUnaryCallMethod())
+    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxPingPongServiceGrpcClient.UnaryCall)
       .compose(request -> {
         request.end(Messages.SimpleRequest.newBuilder().setFillUsername(true).build());
         return request.response().compose(GrpcReadStream::last);

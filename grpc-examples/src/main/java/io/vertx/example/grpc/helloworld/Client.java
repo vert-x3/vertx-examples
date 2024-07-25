@@ -1,7 +1,7 @@
 package io.vertx.example.grpc.helloworld;
 
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloRequest;
+import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
@@ -20,7 +20,7 @@ public class Client extends AbstractVerticle {
   @Override
   public void start() {
     GrpcClient client = GrpcClient.client(vertx);
-    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), GreeterGrpc.getSayHelloMethod())
+    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxGreeterGrpcClient.SayHello)
       .compose(request -> {
         request.end(HelloRequest.newBuilder().setName("Julien").build());
         return request.response().compose(GrpcReadStream::last);

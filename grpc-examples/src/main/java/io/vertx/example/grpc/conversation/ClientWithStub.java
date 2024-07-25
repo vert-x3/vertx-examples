@@ -3,9 +3,8 @@ package io.vertx.example.grpc.conversation;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConversationalServiceGrpc;
+import io.vertx.example.grpc.VertxConversationalServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
-import io.vertx.grpc.client.GrpcClientChannel;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -22,10 +21,9 @@ public class ClientWithStub extends AbstractVerticle {
 
     // Create the channel
     GrpcClient client = GrpcClient.client(vertx);
-    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Get a stub to use for interacting with the remote service
-    VertxConversationalServiceGrpc.ConversationalServiceVertxStub stub = VertxConversationalServiceGrpc.newVertxStub(channel);
+    VertxConversationalServiceGrpcClient stub = new VertxConversationalServiceGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Call the remote service
     stub.fullDuplexCall(writeStream -> {
@@ -34,8 +32,10 @@ public class ClientWithStub extends AbstractVerticle {
       vertx.setTimer(500L, t -> {
         writeStream.write(Messages.StreamingOutputCallRequest.newBuilder().build());
       });
-    }).handler(req -> {
-      System.out.println("Client: received response");
+    }).onSuccess(resp -> {
+      resp.handler(msg -> {
+        System.out.println("Client: received response");
+      });
     });
   }
 }

@@ -3,9 +3,8 @@ package io.vertx.example.grpc.empty;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.EmptyProtos;
-import io.vertx.example.grpc.VertxEmptyPingPongServiceGrpc;
+import io.vertx.example.grpc.VertxEmptyPingPongServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
-import io.vertx.grpc.client.GrpcClientChannel;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -22,10 +21,9 @@ public class ClientWithStub extends AbstractVerticle {
 
     // Create the channel
     GrpcClient client = GrpcClient.client(vertx);
-    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Get a stub to use for interacting with the remote service
-    VertxEmptyPingPongServiceGrpc.EmptyPingPongServiceVertxStub stub = VertxEmptyPingPongServiceGrpc.newVertxStub(channel);
+    VertxEmptyPingPongServiceGrpcClient stub = new VertxEmptyPingPongServiceGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Make a request
     EmptyProtos.Empty request = EmptyProtos.Empty.newBuilder().build();

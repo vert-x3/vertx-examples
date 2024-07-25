@@ -3,7 +3,7 @@ package io.vertx.example.grpc.producer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.ProducerServiceGrpc;
+import io.vertx.example.grpc.VertxProducerServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -23,7 +23,7 @@ public class Client extends AbstractVerticle {
     GrpcClient client = GrpcClient.client(vertx);
 
     // Call the remote service
-    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), ProducerServiceGrpc.getStreamingInputCallMethod())
+    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxProducerServiceGrpcClient.StreamingInputCall)
       .compose(request -> {
         for (int i = 0; i < 10; i++) {
           request.write(Messages.StreamingInputCallRequest.newBuilder().build());

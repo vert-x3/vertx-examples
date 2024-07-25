@@ -3,11 +3,10 @@ package io.vertx.example.grpc.consumer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConsumerServiceGrpc;
+import io.vertx.example.grpc.VertxConsumerServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
-import io.vertx.grpc.client.GrpcClientChannel;
-import io.vertx.launcher.application.VertxApplication;
 
+import io.vertx.launcher.application.VertxApplication;
 import java.nio.charset.StandardCharsets;
 
 /*
@@ -24,10 +23,9 @@ public class ClientWithStub extends AbstractVerticle {
 
     // Create the channel
     GrpcClient client = GrpcClient.client(vertx);
-    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Get a stub to use for interacting with the remote service
-    VertxConsumerServiceGrpc.ConsumerServiceVertxStub stub = VertxConsumerServiceGrpc.newVertxStub(channel);
+    VertxConsumerServiceGrpcClient stub = new VertxConsumerServiceGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Make a request
     Messages.StreamingOutputCallRequest request = Messages
@@ -36,10 +34,13 @@ public class ClientWithStub extends AbstractVerticle {
       .build();
 
     // Call the remote service
-    stub.streamingOutputCall(request).handler(response -> {
-      System.out.println(new String(response.getPayload().toByteArray(), StandardCharsets.UTF_8));
-    }).endHandler(v -> {
-      System.out.println("Response has ended.");
-    });
+    stub.streamingOutputCall(request)
+      .onSuccess(response -> {
+        response.handler(msg -> {
+          System.out.println(new String(msg.getPayload().toByteArray(), StandardCharsets.UTF_8));
+        }).endHandler(v -> {
+          System.out.println("Response has ended.");
+        });
+      });
   }
 }

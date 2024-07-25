@@ -1,7 +1,7 @@
 package io.vertx.example.grpc.ssl;
 
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloRequest;
+import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.net.JksOptions;
@@ -29,7 +29,7 @@ public class Client extends AbstractVerticle {
         .setPath("tls/client-truststore.jks")
         .setPassword("wibble"));
     GrpcClient client = GrpcClient.client(vertx, options);
-    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), GreeterGrpc.getSayHelloMethod())
+    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxGreeterGrpcClient.SayHello)
       .compose(request -> {
         request.end(HelloRequest.newBuilder().setName("Julien").build());
         return request.response().compose(GrpcReadStream::last);

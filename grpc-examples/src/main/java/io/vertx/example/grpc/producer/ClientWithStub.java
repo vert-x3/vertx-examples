@@ -3,9 +3,8 @@ package io.vertx.example.grpc.producer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxProducerServiceGrpc;
+import io.vertx.example.grpc.VertxProducerServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
-import io.vertx.grpc.client.GrpcClientChannel;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -22,10 +21,9 @@ public class ClientWithStub extends AbstractVerticle {
 
     // Create the channel
     GrpcClient client = GrpcClient.client(vertx);
-    GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Get a stub to use for interacting with the remote service
-    VertxProducerServiceGrpc.ProducerServiceVertxStub stub = VertxProducerServiceGrpc.newVertxStub(channel);
+    VertxProducerServiceGrpcClient stub = new VertxProducerServiceGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Call the remote service
     stub.streamingInputCall(writeStream -> {

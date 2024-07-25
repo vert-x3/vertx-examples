@@ -2,7 +2,7 @@ package io.vertx.example.grpc.producer;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.ProducerServiceGrpc;
+import io.vertx.example.grpc.VertxProducerServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -22,7 +22,7 @@ public class Server extends AbstractVerticle {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(ProducerServiceGrpc.getStreamingInputCallMethod(), request -> {
+    rpcServer.callHandler(VertxProducerServiceGrpcServer.StreamingInputCall, request -> {
       request.handler(payload -> {
         System.out.println(payload.getPayload().getType().getNumber());
       }).endHandler(v -> {
