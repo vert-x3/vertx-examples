@@ -6,9 +6,8 @@ import io.vertx.core.Launcher;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.Messages.PayloadType;
-import io.vertx.example.grpc.VertxConsumerServiceGrpc;
+import io.vertx.example.grpc.VertxConsumerServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
-import io.vertx.grpc.server.GrpcServiceBridge;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +25,7 @@ public class ServerWithStub extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxConsumerServiceGrpc.ConsumerServiceVertxImplBase service = new VertxConsumerServiceGrpc.ConsumerServiceVertxImplBase() {
+    VertxConsumerServiceGrpcServer.ConsumerServiceApi service = new VertxConsumerServiceGrpcServer.ConsumerServiceApi() {
       @Override
       public void streamingOutputCall(Messages.StreamingOutputCallRequest request, WriteStream<Messages.StreamingOutputCallResponse> response) {
         final AtomicInteger counter = new AtomicInteger();
@@ -43,9 +42,9 @@ public class ServerWithStub extends AbstractVerticle {
 
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
-    GrpcServiceBridge
-      .bridge(service)
-      .bind(rpcServer);
+
+    // Bind the service
+    service.bind_streamingOutputCall(rpcServer);
 
     // start the server
     vertx.createHttpServer().requestHandler(rpcServer).listen(8080)

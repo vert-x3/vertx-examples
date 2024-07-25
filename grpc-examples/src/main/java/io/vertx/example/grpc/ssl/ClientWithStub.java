@@ -1,7 +1,7 @@
 package io.vertx.example.grpc.ssl;
 
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpc;
+import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
 import io.vertx.core.http.HttpClientOptions;
@@ -30,7 +30,7 @@ public class ClientWithStub extends AbstractVerticle {
         .setPassword("wibble"));
     GrpcClient client = GrpcClient.client(vertx, options);
     GrpcClientChannel channel = new GrpcClientChannel(client, SocketAddress.inetSocketAddress(8080, "localhost"));
-    VertxGreeterGrpc.GreeterVertxStub stub = VertxGreeterGrpc.newVertxStub(channel);
+    VertxGreeterGrpcClient stub = new VertxGreeterGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
     stub.sayHello(request).onComplete(asyncResponse -> {
       if (asyncResponse.succeeded()) {

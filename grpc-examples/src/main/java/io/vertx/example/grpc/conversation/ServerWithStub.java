@@ -6,7 +6,7 @@ import io.vertx.core.Launcher;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.core.streams.WriteStream;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConversationalServiceGrpc;
+import io.vertx.example.grpc.VertxConversationalServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServiceBridge;
 
@@ -23,7 +23,7 @@ public class ServerWithStub extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxConversationalServiceGrpc.ConversationalServiceVertxImplBase service = new VertxConversationalServiceGrpc.ConversationalServiceVertxImplBase() {
+    VertxConversationalServiceGrpcServer.ConversationalServiceApi service = new VertxConversationalServiceGrpcServer.ConversationalServiceApi() {
       @Override
       public void fullDuplexCall(ReadStream<Messages.StreamingOutputCallRequest> request, WriteStream<Messages.StreamingOutputCallResponse> response) {
         request
@@ -38,9 +38,9 @@ public class ServerWithStub extends AbstractVerticle {
 
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
-    GrpcServiceBridge
-      .bridge(service)
-      .bind(rpcServer);
+
+    // Bind the service
+    service.bind_fullDuplexCall(rpcServer);
 
     // start the server
     vertx.createHttpServer().requestHandler(rpcServer).listen(8080)

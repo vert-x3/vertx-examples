@@ -6,7 +6,7 @@ import io.vertx.core.Launcher;
 import io.vertx.core.Promise;
 import io.vertx.core.streams.ReadStream;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxProducerServiceGrpc;
+import io.vertx.example.grpc.VertxProducerServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServiceBridge;
 
@@ -23,7 +23,7 @@ public class ServerWithStub extends AbstractVerticle {
   public void start() {
 
     // The rpc service
-    VertxProducerServiceGrpc.ProducerServiceVertxImplBase service = new VertxProducerServiceGrpc.ProducerServiceVertxImplBase() {
+    VertxProducerServiceGrpcServer.ProducerServiceApi service = new VertxProducerServiceGrpcServer.ProducerServiceApi() {
       @Override
       public Future<Messages.StreamingInputCallResponse> streamingInputCall(ReadStream<Messages.StreamingInputCallRequest> request) {
         Promise<Messages.StreamingInputCallResponse> promise = Promise.promise();
@@ -39,9 +39,9 @@ public class ServerWithStub extends AbstractVerticle {
 
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
-    GrpcServiceBridge
-      .bridge(service)
-      .bind(rpcServer);
+
+    // Bind the service
+    service.bind_streamingInputCall(rpcServer);
 
     // start the server
     vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
