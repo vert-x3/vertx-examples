@@ -95,12 +95,6 @@
       <artifactId>vertx-grpc-client</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!-- Temporary for generated stubs -->
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-grpc</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
 
     <dependency>
@@ -249,8 +243,6 @@
             protobuf-java version that grpc depends on.
           -->
           <protocArtifact>com.google.protobuf:protoc:3.21.12:exe:${os.detected.classifier}</protocArtifact>
-          <pluginId>grpc-java</pluginId>
-          <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.50.2:exe:${os.detected.classifier}</pluginArtifact>
           <protocPlugins>
             <protocPlugin>
               <id>vertx-grpc-protoc-plugin</id>
@@ -266,7 +258,6 @@
             <id>compile</id>
             <goals>
               <goal>compile</goal>
-              <goal>compile-custom</goal>
             </goals>
           </execution>
         </executions>
