@@ -1,7 +1,7 @@
 package io.vertx.example.web.grpc.helloworld;
 
-import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
+import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
 import io.vertx.grpc.server.GrpcServer;
@@ -22,7 +22,7 @@ public class Server extends AbstractVerticle {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(GreeterGrpc.getSayHelloMethod(), request -> {
+    rpcServer.callHandler(VertxGreeterGrpcServer.SayHello, request -> {
       request
         .last()
         .onSuccess(msg -> {

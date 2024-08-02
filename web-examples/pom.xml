@@ -10,6 +10,8 @@
 
   <properties>
     <slf4j.version>1.7.21</slf4j.version>
+    <protoc.version>3.21.12</protoc.version>
+    <grpc.version>1.50.2</grpc.version>
   </properties>
 
   <dependencies>
@@ -93,6 +95,13 @@
       <artifactId>vertx-grpc-client</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <!-- Temporary for generated stubs -->
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-grpc</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
 
     <dependency>
       <groupId>io.vertx</groupId>
@@ -242,6 +251,15 @@
           <protocArtifact>com.google.protobuf:protoc:3.21.12:exe:${os.detected.classifier}</protocArtifact>
           <pluginId>grpc-java</pluginId>
           <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.50.2:exe:${os.detected.classifier}</pluginArtifact>
+          <protocPlugins>
+            <protocPlugin>
+              <id>vertx-grpc-protoc-plugin</id>
+              <groupId>io.vertx</groupId>
+              <artifactId>vertx-grpc-protoc-plugin2</artifactId>
+              <version>${project.version}</version>
+              <mainClass>io.vertx.grpc.plugin.VertxGrpcGenerator</mainClass>
+            </protocPlugin>
+          </protocPlugins>
         </configuration>
         <executions>
           <execution>
