@@ -1,47 +1,63 @@
 package io.vertx.example.jpms.sqlclient;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpServer;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.jdbcclient.JDBCConnectOptions;
-import io.vertx.jdbcclient.JDBCPool;
+import io.vertx.pgclient.PgBuilder;
+import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.Pool;
-import io.vertx.sqlclient.PoolOptions;
+import io.vertx.sqlclient.Row;
+
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
  */
 public class Client extends AbstractVerticle {
 
-  public static void main(String[] args) {
-    Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(new Client())
-      .onFailure(Throwable::printStackTrace);
+  private PgConnectOptions database;
+  private HttpServer server;
+  private Pool client;
+
+  // Tested with test containers
+  public Client(PgConnectOptions database) {
+    this.database = database;
   }
 
   @Override
-  public void start() {
+  public void start(Promise<Void> start) {
+    client = PgBuilder.pool()
+      .connectingTo(database)
+      .using(vertx)
+      .build();
 
-    final Pool client = JDBCPool.pool(vertx,
-      new JDBCConnectOptions().setJdbcUrl("jdbc:hsqldb:mem:test?shutdown=true"),
-      new PoolOptions().setMaxSize(30));
-
-
-    client.withConnection(conn -> conn
-      .query("create table test(id int primary key, name varchar(255))")
-      .execute()
-      .compose(res -> conn
-        // insert some test data
-        .query("insert into test values(1, 'Hello')")
-        .execute())
-      .compose(res -> conn
-        // query some data
-        .query("select * from test")
-        .execute()))
-      .onSuccess(rows -> {
-        rows.forEach(row -> {
-          System.out.println(row.toJson().encode());
+    server = vertx.createHttpServer()
+      .requestHandler(req -> {
+        client.withConnection(conn -> conn
+          .query("SELECT * FROM periodic_table")
+          .collecting(Collectors.mapping(row -> row.toJson(), Collectors.toList()))
+          .execute()).onComplete(ar -> {
+          if (ar.succeeded()) {
+            req
+              .response()
+              .putHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+              .end(new JsonArray(ar.result().value()).encode());
+          } else {
+            req.response()
+              .setStatusCode(500)
+              .end(ar.cause().toString());
+          }
         });
-      }).onFailure(Throwable::printStackTrace);
+      });
+
+    server.listen(8080)
+      .<Void>mapEmpty()
+      .onComplete(start);
   }
 }

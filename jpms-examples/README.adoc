@@ -1,24 +1,8 @@
 = Vert.x JPMS examples
 
-Here you will find examples demonstrating how Vert.x can be used with JPMS automatic modules.
+Here you will find examples demonstrating how Vert.x can be used with the Java Platform Module System  (JPMS).
 
-The application is a Java 11 module that uses Vert.x jars with their automatic modules:
+This project contains several examples you can run in the IDE.
 
-- io.vertx.core;
-- requires io.vertx.web;
-- io.vertx.client.sql;
-- io.vertx.client.jdbc;
+- http2: a simple HTTP/2 link:src/main/java/io/vertx/examples/jpms/http2/Server.java[server]
 
-There are three examples, you can run these in the IDE
-
-- http2: a simple HTTP/2 server (io.vertx.example.jpms.http2.Server#main)
-- sqlclient: uses Vert.x SQL client (io.vertx.example.jpms.jdbc.Client#main)
-- web: a simplistic Vert.x Web app (io.vertx.example.jpms.web.Server#main)
-
-These examples focus on the declaration of Vert.x components used as JPMS automatic modules.
-
-To know more about
-
-- Vert.x Core: refers to the core-examples
-- Vert.x Web: refers to web-examples
-- Vert.x SQL Client: refers to jdbc-examples
