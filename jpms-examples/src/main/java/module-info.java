@@ -9,9 +9,8 @@ open module jpms.examples {
   requires io.vertx.client.sql.pg;
   requires java.sql;
 
-  // Is that actually necessary
-  requires com.ongres.scram.client;
-  requires com.ongres.scram.common;
+  requires io.netty.tcnative.classes.openssl;
+  requires io.netty.internal.tcnative.openssl.osx.aarch_64;
 
   requires com.google.protobuf;
 

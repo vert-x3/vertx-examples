@@ -1,4 +1,4 @@
-package io.vertx.examples.jpms.tests;
+package io.vertx.example.jpms.tests;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;

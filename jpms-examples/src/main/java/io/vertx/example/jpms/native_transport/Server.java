@@ -15,8 +15,7 @@ public class Server extends AbstractVerticle {
     Vertx vertx = Vertx.vertx(new VertxOptions()
       .setPreferNativeTransport(true));
     if (!vertx.isNativeTransportEnabled()) {
-      vertx.unavailableNativeTransportCause().printStackTrace();
-      throw new RuntimeException(vertx.unavailableNativeTransportCause());
+      throw new RuntimeException("Add your OS/arch specific modules (explained in README)");
     }
     vertx.deployVerticle(new Server())
       .onFailure(Throwable::printStackTrace);
