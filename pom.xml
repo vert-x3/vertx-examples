@@ -43,9 +43,20 @@
     <module>web-api-service-example</module>
     <module>cassandra-examples</module>
     <module>web-graphql-examples</module>
+    <module>openapi-examples</module>
   </modules>
 
   <profiles>
+
+    <profile>
+      <id>vertx5-jdk11</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+      <modules>
+        <module>openapi-examples</module>
+      </modules>
+    </profile>
 
     <profile>
       <id>jpms</id>

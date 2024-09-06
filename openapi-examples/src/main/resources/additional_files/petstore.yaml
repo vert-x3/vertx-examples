@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    identifier: MIT
+    name: MIT License
+servers:
+  - url: https://petstore.swagger.io/v1
+security:
+  - BasicAuth: []
+paths:
+  /pets:
+    post:
+      summary: Create a pet
+      operationId: createPets
+      tags:
+        - pets
+      requestBody:
+        description: Create a new pet in the store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: https://example.com/petstore#/components/schemas/Pet
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: https://example.com/petstore#/components/schemas/Error
