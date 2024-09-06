@@ -133,7 +133,7 @@ It depicts how a service provider can be implemented and how the published servi
 
 === JPMS examples
 
-This link:jpms-examples/README.adoc[JPMS examples] shows how a simple Java (11) modular application using Vert.x as automatic modules.
+This link:jpms-examples/README.adoc[JPMS examples] shows how a simple Java (11) modular application using Vert.x.
 
 === HTTP/2 Showcase
 
