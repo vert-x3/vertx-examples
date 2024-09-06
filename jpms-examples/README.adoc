@@ -11,7 +11,7 @@ NOTE: the `io.netty.resolver.dns.classes.macos` and `io.netty.resolver.dns.macos
 
 == HTTP/1.1 Server
 
-A simple HTTP/1.1 link:src/main/java/io/vertx/example/jpms/http/Server.java[server]
+A simple link:src/main/java/io/vertx/example/jpms/http/Server.java[HTTP/2  server]
 
 You can run the server in your IDE and then `curl http://localhost:8080`.
 
@@ -24,7 +24,7 @@ You can also run the application image (Mac/M1):
 
 == HTTP/2 Server
 
-A simple HTTP/1.1 link:src/main/java/io/vertx/example/jpms/http2/Server.java[server]
+A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP/1.1  server]
 
 You can run the server in your IDE and then `curl -k https://localhost:8443`.
 
@@ -35,9 +35,9 @@ You can also run the application image (Mac/M1):
 ./target/maven-jlink/default/bin/java --add-modules io.netty.resolver.dns.classes.macos,io.netty.resolver.dns.macos.osx.aarch_64 --module jpms.examples/io.vertx.example.jpms.http2.Server
 ----
 
-== gRPC Server
+== gRPC Service
 
-A simple gRPC link:src/main/java/io/vertx/example/jpms/grpc/Server.java[server]
+A simple link:src/main/java/io/vertx/example/jpms/grpc/Server.java[gRPC service]
 
 To run this example, you need to set the env variable `TEMORARILY_DISABLE_PROTOBUF_VERSION_CHECK` to `true` because the project uses a modified JPMS compliant Protobuf/Guava versions from https://github.com/elide-dev/jpms[JPMS Attic Repository].
 
@@ -55,7 +55,7 @@ export TEMORARILY_DISABLE_PROTOBUF_VERSION_CHECK=true # yes there is a typo ...
 
 == Native transports
 
-A simple HTTP link:src/main/java/io/vertx/example/jpms/http2/Server.java[server] running with Netty native transports kqueue/epoll/io_uring.
+A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP server] running with Netty native transports kqueue/epoll/io_uring.
 
 To run this example in the IDE, you need to add transport/OS/architecture specific modules:
 
@@ -82,7 +82,7 @@ Or launch the JVM with `--add-modules io.netty.transport.classes.kqueue,io.netty
 
 == Open SSL
 
-A simple HTTP link:src/main/java/io/vertx/example/jpms/http2/Server.java[server] using Netty OpenSSL.
+A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP server] using Netty OpenSSL.
 
 To run this example in the IDE, you need to add OS/architecture specific modules:
 
@@ -109,6 +109,6 @@ Or launch a JVM with `--add-modules io.netty.tcnative.classes.openssl,io.netty.i
 
 == Sql Client
 
-A simple link:src/main/java/io/vertx/example/jpms/sqlclient/Client.java[client] accessing  the PostreSQL database.
+A simple link:src/main/java/io/vertx/example/jpms/sqlclient/Client.java[client] accessing  the PostgreSQL database.
 
 Since it requires a database, you can run it from a link:src/test/java/io/vertx/example/jpms/tests/SqlClientTest.java[JUnit5 test]
