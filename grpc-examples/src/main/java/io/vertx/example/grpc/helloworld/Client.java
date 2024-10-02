@@ -2,7 +2,8 @@ package io.vertx.example.grpc.helloworld;
 
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.common.GrpcReadStream;
@@ -11,14 +12,14 @@ import io.vertx.launcher.application.VertxApplication;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class Client extends AbstractVerticle {
+public class Client extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Client.class.getName()});
   }
 
   @Override
-  public void start() {
+  public Future<?> start() throws Exception {
     GrpcClient client = GrpcClient.client(vertx);
     client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxGreeterGrpcClient.SayHello)
       .compose(request -> {
@@ -27,5 +28,6 @@ public class Client extends AbstractVerticle {
       })
       .onSuccess(reply -> System.out.println("Succeeded " +reply.getMessage()))
       .onFailure(Throwable::printStackTrace);
+    return super.start();
   }
 }

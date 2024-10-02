@@ -1,6 +1,7 @@
 package io.vertx.example.web.templating.rocker;
 
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.TemplateHandler;
 import io.vertx.ext.web.templ.rocker.RockerTemplateEngine;
@@ -9,14 +10,14 @@ import io.vertx.launcher.application.VertxApplication;
 /**
  * @author <a href="mailto:danielrauf@gmail.com>Daniel Rauf</a>
  */
-public class Server extends AbstractVerticle {
+public class Server extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override
-  public void start() throws Exception {
+  public Future<?> start() throws Exception {
 
     final Router router = Router.router(vertx);
 
@@ -33,6 +34,6 @@ public class Server extends AbstractVerticle {
     // See the pom.xml for an example
     router.route().handler(TemplateHandler.create(RockerTemplateEngine.create()));
 
-    vertx.createHttpServer().requestHandler(router).listen(8080);
+    return vertx.createHttpServer().requestHandler(router).listen(8080);
   }
 }
