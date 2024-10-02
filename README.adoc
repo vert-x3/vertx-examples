@@ -135,10 +135,6 @@ It depicts how a service provider can be implemented and how the published servi
 
 This link:jpms-examples/README.adoc[JPMS examples] shows how a simple Java (11) modular application using Vert.x.
 
-=== HTTP/2 Showcase
-
-This link:http2-showcase/README.md[HTTP/2 Showcase] application highlights the benefits of HTTP/2 when dealing with latency on the web.
-
 === Camel Bridge examples
 
 The link:camel-bridge-examples/README.adoc[Vert.x Camel Bridge Examples] show how you can use Apache Camel routes from
