@@ -7,7 +7,9 @@ import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 import io.vertx.launcher.application.VertxApplication;
 
-/*
+/**
+ * todo: rewrite this without Twitter
+ *
  * @author <a href="mailto:akshay0007k@gmail.com">Akshay Kumar</a>
  */
 public class TwitterOAuthExample extends AbstractVerticle {
