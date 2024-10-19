@@ -3,6 +3,7 @@ open module jpms.examples.tests {
   requires jpms.examples;
   requires org.junit.jupiter.api;
   requires testcontainers;
+  requires io.vertx.core;
   requires io.vertx.client.sql.pg;
   requires io.vertx.client.sql;
 
