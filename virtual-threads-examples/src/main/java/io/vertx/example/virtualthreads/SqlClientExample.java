@@ -5,8 +5,6 @@ import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import static io.vertx.core.Future.await;
-
 public class SqlClientExample extends AbstractVerticle {
 
   public static void main(String[] args) throws Exception {
@@ -23,9 +21,7 @@ public class SqlClientExample extends AbstractVerticle {
           return new SqlClientExample(Pool.pool(vertx, connectOptions, new PoolOptions().setMaxSize(4)));
         }, new DeploymentOptions()
           .setThreadingModel(ThreadingModel.VIRTUAL_THREAD))
-        .toCompletionStage()
-        .toCompletableFuture()
-        .get();
+        .await();
     }
   }
 
@@ -38,11 +34,11 @@ public class SqlClientExample extends AbstractVerticle {
   @Override
   public void start() {
     // create a test table
-    await(pool.query("create table test(id int primary key, name varchar(255))").execute());
+    pool.query("create table test(id int primary key, name varchar(255))").execute().await();
     // insert some test data
-    await(pool.query("insert into test values (1, 'Hello'), (2, 'World')").execute());
+    pool.query("insert into test values (1, 'Hello'), (2, 'World')").execute().await();
     // query some data
-    var rows = await(pool.query("select * from test").execute());
+    var rows = pool.query("select * from test").execute().await();
     for (Row row : rows) {
       System.out.println("row = " + row.toJson());
     }

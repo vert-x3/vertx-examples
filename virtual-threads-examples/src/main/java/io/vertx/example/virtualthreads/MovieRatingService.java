@@ -14,16 +14,13 @@ import io.vertx.sqlclient.*;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.vertx.core.Future.await;
-
 public class MovieRatingService extends AbstractVerticle {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     var vertx = Vertx.vertx();
     vertx.deployVerticle(MovieRatingService.class, new DeploymentOptions().setThreadingModel(ThreadingModel.VIRTUAL_THREAD))
-      .toCompletionStage()
-      .toCompletableFuture()
-      .get();
+      .await();
+    System.out.println("Server started");
   }
 
   private static final List<String> DB_STATEMENTS = Arrays.asList(
@@ -50,7 +47,7 @@ public class MovieRatingService extends AbstractVerticle {
       new PoolOptions().setMaxSize(30));
 
     DB_STATEMENTS.forEach(statement -> {
-      await(client.query(statement).execute());
+      client.query(statement).execute().await();
     });
 
     // Build Vert.x Web router
@@ -60,15 +57,16 @@ public class MovieRatingService extends AbstractVerticle {
     router.get("/getRating/:id").handler(this::getRating);
 
     // Start the server
-    await(vertx.createHttpServer()
+    vertx.createHttpServer()
       .requestHandler(router)
-      .listen(config().getInteger("http.port", 8080)));
+      .listen(config().getInteger("http.port", 8080))
+      .await();
   }
 
   // Send info about a movie
   private void getMovie(RoutingContext ctx) {
     var id = ctx.pathParam("id");
-    var rows = await(client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(id)));
+    var rows = client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(id)).await();
     if (rows.size() == 1) {
       ctx.response()
         .putHeader("Content-Type", "application/json")
@@ -85,9 +83,9 @@ public class MovieRatingService extends AbstractVerticle {
   private void rateMovie(RoutingContext ctx) {
     var movie = ctx.pathParam("id");
     var rating = Integer.parseInt(ctx.queryParam("rating").get(0));
-    RowSet<Row> rows = await(client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(movie)));
+    RowSet<Row> rows = client.preparedQuery("SELECT TITLE FROM MOVIE WHERE ID=?").execute(Tuple.of(movie)).await();
     if (rows.size() == 1) {
-      await(client.preparedQuery("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?").execute(Tuple.of(rating, movie)));
+      client.preparedQuery("INSERT INTO RATING (VALUE, MOVIE_ID) VALUES ?, ?").execute(Tuple.of(rating, movie)).await();
       ctx.response().setStatusCode(200).end();
     } else {
       ctx.response().setStatusCode(404).end();
@@ -97,7 +95,7 @@ public class MovieRatingService extends AbstractVerticle {
   // Get the current rating of a movie
   private void getRating(RoutingContext ctx) {
     var id = ctx.pathParam("id");
-    var rows = await(client.preparedQuery("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?").execute(Tuple.of(id)));
+    var rows = client.preparedQuery("SELECT AVG(VALUE) AS VALUE FROM RATING WHERE MOVIE_ID=?").execute(Tuple.of(id)).await();
     ctx.response()
       .putHeader("Content-Type", "application/json")
       .end(new JsonObject()

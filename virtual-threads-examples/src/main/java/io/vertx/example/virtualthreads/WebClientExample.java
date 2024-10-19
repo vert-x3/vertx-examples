@@ -7,17 +7,13 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.*;
 import io.vertx.ext.web.client.WebClient;
 
-import static io.vertx.core.Future.await;
-
 public class WebClientExample extends AbstractVerticle {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     var vertx = Vertx.vertx();
     vertx.deployVerticle(WebClientExample.class, new DeploymentOptions()
         .setThreadingModel(ThreadingModel.VIRTUAL_THREAD))
-      .toCompletionStage()
-      .toCompletableFuture()
-      .get();
+      .await();
   }
 
   @Override
@@ -26,14 +22,15 @@ public class WebClientExample extends AbstractVerticle {
     server.requestHandler(request -> {
       request.response().end("Hello World");
     });
-    await(server.listen(8080, "localhost"));
+    server.listen(8080, "localhost").await();
 
     // Make a simple HTTP request
     var client = WebClient.create(vertx);
-    var resp = await(client
+    var resp = client
       .get(8080, "localhost", "/")
       .send()
-      .expecting(HttpResponseExpectation.SC_OK));
+      .expecting(HttpResponseExpectation.SC_OK)
+      .await();
     var status = resp.statusCode();
     var body = resp.body();
     System.out.println("Got response status=" + status + " body='" + body + "'");
