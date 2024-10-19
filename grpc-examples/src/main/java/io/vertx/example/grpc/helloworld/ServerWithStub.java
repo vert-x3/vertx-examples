@@ -15,6 +15,7 @@ public class ServerWithStub extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{ServerWithStub.class.getName()});
+    System.out.println("Server started");
   }
 
   @Override

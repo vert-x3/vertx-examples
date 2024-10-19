@@ -38,8 +38,6 @@ public class Client extends VerticleBase {
         return request.response().compose(response -> response
           .handler(msg -> System.out.println(new String(msg.getPayload().toByteArray(), StandardCharsets.UTF_8)))
           .end());
-      }).onSuccess(resp -> {
-        System.out.println("Response has ended.");
-      });
+      }).onSuccess(resp -> System.out.println("Response has ended."));
   }
 }

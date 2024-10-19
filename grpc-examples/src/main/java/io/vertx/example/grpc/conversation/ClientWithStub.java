@@ -36,9 +36,7 @@ public class ClientWithStub extends VerticleBase {
         writeStream.write(Messages.StreamingOutputCallRequest.newBuilder().build());
       });
     }).onSuccess(resp -> {
-      resp.handler(msg -> {
-        System.out.println("Client: received response");
-      });
+      resp.handler(msg -> System.out.println("Client: received response"));
     });
   }
 }

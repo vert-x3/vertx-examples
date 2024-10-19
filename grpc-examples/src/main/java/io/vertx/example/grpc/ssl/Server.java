@@ -16,6 +16,7 @@ public class Server extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Server.class.getName()});
+    System.out.println("Server started");
   }
 
   @Override
