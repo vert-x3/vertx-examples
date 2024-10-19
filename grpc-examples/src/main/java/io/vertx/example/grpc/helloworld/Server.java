@@ -32,6 +32,9 @@ public class Server extends VerticleBase {
     });
 
     // start the server
-    return vertx.createHttpServer().requestHandler(rpcServer).listen(8080);
+    return vertx
+      .createHttpServer()
+      .requestHandler(rpcServer)
+      .listen(8080);
   }
 }

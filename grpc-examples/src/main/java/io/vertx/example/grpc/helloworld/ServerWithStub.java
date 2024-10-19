@@ -3,22 +3,22 @@ package io.vertx.example.grpc.helloworld;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
-import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class ServerWithStub extends AbstractVerticle {
+public class ServerWithStub extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{ServerWithStub.class.getName()});
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
     VertxGreeterGrpcServer.GreeterApi service = new VertxGreeterGrpcServer.GreeterApi() {
       @Override
       public Future<HelloReply> sayHello(HelloRequest request) {
@@ -34,9 +34,9 @@ public class ServerWithStub extends AbstractVerticle {
     service.bind_sayHello(rpcServer);
 
     // start the server
-    vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
-      .onFailure(cause -> {
-        cause.printStackTrace();
-      });
+    return vertx
+      .createHttpServer()
+      .requestHandler(rpcServer)
+      .listen(8080);
   }
 }

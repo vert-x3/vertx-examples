@@ -1,7 +1,8 @@
 package io.vertx.example.grpc.consumer;
 
 import com.google.protobuf.ByteString;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.Messages.PayloadType;
 import io.vertx.example.grpc.VertxConsumerServiceGrpcServer;
@@ -14,14 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
  */
-public class Server extends AbstractVerticle {
+public class Server extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Server.class.getName()});
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
 
     // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
@@ -40,9 +41,9 @@ public class Server extends AbstractVerticle {
     });
 
     // start the server
-    vertx.createHttpServer().requestHandler(rpcServer).listen(8080)
-      .onFailure(cause -> {
-        cause.printStackTrace();
-      });
+    return vertx
+      .createHttpServer()
+      .requestHandler(rpcServer)
+      .listen(8080);
   }
 }

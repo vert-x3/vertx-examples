@@ -1,6 +1,7 @@
 package io.vertx.example.grpc.pingpong;
 
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.VertxPingPongServiceGrpcClient;
@@ -10,14 +11,14 @@ import io.vertx.launcher.application.VertxApplication;
 /*
  * @author <a href="mailto:plopes@redhat.com">Paulo Lopes</a>
  */
-public class ClientWithStub extends AbstractVerticle {
+public class ClientWithStub extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{ClientWithStub.class.getName()});
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
 
     // Create the channel
     GrpcClient client = GrpcClient.client(vertx);
@@ -29,12 +30,8 @@ public class ClientWithStub extends AbstractVerticle {
     Messages.SimpleRequest request = Messages.SimpleRequest.newBuilder().setFillUsername(true).build();
 
     // Call the remote service
-    stub.unaryCall(request).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("My username is: " + ar.result().getUsername());
-      } else {
-        System.out.println("Coult not reach server " + ar.cause().getMessage());
-      }
-    });
+    return stub
+      .unaryCall(request)
+      .onSuccess(res -> System.out.println("My username is: " + res.getUsername()));
   }
 }

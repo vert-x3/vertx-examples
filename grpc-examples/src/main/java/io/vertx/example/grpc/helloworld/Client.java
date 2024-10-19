@@ -18,16 +18,15 @@ public class Client extends VerticleBase {
     VertxApplication.main(new String[]{Client.class.getName()});
   }
 
+  private GrpcClient client;
+
   @Override
   public Future<?> start() throws Exception {
-    GrpcClient client = GrpcClient.client(vertx);
-    client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxGreeterGrpcClient.SayHello)
+    client = GrpcClient.client(vertx);
+    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxGreeterGrpcClient.SayHello)
       .compose(request -> {
         request.end(HelloRequest.newBuilder().setName("Julien").build());
         return request.response().compose(GrpcReadStream::last);
-      })
-      .onSuccess(reply -> System.out.println("Succeeded " +reply.getMessage()))
-      .onFailure(Throwable::printStackTrace);
-    return super.start();
+      });
   }
 }

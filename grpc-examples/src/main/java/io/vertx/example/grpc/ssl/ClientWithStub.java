@@ -2,7 +2,8 @@ package io.vertx.example.grpc.ssl;
 
 import io.grpc.examples.helloworld.HelloRequest;
 import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.SocketAddress;
@@ -12,14 +13,16 @@ import io.vertx.launcher.application.VertxApplication;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class ClientWithStub extends AbstractVerticle {
+public class ClientWithStub extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{ClientWithStub.class.getName()});
   }
 
+  private GrpcClient client;
+
   @Override
-  public void start() {
+  public Future<?> start() {
 
     HttpClientOptions options = new HttpClientOptions()
       .setSsl(true)
@@ -27,15 +30,14 @@ public class ClientWithStub extends AbstractVerticle {
       .setTrustOptions(new JksOptions()
         .setPath("tls/client-truststore.jks")
         .setPassword("wibble"));
-    GrpcClient client = GrpcClient.client(vertx, options);
+
+    client = GrpcClient.client(vertx, options);
+
     VertxGreeterGrpcClient stub = new VertxGreeterGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
+
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
-    stub.sayHello(request).onComplete(asyncResponse -> {
-      if (asyncResponse.succeeded()) {
-        System.out.println("Succeeded " + asyncResponse.result().getMessage());
-      } else {
-        asyncResponse.cause().printStackTrace();
-      }
-    });
+    return stub
+      .sayHello(request)
+      .onSuccess(res -> System.out.println("Succeeded " + res.getMessage()));
   }
 }
