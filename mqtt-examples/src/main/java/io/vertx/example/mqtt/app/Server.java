@@ -17,7 +17,8 @@
 package io.vertx.example.mqtt.app;
 
 import io.netty.handler.codec.mqtt.MqttQoS;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.mqtt.MqttServer;
@@ -29,18 +30,19 @@ import java.util.List;
 /**
  * An example of using the MQTT server
  */
-public class Server extends AbstractVerticle {
+public class Server extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Server.class.getName()});
+    System.out.println("MQTT server is listening");
   }
 
   @Override
-  public void start() throws Exception {
+  public Future<?> start() {
 
     MqttServer mqttServer = MqttServer.create(vertx);
 
-    mqttServer
+    return mqttServer
       .endpointHandler(endpoint -> {
 
         // shows main connect info
@@ -129,13 +131,6 @@ public class Server extends AbstractVerticle {
 
         }).publishReleaseHandler(endpoint::publishComplete);
       })
-      .listen(1883, "0.0.0.0").onComplete(ar -> {
-
-        if (ar.succeeded()) {
-          System.out.println("MQTT server is listening on port " + mqttServer.actualPort());
-        } else {
-          System.err.println("Error on starting the server" + ar.cause().getMessage());
-        }
-      });
+      .listen(1883, "0.0.0.0");
   }
 }

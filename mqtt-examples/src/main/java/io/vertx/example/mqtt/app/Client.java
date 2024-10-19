@@ -17,7 +17,8 @@
 package io.vertx.example.mqtt.app;
 
 import io.netty.handler.codec.mqtt.MqttQoS;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.launcher.application.VertxApplication;
@@ -29,7 +30,7 @@ import java.nio.charset.Charset;
 /**
  * An example of using the MQTT client
  */
-public class Client extends AbstractVerticle {
+public class Client extends VerticleBase {
 
   private static final String MQTT_TOPIC = "/my_topic";
   private static final String MQTT_MESSAGE = "Hello Vert.x MQTT Client";
@@ -40,12 +41,13 @@ public class Client extends AbstractVerticle {
     VertxApplication.main(new String[]{Client.class.getName()});
   }
 
+  private MqttClient client;
+
   @Override
-  public void start() throws Exception {
+  public Future<?> start() throws Exception {
     MqttClientOptions options = new MqttClientOptions().setKeepAliveInterval(2);
 
     MqttClient client = MqttClient.create(Vertx.vertx(), options);
-
 
     // handler will be called when we have a message in topic we subscribing for
     client.publishHandler(publish -> {
@@ -79,14 +81,10 @@ public class Client extends AbstractVerticle {
     });
 
     // connect to a server
-    client.connect(BROKER_PORT, BROKER_HOST).onComplete(ch -> {
-      if (ch.succeeded()) {
-        System.out.println("Connected to a server");
-        client.subscribe(MQTT_TOPIC, 0);
-      } else {
-        System.out.println("Failed to connect to a server");
-        System.out.println(ch.cause());
-      }
+    return client.connect(BROKER_PORT, BROKER_HOST)
+      .compose(conn -> {
+      System.out.println("Connected to a server");
+      return client.subscribe(MQTT_TOPIC, 0);
     });
   }
 }

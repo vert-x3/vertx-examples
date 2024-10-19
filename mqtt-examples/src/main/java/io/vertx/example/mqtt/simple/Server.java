@@ -16,7 +16,8 @@
 
 package io.vertx.example.mqtt.simple;
 
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
@@ -24,14 +25,15 @@ import io.vertx.mqtt.MqttServerOptions;
 /**
  * An example of using the MQTT server as a verticle
  */
-public class Server extends AbstractVerticle {
+public class Server extends VerticleBase {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Server.class.getName()});
+    System.out.println("MQTT server started and listening");
   }
 
   @Override
-  public void start() throws Exception {
+  public Future<?> start() throws Exception {
 
     MqttServerOptions options = new MqttServerOptions()
       .setPort(1883)
@@ -53,14 +55,7 @@ public class Server extends AbstractVerticle {
       endpoint.accept(false);
     });
 
-    server.listen()
-      .onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("MQTT server started and listening on port " + server.actualPort());
-      } else {
-        System.err.println("MQTT server error on start" + ar.cause().getMessage());
-      }
-    });
+    return server.listen();
   }
 }
 
