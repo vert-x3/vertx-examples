@@ -1,6 +1,7 @@
 package io.vertx.example.mail;
 
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.ext.mail.MailAttachment;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
@@ -15,19 +16,21 @@ import java.util.List;
  *
  * @author <a href="http://oss.lehmann.cx/">Alexander Lehmann</a>
  */
-public class MailImages extends AbstractVerticle {
+public class MailImages extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{MailImages.class.getName()});
-  }
-
-  @Override
-  public void start() {
     // Start a local SMTP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     LocalSmtpServer.start(2526);
 
-    MailClient mailClient = MailClient.createShared(vertx, new MailConfig().setPort(2526));
+    VertxApplication.main(new String[]{MailImages.class.getName()});
+  }
+
+  private MailClient mailClient;
+
+  @Override
+  public Future<?> start() {
+    mailClient = MailClient.createShared(vertx, new MailConfig().setPort(2526));
 
     MailMessage email = new MailMessage()
       .setFrom("user@example.com (Sender)")
@@ -47,14 +50,11 @@ public class MailImages extends AbstractVerticle {
     list.add(attachment);
     email.setInlineAttachment(list);
 
-    mailClient.sendMail(email).onComplete(result -> {
-      if (result.succeeded()) {
-        System.out.println(result.result());
-        System.out.println("Mail sent");
-      } else {
-        System.out.println("got exception");
-        result.cause().printStackTrace();
-      }
+    return mailClient
+      .sendMail(email)
+      .onSuccess(result -> {
+      System.out.println(result);
+      System.out.println("Mail sent");
     });
   }
 

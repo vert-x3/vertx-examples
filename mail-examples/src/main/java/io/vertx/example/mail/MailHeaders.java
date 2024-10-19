@@ -1,6 +1,7 @@
 package io.vertx.example.mail;
 
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.ext.mail.MailClient;
 import io.vertx.ext.mail.MailConfig;
 import io.vertx.ext.mail.MailMessage;
@@ -17,20 +18,24 @@ import java.util.Arrays;
  *
  * @author <a href="http://oss.lehmann.cx/">Alexander Lehmann</a>
  */
-public class MailHeaders extends AbstractVerticle {
+public class MailHeaders extends VerticleBase {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{MailHeaders.class.getName()});
-  }
 
-  public void start() {
     // Start a local SMTP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     LocalSmtpServer.start(2528);
+
+    VertxApplication.main(new String[]{MailHeaders.class.getName()});
+  }
+
+  private MailClient mailClient;
+
+  public Future<?> start() {
     MailConfig mailConfig = new MailConfig().setHostname("localhost").setPort(2528);
 
-    MailClient mailClient = MailClient.createShared(vertx, mailConfig);
+    mailClient = MailClient.createShared(vertx, mailConfig);
 
     MailMessage email = new MailMessage()
       .setFrom("user1@example.com")
@@ -42,16 +47,11 @@ public class MailHeaders extends AbstractVerticle {
       .addHeader("Received", "from [192.168.1.1] by localhost")
       .setText("This message should have a custom Message-ID");
 
-    mailClient
+    return mailClient
       .sendMail(email)
-      .onComplete(result -> {
-      if (result.succeeded()) {
-        System.out.println(result.result());
+      .onSuccess(result -> {
+        System.out.println(result);
         System.out.println("Mail sent");
-      } else {
-        System.out.println("got exception");
-        result.cause().printStackTrace();
-      }
     });
   }
 

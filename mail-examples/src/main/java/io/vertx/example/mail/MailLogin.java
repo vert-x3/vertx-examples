@@ -1,6 +1,7 @@
 package io.vertx.example.mail;
 
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.mail.*;
 import io.vertx.launcher.application.VertxApplication;
@@ -15,17 +16,22 @@ import java.util.List;
  *
  * @author <a href="http://oss.lehmann.cx/">Alexander Lehmann</a>
  */
-public class MailLogin extends AbstractVerticle {
+public class MailLogin extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{MailLogin.class.getName()});
-  }
-
-  public void start() {
     // Start a local SMTP server, remove this line if you want to use your own server.
     // It just prints the sent message to the console
     LocalSmtpServer.startWithAuth(5870);
 
+    VertxApplication.main(new String[]{MailLogin.class.getName()});
+  }
+
+  private MailClient mailClient;
+
+  public Future<?> start() {
+    // Start a local SMTP server, remove this line if you want to use your own server.
+    // It just prints the sent message to the console
+    LocalSmtpServer.startWithAuth(5870);
 
     MailConfig mailConfig = new MailConfig()
       .setHostname("localhost")
@@ -36,7 +42,7 @@ public class MailLogin extends AbstractVerticle {
       .setUsername("username")
       .setPassword("password");
 
-    MailClient mailClient = MailClient.createShared(vertx, mailConfig);
+    mailClient = MailClient.createShared(vertx, mailConfig);
 
     Buffer image = vertx.fileSystem().readFileBlocking("io/vertx/example/mail/logo-white-big.png");
 
@@ -61,17 +67,11 @@ public class MailLogin extends AbstractVerticle {
 
     email.setAttachment(list);
 
-    mailClient
+    return mailClient
       .sendMail(email)
-      .onComplete(result -> {
-      if (result.succeeded()) {
-        System.out.println(result.result());
+      .onSuccess(result -> {
+        System.out.println(result);
         System.out.println("Mail sent");
-      } else {
-        System.out.println("got exception");
-        result.cause().printStackTrace();
-      }
     });
   }
-
 }
