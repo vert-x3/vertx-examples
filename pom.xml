@@ -43,6 +43,7 @@
     <module>cassandra-examples</module>
     <module>web-graphql-examples</module>
     <module>openapi-examples</module>
+    <module>jpms-examples</module>
   </modules>
 
   <profiles>
