@@ -1,7 +1,0 @@
-= Vert.x Kotlin Examples
-
-Here you can find the Vert.x https://kotlinlang.org/[Kotlin] examples
-
-== Coroutines examples
-
-The link:coroutines/README.md[Kotlin coroutines example] is a sample JDBC application demontrating Kotlin coroutines.
