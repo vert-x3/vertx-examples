@@ -78,19 +78,10 @@
       <plugins>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
             <annotationProcessors>
               <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
             </annotationProcessors>
-            <generatedSourcesDirectory>
-              ${project.basedir}/src/main/generated
-            </generatedSourcesDirectory>
-            <compilerArgs>
-              <arg>-AoutputDirectory=${project.basedir}/src/main</arg>
-            </compilerArgs>
           </configuration>
         </plugin>
       </plugins>
