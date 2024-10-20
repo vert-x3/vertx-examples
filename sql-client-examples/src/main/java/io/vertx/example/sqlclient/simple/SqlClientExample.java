@@ -1,6 +1,8 @@
 package io.vertx.example.sqlclient.simple;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.Vertx;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.Pool;
@@ -12,7 +14,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
  */
-public class SqlClientExample extends AbstractVerticle {
+public class SqlClientExample extends VerticleBase {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -37,18 +39,19 @@ public class SqlClientExample extends AbstractVerticle {
     vertx.deployVerticle(new SqlClientExample(options));  }
 
   private final SqlConnectOptions options;
+  private Pool pool;
 
   public SqlClientExample(SqlConnectOptions options) {
     this.options = options;
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
 
-    Pool pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
+    pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
 
     // create a test table
-    pool.query("create table test(id int primary key, name varchar(255))")
+    return pool.query("create table test(id int primary key, name varchar(255))")
       .execute()
       .compose(r ->
         // insert some test data
@@ -64,6 +67,6 @@ public class SqlClientExample extends AbstractVerticle {
       for (Row row : rows) {
         System.out.println("row = " + row.toJson());
       }
-    }).onFailure(Throwable::printStackTrace);
+    });
   }
 }

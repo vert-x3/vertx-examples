@@ -1,6 +1,8 @@
 package io.vertx.example.sqlclient.template_mapping;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.Vertx;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.Pool;
@@ -18,7 +20,7 @@ import java.util.Map;
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
  */
-public class SqlClientExample extends AbstractVerticle {
+public class SqlClientExample extends VerticleBase {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -44,15 +46,16 @@ public class SqlClientExample extends AbstractVerticle {
   }
 
   private final SqlConnectOptions options;
+  private Pool pool;
 
   public SqlClientExample(SqlConnectOptions options) {
     this.options = options;
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
 
-    Pool pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
+    pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
 
     // create a SQL template for inserting users
     SqlTemplate<User, SqlResult<Void>> insertTemplate = SqlTemplate
@@ -63,7 +66,7 @@ public class SqlClientExample extends AbstractVerticle {
       .forQuery(pool, "select * from users where id = #{id}").mapTo(UserRowMapper.INSTANCE);
 
     // create a test table
-    pool.query("create table users(id int primary key, first_name varchar(255), last_name varchar(255))")
+    return pool.query("create table users(id int primary key, first_name varchar(255), last_name varchar(255))")
       .execute()
       .compose(r ->
         // insert some test data
@@ -78,6 +81,6 @@ public class SqlClientExample extends AbstractVerticle {
       for (User user : users) {
         System.out.println("user = " + user);
       }
-    }).onFailure(Throwable::printStackTrace);
+    });
   }
 }

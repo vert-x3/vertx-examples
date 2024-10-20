@@ -2,6 +2,7 @@ package io.vertx.example.sqlclient.transaction_rollback;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.core.Vertx;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.Pool;
@@ -13,7 +14,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
  */
-public class SqlClientExample extends AbstractVerticle {
+public class SqlClientExample extends VerticleBase {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -38,37 +39,41 @@ public class SqlClientExample extends AbstractVerticle {
     vertx.deployVerticle(new SqlClientExample(options));  }
 
   private final SqlConnectOptions options;
+  private Pool pool;
 
   public SqlClientExample(SqlConnectOptions options) {
     this.options = options;
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
 
-    Pool pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
+    pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
 
     // expected
-    pool.withTransaction(connection -> {
+    return pool.withTransaction(connection -> {
       // create a test table
-      return connection.query("create table test(id int primary key, name varchar(255))").execute()
+      return connection
+        .query("create table test(id int primary key, name varchar(255))")
+        .execute()
         .compose(v -> {
           // insert some test data
-          return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
+          return connection
+            .query("insert into test values (1, 'Hello'), (2, 'World')")
+            .execute();
         })
         .compose(v -> {
           // triggers transaction roll back
-          return Future.failedFuture("Failed");
+          System.out.println("ROLLING BACK");
+          return Future.failedFuture("Expected failure");
         })
         .compose(v -> {
           // query some data
+          // should not be called because of rollback
           return connection.query("select * from test").execute();
         });
-    }).onSuccess(rows -> {
-      // should not be called because of rollback
-      for (Row row : rows) {
-        System.out.println("row = " + row.toJson());
-      }
-    }).onFailure(Throwable::printStackTrace);
+    }).onFailure(err -> {
+      System.out.println("Transaction rolled back");
+    });
   }
 }

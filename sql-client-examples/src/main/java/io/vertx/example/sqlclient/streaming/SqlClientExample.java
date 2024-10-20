@@ -1,8 +1,6 @@
 package io.vertx.example.sqlclient.streaming;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Promise;
-import io.vertx.core.Vertx;
+import io.vertx.core.*;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.sqlclient.*;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -10,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
  */
-public class SqlClientExample extends AbstractVerticle {
+public class SqlClientExample extends VerticleBase {
 
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) {
@@ -35,53 +33,43 @@ public class SqlClientExample extends AbstractVerticle {
     vertx.deployVerticle(new SqlClientExample(options));  }
 
   private final SqlConnectOptions options;
+  private Pool pool;
 
   public SqlClientExample(SqlConnectOptions options) {
     this.options = options;
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
 
-    Pool pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
+    pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
 
-    pool.getConnection().compose(connection -> {
-      Promise<Void> promise = Promise.promise();
+    return pool.withConnection(connection -> {
       // create a test table
-      connection.query("create table test(id int primary key, name varchar(255))").execute()
+      return connection
+        .query("create table test(id int primary key, name varchar(255))")
+        .execute()
         .compose(v -> {
           // insert some test data
-          return connection.query("insert into test values (1, 'Hello'), (2, 'World')").execute();
+          return connection
+            .query("insert into test values (1, 'Hello'), (2, 'World')")
+            .execute();
         })
-        .compose(v -> {
-          // prepare the query
-          return connection.prepare("select * from test");
-        })
-        .map(preparedStatement -> {
-          // create a stream
-          return preparedStatement.createStream(50, Tuple.tuple());
-        })
-        .onComplete(ar -> {
-          if (ar.succeeded()) {
-            RowStream<Row> stream = ar.result();
+        .compose(v ->  connection
+          .prepare("select * from test")
+          .compose(ps -> {
+            RowStream<Row> stream = ps.createStream(50);
+            Promise<Void> promise = Promise.promise();
             stream
               .exceptionHandler(promise::fail)
               .endHandler(promise::complete)
               .handler(row -> System.out.println("row = " + row.toJson()));
-          } else {
-            promise.fail(ar.cause());
-          }
-        });
-      return promise.future().onComplete(v -> {
-        // close the connection
-        connection.close();
-      });
-    }).onComplete(ar -> {
-      if (ar.succeeded()) {
-        System.out.println("done");
-      } else {
-        ar.cause().printStackTrace();
-      }
+            return promise
+              .future()
+              .eventually(ps::close);
+          }));
+    }).onSuccess(ar -> {
+      System.out.println("done");
     });
   }
 }
