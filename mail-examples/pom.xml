@@ -9,7 +9,6 @@
   </parent>
 
   <artifactId>mail-examples</artifactId>
-  <version>5.0.0-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
