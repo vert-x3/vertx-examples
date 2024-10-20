@@ -2,10 +2,11 @@ package io.vertx.example.cassandra.simple;
 
 import com.datastax.oss.driver.api.core.cql.Row;
 import io.vertx.cassandra.CassandraClient;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.launcher.application.VertxApplication;
 
-public class SimpleExample extends AbstractVerticle {
+public class SimpleExample extends VerticleBase {
 
   /**
    * Convenience method so you can run it in your IDE
@@ -15,16 +16,13 @@ public class SimpleExample extends AbstractVerticle {
   }
 
   @Override
-  public void start() {
+  public Future<?> start() {
     CassandraClient client = CassandraClient.createShared(vertx);
-    client.execute("select release_version from system.local").onComplete(ar -> {
-      if (ar.succeeded()) {
-        Row row = ar.result().one();
+    return client.execute("select release_version from system.local")
+      .onSuccess(res -> {
+        Row row = res.one();
         String releaseVersion = row.getString("release_version");
         System.out.println("Release version is: " + releaseVersion);
-      } else {
-        ar.cause().printStackTrace();
-      }
     });
   }
 }

@@ -1,10 +1,11 @@
 package io.vertx.example.cassandra.prepared;
 
 import io.vertx.cassandra.CassandraClient;
-import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.VerticleBase;
 import io.vertx.launcher.application.VertxApplication;
 
-public class PreparedExample extends AbstractVerticle {
+public class PreparedExample extends VerticleBase {
 
   /**
    * Convenience method so you can run it in your IDE
@@ -13,21 +14,21 @@ public class PreparedExample extends AbstractVerticle {
     VertxApplication.main(new String[]{PreparedExample.class.getName()});
   }
 
+  private CassandraClient client;
+
   @Override
-  public void start() {
-    CassandraClient client = CassandraClient.createShared(vertx);
-    client.prepare("SELECT * from system_schema.tables  WHERE keyspace_name = ? ").compose(preparedStatement -> {
-      return client.executeWithFullFetch(preparedStatement.bind("system_schema"));
-    }).onComplete(ar -> {
-      if (ar.succeeded()) {
+  public Future<?> start() {
+    client = CassandraClient.createShared(vertx);
+
+    return client
+      .prepare("SELECT * from system_schema.tables  WHERE keyspace_name = ? ")
+      .compose(preparedStatement -> client.executeWithFullFetch(preparedStatement.bind("system_schema")))
+      .onSuccess(res -> {
         System.out.println("Tables in system_schema: ");
-        ar.result().forEach(row -> {
+        res.forEach(row -> {
           String systemSchema = row.getString("table_name");
           System.out.println("\t" + systemSchema);
         });
-      } else {
-        ar.cause().printStackTrace();
-      }
     });
   }
 }
