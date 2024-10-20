@@ -16,10 +16,10 @@
 
 package io.vertx.example.reactivex.net.greeter;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.parsetools.RecordParser;
+import io.reactivex.Completable;
 import io.vertx.launcher.application.VertxApplication;
-import io.vertx.reactivex.FlowableHelper;
+import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.core.parsetools.RecordParser;
 
 /*
  * @author Thomas Segismont
@@ -28,16 +28,17 @@ public class Server extends AbstractVerticle {
 
   public static void main(String[] args) {
     VertxApplication.main(new String[]{Server.class.getName()});
+    System.out.println("Echo server is now listening");
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
 
-    vertx.createNetServer().connectHandler(sock -> {
+    return vertx.createNetServer().connectHandler(sock -> {
 
       RecordParser parser = RecordParser.newDelimited("\n", sock);
 
-      FlowableHelper.toFlowable(parser)
+      parser.toFlowable()
         .map(buffer -> buffer.toString("UTF-8"))
         .map(name -> "Hello " + name)
         .subscribe(greeting -> sock.write(greeting + "\n", "UTF-8"), throwable -> {
@@ -45,9 +46,7 @@ public class Server extends AbstractVerticle {
           sock.close();
         }, sock::close);
 
-    }).listen(1234);
-
-    System.out.println("Echo server is now listening");
-
+    }).rxListen(1234)
+      .ignoreElement();
   }
 }

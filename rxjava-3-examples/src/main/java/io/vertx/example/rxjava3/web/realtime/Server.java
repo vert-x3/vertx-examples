@@ -1,9 +1,11 @@
 package io.vertx.example.rxjava3.web.realtime;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
+import io.vertx.rxjava3.core.http.HttpServer;
 import io.vertx.rxjava3.ext.web.Router;
 import io.vertx.rxjava3.ext.web.handler.StaticHandler;
 import io.vertx.rxjava3.ext.web.handler.sockjs.SockJSHandler;
@@ -18,7 +20,7 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
 
     Router router = Router.router(vertx);
 
@@ -41,9 +43,11 @@ public class Server extends AbstractVerticle {
     // Serve the static resources
     router.route().handler(StaticHandler.create());
 
-    vertx.createHttpServer().requestHandler(router).listen(8080);
+    HttpServer server = vertx.createHttpServer().requestHandler(router);
 
     // Publish a message to the address "news-feed" every second
     vertx.setPeriodic(1000, t -> vertx.eventBus().publish("news-feed", "news from the server!"));
+
+    return server.rxListen(8080).ignoreElement();
   }
 }

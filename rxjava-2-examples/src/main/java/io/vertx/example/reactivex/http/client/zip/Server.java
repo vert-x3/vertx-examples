@@ -1,5 +1,6 @@
 package io.vertx.example.reactivex.http.client.zip;
 
+import io.reactivex.Completable;
 import io.vertx.core.json.JsonObject;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.reactivex.core.AbstractVerticle;
@@ -15,11 +16,13 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
     HttpServer server = vertx.createHttpServer();
     server.requestHandler(req -> {
       req.response().putHeader("content-type", "application/json").end(new JsonObject().put("time", System.currentTimeMillis()).toString());
     });
-    server.listen(8080);
+    return server
+      .rxListen(8080)
+      .ignoreElement();
   }
 }

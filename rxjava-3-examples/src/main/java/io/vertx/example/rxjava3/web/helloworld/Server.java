@@ -1,7 +1,9 @@
 package io.vertx.example.rxjava3.web.helloworld;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
+import io.vertx.rxjava3.core.http.HttpServer;
 import io.vertx.rxjava3.ext.web.Router;
 
 /*
@@ -14,7 +16,7 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
 
     Router router = Router.router(vertx);
 
@@ -22,6 +24,8 @@ public class Server extends AbstractVerticle {
       routingContext.response().putHeader("content-type", "text/html").end("Hello World!");
     });
 
-    vertx.createHttpServer().requestHandler(router).listen(8080);
+    HttpServer server = vertx.createHttpServer().requestHandler(router);
+
+    return server.rxListen(8080).ignoreElement();
   }
 }

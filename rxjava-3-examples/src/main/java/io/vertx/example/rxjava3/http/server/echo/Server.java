@@ -1,5 +1,6 @@
 package io.vertx.example.rxjava3.http.server.echo;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.core.http.HttpServer;
@@ -15,7 +16,7 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
     HttpServer server = vertx.createHttpServer();
     server.requestHandler(req -> {
       HttpServerResponse resp = req.response();
@@ -31,6 +32,6 @@ public class Server extends AbstractVerticle {
         resp::end
       );
     });
-    server.listen(8080);
+    return server.listen(8080).ignoreElement();
   }
 }

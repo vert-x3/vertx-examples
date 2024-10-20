@@ -17,9 +17,11 @@ public class Client extends AbstractVerticle {
     VertxApplication.main(new String[]{Client.class.getName()});
   }
 
+  private HttpClient client;
+
   @Override
   public void start() throws Exception {
-    HttpClient client = vertx.createHttpClient();
+    client = vertx.createHttpClient();
 
     Maybe<String> maybe = client.rxRequest(HttpMethod.GET, 8080, "localhost", "/")
 

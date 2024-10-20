@@ -16,11 +16,11 @@
 
 package io.vertx.example.reactivex.net.greeter;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.net.NetSocket;
-import io.vertx.core.parsetools.RecordParser;
+import io.reactivex.Single;
 import io.vertx.launcher.application.VertxApplication;
-import io.vertx.reactivex.FlowableHelper;
+import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.core.net.NetSocket;
+import io.vertx.reactivex.core.parsetools.RecordParser;
 
 import java.util.stream.Stream;
 
@@ -34,31 +34,27 @@ public class Client extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
-    vertx.createNetClient().connect(1234, "localhost").onComplete(res -> {
+  public void start() {
+    Single<NetSocket> sub = vertx.createNetClient().rxConnect(1234, "localhost");
+    sub.subscribe(socket -> {
+      RecordParser parser = RecordParser.newDelimited("\n", socket);
 
-      if (res.succeeded()) {
-        NetSocket socket = res.result();
+      parser
+        .toFlowable()
+        .map(buffer -> buffer.toString("UTF-8"))
+        .subscribe(greeting -> System.out.println("Net client receiving: " + greeting), t -> {
+          t.printStackTrace();
+          socket.close();
+        }, socket::close);
 
-        RecordParser parser = RecordParser.newDelimited("\n", socket);
-
-        FlowableHelper.toFlowable(parser)
-          .map(buffer -> buffer.toString("UTF-8"))
-          .subscribe(greeting -> System.out.println("Net client receiving: " + greeting), t -> {
-            t.printStackTrace();
-            socket.close();
-          }, socket::close);
-
-        // Now send some data
-        Stream.of("John", "Joe", "Lisa", "Bill").forEach(name -> {
-          System.out.println("Net client sending: " + name);
-          socket.write(name);
-          socket.write("\n");
-        });
-
-      } else {
-        System.out.println("Failed to connect " + res.cause());
-      }
+      // Now send some data
+      Stream.of("John", "Joe", "Lisa", "Bill").forEach(name -> {
+        System.out.println("Net client sending: " + name);
+        socket.write(name);
+        socket.write("\n");
+      });
+    }, err -> {
+      System.out.println("Failed to connect " + err);
     });
   }
 }

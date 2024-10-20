@@ -1,5 +1,6 @@
 package io.vertx.example.rxjava3.http.client.unmarshalling;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.rxjava3.core.AbstractVerticle;
 import io.vertx.rxjava3.core.http.HttpServer;
@@ -14,11 +15,13 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
     HttpServer server = vertx.createHttpServer();
     server.requestHandler(req -> {
       req.response().putHeader("content-type", "application/json").end("{\"message\":\"Hello World\"}");
     });
-    server.listen(8080);
+    return server
+      .rxListen(8080)
+      .ignoreElement();
   }
 }

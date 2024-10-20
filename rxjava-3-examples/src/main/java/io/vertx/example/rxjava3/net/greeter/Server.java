@@ -16,10 +16,10 @@
 
 package io.vertx.example.rxjava3.net.greeter;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.parsetools.RecordParser;
+import io.reactivex.rxjava3.core.Completable;
 import io.vertx.launcher.application.VertxApplication;
-import io.vertx.rxjava3.FlowableHelper;
+import io.vertx.rxjava3.core.AbstractVerticle;
+import io.vertx.rxjava3.core.parsetools.RecordParser;
 
 /*
  * @author Thomas Segismont
@@ -31,13 +31,14 @@ public class Server extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public Completable rxStart() {
 
-    vertx.createNetServer().connectHandler(sock -> {
+    return vertx.createNetServer().connectHandler(sock -> {
 
-      RecordParser parser = RecordParser.newDelimited("\n", sock);
+      RecordParser parser = RecordParser.newDelimited("\n", sock.toFlowable());
 
-      FlowableHelper.toFlowable(parser)
+      parser
+        .toFlowable()
         .map(buffer -> buffer.toString("UTF-8"))
         .map(name -> "Hello " + name)
         .subscribe(greeting -> sock.write(greeting + "\n", "UTF-8"), throwable -> {
@@ -45,9 +46,6 @@ public class Server extends AbstractVerticle {
           sock.close();
         }, sock::close);
 
-    }).listen(1234);
-
-    System.out.println("Echo server is now listening");
-
+    }).listen(1234).ignoreElement();
   }
 }
