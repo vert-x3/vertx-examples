@@ -33,7 +33,7 @@
     <module>amqp-proton-examples</module>
     <module>camel-bridge-examples</module>
     <module>circuit-breaker-examples</module>
-    <module>service-discovery-examples</module>
+    <module>service-resolver-examples</module>
     <module>mqtt-examples</module>
     <module>grpc-examples</module>
     <module>kafka-examples</module>
