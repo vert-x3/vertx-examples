@@ -10,3 +10,10 @@ This example demonstrates how to configure the Vert.x HTTP client to resolve ser
 server using DNS.
 
 The link:src/main/java/io/vertx/example/serviceresolver/consul/HttpClientWithConsulVerticle.java[HTTP client resolver with Consul DNS]
+
+== Custom mapping
+
+This example demonstrates how to configure the Vert.x HTTP client to resolve service address using a custom mapping, i.e.
+a function that returns a list of socket addresses given a service name.
+
+The link:src/main/java/io/vertx/example/serviceresolver/mapping/HttpClientWithMappingResolverVerticle.java[HTTP client resolver with custom mapping]
