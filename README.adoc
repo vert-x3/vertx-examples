@@ -28,6 +28,11 @@ Just right-click the main method or class in your IDE and run as... application 
 
 The link:core-examples/README.adoc[Vert.x core examples] contains a wide range of examples using just Vert.x Core.
 
+=== Service resolver examples
+
+The link:service-resolver-examples/README.adoc[Vert.x Service Resolver] examples contain client
+using a resolver to discover service endpoints.
+
 === Vert.x-Web examples
 
 Vert.x-Web is a toolkit for building web applications using Vert.x
@@ -143,6 +148,3 @@ with link:https://micrometer.io/[Micrometer] and send them to backends such as P
 === GraphQL examples
 
 The link:web-graphql-examples/README.adoc[Vert.x Web GraphQL] examples contain simple client/server GraphQL applications built with https://vertx.io/docs/vertx-web-graphql/java/[Vert.x Web GraphQL] and the https://www.graphql-java.com/[GraphQL-Java] library.
-
-
-
