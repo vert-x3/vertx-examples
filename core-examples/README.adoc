@@ -163,7 +163,7 @@ The `Servers` deploys two instances of the `HttpServerVerticle` verticle.
 
 You can run the server then open a browser and point it at link:http://localhost:8080. Requests will be handled by an instance after the other.
 
-The `Client` illustrates the round-robin by periodically requesting the server and displays the response content.
+The `ClientWithTemplate` illustrates the round-robin by periodically requesting the server and displays the response content.
 
 link:src/main/java/io/vertx/example/core/http/sharing/Client.java[Java simple HTTP client]
 
