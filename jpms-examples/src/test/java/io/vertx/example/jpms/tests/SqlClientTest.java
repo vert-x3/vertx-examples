@@ -9,6 +9,7 @@ import io.vertx.core.http.HttpResponseExpectation;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.example.jpms.sqlclient.Client;
+import io.vertx.example.jpms.sqltemplate.ClientWithTemplate;
 import io.vertx.pgclient.PgConnectOptions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -64,10 +65,6 @@ public class SqlClientTest {
   @BeforeEach
   public void beforeEach() throws Exception {
     vertx = Vertx.vertx();
-    vertx.deployVerticle(new Client(database))
-      .toCompletionStage()
-      .toCompletableFuture()
-      .get(20, TimeUnit.SECONDS);
     client = vertx.createHttpClient();
   }
 
@@ -84,6 +81,21 @@ public class SqlClientTest {
 
   @Test
   public void testClient() throws Exception {
+    vertx
+      .deployVerticle(new Client(database))
+      .await();
+    assertClient();
+  }
+
+  @Test
+  public void testClientWithTemplate() throws Exception {
+    vertx
+      .deployVerticle(new ClientWithTemplate(database))
+      .await();
+    assertClient();
+  }
+
+  private void assertClient() throws Exception {
     JsonArray result = client
       .request(HttpMethod.GET, 8080, "localhost", "/")
       .compose(req -> req.send()
