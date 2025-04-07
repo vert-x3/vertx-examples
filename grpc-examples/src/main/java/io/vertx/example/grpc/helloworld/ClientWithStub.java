@@ -1,7 +1,7 @@
 package io.vertx.example.grpc.helloworld;
 
+import io.grpc.examples.helloworld.GreeterGrpcClient;
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
@@ -22,7 +22,7 @@ public class ClientWithStub extends VerticleBase {
   @Override
   public Future<?> start() {
     client = GrpcClient.client(vertx);
-    VertxGreeterGrpcClient stub = new VertxGreeterGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
+    GreeterGrpcClient stub = GreeterGrpcClient.create(client, SocketAddress.inetSocketAddress(8080, "localhost"));
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
     return stub
       .sayHello(request)

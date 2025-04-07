@@ -3,9 +3,9 @@ package io.vertx.example.grpc.consumer;
 import com.google.protobuf.ByteString;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.ConsumerServiceGrpcService;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.Messages.PayloadType;
-import io.vertx.example.grpc.VertxConsumerServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -29,7 +29,7 @@ public class Server extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(VertxConsumerServiceGrpcServer.StreamingOutputCall, request -> {
+    rpcServer.callHandler(ConsumerServiceGrpcService.StreamingOutputCall, request -> {
       final AtomicInteger counter = new AtomicInteger();
       vertx.setPeriodic(1000L, t -> {
         request.response().write(Messages.StreamingOutputCallResponse.newBuilder().setPayload(

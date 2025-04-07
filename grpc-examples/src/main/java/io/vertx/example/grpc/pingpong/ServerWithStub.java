@@ -3,7 +3,7 @@ package io.vertx.example.grpc.pingpong;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxPingPongServiceGrpcServer;
+import io.vertx.example.grpc.PingPongServiceGrpcService;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -21,7 +21,7 @@ public class ServerWithStub extends VerticleBase {
   public Future<?> start() {
 
     // The rpc service
-    VertxPingPongServiceGrpcServer.PingPongServiceApi service = new VertxPingPongServiceGrpcServer.PingPongServiceApi() {
+    PingPongServiceGrpcService service = new PingPongServiceGrpcService() {
       @Override
       public Future<Messages.SimpleResponse> unaryCall(Messages.SimpleRequest request) {
         return Future.succeededFuture(Messages.SimpleResponse.newBuilder().setUsername("Paulo").build());
@@ -32,7 +32,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // Bind the service
-    service.bind_unaryCall(rpcServer);
+    rpcServer.addService(service);
 
     // start the server
     return vertx

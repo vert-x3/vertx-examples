@@ -1,7 +1,7 @@
 package io.vertx.example.grpc.jsonformat;
 
+import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.grpc.examples.helloworld.HelloReply;
-import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.grpc.server.GrpcServer;
@@ -23,7 +23,7 @@ public class Server extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(VertxGreeterGrpcServer.SayHello_JSON, request -> {
+    rpcServer.callHandler(GreeterGrpcService.Json.SayHello, request -> {
       request
         .last()
         .onSuccess(msg -> {

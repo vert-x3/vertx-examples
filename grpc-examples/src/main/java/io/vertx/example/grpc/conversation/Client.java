@@ -3,8 +3,8 @@ package io.vertx.example.grpc.conversation;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
+import io.vertx.example.grpc.ConsumerServiceGrpcClient;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConsumerServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -26,7 +26,7 @@ public class Client extends VerticleBase {
     client = GrpcClient.client(vertx);
 
     // Call the remote service
-    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxConsumerServiceGrpcClient.StreamingOutputCall)
+    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), ConsumerServiceGrpcClient.StreamingOutputCall)
       .compose(
         request -> {
           // start the conversation

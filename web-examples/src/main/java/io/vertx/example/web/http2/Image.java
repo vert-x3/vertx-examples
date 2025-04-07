@@ -22,7 +22,7 @@ public class Image {
 
   public Image(Vertx vertx, String name) {
     try {
-      final BufferedImage raster = ImageIO.read(((VertxInternal) vertx).resolveFile(name));
+      final BufferedImage raster = ImageIO.read(((VertxInternal) vertx).fileResolver().resolve(name));
       width = raster.getWidth();
       height = raster.getHeight();
 

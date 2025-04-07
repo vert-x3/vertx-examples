@@ -1,6 +1,6 @@
 package io.vertx.example.grpc.deadline;
 
-import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
+import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.vertx.core.Future;
 import io.vertx.core.Timer;
 import io.vertx.core.VerticleBase;
@@ -25,7 +25,7 @@ public class Server extends VerticleBase {
       .setScheduleDeadlineAutomatically(true));
 
     // The rpc service
-    rpcServer.callHandler(VertxGreeterGrpcServer.SayHello, request -> {
+    rpcServer.callHandler(GreeterGrpcService.SayHello, request -> {
       Timer deadline = request.deadline();
       if (deadline != null) {
         System.out.println("This request has a deadline");

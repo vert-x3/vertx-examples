@@ -1,8 +1,8 @@
 package io.vertx.example.grpc.deadline;
 
+import io.grpc.examples.helloworld.GreeterGrpcClient;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
@@ -29,7 +29,7 @@ public class Client extends VerticleBase {
     client = GrpcClient.client(vertx, new GrpcClientOptions()
       .setTimeout(5)
       .setTimeoutUnit(TimeUnit.SECONDS));
-    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), VertxGreeterGrpcClient.SayHello)
+    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), GreeterGrpcClient.SayHello)
       .compose(request -> {
         System.out.println("Sending a request that should timeout due to the server deadline");
         request.end(HelloRequest.newBuilder().setName("Julien").build());

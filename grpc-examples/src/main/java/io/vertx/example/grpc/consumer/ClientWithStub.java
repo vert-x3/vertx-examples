@@ -3,10 +3,12 @@ package io.vertx.example.grpc.consumer;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
+import io.vertx.example.grpc.ConsumerServiceGrpcClient;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConsumerServiceGrpcClient;
 import io.vertx.grpc.client.GrpcClient;
 
+import io.vertx.grpc.client.GrpcClientResponse;
+import io.vertx.grpc.server.GrpcServerResponse;
 import io.vertx.launcher.application.VertxApplication;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
@@ -30,7 +32,7 @@ public class ClientWithStub extends VerticleBase {
     client = GrpcClient.client(vertx);
 
     // Get a stub to use for interacting with the remote service
-    VertxConsumerServiceGrpcClient stub = new VertxConsumerServiceGrpcClient(client, SocketAddress.inetSocketAddress(8080, "localhost"));
+    ConsumerServiceGrpcClient stub = ConsumerServiceGrpcClient.create(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
     // Make a request
     Messages.StreamingOutputCallRequest request = Messages
@@ -45,7 +47,7 @@ public class ClientWithStub extends VerticleBase {
         response.handler(msg -> {
           System.out.println(new String(msg.getPayload().toByteArray(), StandardCharsets.UTF_8));
         });
-        return response.last().map("Response has ended.");
+        return ((GrpcClientResponse)response).last().map("Response has ended.");
       });
   }
 }

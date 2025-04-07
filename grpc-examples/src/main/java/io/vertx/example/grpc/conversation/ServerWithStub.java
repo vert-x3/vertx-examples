@@ -2,10 +2,10 @@ package io.vertx.example.grpc.conversation;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.core.streams.ReadStream;
+import io.vertx.core.streams.WriteStream;
+import io.vertx.example.grpc.ConversationalServiceGrpcService;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConversationalServiceGrpcServer;
-import io.vertx.grpc.common.GrpcReadStream;
-import io.vertx.grpc.common.GrpcWriteStream;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -23,9 +23,9 @@ public class ServerWithStub extends VerticleBase {
   public Future<?> start() {
 
     // The rpc service
-    VertxConversationalServiceGrpcServer.ConversationalServiceApi service = new VertxConversationalServiceGrpcServer.ConversationalServiceApi() {
+    ConversationalServiceGrpcService service = new ConversationalServiceGrpcService() {
       @Override
-      public void fullDuplexCall(GrpcReadStream<Messages.StreamingOutputCallRequest> request, GrpcWriteStream<Messages.StreamingOutputCallResponse> response) {
+      protected void fullDuplexCall(ReadStream<Messages.StreamingOutputCallRequest> request, WriteStream<Messages.StreamingOutputCallResponse> response) {
         request
           .handler(req -> {
             System.out.println("Server: received request");
@@ -40,7 +40,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // Bind the service
-    service.bindAll(rpcServer);
+    rpcServer.addService(service);
 
     // start the server
     return vertx

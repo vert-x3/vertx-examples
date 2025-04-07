@@ -3,9 +3,9 @@ package io.vertx.example.grpc.producer;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.VerticleBase;
+import io.vertx.core.streams.ReadStream;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxProducerServiceGrpcServer;
-import io.vertx.grpc.common.GrpcReadStream;
+import io.vertx.example.grpc.ProducerServiceGrpcService;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -23,9 +23,9 @@ public class ServerWithStub extends VerticleBase {
   public Future<?> start() {
 
     // The rpc service
-    VertxProducerServiceGrpcServer.ProducerServiceApi service = new VertxProducerServiceGrpcServer.ProducerServiceApi() {
+    ProducerServiceGrpcService service = new ProducerServiceGrpcService() {
       @Override
-      public Future<Messages.StreamingInputCallResponse> streamingInputCall(GrpcReadStream<Messages.StreamingInputCallRequest> request) {
+      public Future<Messages.StreamingInputCallResponse> streamingInputCall(ReadStream<Messages.StreamingInputCallRequest> request) {
         Promise<Messages.StreamingInputCallResponse> promise = Promise.promise();
         request.handler(payload -> {
           System.out.println(payload.getPayload().getType().getNumber());
@@ -41,7 +41,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // Bind the service
-    service.bind_streamingInputCall(rpcServer);
+    rpcServer.addService(service);
 
     // start the server
     return vertx

@@ -22,6 +22,7 @@ import io.vertx.reactivex.FlowableHelper;
 import io.vertx.reactivex.impl.AsyncResultMaybe;
 import io.vertx.reactivex.impl.AsyncResultSingle;
 import io.vertx.reactivex.impl.AsyncResultCompletable;
+import io.vertx.reactivex.impl.AsyncResultFlowable;
 import io.vertx.reactivex.WriteStreamObserver;
 import io.vertx.reactivex.WriteStreamSubscriber;
 import java.util.Map;

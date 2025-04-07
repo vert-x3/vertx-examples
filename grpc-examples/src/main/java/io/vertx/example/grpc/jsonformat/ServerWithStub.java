@@ -1,11 +1,10 @@
 package io.vertx.example.grpc.jsonformat;
 
+import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.grpc.common.WireFormat;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -21,7 +20,7 @@ public class ServerWithStub extends VerticleBase {
 
   @Override
   public Future<?> start() {
-    VertxGreeterGrpcServer.GreeterApi service = new VertxGreeterGrpcServer.GreeterApi() {
+    GreeterGrpcService service = new GreeterGrpcService() {
       @Override
       public Future<HelloReply> sayHello(HelloRequest request) {
         System.out.println("Hello " + request.getName());
@@ -33,7 +32,10 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // Bind the service
-    service.bind_sayHello(rpcServer, WireFormat.JSON);
+    rpcServer.addService(service
+      .builder()
+      .bind(GreeterGrpcService.Json.all())
+      .build());
 
     // start the server
     return vertx

@@ -3,6 +3,8 @@ open module jpms.examples {
 
   requires com.fasterxml.jackson.core;
 
+  requires io.vertx.core;
+  requires io.vertx.grpc.common;
   requires io.vertx.grpc.server;
 
   requires io.vertx.sql.client;

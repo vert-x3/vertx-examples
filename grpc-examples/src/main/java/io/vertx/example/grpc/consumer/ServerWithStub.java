@@ -3,10 +3,10 @@ package io.vertx.example.grpc.consumer;
 import com.google.protobuf.ByteString;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.core.streams.WriteStream;
+import io.vertx.example.grpc.ConsumerServiceGrpcService;
 import io.vertx.example.grpc.Messages;
 import io.vertx.example.grpc.Messages.PayloadType;
-import io.vertx.example.grpc.VertxConsumerServiceGrpcServer;
-import io.vertx.grpc.common.GrpcWriteStream;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -27,9 +27,9 @@ public class ServerWithStub extends VerticleBase {
   public Future<?> start() {
 
     // The rpc service
-    VertxConsumerServiceGrpcServer.ConsumerServiceApi service = new VertxConsumerServiceGrpcServer.ConsumerServiceApi() {
+    ConsumerServiceGrpcService service = new ConsumerServiceGrpcService() {
       @Override
-      public void streamingOutputCall(Messages.StreamingOutputCallRequest request, GrpcWriteStream<Messages.StreamingOutputCallResponse> response) {
+      protected void streamingOutputCall(Messages.StreamingOutputCallRequest request, WriteStream<Messages.StreamingOutputCallResponse> response) {
         final AtomicInteger counter = new AtomicInteger();
         vertx.setPeriodic(1000L, t -> {
           response.write(Messages.StreamingOutputCallResponse.newBuilder().setPayload(
@@ -46,7 +46,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // Bind the service
-    service.bindAll(rpcServer);
+    rpcServer.addService(service);
 
     // start the server
     return vertx

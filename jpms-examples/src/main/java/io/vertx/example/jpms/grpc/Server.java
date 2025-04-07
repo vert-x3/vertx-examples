@@ -1,8 +1,8 @@
 package io.vertx.example.jpms.grpc;
 
+import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
@@ -21,7 +21,7 @@ public class Server extends VerticleBase {
   public Future<?> start() {
     GrpcServer grpcServer = GrpcServer.server(vertx);
 
-    VertxGreeterGrpcServer.GreeterApi api = new VertxGreeterGrpcServer.GreeterApi() {
+    GreeterGrpcService service = new GreeterGrpcService() {
       @Override
       public Future<HelloReply> sayHello(HelloRequest request) {
         return vertx.timer(200)
@@ -31,7 +31,7 @@ public class Server extends VerticleBase {
                         .build());
       }
     };
-    api.bind_sayHello(grpcServer);
+    grpcServer.addService(service);
 
     HttpServer server = vertx
       .createHttpServer(

@@ -2,8 +2,8 @@ package io.vertx.example.grpc.conversation;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.ConsumerServiceGrpcService;
 import io.vertx.example.grpc.Messages;
-import io.vertx.example.grpc.VertxConsumerServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -24,7 +24,7 @@ public class Server extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(VertxConsumerServiceGrpcServer.StreamingOutputCall, request -> {
+    rpcServer.callHandler(ConsumerServiceGrpcService.StreamingOutputCall, request -> {
       System.out.println("Server: received request");
       vertx.setTimer(500L, t -> {
         request.response().write(Messages.StreamingOutputCallResponse.newBuilder().build());

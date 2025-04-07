@@ -1,8 +1,8 @@
 package io.vertx.example.grpc.deadline;
 
+import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpcServer;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.VerticleBase;
@@ -22,7 +22,7 @@ public class ServerWithStub extends VerticleBase {
 
   @Override
   public Future<?> start() {
-    VertxGreeterGrpcServer.GreeterApi service = new VertxGreeterGrpcServer.GreeterApi() {
+    GreeterGrpcService service = new GreeterGrpcService() {
       @Override
       public Future<HelloReply> sayHello(HelloRequest request) {
         // Do not send a response to trigger timeout
@@ -34,7 +34,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx, new GrpcServerOptions().setScheduleDeadlineAutomatically(true));
 
     // Bind the service
-    service.bind_sayHello(rpcServer);
+    rpcServer.addService(service);
 
     // start the server
     return vertx

@@ -2,8 +2,8 @@ package io.vertx.example.grpc.empty;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.EmptyPingPongServiceGrpcService;
 import io.vertx.example.grpc.EmptyProtos;
-import io.vertx.example.grpc.VertxEmptyPingPongServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -25,7 +25,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    VertxEmptyPingPongServiceGrpcServer.EmptyPingPongServiceApi service = new VertxEmptyPingPongServiceGrpcServer.EmptyPingPongServiceApi() {
+    EmptyPingPongServiceGrpcService service = new EmptyPingPongServiceGrpcService() {
       @Override
       public Future<EmptyProtos.Empty> emptyCall(EmptyProtos.Empty request) {
         return Future.succeededFuture(EmptyProtos.Empty.newBuilder().build());
@@ -33,7 +33,7 @@ public class ServerWithStub extends VerticleBase {
     };
 
     // Bind the service
-    service.bindAll(rpcServer);
+    rpcServer.addService(service);
 
     // start the server
     return vertx

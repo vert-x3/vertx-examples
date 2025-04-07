@@ -1,7 +1,7 @@
 package io.vertx.example.grpc.loadbalancing;
 
+import io.grpc.examples.helloworld.GreeterGrpcClient;
 import io.grpc.examples.helloworld.HelloRequest;
-import io.grpc.examples.helloworld.VertxGreeterGrpcClient;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.Address;
@@ -50,7 +50,7 @@ public class Client extends VerticleBase {
       .withLoadBalancer(loadBalancer)
       .build();
 
-    return client.request(SocketAddress.inetSocketAddress(80, "service.com"), VertxGreeterGrpcClient.SayHello)
+    return client.request(SocketAddress.inetSocketAddress(80, "service.com"), GreeterGrpcClient.SayHello)
       .compose(request -> {
         System.out.println("Interacting with server " + request.connection().remoteAddress());
         request.end(HelloRequest.newBuilder().setName("Julien").build());

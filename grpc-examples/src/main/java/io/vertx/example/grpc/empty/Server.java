@@ -2,8 +2,8 @@ package io.vertx.example.grpc.empty;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.EmptyPingPongServiceGrpcService;
 import io.vertx.example.grpc.EmptyProtos;
-import io.vertx.example.grpc.VertxEmptyPingPongServiceGrpcServer;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -24,7 +24,7 @@ public class Server extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(VertxEmptyPingPongServiceGrpcServer.EmptyCall, request -> {
+    rpcServer.callHandler(EmptyPingPongServiceGrpcService.EmptyCall, request -> {
       request.response().end(EmptyProtos.Empty.newBuilder().build());
     });
 
