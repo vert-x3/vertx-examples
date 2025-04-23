@@ -7,6 +7,7 @@ import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.common.GrpcReadStream;
+import io.vertx.grpc.common.WireFormat;
 import io.vertx.launcher.application.VertxApplication;
 
 /**
@@ -23,8 +24,9 @@ public class Client extends VerticleBase {
   @Override
   public Future<?> start() throws Exception {
     client = GrpcClient.client(vertx);
-    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), GreeterGrpcClient.Json.SayHello)
+    return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), GreeterGrpcClient.SayHello)
       .compose(request -> {
+        request.format(WireFormat.JSON);
         request.end(HelloRequest.newBuilder().setName("Julien").build());
         return request.response().compose(GrpcReadStream::last);
       });

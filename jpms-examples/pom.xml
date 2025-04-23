@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.0.0.CR6</version>
+    <version>5.0.0.CR7</version>
   </parent>
 
   <artifactId>jpms-examples</artifactId>
@@ -276,7 +276,10 @@
               <groupId>io.vertx</groupId>
               <artifactId>vertx-grpc-protoc-plugin2</artifactId>
               <version>${project.version}</version>
-              <mainClass>io.vertx.grpc.plugin.VertxGrpcServiceGenerator</mainClass>
+              <mainClass>io.vertx.grpc.plugin.VertxGrpcGenerator</mainClass>
+              <args>
+                <arg>grpc-service</arg>
+              </args>
             </protocPlugin>
           </protocPlugins>
         </configuration>

@@ -1,12 +1,12 @@
 package io.vertx.example.jpms.grpc;
 
-import io.grpc.examples.helloworld.GreeterGrpcService;
-import io.grpc.examples.helloworld.HelloReply;
-import io.grpc.examples.helloworld.HelloRequest;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.net.JksOptions;
+import io.vertx.example.jpms.grpc.helloworld.GreeterGrpcService;
+import io.vertx.example.jpms.grpc.helloworld.HelloReply;
+import io.vertx.example.jpms.grpc.helloworld.HelloRequest;
 import io.vertx.grpc.server.GrpcServer;
 
 public class Server extends VerticleBase {

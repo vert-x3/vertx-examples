@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.0.0.CR6</version>
+    <version>5.0.0.CR7</version>
   </parent>
 
   <artifactId>redis-examples</artifactId>

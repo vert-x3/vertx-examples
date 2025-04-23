@@ -23,7 +23,7 @@ public class Server extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // The rpc service
-    rpcServer.callHandler(GreeterGrpcService.Json.SayHello, request -> {
+    rpcServer.callHandler(GreeterGrpcService.SayHello, request -> {
       request
         .last()
         .onSuccess(msg -> {

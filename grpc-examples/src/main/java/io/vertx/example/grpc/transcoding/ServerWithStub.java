@@ -42,10 +42,7 @@ public class ServerWithStub extends VerticleBase {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
     // Bind the service
-    rpcServer.addService(service
-      .builder()
-      .bind(GreeterGrpcService.Transcoding.all())
-      .build());
+    rpcServer.addService(GreeterGrpcService.Transcoding.of(service));
 
     // start the server
     return vertx
