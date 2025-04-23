@@ -44,7 +44,7 @@ public class Server extends VerticleBase {
     HealthService healthService = HealthService.create(vertx);
 
     // Bind the health service
-    healthService.bind(rpcServer);
+    rpcServer.addService(healthService);
 
     // By default, the health service always returns SERVING status for all services if they were registered through addService.
     // but you can register a specific health check for a specific service.
