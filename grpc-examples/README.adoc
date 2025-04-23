@@ -129,6 +129,13 @@ When the server is running you can access the service using a simple HTTP client
 }
 ----
 
+== Health checking
+
+This example shows how to use the gRPC health checking protocol.
+
+link:src/main/java/io/vertx/example/grpc/health/Server.java[gRPC server example]
+link:src/main/java/io/vertx/example/grpc/health/Client.java[gRPC client example]
+
 == Load balancing
 
 Demonstrate how to use client side load balancing
