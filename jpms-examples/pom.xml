@@ -138,15 +138,6 @@
     </dependency>
 
     <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-resolver-dns-classes-macos</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-resolver-dns-native-macos</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>2.0.13</version>
@@ -184,12 +175,6 @@
         <osx.arch>${os.detected.arch}</osx.arch>
       </properties>
       <dependencies>
-        <dependency>
-          <groupId>io.netty</groupId>
-          <artifactId>netty-resolver-dns-native-macos</artifactId>
-          <classifier>osx-${osx.arch}</classifier>
-          <version>4.2.0.Alpha5</version>
-        </dependency>
         <dependency>
           <groupId>io.netty</groupId>
           <artifactId>netty-transport-native-kqueue</artifactId>
@@ -300,8 +285,6 @@
           <launcher>http=jpms.examples/io.vertx.example.jpms.http.Server</launcher>
           <addModules>
             <addModule>jdk.jdwp.agent</addModule>
-            <addModule>io.netty.resolver.dns.classes.macos</addModule>
-            <addModule>io.netty.resolver.dns.macos.osx.${osx.arch}</addModule>
             <addModule>io.netty.transport.classes.${native.transport}</addModule>
             <addModule>io.netty.transport.${native.transport}.${os.detected.name}.${os.detected.arch}</addModule>
             <addModule>io.netty.internal.tcnative.openssl.${os.detected.name}.${os.detected.arch}</addModule>
