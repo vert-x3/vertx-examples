@@ -23,7 +23,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>spring-examples</artifactId>
-    <version>5.0.0.CR8</version>
+    <version>5.0.0</version>
   </parent>
 
   <artifactId>spring-verticle-factory</artifactId>
