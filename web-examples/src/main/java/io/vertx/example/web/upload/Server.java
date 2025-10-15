@@ -45,10 +45,10 @@ public class Server extends VerticleBase {
       ctx.response().setChunked(true);
 
       for (FileUpload f : ctx.fileUploads()) {
-        System.out.println("f");
         ctx.response().write("Filename: " + f.fileName());
         ctx.response().write("\n");
         ctx.response().write("Size: " + f.size());
+        ctx.response().write("\n");
       }
 
       ctx.response().end();
