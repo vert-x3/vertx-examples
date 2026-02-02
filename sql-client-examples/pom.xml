@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.7</version>
   </parent>
 
   <artifactId>sql-client-examples</artifactId>
@@ -32,7 +32,7 @@
     <dependency>
       <groupId>com.ongres.scram</groupId>
       <artifactId>scram-client</artifactId>
-      <version>3.1</version>
+      <version>3.2</version>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>

@@ -4,9 +4,8 @@ import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.sdk.resources.Resource;
 import io.vertx.core.Vertx;
-import io.vertx.core.VertxOptions;
 import io.vertx.example.tracing.HelloVerticle;
-import io.vertx.tracing.opentelemetry.OpenTelemetryOptions;
+import io.vertx.tracing.opentelemetry.OpenTelemetryTracingFactory;
 
 public class HelloService {
 
@@ -15,7 +14,9 @@ public class HelloService {
       .put(AttributeKey.stringKey("service.name"), "hello-service")
       .build();
     OpenTelemetry otel = OpenTelemetryConfig.configure(resource);
-    Vertx vertx = Vertx.vertx(new VertxOptions().setTracingOptions(new OpenTelemetryOptions(otel)));
+    Vertx vertx = Vertx.builder()
+      .withTracer(new OpenTelemetryTracingFactory(otel))
+      .build();
     vertx.deployVerticle(new HelloVerticle()).await();
   }
 }

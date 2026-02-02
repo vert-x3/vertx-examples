@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.7</version>
   </parent>
 
   <artifactId>kafka-examples</artifactId>
@@ -18,7 +18,11 @@
   </properties>
 
   <dependencies>
-
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-launcher-application</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
@@ -60,7 +64,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.6.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -68,10 +72,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <manifestEntries>
-                    <Main-Class>io.vertx.core.Launcher</Main-Class>
+                    <Main-Class>io.vertx.launcher.application.VertxApplication</Main-Class>
                     <Main-Verticle>io.vertx.example.kafka.dashboard.MainVerticle</Main-Verticle>
                   </manifestEntries>
                 </transformer>

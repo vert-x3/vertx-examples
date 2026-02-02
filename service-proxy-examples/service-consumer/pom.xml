@@ -7,12 +7,18 @@
   <parent>
     <artifactId>service-proxy-examples</artifactId>
     <groupId>io.vertx</groupId>
-    <version>5.0.0</version>
+    <version>5.0.7</version>
   </parent>
 
   <artifactId>service-consumer</artifactId>
 
   <dependencies>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-launcher-application</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>io.vertx</groupId>
@@ -40,7 +46,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.6.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -48,10 +54,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <manifestEntries>
-                    <Main-Class>io.vertx.core.Launcher</Main-Class>
+                    <Main-Class>io.vertx.launcher.application.VertxApplication</Main-Class>
                     <Main-Verticle>io.vertx.examples.service.consumer.ConsumerVerticle</Main-Verticle>
                   </manifestEntries>
                 </transformer>
