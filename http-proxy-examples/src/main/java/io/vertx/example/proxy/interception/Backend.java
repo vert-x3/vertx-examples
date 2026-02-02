@@ -18,8 +18,8 @@ public class Backend extends VerticleBase {
         if (req.path().equals("/app") || req.path().startsWith("/app")) {
           req.response()
             .putHeader("x-internal-header", "some-internal-header-value")
-            .putHeader("content-type", "text/html")
-            .end("<html><body><h1>Hello from Vert.x!</h1></body></html>");
+            .putHeader("content-type", "text/plain")
+            .end("Hello from Vert.x!");
         } else {
           req.response().setStatusCode(400).end();
         }
