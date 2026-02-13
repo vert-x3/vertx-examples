@@ -177,8 +177,6 @@ There's also a client which connects to the server, sends some data and logs out
 link:src/main/java/io/vertx/example/core/http/websockets/Server.java[Java WebSockets server example]
 link:src/main/java/io/vertx/example/core/http/websockets/Client.java[Java WebSockets client example]
 
-link:src/main/java/io/vertx/example/core/http/websockets/ws.html[Javascript WebSockets client example]
-
 You can run the server then open a browser and point it at link:http://localhost:8080[]
 
 NOTE: in practice, you would probably use Vert.x-Web to build a web application that uses WebSockets
