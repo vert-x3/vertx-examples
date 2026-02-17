@@ -50,6 +50,15 @@ This is the same as the Echo example but using SSL to encrypt connections
 link:src/main/java/io/vertx/example/core/net/echossl/Server.java[Java echo ssl server]
 link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl client]
 
+=== Advanced Echo
+
+This is the same as the Echo example but using Netty pipeline customization.
+
+link:src/main/java/io/vertx/example/core/net/advanced/Server.java[Java advanced echo server]
+link:src/main/java/io/vertx/example/core/net/advanced/Client.java[Java advanced echo client]
+
+For more information, check out the https://vertx.io/docs/guides/advanced-vertx-guide/#_using_netty_tcp_codecs[Using Netty TCP codecs] section of the Advanced Vert.x guide.
+
 == HTTP examples
 
 These examples demonstrate usage of HTTP with Vert.x.
