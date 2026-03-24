@@ -23,7 +23,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.0.7</version>
+    <version>5.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>junit5-examples</artifactId>
