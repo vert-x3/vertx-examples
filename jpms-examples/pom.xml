@@ -187,6 +187,12 @@
       <dependencies>
         <dependency>
           <groupId>io.netty</groupId>
+          <artifactId>netty-resolver-dns-native-macos</artifactId>
+          <classifier>osx-aarch_64</classifier>
+          <version>4.2.9.Final</version>
+        </dependency>
+        <dependency>
+          <groupId>io.netty</groupId>
           <artifactId>netty-transport-native-kqueue</artifactId>
           <classifier>osx-${osx.arch}</classifier>
           <version>4.2.9.Final</version>
