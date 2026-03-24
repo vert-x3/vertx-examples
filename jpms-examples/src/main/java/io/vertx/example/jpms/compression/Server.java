@@ -4,8 +4,9 @@ import io.netty.handler.codec.compression.StandardCompressionOptions;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.CompressionConfig;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.json.JsonObject;
 
 public class Server extends VerticleBase {
@@ -19,9 +20,11 @@ public class Server extends VerticleBase {
   @Override
   public Future<?> start() {
 
-    HttpServer server = vertx.createHttpServer(new HttpServerOptions()
-      .setCompressionSupported(true)
-      .addCompressor(StandardCompressionOptions.brotli()));
+    HttpServer server = vertx.createHttpServer(new HttpServerConfig()
+        .setCompressionConfig(new CompressionConfig()
+          .setCompressionEnabled(true)
+          .addBrotli()
+        ));
 
     server.requestHandler(req -> {
       req.response().end(recursiveHelloWorld(10)

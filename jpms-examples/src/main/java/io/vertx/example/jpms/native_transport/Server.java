@@ -2,9 +2,7 @@ package io.vertx.example.jpms.native_transport;
 
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.net.JksOptions;
 
 public class Server extends VerticleBase {
 

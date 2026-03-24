@@ -308,7 +308,7 @@
         <configuration>
           <launchers>
             <launcher>http-server=jpms.examples/io.vertx.example.jpms.http.Server</launcher>
-            <launcher>http2-server=jpms.examples/io.vertx.example.jpms.http2.Server</launcher>
+            <launcher>https-server=jpms.examples/io.vertx.example.jpms.https.Server</launcher>
             <launcher>http-server-with-compression=jpms.examples/io.vertx.example.jpms.compression.Server</launcher>
             <launcher>grpc-server=jpms.examples/io.vertx.example.jpms.grpc.Server</launcher>
           </launchers>

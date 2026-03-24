@@ -2,8 +2,9 @@ package io.vertx.example.jpms.grpc;
 
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.JksOptions;
+import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.example.jpms.grpc.helloworld.GreeterGrpcService;
 import io.vertx.example.jpms.grpc.helloworld.HelloReply;
 import io.vertx.example.jpms.grpc.helloworld.HelloRequest;
@@ -39,10 +40,10 @@ public class Server extends VerticleBase {
 
     HttpServer server = vertx
       .createHttpServer(
-        new HttpServerOptions()
-          .setUseAlpn(true)
-          .setKeyCertOptions(new JksOptions().setPath("server-keystore.jks").setPassword("wibble"))
-          .setSsl(false)
+        new HttpServerConfig().setSsl(true),
+          new ServerSSLOptions().setKeyCertOptions(
+            new JksOptions().setPath("server-keystore.jks").setPassword("wibble")
+          )
       )
       .requestHandler(grpcServer);
 
