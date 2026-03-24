@@ -4,7 +4,6 @@ import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.net.NetClient;
-import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -20,7 +19,7 @@ public class Proxy extends VerticleBase {
   @Override
   public Future<?> start() throws Exception {
 
-    NetClient client = vertx.createNetClient(new NetClientOptions());
+    NetClient client = vertx.createNetClient();
 
     return vertx
       .createHttpServer()

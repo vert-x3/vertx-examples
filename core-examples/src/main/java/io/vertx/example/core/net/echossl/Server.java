@@ -3,7 +3,8 @@ package io.vertx.example.core.net.echossl;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.JksOptions;
-import io.vertx.core.net.NetServerOptions;
+import io.vertx.core.net.ServerSSLOptions;
+import io.vertx.core.net.TcpServerConfig;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -18,14 +19,16 @@ public class Server extends VerticleBase {
   @Override
   public Future<?> start() throws Exception {
 
-    NetServerOptions options = new NetServerOptions()
-      .setSsl(true)
+    TcpServerConfig config = new TcpServerConfig()
+      .setSsl(true);
+
+    ServerSSLOptions sslOptions = new ServerSSLOptions()
       .setKeyCertOptions(new JksOptions()
         .setPath("io/vertx/example/core/net/echossl/server-keystore.jks")
         .setPassword("wibble"));
 
     return vertx
-      .createNetServer(options)
+      .createNetServer(config, sslOptions)
       .connectHandler(sock -> {
 
         // Create a pipe

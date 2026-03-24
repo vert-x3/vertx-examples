@@ -2,10 +2,7 @@ package io.vertx.example.core.http2.h2c;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientOptions;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpVersion;
+import io.vertx.core.http.*;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -22,7 +19,7 @@ public class Client extends VerticleBase {
   @Override
   public Future<?> start() throws Exception {
 
-    HttpClientOptions options = new HttpClientOptions().setProtocolVersion(HttpVersion.HTTP_2);
+    HttpClientConfig options = new HttpClientConfig().setVersions(HttpVersion.HTTP_2, HttpVersion.HTTP_1_1);
 
     client = vertx.createHttpClient(options);
     return client

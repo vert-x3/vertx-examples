@@ -5,7 +5,6 @@ import io.vertx.core.VerticleBase;
 import io.vertx.core.file.FileSystem;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.launcher.application.VertxApplication;
@@ -23,7 +22,7 @@ public class Client extends VerticleBase {
 
   @Override
   public Future<?> start() throws Exception {
-    client = vertx.createHttpClient(new HttpClientOptions());
+    client = vertx.createHttpClient();
     return client
       .request(HttpMethod.PUT, 8080, "localhost", "/someurl")
       .compose(req -> {

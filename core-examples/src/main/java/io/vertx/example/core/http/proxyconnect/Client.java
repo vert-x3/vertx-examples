@@ -3,8 +3,9 @@ package io.vertx.example.core.http.proxyconnect;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientOptions;
+import io.vertx.core.http.HttpClientConfig;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.core.net.ClientSSLOptions;
 import io.vertx.core.net.ProxyOptions;
 import io.vertx.core.net.ProxyType;
 import io.vertx.launcher.application.VertxApplication;
@@ -22,15 +23,14 @@ public class Client extends VerticleBase {
 
   @Override
   public Future<?> start() throws Exception {
-    HttpClientOptions options = new HttpClientOptions()
-      .setSsl(true)
-      .setTrustAll(true)
-      .setVerifyHost(false)
+    HttpClientConfig config = new HttpClientConfig()
+      .setSsl(true);
+    config.getTcpConfig()
       .setProxyOptions(new ProxyOptions()
         .setType(ProxyType.HTTP)
         .setHost("localhost")
         .setPort(8080));
-    client = vertx.createHttpClient(options);
+    client = vertx.createHttpClient(config, new ClientSSLOptions().setTrustAll(true));
     return client.request(HttpMethod.GET, 8282, "localhost", "/")
       .compose(request -> {
           request.setChunked(true);

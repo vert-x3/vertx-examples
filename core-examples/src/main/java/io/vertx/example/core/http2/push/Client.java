@@ -3,6 +3,7 @@ package io.vertx.example.core.http2.push;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.*;
+import io.vertx.core.net.ClientSSLOptions;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -21,13 +22,11 @@ public class Client extends VerticleBase {
 
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
-    HttpClientOptions options = new HttpClientOptions().
+    HttpClientConfig config = new HttpClientConfig().
       setSsl(true).
-      setUseAlpn(true).
-      setProtocolVersion(HttpVersion.HTTP_2).
-      setTrustAll(true);
+      setVersions(HttpVersion.HTTP_2);
 
-    client = vertx.createHttpClient(options);
+    client = vertx.createHttpClient(config, new ClientSSLOptions().setTrustAll(true));
 
     return client.request(HttpMethod.GET, 8443, "localhost", "/").compose(request -> {
 

@@ -2,8 +2,9 @@ package io.vertx.example.core.net.echossl;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.net.NetClientOptions;
+import io.vertx.core.net.ClientSSLOptions;
 import io.vertx.core.net.NetSocket;
+import io.vertx.core.net.TcpClientConfig;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -18,13 +19,15 @@ public class Client extends VerticleBase {
   @Override
   public Future<?> start() throws Exception {
 
-    NetClientOptions options = new NetClientOptions()
-      .setSsl(true)
+    TcpClientConfig config = new TcpClientConfig()
+      .setSsl(true);
+
+    ClientSSLOptions sslOptions = new ClientSSLOptions()
       .setTrustAll(true)
       .setHostnameVerificationAlgorithm("");
 
     vertx
-      .createNetClient(options).connect(1234, "localhost")
+      .createNetClient(config, sslOptions).connect(1234, "localhost")
       .onComplete(res -> {
       if (res.succeeded()) {
         NetSocket sock = res.result();

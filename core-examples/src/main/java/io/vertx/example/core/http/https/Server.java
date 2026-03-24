@@ -3,8 +3,9 @@ package io.vertx.example.core.http.https;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.JksOptions;
+import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -20,7 +21,7 @@ public class Server extends VerticleBase {
   public Future<?> start() throws Exception {
 
     HttpServer server =
-      vertx.createHttpServer(new HttpServerOptions().setSsl(true).setKeyCertOptions(
+      vertx.createHttpServer(new HttpServerConfig().setSsl(true), new ServerSSLOptions().setKeyCertOptions(
         new JksOptions().setPath("io/vertx/example/core/http/https/server-keystore.jks").setPassword("wibble")
       ));
 
