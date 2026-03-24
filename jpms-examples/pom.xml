@@ -302,7 +302,12 @@
         <version>3.3.0</version>
         <extensions>true</extensions>
         <configuration>
-          <launcher>http=jpms.examples/io.vertx.example.jpms.http.Server</launcher>
+          <launchers>
+            <launcher>http-server=jpms.examples/io.vertx.example.jpms.http.Server</launcher>
+            <launcher>http2-server=jpms.examples/io.vertx.example.jpms.http2.Server</launcher>
+            <launcher>http-server-with-compression=jpms.examples/io.vertx.example.jpms.compression.Server</launcher>
+            <launcher>grpc-server=jpms.examples/io.vertx.example.jpms.grpc.Server</launcher>
+          </launchers>
           <addModules>
             <addModule>jdk.jdwp.agent</addModule>
             <addModule>io.netty.transport.classes.${native.transport}</addModule>
