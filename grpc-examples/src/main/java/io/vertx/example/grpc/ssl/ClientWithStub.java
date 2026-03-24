@@ -4,7 +4,7 @@ import io.grpc.examples.helloworld.GreeterGrpcClient;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpClientOptions;
+import io.vertx.core.net.ClientSSLOptions;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
@@ -24,14 +24,11 @@ public class ClientWithStub extends VerticleBase {
   @Override
   public Future<?> start() {
 
-    HttpClientOptions options = new HttpClientOptions()
-      .setSsl(true)
-      .setUseAlpn(true)
-      .setTrustOptions(new JksOptions()
+    client = GrpcClient.builder(vertx)
+      .with(new ClientSSLOptions().setTrustOptions(new JksOptions()
         .setPath("tls/client-truststore.jks")
-        .setPassword("wibble"));
-
-    client = GrpcClient.client(vertx, options);
+        .setPassword("wibble"))
+      ).build();
 
     GreeterGrpcClient stub = GreeterGrpcClient.create(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 

@@ -2,8 +2,9 @@ package io.vertx.example.web.http2;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.PemKeyCertOptions;
+import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -36,10 +37,11 @@ public class Server extends VerticleBase {
     });
 
     return vertx.createHttpServer(
-        new HttpServerOptions()
-          .setSsl(true)
-          .setUseAlpn(true)
-          .setKeyCertOptions(new PemKeyCertOptions().setKeyPath("tls/server-key.pem").setCertPath("tls/server-cert.pem")))
+      new HttpServerConfig().setSsl(true), new ServerSSLOptions()
+          .setKeyCertOptions(new PemKeyCertOptions()
+            .setKeyPath("tls/server-key.pem")
+            .setCertPath("tls/server-cert.pem")
+          ))
       .requestHandler(router)
       .listen(8443);
   }
