@@ -31,7 +31,7 @@ public class Client extends VerticleBase {
         .setHost("localhost")
         .setPort(8080));
     client = vertx.createHttpClient(options);
-    return client.request(HttpMethod.GET, 8080, "localhost", "/")
+    return client.request(HttpMethod.GET, 8282, "localhost", "/")
       .compose(request -> {
           request.setChunked(true);
           for (int i = 0; i < 10; i++) {

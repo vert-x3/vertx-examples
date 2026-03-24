@@ -68,7 +68,7 @@ public class Proxy extends VerticleBase {
               });
             } else {
 
-              System.out.println("Fail proxy connection");
+              System.out.println("Fail proxy connection:" + ar.cause().getMessage());
               req.response().setStatusCode(403).end();
             }
           });
