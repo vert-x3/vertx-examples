@@ -287,7 +287,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-jlink-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <extensions>true</extensions>
         <configuration>
           <launcher>http=jpms.examples/io.vertx.example.jpms.http.Server</launcher>
