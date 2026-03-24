@@ -7,6 +7,7 @@ import io.vertx.core.net.JksOptions;
 import io.vertx.example.jpms.grpc.helloworld.GreeterGrpcService;
 import io.vertx.example.jpms.grpc.helloworld.HelloReply;
 import io.vertx.example.jpms.grpc.helloworld.HelloRequest;
+import io.vertx.grpc.reflection.ReflectionService;
 import io.vertx.grpc.server.GrpcServer;
 
 public class Server extends VerticleBase {
@@ -32,6 +33,9 @@ public class Server extends VerticleBase {
       }
     };
     grpcServer.addService(service);
+
+    // Add reflection service
+    grpcServer.addService(ReflectionService.v1());
 
     HttpServer server = vertx
       .createHttpServer(

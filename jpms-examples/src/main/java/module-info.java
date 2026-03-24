@@ -30,6 +30,7 @@ open module jpms.examples {
 
   // SQL client template
   requires io.vertx.sql.client.templates;
+  requires io.vertx.grpc.reflection;
 
   exports io.vertx.example.jpms.sqlclient;
   exports io.vertx.example.jpms.sqltemplate;

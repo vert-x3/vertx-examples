@@ -119,6 +119,23 @@ Or use the launcher:
 ./target/maven-jlink/default/bin/grpc-server
 ----
 
+You can use https://github.com/fullstorydev/grpcurl[gRPCurl] to interact with the server and its hosted services:
+
+[source,shell]
+----
+> grpcurl -plaintext localhost:8080 list
+grpc.reflection.v1.ServerReflection
+helloworld.Greeter
+
+> grpcurl -plaintext localhost:8080 list helloworld.Greeter
+helloworld.Greeter.SayHello
+
+> grpcurl -plaintext -d '{"name":"Julien"}' localhost:8080 helloworld.Greeter.SayHello
+{
+  "message": "Hello Julien"
+}
+----
+
 == Native transports
 
 A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP server] running with Netty native transports kqueue/epoll/io_uring.
