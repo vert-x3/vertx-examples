@@ -139,6 +139,12 @@
       <artifactId>netty-tcnative-boringssl-static</artifactId>
       <classifier>${os.detected.classifier}</classifier>
       <version>2.0.66.Final</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.netty</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

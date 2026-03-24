@@ -14,7 +14,6 @@ open module jpms.examples {
   requires static io.vertx.serviceproxy;
 
   requires io.netty.tcnative.classes.openssl;
-  requires io.netty.internal.tcnative.openssl.osx.aarch_64;
 
   requires com.google.protobuf;
 
