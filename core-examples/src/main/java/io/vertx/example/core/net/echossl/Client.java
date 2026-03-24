@@ -18,7 +18,10 @@ public class Client extends VerticleBase {
   @Override
   public Future<?> start() throws Exception {
 
-    NetClientOptions options = new NetClientOptions().setSsl(true).setTrustAll(true);
+    NetClientOptions options = new NetClientOptions()
+      .setSsl(true)
+      .setTrustAll(true)
+      .setHostnameVerificationAlgorithm("");
 
     vertx
       .createNetClient(options).connect(1234, "localhost")
