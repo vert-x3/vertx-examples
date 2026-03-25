@@ -4,7 +4,6 @@ import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.grpc.examples.helloworld.HelloReply;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.grpc.server.GrpcServer;
@@ -36,14 +35,11 @@ public class Server extends VerticleBase {
     });
 
     // start the server
-    HttpServerConfig config = new HttpServerConfig()
-      .setSsl(true);
-
     ServerSSLOptions sslOptions = new ServerSSLOptions()
       .setKeyCertOptions(new JksOptions()
       .setPath("tls/server-keystore.jks")
       .setPassword("wibble"));
 
-    return vertx.createHttpServer(config, sslOptions).requestHandler(rpcServer).listen(8080);
+    return vertx.createHttpServer(sslOptions).requestHandler(rpcServer).listen(8080);
   }
 }

@@ -2,7 +2,6 @@ package io.vertx.example.jpms.https;
 
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.ServerSSLOptions;
@@ -18,9 +17,10 @@ public class Server extends VerticleBase {
   @Override
   public Future<?> start() {
     HttpServer server = vertx
-      .createHttpServer(
-        new HttpServerConfig().setSsl(true),
-        new ServerSSLOptions().setKeyCertOptions(new JksOptions().setPath("server-keystore.jks").setPassword("wibble")))
+      .createHttpServer(new ServerSSLOptions()
+        .setKeyCertOptions(new JksOptions()
+          .setPath("server-keystore.jks")
+          .setPassword("wibble")))
       .requestHandler(req -> {
         req.response().end(new JsonObject()
           .put("http", req.version())

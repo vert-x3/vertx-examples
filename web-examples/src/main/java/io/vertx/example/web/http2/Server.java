@@ -2,7 +2,6 @@ package io.vertx.example.web.http2;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.ext.web.Router;
@@ -36,8 +35,7 @@ public class Server extends VerticleBase {
               .end(image.getPixel(Integer.parseInt(ctx.pathParam("x")), Integer.parseInt(ctx.pathParam("y"))));
     });
 
-    return vertx.createHttpServer(
-      new HttpServerConfig().setSsl(true), new ServerSSLOptions()
+    return vertx.createHttpServer(new ServerSSLOptions()
           .setKeyCertOptions(new PemKeyCertOptions()
             .setKeyPath("tls/server-key.pem")
             .setCertPath("tls/server-cert.pem")

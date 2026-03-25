@@ -2,7 +2,6 @@ package io.vertx.example.jpms.openssl;
 
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.OpenSSLEngineOptions;
@@ -19,7 +18,6 @@ public class Server extends VerticleBase {
   @Override
   public Future<?> start() {
     HttpServer server = vertx.httpServerBuilder()
-      .with(new HttpServerConfig().setSsl(true))
       .with(new OpenSSLEngineOptions())
       .with(new ServerSSLOptions().setKeyCertOptions(new JksOptions()
         .setPath("server-keystore.jks")

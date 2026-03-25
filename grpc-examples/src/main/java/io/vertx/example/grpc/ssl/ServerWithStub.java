@@ -5,7 +5,6 @@ import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.grpc.server.GrpcServer;
@@ -38,13 +37,12 @@ public class ServerWithStub extends VerticleBase {
     rpcServer.addService(service);
 
     // start the server
-    HttpServerConfig config = new HttpServerConfig().setSsl(true);
     ServerSSLOptions sslOptions = new ServerSSLOptions()
       .setKeyCertOptions(new JksOptions()
         .setPath("tls/server-keystore.jks")
         .setPassword("wibble"));
     return vertx
-      .createHttpServer(config, sslOptions)
+      .createHttpServer(sslOptions)
       .requestHandler(rpcServer)
       .listen(8080);
   }

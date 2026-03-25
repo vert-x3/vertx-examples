@@ -3,7 +3,6 @@ package io.vertx.example.core.http2.simple;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerConfig;
 import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.launcher.application.VertxApplication;
@@ -21,7 +20,7 @@ public class Server extends VerticleBase {
   public Future<?> start() throws Exception {
 
     HttpServer server =
-      vertx.createHttpServer(new HttpServerConfig().setSsl(true), new ServerSSLOptions()
+      vertx.createHttpServer(new ServerSSLOptions()
         .setKeyCertOptions(new PemKeyCertOptions()
           .setKeyPath("io/vertx/example/core/http2/simple/server-key.pem")
           .setCertPath("io/vertx/example/core/http2/simple/server-cert.pem")
