@@ -20,6 +20,12 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-native-quic</artifactId>
+      <classifier>${os.detected.classifier}</classifier>
+      <version>4.2.11.Final</version>
+    </dependency>
+    <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-launcher-application</artifactId>
       <version>${project.version}</version>
@@ -31,6 +37,16 @@
     </dependency>
 
   </dependencies>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>1.7.1</version>
+      </extension>
+    </extensions>
+  </build>
 
   <profiles>
     <profile>

@@ -261,6 +261,39 @@ link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP/
 
 NOTE: this example won't work with browsers are they don't support h2c
 
+== HTTP/3
+
+=== Simple
+
+A very simple HTTP/3 server which always responds with the same response:
+
+link:src/main/java/io/vertx/example/core/http3/simple/Server.java[Java simple HTTP/3 server]
+
+You can run the server then open a browser and point it at link:https://localhost:8443[]
+
+And a simple HTTP/3 client which makes a request to the server.
+
+link:src/main/java/io/vertx/example/core/http3/simple/Client.java[Java simple HTTP/3 client]
+
+=== HTTP alternative services
+
+A very simple HTTP/1 / HTTP/3 server that sends an https://datatracker.ietf.org/doc/html/rfc7838[HTTP/1.1 alternative service] header to let the client be aware of the UDP endpoint:
+
+link:src/main/java/io/vertx/example/core/http3/altsvc/Server.java[Java HTTP/1 / HTTP/3 server]
+
+You can run the server then open a browser and point it at link:https://localhost:8443[], it might need a few refresh before using HTTP/3 depending on your browser.
+
+You can also see it in action with cURL with the `--alt-svc` option:
+
+[source,shell]
+----
+> curl -k --alt-svc alt-svc-cache.txt https://localhost:8443
+----
+
+And a simple HTTP client which makes multiple requests to the same server, the first requests uses HTTP/1.1, ultimately it should use HTTP/3 when the client becomes aware of the HTTP/3 alternative service.
+
+link:src/main/java/io/vertx/example/core/http3/altsvc/Client.java[Java HTTP/3 aware client]
+
 === Custom frames
 
 HTTP/2 can be extended with custom frames, this example shows how to write and receive custom frames:
