@@ -25,7 +25,7 @@ public class Client extends VerticleBase {
     HttpClientConfig config = new HttpClientConfig().setSsl(true);
     HttpClient client = vertx.createHttpClient(config, new ClientSSLOptions().setTrustAll(true));
     return client
-      .request(HttpMethod.GET, 4443, "localhost", "/")
+      .request(HttpMethod.GET, 8443, "localhost", "/")
       .compose(req -> req.send()
         .compose(resp -> {
           System.out.println("Got response " + resp.statusCode());

@@ -88,7 +88,7 @@ Like the simple example, but using HTTPS instead of HTTP
 
 link:src/main/java/io/vertx/example/core/http/https/Server.java[Java simple HTTPS server]
 
-You can run the server then open a browser and point it at link:http://localhost:4443[]
+You can run the server then open a browser and point it at link:https://localhost:4443[]
 
 And a simple HTTPS client which makes a request to the server.
 
@@ -232,11 +232,11 @@ A very simple HTTP/2 server which always responds with the same response:
 
 link:src/main/java/io/vertx/example/core/http2/simple/Server.java[Java simple HTTP/2 server]
 
-You can run the server then open a browser and point it at link:http://localhost:8080[]
+You can run the server then open a browser and point it at link:https://localhost:8443[]
 
 And a simple HTTP/2 client which makes a request to the server.
 
-link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP client]
+link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP/2 client]
 
 === Push
 
@@ -246,18 +246,18 @@ The server pushes `script.js` along with `index.html`:
 
 link:src/main/java/io/vertx/example/core/http2/push/Server.java[Java HTTP/2 server pushing content]
 
-You can run the server then open a browser and point it at link:http://localhost:8080[]
+You can run the server then open a browser and point it at link:https://localhost:8443[]
 
 And a client sets a push handler to be notified of the incoming server side pushes:
 
-link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP client push aware]
+link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP/2 client push aware]
 
 === H2C
 
 Like the simple server but using clear text, also known as _h2c_, without TLS:
 
 link:src/main/java/io/vertx/example/core/http2/h2c/Server.java[Java simple HTTP/2 server in clear text]
-link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP client in clear text]
+link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP/2 client in clear text]
 
 NOTE: this example won't work with browsers are they don't support h2c
 
@@ -266,7 +266,7 @@ NOTE: this example won't work with browsers are they don't support h2c
 HTTP/2 can be extended with custom frames, this example shows how to write and receive custom frames:
 
 link:src/main/java/io/vertx/example/core/http2/customframes/Server.java[Java HTTP/2 server]
-link:src/main/java/io/vertx/example/core/http2/customframes/Client.java[Java simple HTTP client]
+link:src/main/java/io/vertx/example/core/http2/customframes/Client.java[Java HTTP/2 client]
 
 == Event bus examples
 
