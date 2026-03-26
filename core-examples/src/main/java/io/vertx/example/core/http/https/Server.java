@@ -21,7 +21,7 @@ public class Server extends VerticleBase {
 
     HttpServer server =
       vertx.createHttpServer(new ServerSSLOptions().setKeyCertOptions(
-        new JksOptions().setPath("io/vertx/example/core/http/https/server-keystore.jks").setPassword("wibble")
+        new JksOptions().setPath("io/vertx/example/core/server.jks").setPassword("wibble")
       ));
 
     return server.requestHandler(req -> {

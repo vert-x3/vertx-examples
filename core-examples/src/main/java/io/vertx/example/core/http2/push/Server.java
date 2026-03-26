@@ -22,8 +22,8 @@ public class Server extends VerticleBase {
     HttpServer server =
       vertx.createHttpServer(new ServerSSLOptions()
         .setKeyCertOptions(new PemKeyCertOptions()
-          .setKeyPath("io/vertx/example/core/http2/push/server-key.pem")
-          .setCertPath("io/vertx/example/core/http2/push/server-cert.pem")
+          .setKeyPath("io/vertx/example/core/server-key.pem")
+          .setCertPath("io/vertx/example/core/server-cert.pem")
         ));
 
     server.requestHandler(req -> {

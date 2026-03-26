@@ -24,7 +24,7 @@ public class Server extends VerticleBase {
 
     ServerSSLOptions sslOptions = new ServerSSLOptions()
       .setKeyCertOptions(new JksOptions()
-        .setPath("io/vertx/example/core/tcp/echossl/server-keystore.jks")
+        .setPath("io/vertx/example/core/server.jks")
         .setPassword("wibble"));
 
     return vertx
