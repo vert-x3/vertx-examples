@@ -1,4 +1,4 @@
-package io.vertx.example.core.net.stream;
+package io.vertx.example.core.stream;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;

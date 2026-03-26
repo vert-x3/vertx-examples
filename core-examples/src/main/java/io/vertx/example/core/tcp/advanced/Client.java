@@ -1,4 +1,4 @@
-package io.vertx.example.core.net.advanced;
+package io.vertx.example.core.tcp.advanced;
 
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.vertx.core.Future;

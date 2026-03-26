@@ -25,7 +25,7 @@ Vert.x core can be embedded in any Java class and run that way if you like.
 The link:src/main/java/io/vertx/example/core/embed/EmbeddedServer.java[Java embedded example] shows an example of that.
 Just right-click the class in your IDE to run it directly.
 
-== Net examples
+== TCP examples
 
 These examples demonstrate usage of Vert.x net servers and clients - these are used for TCP (and SSL) servers and clients.
 
@@ -40,22 +40,22 @@ echoed back to you.
 It also contains an echo client, which creates a connection to the server, sends some data and logs out what it receives
 back. You can use that as an alternative to connecting via telnet.
 
-link:src/main/java/io/vertx/example/core/net/echo/Server.java[Java echo server]
-link:src/main/java/io/vertx/example/core/net/echo/Client.java[Java echo client]
+link:src/main/java/io/vertx/example/core/tcp/echo/Server.java[Java echo server]
+link:src/main/java/io/vertx/example/core/tcp/echo/Client.java[Java echo client]
 
 === Echo SSL
 
 This is the same as the Echo example but using SSL to encrypt connections
 
-link:src/main/java/io/vertx/example/core/net/echossl/Server.java[Java echo ssl server]
-link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl client]
+link:src/main/java/io/vertx/example/core/tcp/echossl/Server.java[Java echo ssl server]
+link:src/main/java/io/vertx/example/core/tcp/echossl/Client.java[Java echo ssl client]
 
 === Advanced Echo
 
 This is the same as the Echo example but using Netty pipeline customization.
 
-link:src/main/java/io/vertx/example/core/net/advanced/Server.java[Java advanced echo server]
-link:src/main/java/io/vertx/example/core/net/advanced/Client.java[Java advanced echo client]
+link:src/main/java/io/vertx/example/core/tcp/advanced/Server.java[Java advanced echo server]
+link:src/main/java/io/vertx/example/core/tcp/advanced/Client.java[Java advanced echo client]
 
 For more information, check out the https://vertx.io/docs/guides/advanced-vertx-guide/#_using_netty_tcp_codecs[Using Netty TCP codecs] section of the Advanced Vert.x guide.
 
@@ -397,8 +397,7 @@ link:src/main/java/io/vertx/example/core/verticle/worker/WorkerVerticle.java[Jav
 
 == Execute blocking example
 
-This example demonstrates how you can include blocking code in with your non-blocking code in a way that doesn't
-block an event loop:
+This example demonstrates how you can include blocking code in with your non-blocking code in a way that doesn't block an event loop:
 
 link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[Java execute blocking code example]
 
@@ -416,13 +415,9 @@ link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java
 
 == Custom ReadStream and WriteStream implementation
 
-An example illustrating how to create your custom prefix length protocol to read and write objects in wire. The example
-uses link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object,
-link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[ReadStream] and
-link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[WriteStream] implementation.
+An example illustrating how to create your custom prefix length protocol to read and write objects in wire. The example uses link:src/main/java/io/vertx/example/core/stream/Batch.java[Batch] object, link:src/main/java/io/vertx/example/core/stream/BatchStream.java[ReadStream] and link:src/main/java/io/vertx/example/core/stream/BatchStream.java[WriteStream] implementation.
 
-The protocol structure for link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object is simple as
-illustrated below:
+The protocol structure for link:src/main/java/io/vertx/example/core/stream/Batch.java[Batch] object is simple as illustrated below:
 
 ----
 Length  : uInt32
@@ -430,7 +425,5 @@ Type    : byte ['O' for JsonObject | 'A' for JsonArray | 'B' for Buffer]
 Payload : Buffer
 ----
 
-The link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer] will receive the objects and write them
-back to the
-link:src/main/java/io/vertx/example/core/net/stream/Client.java[NetClient].
+The link:src/main/java/io/vertx/example/core/stream/Server.java[NetServer] will receive the objects and write them back to the link:src/main/java/io/vertx/example/core/stream/Client.java[NetClient].
 

@@ -1,4 +1,4 @@
-package io.vertx.example.core.net.echossl;
+package io.vertx.example.core.tcp.echossl;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;

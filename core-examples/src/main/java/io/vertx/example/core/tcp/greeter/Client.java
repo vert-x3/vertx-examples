@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.vertx.example.core.net.greeter;
+package io.vertx.example.core.tcp.greeter;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;

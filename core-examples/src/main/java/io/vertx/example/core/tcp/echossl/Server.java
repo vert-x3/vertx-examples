@@ -1,4 +1,4 @@
-package io.vertx.example.core.net.echossl;
+package io.vertx.example.core.tcp.echossl;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
@@ -24,7 +24,7 @@ public class Server extends VerticleBase {
 
     ServerSSLOptions sslOptions = new ServerSSLOptions()
       .setKeyCertOptions(new JksOptions()
-        .setPath("io/vertx/example/core/net/echossl/server-keystore.jks")
+        .setPath("io/vertx/example/core/tcp/echossl/server-keystore.jks")
         .setPassword("wibble"));
 
     return vertx

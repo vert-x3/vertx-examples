@@ -1,4 +1,4 @@
-package io.vertx.example.core.net.echo;
+package io.vertx.example.core.tcp.echo;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;

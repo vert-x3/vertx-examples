@@ -1,4 +1,4 @@
-package io.vertx.example.core.net.advanced;
+package io.vertx.example.core.tcp.advanced;
 
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.vertx.core.Future;
