@@ -27,7 +27,7 @@ Just right-click the class in your IDE to run it directly.
 
 == TCP examples
 
-These examples demonstrate usage of Vert.x net servers and clients - these are used for TCP (and SSL) servers and clients.
+These examples demonstrate usage of Vert.x TCP servers and clients - these are used for TCP (and SSL) servers and clients.
 
 === Echo
 
@@ -58,6 +58,37 @@ link:src/main/java/io/vertx/example/core/tcp/advanced/Server.java[Java advanced 
 link:src/main/java/io/vertx/example/core/tcp/advanced/Client.java[Java advanced echo client]
 
 For more information, check out the https://vertx.io/docs/guides/advanced-vertx-guide/#_using_netty_tcp_codecs[Using Netty TCP codecs] section of the Advanced Vert.x guide.
+
+== QUIC examples
+
+These examples demonstrate usage of Vert.x QUIC servers and clients - these are used for QUIC servers and clients.
+
+=== Echo
+
+This example consists of an echo server verticle which serves QUIC streams, and simply echoes back on the stream whatever it receives.
+
+You can run the echo server then run the echo client, which creates a connection to the server, open a few streams to send some data and logs out what it receives back.
+
+link:src/main/java/io/vertx/example/core/quic/echo/Server.java[Java echo server]
+link:src/main/java/io/vertx/example/core/quic/echo/Client.java[Java echo client]
+
+=== Datagram
+
+This example consists of a datagram server verticle which serves QUIC connections, and simply echoes back on the connection whatever datagram it receives.
+
+You can run the datagram server then run the datagram client, which creates a connection to the server, send some datagram and logs out what it receives back.
+
+link:src/main/java/io/vertx/example/core/quic/datagram/Server.java[Java datagram server]
+link:src/main/java/io/vertx/example/core/quic/datagram/Client.java[Java datagram client]
+
+=== Unidirectional streams
+
+This example consists of a server verticle which serves QUIC connections and opens a unidirectional stream to the server when it receives a connection.
+
+You can run the uni server then run the uni client, which creates a connection to the server, sets a stream handler and logs out what it receives.
+
+link:src/main/java/io/vertx/example/core/quic/uni/Server.java[Java uni server]
+link:src/main/java/io/vertx/example/core/quic/uni/Client.java[Java uni client]
 
 == HTTP examples
 
