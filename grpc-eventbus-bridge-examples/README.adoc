@@ -1,0 +1,50 @@
+= Vert.x gRPC EventBus Bridge examples
+
+Here you will find examples demonstrating the Vert.x gRPC EventBus Bridge in action.
+
+The gRPC EventBus Bridge allows any gRPC client to interact with a remote Vert.x instance via its EventBus.
+
+== Dependencies required
+
+To use Vert.x gRPC EventBus Bridge in your own Maven or Gradle project add the following dependency
+
+----
+Group ID: io.vertx
+Artifact ID: vertx-grpc-eventbus-bridge
+----
+
+== Send
+
+This example demonstrates sending a fire-and-forget message from a gRPC client to the Vert.x EventBus.
+
+The server starts the bridge and registers an EventBus consumer on the `hello` address.
+The client sends a message via gRPC which is delivered to the consumer.
+
+- link:src/main/java/io/vertx/example/grpc/eventbus/bridge/send/Server.java[Bridge server with EventBus consumer]
+- link:src/main/java/io/vertx/example/grpc/eventbus/bridge/send/Client.java[gRPC client sending a message]
+
+Run the server first, then the client.
+
+== Request-Response
+
+This example demonstrates the request-reply pattern through the gRPC bridge.
+
+The server starts the bridge and registers an EventBus consumer on the `echo` address that replies to messages.
+The client sends a request via gRPC and receives a response.
+
+- link:src/main/java/io/vertx/example/grpc/eventbus/bridge/requestresponse/Server.java[Bridge server with replying consumer]
+- link:src/main/java/io/vertx/example/grpc/eventbus/bridge/requestresponse/Client.java[gRPC client with request-response]
+
+Run the server first, then the client.
+
+== Publish-Subscribe
+
+This example demonstrates subscribing to EventBus messages via the gRPC bridge.
+
+The server starts the bridge and periodically publishes messages on the `news` address.
+The client subscribes via gRPC and receives a stream of messages.
+
+- link:src/main/java/io/vertx/example/grpc/eventbus/bridge/pubsub/Server.java[Bridge server publishing messages]
+- link:src/main/java/io/vertx/example/grpc/eventbus/bridge/pubsub/Client.java[gRPC client subscribing to messages]
+
+Run the server first, then the client.
