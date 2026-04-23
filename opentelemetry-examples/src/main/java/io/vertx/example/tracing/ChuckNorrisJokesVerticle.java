@@ -3,6 +3,7 @@ package io.vertx.example.tracing;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.VerticleBase;
+import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.JsonArray;
@@ -24,13 +25,11 @@ public class ChuckNorrisJokesVerticle extends VerticleBase implements Handler<Ht
 
   @Override
   public void handle(HttpServerRequest request) {
-    pool
-      .query("select joke from jokes ORDER BY random() limit 1")
-      .execute().onComplete(res -> {
-        if (res.succeeded() && res.result().size() > 0) {
-          Row row = res.result().iterator().next();
-          String joke = row.getString(0);
-          request.response().putHeader("content-type", "text/plain").end(joke);
+    EventBus eb = vertx.eventBus();
+    eb.request("ping-address", "ping!")
+      .onComplete(reply -> {
+        if (reply.succeeded()) {
+          request.response().putHeader("content-type", "text/plain").end(reply.result().body().toString());
         } else {
           request.response().setStatusCode(500).end("No jokes available");
         }

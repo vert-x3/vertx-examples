@@ -5,6 +5,7 @@ import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.sdk.resources.Resource;
 import io.vertx.core.Vertx;
 import io.vertx.example.tracing.ChuckNorrisJokesVerticle;
+import io.vertx.example.tracing.JokesSenderVerticle;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.tracing.opentelemetry.OpenTelemetryTracingFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -31,6 +32,7 @@ public class JokeService {
     Vertx vertx = Vertx.builder()
       .withTracer(new OpenTelemetryTracingFactory(otel))
       .build();
+    vertx.deployVerticle(new JokesSenderVerticle(options)).await();
     vertx.deployVerticle(new ChuckNorrisJokesVerticle(options)).await();
     System.out.println("JokeService started");
   }
