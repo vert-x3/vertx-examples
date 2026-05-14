@@ -27,7 +27,7 @@ public class Client extends VerticleBase {
 
     HttpClientConfig config = new HttpClientConfig().
       setSsl(true).
-      setVersions(HttpVersion.HTTP_3);
+      setVersions(HttpVersion.HTTP_3, HttpVersion.HTTP_1_1);
 
     client = vertx.createHttpClient(config, new ClientSSLOptions().setTrustAll(true));
 

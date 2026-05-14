@@ -22,7 +22,8 @@ public class Server extends VerticleBase {
   public Future<?> start() throws Exception {
 
     HttpServer server =
-      vertx.createHttpServer(new HttpServerConfig().setVersions(HttpVersion.HTTP_3), new ServerSSLOptions()
+      vertx.createHttpServer(new HttpServerConfig()
+        .setVersions(HttpVersion.HTTP_3, HttpVersion.HTTP_1_1), new ServerSSLOptions()
         .setKeyCertOptions(new PemKeyCertOptions()
           .setKeyPath("io/vertx/example/core/server-key.pem")
           .setCertPath("io/vertx/example/core/server-cert.pem")
