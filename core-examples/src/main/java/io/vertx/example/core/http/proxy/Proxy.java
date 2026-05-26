@@ -3,7 +3,6 @@ package io.vertx.example.core.http.proxy;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.launcher.application.VertxApplication;
 
@@ -18,7 +17,7 @@ public class Proxy extends VerticleBase {
 
   @Override
   public Future<?> start() throws Exception {
-    HttpClient client = vertx.createHttpClient(new HttpClientOptions());
+    HttpClient client = vertx.createHttpClient();
     return vertx.createHttpServer().requestHandler(serverRequest -> {
       System.out.println("Proxying request: " + serverRequest.uri());
       serverRequest.pause();

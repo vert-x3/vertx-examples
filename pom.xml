@@ -10,7 +10,7 @@
 
   <packaging>pom</packaging>
 
-  <version>5.0.7</version>
+  <version>5.1.0</version>
 
   <properties>
     <testcontainers.version>1.21.4</testcontainers.version>
@@ -38,6 +38,7 @@
     <module>service-resolver-examples</module>
     <module>mqtt-examples</module>
     <module>grpc-examples</module>
+    <module>grpc-eventbus-bridge-examples</module>
     <module>kafka-examples</module>
     <module>kotlin-coroutines-examples</module>
     <module>junit5-examples</module>

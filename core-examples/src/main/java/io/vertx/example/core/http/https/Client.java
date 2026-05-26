@@ -3,8 +3,9 @@ package io.vertx.example.core.http.https;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.http.HttpClientOptions;
+import io.vertx.core.http.HttpClientConfig;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.core.net.ClientSSLOptions;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -21,10 +22,10 @@ public class Client extends VerticleBase {
 
     // Note! in real-life you wouldn't often set trust all to true as it could leave you open to man in the middle attacks.
 
-    HttpClientOptions options = new HttpClientOptions().setSsl(true).setTrustAll(true);
-    HttpClient client = vertx.createHttpClient(options);
+    HttpClientConfig config = new HttpClientConfig().setSsl(true);
+    HttpClient client = vertx.createHttpClient(config, new ClientSSLOptions().setTrustAll(true));
     return client
-      .request(HttpMethod.GET, 4443, "localhost", "/")
+      .request(HttpMethod.GET, 8443, "localhost", "/")
       .compose(req -> req.send()
         .compose(resp -> {
           System.out.println("Got response " + resp.statusCode());

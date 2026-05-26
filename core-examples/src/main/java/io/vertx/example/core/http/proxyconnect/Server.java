@@ -2,8 +2,8 @@ package io.vertx.example.core.http.proxyconnect;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.net.SelfSignedCertificate;
+import io.vertx.core.net.ServerSSLOptions;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -19,11 +19,8 @@ public class Server extends VerticleBase {
   public Future<?> start() throws Exception {
 
     SelfSignedCertificate certificate = SelfSignedCertificate.create();
-    HttpServerOptions serverOptions = new HttpServerOptions()
-      .setSsl(true)
-      .setKeyCertOptions(certificate.keyCertOptions());
 
-    return vertx.createHttpServer(serverOptions)
+    return vertx.createHttpServer(new ServerSSLOptions().setKeyCertOptions(certificate.keyCertOptions()))
       .requestHandler(req -> {
 
         System.out.println("Got request " + req.uri());

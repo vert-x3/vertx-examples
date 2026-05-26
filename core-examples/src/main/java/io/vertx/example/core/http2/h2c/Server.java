@@ -3,7 +3,6 @@ package io.vertx.example.core.http2.h2c;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.launcher.application.VertxApplication;
 
 /*
@@ -19,7 +18,7 @@ public class Server extends VerticleBase {
   public Future<?> start() throws Exception {
 
     HttpServer server =
-      vertx.createHttpServer(new HttpServerOptions());
+      vertx.createHttpServer();
 
     return server.requestHandler(req -> {
       req.response().putHeader("content-type", "text/html").end("<html><body>" +

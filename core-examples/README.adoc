@@ -25,9 +25,9 @@ Vert.x core can be embedded in any Java class and run that way if you like.
 The link:src/main/java/io/vertx/example/core/embed/EmbeddedServer.java[Java embedded example] shows an example of that.
 Just right-click the class in your IDE to run it directly.
 
-== Net examples
+== TCP examples
 
-These examples demonstrate usage of Vert.x net servers and clients - these are used for TCP (and SSL) servers and clients.
+These examples demonstrate usage of Vert.x TCP servers and clients - these are used for TCP (and SSL) servers and clients.
 
 === Echo
 
@@ -40,24 +40,55 @@ echoed back to you.
 It also contains an echo client, which creates a connection to the server, sends some data and logs out what it receives
 back. You can use that as an alternative to connecting via telnet.
 
-link:src/main/java/io/vertx/example/core/net/echo/Server.java[Java echo server]
-link:src/main/java/io/vertx/example/core/net/echo/Client.java[Java echo client]
+link:src/main/java/io/vertx/example/core/tcp/echo/Server.java[Java echo server]
+link:src/main/java/io/vertx/example/core/tcp/echo/Client.java[Java echo client]
 
 === Echo SSL
 
 This is the same as the Echo example but using SSL to encrypt connections
 
-link:src/main/java/io/vertx/example/core/net/echossl/Server.java[Java echo ssl server]
-link:src/main/java/io/vertx/example/core/net/echossl/Client.java[Java echo ssl client]
+link:src/main/java/io/vertx/example/core/tcp/echossl/Server.java[Java echo ssl server]
+link:src/main/java/io/vertx/example/core/tcp/echossl/Client.java[Java echo ssl client]
 
 === Advanced Echo
 
 This is the same as the Echo example but using Netty pipeline customization.
 
-link:src/main/java/io/vertx/example/core/net/advanced/Server.java[Java advanced echo server]
-link:src/main/java/io/vertx/example/core/net/advanced/Client.java[Java advanced echo client]
+link:src/main/java/io/vertx/example/core/tcp/advanced/Server.java[Java advanced echo server]
+link:src/main/java/io/vertx/example/core/tcp/advanced/Client.java[Java advanced echo client]
 
 For more information, check out the https://vertx.io/docs/guides/advanced-vertx-guide/#_using_netty_tcp_codecs[Using Netty TCP codecs] section of the Advanced Vert.x guide.
+
+== QUIC examples
+
+These examples demonstrate usage of Vert.x QUIC servers and clients - these are used for QUIC servers and clients.
+
+=== Echo
+
+This example consists of an echo server verticle which serves QUIC streams, and simply echoes back on the stream whatever it receives.
+
+You can run the echo server then run the echo client, which creates a connection to the server, open a few streams to send some data and logs out what it receives back.
+
+link:src/main/java/io/vertx/example/core/quic/echo/Server.java[Java echo server]
+link:src/main/java/io/vertx/example/core/quic/echo/Client.java[Java echo client]
+
+=== Datagram
+
+This example consists of a datagram server verticle which serves QUIC connections, and simply echoes back on the connection whatever datagram it receives.
+
+You can run the datagram server then run the datagram client, which creates a connection to the server, send some datagram and logs out what it receives back.
+
+link:src/main/java/io/vertx/example/core/quic/datagram/Server.java[Java datagram server]
+link:src/main/java/io/vertx/example/core/quic/datagram/Client.java[Java datagram client]
+
+=== Unidirectional streams
+
+This example consists of a server verticle which serves QUIC connections and opens a unidirectional stream to the server when it receives a connection.
+
+You can run the uni server then run the uni client, which creates a connection to the server, sets a stream handler and logs out what it receives.
+
+link:src/main/java/io/vertx/example/core/quic/uni/Server.java[Java uni server]
+link:src/main/java/io/vertx/example/core/quic/uni/Client.java[Java uni client]
 
 == HTTP examples
 
@@ -88,7 +119,7 @@ Like the simple example, but using HTTPS instead of HTTP
 
 link:src/main/java/io/vertx/example/core/http/https/Server.java[Java simple HTTPS server]
 
-You can run the server then open a browser and point it at link:http://localhost:4443[]
+You can run the server then open a browser and point it at link:https://localhost:4443[]
 
 And a simple HTTPS client which makes a request to the server.
 
@@ -232,11 +263,11 @@ A very simple HTTP/2 server which always responds with the same response:
 
 link:src/main/java/io/vertx/example/core/http2/simple/Server.java[Java simple HTTP/2 server]
 
-You can run the server then open a browser and point it at link:http://localhost:8080[]
+You can run the server then open a browser and point it at link:https://localhost:8443[]
 
 And a simple HTTP/2 client which makes a request to the server.
 
-link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP client]
+link:src/main/java/io/vertx/example/core/http2/simple/Client.java[Java simple HTTP/2 client]
 
 === Push
 
@@ -246,27 +277,60 @@ The server pushes `script.js` along with `index.html`:
 
 link:src/main/java/io/vertx/example/core/http2/push/Server.java[Java HTTP/2 server pushing content]
 
-You can run the server then open a browser and point it at link:http://localhost:8080[]
+You can run the server then open a browser and point it at link:https://localhost:8443[]
 
 And a client sets a push handler to be notified of the incoming server side pushes:
 
-link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP client push aware]
+link:src/main/java/io/vertx/example/core/http2/push/Client.java[Java HTTP/2 client push aware]
 
 === H2C
 
 Like the simple server but using clear text, also known as _h2c_, without TLS:
 
 link:src/main/java/io/vertx/example/core/http2/h2c/Server.java[Java simple HTTP/2 server in clear text]
-link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP client in clear text]
+link:src/main/java/io/vertx/example/core/http2/h2c/Client.java[Java simple HTTP/2 client in clear text]
 
 NOTE: this example won't work with browsers are they don't support h2c
+
+== HTTP/3
+
+=== Simple
+
+A very simple HTTP/3 server which always responds with the same response:
+
+link:src/main/java/io/vertx/example/core/http3/simple/Server.java[Java simple HTTP/3 server]
+
+You can run the server then open a browser and point it at link:https://localhost:8443[]
+
+And a simple HTTP/3 client which makes a request to the server.
+
+link:src/main/java/io/vertx/example/core/http3/simple/Client.java[Java simple HTTP/3 client]
+
+=== HTTP alternative services
+
+A very simple HTTP/1 / HTTP/3 server that sends an https://datatracker.ietf.org/doc/html/rfc7838[HTTP/1.1 alternative service] header to let the client be aware of the UDP endpoint:
+
+link:src/main/java/io/vertx/example/core/http3/altsvc/Server.java[Java HTTP/1 / HTTP/3 server]
+
+You can run the server then open a browser and point it at link:https://localhost:8443[], it might need a few refresh before using HTTP/3 depending on your browser.
+
+You can also see it in action with cURL with the `--alt-svc` option:
+
+[source,shell]
+----
+> curl -k --alt-svc alt-svc-cache.txt https://localhost:8443
+----
+
+And a simple HTTP client which makes multiple requests to the same server, the first requests uses HTTP/1.1, ultimately it should use HTTP/3 when the client becomes aware of the HTTP/3 alternative service.
+
+link:src/main/java/io/vertx/example/core/http3/altsvc/Client.java[Java HTTP/3 aware client]
 
 === Custom frames
 
 HTTP/2 can be extended with custom frames, this example shows how to write and receive custom frames:
 
 link:src/main/java/io/vertx/example/core/http2/customframes/Server.java[Java HTTP/2 server]
-link:src/main/java/io/vertx/example/core/http2/customframes/Client.java[Java simple HTTP client]
+link:src/main/java/io/vertx/example/core/http2/customframes/Client.java[Java HTTP/2 client]
 
 == Event bus examples
 
@@ -364,8 +428,7 @@ link:src/main/java/io/vertx/example/core/verticle/worker/WorkerVerticle.java[Jav
 
 == Execute blocking example
 
-This example demonstrates how you can include blocking code in with your non-blocking code in a way that doesn't
-block an event loop:
+This example demonstrates how you can include blocking code in with your non-blocking code in a way that doesn't block an event loop:
 
 link:src/main/java/io/vertx/example/core/execblocking/ExecBlockingExample.java[Java execute blocking code example]
 
@@ -383,13 +446,9 @@ link:src/main/java/io/vertx/example/core/jsonstreaming/JsonStreamingExample.java
 
 == Custom ReadStream and WriteStream implementation
 
-An example illustrating how to create your custom prefix length protocol to read and write objects in wire. The example
-uses link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object,
-link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[ReadStream] and
-link:src/main/java/io/vertx/example/core/net/stream/BatchStream.java[WriteStream] implementation.
+An example illustrating how to create your custom prefix length protocol to read and write objects in wire. The example uses link:src/main/java/io/vertx/example/core/stream/Batch.java[Batch] object, link:src/main/java/io/vertx/example/core/stream/BatchStream.java[ReadStream] and link:src/main/java/io/vertx/example/core/stream/BatchStream.java[WriteStream] implementation.
 
-The protocol structure for link:src/main/java/io/vertx/example/core/net/stream/Batch.java[Batch] object is simple as
-illustrated below:
+The protocol structure for link:src/main/java/io/vertx/example/core/stream/Batch.java[Batch] object is simple as illustrated below:
 
 ----
 Length  : uInt32
@@ -397,7 +456,5 @@ Type    : byte ['O' for JsonObject | 'A' for JsonArray | 'B' for Buffer]
 Payload : Buffer
 ----
 
-The link:src/main/java/io/vertx/example/core/net/stream/Server.java[NetServer] will receive the objects and write them
-back to the
-link:src/main/java/io/vertx/example/core/net/stream/Client.java[NetClient].
+The link:src/main/java/io/vertx/example/core/stream/Server.java[NetServer] will receive the objects and write them back to the link:src/main/java/io/vertx/example/core/stream/Client.java[NetClient].
 

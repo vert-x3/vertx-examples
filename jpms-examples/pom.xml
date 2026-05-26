@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.0.7</version>
+    <version>5.1.0</version>
   </parent>
 
   <artifactId>jpms-examples</artifactId>
@@ -308,7 +308,7 @@
         <configuration>
           <launchers>
             <launcher>http-server=jpms.examples/io.vertx.example.jpms.http.Server</launcher>
-            <launcher>http2-server=jpms.examples/io.vertx.example.jpms.http2.Server</launcher>
+            <launcher>https-server=jpms.examples/io.vertx.example.jpms.https.Server</launcher>
             <launcher>http-server-with-compression=jpms.examples/io.vertx.example.jpms.compression.Server</launcher>
             <launcher>grpc-server=jpms.examples/io.vertx.example.jpms.grpc.Server</launcher>
           </launchers>

@@ -20,8 +20,8 @@ public class Sender extends VerticleBase {
       public void beforeStartingVertx(HookContext context) {
         context.vertxOptions().setEventBusOptions(new EventBusOptions()
           .setSsl(true)
-          .setKeyCertOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble"))
-          .setTrustOptions(new JksOptions().setPath("io/vertx/example/core/eventbus/ssl/keystore.jks").setPassword("wibble")));
+          .setKeyCertOptions(new JksOptions().setPath("io/vertx/example/core/server.jks").setPassword("wibble"))
+          .setTrustOptions(new JksOptions().setPath("io/vertx/example/core/server.jks").setPassword("wibble")));
       }
     });
     application.launch();

@@ -9,9 +9,9 @@ packaging the project with Maven (notice the jlink package in `pom.xml`), you ca
 
 WARNING: Running these examples from your IDE might not work sometimes due to JPMS / IDE discrepancies. We recommend loading this Maven module `io.vertx:jpms-examples` directly in your IDE instead of `io.vertx:vertx-examples`.
 
-== HTTP/1.1 Server
+== HTTP Server
 
-A simple link:src/main/java/io/vertx/example/jpms/http/Server.java[HTTP/1.1 server]
+A simple link:src/main/java/io/vertx/example/jpms/http/Server.java[HTTP server]
 
 You can run the server in your IDE and then `curl http://localhost:8080`.
 
@@ -49,9 +49,9 @@ This can be resolved by adding the following runtime option `-add-modules io.net
 
 NOTE: you can add this to your `module-info.java` declaration and omit the `--add-modules` declaration
 
-== HTTP/2 Server
+== HTTPS Server
 
-A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP/2 server]
+A simple link:src/main/java/io/vertx/example/jpms/https/Server.java[HTTPS server]
 
 You can run the server in your IDE and then `curl -k https://localhost:8443`.
 
@@ -59,14 +59,14 @@ You can also run the application image:
 
 [source,shell]
 ----
-./target/maven-jlink/default/bin/java ---module jpms.examples/io.vertx.example.jpms.http2.Server
+./target/maven-jlink/default/bin/java ---module jpms.examples/io.vertx.example.jpms.https.Server
 ----
 
 Or use the launcher:
 
 [source,shell]
 ----
-./target/maven-jlink/default/bin/http2-server
+./target/maven-jlink/default/bin/https-server
 ----
 
 == HTTP compression
@@ -138,7 +138,7 @@ helloworld.Greeter.SayHello
 
 == Native transports
 
-A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP server] running with Netty native transports kqueue/epoll/io_uring.
+A simple link:src/main/java/io/vertx/example/jpms/https/Server.java[HTTP server] running with Netty native transports kqueue/epoll/io_uring.
 
 To run this example in the IDE, you need to add transport/OS/architecture specific modules:
 
@@ -165,7 +165,7 @@ Or launch the JVM with `--add-modules io.netty.transport.classes.kqueue,io.netty
 
 == Open SSL
 
-A simple link:src/main/java/io/vertx/example/jpms/http2/Server.java[HTTP server] using Netty OpenSSL.
+A simple link:src/main/java/io/vertx/example/jpms/https/Server.java[HTTP server] using Netty OpenSSL.
 
 To run this example in the IDE, you need to add OS/architecture specific modules:
 
