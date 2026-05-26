@@ -20,7 +20,7 @@ public class Client extends VerticleBase {
 
   @Override
   public Future<?> start() {
-    client = EventBusGrpcClient.create(vertx);
+    client = EventBusGrpcClient.client(vertx);
     GreeterGrpcClient stub = GreeterGrpcClient.create(client);
     HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
     return stub

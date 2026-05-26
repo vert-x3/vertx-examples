@@ -28,7 +28,7 @@ public class Server extends VerticleBase {
     };
 
     // Create the server
-    EventBusGrpcServer rpcServer = EventBusGrpcServer.create(vertx);
+    EventBusGrpcServer rpcServer = EventBusGrpcServer.server(vertx);
 
     // Bind the service
     rpcServer.addService(service);
