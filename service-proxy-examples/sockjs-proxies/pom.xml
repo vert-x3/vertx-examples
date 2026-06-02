@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>service-proxy-examples</artifactId>
-    <version>5.1.0</version>
+    <version>5.1.1</version>
   </parent>
 
   <artifactId>sockjs-proxies-examples</artifactId>

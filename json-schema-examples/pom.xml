@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-examples</artifactId>
-    <version>5.1.0</version>
+    <version>5.1.1</version>
   </parent>
 
   <artifactId>json-schema-examples</artifactId>
