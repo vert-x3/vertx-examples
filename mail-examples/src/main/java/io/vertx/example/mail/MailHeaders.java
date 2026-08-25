@@ -40,7 +40,7 @@ public class MailHeaders extends VerticleBase {
     MailMessage email = new MailMessage()
       .setFrom("user1@example.com")
       .setTo(Arrays.asList("user2@example.com", "user3@example.com", "user4@example.com"))
-      .addHeader("X-Mailer", "Vert.x Mail-Client 5.1.6")
+      .addHeader("X-Mailer", "Vert.x Mail-Client 5.2.0-SNAPSHOT")
       .addHeader("Message-ID", "12345@example.com")
       .addHeader("Reply-To", "reply@example.com")
       .addHeader("Received", "by vertx mail service")
