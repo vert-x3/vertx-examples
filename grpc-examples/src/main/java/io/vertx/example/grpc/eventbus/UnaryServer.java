@@ -11,10 +11,10 @@ import io.vertx.launcher.application.VertxApplication;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class Server extends VerticleBase {
+public class UnaryServer extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{Server.class.getName(), "-cluster"});
+    VertxApplication.main(new String[]{UnaryServer.class.getName(), "-cluster"});
   }
 
   @Override
@@ -28,11 +28,11 @@ public class Server extends VerticleBase {
     };
 
     // Create the server
-    EventBusGrpcServer rpcServer = EventBusGrpcServer.server(vertx);
-
-    // Bind the service
-    rpcServer.addService(service);
-
-    return super.start();
+    return EventBusGrpcServer
+      .server(vertx)
+      .onSuccess(rpcServer -> {
+        // Bind the service
+        rpcServer.addService(service);
+    });
   }
 }

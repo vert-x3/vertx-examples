@@ -133,8 +133,11 @@ When the server is running you can access the service using a simple HTTP client
 
 This example shows how to use a client/server gRPC example using the event bus transport, in a clustered fashion.
 
-- link:src/main/java/io/vertx/example/grpc/eventbus/Client.java[Event bus client example]
-- link:src/main/java/io/vertx/example/grpc/eventbus/Server.java[Event bus server example]
+- link:src/main/java/io/vertx/example/grpc/eventbus/UnaryClient.java[Event bus unary client example]
+- link:src/main/java/io/vertx/example/grpc/eventbus/UnaryServer.java[Event bus unary server example]
+
+- link:src/main/java/io/vertx/example/grpc/eventbus/StreamingClient.java[Event bus streaming client example]
+- link:src/main/java/io/vertx/example/grpc/eventbus/StreamingServer.java[Event bus streaming server example]
 
 This example needs Java 17 or later because it uses the Hazelcast cluster manager.
 
