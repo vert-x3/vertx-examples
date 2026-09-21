@@ -19,76 +19,49 @@ Each example shows how to use the gRPC request/response API and how to use the s
 
 The protobuf compiler is available for Maven or Gradle and is OS dependant.
 
-== Empty exchanges
+== Simple examples
 
-This example show how to handle RPC calls that do not receive or return data.
+These examples demonstrate the four gRPC RPC cardinalities using a single `ExampleService` proto definition.
 
-- link:src/main/java/io/vertx/example/grpc/empty/Client.java[gRPC client example]
-- link:src/main/java/io/vertx/example/grpc/empty/ClientWithStub.java[gRPC client stub example]
-- link:src/main/java/io/vertx/example/grpc/empty/Server.java[gRPC server example]
-- link:src/main/java/io/vertx/example/grpc/empty/ServerWithStub.java[gRPC server stub example]
+=== Unary
 
-== Ping Pong exchanges
+One request, one response.
 
-This example show how to handle RPC calls that send a single object and receive a single object.
+- link:src/main/java/io/vertx/example/grpc/simple/UnaryClient.java[gRPC client example]
+- link:src/main/java/io/vertx/example/grpc/simple/UnaryClientWithStub.java[gRPC client stub example]
+- link:src/main/java/io/vertx/example/grpc/simple/UnaryServer.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/simple/UnaryServerWithStub.java[gRPC server stub example]
 
-- link:src/main/java/io/vertx/example/grpc/pingpong/Client.java[gRPC client example]
-- link:src/main/java/io/vertx/example/grpc/pingpong/ClientWithStub.java[gRPC client stub example]
-- link:src/main/java/io/vertx/example/grpc/pingpong/Server.java[gRPC server example]
-- link:src/main/java/io/vertx/example/grpc/pingpong/ServerWithStub.java[gRPC server stub example]
+=== Server Streaming
 
-== Consumer exchange
+The client sends one request and the server responds with a stream of messages.
 
-This example show how to handle RPC calls that do receive an arbitrary stream of response objects.
+- link:src/main/java/io/vertx/example/grpc/simple/ServerStreamingClient.java[gRPC client example]
+- link:src/main/java/io/vertx/example/grpc/simple/ServerStreamingClientWithStub.java[gRPC client stub example]
+- link:src/main/java/io/vertx/example/grpc/simple/ServerStreamingServer.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/simple/ServerStreamingServerWithStub.java[gRPC server stub example]
 
-- link:src/main/java/io/vertx/example/grpc/consumer/Client.java[gRPC client example]
-- link:src/main/java/io/vertx/example/grpc/consumer/ClientWithStub.java[gRPC client stub example]
-- link:src/main/java/io/vertx/example/grpc/consumer/Server.java[gRPC server example]
-- link:src/main/java/io/vertx/example/grpc/consumer/ServerWithStub.java[gRPC server stub example]
+=== Client Streaming
 
-== Producer exchange
+The client sends a stream of messages and the server responds with a single message.
 
-This example show how to handle RPC calls that do sends an arbitrary stream of request objects.
+- link:src/main/java/io/vertx/example/grpc/simple/ClientStreamingClient.java[gRPC client example]
+- link:src/main/java/io/vertx/example/grpc/simple/ClientStreamingClientWithStub.java[gRPC client stub example]
+- link:src/main/java/io/vertx/example/grpc/simple/ClientStreamingServer.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/simple/ClientStreamingServerWithStub.java[gRPC server stub example]
 
-- link:src/main/java/io/vertx/example/grpc/producer/Client.java[gRPC client example]
-- link:src/main/java/io/vertx/example/grpc/producer/ClientWithStub.java[gRPC client stub example]
-- link:src/main/java/io/vertx/example/grpc/producer/Server.java[gRPC server example]
-- link:src/main/java/io/vertx/example/grpc/producer/ServerWithStub.java[gRPC server stub example]
+=== Bidirectional Streaming
 
-== Conversational exchange
+Both the client and server send a stream of messages to each other.
 
-This example shows how to handle arbitrary streams of request and response objects.
-
-- link:src/main/java/io/vertx/example/grpc/conversation/Client.java[gRPC client example]
-- link:src/main/java/io/vertx/example/grpc/conversation/ClientWithStub.java[gRPC client stub example]
-- link:src/main/java/io/vertx/example/grpc/conversation/Server.java[gRPC server example]
-- link:src/main/java/io/vertx/example/grpc/conversation/ServerWithStub.java[gRPC server stub example]
-
-== Hello World example
-
-This example is adapted from the https://github.com/grpc/grpc-java/tree/master/examples[gRPC examples].
-
-It shows a simple gRPC service that invokes a service that takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper.
-
-link:src/main/java/io/vertx/example/grpc/helloworld/Server.java[gRPC server example]
-link:src/main/java/io/vertx/example/grpc/helloworld/ServerWithStub.java[gRPC server stub example]
-
-The gRPC service extends the `VertxGreeterGrpc.GreeterImplBase` generated class and
-implements the service logic.
-
-link:src/main/java/io/vertx/example/grpc/helloworld/Client.java[gRPC client example]
-link:src/main/java/io/vertx/example/grpc/helloworld/ClientWithStub.java[gRPC client stub example]
-
-The gRPC client creates an instance of the `VertxGreeterGrpc.newVertxStub` generated class and
-then use it to invoke the service.
-
-You can run the server and then run the client.
-
-You can read more about it on the http://www.grpc.io/docs/quickstart/java.html[gRPC website]
+- link:src/main/java/io/vertx/example/grpc/simple/BidiStreamingClient.java[gRPC client example]
+- link:src/main/java/io/vertx/example/grpc/simple/BidiStreamingClientWithStub.java[gRPC client stub example]
+- link:src/main/java/io/vertx/example/grpc/simple/BidiStreamingServer.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/simple/BidiStreamingServerWithStub.java[gRPC server stub example]
 
 == Timeout and deadlines
 
-The Hello World example showing timeout and deadlines in action.
+This example shows timeout and deadlines in action.
 
 The server is configured to create a deadline when a request with a timeout is received.
 
@@ -104,7 +77,7 @@ link:src/main/java/io/vertx/example/grpc/deadline/ClientWithStub.java[gRPC clien
 
 == JSON wire format
 
-The Hello World example using JSON wire format instead of Protobuf.
+This example uses JSON wire format instead of Protobuf.
 
 link:src/main/java/io/vertx/example/grpc/jsonformat/Server.java[gRPC server example]
 link:src/main/java/io/vertx/example/grpc/jsonformat/ServerWithStub.java[gRPC server stub example]
@@ -123,9 +96,9 @@ When the server is running you can access the service using a simple HTTP client
 
 [source,shell]
 ----
-> curl -H 'Content-Type: application/json' http://localhost:8080/v1/hello/Julien
+> curl -H 'Content-Type: application/json' http://localhost:8080/v1/example/Julien
 {
-  "message": "Julien"
+  "value": "Julien"
 }
 ----
 
@@ -136,8 +109,8 @@ This example shows how to use a client/server gRPC example using the event bus t
 - link:src/main/java/io/vertx/example/grpc/eventbus/UnaryClient.java[Event bus unary client example]
 - link:src/main/java/io/vertx/example/grpc/eventbus/UnaryServer.java[Event bus unary server example]
 
-- link:src/main/java/io/vertx/example/grpc/eventbus/StreamingClient.java[Event bus streaming client example]
-- link:src/main/java/io/vertx/example/grpc/eventbus/StreamingServer.java[Event bus streaming server example]
+- link:src/main/java/io/vertx/example/grpc/eventbus/BidiStreamingClient.java[Event bus bidi-streaming client example]
+- link:src/main/java/io/vertx/example/grpc/eventbus/BidiStreamingServer.java[Event bus bidi-streaming server example]
 
 This example needs Java 17 or later because it uses the Hazelcast cluster manager.
 
@@ -157,21 +130,9 @@ link:src/main/java/io/vertx/example/grpc/loadbalancing/Client.java[gRPC client l
 
 == SSL example
 
-This example is the _Hello World example_ with SSL configuration.
+This example shows gRPC with SSL configuration.
 
-It shows a simple gRPC service that invokes a service that takes an `HelloRequest` string wrapper and returns an `HelloReply` string wrapper.
-The communication uses SSL.
-
-link:src/main/java/io/vertx/example/grpc/ssl/Server.java[gRPC server example]
-link:src/main/java/io/vertx/example/grpc/ssl/ServerWithStub.java[gRPC server stub example]
-
-The gRPC service extends the `VertxGreeterGrpc.GreeterImplBase` generated class and
-implements the service logic.
-
-link:src/main/java/io/vertx/example/grpc/ssl/Client.java[gRPC client example]
-link:src/main/java/io/vertx/example/grpc/ssl/ClientWithStub.java[gRPC client stub example]
-
-The gRPC client creates an instance of the `VertxGreeterGrpc.newVertxStub` generated class and
-then use it to invoke the service.
-
-You can run the server and then run the client.
+- link:src/main/java/io/vertx/example/grpc/ssl/Client.java[gRPC client example]
+- link:src/main/java/io/vertx/example/grpc/ssl/ClientWithStub.java[gRPC client stub example]
+- link:src/main/java/io/vertx/example/grpc/ssl/Server.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/ssl/ServerWithStub.java[gRPC server stub example]

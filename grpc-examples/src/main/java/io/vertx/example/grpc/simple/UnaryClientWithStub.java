@@ -1,37 +1,31 @@
-package io.vertx.example.grpc.ssl;
+package io.vertx.example.grpc.simple;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.net.ClientSSLOptions;
-import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.ExampleServiceGrpcClient;
 import io.vertx.example.grpc.Request;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.launcher.application.VertxApplication;
 
-public class ClientWithStub extends VerticleBase {
+public class UnaryClientWithStub extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{ClientWithStub.class.getName()});
+    VertxApplication.main(new String[]{UnaryClientWithStub.class.getName()});
   }
 
   private GrpcClient client;
 
   @Override
   public Future<?> start() {
-
-    client = GrpcClient.builder(vertx)
-      .with(new ClientSSLOptions().setTrustOptions(new JksOptions()
-        .setPath("tls/client-truststore.jks")
-        .setPassword("wibble"))
-      ).build();
+    client = GrpcClient.client(vertx);
 
     ExampleServiceGrpcClient stub = ExampleServiceGrpcClient.create(client, SocketAddress.inetSocketAddress(8080, "localhost"));
 
-    Request request = Request.newBuilder().setValue("Julien").build();
+    Request request = Request.newBuilder().setValue("World").build();
+
     return stub
       .unary(request)
-      .onSuccess(res -> System.out.println("Succeeded " + res.getValue()));
+      .onSuccess(response -> System.out.println("Received: " + response.getValue()));
   }
 }

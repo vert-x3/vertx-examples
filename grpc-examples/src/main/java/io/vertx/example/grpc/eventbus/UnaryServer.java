@@ -1,16 +1,13 @@
 package io.vertx.example.grpc.eventbus;
 
-import io.grpc.examples.helloworld.GreeterGrpcService;
-import io.grpc.examples.helloworld.HelloReply;
-import io.grpc.examples.helloworld.HelloRequest;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.ExampleServiceGrpcService;
+import io.vertx.example.grpc.Request;
+import io.vertx.example.grpc.Response;
 import io.vertx.grpc.eventbus.EventBusGrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
-/**
- * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
- */
 public class UnaryServer extends VerticleBase {
 
   public static void main(String[] args) {
@@ -19,19 +16,17 @@ public class UnaryServer extends VerticleBase {
 
   @Override
   public Future<?> start() throws Exception {
-    GreeterGrpcService service = new GreeterGrpcService() {
+    ExampleServiceGrpcService service = new ExampleServiceGrpcService() {
       @Override
-      public Future<HelloReply> sayHello(HelloRequest request) {
-        System.out.println("Hello " + request.getName());
-        return Future.succeededFuture(HelloReply.newBuilder().setMessage(request.getName()).build());
+      public Future<Response> unary(Request request) {
+        System.out.println("Hello " + request.getValue());
+        return Future.succeededFuture(Response.newBuilder().setValue(request.getValue()).build());
       }
     };
 
-    // Create the server
     return EventBusGrpcServer
       .server(vertx)
       .onSuccess(rpcServer -> {
-        // Bind the service
         rpcServer.addService(service);
     });
   }

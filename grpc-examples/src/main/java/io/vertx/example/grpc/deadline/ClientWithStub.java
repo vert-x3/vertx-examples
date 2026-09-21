@@ -1,20 +1,17 @@
 package io.vertx.example.grpc.deadline;
 
-import io.grpc.examples.helloworld.GreeterGrpcClient;
-import io.grpc.examples.helloworld.HelloReply;
-import io.grpc.examples.helloworld.HelloRequest;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.net.SocketAddress;
+import io.vertx.example.grpc.ExampleServiceGrpcClient;
+import io.vertx.example.grpc.Request;
+import io.vertx.example.grpc.Response;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.client.GrpcClientOptions;
 import io.vertx.launcher.application.VertxApplication;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
- */
 public class ClientWithStub extends VerticleBase {
 
   public static void main(String[] args) {
@@ -28,12 +25,12 @@ public class ClientWithStub extends VerticleBase {
     client = GrpcClient.client(vertx, new GrpcClientOptions()
       .setTimeout(5)
       .setTimeoutUnit(TimeUnit.SECONDS));
-    GreeterGrpcClient stub = GreeterGrpcClient.create(client, SocketAddress.inetSocketAddress(8080, "localhost"));
-    HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
+    ExampleServiceGrpcClient stub = ExampleServiceGrpcClient.create(client, SocketAddress.inetSocketAddress(8080, "localhost"));
+    Request request = Request.newBuilder().setValue("Julien").build();
     System.out.println("Sending a request that should timeout due to the server deadline");
     return stub
-      .sayHello(request)
-      .map(HelloReply::getMessage)
+      .unary(request)
+      .map(Response::getValue)
       .recover(err -> {
         System.out.println("Timeout as expected");
         return Future.succeededFuture("Expected timeout");

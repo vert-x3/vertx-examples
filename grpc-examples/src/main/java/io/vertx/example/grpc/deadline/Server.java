@@ -1,16 +1,13 @@
 package io.vertx.example.grpc.deadline;
 
-import io.grpc.examples.helloworld.GreeterGrpcService;
 import io.vertx.core.Future;
 import io.vertx.core.Timer;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.ExampleServiceGrpcService;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.grpc.server.GrpcServerOptions;
 import io.vertx.launcher.application.VertxApplication;
 
-/**
- * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
- */
 public class Server extends VerticleBase {
 
   public static void main(String[] args) {
@@ -20,12 +17,10 @@ public class Server extends VerticleBase {
 
   @Override
   public Future<?> start() {
-    // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx, new GrpcServerOptions()
       .setScheduleDeadlineAutomatically(true));
 
-    // The rpc service
-    rpcServer.callHandler(GreeterGrpcService.SayHello, request -> {
+    rpcServer.callHandler(ExampleServiceGrpcService.Unary, request -> {
       Timer deadline = request.deadline();
       if (deadline != null) {
         System.out.println("This request has a deadline");
@@ -40,7 +35,6 @@ public class Server extends VerticleBase {
       });
     });
 
-    // start the server
     return vertx
       .createHttpServer()
       .requestHandler(rpcServer)
