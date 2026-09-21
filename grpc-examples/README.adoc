@@ -86,20 +86,42 @@ link:src/main/java/io/vertx/example/grpc/jsonformat/ClientWithStub.java[gRPC cli
 
 == Transcoding
 
-The transcoding example demonstrates a gRPC service bound as a REST endpoint
+The transcoding examples demonstrate a gRPC service bound as REST endpoints.
 
-link:src/main/java/io/vertx/example/grpc/transcoding/Server.java[gRPC server example]
-link:src/main/java/io/vertx/example/grpc/transcoding/ServerWithStub.java[gRPC server stub example]
-link:src/main/java/io/vertx/example/grpc/transcoding/Client.java[Client example]
+=== Unary
+
+- link:src/main/java/io/vertx/example/grpc/transcoding/UnaryServer.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/transcoding/UnaryServerWithStub.java[gRPC server stub example]
+- link:src/main/java/io/vertx/example/grpc/transcoding/UnaryClient.java[Client example]
 
 When the server is running you can access the service using a simple HTTP client:
 
 [source,shell]
 ----
-> curl -H 'Content-Type: application/json' http://localhost:8080/v1/example/Julien
+> curl -H 'Content-Type: application/json' http://localhost:8080/v1/example/unary/Julien
 {
   "value": "Julien"
 }
+----
+
+=== Server Streaming
+
+- link:src/main/java/io/vertx/example/grpc/transcoding/ServerStreamingServer.java[gRPC server example]
+- link:src/main/java/io/vertx/example/grpc/transcoding/ServerStreamingServerWithStub.java[gRPC server stub example]
+- link:src/main/java/io/vertx/example/grpc/transcoding/ServerStreamingClient.java[Client example]
+
+When the server is running you can access the streaming endpoint using a simple HTTP client:
+
+[source,shell]
+----
+> curl -H 'Content-Type: application/json' http://localhost:8080/v1/example/serverstreaming/Julien
+[
+{"value":"Julien 0"}
+,{"value":"Julien 1"}
+,{"value":"Julien 2"}
+,{"value":"Julien 3"}
+,{"value":"Julien 4"}
+]
 ----
 
 == Event bus transport
