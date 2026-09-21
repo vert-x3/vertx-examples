@@ -1,15 +1,12 @@
 package io.vertx.example.grpc.transcoding;
 
-import io.grpc.examples.helloworld.GreeterGrpcService;
-import io.grpc.examples.helloworld.HelloReply;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
+import io.vertx.example.grpc.ExampleServiceGrpcService;
+import io.vertx.example.grpc.Response;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
-/**
- * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
- */
 public class Server extends VerticleBase {
 
   public static void main(String[] args) {
@@ -29,20 +26,17 @@ public class Server extends VerticleBase {
 
   @Override
   public Future<?> start() {
-    // Create the server
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
-    // The rpc service
-    rpcServer.callHandler(GreeterGrpcService.SayHello, request -> {
+    rpcServer.callHandler(ExampleServiceGrpcService.Unary, request -> {
       request
         .last()
         .onSuccess(msg -> {
-          System.out.println("Hello " + msg.getName());
-          request.response().end(HelloReply.newBuilder().setMessage(msg.getName()).build());
+          System.out.println("Hello " + msg.getValue());
+          request.response().end(Response.newBuilder().setValue(msg.getValue()).build());
       });
     });
 
-    // start the server
     return vertx
       .createHttpServer()
       .requestHandler(rpcServer)

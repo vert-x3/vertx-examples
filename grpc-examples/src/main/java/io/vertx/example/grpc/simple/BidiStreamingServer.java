@@ -1,4 +1,4 @@
-package io.vertx.example.grpc.jsonformat;
+package io.vertx.example.grpc.simple;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
@@ -7,10 +7,10 @@ import io.vertx.example.grpc.Response;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
-public class Server extends VerticleBase {
+public class BidiStreamingServer extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{Server.class.getName()});
+    VertxApplication.main(new String[]{BidiStreamingServer.class.getName()});
     System.out.println("Server started");
   }
 
@@ -18,12 +18,14 @@ public class Server extends VerticleBase {
   public Future<?> start() {
     GrpcServer rpcServer = GrpcServer.server(vertx);
 
-    rpcServer.callHandler(ExampleServiceGrpcService.Unary, request -> {
-      request
-        .last()
-        .onSuccess(msg -> {
-          System.out.println("Hello " + msg.getValue());
-          request.response().end(Response.newBuilder().setValue(msg.getValue()).build());
+    rpcServer.callHandler(ExampleServiceGrpcService.BidiStreaming, request -> {
+      request.handler(msg -> {
+        System.out.println("Server received: " + msg.getValue());
+        vertx.setTimer(500L, t -> {
+          request.response().write(Response.newBuilder()
+            .setValue("Echo: " + msg.getValue())
+            .build());
+        });
       });
     });
 

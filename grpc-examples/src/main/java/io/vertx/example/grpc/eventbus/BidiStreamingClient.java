@@ -7,10 +7,10 @@ import io.vertx.example.grpc.Request;
 import io.vertx.grpc.eventbus.EventBusGrpcClient;
 import io.vertx.launcher.application.VertxApplication;
 
-public class UnaryClient extends VerticleBase {
+public class BidiStreamingClient extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{UnaryClient.class.getName(), "-cluster"});
+    VertxApplication.main(new String[]{BidiStreamingClient.class.getName(), "-cluster"});
   }
 
   private EventBusGrpcClient client;
@@ -24,10 +24,15 @@ public class UnaryClient extends VerticleBase {
         }
       }).compose(client -> {
         ExampleServiceGrpcClient stub = ExampleServiceGrpcClient.create(client);
-        Request request = Request.newBuilder().setValue("Julien").build();
-        return stub
-          .unary(request)
-          .onSuccess(res -> System.out.println("Succeeded " + res.getValue()));
+
+        return stub.bidiStreaming((writeStream, err) -> {
+          writeStream.write(Request.newBuilder().setValue("ping").build());
+          vertx.setTimer(500L, t -> {
+            writeStream.write(Request.newBuilder().setValue("ping").build());
+          });
+        }).onSuccess(resp -> {
+          resp.handler(msg -> System.out.println("Client: received response " + msg.getValue()));
+        });
       });
   }
 }

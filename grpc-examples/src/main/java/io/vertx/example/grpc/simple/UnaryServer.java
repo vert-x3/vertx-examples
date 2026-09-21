@@ -1,27 +1,26 @@
-package io.vertx.example.grpc.health;
+package io.vertx.example.grpc.simple;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.example.grpc.ExampleServiceGrpcService;
 import io.vertx.example.grpc.Response;
-import io.vertx.grpc.health.HealthService;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
-public class Server extends VerticleBase {
+public class UnaryServer extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[] { Server.class.getName() });
+    VertxApplication.main(new String[]{UnaryServer.class.getName()});
     System.out.println("Server started");
   }
 
   private final int port;
 
-  public Server(int port) {
+  public UnaryServer(int port) {
     this.port = port;
   }
 
-  public Server() {
+  public UnaryServer() {
     this(8080);
   }
 
@@ -34,14 +33,9 @@ public class Server extends VerticleBase {
         .last()
         .onSuccess(msg -> {
           System.out.println("Hello " + msg.getValue());
-          request.response().end(Response.newBuilder().setValue(msg.getValue()).build());
+          request.response().end(Response.newBuilder().setValue("Hello " + msg.getValue()).build());
         });
     });
-
-    HealthService healthService = HealthService.create(vertx);
-    rpcServer.addService(healthService);
-
-    healthService.register(ExampleServiceGrpcService.SERVICE_NAME, () -> Future.succeededFuture(false));
 
     return vertx
       .createHttpServer()

@@ -1,9 +1,7 @@
-package io.vertx.example.grpc.ssl;
+package io.vertx.example.grpc.simple;
 
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
-import io.vertx.core.net.ClientSSLOptions;
-import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.example.grpc.ExampleServiceGrpcClient;
 import io.vertx.example.grpc.Request;
@@ -11,28 +9,23 @@ import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.common.GrpcReadStream;
 import io.vertx.launcher.application.VertxApplication;
 
-public class Client extends VerticleBase {
+public class UnaryClient extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{ClientWithStub.class.getName()});
+    VertxApplication.main(new String[]{UnaryClient.class.getName()});
   }
 
   private GrpcClient client;
 
   @Override
   public Future<?> start() {
-
-    client = GrpcClient.builder(vertx)
-      .with(new ClientSSLOptions().setTrustOptions(new JksOptions()
-        .setPath("tls/client-truststore.jks")
-        .setPassword("wibble"))
-      ).build();
+    client = GrpcClient.client(vertx);
 
     return client.request(SocketAddress.inetSocketAddress(8080, "localhost"), ExampleServiceGrpcClient.Unary)
       .compose(request -> {
-        request.end(Request.newBuilder().setValue("Julien").build());
+        request.end(Request.newBuilder().setValue("World").build());
         return request.response().compose(GrpcReadStream::last);
       })
-      .onSuccess(reply -> System.out.println("Succeeded " + reply.getValue()));
+      .onSuccess(response -> System.out.println("Received: " + response.getValue()));
   }
 }
