@@ -10,10 +10,14 @@ option java_multiple_files = true;
 service ExampleService {
   rpc Unary(Request) returns (Response) {
     option (google.api.http) = {
-      get: "/v1/example/{value}"
+      get: "/v1/example/unary/{value}"
     };
   }
-  rpc ServerStreaming(Request) returns (stream Response);
+  rpc ServerStreaming(Request) returns (stream Response) {
+    option (google.api.http) = {
+      get: "/v1/example/serverstreaming/{value}"
+    };
+  };
   rpc ClientStreaming(stream Request) returns (Response);
   rpc BidiStreaming(stream Request) returns (stream Response);
 }

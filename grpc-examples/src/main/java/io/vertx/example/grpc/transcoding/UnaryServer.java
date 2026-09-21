@@ -7,20 +7,20 @@ import io.vertx.example.grpc.Response;
 import io.vertx.grpc.server.GrpcServer;
 import io.vertx.launcher.application.VertxApplication;
 
-public class Server extends VerticleBase {
+public class UnaryServer extends VerticleBase {
 
   public static void main(String[] args) {
-    VertxApplication.main(new String[]{Server.class.getName()});
+    VertxApplication.main(new String[]{UnaryServer.class.getName()});
     System.out.println("Server started");
   }
 
   private final int port;
 
-  public Server(int port) {
+  public UnaryServer(int port) {
     this.port = port;
   }
 
-  public Server() {
+  public UnaryServer() {
     this(8080);
   }
 
